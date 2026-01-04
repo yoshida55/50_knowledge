@@ -10,20 +10,29 @@ cmd /c mklink /D "D:\02_作業\00_リンクワーク\HTML自動化\56_暗い縦�
 
 
 
-【初回セットアップ】（1回だけ）－－－－－－－－－－－－－－－－－－－－－－－－－
+════════════════════════════════════════
+【初回セットアップ】（1回だけ）
+════════════════════════════════════════
+
 1. マスタフォルダを作る
 D:\50_knowledge
-
-2. GitHubにknowledgeリポジトリを作る
-GitHubで新規リポジトリ作成
-D:\50_knowledge を push
-
-3. VS Codeのワークスペースに追加
+2. VS Codeのワークスペースに追加
 ファイル → フォルダーをワークスペースに追加 → D:\50_knowledge を選択
+3. GitHubにknowledgeリポジトリを作る
 
+GitHubで新規リポジトリ作成（名前：50_knowledge）
 
+4. ターミナルでGit設定
+powershellcd D:\50_knowledge
+git init
+git remote add origin https://github.com/あなたのユーザー名/50_knowledge.git
+git branch -M main
+git add .
+git commit -m "initial commit"
+git push -u origin main
+※ 以降はVS CodeのGUIでpush/pull可能
 
-【新プロジェクト作成時】（毎回）－－－－－－－－－－－－－－－－－－－－－－－－－
+【新プロジェクト作成時】（毎回）
 1. プロジェクトフォルダを作る
 2. PowerShellを管理者権限で開いて実行
 powershellcmd /c mklink /D "プロジェクトのパス\学習" "D:\50_knowledge"
@@ -31,15 +40,10 @@ powershellcmd /c mklink /D "プロジェクトのパス\学習" "D:\50_knowledge
 
 ※ `学習` フォルダは事前に作らない
 
+════════════════════════════════════════
+## 【毎日の作業】
+════════════════════════════════════════
 
-
-
-
-
-
-
-
-### 【毎日の作業】－－－－－－－－－－－－－－－－－－－－－－－－－
 
 **朝（会社 or 自宅に着いたら）**
 ```
@@ -51,6 +55,14 @@ powershellcmd /c mklink /D "プロジェクトのパス\学習" "D:\50_knowledge
 ```
 1. プロジェクトを push
 2. knowledge を push（VS Codeのソース管理から）
+
+
+
+
+
+
+
+
 
 【お客さんに納品するとき】
 プロジェクト内の 学習/ フォルダ（リンク）を削除してから渡す。
