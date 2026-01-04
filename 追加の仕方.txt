@@ -58,6 +58,34 @@ powershellcmd /c mklink /D "プロジェクトのパス\学習" "D:\50_knowledge
 
 
 
+════════════════════════════════════════
+## 最初会社でやること
+════════════════════════════════════════
+
+明日会社でやること
+1. knowledgeをclone
+powershellcd C:\
+git clone https://github.com/yoshida55/50_knowledge.git
+```
+※ これでフォルダ作成とpullが同時に完了
+
+
+
+**2. VS Codeのワークスペースに追加**```
+ファイル → フォルダーをワークスペースに追加 → C:\50_knowledge
+3. プロジェクトにシンボリックリンクを貼る
+powershellcmd /c mklink /D "プロジェクトのパス\学習" "C:\50_knowledge"
+
+ポイント
+
+clone = フォルダ作成 + pull が一緒にできる
+マスターフォルダを手動で作る必要なし
+cloneが先、リンクは後
+
+
+初回以降
+毎朝 pull するだけ。cloneは最初の1回だけ。
+
 
 
 
