@@ -1,11 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "../../02_作業/00_リンクワーク/HTML自動化/過去の課題/03_css_jump_暗いショップの入り口"
-		},
-		{
-			"path": ".."
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "../../02_作業/00_リンクワーク/HTML自動化/過去の課題/03_css_jump_暗いショップの入り口"
+    },
+    {
+      "path": ".."
+    }
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "03_css_jump_暗いショップの入り口"
+  }
 }
