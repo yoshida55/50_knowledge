@@ -77,4 +77,12 @@ json{
 
 
 
+3. サイドバーを閉じる
+ショートカットキー設定
+keybindings.json に追加：
 
+{
+  "key": "escape",
+  "command": "workbench.action.closeSidebar",
+  "when": "sideBarVisible && !inQuickOpen && !suggestWidgetVisible"
+}
