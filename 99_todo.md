@@ -11,17 +11,20 @@ pullする。
 
 ## 拡張機能
 
-* [X] ~~*Paste Image*~~ [2026-01-05]
-- MDファイルに画像をはりつける。
-    Ctrl + alt + Vで貼り付けることができる。MDファイルに
+* [] ~~*Paste Image*~~ [2026-01-05]
+## Paste Image
+MDファイルに画像をはりつける。
+Ctrl + alt + Vで貼り付けることができる。MDファイルに
 
-- [ ] 設定が必要
-    VS Codeの設定（Ctrl + ,）で：
-    json"pasteImage.path": "${currentFileDir}/images"
-    これで今後貼り付けた画像は `images` フォルダに入る。
-    
-    
-* [ ] Markdown Preview Enhanced 
+※以下の設定で特定のフォルダに保存できる
+VS Codeの設定（Ctrl + ,）で「paste image」と検索し、以下の通り書き換えてください。
+
+Paste Image: Base Path
+${currentFileDir} に変更
+Paste Image: Path
+images に変更
+上記の必須
+
 
 
 * [ ] markdown checkbox
@@ -49,7 +52,29 @@ keybindings.json
 `あああ`
 
 
-## GitHub Copilotへの指示
+2. Restore Editors をインストール
+
+VS Code レイアウト復元ショートカット
+ Editors をインストール
+
+保存　Restore Editors: Save Editor Layout
+ショートカットキー設定
+
+keybindings.json に追加：
+json{
+  "key": "ctrl+alt+s",
+  "command": "restoreEditors.save"
+},
+{
+  "key": "ctrl+alt+r",
+  "command": "restoreEditors.restore"
+}
+使い方
+
+保存: レイアウトを作って Ctrl+Alt+S
+復元: Ctrl+Alt+R → リストから選択
+
+
 
 
 
