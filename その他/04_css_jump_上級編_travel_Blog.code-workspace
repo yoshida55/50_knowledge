@@ -1,11 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "../../02_作業/00_リンクワーク/HTML自動化/過去の課題/04_css_jump_上級編_travel_Blog"
-		},
-		{
-			"path": ".."
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "../../02_作業/00_リンクワーク/HTML自動化/過去の課題/04_css_jump_上級編_travel_Blog"
+    },
+    {
+      "path": ".."
+    }
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "04_css_jump_上級編_travel_Blog"
+  }
 }
