@@ -13,12 +13,6 @@ pullする。
 
 
 
-▢Paste Image: Base Path
-${currentFileDir} に変更
-Paste Image: Path
-images に変更
-上記の必須
-
 
 
 
