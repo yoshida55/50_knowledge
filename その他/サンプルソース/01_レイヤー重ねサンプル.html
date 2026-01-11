@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/work.css" />
+
+    <title>最小HTML</title>
+  </head>
+
+  <body>
+    <!-- 左：固定サイドバー -->
+    <header id="header">
+      <!-- // ロゴの文字 -->
+      <h1 class="site_title">LOGO</h1>
+
+      <nav id="navi">
+        <a href="#">menu</a>
+      </nav>
+    </header>
+
+    <!-- 右：背景の上に重なるメイン -->
+    <main>
+      <!-- 最初の画面（背景だけ見えるエリア） -->
+      <div class="mv_wrap"></div>
+
+      <!-- 画面下に固定する白帯（あなたのCSSだと #product_area） -->
+
+      <section id="product_area"></section>
+
+      <!-- スクロールすると、ここが背景の上にかぶさってくる -->
+      <section id="work_list">
+        <h2>セクション</h2>
+        <p>ここに内容</p>
+      </section>
+    </main>
+  </body>
+</html>

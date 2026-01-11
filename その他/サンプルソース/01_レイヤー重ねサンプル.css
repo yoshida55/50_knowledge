@@ -1,0 +1,77 @@
+/* 左：固定サイドバー */
+#header {
+  width: 300px;
+  height: 60rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 60px 40px;
+  background-color: #cf4444;
+  display: flex;
+  flex-direction: column;
+}
+
+.site_title {
+  margin-bottom: 4rem;
+  width: 210px;
+  height: 60px;
+  border: 0.5rem solid rgb(43, 150, 78);
+}
+
+#navi {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 背景 */
+body {
+  background: #fff;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 300px;
+  width: calc(100% - 300px);
+  background: url("../img/chrome_qJcZNA8Xrm.png") center / cover no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* メインを背景より手前に */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* 最初の背景だけ見えるエリア */
+.mv_wrap {
+  margin-left: 300px;
+  height: calc(100vh - 160px);
+  border: 0.5rem solid red;
+}
+
+/* 画面下に固定される白帯 */
+#product_area {
+  position: fixed;
+  left: 300px;
+  bottom: 0;
+  width: calc(100% - 300px);
+  height: 320px;
+  background: #1a9916;
+  z-index: 2;
+}
+
+/* スクロールで被さるエリア */
+#work_list {
+  margin-top: 320px;
+  margin-left: 300px;
+  padding: 8.5rem 12rem;
+  background: linear-gradient(#bfe6154d, #000000cc);
+  color: #fff;
+  position: relative;
+  z-index: 50;
+}
