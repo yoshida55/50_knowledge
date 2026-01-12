@@ -8,6 +8,7 @@
     }
   ],
   "settings": {
-    "liveServer.settings.multiRootWorkspaceName": "css_jump_pikaso_zyou"
+    "liveServer.settings.multiRootWorkspaceName": "css_jump_pikaso_zyou",
+    "liveServer.settings.port": 5501
   }
 }
