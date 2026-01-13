@@ -6,8 +6,6 @@ pullする。
 
 
 
-* [ ] レイアウト保存ツール
-
 
 ## 拡張機能
 
@@ -15,12 +13,19 @@ pullする。
 4. CSS Navigation
 HTMLのクラスをサジェストなどをする。
 
-▢　
+▢　セッティングjsonにつけたす。　マークダウンの設定
 
-コパイロットを開閉スクリプトを入れ替える。
+  "[markdown]": {
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": null
+  }
 
 
-## インストールの申請をおこなう。
 
 
 
