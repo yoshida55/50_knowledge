@@ -26,6 +26,15 @@ HTMLのクラスをサジェストなどをする。
   }
 
 
+▢ B, Enterでボーダーを引くスニペットを作成する。
+
+"Border Red Debug": {
+    "prefix": "b",
+    "body": [
+      "border: 0.5rem solid red;"
+    ],
+    "description": "デバッグ用の赤い枠線を表示します"
+  }
 
 
 
