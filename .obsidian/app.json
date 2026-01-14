@@ -1,3 +1,4 @@
 {
-  "newLinkFormat": "relative"
+  "newLinkFormat": "shortest",
+  "attachmentFolderPath": "images"
 }
