@@ -10,8 +10,16 @@ pullする。
 ## 拡張機能
 
 
-▢ B, Enterでボーダーを引くスニペットを作成する。
+下ドラッグvsCodeレイアウト保存.ahk
 
+設定
+設定名: workbench.editor.openSideBySideDirection
+値: right
+settings.json に書く場合:
+json"workbench.editor.openSideBySideDirection": "right"
+意味: Ctrl+Enter（サイドで開く）を押したときに、デフォルトでは「下」に開くのを「右」に開くように変更。
+
+これがないと、今回のスクリプトで左右分割ではなく上下分割になってしまいます。
 
 
 
