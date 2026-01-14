@@ -10,7 +10,7 @@ pullする。
 ## 拡張機能
 
 
-下ドラッグvsCodeレイアウト保存.ahk
+▢　下ドラッグvsCodeレイアウト保存.ahk
 
 設定
 設定名: workbench.editor.openSideBySideDirection
@@ -21,6 +21,8 @@ json"workbench.editor.openSideBySideDirection": "right"
 
 これがないと、今回のスクリプトで左右分割ではなく上下分割になってしまいます。
 
+
+▢　
 
 
 ーーーーーーーーーーーーーーーーーーーーーーー
