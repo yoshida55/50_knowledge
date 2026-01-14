@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01_メモ。つまったところ.md",
+                "file": "99_todo.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "01_メモ。つまったところ"
+              "title": "99_todo"
             }
           }
         ]
@@ -183,10 +183,11 @@
   },
   "active": "4214259044dafe73",
   "lastOpenFiles": [
-    "その他/60_拡張機能.md",
-    "その他/99_markdownの操作.md",
-    "その他/99_シンボリックリンク.md",
     "01_メモ。つまったところ.md",
+    "その他/99_markdownの操作.md",
+    "その他/60_拡張機能.md",
+    "その他/サンプルソース/ハンバーガーメニュー.md",
+    "その他/99_シンボリックリンク.md",
     "02_javascriptメモ.md",
     "99_todo.md",
     "2026-01-06-09-52-06.png",
