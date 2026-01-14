@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "0b486c6daebc8fae",
@@ -183,6 +184,7 @@
   },
   "active": "4214259044dafe73",
   "lastOpenFiles": [
+    "image-2.png",
     "その他/2026-01-07-10-56-42.png",
     "01_メモ。つまったところ.md",
     "99_todo.md",
