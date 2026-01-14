@@ -1,11 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "../../02_作業/00_リンクワーク/HTML自動化/過去の課題/61_応用編：スクール"
-		},
-		{
-			"path": ".."
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "../../02_作業/00_リンクワーク/HTML自動化/過去の課題/61_応用編：スクール"
+    },
+    {
+      "path": ".."
+    }
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "61_応用編：スクール"
+  }
 }
