@@ -4,17 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "a1a9a4a1264c2274",
+        "id": "e2da0d36c9f73bee",
         "type": "tabs",
         "children": [
           {
-            "id": "4214259044dafe73",
+            "id": "24c7cb258a8a9820",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "01_メモ。つまったところ.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -181,17 +181,18 @@
       "bases:Create new base": false
     }
   },
-  "active": "4214259044dafe73",
+  "active": "24c7cb258a8a9820",
   "lastOpenFiles": [
+    "01_メモ。つまったところ.md",
+    "images/2026-01-14-21-35-54.png",
+    "02_javascriptメモ.md",
     "image-2.png",
     "その他/2026-01-07-10-56-42.png",
-    "01_メモ。つまったところ.md",
     "99_todo.md",
     "その他/99_markdownの操作.md",
     "その他/60_拡張機能.md",
     "その他/サンプルソース/ハンバーガーメニュー.md",
     "その他/99_シンボリックリンク.md",
-    "02_javascriptメモ.md",
     "2026-01-06-09-52-06.png",
     "2026-01-05-13-08-42.png",
     "2026-01-05-13-08-39.png",
