@@ -9,37 +9,9 @@ pullする。
 
 ## 拡張機能
 
-▢
-4. CSS Navigation
-HTMLのクラスをサジェストなどをする。
-
-▢　セッティングjsonにつけたす。　マークダウンの設定
-
-  "[markdown]": {
-    "editor.quickSuggestions": {
-      "other": true,
-      "comments": false,
-      "strings": true
-    },
-    "editor.formatOnSave": false,
-    "editor.defaultFormatter": null
-  }
-
 
 ▢ B, Enterでボーダーを引くスニペットを作成する。
 
-"Border Red Debug": {
-    "prefix": "b",
-    "body": [
-      "border: 0.5rem solid red;"
-    ],
-    "description": "デバッグ用の赤い枠線を表示します"
-  }
-
-
-
-
-▢　CTRL SHIft I
 
 
 
