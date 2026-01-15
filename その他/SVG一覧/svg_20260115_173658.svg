@@ -1,0 +1,31 @@
+﻿<svg width="600" height="300" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景（スマートフォンの画面外） -->
+  <rect x="0" y="0" width="600" height="300" fill="#e0e0e0" />
+  
+  <!-- スマートフォンの表示領域（Viewport） -->
+  <rect x="200" y="50" width="200" height="200" fill="white" stroke="black" stroke-width="2" />
+  <text x="210" y="40" font-size="12" fill="black">スマホの画面 (Viewport)</text>
+
+  <!-- 非表示状態 (translateX(-100%)) -->
+  <g opacity="0.5">
+    <rect x="50" y="50" width="150" height="200" fill="#f0f0f0" stroke="#ccc" stroke-dasharray="4" />
+    <text x="55" y="150" font-size="10" fill="#666">sidebar (隠れている時)</text>
+    <path d="M180 150 L100 150" stroke="red" stroke-width="2" marker-end="url(#arrow)" />
+    <defs>
+      <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+        <path d="M0,0 L0,6 L9,3 z" fill="red" />
+      </marker>
+    </defs>
+    <text x="60" y="170" font-size="12" fill="red">translateX(-100%)</text>
+  </g>
+
+  <!-- 表示状態 (activeクラス付与時 / translateX(0)) -->
+  <g>
+    <rect x="200" y="50" width="150" height="200" fill="#f0f0f0" stroke="#ccc" />
+    <text x="210" y="150" font-size="12" fontWeight="bold" fill="blue">sidebar.active</text>
+    <text x="210" y="170" font-size="12" fill="blue">translateX(0)</text>
+  </g>
+  
+  <!-- 注釈 -->
+  <text x="210" y="270" font-size="14" fill="black">左端(left:0)を基準に自分の幅分だけ左にズレるのが-100%</text>
+</svg>
