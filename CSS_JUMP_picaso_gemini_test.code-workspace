@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"path": "../02_作業/00_リンクワーク/HTML自動化/過去の課題/CSS_JUMP_picaso_gemini_test"
+	},
+	{
+		"path": "."
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "CSS_JUMP_picaso_gemini_test"
+  }
+}
