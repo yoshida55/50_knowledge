@@ -1,0 +1,25 @@
+﻿<svg width="600" height="300" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景色 -->
+  <rect width="600" height="300" fill="#f8f9fa" />
+
+  <!-- 初期値: stretch の場合 -->
+  <g transform="translate(50, 50)">
+    <text x="0" y="-10" font-family="sans-serif" font-size="14" font-weight="bold">初期値: align-items: stretch (勝手に伸びる)</text>
+    <rect width="200" height="150" fill="#eee" stroke="#ccc" />
+    <!-- 子要素が横いっぱいに伸びている -->
+    <rect width="200" height="40" y="20" fill="#FFCDD2" stroke="#D32F2F" />
+    <text x="100" y="45" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#D32F2F">リンク(aタグ)が横に広がる</text>
+    <path d="M 210 20 L 230 20 M 210 60 L 230 60 M 220 20 L 220 60" fill="none" stroke="#D32F2F" stroke-width="2" />
+    <text x="240" y="45" font-family="sans-serif" font-size="10" fill="#D32F2F">←余計なクリック範囲</text>
+  </g>
+
+  <!-- 対策: flex-start の場合 -->
+  <g transform="translate(350, 50)">
+    <text x="0" y="-10" font-family="sans-serif" font-size="14" font-weight="bold">対策: align-items: flex-start (中身に合わせる)</text>
+    <rect width="200" height="150" fill="#eee" stroke="#ccc" />
+    <!-- 子要素が文字の長さだけになっている -->
+    <rect width="100" height="40" x="0" y="20" fill="#C8E6C9" stroke="#388E3C" />
+    <text x="50" y="45" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#388E3C">適正サイズ</text>
+    <text x="110" y="45" font-family="sans-serif" font-size="10" fill="#388E3C">←隙間ができる</text>
+  </g>
+</svg>
