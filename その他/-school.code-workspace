@@ -1,11 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "../../01_研修用/95_過去の制作物/-school"
-		},
-		{
-			"path": ".."
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "../../01_研修用/95_過去の制作物/-school"
+    },
+    {
+      "path": ".."
+    }
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "-school"
+  }
 }
