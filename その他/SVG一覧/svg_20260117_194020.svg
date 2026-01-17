@@ -1,0 +1,20 @@
+﻿<svg width="500" height="250" viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
+  <rect x="10" y="10" width="480" height="230" rx="10" fill="#f0f0f0" stroke="#ccc" />
+  <text x="25" y="35" font-family="Arial" font-size="16" font-weight="bold">entries (レポートの束 / 配列)</text>
+
+  <g transform="translate(30, 50)">
+    <rect x="0" y="0" width="200" height="150" rx="5" fill="#fff" stroke="#4A90E2" stroke-width="2" />
+    <text x="10" y="25" font-family="Arial" font-size="14" font-weight="bold" fill="#4A90E2">entry [0]</text>
+    <text x="10" y="55" font-family="Arial" font-size="12" fill="#333">● target: カードA</text>
+    <text x="10" y="85" font-family="Arial" font-size="12" fill="#333">● isIntersecting: true</text>
+    <text x="10" y="115" font-family="Arial" font-size="12" fill="#333">● ratio: 0.8</text>
+  </g>
+
+  <g transform="translate(260, 50)">
+    <rect x="0" y="0" width="200" height="150" rx="5" fill="#fff" stroke="#4A90E2" stroke-width="2" />
+    <text x="10" y="25" font-family="Arial" font-size="14" font-weight="bold" fill="#4A90E2">entry [1]</text>
+    <text x="10" y="55" font-family="Arial" font-size="12" fill="#333">● target: カードB</text>
+    <text x="10" y="85" font-family="Arial" font-size="12" fill="#333">● isIntersecting: false</text>
+    <text x="10" y="115" font-family="Arial" font-size="12" fill="#333">● ratio: 0.0</text>
+  </g>
+</svg>
