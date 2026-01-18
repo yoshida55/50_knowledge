@@ -1,0 +1,65 @@
+﻿<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="600" height="400" fill="#f8f9fa" />
+  
+  <!-- Time Phase 1 -->
+  <g transform="translate(20, 20)">
+    <rect width="160" height="80" rx="10" fill="#e3f2fd" stroke="#2196f3" stroke-width="2"/>
+    <text x="80" y="35" text-anchor="middle" font-size="14" font-weight="bold">1. HTMLの準備</text>
+    <text x="80" y="60" text-anchor="middle" font-size="12">要素（箱）が作られる</text>
+  </g>
+  
+  <path d="M 180 60 L 210 60" stroke="#999" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Time Phase 2 -->
+  <g transform="translate(220, 20)">
+    <rect width="160" height="80" rx="10" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+    <text x="80" y="35" text-anchor="middle" font-size="14" font-weight="bold">2. JSの起動</text>
+    <text x="80" y="60" text-anchor="middle" font-size="12">監視カメラを設置</text>
+  </g>
+
+  <path d="M 380 60 L 410 60" stroke="#999" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Time Phase 3 -->
+  <g transform="translate(420, 20)">
+    <rect width="160" height="80" rx="10" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+    <text x="80" y="35" text-anchor="middle" font-size="14" font-weight="bold">3. スクロール発生</text>
+    <text x="80" y="60" text-anchor="middle" font-size="12">カメラが検知して動く</text>
+  </g>
+
+  <!-- Visual Representation -->
+  <g transform="translate(100, 130)">
+    <!-- Browser Window -->
+    <rect x="0" y="0" width="400" height="240" fill="#fff" stroke="#333" stroke-width="2"/>
+    <rect x="0" y="0" width="400" height="30" fill="#ddd" stroke="#333" stroke-width="2"/>
+    <circle cx="15" cy="15" r="5" fill="#ff5f56"/>
+    <circle cx="35" cy="15" r="5" fill="#ffbd2e"/>
+    <circle cx="55" cy="15" r="5" fill="#27c93f"/>
+
+    <!-- Content Area (Scrollable) -->
+    <!-- Screen Viewport -->
+    <rect x="50" y="50" width="300" height="150" fill="none" stroke="#2196f3" stroke-dasharray="5,5" />
+    <text x="55" y="65" font-size="10" fill="#2196f3">画面で見えている範囲 (Viewport)</text>
+
+    <!-- HTML Element (Target) -->
+    <rect x="100" y="220" width="200" height="40" rx="5" fill="#e3f2fd" stroke="#2196f3"/>
+    <text x="200" y="245" text-anchor="middle" font-size="12">.voice_bg (監視対象)</text>
+
+    <!-- Camera Icon -->
+    <g transform="translate(320, 220)">
+      <rect x="0" y="0" width="30" height="20" rx="2" fill="#ff9800"/>
+      <circle cx="15" cy="10" r="5" fill="#fff"/>
+      <text x="15" y="35" text-anchor="middle" font-size="10" fill="#ff9800">Observer</text>
+    </g>
+
+    <path d="M 200 210 L 200 160" stroke="#f44336" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow)"/>
+    <text x="210" y="185" font-size="12" fill="#f44336" font-weight="bold">スクロールで中に入るとON!</text>
+  </g>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L0,10 L9,5 z" fill="#999" />
+    </marker>
+  </defs>
+</svg>

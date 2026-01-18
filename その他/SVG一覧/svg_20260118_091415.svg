@@ -1,0 +1,74 @@
+﻿<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#ffffff" />
+  
+  <!-- 全体の流れの矢印 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+    </marker>
+  </defs>
+
+  <!-- Step 1: HTML/DOM -->
+  <g transform="translate(50, 50)">
+    <rect width="150" height="100" rx="8" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" />
+    <text x="75" y="40" text-anchor="middle" font-size="14" font-weight="bold">1. HTMLの準備</text>
+    <text x="75" y="65" text-anchor="middle" font-size="11">ブラウザがDOMを構築</text>
+    <path d="M 30 75 h 90" stroke="#2196f3" stroke-width="1" />
+    <text x="75" y="90" text-anchor="middle" font-size="10" fill="#666">要素(Box)が存在する状態</text>
+  </g>
+
+  <line x1="200" y1="100" x2="240" y2="100" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)" />
+
+  <!-- Step 2: JS/Observer -->
+  <g transform="translate(250, 50)">
+    <rect width="150" height="100" rx="8" fill="#fff3e0" stroke="#ff9800" stroke-width="2" />
+    <text x="75" y="40" text-anchor="middle" font-size="14" font-weight="bold">2. JSで監視開始</text>
+    <text x="75" y="65" text-anchor="middle" font-size="10">voiceObserver.observe()</text>
+    <circle cx="75" cy="85" r="10" fill="#ff9800" opacity="0.3" />
+    <path d="M 70 85 l 3 3 l 5 -5" fill="none" stroke="#e65100" stroke-width="2" />
+    <text x="75" y="115" text-anchor="middle" font-size="10" fill="#666">「監視カメラ」を設置</text>
+  </g>
+
+  <line x1="400" y1="100" x2="440" y2="100" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)" />
+
+  <!-- Step 3: Scroll -->
+  <g transform="translate(450, 50)">
+    <rect width="150" height="100" rx="8" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2" />
+    <text x="75" y="40" text-anchor="middle" font-size="14" font-weight="bold">3. スクロール</text>
+    <path d="M 75 60 v 30" stroke="#9c27b0" stroke-width="2" marker-end="url(#arrowhead)" />
+    <text x="75" y="115" text-anchor="middle" font-size="10" fill="#666">ユーザーが画面を動かす</text>
+  </g>
+
+  <line x1="600" y1="100" x2="640" y2="100" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)" />
+
+  <!-- Step 4: UI Change -->
+  <g transform="translate(650, 50)">
+    <rect width="150" height="100" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" />
+    <text x="75" y="40" text-anchor="middle" font-size="14" font-weight="bold">4. 表示の変化</text>
+    <text x="75" y="65" text-anchor="middle" font-size="10" fill="#2e7d32">classList.add()</text>
+    <text x="75" y="85" text-anchor="middle" font-size="11" font-weight="bold">アニメーション始動</text>
+  </g>
+
+  <!-- Illustration Area (Browser) -->
+  <g transform="translate(200, 200)">
+    <rect x="0" y="0" width="400" height="150" fill="none" stroke="#ddd" stroke-width="1" />
+    <rect x="0" y="0" width="400" height="20" fill="#eee" />
+    
+    <!-- Viewport -->
+    <rect x="50" y="30" width="300" height="80" fill="none" stroke="#2196f3" stroke-dasharray="4" />
+    <text x="55" y="45" font-size="10" fill="#2196f3">画面 (Viewport)</text>
+
+    <!-- Element movement -->
+    <rect x="120" y="120" width="160" height="30" rx="4" fill="#e3f2fd" stroke="#2196f3">
+      <animate attributeName="y" from="120" to="60" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="fill" from="#e3f2fd" to="#4caf50" begin="1.5s" dur="0.5s" fill="freeze" repeatCount="indefinite" />
+    </rect>
+    <text x="200" y="140" text-anchor="middle" font-size="10">
+      .voice_bg
+      <animate attributeName="y" from="140" to="80" dur="3s" repeatCount="indefinite" />
+    </text>
+    
+    <text x="200" y="170" text-anchor="middle" font-size="12" fill="#666">要素が枠に入った瞬間に色が変わり、動き出す</text>
+  </g>
+</svg>
