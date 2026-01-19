@@ -28,6 +28,22 @@ CSSjump
 ・固定で表示の必要性がなければ、widthは省略もり。
 とりあえず、その場合ユーザーに確認してください。
 
+・メニューはUL,LIでつくられているか。　navが必要な場合も確認
+ユーザーに
+  <ul class="header_nav_list">
+      <li class="header_nav_item">
+        <a href="#menu" class="header_nav_link">MENU</a>
+      </li>
+      <li class="header_nav_item">
+        <a href="#about" class="header_nav_link">ABOUT</a>
+      </li>
+      <li class="header_nav_item">
+        <a href="#location" class="header_nav_link">LOCATION</a>
+      </li>
+    </ul>
+
+・コンテンツ幅がある場合、
+その設定がされているか？
 
 
 
