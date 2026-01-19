@@ -1439,6 +1439,94 @@ line-height:1
 
 セクションのコメント直感的にイメージできるぐらい記載する。
 
+
+----------------------------------------------------------------
+【設計思想】
+
+🎯 HTML/CSS設計の思考順序
+
+1️⃣ レイアウト階層を見抜く（最重要）
+❌ ダメな例
+全部見て→迷う→divだらけ→破綻
+
+✅ 正しい順序
+1. position:fixed 探す（最優先）
+2. セクション分割
+3. 各セクション内部
+
+2️⃣ position:fixed を最初に特定
+🔍 このサイトの場合
+固定要素:
+├─ Header（logo + hamburger）← fixed親1個
+├─ ACCESS背景画像 ← fixed別枠
+└─ サイドボタン ← fixed別枠
+
+⚠ CLAUDE.mdルール
+position:fixed は親1箇所のみ、子はabsolute
+
+➡ Header内でlogo/menuをabsoluteで左右配置
+
+3️⃣ スクロールトリガーを整理
+要素	トリガー	動作
+Header	520px	fadeIn
+メインビジュアル	リアルタイム	拡大/縮小
+INFORMATION	inview	下→上
+GALLERY	inview	下→上
+サイドボタン	GALLERY h2	右→左
+サイドボタン	ACCESS h2	左→右非表示
+ACCESS背景	ACCESS h2	fadeIn
+ACCESS背景	CONTACT h2	fadeOut
+4️⃣ HTML構造を決める
+順番
+1. セマンティック（header/section/footer）
+2. 固定要素（fixed）
+3. コンテンツ（flex/grid）
+4. 不要なdiv削減 ← CLAUDE.mdルール
+
+このサイト
+<!-- 固定要素群 -->
+<header class="fixed-header">...</header>
+<div class="access-bg">...</div>
+<a class="side-btn">...</a>
+
+<!-- メインコンテンツ -->
+<div id="mainvisual">...</div>
+<h1>...</h1>
+<section id="information">...</section>
+<section id="gallery">...</section>
+<section id="access">...</section>
+<section id="contact">...</section>
+<footer>...</footer>
+
+5️⃣ CSSの書き方
+順番
+1. リセット + 共通（font, container）
+2. fixed要素
+3. セクション（上→下）
+4. @media（PC→SP）
+
+⚠ 注意点
+overflow-x: hidden 最初に設定
+fixed要素のz-index管理
+inview用class（.show等）用意
+🎓 コツまとめ
+📋 チェックリスト
+ position:fixed 何個？親子関係は？
+ スクロールトリガー何種類？
+ アニメーション：CSS? jQuery?
+ レスポンシブ：何が消える/変わる？
+ 不要なdiv入れてない？
+💡 迷ったら
+固定要素 → セクション → 細部
+大→小 / 外→内
+
+🚫 やりがちなミス
+いきなり細部から書く
+fixed乱用
+div wrapper地獄
+アニメーション後回し→破綻
+
+
 ## ▢ ホバー時にレイアウトを崩さない「枠線」の使い分け（outline vs border）
 
 `【何回なソースはシンプルをこころがける】`
