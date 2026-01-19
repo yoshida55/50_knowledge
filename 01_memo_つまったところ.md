@@ -1950,3 +1950,25 @@ Webサイトにおいて、訪問者に特定の行動（購入、資料請求�
 
 最初に画面のイメージを見て、どこが共通化されるか、
 ・このタイトルにマージンを加えたら全てに同じマージンが入るとか、そういったことを計算してやる。
+
+
+## 親要素でFlexをかけたときに個要素の幅を指定することが可能
+
+
+```css
+
+
+.reason_card {
+  display: flex; /* 画像とテキストを横並びにする */
+  height: 8rem;
+  align-items: center; /* 上下中央揃え */
+  justify-content: flex-start; /* ★centerからflex-startに変更 */
+  background: #fff; /* 背景を白くする */
+  padding: 3rem 3rem 3rem 0rem; /* ★左側のパディングを少し増やして位置を調整 */
+  width: 90%; /* カードの幅 */ ★ここで子要素の幅を指定する
+  opacity: 0; /* JSで表示するまで隠す */
+  transition: all 0.5s ease-out;
+  border: 0.5rem solid orange;
+  }
+
+```

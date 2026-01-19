@@ -11,10 +11,35 @@ pullする。
 
 
 
-その都度自動検出しました。ってメッセージをださなくていい。
-ソースを更新したタイミングで、
-CSSjump
 
+▢　CSSjump を更新。Googleドライブから
+
+
+▢　会社のcss-to-html-jumper-1.0.0.vsixをインストール
+
+VS Codeの「定義へ移動」機能を使っています。デフォルトでは Ctrl+Click ですが、VS Codeの設定で Alt+Click に変更できます：
+
+VS Code設定を開く（Ctrl+,）
+editor.multiCursorModifier を検索
+ctrlCmd に変更
+
+
+
+VS Code設定（Ctrl+,）を開く
+CSS to HTML Jumper で検索
+Target Files を変更
+設定例
+設定値	説明
+**/index.html	index.htmlのみ（デフォルト）
+**/*.html	全HTMLファイル
+**/index.html, **/about.html	複数指定
+
+
+この .vsix ファイルを会社に持っていく
+会社のVS Codeを開く
+拡張機能パネル（左側の四角いアイコン）の右上にある「…」（三点リーダー）をクリック
+「VSIXからのインストール...」 を選択し、ファイルを選ぶ
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
 
 
