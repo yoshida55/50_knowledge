@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"path": "../../01_研修用/95_過去の制作物/hana_black"
+	},
+	{
+		"path": ".."
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "hana_black"
+  }
+}
