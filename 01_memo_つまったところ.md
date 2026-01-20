@@ -1401,90 +1401,46 @@ line-height:1
 
 
 ----------------------------------------------------------------
-【設計思想】
+【設計思想・実務】
 
-🎯 HTML/CSS設計の思考順序
+🎯 本当に最初にやるべきこと（普遍版）
+1. 仕様書の命名規則・ファイル構成を確認
+2. カンプ全体を見て共通パーツを洗い出す
+・コンテンツ幅とか。
+・サブタイトルとか。両脇に線があるタイトルなど 
 
-1️⃣ レイアウト階層を見抜く（最重要）
-❌ ダメな例
-全部見て→迷う→divだらけ→破綻
+3. セクション構造を決める
+<header>      ← ロゴ・ナビ
+<main>
+  <section id="hero"> ← メインビジュアル
+  <section id="concept"> ← コンセプト
+</main>
+<footer>
 
-✅ 正しい順序
-1. position:fixed 探す（最優先）
-2. セクション分割
-3. 各セクション内部
+4. fixed要素があるか確認
+・. 迷いがなくなる
+main {
+  padding-top: 80px;  /* ヘッダー分だけ下げる */
+}
+・ **z-index地獄を防ぐ
+ヘッダー（fixed） z-index: 100
+モーダル（fixed） z-index: 200
+サイドボタン（fixed） z-index: 50 
+![](images/2026-01-21-07-27-16.png)
+![](images/2026-01-21-07-29-24.png)
 
-2️⃣ position:fixed を最初に特定
-🔍 このサイトの場合
-固定要素:
-├─ Header（logo + hamburger）← fixed親1個
-├─ ACCESS背景画像 ← fixed別枠
-└─ サイドボタン ← fixed別枠
 
-⚠ CLAUDE.mdルール
-position:fixed は親1箇所のみ、子はabsolute
+5. （アニメーションがあれば）トリガー整理
+・ HTMLの構造が変わるから
+（「アニメーションつけて」と言われると、全部のセクションにクラスを追加する羽目になる。）
+・CSSの初期状態を決める必要があるから
+.fade-up {
+  opacity: 0;   /* 最初は透明 */
+  transform: translateY(30px);  /* 最初は下にズレてる */
+}
 
-➡ Header内でlogo/menuをabsoluteで左右配置
-
-3️⃣ スクロールトリガーを整理
-要素	トリガー	動作
-Header	520px	fadeIn
-メインビジュアル	リアルタイム	拡大/縮小
-INFORMATION	inview	下→上
-GALLERY	inview	下→上
-サイドボタン	GALLERY h2	右→左
-サイドボタン	ACCESS h2	左→右非表示
-ACCESS背景	ACCESS h2	fadeIn
-ACCESS背景	CONTACT h2	fadeOut
-4️⃣ HTML構造を決める
-順番
-1. セマンティック（header/section/footer）
-2. 固定要素（fixed）
-3. コンテンツ（flex/grid）
-4. 不要なdiv削減 ← CLAUDE.mdルール
-
-このサイト
-<!-- 固定要素群 -->
-<header class="fixed-header">...</header>
-<div class="access-bg">...</div>
-<a class="side-btn">...</a>
-
-<!-- メインコンテンツ -->
-<div id="mainvisual">...</div>
-<h1>...</h1>
-<section id="information">...</section>
-<section id="gallery">...</section>
-<section id="access">...</section>
-<section id="contact">...</section>
-<footer>...</footer>
-
-5️⃣ CSSの書き方
-順番
-1. リセット + 共通（font, container）
-2. fixed要素
-3. セクション（上→下）
-4. @media（PC→SP）
-
-⚠ 注意点
-overflow-x: hidden 最初に設定
-fixed要素のz-index管理
-inview用class（.show等）用意
-🎓 コツまとめ
-📋 チェックリスト
- position:fixed 何個？親子関係は？
- スクロールトリガー何種類？
- アニメーション：CSS? jQuery?
- レスポンシブ：何が消える/変わる？
- 不要なdiv入れてない？
-💡 迷ったら
-固定要素 → セクション → 細部
-大→小 / 外→内
-
-🚫 やりがちなミス
-いきなり細部から書く
-fixed乱用
-div wrapper地獄
-アニメーション後回し→破綻
+`【コメント】`
+`【セマンティック】`
 
 
 ## ▢ ホバー時にレイアウトを崩さない「枠線」の使い分け（outline vs border）
@@ -1934,7 +1890,7 @@ Webサイトにおいて、訪問者に特定の行動（購入、資料請求�
 
 
 
-## 親要素でFlexをかけたときに個要素の幅を指定することが可能
+## 親要素でFlexをかけたときに子要素の幅を指定することが可能
 
 
 ```css
@@ -1980,4 +1936,21 @@ $(window).on("scroll", function () {
   }
 });
 
+```
+
+## Flex wrapや2つの列を構成する場合、以下のように作成すると良い。
+
+```css
+/* 外側（li）で幅を決める */
+.gallery_item {
+  width: 48%;
+  margin-bottom: 6rem;
+}
+
+/* 画像でwidth・heightを指定 */
+.gallery_img {
+  width: 100%;        /* 親（li）いっぱい */
+  height: 250px;      /* 高さ固定 */
+  object-fit: cover;  /* 比率を保ちつつ、はみ出た分を切る */
+}
 ```
