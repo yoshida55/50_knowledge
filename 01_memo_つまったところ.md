@@ -69,6 +69,7 @@
 | ページ内リンク | セクションにid（classはダメ） | アンカー ジャンプ # |
 | aタグにpadding効かせたい | display: block | クリック範囲 押しやすい |
 
+
 ### うっかりミス系
 | 症状 | 原因 | 検索キーワード |
 | :--- | :--- | :--- |
@@ -78,6 +79,103 @@
 | ハンバーガー押せない | z-index or 位置が画面外 | クリック 反応しない |
 | サイズが違う | style.cssで基準サイズ変えてた | ずれる 違う |
 | 子が1つなのにflex | 不要（flexは複数用） | 無駄 いらない |
+
+
+
+
+
+
+
+
+### ul li メニューの作り方
+
+メニューやリストを作るときは、ul と li を使います。navタグはメインメニューのときだけ使用します。
+
+```html
+<nav class="header_nav">
+  <ul class="header_nav_list">
+    <li class="header_nav_item">
+      <a href="#menu" class="header_nav_link">MENU</a>
+    </li>
+    <li class="header_nav_item">
+      <a href="#about" class="header_nav_link">ABOUT</a>
+    </li>
+    <li class="header_nav_item">
+      <a href="#location" class="header_nav_link">LOCATION</a>
+    </li>
+  </ul>
+</nav>
+```
+
+横並びメニューの基本スタイル
+
+```css
+.header_nav_list {
+  display: flex;
+  list-style: none;
+  gap: 3rem;
+}
+
+.header_nav_link {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  font-size: 1.4rem;
+  padding: 1rem;
+}
+```
+
+`display: block` をaタグに指定することで、paddingが効くようになり、クリック範囲が広がります。
+
+縦書きで横並びにする場合
+
+```html
+<ul class="footer_location">
+  <li class="nav-item">
+    <a href="#">０３｜ＸＸＸＸ｜ＸＸＸＸ</a>
+  </li>
+  <li class="nav-item">
+    <a href="#">〒１０６｜００３２　東京都港区六本木５丁目×××××</a>
+  </li>
+</ul>
+```
+
+```css
+.footer_location {
+  display: flex;
+  writing-mode: vertical-rl;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.nav-item {
+  writing-mode: vertical-rl;
+}
+```
+
+`writing-mode: vertical-rl` で縦書きにし、`flex-direction: column` で横に並べます。これが縦書きで横並びにする時の呪文です。
+
+縦に並べる場合（文字は横のまま）
+
+```css
+.header_nav_list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  gap: 2rem;
+}
+
+.header_nav_link {
+  display: block;
+  writing-mode: vertical-rl;
+  text-decoration: none;
+  padding: 1rem 0;
+}
+```
+
+この場合は、リンクそれぞれが縦書きになって、縦に積み重なります。
+
+
 
 
 
@@ -171,39 +269,6 @@ HTML 構造-------------------------------------------------
 
 ▢ 　フレックスは、上にかかれたものから左から順番に記載されることをわすれない。
 
-▢
-
-<ul class="footer_location">
-<!-- └ 子フレックス -->
-<li class="nav-item">
-<a href="#">０ ３ | Ｘ Ｘ Ｘ Ｘ | Ｘ Ｘ Ｘ Ｘ</a>
-</li>
-<li class="nav-item">
-<a href="#">〒 １ ０ ６ | ０ ０ ３ ２ 　 東 京 都 港 区 六 本 木 ５ 丁 目 × × × × ×</a>
-</li>
-</ul>
-
-nav-item が縦書きにならない
-```css
-
-
-.footer_location {
-  display: flex;
-  gap: 3rem;
-  writing-mode: horizontal-tb;
-}
-
-★縦書きで「横並び」にしたい時の呪文 CSS 答え
-
-
-.target {
-  display: flex;
-  writing-mode: vertical-rl; /_ 縦書きにする _/
-  flex-direction: column; /_ 横に並べるための必須スイッチ _/
-}
-
-```
-
 ▢ 　 flex 子フレックスで、width を指定すると、flex1 としているより優先されるため、基本、サイズを指定する必要がない場合は flex1 にきめておくと楽。
 
 
@@ -244,54 +309,6 @@ a タグにもクラス名をかっく
 </div>
 
 ▢ 全体像を把握してまとめてパディングをしかける
-
-▢nav はメインメニューの場合だけ使用する
-
-  <nav class="header_nav">
-    <ul class="header_nav_list">
-      <li class="header_nav_item">
-        <a href="#menu" class="header_nav_link">MENU</a>
-      </li>
-      <li class="header_nav_item">
-        <a href="#about" class="header_nav_link">ABOUT</a>
-      </li>
-      <li class="header_nav_item">
-        <a href="#location" class="header_nav_link">LOCATION</a>
-      </li>
-    </ul>
-  </nav>
-
-````css
-/* 1. リストを横に並べる */　★普通のこと
-.header_nav_list {
-  display: flex;
-  list-style: none; /* 点を消す */
-  gap: 3rem; /* 項目間の余白 */
-}
-
-/* 2. リンクのクリック範囲を広げる */
-.header_nav_link {
-  display: block; /* padding を効かせるために必須（ルール3） */
-  text-decoration: none;
-  color: #333; /* 文字色 */
-  font-size: 1.4rem;
-  padding: 1rem; /* 上下左右に余白を作って押しやすくする */  ★これをすることで広がる
-
-}
-```css ※縦書きしたい場合、 .header_nav_list {
-  display: flex;
-  flex-direction: column; /* 縦に並べる（文字は横のまま） */
-  list-style: none;
-  gap: 2rem;
-}
-
-.header_nav_link {
-  display: block;
-  writing-mode: vertical-rl; /* 文字を縦書きにする */
-  text-decoration: none;
-  padding: 1rem 0;
-}
-````
 
 ▢ 　ぜんたいのメインカラーがあれば最初に BODY でいろをぬっておくそうすると section のエリアでマージンボトムしたときも色がつく
 
@@ -1438,6 +1455,17 @@ line-height:1
    └─────────────────────────────────────────┘ */
 
 セクションのコメント直感的にイメージできるぐらい記載する。
+
+`【セマンティック】`
+
+基本的にリスト、複数ならぶものは以下でまとめる
+```html
+<ul>
+  <li>
+    <img>
+  </li>
+    <img>
+```
 
 
 ----------------------------------------------------------------
