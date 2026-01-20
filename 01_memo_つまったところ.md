@@ -451,13 +451,7 @@ align-items: flex-start をかけて高さを画像に合わせる必要があ�
 素材（アセット）: 使用する画像ファイル名（例：img/ice-cream.jpg）。
 構造の指定: 「ここは dl/dt/dd を使う」「ここは h2 と span の構成」などの指示。
 
-▢FORMAT によって、
-セクションごとで
-左右逆に全く同じデザインなんだけど、
-flex-direction: row-reverse; を使用する。
 
-row: 左から右へ（1, 2, 3）
-row-reverse: 右から左へ（3, 2, 1）
 
 ![](images/2026-01-03-11-20-23.png)
 
@@ -490,7 +484,7 @@ transform: translateY(-50%); /* ★下に着すぎたものを半分↑に戻す
 }
 ```
 
-## おやに absolute をかける理由
+## 親要素に relative をかける理由（画像へのテキスト重ね）
 
 1. 構造の考え方
    親ボックス（.concept_card）は、中にある画像（.concept_img）のサイズに合わせて自動的に伸縮します。そのため、「親の枠」と「画像の枠」は基本的に一致します。
@@ -526,7 +520,7 @@ left: 2rem;
 
 この性質を利用することで
 
-、画像からの距離を測るのではなく、親ボックスからの距離を指定するだけで、意図した位置（左下など）にテキストを正確に配置できます。
+、`画像からの距離を測るのではなく、親ボックスからの距離を指定するだけで、意図した位置（左下など）にテキストを正確に配置できます。`
 
 ![](2026-01-03-17-02-32.png)
 
@@ -602,49 +596,35 @@ html {
 
 ▢ 　 📝 縦書きレイアウトの失敗メモ　暗記
 
-❌ 失敗パターン（親で縦書き）
+`Flexbox` を組み合わせる際の落とし穴」**についての非常に重要なメモです。
+
+
+【失敗の原因：軸の回転】
+
+`現象`: 親要素に writing-mode: vertical-rl を指定すると、Flexboxの「主軸」と「交差軸」が90度回転します。
+`結果`: flex-direction: row なのに要素が縦に並んだり、justify-content（横方向のはず）が上下の制御になったりして、配置の計算が予測不能になります。
+
+
+【正解の鉄則：役割分担】
+`親要素`: 配置（Flexbox）を担当。**横書き（デフォルト）**のままにしておくことで、使い慣れたFlexboxのルールで要素を並べられます。
+`子要素`: 文字の向き（writing-mode）を担当。子だけに縦書きを適用することで、親の配置ルールを壊さずに文字だけを縦に流せます。
+`メリット`: Flexboxが本来の動きをするため、align-items や gap での微調整が直感的かつ確実に行えます。
+
 
 ```css
-.news_area {
-  writing-mode: vertical-rl; /* 親に設定 */
-  display: flex;
-  flex-direction: row-reverse;
-}
-
-何が起きる： flexの軸も一緒に回転して、配置が予測できなくなる
-
-
-
-✅ 正解パターン（子だけ縦書き）　
-
-css
-/* 親：横書きのまま、配置だけ制御 */
+/* 親：配置（横並び）だけを行う */
 .news_area {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row-reverse; /* 右から左へ並べる（縦書きの並び順） */
 }
 
-/* 子：文字だけ縦書き */
+/* 子：中身の文字だけを縦書きにする */
 .news_title,
 .news_wrapper {
   writing-mode: vertical-rl;
 }
 ```
-
-**なぜ良い：** flex は普通に動く、中の文字だけ縦になる
-
----
-
-### 🎯 覚え方
-
-```
-親 → 配置（flex）
-子 → `文字の向き`（writing-mode）
-
-役割を分ける！
-```
-
-![](2026-01-03-23-42-09.png)
+⇀「親は箱を並べる係、子は文字の向きを決める係」と役割を完全に分けるのが、レイアウトを崩さない最大のコツです。
 
 ▢ 　うっかりミス
 子要素が一つだけなのに‘フレックス‘をかけてしまった。
@@ -695,19 +675,12 @@ git push -u origin main
 
 ```
 
-2. おかしいと思ったらこの 1 行だけ打ってください。
 
-git remote -v
-・「あれ？知らない URL だ」→ フォルダ間違い確定
-・「合ってる」→ 他の原因
-
-※作業したいフォルダ（今回は 50_knowledge）を直接 VS Code で開く。
-
-3. 最新情報を取得して、強制的に上書き
+2. 最新情報を取得して、強制的に上書き
    git fetch origin
    git reset --hard origin/main
 
-## コンフリクト
+4. コンフリクト
 
 1. 変更マージの下にある。ところでコンフリクトをしている。
 
@@ -718,33 +691,42 @@ git remote -v
 
 ・コミット、プッシュ
 
-## ▢ 　以下のようにして　左右に画像と、その中にテキストを
 
-浮かびあがらせることができる
+## ▢ 　以下のようにして　左右に画像と、その中にテキストを浮かびあがらせることができる
 
 ![](2026-01-05-13-08-39.png)
 
-画像と、もう一つのボックス（浮き上がらせるテキスト・img_overlay）を並列にして、img_item でポジションをする
+画像へのテキストオーバーレイ構造
+`仕組みの解説`
+⇀ 画像とその上に表示したいテキストグループを、1つの「親要素（.img_item）」の中に同居させ、CSSで重ね合わせるレイアウトの手法です。
 
-<div class="img_container">
-  <!-- 1つ目の画像セット -->
-  <div class="img_item">
-    <img class="newspaper_img" src="img/magazine-archive.jpg" alt="斬新なデザイン" />
-    <div class="img_overlay">
-      <h3 class="img_title">Archive</h3>
-      <p class="img_text">テキストテキストテキストテキスト<br>テキストテキストテキスト</p>
-    </div>
-  </div>
+`各要素の役割`
 
-  <!-- 2つ目の画像セット -->
-  <div class="img_item">
-    <img class="newspaper_img" src="img/magazine-new.jpg" alt="本の背開き" />
-    <div class="img_overlay">
-      <h3 class="img_title">New</h3>
-      <p class="img_text">テキストテキストテキストテキスト<br>テキストテキストテキスト</p>
-    </div>
-  </div>
-</div>
+親要素 (.img_item)
+⇀ 重なり合う要素の「基準点（枠）」になります。CSSで position: relative を指定します。
+
+画像 (.newspaper_img)
+⇀ 土台となるコンテンツです。
+
+重ねる要素 (.img_overlay)
+⇀ 画像の上に浮かせる「膜」のような層です。CSSで position: absolute を指定することで、画像の範囲内の自由な位置（左下や中央など）に配置できます。
+
+`この構造にするメリット`
+⇀ 1つのセットとして完結しているため、このセットを .img_container 内でFlexboxなどを使って横並びにしたり、数を増やしたりするのが非常に簡単になります。
+
+
+```css
+/* 実装例のイメージ */
+.img_item {
+  position: relative; /* 基準にする */
+}
+.img_overlay {
+  position: absolute; /* 親を基準に浮かせる */
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5); /* 背景を半透明にすることが多い */
+}
+```
 
 ## position: absolute で中央配置する方法
 
@@ -1171,25 +1153,15 @@ transform: translateY(2px);
 
 ![](images/2026-01-07-06-18-47.png)!
 
+
+
 ## テキストなどの幅をサイズに丁度にボックスを調整する
 
-#inline block #幅　一杯
+ボタン」や「ラベル」など、背景色をつけつつ中身の文字サイズにピタッと合わせたいときには、inline-block
 
 block = 親の幅いっぱいに広がる箱
 inline-block = 中身の幅だけの箱（でも高さと幅を指定できる）
 
-## フレックス(flex)でコンテンツを複数超(2 行)に折り返しをしたいとき
-
-/_ ul タグテキストを４つにわける親要素 _/
-#wrap #折り返し #
-
-```css
-.about_item_list{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  margin-bottom: 4rem;
-```
 
 ## パララックス　
 
@@ -1200,10 +1172,17 @@ background-attachment: fixed;
 
 これを背景に設定するだけ。
 
-## 透けた背景が、デザインカンプよりサイズがおおきい
+## パララックス効果（視差効果）を実装する際に、背景画像をわざと大きく表示（ズームアップ）させている設定です。
+
+
+「画像を拡大して画面に固定することで、スクロールしたときにダイナミックに景色が変わるように見せている」
+
 
 background-size: 150%;
-画像のサイズを調整
+【なぜ150%に設定するのか】
+`理由`: background-attachment: fixed; を使うと、画像が画面（ビューポート）に固定されます。
+`挙動`: 固定された画像は、要素の幅ではなく「画面の幅」を基準にサイズが決まるため、通常の cover 指定だと、意図した部分が隠れたり、画像が小さく見えたりすることがあります。
+`解決`: 150% のように数値を大きくすることで、画像の一部を拡大し、スクロールした際の変化（奥行き感）をより強調できます。
 
 ```css
 .parallax_area {
@@ -1229,13 +1208,6 @@ background-size: 150%;
 
 ![](images/2026-01-07-13-10-02.png)
 
-## 子要素の箱ボックスを中央に寄せる方法
-
-子要素が width が設定されてないけど
-中央にもってきたい場合。マージン　 0 auto
-がつかえない。
-
-親要素で　 text-align: center;
 
 ## width を指定して、height を auto にすると自然なかたちになる。
 
@@ -1244,48 +1216,7 @@ background-size: 150%;
 とくにボックスに文字があてはまらない時など利用するとよい。また height は基本しようしないので、
 その理由からも多用するとよい。
 
-## フレック(flex)の構造 　
 
-基本、親で指定(flex),子でうける
-さらに孫で具体的にデータを記載する
-・ただし子で直接コーディングしない。
-・子要素ではサイズなどを指定する
-
-例）
-
-```html
-<div class="menu_content"> ⇀　ここでflex
-    <div class="menu_item"> ⇀　受ける
-      <!-- 小見出し -->
-      <h3 class="title">C</h3>
-      <dl class="menu_list">
-        <dt>ブレンドコーヒー</dt>
-        <dd>&yen;500</dd>
-      </dl>
-    </div>
-
-    <div class="menu_item">
-      <!-- 小見出し -->
-      <h3 class=title">COFFEE</h3>
-      <dl class="menu_list">
-        <dt>ブレンドコーヒー</dt>
-        <dd>&yen;500</dd>
-      </dl>
-    </div>
-  </div>
-<div>
-```
-
-```css
-  .menu_content{
-    display:flex;
-    flex-wrap: wrap; ★必要であれば
-  }
-
-  .menu_item{
-    width 40%
-  }
-```
 
 # サイドバーに固定で表示するときの構文
 
@@ -1345,6 +1276,7 @@ background-size: 150%;
 3個並ぶと：30% + 30% + 30% = 90%
 残り：100% - 90% = 10%
 この余った 10% が、自動的に2つの隙間（各5%）になります。
+
 
 ## 「文字の上下にある『見えない余白』を限界まで削る」
 
@@ -1610,41 +1542,7 @@ left: -300px; /_ 効く！ _/
 ・強引に画面の左にけす。
 ![](images/2026-01-09-13-32-08.png)
 
-## ハンバーガーメニューの追加方法
 
-```html
-<nav id="navi">
-  <!-- メニュー -->
-  <ul class="nav_menu_list">
-    <li><a class="link" href="#">私たちについて</a></li>
-    <li><a class="link" href="#">サービス</a></li>
-    <li><a class="link" href="#">商品情報</a></li>
-    <li><a class="link" href="#">展示会</a></li>
-    <li><a class="link" href="#">暮らしの日記</a></li>
-    <li><a class="link" href="#">会社概要</a></li>
-  </ul>
-  <!-- メニュー２ -->
-  <ul class="nav_menu_list">
-    <li><a href="#">Twitter</a></li>
-    <li><a href="#">facebook</a></li>
-    <li><a href="#">instagram</a></li>
-  </ul>
-</nav>
-
-★★★以下の二つのクラスを追加する。
-<!-- ↓↓↓ ここに2つ追加するだけ ↓↓↓ -->
-<div class="hamburger">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
-
-<div id="mask"></div>
-
-</header>
-```
-
-↓
 
 ## 三角形の図形の作り方
 
@@ -1893,29 +1791,12 @@ SVG表示保存CS+S.ahk　
 ここで取得したフォルダを同じ階層の各プロジェクト用資料などに移動したりする。
 
 
+
 ## position: fixed はrelativeも兼ねる。つまり、子で Absoluteが指定できる。
 
-```html
-
-★ナビ(nav)の基本的かきかた　fixed
-<nav>
-  <img class="log" src="img/logo-w.svg" alt="BBB英会話スクール">
-  <ul>
-    <li><a href="#">ホーム</a></li>
-    <li><a href="#">コース紹介</a></li>
-    <li><a href="#">講師紹介</a></li>
-    <li><a href="#">お問い合わせ</a></li>
-  </ul>
-</nav>
-```
 
 
-## Claudecodeに指示するときの事前にいうこと
-
-・ソースを説明するときは、見本ではなくて
-おれのファイルのクラス名を利用して。説明が直感的にわかるので。
-
-## サイドバーなどのメニューの文字列が文字だけじゃなくて、横全体でクリックできる場合
+## サイドバーのメニューの文字列が文字幅だけじゃなくて、文字幅＋残りの余白ありでクリックできてしまう場合
 
 ```css
 /* メニューリスト 縦 */
@@ -1932,27 +1813,6 @@ SVG表示保存CS+S.ahk　
 
 
 
-##　クリックしたときなどに、既存のクラスにＨＴＭＬにjqueryでクラス名をつけたす。
-
-```javascript
-// ハンバーガーメニュークリック時にクラス（open）を付け外しする
-document.getElementById("hamburger-btn").addEventListener("click", function () {
-  // ボタン自身に .open を付けて「×」にする
-  this.classList.toggle("open");
-  // サイドバーに .open を付けて表示・非表示を切り替える
-  document.getElementById("side-menu").classList.toggle("open");
-});
-```
-
-
-
-```css
-openがついたあとの処理
-
-.hamburger_menu.open .bar:nth-child(1) {
-  transform: rotate(45deg);
-  top: 2rem;
-}
 
 ```
 
@@ -1966,6 +1826,7 @@ openがついたあとの処理
 <header id="header" class="header">
   <div class="log_img"></div>
 </header>
+
 ```
 
 
@@ -2070,10 +1931,7 @@ Webサイトにおいて、訪問者に特定の行動（購入、資料請求�
 ![](images/2026-01-18-09-17-05.png)
 
 
-## 共通CSSを作成するためには、
 
-最初に画面のイメージを見て、どこが共通化されるか、
-・このタイトルにマージンを加えたら全てに同じマージンが入るとか、そういったことを計算してやる。
 
 
 ## 親要素でFlexをかけたときに個要素の幅を指定することが可能
@@ -2097,3 +1955,29 @@ Webサイトにおいて、訪問者に特定の行動（購入、資料請求�
 
 ```
 
+
+
+## javaScriptの基本(学習)
+
+```javascript
+`値を取得`
+$(window)
+$(this)
+
+`メソッド`
+fadeIn();  画面に表示
+
+----------------------------------------
+特定の位置までスクロールしたら要素をフェードイン
+// スクロール位置が **520px** に達した際に、
+// jQueryの `fadeIn` を使ってふわっと表示させる。
+$(window).on("scroll", function () {
+  if ($(this).scrollTop() > 520) {
+    // #headerはロゴのハンバーガーの親要素
+    $("#header").fadeIn();
+  } else {
+    $("#header").fadeOut();
+  }
+});
+
+```
