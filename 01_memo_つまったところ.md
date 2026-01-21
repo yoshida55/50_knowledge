@@ -1922,3 +1922,41 @@ $(window).on("scroll", function () {
 ・z-indexを300をうたがう。
 z-indexだけでも回避はできるけど、pointer-events併用が一番安全。
 
+
+## 文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）
+
+```html
+<!-- スクロールした段階でしたからタイトルが上にフェードインする -->
+<section id="information">
+  <h1 class="section_title">
+    <p class="section_title_text">INFORMATION</p>
+  </h1>
+</section>
+```
+
+```css
+.section_title {
+  text-align: center;　★中央に寄せたいときはて、本体ではなくて親要素でする。
+  margin-bottom: 5rem;
+}
+
+.section_title_text {
+  display: inline-block;  ★インラインブロックが要素とwidthを一緒にする。
+  position: relative;
+  color: #fff;
+  font-size: 6rem;
+  letter-spacing: 0.25em;
+  padding-bottom: 0.35em; /* 文字と線の間 */
+}
+
+.section_title_text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%; /* 文字幅ピッタリ */
+  height: 2px;
+  background: #fff;
+}
+
+```
