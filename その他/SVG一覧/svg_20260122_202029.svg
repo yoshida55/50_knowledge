@@ -1,0 +1,9 @@
+﻿This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<svg width="200" height="100">
+<!--   1. 全体が半透明   -->
+<rect x="10" y="10" width="50" height="50" fill="red" opacity="0.5"/>
+<!--   2. 中身だけ半透明（線はくっきり）   -->
+<rect x="70" y="10" width="50" height="50" fill="blue" stroke="black" stroke-width="5" fill-opacity="0.2"/>
+<!--   3. 線だけ半透明   -->
+<rect x="130" y="10" width="50" height="50" fill="green" stroke="black" stroke-width="5" stroke-opacity="0.3"/>
+</svg>
