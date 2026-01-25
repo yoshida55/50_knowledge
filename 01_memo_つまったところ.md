@@ -1507,87 +1507,6 @@ min-height: 6.2rem;
 
 最低ラインを確保して、ふえたときは auto でまわりのサイズにあわせる
 
-## うっかりミス　ハンバーガーメニューや
-
-レイヤー重ね処理など
-
-fixed がつくと画面ウィンドウの基準になるので、親要素 Xrem で子要素 100％(fix)だと
-子が採用される。
-
-➡ その場合、親要素 fix 子要素 fix の場合
-posion relative absolute をかけて
-
-子要素から fixed をはずすことによって
-親のサイズがいかされる。
-
-```css
-  /* 右上のハンバーガーメニューを表示する */
-  .hamburger {
-    position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
-    width: 3rem;
-    height: 3rem;
-    cursor: pointer;
-    z-index: 100; /* 一番上に表示 */
-  }
-
-  /* ハンバーガーメニューの横線を作成 */
-  .hamburger_line {
-    position: absolute;  ★特にリラティブはいらない。
-    top: 0;
-    right: 0;
-    height: 0.3rem;
-    width: 100%;
-    background: #121212;
-    border: 1px solid #121212;
-  }
-```
-
-# ハンバーガーメニューが押せない問題
-
-## 症状
-
-- スマホ表示（レスポンシブ）でハンバーガーメニューがクリックできない
-- 検証ツールでは押せる、実際の画面では押せない
-
-## 原因
-
-1. ハンバーガーの位置が画面外だった
-2. 親要素（#header）に z-index がなく、他の要素の下に隠れていた
-3. 見ているが画面が実はPCだった。（サイズ指定ミス）
-4. 
-
-## ポイント
-
-`position: fixed` の要素は **z-index を持たないとレイヤー比較に参加しない**。
-子要素に z-index: 9999 があっても、親が参加してないと負ける。
-
-## 修正
-
-
-### 1. z-index の追加
-
-```css
-/* 修正前 */
-#header {
-  position: fixed;
-  /* z-index なし → レイヤー比較に不参加 */
-}
-
-/* 修正後 */
-#header {
-  position: fixed;
-  z-index: 9000; /* これで前面に出る */
-}
-```
-
-## 覚えておくこと
-
-- `position: fixed` + `z-index` でレイヤーになる
-★　親に z-index がないと子も道連れで負ける
-- 検証ツールで押せるのに実画面で押せない → z-index か位置を疑う
-
 ## ショートカットキー　ホットキー
 
 ALT L⇀ 　 O 　ライブサーバー
@@ -1918,11 +1837,6 @@ $(window).on("scroll", function () {
 }
 ```
 
-## ハンバーガーメニューがクリックできないとき
-・z-indexを300をうたがう。
-z-indexだけでも回避はできるけど、pointer-events併用が一番安全。
-
-
 ## 文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）
 
 ```html
@@ -2024,7 +1938,24 @@ z-indexだけでも回避はできるけど、pointer-events併用が一番安�
   width: 33%;
   height: 100vh;
   /* ↓ これがあると、JSの変更が「アニメーション」になります */
-  transition: width 0.5s ease; 　★
+  /**
+    transition: width 0.5s ease; 　★
+
+   * CSSのtransitionプロパティ（ショートハンド）の各値の意味：
+   * 
+   * 1. width (transition-property):
+   *    アニメーションを適用する対象のプロパティを指定します。
+   *    ここでは「要素の横幅」が変化したときにアニメーションが動作します。
+   *
+   * 2. 0.5s (transition-duration):
+   *    変化にかける時間（持続時間）を指定します。
+   *    ここでは0.5秒かけてアニメーションが完了します。
+   *
+   * 3. ease (transition-timing-function):
+   *    変化の進み方（速度の変化）を指定します。
+   *    easeはデフォルト値で、開始と終了を滑らかにする（最初はゆっくり、途中で加速し、最後にまたゆっくりになる）設定です。
+   */
+
 }
 
 ## javascriptスクロールをしても、文字が表示されない。
@@ -2074,3 +2005,183 @@ widthを１００％にすることによって、画面一杯まで広がる
 
 なぜサイズが一致するのか
 `<a> や <span> は「インライン要素」であり、中身の文字数分の幅しか持ちませんが、block に変えることで「一つの大きな箱（ブロック）」になります。`
+
+
+
+
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 🔴 z-index 問題（統合版）
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 📌 よくある症状
+
+- ハンバーガーメニューがクリックできない
+- 要素が他の要素の下に隠れる
+- 検証ツールでは押せるのに実画面では押せない
+- モーダルやオーバーレイが最前面に来ない
+
+---
+
+## 🔍 原因パターン
+
+### パターン1：親にz-indexがない
+```css
+/* ❌ ダメな例 */
+#header {
+  position: fixed;
+  /* z-index なし → レイヤー比較に不参加 */
+}
+
+.hamburger {
+  z-index: 9999; /* 子だけ指定しても意味なし */
+}
+```
+
+**重要ルール：**
+- `position: fixed` の要素は **z-indexを持たないとレイヤー比較に参加しない**
+- 子要素に `z-index: 9999` があっても、**親が参加してないと負ける**
+
+---
+
+### パターン2：fixedの親子関係
+```css
+/* ❌ 問題が起きるケース */
+/* 親要素：幅 300px、子要素：width 100% + position: fixed */
+/* → 子はビューポート基準になり、親の幅が無視される */
+
+.parent {
+  width: 300px;
+  position: fixed;
+}
+
+.child {
+  width: 100%;
+  position: fixed; /* ← これが原因 */
+}
+```
+
+**解決策：**
+```css
+.parent {
+  position: fixed;
+  width: 300px;
+}
+
+.child {
+  position: absolute; /* fixed → absolute に変更 */
+  width: 100%;        /* これで親の幅が効く */
+}
+```
+
+---
+
+### パターン3：位置が画面外
+```css
+/* ❌ 画面外にあってクリックできない */
+.hamburger {
+  position: fixed;
+  top: -100px; /* 画面の上に隠れてる */
+  z-index: 9999;
+}
+```
+
+→ DevToolsで位置を確認する
+
+---
+
+## ✅ 正しい修正方法
+
+### 1. 親にz-indexを追加
+```css
+#header {
+  position: fixed;
+  z-index: 9000; /* ← これで前面に出る */
+}
+
+.hamburger {
+  z-index: 100; /* 親よりは小さくてOK */
+}
+```
+
+---
+
+### 2. z-index値の目安
+```css
+/* 推奨値（プロジェクト内で統一する） */
+.main-content {
+  z-index: 1;      /* 通常コンテンツ */
+}
+
+.fixed-header {
+  z-index: 100;    /* 固定ヘッダー */
+}
+
+.overlay {
+  z-index: 800;    /* オーバーレイ（黒マスク） */
+}
+
+.modal {
+  z-index: 900;    /* モーダル */
+}
+
+.hamburger-menu {
+  z-index: 1000;   /* ハンバーガーメニュー */
+}
+```
+
+---
+
+### 3. pointer-eventsも併用（推奨）
+```css
+.hamburger {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: auto; /* クリック可能にする */
+}
+
+.overlay {
+  z-index: 800;
+  pointer-events: none; /* 下の要素をクリック可能に */
+}
+
+.overlay.open {
+  pointer-events: auto; /* 開いたらクリック不可 */
+}
+```
+
+→ z-indexだけでも回避できるけど、**pointer-events併用が一番安全**
+
+---
+
+## 🔧 デバッグ手順
+
+### 1. DevToolsで確認
+1. 要素を右クリック → 検証
+2. Computed タブ → z-index の値を確認
+3. 親要素も同様に確認
+
+### 2. チェックリスト
+- [ ] 親要素に `position` と `z-index` があるか？
+- [ ] 子要素の `position` は `absolute` か？（fixedじゃないか）
+- [ ] 要素が画面外にないか？
+- [ ] 他の要素の `z-index` が大きすぎないか？
+
+---
+
+## 📝 覚えておくこと
+
+1. **`position: fixed` + `z-index` でレイヤーになる**
+2. **親に z-index がないと子も道連れで負ける**
+3. **検証ツールで押せるのに実画面で押せない → z-index か位置を疑う**
+4. **迷ったら z-index: 300 以上をうたがう**
+5. **fixedの親子関係では、子は `absolute` にする**
+
+---
+
+## 🔗 関連項目
+- オーバーレイの作り方 → 「オーバーレイ、黒いマスクのつけ方」セクション
+- position の使い分け → 「position: fixed はrelativeも兼ねる」セクション
+- 親子関係の基本 → 「ポジションアブソリュートの使い方」セクション
