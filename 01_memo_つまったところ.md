@@ -2034,7 +2034,6 @@ widthを１００％にすることによって、画面一杯まで広がる
   position: fixed;
   /* z-index なし → レイヤー比較に不参加 */
 }
-
 .hamburger {
   z-index: 9999; /* 子だけ指定しても意味なし */
 }
@@ -2043,7 +2042,6 @@ widthを１００％にすることによって、画面一杯まで広がる
 **重要ルール：**
 - `position: fixed` の要素は **z-indexを持たないとレイヤー比較に参加しない**
 - 子要素に `z-index: 9999` があっても、**親が参加してないと負ける**
-
 ---
 
 ### パターン2：fixedの親子関係
@@ -2056,12 +2054,12 @@ widthを１００％にすることによって、画面一杯まで広がる
   width: 300px;
   position: fixed;
 }
-
 .child {
   width: 100%;
   position: fixed; /* ← これが原因 */
 }
-```
+/* 理由：fixedは親要素ではなくビューポート（ブラウザ画面全体）を基準にするため、親要素の幅設定が効かなくなります */
+``
 
 **解決策：**
 ```css
@@ -2075,9 +2073,11 @@ widthを１００％にすることによって、画面一杯まで広がる
   width: 100%;        /* これで親の幅が効く */
 }
 ```
+  * position: absolute への変更と役割について:
+  * 1. 違い： `fixed` は画面全体が基準になるため親の幅を無視しますが、 `absolute` は親を基準にするため親の幅（300px）を守れます。
+  * 2. 重要性： 親の箱の中に収めつつ、自由な位置に配置したいなら `absolute` 指定が必須です。
 
 ---
-
 ### パターン3：位置が画面外
 ```css
 /* ❌ 画面外にあってクリックできない */
@@ -2100,7 +2100,6 @@ widthを１００％にすることによって、画面一杯まで広がる
   position: fixed;
   z-index: 9000; /* ← これで前面に出る */
 }
-
 .hamburger {
   z-index: 100; /* 親よりは小さくてOK */
 }
@@ -2114,41 +2113,52 @@ widthを１００％にすることによって、画面一杯まで広がる
 .main-content {
   z-index: 1;      /* 通常コンテンツ */
 }
-
 .fixed-header {
   z-index: 100;    /* 固定ヘッダー */
 }
-
 .overlay {
   z-index: 800;    /* オーバーレイ（黒マスク） */
 }
-
 .modal {
   z-index: 900;    /* モーダル */
 }
-
 .hamburger-menu {
   z-index: 1000;   /* ハンバーガーメニュー */
 }
 ```
 
----
-
 ### 3. pointer-eventsも併用（推奨）
+z-index で重なり順を決めても、「透明なのにクリックを邪魔して下のボタンが押せない」 
+というトラブルを防ぐために、この none と auto の切り替えは必須のテクニックです。`とくにオーバレイで使用`
+
+![](images/2026-01-26-07-31-22.png)
+
 ```css
 .hamburger {
   position: fixed;
   z-index: 1000;
-  pointer-events: auto; /* クリック可能にする */
+  pointer-events: auto; /* クリック可能にする（その要素を 「マウスや指で触れる状態（通常の状態）」 に戻す設定です。） */
 }
-
+背景を黒くする（普段は隠す）
 .overlay {
-  z-index: 800;
-  pointer-events: none; /* 下の要素をクリック可能に */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒 */
+  z-index: 800; /* メニュー(1000)より低く、コンテンツ(1)より高く */
+
+  /* 通常時は透明で、かつクリックをすり抜けさせる */
+  opacity: 0;
+  pointer-events: none; 
+  transition: opacity 0.3s;
 }
 
 .overlay.open {
-  pointer-events: auto; /* 開いたらクリック不可 */
+  /* メニューが開いたとき：表示してクリックもガードする */
+  opacity: 1;
+  pointer-events: auto; 
 }
 ```
 
@@ -2180,8 +2190,4 @@ widthを１００％にすることによって、画面一杯まで広がる
 5. **fixedの親子関係では、子は `absolute` にする**
 
 ---
-
-## 🔗 関連項目
-- オーバーレイの作り方 → 「オーバーレイ、黒いマスクのつけ方」セクション
-- position の使い分け → 「position: fixed はrelativeも兼ねる」セクション
-- 親子関係の基本 → 「ポジションアブソリュートの使い方」セクション
+トの使い方」セクション
