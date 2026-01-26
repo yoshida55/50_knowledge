@@ -1,0 +1,66 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" style="background-color: #f9f9f9; border-radius: 8px;">
+  <!-- タイトル -->
+  <text x="400" y="40" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" text-anchor="middle" font-weight="bold" fill="#333">FlexboxとFixedの関係図解</text>
+
+  <!-- 左エリア: NGパターン -->
+  <g transform="translate(50, 80)">
+    <text x="150" y="-15" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" text-anchor="middle" fill="#d32f2f" font-weight="bold">❌ NGパターン</text>
+    <text x="150" y="10" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">「親の中にFixedを入れる」</text>
+    
+    <!-- ブラウザ枠 -->
+    <rect x="0" y="30" width="300" height="250" fill="white" stroke="#ccc" stroke-width="2" rx="5" />
+    <rect x="0" y="30" width="300" height="20" fill="#eee" rx="5" /> <!-- バー -->
+
+    <!-- 親要素 (Flex) -->
+    <rect x="20" y="150" width="260" height="100" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" stroke-dasharray="5 5" rx="5" />
+    <text x="150" y="205" font-family="'Helvetica Neue', Arial, sans-serif" font-size="16" text-anchor="middle" fill="#1565c0" font-weight="bold">親 (Flex)</text>
+
+    <!-- 子要素 (Fixed) -->
+    <rect x="220" y="60" width="70" height="40" fill="#ffcdd2" stroke="#b71c1c" stroke-width="2" rx="3" />
+    <text x="255" y="85" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#b71c1c" font-weight="bold">子(Fixed)</text>
+
+    <!-- 矢印 -->
+    <path d="M150 150 Q 150 100 215 80" fill="none" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowhead-red)" />
+    <text x="110" y="125" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" fill="#d32f2f" font-weight="bold">命令無視して飛び出す！</text>
+  </g>
+
+  <!-- 右エリア: OKパターン -->
+  <g transform="translate(450, 80)">
+    <text x="150" y="-15" font-family="'Helvetica Neue', Arial, sans-serif" font-size="18" text-anchor="middle" fill="#2e7d32" font-weight="bold">⭕ OKパターン</text>
+    <text x="150" y="10" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" text-anchor="middle" fill="#666">「Fixedした親をFlexにする」</text>
+
+    <!-- ブラウザ枠 -->
+    <rect x="0" y="30" width="300" height="250" fill="white" stroke="#ccc" stroke-width="2" rx="5" />
+    <rect x="0" y="30" width="300" height="20" fill="#eee" rx="5" />
+
+    <!-- 親要素 (Fixed & Flex) -->
+    <rect x="0" y="50" width="300" height="60" fill="#e8f5e9" stroke="#2e7d32" stroke-width="3" />
+    
+    <!-- 固定ピン -->
+    <circle cx="15" cy="65" r="4" fill="#2e7d32" />
+    <circle cx="285" cy="65" r="4" fill="#2e7d32" />
+
+    <text x="150" y="100" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" text-anchor="middle" fill="#1b5e20" font-weight="bold">親自身が Fixed &amp; Flex</text>
+    
+    <!-- 子要素たち -->
+    <g transform="translate(40, 62)">
+        <rect x="0" y="0" width="60" height="36" fill="white" stroke="#2e7d32" rx="3" />
+        <text x="30" y="23" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#1b5e20">子1</text>
+        
+        <rect x="160" y="0" width="60" height="36" fill="white" stroke="#2e7d32" rx="3" />
+        <text x="190" y="23" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#1b5e20">子2</text>
+        
+        <!-- 整列を示す線 -->
+        <path d="M 70 18 L 150 18" stroke="#2e7d32" stroke-width="1" stroke-dasharray="3 3" />
+    </g>
+    
+     <text x="150" y="160" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" text-anchor="middle" fill="#2e7d32">親という箱が固定され、中は整列する</text>
+  </g>
+
+  <!-- マーカー定義 -->
+  <defs>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#d32f2f" />
+    </marker>
+  </defs>
+</svg>
