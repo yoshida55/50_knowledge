@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"path": "../../01_研修用/95_過去の制作物/css_jump_Sneaker"
+	},
+	{
+		"path": ".."
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "css_jump_Sneaker"
+  }
+}
