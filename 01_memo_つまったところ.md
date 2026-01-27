@@ -2234,6 +2234,18 @@ function sortArrayAsc(arr) {
     <img>
 ```
 
+`チェックツール`
+・HTML Validato
+https://validator.w3.org/nu/#textarea　
+
+・CSS Validator（W3C）
+https://jigsaw.w3.org/css-validator/ 
+
+・JSHint
+https://jshint.com/ 
+
+
+
 
 ## 【前提】ヘッダーを固定して、その中でロゴとメニューを左右に並べたい」という場合、以下のルールになります。（つまりfixedとフレックスボックスを併用する際にきをつけること）
 
@@ -2263,3 +2275,10 @@ function sortArrayAsc(arr) {
 だって、サイズ指定していたら、アスペクト比がずれていたら、枠のなかにはいらなくて、一部画面からきれたりしない？つまり一部の画像がきれて、全ての像がもれなく綺麗におさまるってことにならなくない？
 
 ➡おっしゃる通りです！「全ての像がもれなく収まる」わけではなく、**「枠（箱）からはみ出た部分は切り捨てられる（トリミングされる）」**のが object-fit: cover の仕組みです。
+
+
+## パディングとマージンの違い
+1  ボックス自体のサイズはかわらない
+2. margin で確保した部分は「ボックスの外側」になる
+3. その「外側」の部分は .feature_item の背景色（白）が塗られない 
+4. 結果、親要素（.feature_area や body）の背景色が見える ❌

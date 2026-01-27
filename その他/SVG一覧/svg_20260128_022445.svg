@@ -1,0 +1,69 @@
+﻿<svg viewBox="0 0 800 1200" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="1200" fill="#f0f0f0"/>
+  
+  <!-- ページ全体（縦長） -->
+  <rect x="50" y="50" width="300" height="1100" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="200" y="30" text-anchor="middle" font-size="16" font-weight="bold">ページ全体</text>
+  
+  <!-- スクロール位置（上から何pxか） -->
+  <line x1="50" y1="50" x2="50" y2="350" stroke="blue" stroke-width="3"/>
+  <text x="20" y="200" font-size="14" fill="blue" font-weight="bold">scroll</text>
+  <text x="20" y="220" font-size="12" fill="blue">(上から350px)</text>
+  
+  <!-- 画面の表示領域 -->
+  <rect x="50" y="350" width="300" height="400" fill="rgba(0,255,0,0.1)" stroke="green" stroke-width="3"/>
+  <text x="380" y="550" font-size="14" fill="green" font-weight="bold">画面に見えている範囲</text>
+  <text x="380" y="570" font-size="12" fill="green">(windowHeight = 400px)</text>
+  
+  <!-- 画面下端 -->
+  <line x1="50" y1="750" x2="350" y2="750" stroke="green" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="380" y="755" font-size="12" fill="green">画面の下端</text>
+  
+  <!-- 200px手前のライン -->
+  <line x1="50" y1="550" x2="350" y2="550" stroke="orange" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="380" y="555" font-size="12" fill="orange">下端から200px手前</text>
+  <circle cx="365" cy="550" r="3" fill="orange"/>
+  
+  <!-- 対象の画像 -->
+  <rect x="100" y="850" width="200" height="150" fill="pink" stroke="red" stroke-width="2"/>
+  <text x="200" y="935" text-anchor="middle" font-size="14" font-weight="bold">対象画像</text>
+  
+  <!-- target位置 -->
+  <line x1="50" y1="850" x2="50" y2="850" stroke="red" stroke-width="3"/>
+  <circle cx="50" cy="850" r="5" fill="red"/>
+  <text x="20" y="870" font-size="14" fill="red" font-weight="bold">target</text>
+  <text x="20" y="890" font-size="12" fill="red">(850px)</text>
+  
+  <!-- 計算式の説明 -->
+  <rect x="420" y="100" width="350" height="280" fill="white" stroke="#333" stroke-width="2"/>
+  <text x="595" y="130" text-anchor="middle" font-size="16" font-weight="bold">計算式の意味</text>
+  
+  <text x="440" y="170" font-size="14" font-family="monospace">scroll > target - windowHeight + 200</text>
+  
+  <text x="440" y="210" font-size="13">↓ 実際の数値で計算すると</text>
+  
+  <text x="440" y="240" font-size="14" font-family="monospace" fill="blue">350</text>
+  <text x="480" y="240" font-size="14"> > </text>
+  <text x="510" y="240" font-size="14" font-family="monospace" fill="red">850</text>
+  <text x="550" y="240" font-size="14"> - </text>
+  <text x="570" y="240" font-size="14" font-family="monospace" fill="green">400</text>
+  <text x="610" y="240" font-size="14"> + </text>
+  <text x="630" y="240" font-size="14" font-family="monospace" fill="orange">200</text>
+  
+  <text x="440" y="270" font-size="14">350 > 650</text>
+  <text x="440" y="290" font-size="13" fill="gray">(まだ false = 表示しない)</text>
+  
+  <text x="440" y="330" font-size="13" font-weight="bold">画像の上端が「画面下端から200px手前」</text>
+  <text x="440" y="350" font-size="13" font-weight="bold">に来たらフェードイン開始！</text>
+  
+  <!-- 矢印で関係性を示す -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="orange"/>
+    </marker>
+  </defs>
+  
+  <path d="M 365 555 Q 400 700 365 845" stroke="orange" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="410" y="700" font-size="12" fill="orange">この距離が200px</text>
+</svg>

@@ -1,0 +1,113 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700">
+  <!-- タイトル -->
+  <text x="450" y="40" font-size="26" font-weight="bold" text-anchor="middle" fill="#333">
+    margin と padding の本当の違い
+  </text>
+  
+  <!-- 左側：margin を使った場合 -->
+  <g id="margin-side">
+    <text x="225" y="85" font-size="20" font-weight="bold" text-anchor="middle" fill="#e74c3c">
+      ❌ margin: 2rem 0 4rem 3.1rem;
+    </text>
+    
+    <!-- 1枚目のカード -->
+    <g id="card1-margin">
+      <!-- 画像部分 -->
+      <rect x="80" y="110" width="290" height="150" fill="#3498db" rx="8 8 0 0"/>
+      <text x="225" y="190" font-size="16" text-anchor="middle" fill="#fff" font-weight="bold">画像</text>
+      
+      <!-- 白い背景部分（feature_content） -->
+      <rect x="80" y="260" width="290" height="120" fill="#fff" stroke="#ddd" stroke-width="2"/>
+      
+      <!-- marginで外側に押し出された空間（オレンジ） -->
+      <rect x="80" y="260" width="31" height="120" fill="#e67e22" opacity="0.7"/>
+      <text x="95" y="325" font-size="11" text-anchor="middle" fill="#fff" font-weight="bold" transform="rotate(-90 95 325)">3.1rem</text>
+      
+      <!-- テキスト内容 -->
+      <text x="125" y="285" font-size="13" fill="#333">category</text>
+      <text x="125" y="310" font-size="11" fill="#666">テキストテキスト...</text>
+      <text x="340" y="365" font-size="11" fill="#888" text-anchor="end">XXXX.XX.XX</text>
+    </g>
+    
+    <!-- marginによる下の隙間（透明・オレンジで表示） -->
+    <rect x="80" y="380" width="290" height="40" fill="#e67e22" opacity="0.4" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="225" y="405" font-size="12" text-anchor="middle" fill="#c0392b" font-weight="bold">4rem の margin-bottom</text>
+    
+    <!-- 2枚目のカード -->
+    <g id="card2-margin">
+      <rect x="80" y="420" width="290" height="150" fill="#95a5a6" rx="8 8 0 0"/>
+      <text x="225" y="500" font-size="16" text-anchor="middle" fill="#fff" font-weight="bold">次のカード</text>
+    </g>
+    
+    <!-- 説明 -->
+    <text x="225" y="600" font-size="14" text-anchor="middle" fill="#e74c3c" font-weight="bold">
+      白い背景が途中で終わる
+    </text>
+    <text x="225" y="625" font-size="13" text-anchor="middle" fill="#666">
+      オレンジ部分は「白の外側」
+    </text>
+    <text x="225" y="645" font-size="13" text-anchor="middle" fill="#666">
+      → カード間に透明な隙間ができる
+    </text>
+  </g>
+  
+  <!-- 右側：padding を使った場合 -->
+  <g id="padding-side">
+    <text x="675" y="85" font-size="20" font-weight="bold" text-anchor="middle" fill="#27ae60">
+      ⭕ padding: 2rem 3.1rem 4rem 3.1rem;
+    </text>
+    
+    <!-- 1枚目のカード -->
+    <g id="card1-padding">
+      <!-- 画像部分 -->
+      <rect x="530" y="110" width="290" height="150" fill="#3498db" rx="8 8 0 0"/>
+      <text x="675" y="190" font-size="16" text-anchor="middle" fill="#fff" font-weight="bold">画像</text>
+      
+      <!-- 白い背景部分（feature_content）paddingを含む全体 -->
+      <rect x="530" y="260" width="290" height="160" fill="#fff" stroke="#ddd" stroke-width="2" rx="0 0 8 8"/>
+      
+      <!-- paddingで確保された内側の余白（緑） -->
+      <rect x="530" y="260" width="31" height="160" fill="#27ae60" opacity="0.3"/>
+      <rect x="789" y="260" width="31" height="160" fill="#27ae60" opacity="0.3"/>
+      <rect x="530" y="260" width="290" height="20" fill="#27ae60" opacity="0.3"/>
+      <rect x="530" y="380" width="290" height="40" fill="#27ae60" opacity="0.3"/>
+      
+      <text x="545" y="330" font-size="11" text-anchor="middle" fill="#fff" font-weight="bold" transform="rotate(-90 545 330)">3.1rem</text>
+      <text x="675" y="405" font-size="11" text-anchor="middle" fill="#fff" font-weight="bold">4rem padding</text>
+      
+      <!-- テキスト内容 -->
+      <text x="575" y="295" font-size="13" fill="#333">category</text>
+      <text x="575" y="320" font-size="11" fill="#666">テキストテキスト...</text>
+      <text x="790" y="365" font-size="11" fill="#888" text-anchor="end">XXXX.XX.XX</text>
+    </g>
+    
+    <!-- 2枚目のカード（すぐ下から始まる） -->
+    <g id="card2-padding">
+      <rect x="530" y="420" width="290" height="150" fill="#95a5a6" rx="8 8 0 0"/>
+      <text x="675" y="500" font-size="16" text-anchor="middle" fill="#fff" font-weight="bold">次のカード</text>
+    </g>
+    
+    <!-- 説明 -->
+    <text x="675" y="600" font-size="14" text-anchor="middle" fill="#27ae60" font-weight="bold">
+      白い背景が下まで伸びる
+    </text>
+    <text x="675" y="625" font-size="13" text-anchor="middle" fill="#666">
+      緑部分は「白の内側」
+    </text>
+    <text x="675" y="645" font-size="13" text-anchor="middle" fill="#666">
+      → カード同士がピッタリくっつく
+    </text>
+  </g>
+  
+  <!-- 中央の矢印と説明 -->
+  <line x1="390" y1="340" x2="510" y2="340" stroke="#333" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+  
+  <text x="450" y="330" font-size="14" text-anchor="middle" fill="#333" font-weight="bold">
+    背景の範囲が違う！
+  </text>
+</svg>

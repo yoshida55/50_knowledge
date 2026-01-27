@@ -1,0 +1,79 @@
+﻿<svg viewBox="0 0 1000 1400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="1000" height="1400" fill="#f0f0f0"/>
+  
+  <!-- ページ全体（縦長） -->
+  <rect x="50" y="80" width="350" height="1200" fill="white" stroke="#333" stroke-width="3"/>
+  <text x="225" y="50" text-anchor="middle" font-size="28" font-weight="bold">ページ全体</text>
+  
+  <!-- スクロール位置（上から何pxか） -->
+  <line x1="50" y1="80" x2="50" y2="380" stroke="blue" stroke-width="4"/>
+  <text x="15" y="230" font-size="24" fill="blue" font-weight="bold">scroll</text>
+  <text x="15" y="260" font-size="18" fill="blue">(350px)</text>
+  
+  <!-- 画面の表示領域 -->
+  <rect x="50" y="380" width="350" height="450" fill="rgba(0,255,0,0.1)" stroke="green" stroke-width="4"/>
+  <text x="430" y="600" font-size="24" fill="green" font-weight="bold">画面に見えている範囲</text>
+  <text x="430" y="635" font-size="18" fill="green">(windowHeight = 450px)</text>
+  
+  <!-- 画面下端 -->
+  <line x1="50" y1="830" x2="400" y2="830" stroke="green" stroke-width="3" stroke-dasharray="8,8"/>
+  <text x="430" y="840" font-size="20" fill="green">← 画面の下端</text>
+  
+  <!-- 200px手前のライン -->
+  <line x1="50" y1="630" x2="400" y2="630" stroke="orange" stroke-width="3" stroke-dasharray="8,8"/>
+  <text x="430" y="640" font-size="20" fill="orange">← 下端から200px手前</text>
+  <circle cx="415" cy="630" r="5" fill="orange"/>
+  
+  <!-- 対象の画像 -->
+  <rect x="100" y="980" width="250" height="180" fill="pink" stroke="red" stroke-width="3"/>
+  <text x="225" y="1090" text-anchor="middle" font-size="24" font-weight="bold">対象画像</text>
+  
+  <!-- target位置 -->
+  <line x1="50" y1="980" x2="50" y2="980" stroke="red" stroke-width="4"/>
+  <circle cx="50" cy="980" r="8" fill="red"/>
+  <text x="15" y="1010" font-size="24" fill="red" font-weight="bold">target</text>
+  <text x="15" y="1040" font-size="18" fill="red">(980px)</text>
+  
+  <!-- 計算式の説明 -->
+  <rect x="450" y="100" width="520" height="380" fill="white" stroke="#333" stroke-width="3"/>
+  <text x="710" y="145" text-anchor="middle" font-size="28" font-weight="bold">計算式の意味</text>
+  
+  <text x="480" y="200" font-size="22" font-family="monospace">scroll > target - windowHeight + 200</text>
+  
+  <text x="480" y="250" font-size="20">↓ 実際の数値で計算すると</text>
+  
+  <text x="480" y="300" font-size="22" font-family="monospace" fill="blue">350</text>
+  <text x="540" y="300" font-size="22"> > </text>
+  <text x="580" y="300" font-size="22" font-family="monospace" fill="red">980</text>
+  <text x="640" y="300" font-size="22"> - </text>
+  <text x="675" y="300" font-size="22" font-family="monospace" fill="green">450</text>
+  <text x="735" y="300" font-size="22"> + </text>
+  <text x="770" y="300" font-size="22" font-family="monospace" fill="orange">200</text>
+  
+  <text x="480" y="345" font-size="22">350 > 730</text>
+  <text x="480" y="375" font-size="18" fill="gray">(まだ false = 表示しない)</text>
+  
+  <text x="480" y="425" font-size="20" font-weight="bold">画像の上端が</text>
+  <text x="480" y="455" font-size="20" font-weight="bold">「画面下端から200px手前」に来たら</text>
+  <text x="480" y="485" font-size="20" font-weight="bold" fill="red">フェードイン開始！</text>
+  
+  <!-- 矢印で関係性を示す -->
+  <defs>
+    <marker id="arrowhead" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="orange"/>
+    </marker>
+  </defs>
+  
+  <path d="M 415 635 Q 460 800 415 975" stroke="orange" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="470" y="805" font-size="20" fill="orange" font-weight="bold">この距離が</text>
+  <text x="470" y="835" font-size="20" fill="orange" font-weight="bold">200px</text>
+  
+  <!-- 追加説明 -->
+  <rect x="450" y="520" width="520" height="200" fill="#ffffcc" stroke="#ff9900" stroke-width="3"/>
+  <text x="710" y="560" text-anchor="middle" font-size="24" font-weight="bold" fill="#ff6600">ポイント</text>
+  <text x="480" y="600" font-size="18">✓ ユーザーが画像を見る少し前に</text>
+  <text x="480" y="630" font-size="18">  アニメーションを開始</text>
+  <text x="480" y="670" font-size="18">✓ 200を大きくすると、もっと早く</text>
+  <text x="480" y="700" font-size="18">  フェードインが始まる</text>
+</svg>

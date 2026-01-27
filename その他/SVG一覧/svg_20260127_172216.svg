@@ -1,0 +1,101 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- タイトル -->
+  <text x="400" y="30" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    padding vs margin の違い
+  </text>
+  
+  <!-- 左側：margin を使った場合 -->
+  <g id="margin-example">
+    <text x="200" y="70" font-size="18" font-weight="bold" text-anchor="middle" fill="#e74c3c">
+      ❌ margin を使うと...
+    </text>
+    
+    <!-- 親要素（記事カード全体） -->
+    <rect x="50" y="90" width="300" height="200" fill="#fff" stroke="#ddd" stroke-width="2" rx="8"/>
+    
+    <!-- 画像エリア -->
+    <rect x="50" y="90" width="300" height="120" fill="#3498db" rx="8 8 0 0"/>
+    <text x="200" y="155" font-size="14" text-anchor="middle" fill="#fff">画像</text>
+    
+    <!-- feature_content エリア（白背景） -->
+    <rect x="50" y="210" width="300" height="80" fill="#fff" stroke="#ddd" stroke-width="1"/>
+    
+    <!-- margin による外側の余白（オレンジ色で表示） -->
+    <rect x="50" y="210" width="31" height="80" fill="#e67e22" opacity="0.5"/>
+    <rect x="50" y="210" width="300" height="20" fill="#e67e22" opacity="0.5"/>
+    
+    <!-- テキスト（marginで押し込まれた位置） -->
+    <text x="95" y="240" font-size="12" fill="#333">category</text>
+    <text x="95" y="265" font-size="11" fill="#666">テキストテキスト...</text>
+    
+    <!-- 注釈 -->
+    <text x="200" y="310" font-size="12" text-anchor="middle" fill="#e74c3c">
+      箱の外側に余白ができる
+    </text>
+    <text x="200" y="328" font-size="12" text-anchor="middle" fill="#e74c3c">
+      → 白エリアが狭くなる
+    </text>
+  </g>
+  
+  <!-- 右側：padding を使った場合 -->
+  <g id="padding-example">
+    <text x="600" y="70" font-size="18" font-weight="bold" text-anchor="middle" fill="#27ae60">
+      ⭕ padding を使うと...
+    </text>
+    
+    <!-- 親要素（記事カード全体） -->
+    <rect x="450" y="90" width="300" height="200" fill="#fff" stroke="#ddd" stroke-width="2" rx="8"/>
+    
+    <!-- 画像エリア -->
+    <rect x="450" y="90" width="300" height="120" fill="#3498db" rx="8 8 0 0"/>
+    <text x="600" y="155" font-size="14" text-anchor="middle" fill="#fff">画像</text>
+    
+    <!-- feature_content エリア（白背景） -->
+    <rect x="450" y="210" width="300" height="80" fill="#fff" stroke="#ddd" stroke-width="1"/>
+    
+    <!-- padding による内側の余白（緑色で表示） -->
+    <rect x="450" y="210" width="31" height="80" fill="#27ae60" opacity="0.3"/>
+    <rect x="450" y="210" width="300" height="20" fill="#27ae60" opacity="0.3"/>
+    <rect x="719" y="210" width="31" height="80" fill="#27ae60" opacity="0.3"/>
+    <rect x="450" y="270" width="300" height="20" fill="#27ae60" opacity="0.3"/>
+    
+    <!-- テキスト（paddingで内側から離れた位置） -->
+    <text x="495" y="240" font-size="12" fill="#333">category</text>
+    <text x="495" y="265" font-size="11" fill="#666">テキストテキスト...</text>
+    
+    <!-- 注釈 -->
+    <text x="600" y="310" font-size="12" text-anchor="middle" fill="#27ae60">
+      箱の内側に余白ができる
+    </text>
+    <text x="600" y="328" font-size="12" text-anchor="middle" fill="#27ae60">
+      → 白エリアを保ったまま余裕ができる
+    </text>
+  </g>
+  
+  <!-- 下部の説明 -->
+  <rect x="50" y="380" width="700" height="180" fill="#f8f9fa" stroke="#ddd" stroke-width="1" rx="8"/>
+  
+  <text x="400" y="410" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">
+    結論
+  </text>
+  
+  <text x="70" y="440" font-size="14" fill="#e74c3c">
+    ❌ margin: 2rem 0rem 4rem 3.1rem;
+  </text>
+  <text x="90" y="465" font-size="13" fill="#666">
+    → 箱の外側に余白を作る（左に31px、上に20pxの空白）
+  </text>
+  <text x="90" y="485" font-size="13" fill="#666">
+    → 白い部分が狭くなり、中身が窮屈になる
+  </text>
+  
+  <text x="70" y="520" font-size="14" fill="#27ae60">
+    ⭕ padding: 2rem 3.1rem;
+  </text>
+  <text x="90" y="545" font-size="13" fill="#666">
+    → 箱の内側に余白を作る（上下20px、左右31pxの内側余白）
+  </text>
+  <text x="90" y="565" font-size="13" fill="#666">
+    → 白い背景はそのままで、テキストがゆったり配置される
+  </text>
+</svg>
