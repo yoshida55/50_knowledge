@@ -1,0 +1,55 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#f5f5f5"/>
+  
+  <!-- ブラウザウィンドウ -->
+  <rect x="50" y="50" width="700" height="500" fill="white" stroke="#333" stroke-width="2" rx="5"/>
+  <rect x="50" y="50" width="700" height="30" fill="#e0e0e0" stroke="#333" stroke-width="2" rx="5"/>
+  
+  <!-- ブラウザコントロール -->
+  <circle cx="70" cy="65" r="5" fill="#ff5f56"/>
+  <circle cx="90" cy="65" r="5" fill="#ffbd2e"/>
+  <circle cx="110" cy="65" r="5" fill="#27c93f"/>
+  
+  <!-- ビューポート領域 -->
+  <rect x="60" y="90" width="680" height="450" fill="#fff" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+  <text x="400" y="110" text-anchor="middle" font-size="14" fill="#666">画面の表示領域</text>
+  
+  <!-- スクロール前の画像（下にオフセット・透明） -->
+  <g opacity="0.3">
+    <rect x="250" y="420" width="300" height="200" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" rx="5"/>
+    <text x="400" y="510" text-anchor="middle" font-size="16" fill="#666">画像</text>
+    <text x="400" y="535" text-anchor="middle" font-size="12" fill="#999">(opacity: 0)</text>
+    <!-- 下方向の矢印 -->
+    <path d="M 400 380 L 400 410" stroke="#ff9800" stroke-width="3" fill="none" marker-end="url(#arrowDown)"/>
+    <text x="420" y="395" font-size="12" fill="#ff9800">+2rem</text>
+  </g>
+  
+  <!-- スクロール後の画像（元の位置・不透明） -->
+  <g>
+    <rect x="250" y="200" width="300" height="200" fill="#bbdefb" stroke="#1976d2" stroke-width="3" rx="5"/>
+    <text x="400" y="290" text-anchor="middle" font-size="16" fill="#333" font-weight="bold">画像</text>
+    <text x="400" y="315" text-anchor="middle" font-size="12" fill="#666">(opacity: 1)</text>
+    <!-- 上方向の矢印 -->
+    <path d="M 580 300 L 620 300 L 620 240" stroke="#4caf50" stroke-width="3" fill="none" marker-end="url(#arrowUp)"/>
+    <text x="625" y="270" font-size="12" fill="#4caf50">スクロール</text>
+    <text x="625" y="285" font-size="12" fill="#4caf50">でフェードイン</text>
+  </g>
+  
+  <!-- スクロール位置の説明 -->
+  <line x1="60" y="450" x2="740" y="450" stroke="#ff5722" stroke-width="2" stroke-dasharray="10,5"/>
+  <text x="400" y="470" text-anchor="middle" font-size="12" fill="#ff5722">トリガー位置（画面下から200px）</text>
+  
+  <!-- マーカー定義 -->
+  <defs>
+    <marker id="arrowDown" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <polygon points="0,0 10,5 0,10" fill="#ff9800"/>
+    </marker>
+    <marker id="arrowUp" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <polygon points="0,0 10,5 0,10" fill="#4caf50"/>
+    </marker>
+  </defs>
+  
+  <!-- 説明テキスト -->
+  <text x="400" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">スクロールフェードインの仕組み</text>
+</svg>
