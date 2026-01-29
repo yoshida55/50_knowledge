@@ -2323,3 +2323,97 @@ https://jshint.com/
 状況: メニューが開いた時に画面を暗くする div 要素（.overlay や .mask）が、画面全体を覆うように配置されている。
 問題: メニューを閉じた際、opacity: 0（透明）にしただけだと、「透明な巨大な壁」が画面の一番手前に居座り続けます。 その結果、背後にあるはずのサイトのボタンやリンクが一切クリックできなくなります。
 解決: 非表示時に pointer-events: none を指定することで、クリック操作を下の要素へ「突き抜け」させます。
+
+
+
+## grid（flexも同様）でレイアウトすると、３列などサイズがきまっている。その場合、画像で固定サイズ指定する（固い箱のようなもの,rem通りにうまく動作しない）と、３列の幅いにあわずくずれることがある。そのため画像は％で指定するとよい。％なら、問題なく動作する。
+
+`画像は％で指定するとよい（width: 100%）。 その際、高さは必ず height: auto にする。`（そうしないと画像がビヨーンと縦に伸びて変形してしまうから）
+
+質者・画像サイズがデザインカンプととこなる。
+
+例）
+
+```css
+/* レスポンシブ対応の画像基本セット（Grid/Flex共通） */
+.feature_image {
+  width: 100%;       /* 親要素（Grid/Flexの枠）の幅に合わせる */
+  height: auto;      /* 幅に合わせて高さも自動調整（比率維持） */
+
+  aspect-ratio: 3 / 2;   /* 【重要】横3:縦2 の比率で枠を確保する */
+
+  object-fit: cover; /* 枠からはみ出る分はトリミングして埋める */
+  display: block;    /* 画像下の謎の余白を消すおまじない */
+}
+```
+
+![](images/2026-01-29-10-12-48.png)
+
+
+## 可変REMをつかうなら
+
+可変rem使用時	　　　　　　 % or 100% が安全 ✅
+固定rem（1rem=10px固定）	rem固定でもOK
+見本のCSS	max-width:      100% + %指定
+
+
+
+
+# スライダーについて
+
+★javaScriptの「slidesToShow: 3」とする。常に３つの画像が画面に表示される。そこでimgの幅を１００％で自動的に均等に割り振られることになる。
+画像を均等に中央に配置されることになる。
+
+
+```css
+
+
+.slider {
+ width: 100%;
+}
+
+.slider img {
+  width: 100%;
+  height: 24rem;
+  padding: 0 1rem; /* 左右に余白を追加 */
+  box-sizing: border-box; /* paddingを幅に含める */
+}
+```
+
+```javascript
+$(function () {
+  $(".slider").slick({
+    arrows: false,
+    autoplay: true,
+    adaptiveHeight: true,
+    centerMode: true,
+    centerPadding: "0.3rem",
+    slidesToShow: 3,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          centerMode: true,
+          centerPadding: "5rem",
+        },
+      },
+    ],
+  });
+});
+```
+
+javascriptの「centerPadding」と、CSSの「パディングの違い」
+
+・両社の違い
+centerPadding・・・中央を強調	  隣をチラ見せ（0.3remだけ画像をよこから見せる）
+
+padding	・・・画像に隙間	  均等な隙間
+つまり二つ組み合わせる。
+
+
+![](images/2026-01-29-14-06-43.png)
+
+
+★タブレットにするとずれる。メディアクエリが`767px`
+`494`でづれいている。
