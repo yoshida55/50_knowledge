@@ -16,6 +16,63 @@
 
 
 
+▢CSS　JUMP　インストール手順
+
+必要なもの
+css-jumper フォルダ一式
+
+STEP 1️⃣ フォルダを配置
+C:\tools\css-jumper\   ← 日本語パスは避ける
+
+STEP 2️⃣ Chrome拡張をインストール
+chrome://extensions/ を開く
+右上 「デベロッパーモード」ON
+「パッケージ化されていない拡張機能を読み込む」
+css-jumper フォルダを選択
+表示された 拡張機能ID をメモ（例: hoplahamgadnacgmihmaceglgeopkfeg）
+
+STEP 3️⃣ setup.bat を実行
+setup.bat をダブルクリック → ID入力 → Enter
+自動で行われること:
+
+処理	内容
+JSONファイル更新	native-host/com.cssjumper.open_vscode.json にexeパス設定
+レジストリ登録	HKCU\Software\Google\Chrome\NativeMessagingHosts\...
+vscode://登録	HKCU\Software\Classes\vscode\shell\open\command
+
+STEP 4️⃣ Chrome再起動
+完全に閉じて再起動（タスクトレイも確認）
+
+STEP 5️⃣ 動作確認
+拡張機能アイコン → プロジェクトパス設定
+Live ServerでHTML開く
+Alt+クリック → VS Codeで該当CSS行が開けばOK
+
+⚠ トラブルシューティング
+症状	対処
+Native Messaging失敗	setup.bat再実行 → Chrome再起動
+VS Code開かない	start vscode://file/C:/test.txt:1 をコマンドプロンプトで確認
+拡張機能動かない	chrome://extensions で再読み込み + ページリロード
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
