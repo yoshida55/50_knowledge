@@ -1,0 +1,68 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- タイトル -->
+  <text x="400" y="30" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    バブルソート（昇順）の動作
+  </text>
+  
+  <!-- 初期状態 -->
+  <text x="50" y="70" font-size="16" font-weight="bold" fill="#555">初期状態</text>
+  <rect x="50" y="80" width="60" height="50" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+  <rect x="120" y="80" width="60" height="50" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+  <rect x="190" y="80" width="60" height="50" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+  <rect x="260" y="80" width="60" height="50" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+  <rect x="330" y="80" width="60" height="50" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+  <text x="80" y="112" font-size="20" text-anchor="middle" fill="#000">5</text>
+  <text x="150" y="112" font-size="20" text-anchor="middle" fill="#000">3</text>
+  <text x="220" y="112" font-size="20" text-anchor="middle" fill="#000">8</text>
+  <text x="290" y="112" font-size="20" text-anchor="middle" fill="#000">1</text>
+  <text x="360" y="112" font-size="20" text-anchor="middle" fill="#000">4</text>
+  
+  <!-- ルー��構造の説明 -->
+  <text x="500" y="70" font-size="16" font-weight="bold" fill="#555">ループ構造</text>
+  <rect x="500" y="80" width="280" height="120" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="5"/>
+  <text x="510" y="105" font-size="14" fill="#333">外側ループ (i): 0 → length-1</text>
+  <text x="520" y="125" font-size="13" fill="#666">• 配列全体を何度も巡回</text>
+  <text x="520" y="145" font-size="13" fill="#666">• 最大値が右端に移動する</text>
+  
+  <rect x="510" y="155" width="260" height="35" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" rx="5"/>
+  <text x="520" y="177" font-size="13" fill="#333">内側ループ (j): 0 → length-1-i</text>
+  
+  <!-- 比較と交換のプロセス -->
+  <text x="50" y="170" font-size="16" font-weight="bold" fill="#555">第1回の巡回 (i=0)</text>
+  
+  <!-- ステップ1 -->
+  <text x="50" y="195" font-size="13" fill="#666">ステップ1: j=0 (5 &gt; 3 → 交換)</text>
+  <rect x="50" y="205" width="60" height="40" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+  <rect x="120" y="205" width="60" height="40" fill="#ffcdd2" stroke="#c62828" stroke-width="2"/>
+  <rect x="190" y="205" width="60" height="40" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+  <rect x="260" y="205" width="60" height="40" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+  <rect x="330" y="205" width="60" height="40" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+  <text x="80" y="230" font-size="18" text-anchor="middle">5</text>
+  <text x="150" y="230" font-size="18" text-anchor="middle">3</text>
+  <text x="220" y="230" font-size="18" text-anchor="middle">8</text>
+  <text x="290" y="230" font-size="18" text-anchor="middle">1</text>
+  <text x="360" y="230" font-size="18" text-anchor="middle">4</text>
+  <path d="M 85 250 Q 115 270 145 250" fill="none" stroke="#c62828" stroke-width="2" marker-end="url(#arrowred)"/>
+  
+  <!-- ステップ2 -->
+  <text x="50" y="290" font-size="13" fill="#666">結果: 交換後</text>
+  <rect x="50" y="300" width="60" height="40" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+  <rect x="120" y="300" width="60" height="40" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+  <rect x="190" y="300" width="60" height="40" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+  <rect x="260" y="300" width="60" height="40" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+  <rect x="330" y="300" width="60" height="40" fill="#e3f2fd" stroke="#1976d2" stroke-width="1"/>
+  <text x="80" y="325" font-size="18" text-anchor="middle">3</text>
+  <text x="150" y="325" font-size="18" text-anchor="middle">5</text>
+  <text x="220" y="325" font-size="18" text-anchor="middle">8</text>
+  <text x="290" y="325" font-size="18" text-anchor="middle">1</text>
+  <text x="360" y="325" font-size="18" text-anchor="middle">4</text>
+  
+  <!-- 最終結果 -->
+  <text x="50" y="380" font-size="16" font-weight="bold" fill="#555">最終結果（全巡回後）</text>
+  <rect x="50" y="390" width="60" height="50" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+  <rect x="120" y="390" width="60" height="50" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+  <rect x="190" y="390" width="60" height="50" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+  <rect x="260" y="390" width="60" height="50" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+  <rect x="330" y="390" width="60" height="50" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+  <text x="80" y="422" font-size="20" text-anchor="middle" font-weight="bold">1</text>
+  <text x="150" y="422" font-size="20" text-

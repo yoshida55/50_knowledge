@@ -6,9 +6,38 @@
 ## 拡張機能
 
 ▢　修正したファイルを置き換える。
+
+Chrome拡張:
+
+css-jumper/ を配置
+chrome://extensions → デベロッパーモード → フォルダ読み込み → ID取得
+setup.bat 実行 → ID入力
+Chrome再起動
+VS Code拡張:
+
+Ctrl+Shift+P → 「Install from VSIX」→ vsix選択
+設定 → cssToHtmlJumper.claudeApiKey にAPIキー入力
+リロード
+
+
+
 ▢　会社でコメント一覧がでないことをつたえて、確認する。
 
 ▢　キーフレームの仕組みについて聞く
+
+
+▢ node.js
+### 手順
+1. PowerShellを開く
+2. 以下を実行:
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+3. インストール先: `~/.claude/bin/claude`
+4. 初回起動時に認証（以下のどちらか）:
+   - **Claude Maxサブスクリプション**（月額 $100 or $200）→ OAuth認証でログインするだけ
+
+
 
 
 ▢　精度の高いインラインがほしい。
@@ -17,6 +46,7 @@
 ・CTRL　SHIft　iでインタイン系質問
 ・赤枠追加　コマンドパレットから「赤枠削除」
 ・CSSホバーで両方ひかる
+・cssToHtmlJumper　⇀入力　
 
 
 ##　長期的

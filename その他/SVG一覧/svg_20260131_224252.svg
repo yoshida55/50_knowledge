@@ -1,0 +1,24 @@
+﻿<svg width="500" height="200" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- 要素の四角 -->
+  <rect x="20" y="50" width="60" height="60" fill="#e1f5fe" stroke="#01579b" stroke-width="2"/>
+  <rect x="100" y="50" width="60" height="60" fill="#e1f5fe" stroke="#01579b" stroke-width="2"/>
+  <rect x="180" y="50" width="60" height="60" fill="#e1f5fe" stroke="#01579b" stroke-width="2"/>
+  <rect x="260" y="50" width="60" height="60" fill="#fff9c4" stroke="#fbc02d" stroke-width="2"/>
+  
+  <!-- テキストラベル -->
+  <text x="50" y="85" font-family="Arial" font-size="14" text-anchor="middle">1回目</text>
+  <text x="130" y="85" font-family="Arial" font-size="14" text-anchor="middle">2回目</text>
+  <text x="210" y="85" font-family="Arial" font-size="14" text-anchor="middle">3回目</text>
+  <text x="290" y="85" font-family="Arial" font-size="14" text-anchor="middle">確定</text>
+
+  <!-- 説明 -->
+  <text x="20" y="140" font-family="Arial" font-size="12" fill="#333">・4つの要素がある場合(length=4)</text>
+  <text x="20" y="160" font-family="Arial" font-size="12" fill="#333">・3つの位置が決まれば(i < 3)、最後の1つは自動的に正しい位置になります。</text>
+  <text x="20" y="180" font-family="Arial" font-size="12" fill="#d32f2f" font-weight="bold">→ だから「長さ - 1」回繰り返せば十分なのです。</text>
+  
+  <!-- インデックスの矢印 -->
+  <path d="M 50 40 L 50 20" stroke="#f44336" fill="none" marker-end="url(#arrow)"/>
+  <text x="50" y="15" font-family="Arial" font-size="10" text-anchor="middle" fill="#f44336">i = 0</text>
+  <text x="130" y="15" font-family="Arial" font-size="10" text-anchor="middle" fill="#f44336">i = 1</text>
+  <text x="210" y="15" font-family="Arial" font-size="10" text-anchor="middle" fill="#f44336">i = 2</text>
+</svg>

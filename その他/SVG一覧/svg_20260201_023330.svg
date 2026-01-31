@@ -1,0 +1,150 @@
+﻿<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+  <!-- タイトル -->
+  <text x="600" y="30" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">バブルソート（昇順）の動作</text>
+  
+  <!-- 初期配列 -->
+  <text x="100" y="80" font-size="16" font-weight="bold" fill="#333">初期状態: [5, 3, 8, 4, 2]</text>
+  
+  <!-- 外側ループの説明 -->
+  <rect x="50" y="100" width="300" height="80" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="5"/>
+  <text x="200" y="125" font-size="14" font-weight="bold" text-anchor="middle" fill="#1976d2">外側ループ (i)</text>
+  <text x="200" y="145" font-size="12" text-anchor="middle" fill="#333">i = 0 ~ arr.length-2</text>
+  <text x="200" y="165" font-size="12" text-anchor="middle" fill="#666">最大値を右端に移動させる</text>
+  
+  <!-- 内側ループの説明 -->
+  <rect x="400" y="100" width="300" height="80" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="5"/>
+  <text x="550" y="125" font-size="14" font-weight="bold" text-anchor="middle" fill="#f57c00">内側ループ (j)</text>
+  <text x="550" y="145" font-size="12" text-anchor="middle" fill="#333">j = 0 ~ arr.length-2-i</text>
+  <text x="550" y="165" font-size="12" text-anchor="middle" fill="#666">隣同士を比較・交換</text>
+  
+  <!-- 比較・交換の説明 -->
+  <rect x="750" y="100" width="300" height="80" fill="#fce4ec" stroke="#c2185b" stroke-width="2" rx="5"/>
+  <text x="900" y="125" font-size="14" font-weight="bold" text-anchor="middle" fill="#c2185b">比較と交換</text>
+  <text x="900" y="145" font-size="12" text-anchor="middle" fill="#333">arr[j] > arr[j+1]</text>
+  <text x="900" y="165" font-size="12" text-anchor="middle" fill="#666">大きい値を右に移動</text>
+  
+  <!-- 矢印 -->
+  <path d="M 200 180 L 200 210" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- 処理の流れ -->
+  <text x="100" y="240" font-size="16" font-weight="bold" fill="#333">処理の流れ（例: i=0の場合）</text>
+  
+  <!-- パス1 -->
+  <g>
+    <text x="50" y="280" font-size="14" fill="#666">パス1 (j=0):</text>
+    <rect x="150" y="265" width="50" height="40" fill="#ffcdd2" stroke="#333" stroke-width="2"/>
+    <text x="175" y="290" font-size="16" font-weight="bold" text-anchor="middle">5</text>
+    <rect x="210" y="265" width="50" height="40" fill="#ffcdd2" stroke="#333" stroke-width="2"/>
+    <text x="235" y="290" font-size="16" font-weight="bold" text-anchor="middle">3</text>
+    <rect x="270" y="265" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="295" y="290" font-size="16" font-weight="bold" text-anchor="middle">8</text>
+    <rect x="330" y="265" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="355" y="290" font-size="16" font-weight="bold" text-anchor="middle">4</text>
+    <rect x="390" y="265" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="415" y="290" font-size="16" font-weight="bold" text-anchor="middle">2</text>
+    <text x="470" y="290" font-size="14" fill="#c2185b">→ 交換</text>
+  </g>
+  
+  <path d="M 300 305 L 300 330" stroke="#666" stroke-width="1" fill="none" marker-end="url(#arrowhead2)"/>
+  
+  <!-- パス2 -->
+  <g>
+    <text x="50" y="360" font-size="14" fill="#666">パス2 (j=1):</text>
+    <rect x="150" y="345" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="175" y="370" font-size="16" font-weight="bold" text-anchor="middle">3</text>
+    <rect x="210" y="345" width="50" height="40" fill="#ffcdd2" stroke="#333" stroke-width="2"/>
+    <text x="235" y="370" font-size="16" font-weight="bold" text-anchor="middle">5</text>
+    <rect x="270" y="345" width="50" height="40" fill="#ffcdd2" stroke="#333" stroke-width="2"/>
+    <text x="295" y="370" font-size="16" font-weight="bold" text-anchor="middle">8</text>
+    <rect x="330" y="345" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="355" y="370" font-size="16" font-weight="bold" text-anchor="middle">4</text>
+    <rect x="390" y="345" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="415" y="370" font-size="16" font-weight="bold" text-anchor="middle">2</text>
+    <text x="470" y="370" font-size="14" fill="#4caf50">→ そのまま</text>
+  </g>
+  
+  <path d="M 300 385 L 300 410" stroke="#666" stroke-width="1" fill="none" marker-end="url(#arrowhead2)"/>
+  
+  <!-- パス3 -->
+  <g>
+    <text x="50" y="440" font-size="14" fill="#666">パス3 (j=2):</text>
+    <rect x="150" y="425" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="175" y="450" font-size="16" font-weight="bold" text-anchor="middle">3</text>
+    <rect x="210" y="425" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="235" y="450" font-size="16" font-weight="bold" text-anchor="middle">5</text>
+    <rect x="270" y="425" width="50" height="40" fill="#ffcdd2" stroke="#333" stroke-width="2"/>
+    <text x="295" y="450" font-size="16" font-weight="bold" text-anchor="middle">8</text>
+    <rect x="330" y="425" width="50" height="40" fill="#ffcdd2" stroke="#333" stroke-width="2"/>
+    <text x="355" y="450" font-size="16" font-weight="bold" text-anchor="middle">4</text>
+    <rect x="390" y="425" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="415" y="450" font-size="16" font-weight="bold" text-anchor="middle">2</text>
+    <text x="470" y="450" font-size="14" fill="#c2185b">→ 交換</text>
+  </g>
+  
+  <path d="M 300 465 L 300 490" stroke="#666" stroke-width="1" fill="none" marker-end="url(#arrowhead2)"/>
+  
+  <!-- パス4 -->
+  <g>
+    <text x="50" y="520" font-size="14" fill="#666">パス4 (j=3):</text>
+    <rect x="150" y="505" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="175" y="530" font-size="16" font-weight="bold" text-anchor="middle">3</text>
+    <rect x="210" y="505" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="235" y="530" font-size="16" font-weight="bold" text-anchor="middle">5</text>
+    <rect x="270" y="505" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="295" y="530" font-size="16" font-weight="bold" text-anchor="middle">4</text>
+    <rect x="330" y="505" width="50" height="40" fill="#ffcdd2" stroke="#333" stroke-width="2"/>
+    <text x="355" y="530" font-size="16" font-weight="bold" text-anchor="middle">8</text>
+    <rect x="390" y="505" width="50" height="40" fill="#ffcdd2" stroke="#333" stroke-width="2"/>
+    <text x="415" y="530" font-size="16" font-weight="bold" text-anchor="middle">2</text>
+    <text x="470" y="530" font-size="14" fill="#c2185b">→ 交換</text>
+  </g>
+  
+  <path d="M 300 545 L 300 570" stroke="#666" stroke-width="1" fill="none" marker-end="url(#arrowhead2)"/>
+  
+  <!-- i=0終了時 -->
+  <g>
+    <text x="50" y="600" font-size="14" font-weight="bold" fill="#1976d2">i=0 終了:</text>
+    <rect x="150" y="585" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="175" y="610" font-size="16" font-weight="bold" text-anchor="middle">3</text>
+    <rect x="210" y="585" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="235" y="610" font-size="16" font-weight="bold" text-anchor="middle">5</text>
+    <rect x="270" y="585" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="295" y="610" font-size="16" font-weight="bold" text-anchor="middle">4</text>
+    <rect x="330" y="585" width="50" height="40" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+    <text x="355" y="610" font-size="16" font-weight="bold" text-anchor="middle">2</text>
+    <rect x="390" y="585" width="50" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+    <text x="415" y="610" font-size="16" font-weight="bold" text-anchor="middle">8</text>
+    <text x="470" y="610" font-size="14" fill="#2e7d32">確定</text>
+  </g>
+  
+  <!-- 最終結果 -->
+  <text x="100" y="670" font-size="16" font-weight="bold" fill="#333">この処理を繰り返し...</text>
+  
+  <g>
+    <text x="50" y="710" font-size="14" font-weight="bold" fill="#2e7d32">最終結果:</text>
+    <rect x="150" y="695" width="50" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+    <text x="175" y="720" font-size="16" font-weight="bold" text-anchor="middle">2</text>
+    <rect x="210" y="695" width="50" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+    <text x="235" y="720" font-size="16" font-weight="bold" text-anchor="middle">3</text>
+    <rect x="270" y="695" width="50" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+    <text x="295" y="720" font-size="16" font-weight="bold" text-anchor="middle">4</text>
+    <rect x="330" y="695" width="50" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+    <text x="355" y="720" font-size="16" font-weight="bold" text-anchor="middle">5</text>
+    <rect x="390" y="695" width="50" height="40" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+    <text x="415" y="720" font-size="16" font-weight="bold" text-anchor="middle">8</text>
+  </g>
+  
+  <!-- 凡例 -->
+  <rect x="650" y="280" width="400" height="200" fill="#f5f5f5" stroke="#999" stroke-width="2" rx="5"/>
+  <text x="850" y="305" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">凡例</text>
+  
+  <rect x="680" y="325" width="40" height="30" fill="#ffcdd2" stroke="#333" stroke-width="2"/>
+  <text x="730" y="345" font-size="14" fill="#333">比較中の要素</text>
+  
+  <rect x="680" y="365" width="40" height="30" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+  <text x="730" y="385" font-size="14" fill="#333">未確定の要素</text>
+  
+  <rect x="680" y="405" width="40" height="30" fill="#c8e6c9" stroke="#2e7d32" stroke-width="3"/>
+  <text x="730" y="425" font-size="14" fill="#333">確定済みの要素</text>
+  
+  <text x="690" y="455
