@@ -5,6 +5,212 @@
 
 ## 拡張機能
 
+▢　修正したファイルを置き換える。
+▢　会社でコメント一覧がでないことをつたえて、確認する。
+
+html {
+  font-size: 62.5%; /* 1rem = 10px */
+}
+
+/* ┌──────────────────────────────────────────────────────────────────────┐
+   │ 共通                                         │
+   │ コンテンツ幅、右の固定メニューのサイズ                          │
+   │ レスポンシブ対応: スマホ→タブレット(76.8rem〜)→PC(102.5rem〜)           │
+   └──────────────────────────────────────────────────────────────────────┘ */
+:root {
+  --content-width: 129.6rem;
+  --header-side-width: 20rem;
+  --space-hor: 2.4rem;
+
+  /* 最大コンテンツ幅：*/
+  --view: 129.6rem;
+
+  /* 上下の余白：*/
+  --space-vrt: 12rem; /* sm(スマホ)サイズ */
+  /* 左右の余白：*/
+  --space-hor: 2rem; /* sm(スマホ)サイズ */
+}
+
+/* debug  あとでどこで使われているかチェック*/
+:root {
+  /* font */
+  --f-serif: "Noto Serif JP", serif;
+  --f-sans: "dnp-shuei-gothic-gin-std", sans-serif;
+  --f-en: "Manrope", "dnp-shuei-gothic-gin-std", sans-serif;
+  --f-en2: "garamond-premier-pro-caption", "Noto Serif JP", serif;
+}
+
+/* 各セクションに共通の上下余白をつける */
+/* 76.8rem（tab）以上の切り替え：*/
+@media screen and (min-width: 76.8rem) {
+  :root {
+    --space-vrt: 16rem; /* md の値 */
+    --space-hor: 4rem; /* md の値 */
+  }
+}
+
+/* 102.5rem（pc）以上の切り替え：*/
+@media screen and (min-width: 102.5rem) {
+  :root {
+    --space-vrt: 24rem; /* lg の値  「お知らせ」等のセクションのコンテナマージン*/
+    --space-hor: 8rem; /* lg の値 */
+  }
+}
+/* ┌─────────────────────────────────────────┐
+   │ メモ　　　　　　　                        │
+   └─────────────────────────────────────────┘ */
+
+.main-content {
+  /* 通常コンテンツ */
+  z-index: 1;
+}
+.fixed-header {
+  /* 固定ヘッダー */
+  z-index: 100;
+}
+.overlay {
+  /* オーバーレイ（黒マスク） */
+  z-index: 800;
+}
+.modal {
+  /* モーダル */
+  z-index: 900;
+}
+/* ハンバーガーメニュー */
+.hamburger-menu {
+  z-index: 1000;
+}
+
+/* ┌──────────────────────────────────────────────────────────────────────┐
+   │ ヘッダー                                                             │
+   │ PC: 右側に固定表示 / スマホ: 上部に配置                              │
+   │ ロゴ・ナビゲーション・SNSリンクを含む                                │
+   └──────────────────────────────────────────────────────────────────────┘ */
+
+/* 右サイドに固定のメニューを表示する  */
+#side_area {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: var(--header-side-width);
+  height: 100vh;
+  background-color: #fff;
+  z-index: 100;
+  padding: 10rem 1.5rem;
+  border: 0.5rem solid red;
+}
+
+/* └ おもだか屋の猫のロゴ・説明のコンテナ 【flex】 */
+.omodakaya_container {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.omodakaya_logo {
+  width: 7.5rem;
+  height: auto; /* 固定値をやめて auto にする */
+  margin-bottom: 1rem;
+}
+
+.omodakaya_description {
+  writing-mode: vertical-lr;
+  font-family: var(--f-serif);
+  font-size: 1.4rem;
+  color: black;
+}
+
+/* └ SNSアイコンのコンテナ 【flex】 */
+.side_sns_container {
+  position: absolute;
+
+  bottom: 10rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: center;
+}
+
+/* └ └ インスタグラムのコンテナ【flex】 */
+.sns_container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.3rem;
+}
+
+.sns_img {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-left: 0.5rem;
+}
+
+.sns_name {
+  font-family: var(--f-en2);
+  font-size: 1.6rem;
+  color: black;
+}
+
+/* └ └ オンラインストアのコンテナ【flex】  */
+.onlinestore_container {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ハンバーガーメニュー */
+.hamburger_menu {
+  position: absolute;
+
+  right: 50%;
+  transform: translateX(50%);
+  width: 4.5rem;
+  height: 4.5rem;
+  cursor: pointer;
+  z-index: 1000; /* メニューが他の要素より前に表示されるようにする */
+  background-color: white;
+}
+
+/* ハンバーガーメニューのバー */
+.bar {
+  position: absolute;
+  transition: 0.3s;
+  left: 0;
+  height: 0.4rem;
+  width: 100%;
+  background: black;
+}
+
+.bar:nth-child(1) {
+  top: 0.8rem;
+}
+.bar:nth-child(2) {
+  top: 2.2rem;
+}
+.bar:nth-child(3) {
+  top: 3.6rem;
+}
+
+/* ┌──────────────────────────────────────────────────────────────────────┐
+   │ キービジュアル / ページタイトル                                      │
+   │ トップ: スライド表示・縦書きキャッチコピー                           │
+   │ 下層: .kv-second でシンプルなタイトル表示                            │
+   └──────────────────────────────────────────────────────────────────────┘ */
+
+▢　キーフレームの仕組みについて聞く
+
 
 
 ##　長期的
@@ -13,47 +219,6 @@
 
 
 ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-
-
-
-▢CSS　JUMP　インストール手順
-
-必要なもの
-css-jumper フォルダ一式
-
-STEP 1️⃣ フォルダを配置
-C:\tools\css-jumper\   ← 日本語パスは避ける
-
-STEP 2️⃣ Chrome拡張をインストール
-chrome://extensions/ を開く
-右上 「デベロッパーモード」ON
-「パッケージ化されていない拡張機能を読み込む」
-css-jumper フォルダを選択
-表示された 拡張機能ID をメモ（例: hoplahamgadnacgmihmaceglgeopkfeg）
-
-STEP 3️⃣ setup.bat を実行
-setup.bat をダブルクリック → ID入力 → Enter
-自動で行われること:
-
-処理	内容
-JSONファイル更新	native-host/com.cssjumper.open_vscode.json にexeパス設定
-レジストリ登録	HKCU\Software\Google\Chrome\NativeMessagingHosts\...
-vscode://登録	HKCU\Software\Classes\vscode\shell\open\command
-
-STEP 4️⃣ Chrome再起動
-完全に閉じて再起動（タスクトレイも確認）
-
-STEP 5️⃣ 動作確認
-拡張機能アイコン → プロジェクトパス設定
-Live ServerでHTML開く
-Alt+クリック → VS Codeで該当CSS行が開けばOK
-
-⚠ トラブルシューティング
-症状	対処
-Native Messaging失敗	setup.bat再実行 → Chrome再起動
-VS Code開かない	start vscode://file/C:/test.txt:1 をコマンドプロンプトで確認
-拡張機能動かない	chrome://extensions で再読み込み + ページリロード
-
 
 
 
@@ -142,24 +307,45 @@ width:8rem;
 
 
 
-▢CSS　jumpトラブルシューティング
 
-会社での手順（超シンプル版）
-  ┌──────┬────────────────────────────────────────────┐
-  │ 手順 │                  やること                  │
-  ├──────┼────────────────────────────────────────────┤
-  │ 1    │ フォルダを配置（例: C:\tools\css-jumper\） │
-  ├──────┼────────────────────────────────────────────┤
-  │ 2    │ Chrome拡張を読み込み → IDをメモ            │
-  ├──────┼────────────────────────────────────────────┤
-  │ 3    │ setup.bat を実行 → IDを入力                │
-  ├──────┼────────────────────────────────────────────┤
-  │ 4    │ Chrome再起動                               │
-  └──────┴────────────────────────────────────────────┘
-  setup.bat が自動でやること:
-  - JSONファイルのパス更新
-  - レジストリ登録
-  - vscode://プロトコル登録
+▢CSS　JUMP　インストール手順
+
+必要なもの
+css-jumper フォルダ一式
+
+STEP 1️⃣ フォルダを配置
+C:\tools\css-jumper\   ← 日本語パスは避ける
+
+STEP 2️⃣ Chrome拡張をインストール
+chrome://extensions/ を開く
+右上 「デベロッパーモード」ON
+「パッケージ化されていない拡張機能を読み込む」
+css-jumper フォルダを選択
+表示された 拡張機能ID をメモ（例: hoplahamgadnacgmihmaceglgeopkfeg）
+
+STEP 3️⃣ setup.bat を実行
+setup.bat をダブルクリック → ID入力 → Enter
+自動で行われること:
+
+処理	内容
+JSONファイル更新	native-host/com.cssjumper.open_vscode.json にexeパス設定
+レジストリ登録	HKCU\Software\Google\Chrome\NativeMessagingHosts\...
+vscode://登録	HKCU\Software\Classes\vscode\shell\open\command
+
+STEP 4️⃣ Chrome再起動
+完全に閉じて再起動（タスクトレイも確認）
+
+STEP 5️⃣ 動作確認
+拡張機能アイコン → プロジェクトパス設定
+Live ServerでHTML開く
+Alt+クリック → VS Codeで該当CSS行が開けばOK
+
+⚠ トラブルシューティング
+症状	対処
+Native Messaging失敗	setup.bat再実行 → Chrome再起動
+VS Code開かない	start vscode://file/C:/test.txt:1 をコマンドプロンプトで確認
+拡張機能動かない	chrome://extensions で再読み込み + ページリロード
+
 
 
 

@@ -1,0 +1,17 @@
+﻿<svg viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect x="10" y="10" width="380" height="330" fill="#f0f0f0" stroke="#999" stroke-width="2"/>
+  <text x="200" y="30" text-anchor="middle" font-size="14" font-weight="bold">普通に書くと縦に並ぶ</text>
+  
+  <!-- slide1 -->
+  <rect x="30" y="50" width="340" height="80" fill="#ff6b6b" stroke="#000" stroke-width="2"/>
+  <text x="200" y="95" text-anchor="middle" font-size="16" fill="#fff">slide1（画像1）</text>
+  
+  <!-- slide2 -->
+  <rect x="30" y="140" width="340" height="80" fill="#4ecdc4" stroke="#000" stroke-width="2"/>
+  <text x="200" y="185" text-anchor="middle" font-size="16" fill="#fff">slide2（画像2）</text>
+  
+  <!-- slide3 -->
+  <rect x="30" y="230" width="340" height="80" fill="#95e1d3" stroke="#000" stroke-width="2"/>
+  <text x="200" y="275" text-anchor="middle" font-size="16" fill="#fff">slide3（画像3）</text>
+</svg>
