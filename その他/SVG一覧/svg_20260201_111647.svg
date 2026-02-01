@@ -1,0 +1,50 @@
+﻿<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- タイトル -->
+  <text x="300" y="25" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">NotebookLMでのソース修正フロー</text>
+  
+  <!-- 左側：編集不可 -->
+  <rect x="30" y="50" width="180" height="320" fill="#ffebee" stroke="#c62828" stroke-width="2" rx="5"/>
+  <text x="120" y="75" font-size="14" font-weight="bold" text-anchor="middle" fill="#c62828">❌ 直接編集不可</text>
+  
+  <rect x="50" y="100" width="140" height="80" fill="#fff" stroke="#999" stroke-width="2" rx="3"/>
+  <text x="120" y="125" font-size="12" text-anchor="middle" fill="#333">📄 ソース.pdf</text>
+  <text x="120" y="145" font-size="11" text-anchor="middle" fill="#666">間違った内容</text>
+  <text x="120" y="165" font-size="11" text-anchor="middle" fill="#c62828">編集できない</text>
+  
+  <text x="120" y="210" font-size="12" text-anchor="middle" fill="#666">NotebookLM上</text>
+  
+  <!-- 右側：正しい手順 -->
+  <rect x="390" y="50" width="180" height="320" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="5"/>
+  <text x="480" y="75" font-size="14" font-weight="bold" text-anchor="middle" fill="#2e7d32">✅ 正しい手順</text>
+  
+  <!-- ステップ1 -->
+  <rect x="410" y="95" width="140" height="60" fill="#fff" stroke="#2e7d32" stroke-width="2" rx="3"/>
+  <text x="480" y="115" font-size="11" font-weight="bold" text-anchor="middle" fill="#2e7d32">1. 元ファイル修正</text>
+  <text x="480" y="135" font-size="10" text-anchor="middle" fill="#666">手元で編集して保存</text>
+  
+  <!-- 矢印1 -->
+  <line x1="480" y1="160" x2="480" y2="180" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- ステップ2 -->
+  <rect x="410" y="185" width="140" height="60" fill="#fff" stroke="#2e7d32" stroke-width="2" rx="3"/>
+  <text x="480" y="205" font-size="11" font-weight="bold" text-anchor="middle" fill="#2e7d32">2. 古いソース削除</text>
+  <text x="480" y="225" font-size="10" text-anchor="middle" fill="#666">NotebookLMから削除</text>
+  
+  <!-- 矢印2 -->
+  <line x1="480" y1="250" x2="480" y2="270" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- ステップ3 -->
+  <rect x="410" y="275" width="140" height="60" fill="#fff" stroke="#2e7d32" stroke-width="2" rx="3"/>
+  <text x="480" y="295" font-size="11" font-weight="bold" text-anchor="middle" fill="#2e7d32">3. 新ソース追加</text>
+  <text x="480" y="315" font-size="10" text-anchor="middle" fill="#666">修正版を再アップロード</text>
+  
+  <!-- 中央の矢印 -->
+  <line x1="220" y1="200" x2="380" y2="200" stroke="#666" stroke-width="3" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  <text x="300" y="190" font-size="12" text-anchor="middle" fill="#666">正しい方法</text>
+</svg>

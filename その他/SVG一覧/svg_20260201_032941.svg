@@ -1,0 +1,95 @@
+﻿<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  
+  <!-- タイトル -->
+  <text x="400" y="40" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    @keyframes balloon アニメーション
+  </text>
+  
+  <!-- 0%の状態 -->
+  <g>
+    <rect x="80" y="100" width="280" height="400" rx="10" fill="#e3f2fd" stroke="#1976d2" stroke-width="3"/>
+    <text x="220" y="135" font-size="20" font-weight="bold" text-anchor="middle" fill="#1976d2">
+      0% (開始)
+    </text>
+    
+    <!-- 小さい円 -->
+    <circle cx="220" cy="280" r="15" fill="#ff6b6b" opacity="0.3"/>
+    <circle cx="220" cy="280" r="15" fill="none" stroke="#666" stroke-width="2" stroke-dasharray="5,5"/>
+    
+    <!-- 説明テキスト -->
+    <text x="220" y="350" font-size="16" text-anchor="middle" fill="#333">
+      transform: scale(0.1)
+    </text>
+    <text x="220" y="375" font-size="14" text-anchor="middle" fill="#666">
+      (元のサイズの10%)
+    </text>
+    
+    <text x="220" y="420" font-size="16" text-anchor="middle" fill="#333">
+      opacity: 0
+    </text>
+    <text x="220" y="445" font-size="14" text-anchor="middle" fill="#666">
+      (透明)
+    </text>
+  </g>
+  
+  <!-- 矢印 -->
+  <g>
+    <path d="M 370 300 L 420 300" stroke="#4caf50" stroke-width="4" fill="none" marker-end="url(#arrowhead)"/>
+    <text x="395" y="290" font-size="16" text-anchor="middle" fill="#4caf50" font-weight="bold">
+      アニメーション
+    </text>
+  </g>
+  
+  <!-- 100%の状態 -->
+  <g>
+    <rect x="440" y="100" width="280" height="400" rx="10" fill="#e8f5e9" stroke="#4caf50" stroke-width="3"/>
+    <text x="580" y="135" font-size="20" font-weight="bold" text-anchor="middle" fill="#4caf50">
+      100% (終了)
+    </text>
+    
+    <!-- 大きい円 -->
+    <circle cx="580" cy="280" r="60" fill="#ff6b6b" opacity="1"/>
+    
+    <!-- 説明テキスト -->
+    <text x="580" y="380" font-size="16" text-anchor="middle" fill="#333">
+      transform: scale(1)
+    </text>
+    <text x="580" y="405" font-size="14" text-anchor="middle" fill="#666">
+      (元のサイズ100%)
+    </text>
+    
+    <text x="580" y="450" font-size="16" text-anchor="middle" fill="#333">
+      opacity: 1
+    </text>
+    <text x="580" y="475" font-size="14" text-anchor="middle" fill="#666">
+      (完全に表示)
+    </text>
+  </g>
+  
+  <!-- サイズ比較の矢印 -->
+  <g>
+    <line x1="220" y1="295" x2="220" y2="320" stroke="#999" stroke-width="1.5"/>
+    <line x1="205" y1="320" x2="235" y2="320" stroke="#999" stroke-width="1.5"/>
+    <text x="220" y="335" font-size="12" text-anchor="middle" fill="#999">30px</text>
+    
+    <line x1="520" y1="280" x2="580" y2="280" stroke="#999" stroke-width="1.5"/>
+    <line x1="520" y1="275" x2="520" y2="285" stroke="#999" stroke-width="1.5"/>
+    <line x1="640" y1="275" x2="640" y2="285" stroke="#999" stroke-width="1.5"/>
+    <text x="580" y="265" font-size="12" text-anchor="middle" fill="#999">120px</text>
+  </g>
+  
+  <!-- 効果の説明 -->
+  <rect x="150" y="530" width="500" height="50" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+  <text x="400" y="555" font-size="16" text-anchor="middle" fill="#856404" font-weight="bold">
+    💡 風船が膨らむように、小さく透明な状態から大きく表示される
+  </text>
+  
+  <!-- 矢印の定義 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#4caf50"/>
+    </marker>
+  </defs>
+</svg>
