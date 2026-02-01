@@ -48,6 +48,7 @@ irm https://claude.ai/install.ps1 | iex
 ・CSSホバーで両方ひかる
 ・cssToHtmlJumper　⇀入力　
 
+・apiかなんかで設定
 
 ##　長期的
 
