@@ -2257,6 +2257,8 @@ https://jshint.com/
 ▢　AIチェック
 ▢　github,ビジュアライザー,sankouフォルダは削除されているか。
 ▢　各チェックサイトは通っているか
+▢　javaScriptで指定する場合だけ、idをつかう。
+
 
 
 

@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"path": "../../01_研修用/95_過去の制作物/sankou_omodakaya_neko"
+	},
+	{
+		"path": ".."
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "sankou_omodakaya_neko"
+  }
+}
