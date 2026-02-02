@@ -1,0 +1,55 @@
+﻿<svg width="700" height="500" xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="25" font-size="18" font-weight="bold">2階層構造の理解</text>
+  
+  <!-- レベル1: 親 -->
+  <rect x="20" y="50" width="660" height="400" fill="#ffe6e6" stroke="#ff0000" stroke-width="3"/>
+  <text x="30" y="75" font-size="14" font-weight="bold">.about_area (親)</text>
+  <text x="30" y="95" font-size="12">display: flex; (横並び)</text>
+  <text x="30" y="110" font-size="12">align-items: flex-end; ← これは左右のコンテナを下揃え</text>
+  
+  <!-- 下揃えの線 -->
+  <line x1="30" y1="430" x2="670" y2="430" stroke="#ff0000" stroke-width="3"/>
+  <text x="280" y="450" font-size="12" fill="#ff0000" font-weight="bold">↑ 左右のコンテナがここで揃う</text>
+  
+  <!-- レベル2: 左のコンテナ -->
+  <rect x="40" y="130" width="280" height="290" fill="#ccffff" stroke="#0066cc" stroke-width="3"/>
+  <text x="50" y="155" font-size="13" font-weight="bold">.left_container (子)</text>
+  <text x="50" y="175" font-size="11">flex-direction: column (縦並び)</text>
+  <text x="50" y="190" font-size="11">height: 100% ← 親の高さいっぱい</text>
+  
+  <!-- メッセージ -->
+  <rect x="60" y="205" width="240" height="40" fill="#fff" stroke="#000" stroke-width="2"/>
+  <text x="145" y="230" font-size="11">メッセージ (孫)</text>
+  
+  <!-- margin-top: auto の領域 -->
+  <rect x="60" y="255" width="240" height="110" fill="#ffebcc" stroke="#ff6600" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="100" y="280" font-size="11" fill="#ff6600">margin-top: auto</text>
+  <text x="100" y="295" font-size="11" fill="#ff6600">↓</text>
+  <text x="80" y="310" font-size="10" fill="#ff6600">「コンテナ内で</text>
+  <text x="80" y="325" font-size="10" fill="#ff6600"> 余白を最大に」</text>
+  
+  <!-- 猫 -->
+  <rect x="60" y="375" width="240" height="40" fill="#ffd700" stroke="#000" stroke-width="2"/>
+  <text x="145" y="400" font-size="11">🐱 猫 (孫)</text>
+  
+  <!-- レベル2: 右のコンテナ -->
+  <rect x="360" y="230" width="280" height="190" fill="#ccffcc" stroke="#00cc00" stroke-width="3"/>
+  <text x="370" y="255" font-size="13" font-weight="bold">.right_container (子)</text>
+  <text x="370" y="275" font-size="11">padding-top: 8rem で下げてる</text>
+  
+  <!-- 店内画像 -->
+  <rect x="380" y="290" width="240" height="60" fill="#ffd700" stroke="#000" stroke-width="2"/>
+  <text x="465" y="325" font-size="11">店内画像</text>
+  
+  <!-- 説明文 -->
+  <rect x="380" y="360" width="240" height="50" fill="#fff" stroke="#000" stroke-width="2"/>
+  <text x="465" y="390" font-size="11">説明文</text>
+  
+  <!-- 矢印と説明 -->
+  <text x="730" y="200" font-size="12" font-weight="bold" fill="#ff0000">レベル1:</text>
+  <text x="730" y="220" font-size="11">左右を下揃え</text>
+  
+  <text x="730" y="320" font-size="12" font-weight="bold" fill="#0066cc">レベル2:</text>
+  <text x="730" y="340" font-size="11">コンテナ内の</text>
+  <text x="730" y="355" font-size="11">上下配置</text>
+</svg>

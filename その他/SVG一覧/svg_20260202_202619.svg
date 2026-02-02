@@ -1,0 +1,61 @@
+﻿<svg width="700" height="450" xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="25" font-size="18" font-weight="bold">gap と margin-top: auto の関係</text>
+  
+  <!-- 左側：gapのみ -->
+  <rect x="20" y="50" width="300" height="180" fill="#f0f0f0" stroke="#999" stroke-width="2"/>
+  <text x="30" y="70" font-size="12">gap: 2rem のみ</text>
+  
+  <rect x="40" y="85" width="260" height="35" fill="#fff" stroke="#000"/>
+  <text x="130" y="107" font-size="11">メッセージ</text>
+  
+  <!-- gap を表示 -->
+  <rect x="40" y="125" width="260" height="20" fill="#ffcccc" stroke="#ff0000" stroke-dasharray="3,3"/>
+  <text x="110" y="138" font-size="10" fill="#ff0000">gap: 2rem（固定）</text>
+  
+  <rect x="40" y="150" width="260" height="60" fill="#ffd700" stroke="#000"/>
+  <text x="140" y="185" font-size="11">🐱 猫</text>
+  
+  <text x="330" y="130" font-size="14">❌</text>
+  <text x="30" y="245" font-size="11">余白が残る</text>
+  
+  <!-- 右側：gap + margin-top: auto -->
+  <rect x="380" y="50" width="300" height="360" fill="#e6ffe6" stroke="#00cc00" stroke-width="2"/>
+  <text x="390" y="70" font-size="12">gap: 2rem + margin-top: auto</text>
+  
+  <rect x="400" y="85" width="260" height="35" fill="#fff" stroke="#000"/>
+  <text x="490" y="107" font-size="11">メッセージ</text>
+  
+  <!-- gap（最低保証） -->
+  <rect x="400" y="125" width="260" height="20" fill="#ffcccc" stroke="#ff0000" stroke-dasharray="3,3"/>
+  <text x="460" y="138" font-size="9" fill="#ff0000">gap: 2rem（最低保証）</text>
+  
+  <!-- margin-top: auto が追加で余白を取る -->
+  <rect x="400" y="150" width="260" height="210" fill="#cceeff" stroke="#0066cc" stroke-dasharray="5,5"/>
+  <text x="430" y="180" font-size="10" fill="#0066cc">margin-top: auto</text>
+  <text x="430" y="195" font-size="10" fill="#0066cc">↓</text>
+  <text x="430" y="210" font-size="10" fill="#0066cc">「gap の 2rem に</text>
+  <text x="430" y="225" font-size="10" fill="#0066cc">プラスして、</text>
+  <text x="430" y="240" font-size="10" fill="#0066cc">残り全部ちょうだい」</text>
+  
+  <line x1="530" y1="260" x2="530" y2="355" stroke="#ff6600" stroke-width="3"/>
+  <polygon points="530,260 525,268 535,268" fill="#ff6600"/>
+  <polygon points="530,355 525,347 535,347" fill="#ff6600"/>
+  
+  <rect x="400" y="365" width="260" height="40" fill="#ffd700" stroke="#000"/>
+  <text x="490" y="390" font-size="11">🐱 猫（下ピッタリ）</text>
+  
+  <text x="690" y="230" font-size="14">✅</text>
+  
+  <!-- 下部説明 -->
+  <rect x="20" y="280" width="330" height="160" fill="#fff9e6" stroke="#ff9900" stroke-width="2"/>
+  <text x="30" y="305" font-size="14" font-weight="bold" fill="#ff6600">🎓 仕組み:</text>
+  
+  <text x="30" y="330" font-size="12">1. gap: 2rem</text>
+  <text x="40" y="350" font-size="11">→ flexアイテム間の最低隙間</text>
+  
+  <text x="30" y="375" font-size="12">2. margin-top: auto</text>
+  <text x="40" y="395" font-size="11">→ gap とは別に、</text>
+  <text x="40" y="410" font-size="11">   「残りの余白を全部くれ」</text>
+  
+  <text x="30" y="435" font-size="12" fill="#00cc00" font-weight="bold">結果: gap + auto余白</text>
+</svg>

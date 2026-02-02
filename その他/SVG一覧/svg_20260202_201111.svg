@@ -1,0 +1,40 @@
+﻿<svg width="600" height="350" xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="25" font-size="18" font-weight="bold">現在の状態（height: auto）</text>
+  
+  <!-- 親が縮んでいる -->
+  <rect x="20" y="40" width="560" height="140" fill="#ffe6e6" stroke="#ff0000" stroke-width="2"/>
+  <text x="30" y="60" font-size="12">.container-sec (height: auto) ← 子に合わせて縮む</text>
+  
+  <rect x="40" y="80" width="220" height="80" fill="#ccffff" stroke="#0000ff" stroke-width="2"/>
+  <text x="50" y="100" font-size="11">.left_container (height: 100%)</text>
+  <text x="50" y="115" font-size="10" fill="#ff0000">でも親が縮んでるので余白なし</text>
+  
+  <rect x="60" y="125" width="180" height="25" fill="#fff" stroke="#000"/>
+  <text x="100" y="142" font-size="10">メッセージ</text>
+  
+  <rect x="60" y="150" width="180" height="25" fill="#ffd700" stroke="#000"/>
+  <text x="110" y="167" font-size="10">🐱 すぐ下に</text>
+  
+  <text x="280" y="120" font-size="16">❌</text>
+  
+  <!-- 正しい状態 -->
+  <text x="10" y="220" font-size="18" font-weight="bold">正しい状態（高さ指定）</text>
+  
+  <rect x="20" y="235" width="560" height="180" fill="#e6ffe6" stroke="#00ff00" stroke-width="2"/>
+  <text x="30" y="255" font-size="12">.container-sec (height: 固定 or 十分な高さ)</text>
+  
+  <rect x="40" y="275" width="220" height="120" fill="#ccffff" stroke="#0000ff" stroke-width="2"/>
+  <text x="50" y="295" font-size="11">.left_container (height: 100%)</text>
+  <text x="50" y="310" font-size="10" fill="#00ff00">親の高さいっぱいに広がる</text>
+  
+  <rect x="60" y="320" width="180" height="25" fill="#fff" stroke="#000"/>
+  <text x="100" y="337" font-size="10">メッセージ</text>
+  
+  <line x1="150" y1="350" x2="150" y2="360" stroke="#ff6600" stroke-width="2" stroke-dasharray="3,3"/>
+  <text x="165" y="357" font-size="9" fill="#ff6600">auto</text>
+  
+  <rect x="60" y="365" width="180" height="25" fill="#ffd700" stroke="#000"/>
+  <text x="110" y="382" font-size="10">🐱 下に</text>
+  
+  <text x="280" y="340" font-size="16">✅</text>
+</svg>

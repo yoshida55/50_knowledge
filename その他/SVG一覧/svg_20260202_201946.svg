@@ -1,0 +1,40 @@
+﻿<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="25" font-size="18" font-weight="bold">align-items: center の効果</text>
+  
+  <!-- コンテナ -->
+  <rect x="50" y="50" width="250" height="300" fill="#e6f3ff" stroke="#0066cc" stroke-width="2"/>
+  <text x="60" y="70" font-size="12">.left_container (flex-direction: column)</text>
+  
+  <!-- 横方向の中央配置を示す -->
+  <line x1="175" y1="50" x2="175" y2="350" stroke="#ff6600" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="180" y="40" font-size="11" fill="#ff6600">↓中央線</text>
+  
+  <!-- メッセージ（中央） -->
+  <rect x="110" y="90" width="130" height="40" fill="#fff" stroke="#000"/>
+  <text x="135" y="115" font-size="11">メッセージ</text>
+  
+  <line x1="110" y1="110" x2="50" y2="110" stroke="#00cc00" stroke-width="2"/>
+  <line x1="240" y1="110" x2="300" y2="110" stroke="#00cc00" stroke-width="2"/>
+  <text x="20" y="115" font-size="10" fill="#00cc00">左右同じ</text>
+  
+  <!-- margin-top: auto -->
+  <line x1="175" y1="140" x2="175" y2="280" stroke="#cc00cc" stroke-width="3" stroke-dasharray="3,3"/>
+  <text x="190" y="210" font-size="11" fill="#cc00cc">margin-top: auto</text>
+  <text x="190" y="225" font-size="11" fill="#cc00cc">↓ 上下配置はコレ</text>
+  
+  <!-- 猫（中央＋下） -->
+  <rect x="110" y="290" width="130" height="50" fill="#ffd700" stroke="#000"/>
+  <text x="145" y="320" font-size="11">🐱 猫</text>
+  
+  <!-- 説明 -->
+  <text x="350" y="150" font-size="13" font-weight="bold">実際の役割:</text>
+  <text x="350" y="175" font-size="12">✅ height: 40rem</text>
+  <text x="360" y="195" font-size="11">→ 高さ確保</text>
+  
+  <text x="350" y="220" font-size="12">✅ margin-top: auto</text>
+  <text x="360" y="240" font-size="11">→ 上下配置</text>
+  
+  <text x="350" y="265" font-size="12">◯ align-items: center</text>
+  <text x="360" y="285" font-size="11">→ 左右配置</text>
+  <text x="360" y="300" font-size="10" fill="#666">(今回は関係なし)</text>
+</svg>

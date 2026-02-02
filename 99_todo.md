@@ -5,23 +5,14 @@
 
 ## 拡張機能
 
-▢　修正したファイルを置き換える。
 
-Chrome拡張:
+▢ Alt-Bで, SVGをブラウザで開く.AHK
+ALT+Bでブラウザ表示.ahk
 
-css-jumper/ を配置
-chrome://extensions → デベロッパーモード → フォルダ読み込み → ID取得
-setup.bat 実行 → ID入力
-Chrome再起動
-VS Code拡張:
-
-Ctrl+Shift+P → 「Install from VSIX」→ vsix選択
-設定 → cssToHtmlJumper.claudeApiKey にAPIキー入力
-リロード
+・保存パスを変える必要がある。
 
 
 
-▢　会社でコメント一覧がでないことをつたえて、確認する。
 
 ▢　キーフレームの仕組みについて聞く
 
@@ -148,7 +139,7 @@ width:8rem;
 
 
 ▢CSS　JUMP　インストール手順
-
+【初回】
 必要なもの
 css-jumper フォルダ一式
 
@@ -184,6 +175,24 @@ Alt+クリック → VS Codeで該当CSS行が開けばOK
 Native Messaging失敗	setup.bat再実行 → Chrome再起動
 VS Code開かない	start vscode://file/C:/test.txt:1 をコマンドプロンプトで確認
 拡張機能動かない	chrome://extensions で再読み込み + ページリロード
+
+
+【2回目以降】
+▢　修正したファイルを置き換える。
+
+Chrome拡張:
+
+css-jumper/ を配置
+chrome://extensions → デベロッパーモード → フォルダ読み込み → ID取得
+setup.bat 実行 → ID入力
+Chrome再起動
+VS Code拡張:
+
+◯別ツールも
+Ctrl+Shift+P → 「Install from VSIX」→ vsix選択
+設定 → cssToHtmlJumper.claudeApiKey にAPIキー入力
+リロード
+
 
 
 

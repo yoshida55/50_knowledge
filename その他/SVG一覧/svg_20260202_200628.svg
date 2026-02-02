@@ -1,0 +1,26 @@
+﻿<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 親コンテナ -->
+  <rect x="10" y="10" width="580" height="380" fill="#f0f0f0" stroke="#000" stroke-width="2"/>
+  <text x="20" y="35" font-size="16" font-weight="bold">親 .about_area (align-items: flex-end)</text>
+  
+  <!-- 左側コンテナ（今は下にいる） -->
+  <rect x="30" y="200" width="250" height="170" fill="#ffcccc" stroke="#ff0000" stroke-width="2"/>
+  <text x="40" y="220" font-size="14" font-weight="bold">.left_container</text>
+  <text x="40" y="240" font-size="12">↓ 親の指示で下にいる</text>
+  
+  <rect x="50" y="250" width="210" height="40" fill="#fff" stroke="#000"/>
+  <text x="60" y="275" font-size="12">メッセージ</text>
+  
+  <rect x="50" y="310" width="210" height="50" fill="#ffd700" stroke="#000"/>
+  <text x="100" y="340" font-size="12">🐱 猫画像</text>
+  
+  <!-- 右側コンテナ -->
+  <rect x="310" y="150" width="250" height="220" fill="#ccffcc" stroke="#00ff00" stroke-width="2"/>
+  <text x="320" y="170" font-size="14" font-weight="bold">.right_container</text>
+  
+  <rect x="330" y="180" width="210" height="80" fill="#ffd700" stroke="#000"/>
+  <text x="380" y="225" font-size="12">店内画像</text>
+  
+  <rect x="330" y="280" width="210" height="80" fill="#fff" stroke="#000"/>
+  <text x="380" y="325" font-size="12">説明文</text>
+</svg>

@@ -1,0 +1,38 @@
+﻿<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 親コンテナ -->
+  <rect x="10" y="10" width="580" height="380" fill="#f0f0f0" stroke="#000" stroke-width="2"/>
+  <text x="20" y="35" font-size="16" font-weight="bold">親 .about_area (align-items: flex-end)</text>
+  
+  <!-- 左側コンテナ（上に固定＋高さ100%） -->
+  <rect x="30" y="60" width="250" height="330" fill="#ccffff" stroke="#0000ff" stroke-width="3"/>
+  <text x="40" y="80" font-size="14" font-weight="bold">.left_container</text>
+  <text x="40" y="100" font-size="11" fill="#0000ff">align-self: flex-start ← 上固定</text>
+  <text x="40" y="115" font-size="11" fill="#0000ff">height: 100% ← 親と同じ高さ</text>
+  
+  <!-- メッセージ（上） -->
+  <rect x="50" y="130" width="210" height="40" fill="#fff" stroke="#000"/>
+  <text x="60" y="155" font-size="12">メッセージ（上）</text>
+  
+  <!-- 矢印（余白が自動で広がる） -->
+  <line x1="155" y1="180" x2="155" y2="300" stroke="#ff6600" stroke-width="3" stroke-dasharray="5,5"/>
+  <text x="170" y="240" font-size="11" fill="#ff6600">margin-top: auto</text>
+  <text x="170" y="255" font-size="11" fill="#ff6600">↓自動で最大に</text>
+  
+  <!-- 猫（下） -->
+  <rect x="50" y="310" width="210" height="70" fill="#ffd700" stroke="#000"/>
+  <text x="100" y="350" font-size="12">🐱 猫画像（下）</text>
+  
+  <!-- 右側コンテナ -->
+  <rect x="310" y="150" width="250" height="220" fill="#ccffcc" stroke="#00ff00" stroke-width="2"/>
+  <text x="320" y="170" font-size="14" font-weight="bold">.right_container</text>
+  
+  <rect x="330" y="180" width="210" height="80" fill="#ffd700" stroke="#000"/>
+  <text x="380" y="225" font-size="12">店内画像</text>
+  
+  <rect x="330" y="280" width="210" height="80" fill="#fff" stroke="#000"/>
+  <text x="380" y="325" font-size="12">説明文</text>
+  
+  <!-- 下揃えの線 -->
+  <line x1="30" y1="385" x2="560" y2="385" stroke="#ff0000" stroke-width="4"/>
+  <text x="250" y="405" font-size="12" fill="#ff0000" font-weight="bold">↑ ここで揃う</text>
+</svg>

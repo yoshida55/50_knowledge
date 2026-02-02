@@ -1,0 +1,50 @@
+﻿<svg width="700" height="450" xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="25" font-size="18" font-weight="bold">高さの違いで動きが変わる</text>
+  
+  <!-- パターンA: height: auto（狭い） -->
+  <rect x="20" y="50" width="300" height="180" fill="#ffe6e6" stroke="#ff0000" stroke-width="2"/>
+  <text x="30" y="70" font-size="12">親 (align-items: flex-end)</text>
+  
+  <rect x="40" y="135" width="120" height="80" fill="#ccffff" stroke="#0066cc" stroke-width="2"/>
+  <text x="50" y="155" font-size="10">left_container</text>
+  <text x="50" y="170" font-size="9">height: auto ← 狭い</text>
+  
+  <rect x="55" y="180" width="90" height="15" fill="#fff" stroke="#000"/>
+  <text x="65" y="190" font-size="8">メッセージ</text>
+  
+  <rect x="55" y="197" width="90" height="15" fill="#ffd700" stroke="#000"/>
+  <text x="75" y="207" font-size="8">🐱</text>
+  
+  <line x1="40" y1="220" x2="160" y2="220" stroke="#ff0000" stroke-width="2"/>
+  <text x="45" y="235" font-size="9" fill="#ff0000">↑下揃えされる</text>
+  
+  <text x="30" y="260" font-size="11" font-weight="bold">結果:</text>
+  <text x="30" y="280" font-size="10">✅ コンテナは下</text>
+  <text x="30" y="295" font-size="10">❌ でも中身は詰まる</text>
+  
+  <!-- パターンB: height: 100%（広い） -->
+  <rect x="370" y="50" width="300" height="350" fill="#e6ffe6" stroke="#00cc00" stroke-width="2"/>
+  <text x="380" y="70" font-size="12">親 (align-items: flex-end)</text>
+  
+  <rect x="390" y="90" width="120" height="300" fill="#ccffff" stroke="#0066cc" stroke-width="3"/>
+  <text x="400" y="110" font-size="10">left_container</text>
+  <text x="400" y="125" font-size="9">height: 100% ← 広い</text>
+  
+  <rect x="405" y="140" width="90" height="15" fill="#fff" stroke="#000"/>
+  <text x="415" y="150" font-size="8">メッセージ</text>
+  
+  <!-- margin-top: auto -->
+  <line x1="450" y1="160" x2="450" y2="355" stroke="#ff6600" stroke-width="2" stroke-dasharray="3,3"/>
+  <text x="460" y="250" font-size="9" fill="#ff6600">margin-top:</text>
+  <text x="460" y="263" font-size="9" fill="#ff6600">auto</text>
+  
+  <rect x="405" y="360" width="90" height="20" fill="#ffd700" stroke="#000"/>
+  <text x="435" y="373" font-size="8">🐱</text>
+  
+  <line x1="390" y1="395" x2="510" y2="395" stroke="#00cc00" stroke-width="2"/>
+  <text x="395" y="410" font-size="9" fill="#00cc00">↑下揃えされる</text>
+  
+  <text x="380" y="435" font-size="11" font-weight="bold">結果:</text>
+  <text x="380" y="455" font-size="10">✅ コンテナは下</text>
+  <text x="380" y="470" font-size="10">✅ 猫も下に！</text>
+</svg>

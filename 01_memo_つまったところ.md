@@ -2442,3 +2442,48 @@ padding	・・・画像に隙間	  均等な隙間
 
 ## <section class="about_area container_section">
 基本のサイズ幅を設定していく　container_section⇀ここにはマージン等を設定。
+
+
+
+##  Flex 2階層(階段式)で下揃えするテクニック
+
+Flexで、二段階でflex横並びにしてflex-endをすると両要素が下揃えになる。しかし片側の子要素をheightが100%場合、実際下揃えにならない「上に子要素が吸い付く。
+その場合は孫要素にmargin-top: autoをつけることによって解決する。
+
+![](images/2026-02-02-20-44-17.png) 
+
+![](images/2026-02-02-20-40-39.png)
+
+📝 簡潔メモ
+🎯 今回の学び：2階層レイアウト
+階層構造
+
+
+親 (.about_area) 
+├─ 左子 (.left_container)
+│  ├─ メッセージ
+│  └─ 猫
+└─ 右子 (.right_container)
+   ├─ 店内画像
+   └─ 説明文
+コード
+
+```css
+/* 親: 左右を下揃え */
+.about_area {
+  display: flex;
+  align-items: flex-end; /* 左右コンテナを下揃え */
+}
+
+/* 子: 高さ確保 */
+.left_container {
+  height: 100%;          /* 親の高さいっぱい */
+  display: flex;
+  flex-direction: column;　★この設定だと左側だけ上に要素があつまる。
+}
+
+/* 孫: 下に押す */
+.left_cat_img {
+  margin-top: auto;      /* 上の余白を最大に */
+}
+```
