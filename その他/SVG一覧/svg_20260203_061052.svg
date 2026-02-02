@@ -1,0 +1,105 @@
+﻿<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- タイトル -->
+  <text x="600" y="30" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">Flex 2階層(階段式)下揃えテクニック</text>
+  
+  <!-- 問題のあるパターン -->
+  <g id="problem">
+    <text x="300" y="70" font-size="18" font-weight="bold" text-anchor="middle" fill="#d9534f">❌ 問題: 上に吸い付く</text>
+    
+    <!-- 親コンテナ -->
+    <rect x="50" y="90" width="500" height="300" fill="#e3f2fd" stroke="#1976d2" stroke-width="3"/>
+    <text x="60" y="110" font-size="14" fill="#1976d2">親(display: flex, align-items: flex-end)</text>
+    
+    <!-- 左の子要素 -->
+    <rect x="70" y="250" width="200" height="120" fill="#fff9c4" stroke="#f57c00" stroke-width="2"/>
+    <text x="170" y="270" font-size="12" text-anchor="middle" fill="#f57c00">左の子要素</text>
+    <text x="170" y="285" font-size="11" text-anchor="middle" fill="#666">(height: auto)</text>
+    
+    <!-- 右の子要素 -->
+    <rect x="300" y="130" width="220" height="240" fill="#ffccbc" stroke="#d84315" stroke-width="2"/>
+    <text x="410" y="150" font-size="12" text-anchor="middle" fill="#d84315">右の子要素</text>
+    <text x="410" y="165" font-size="11" text-anchor="middle" fill="#666">(height: 100%)</text>
+    <text x="410" y="180" font-size="11" text-anchor="middle" fill="#666">display: flex</text>
+    
+    <!-- 孫要素(上に吸い付く) -->
+    <rect x="320" y="150" width="180" height="60" fill="#ef5350" stroke="#b71c1c" stroke-width="2"/>
+    <text x="410" y="175" font-size="12" text-anchor="middle" fill="#fff">孫要素</text>
+    <text x="410" y="190" font-size="10" text-anchor="middle" fill="#fff">(上に吸い付く)</text>
+    
+    <!-- 矢印で問題を指摘 -->
+    <path d="M 520 160 L 560 160" stroke="#d9534f" stroke-width="2" marker-end="url(#arrowred)"/>
+    <text x="570" y="165" font-size="12" fill="#d9534f">justify-content: flex-start</text>
+    <text x="570" y="180" font-size="12" fill="#d9534f">(デフォルト)で上に配置</text>
+  </g>
+  
+  <!-- 解決パターン -->
+  <g id="solution">
+    <text x="900" y="70" font-size="18" font-weight="bold" text-anchor="middle" fill="#5cb85c">✅ 解決: margin-top: auto</text>
+    
+    <!-- 親コンテナ -->
+    <rect x="650" y="90" width="500" height="300" fill="#e3f2fd" stroke="#1976d2" stroke-width="3"/>
+    <text x="660" y="110" font-size="14" fill="#1976d2">親(display: flex, align-items: flex-end)</text>
+    
+    <!-- 左の子要素 -->
+    <rect x="670" y="250" width="200" height="120" fill="#fff9c4" stroke="#f57c00" stroke-width="2"/>
+    <text x="770" y="270" font-size="12" text-anchor="middle" fill="#f57c00">左の子要素</text>
+    <text x="770" y="285" font-size="11" text-anchor="middle" fill="#666">(height: auto)</text>
+    
+    <!-- 右の子要素 -->
+    <rect x="900" y="130" width="220" height="240" fill="#c8e6c9" stroke="#388e3c" stroke-width="2"/>
+    <text x="1010" y="150" font-size="12" text-anchor="middle" fill="#388e3c">右の子要素</text>
+    <text x="1010" y="165" font-size="11" text-anchor="middle" fill="#666">(height: 100%)</text>
+    <text x="1010" y="180" font-size="11" text-anchor="middle" fill="#666">display: flex</text>
+    
+    <!-- 孫要素(下揃え成功) -->
+    <rect x="920" y="290" width="180" height="60" fill="#66bb6a" stroke="#2e7d32" stroke-width="2"/>
+    <text x="1010" y="315" font-size="12" text-anchor="middle" fill="#fff">孫要素</text>
+    <text x="1010" y="330" font-size="10" text-anchor="middle" fill="#fff">margin-top: auto</text>
+    
+    <!-- 矢印で解決策を指摘 -->
+    <path d="M 1010 270 L 1010 290" stroke="#5cb85c" stroke-width="3" marker-end="url(#arrowgreen)"/>
+    <text x="1030" y="280" font-size="12" fill="#5cb85c" font-weight="bold">auto</text>
+  </g>
+  
+  <!-- 下部説明 -->
+  <g id="explanation">
+    <rect x="50" y="420" width="1100" height="350" fill="#f5f5f5" stroke="#999" stroke-width="2" rx="5"/>
+    
+    <text x="600" y="450" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">仕組みの説明</text>
+    
+    <!-- ステップ1 -->
+    <circle cx="100" cy="490" r="20" fill="#1976d2"/>
+    <text x="100" y="497" font-size="16" font-weight="bold" text-anchor="middle" fill="#fff">1</text>
+    <text x="140" y="495" font-size="14" fill="#333">親要素で <tspan font-weight="bold" fill="#1976d2">align-items: flex-end</tspan> → 左右の子要素が下揃えに</text>
+    
+    <!-- ステップ2 -->
+    <circle cx="100" cy="540" r="20" fill="#d84315"/>
+    <text x="100" y="547" font-size="16" font-weight="bold" text-anchor="middle" fill="#fff">2</text>
+    <text x="140" y="545" font-size="14" fill="#333">右の子要素に <tspan font-weight="bold" fill="#d84315">height: 100%</tspan> → 左右の高さを揃える(高い方に合わせる)</text>
+    
+    <!-- ステップ3 問題 -->
+    <circle cx="100" cy="590" r="20" fill="#d9534f"/>
+    <text x="100" y="597" font-size="16" font-weight="bold" text-anchor="middle" fill="#fff">3</text>
+    <text x="140" y="595" font-size="14" fill="#333"><tspan font-weight="bold" fill="#d9534f">問題:</tspan> 右の子要素が縦Flexになると、孫要素は <tspan fill="#d9534f">justify-content: flex-start(デフォルト)</tspan> で上に配置</text>
+    
+    <!-- ステップ4 解決 -->
+    <circle cx="100" cy="640" r="20" fill="#5cb85c"/>
+    <text x="100" y="647" font-size="16" font-weight="bold" text-anchor="middle" fill="#fff">4</text>
+    <text x="140" y="645" font-size="14" fill="#333"><tspan font-weight="bold" fill="#5cb85c">解決:</tspan> 孫要素に <tspan font-weight="bold" fill="#5cb85c">margin-top: auto</tspan> → 上のマージンが自動で最大化され下に配置</text>
+    
+    <!-- キーポイント -->
+    <rect x="100" y="680" width="1000" height="70" fill="#fff3cd" stroke="#ffc107" stroke-width="2" rx="3"/>
+    <text x="600" y="705" font-size="15" font-weight="bold" text-anchor="middle" fill="#856404">💡 ポイント</text>
+    <text x="600" y="730" font-size="13" text-anchor="middle" fill="#856404">Flexコンテナ内の要素に margin: auto を使うと、その方向の余白を全て取る性質を利用</text>
+  </g>
+  
+  <!-- ��印マーカー定義 -->
+  <defs>
+    <marker id="arrowred" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#d9534f"/>
+    </marker>
+    <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="3" refY="0" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,0 L3,9 z" fill="#5cb85c"/>
+    </marker>
+  </defs>
+</svg>
