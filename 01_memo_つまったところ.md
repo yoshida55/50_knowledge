@@ -2495,3 +2495,88 @@ Flexで、二段階でflex横並びにしてflex-endをすると両要素が下�
 }
 ```
 
+
+## アニメーションの付け方　後ろに吸い込まれるような
+
+`親要素、
+
+```css
+/* └ 左がメッセージと猫画像列 【縦flex】 */
+.left_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;　★これをつけることによって、最初画像が大きくなりすぎない`
+}
+
+/* 左下の猫 */
+.left_cat_img {
+  margin-top: auto;
+}
+/* 左下の猫 */
+.left_cat_img.animate {
+  /* forwardsは一回だけinfiniteだと何度も繰り返す */
+  animation: slideshow 3s forwards; /*★これで３秒のスライドショーが粉われる　★forwardsは一回限り */
+  width: 100%;
+  height: auto;
+}
+
+
+★ここで時間ごとの表示の設定　３秒でどう動かくか。
+@keyframes slideshow {
+  0% {
+    opacity: 1;
+    transform: scale(1.1); /* 最初は少し大きく */
+  }
+  5% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.05); /* 少し縮小 */
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+```
+
+```javascript
+
+window.addEventListener("scroll", function () {
+  // スクロールがstore_img要素に到達したか確認
+
+  // store_img要素を取得
+  const storeImg = document.querySelector(".store_img");
+  const manekiNekoImg = document.querySelector(".left_cat_img");
+
+  // 要素の位置を取得(Bounding・・・境界　RectはRectangle・・・座標・大きさ)
+  const rect = storeImg.getBoundingClientRect();
+  // 要素の位置を取得(招き猫)
+  const rectManekiNeko = manekiNekoImg.getBoundingClientRect();
+
+  // ウィンドウ（表示領域）の高さを取得
+  const windowHeight = window.innerHeight;
+
+  // 要素の上端がウィンドウの下端に到達したか確認
+  if (rect.top <= windowHeight) {
+    // アニメーションを開始
+    storeImg.classList.add("animate");
+  }
+
+  // 要素の上端がウィンドウの下端に到達したか確認(招き猫)
+  if (rectManekiNeko.top <= windowHeight) {
+    // アニメーションを開始
+    manekiNekoImg.classList.add("animate"); ★ここでクラスをつける
+  }
+});
+
+```
+
+
+## 要素の中の文字の高さを調整する
+
+```css
+  line-height: 2rem;
+```

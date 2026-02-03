@@ -17,17 +17,6 @@ ALT+Bでブラウザ表示.ahk
 ▢　キーフレームの仕組みについて聞く
 
 
-▢ node.js
-### 手順
-1. PowerShellを開く
-2. 以下を実行:
-```powershell
-irm https://claude.ai/install.ps1 | iex
-```
-3. インストール先: `~/.claude/bin/claude`
-4. 初回起動時に認証（以下のどちらか）:
-   - **Claude Maxサブスクリプション**（月額 $100 or $200）→ OAuth認証でログインするだけ
-
 
 
 
