@@ -2595,3 +2595,19 @@ window.addEventListener("scroll", function () {
 
 
 ## 画像がない場合は、WEBをひらいて、「新しいtabで画像を開く」でやるとURLでわかる。「https://omodakaya.jp/wp/wp-content/uploads/2026/02/%E3%81%82_%E8%83%8C%E6%99%AF%E3%81%AA%E3%81%97.png」このように　wp-contentなどあればワードプレスの画像
+
+
+## 縦線を書きたい時、かつボックスのサイズなどとちがってボーダーライトでかけないとき。疑似要素で表示する　aaaa::after 
+
+```css
+.weekly_product::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%; ★　開始位置をずらすことによって中央によせる
+  transform: translateY(-50%);
+  height: 80%;
+  width: 0.1rem;
+  background-color: rgb(231, 225, 225);
+}
+```
