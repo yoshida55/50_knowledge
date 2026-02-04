@@ -2636,4 +2636,9 @@ width: fit-content;
 
 ![](images/2026-02-04-14-00-48.png)
 
+## flexの子要素を箱一杯に縦にひろげる
+align-items: stretch;
+
+![](images/2026-02-04-22-00-25.png)
+
 
