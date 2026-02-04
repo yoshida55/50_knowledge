@@ -2611,3 +2611,29 @@ window.addEventListener("scroll", function () {
   background-color: rgb(231, 225, 225);
 }
 ```
+
+## 幅がひろいwidthを文字は文字幅にあわせる
+width: fit-content;
+
+
+## display:inline_flexと　display:blockの違い。
+・display:blockにすると改行がはいってしまい。
+下に並ぶ
+
+・inline-flexをすると横にならぶ
+
+・さらにflexの役割もあるのでgapなで並べるとよい。
+![](images/2026-02-04-13-39-55.png)
+
+
+
+
+##　flexboxとabsoluteの使い分け
+・親に overflow: hidden あり	flexbox ✅
+（要素を飛び出す場合があるから、flexboxなら飛び出してよい）
+・要素を自由に重ねたい	absolute ✅
+モーダル・ツールチップ	absolute ✅
+
+![](images/2026-02-04-14-00-48.png)
+
+
