@@ -2340,6 +2340,8 @@ padding	・・・画像に隙間	  均等な隙間
 ⇀メディアクエリ
 ⇀コンテンツ幅
 ⇀セクションの余白
+⇀共通の項目
+⇀印刷してflexや、abosoluteの構造「勉強中」
 
 などを特定する
 
@@ -2528,12 +2530,38 @@ window.addEventListener("scroll", function () {
 ## 幅がひろいwidthを文字は文字幅にあわせる
 width: fit-content;
 
+![](images/2026-02-06-03-14-54.png)
 
 ## display:inline_flexと　display:blockの違い。
 ・display:blockにすると改行がはいってしまい。
 下に並ぶ
 
 ・inline-flexをすると横にならぶ
+# 具体例
+
+## display: block の場合
+<div style="display:block">ボタン1</div>
+<div style="display:block">ボタン2</div>
+<div style="display:block">ボタン3</div>
+**結果：**
+ボタン1
+ボタン2
+ボタン3
+縦に並ぶ
+
+---
+
+## display: inline-flex の場合
+<div style="display:inline-flex; gap:10px">
+  <div>ボタン1</div>
+  <div>ボタン2</div>
+  <div>ボタン3</div>
+</div>
+**結果：**
+ボタン1  ボタン2  ボタン3
+横に並び、gap で間隔調整可能
+
+
 
 ・さらにflexの役割もあるのでgapなで並べるとよい。
 ![](images/2026-02-04-13-39-55.png)
@@ -2549,16 +2577,105 @@ width: fit-content;
 
 ![](images/2026-02-04-14-00-48.png)
 
-## flexの子要素を箱一杯に縦にひろげる
+★　absolute/fixed:** 親要素からはみ出した部分が`切り取られて見えなくなります`
+`
+- **flexbox:** 通常のレイアウトなので、はみ出した部分も表示されます（意図通りに配置可能）
+
+**具体例：**
+.parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.child-absolute {
+  position: absolute;
+  top: -50px; /* 親の外に出る → 見えない ❌ */
+}
+
+
+
+
+## このCSSコードは、**Flexboxコンテナの子要素を縦方向（交差軸方向）に引き伸ばして、コンテナの高さいっぱいに広げる**設定です。
+
 align-items: stretch;
 
+.container {
+  display: flex;
+  height: 200px;
+  align-items: stretch; /* 子要素が200pxの高さになる */
+}
+
 ![](images/2026-02-04-22-00-25.png)
+
 
 
 
 ## 要素のなかの矢印などを縦中央、横中央にもってくる　子要素がなくても大丈夫。
 <!-- インラインが子要素となる。 -->
 
+![](images/2026-02-06-03-03-03.png)
+
+```html
+<div class="news_link_container">
+  <a href="#" class="news_link_msg">もっと見る</a>
+  <a href="#" class="news_link">→</a>
+</div>
+```
+
+```css
+.news_link {
+  display: block;
+  height: 1.5rem;
+  width: 3.5rem;
+
+  color: white;
+  background-color: rgb(60, 40, 189);
+  border-radius: 2rem;
+
+  ★以下の３行★   子要素「⇀」の位置を変える。
   display: flex;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
+}
+```
+
+
+
+## フレックスの子要素は画像などのもとサイズより小さくならない。例えば画像など大きいサイズをうめるときに、想定した配置にならないときは、
+.a{
+display flex
+}
+
+.b{
+flex:2;
+min-width: 0;　をつける
+}
+
+以下。「地図画像」が画面の幅よりおおきいとき！
+![](images/2026-02-06-02-59-04.png)
+
+
+
+## インライン要素をインライン要素やテーブルセルの垂直方向の配置を指定するCSSプロパティ
+
+ <a href="#" class="google_link">Google Maps<img class="icon_newtab" src="img/icon_newtab.svg" alt="" /></a>
+
+```css
+.icon_newtab {
+  display: inline-block;
+  vertical-align: -0.2rem; ★　これでインライン要素の「縦」位置をかえれる
+  margin-left: 0.5rem;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+```
+
+
+## 特定のセクションの下に同じ位置に配置したい場合は、新たにセクションの下にdivをつけることも考える。
+    <section>
+    </section>
+
+    <!-- ２段目【flex 2列: 店舗情報の枠確有り/枠のみ　アクセス情報のみ】 -->
+    <div class="access_container">
+
+![](images/2026-02-06-02-56-45.png)
