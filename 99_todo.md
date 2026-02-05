@@ -14,7 +14,7 @@ ALT+Bでブラウザ表示.ahk
 
 
 ▢　会社のソースだと、CTRL　SHIFT　L　がきかない
-
+ソースをもってくる
 
 
 
@@ -24,15 +24,8 @@ ALT+Bでブラウザ表示.ahk
 
 
 
-▢　精度の高いインラインがほしい。
 
-【機能追加】
-・CTRL　SHIft　iでインタイン系質問
-・赤枠追加　コマンドパレットから「赤枠削除」
-・CSSホバーで両方ひかる
-・cssToHtmlJumper　⇀入力　
 
-・apiかなんかで設定
 
 ##　長期的
 
@@ -189,6 +182,14 @@ Ctrl+Shift+P → 「Install from VSIX」→ vsix選択
 
 
 
+▢　新規機能　HTMLからCSSでjuｍｐ
+メモ
+
+【機能追加】
+・CTRL　SHIft　iでインタイン系質問
+・赤枠追加　コマンドパレットから「赤枠削除」
+・CSSホバーで両方ひかる
+・cssToHtmlJumper　⇀入力　
 
 
 
