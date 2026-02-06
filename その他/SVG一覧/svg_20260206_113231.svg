@@ -1,0 +1,80 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="sans-serif">
+  
+  <!-- タイトル -->
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold">flexレイアウト：列まとめ vs 行ペア</text>
+
+  <!-- ===== 左: ❌ 間違い ===== -->
+  <text x="190" y="65" text-anchor="middle" font-size="16" fill="red" font-weight="bold">❌ 列ごとにまとめる（ズレる）</text>
+  
+  <!-- ラベル列 -->
+  <rect x="30" y="80" width="150" height="40" fill="#fdd" stroke="red" rx="4"/>
+  <text x="105" y="105" text-anchor="middle" font-size="12">電車でお越しの方</text>
+  
+  <rect x="30" y="130" width="150" height="40" fill="#fdd" stroke="red" rx="4"/>
+  <text x="105" y="155" text-anchor="middle" font-size="12">車でお越しの方</text>
+  
+  <rect x="30" y="180" width="150" height="40" fill="#fdd" stroke="red" rx="4"/>
+  <text x="105" y="205" text-anchor="middle" font-size="12">駐車場のご案内</text>
+
+  <!-- 詳細列 -->
+  <rect x="190" y="80" width="190" height="40" fill="#fdd" stroke="red" rx="4"/>
+  <text x="285" y="105" text-anchor="middle" font-size="11">徒歩10分</text>
+  
+  <!-- 2行分の高さ！ -->
+  <rect x="190" y="130" width="190" height="70" fill="#fcc" stroke="red" stroke-width="2" rx="4"/>
+  <text x="285" y="155" text-anchor="middle" font-size="11">名古屋ICから30分</text>
+  <text x="285" y="175" text-anchor="middle" font-size="11">赤津ICから5分</text>
+  <text x="285" y="195" text-anchor="middle" font-size="9" fill="red">↑ 2行で高さ大きい！</text>
+
+  <rect x="190" y="210" width="190" height="40" fill="#fdd" stroke="red" rx="4"/>
+  <text x="285" y="235" text-anchor="middle" font-size="11">STUDIO 894...</text>
+
+  <!-- ズレ矢印 -->
+  <line x1="182" y1="200" x2="182" y2="230" stroke="red" stroke-width="2" stroke-dasharray="4"/>
+  <text x="175" y="260" text-anchor="end" font-size="12" fill="red" font-weight="bold">↕ ズレる！</text>
+
+  <!-- 列ラベル -->
+  <text x="105" y="290" text-anchor="middle" font-size="11" fill="#888">labels列</text>
+  <text x="285" y="290" text-anchor="middle" font-size="11" fill="#888">details列</text>
+
+  <!-- ===== 右: ✅ 正解 ===== -->
+  <text x="600" y="65" text-anchor="middle" font-size="16" fill="green" font-weight="bold">✅ 行ごとにペアにする（ズレない）</text>
+
+  <!-- row 1 -->
+  <rect x="430" y="80" width="340" height="40" fill="#efe" stroke="green" rx="4" stroke-dasharray="4"/>
+  <rect x="435" y="85" width="120" height="30" fill="#dfd" stroke="green" rx="4"/>
+  <text x="495" y="105" text-anchor="middle" font-size="12">電車でお越しの方</text>
+  <rect x="560" y="85" width="200" height="30" fill="#dfd" stroke="green" rx="4"/>
+  <text x="660" y="105" text-anchor="middle" font-size="11">徒歩10分</text>
+  <text x="420" y="105" text-anchor="middle" font-size="11" fill="green">row1</text>
+
+  <!-- row 2（高さ自動調整） -->
+  <rect x="430" y="130" width="340" height="60" fill="#efe" stroke="green" rx="4" stroke-dasharray="4"/>
+  <rect x="435" y="135" width="120" height="50" fill="#dfd" stroke="green" rx="4"/>
+  <text x="495" y="165" text-anchor="middle" font-size="12">車でお越しの方</text>
+  <rect x="560" y="135" width="200" height="50" fill="#dfd" stroke="green" rx="4"/>
+  <text x="660" y="155" text-anchor="middle" font-size="11">名古屋ICから30分</text>
+  <text x="660" y="175" text-anchor="middle" font-size="11">赤津ICから5分</text>
+  <text x="420" y="165" text-anchor="middle" font-size="11" fill="green">row2</text>
+
+  <!-- row 3（ちゃんと揃う！） -->
+  <rect x="430" y="200" width="340" height="40" fill="#efe" stroke="green" rx="4" stroke-dasharray="4"/>
+  <rect x="435" y="205" width="120" height="30" fill="#dfd" stroke="green" rx="4"/>
+  <text x="495" y="225" text-anchor="middle" font-size="12">駐車場のご案内</text>
+  <rect x="560" y="205" width="200" height="30" fill="#dfd" stroke="green" rx="4"/>
+  <text x="660" y="225" text-anchor="middle" font-size="11">STUDIO 894...</text>
+  <text x="420" y="225" text-anchor="middle" font-size="11" fill="green">row3</text>
+
+  <!-- 揃ってるマーク -->
+  <text x="600" y="270" text-anchor="middle" font-size="12" fill="green" font-weight="bold">✅ row2が大きくてもrow3はズレない！</text>
+
+  <!-- CSS説明 -->
+  <rect x="30" y="320" width="740" height="160" fill="#f8f8f8" stroke="#ccc" rx="8"/>
+  <text x="50" y="345" font-size="14" font-weight="bold">CSS:</text>
+  <text x="50" y="375" font-size="13" font-family="monospace">.container { display: flex; flex-direction: column; }</text>
+  <text x="50" y="400" font-size="13" font-family="monospace">.row       { display: flex; align-items: flex-start; }</text>
+  <text x="50" y="425" font-size="13" font-family="monospace">.label     { width: 15rem; }    <tspan fill="green">/* 固定幅 */</tspan></text>
+  <text x="50" y="450" font-size="13" font-family="monospace">.detail    { flex: 1; }         <tspan fill="green">/* 残り全部 */</tspan></text>
+  <text x="50" y="475" font-size="13" font-family="monospace">                                <tspan fill="green">/* 合計は何でもOK */</tspan></text>
+
+</svg>

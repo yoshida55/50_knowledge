@@ -2679,3 +2679,70 @@ min-width: 0;　をつける
     <div class="access_container">
 
 ![](images/2026-02-06-02-56-45.png)
+
+
+## フレックスの片方の幅が固定で、残りを幅をすべて等び省略した場合は以下のようにする。
+widthとflexを利用する。
+
+.access_by {
+  width: 15rem;
+  font-size: 1.4rem;
+  margin-bottom: 3rem;
+}
+
+.access_by_detail {
+  flex: 1;
+  font-size: 1.4rem;
+  margin-bottom: 3rem;
+}
+
+
+📋 今回の学び
+❌ 間違い（列ごとにまとめる）
+
+![](images/2026-02-06-11-33-26.png)
+
+<div class="container">
+  <div class="labels">        <!-- ラベル列 -->
+    <p>電車でお越しの方</p>
+    <p>車でお越しの方</p>
+    <p>駐車場のご案内</p>
+  </div>
+  <div class="details">       <!-- 詳細列 -->
+    <p>徒歩10分</p>
+    <p>名古屋ICから30分<br>赤津ICから5分</p>  ← 2行で高さズレる
+    <p>STUDIO 894...</p>
+  </div>
+</div>
+➡ 2行目の高さが変わると3行目がズレる
+
+## （行ごとにペアにする）
+
+<div class="container">
+  <div class="row">
+    <p class="label">電車でお越しの方</p>
+    <p class="detail">徒歩10分</p>
+  </div>
+  <div class="row">
+    <p class="label">車でお越しの方</p>
+    <p class="detail">名古屋ICから30分<br>赤津ICから5分</p>
+  </div>
+  <div class="row">
+    <p class="label">駐車場のご案内</p>
+    <p class="detail">STUDIO 894...</p>
+  </div>
+</div>
+
+.container { display: flex; flex-direction: column; }
+.row       { display: flex; align-items: flex-start; }
+.label     { width: 15rem; }    /* 固定幅 */
+.detail    { flex: 1; }         /* 残り全部 */
+💡 ポイント3つ
+#	内容
+1	ラベルと詳細は同じ行（row）にペアで入れる
+2	ラベルは width: 固定値 で揃える
+3	詳細は flex: 1 で残りスペースを自動で使う」
+
+
+## 横スクロールアニメーション（無限ループ）
+

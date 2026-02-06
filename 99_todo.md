@@ -21,6 +21,82 @@ ALT+Bでブラウザ表示.ahk
 ▢　キーフレームの仕組みについて聞く
 
 
+##  家にかってから、
+インライン修正で、HTMLの構造を改善という項目を作成して、全HTMLファイルをわたして
+セマンティックな構造になっているかを修正していもらう。
+
+いまは、選択した範囲でしかアドバイスをよこさない。
+
+ベストプラクティスがほしい。　構造をかえてもいいので。
+
+・または選択した範囲をみてもらう。
+→しかし全体のソースもわたして、わたした上でセマンティックな構造にしてほしいという
+
+例)
+
+以下のようなHTMLがあった場合
+```html
+
+
+    <div class="access_container">
+      <!-- └ 店舗情報文のスペース -->
+      <div class="access_space"></div>
+      <!-- └ アクセス情報コンテナ【flex column 3行】 -->
+      <div class="access_list">
+        <ul class="access-train">
+          <li class="access_by">電車でお越しの方</li>
+          <li class="access_by">車でお越しの方</li>
+        </ul>
+        <ul class="access-car"></ul>
+        <ul class="access-parking"></ul>
+      </div>
+      <!-- └ アクセス情報の実際の経路「～徒歩８分」など -->
+      <div class="access_detail">
+        <ul>
+          <li class="access_by_detail">名鉄瀬戸線「尾張瀬戸駅」より徒歩10分 名鉄バス「中水野」バス停より徒歩3分</li>
+          <li class="access_by_detail">東名高速道路「名古屋インター」から約30分</li>
+        </ul>
+      </div>
+```
+
+改善してというと。 liは、箇条書きがあるので、～noneで対応してください。と小手先の
+修正をしてしまう。　できるだけソースを尊重しているともうが。
+
+以下のようにしてほしい
+
+```html
+
+    <!-- ２段目【flex 2列: 店舗情報の枠確有り/枠のみ　アクセス情報のみ】 -->
+    <div class="access_container">
+      <!-- └ 店舗情報文のスペース -->
+      <div class="access_space"></div>
+      <!-- └ アクセス情報コンテナ【flex column 3行】 -->
+      <div class="access_list">
+        <ul class="access-train">
+          <li class="access_by">電車でお越しの方</li>
+          <li class="access_by">車でお越しの方</li>
+        </ul>
+        <ul class="access-car"></ul>
+        <ul class="access-parking"></ul>
+      </div>
+      <!-- └ アクセス情報の実際の経路「～徒歩８分」など -->
+      <div class="access_detail">
+        <div>
+          <div class="access_by_detail">名鉄瀬戸線「尾張瀬戸駅」より徒歩10分 名鉄バス「中水野」バス停より徒歩3分</div>
+          <div class="access_by_detail">東名高速道路「名古屋インター」から約30分</div>
+        </div>
+      </div>
+    </div>
+```
+もう、以下はリストにする必要がないので（詳細情報）など、divタグなどにしてほしいと回答がほしい。その場合CSSも必要かな？　毎回これだと大変だから新しい、定型の質問事項があったほうがいいかな？　できるかな？
+      <div class="access_detail">
+        <div>
+          <div class="access_by_detail">名鉄瀬戸線「尾張瀬戸駅」より徒歩10分 名鉄バス「中水野」バス停より徒歩3分</div>
+          <div class="access_by_detail">東名高速道路「名古屋インター」から約30分</div>
+        </div>
+      </div>
+
+
 
 
 
