@@ -1,0 +1,224 @@
+{
+  "flexboxとabsoluteの使い分け": {
+    "title": "flexboxとabsoluteの使い分け",
+    "line": 2627,
+    "lastReviewed": 1770399408882,
+    "reviewCount": 1
+  },
+  "インライン要素をインライン要素やテーブルセルの垂直方向の配置を指定するCSSプロパティ": {
+    "title": "インライン要素をインライン要素やテーブルセルの垂直方向の配置を指定するCSSプロパティ",
+    "line": 2714,
+    "lastReviewed": 1770399714193,
+    "reviewCount": 1
+  },
+  "■ 覚えておくこと": {
+    "title": "■ 覚えておくこと",
+    "line": 858,
+    "lastReviewed": 1770399781746,
+    "reviewCount": 1
+  },
+  "🏗 HTML タグの設計図（使い分け）まとめ": {
+    "title": "🏗 HTML タグの設計図（使い分け）まとめ",
+    "line": 295,
+    "lastReviewed": 1770399985475,
+    "reviewCount": 1
+  },
+  "パララックス効果（視差効果）を実装する際に、背景画像をわざと大きく表示（ズームアップ）させている設定です。": {
+    "title": "パララックス効果（視差効果）を実装する際に、背景画像をわざと大きく表示（ズームアップ）させている設定です。",
+    "line": 1069,
+    "lastReviewed": 1770400039879,
+    "reviewCount": 1
+  },
+  "javascriptスクロールをしても、文字が表示されない。": {
+    "title": "javascriptスクロールをしても、文字が表示されない。",
+    "line": 1799,
+    "lastReviewed": 1770400523909,
+    "reviewCount": 1
+  },
+  "可変REMをつかうなら": {
+    "title": "可変REMをつかうなら",
+    "line": 2318,
+    "lastReviewed": 1770401225303,
+    "reviewCount": 1
+  },
+  "Flex 2階層(階段式)で下揃えするテクニック。かつ、左右の高さをかえる。": {
+    "title": "Flex 2階層(階段式)で下揃えするテクニック。かつ、左右の高さをかえる。",
+    "line": 2418,
+    "lastReviewed": 1770401286911,
+    "reviewCount": 1
+  },
+  "すでにあるものを移動する": {
+    "title": "すでにあるものを移動する",
+    "line": 1229,
+    "lastReviewed": 1770401664079,
+    "reviewCount": 1
+  },
+  "テキストなどの幅をサイズに丁度にボックスを調整する": {
+    "title": "テキストなどの幅をサイズに丁度にボックスを調整する",
+    "line": 1052,
+    "lastReviewed": 1770401961336,
+    "reviewCount": 1
+  },
+  "▢ 　以下のようにして　左右に画像と、その中にテキストを浮かびあがらせるこができる": {
+    "title": "▢ 　以下のようにして　左右に画像と、その中にテキストを浮かびあがらせるこができる",
+    "line": 589,
+    "lastReviewed": 1770402068016,
+    "reviewCount": 1
+  },
+  "grid（flexも同様）でレイアウトすると、３列などサイズがきまっている。その場合、画像で固定サイズ指定する（固い箱のようなもの,rem通りにうまく動作しない）と、３列の幅いにあわずくずれることがある。そのため画像は％で指定するとよい。％なら、問題なく動作する。": {
+    "title": "grid（flexも同様）でレイアウトすると、３列などサイズがきまっている。その場合、画像で固定サイズ指定する（固い箱のようなもの,rem通りにうまく動作しない）と、３列の幅いにあわずくずれることがある。そのため画像は％で指定するとよい。％なら、問題なく動作する。",
+    "line": 2294,
+    "lastReviewed": 1770402238915,
+    "reviewCount": 1
+  },
+  "具体例": {
+    "title": "具体例",
+    "line": 1783,
+    "lastReviewed": 1770402468779,
+    "reviewCount": 1
+  },
+  "仕組み": {
+    "title": "仕組み",
+    "line": 1772,
+    "lastReviewed": 1770402700104,
+    "reviewCount": 1
+  },
+  "パララックス、レイヤーを重ねるときに必要なこと, ": {
+    "title": "パララックス、レイヤーを重ねるときに必要なこと, ",
+    "line": 1540,
+    "lastReviewed": 1770402735756,
+    "reviewCount": 1
+  },
+  "横スクロールアニメーション（無限ループ）": {
+    "title": "横スクロールアニメーション（無限ループ）",
+    "line": 2807,
+    "lastReviewed": 1770403242860,
+    "reviewCount": 1
+  },
+  "共通のクラスを作成した際に一部だけ変更することができる。書き方は以下のようにする。": {
+    "title": "共通のクラスを作成した際に一部だけ変更することができる。書き方は以下のようにする。",
+    "line": 1711,
+    "lastReviewed": 1770403579811,
+    "reviewCount": 1
+  },
+  "要素の中の文字の高さを調整する": {
+    "title": "要素の中の文字の高さを調整する",
+    "line": 2553,
+    "lastReviewed": 1770403664353,
+    "reviewCount": 1
+  },
+  "🔧 デバッグ手順": {
+    "title": "🔧 デバッグ手順",
+    "line": 2033,
+    "lastReviewed": 1770403848185,
+    "reviewCount": 1
+  },
+  "JavaScriptとHTMLの関係性": {
+    "title": "JavaScriptとHTMLの関係性",
+    "line": 1594,
+    "lastReviewed": 1770403921999,
+    "reviewCount": 1
+  },
+  "特定のセクションの下に同じ位置に配置したい場合は、新たにセクションの下にdivをつけることも考える。": {
+    "title": "特定のセクションの下に同じ位置に配置したい場合は、新たにセクションの下にdivをつけることも考える。",
+    "line": 2734,
+    "lastReviewed": 1770404087792,
+    "reviewCount": 1
+  },
+  "背景画像（background-image）": {
+    "title": "背景画像（background-image）",
+    "line": 798,
+    "lastReviewed": 1770404180442,
+    "reviewCount": 1
+  },
+  "<section class=\"about_area container_section\">": {
+    "title": "<section class=\"about_area container_section\">",
+    "line": 2418,
+    "lastReviewed": 1770404242639,
+    "reviewCount": 1
+  },
+  "ヘッダーを作成するうえでの注意事項": {
+    "title": "ヘッダーを作成するうえでの注意事項",
+    "line": 1289,
+    "lastReviewed": 1770404264991,
+    "reviewCount": 1
+  },
+  "📝 覚えておくこと": {
+    "title": "📝 覚えておくこと",
+    "line": 2048,
+    "lastReviewed": 1770404451589,
+    "reviewCount": 1
+  },
+  "AI に確認する際の注意事項": {
+    "title": "AI に確認する際の注意事項",
+    "line": 1187,
+    "lastReviewed": 1770404603515,
+    "reviewCount": 1
+  },
+  "フレックスの子要素は画像などのもとサイズより小さくならない。例えば画像など大きいサイズをうめるときに、想定した配置にならないときは、": {
+    "title": "フレックスの子要素は画像などのもとサイズより小さくならない。例えば画像など大きいサイズをうめるときに、想定した配置にならないときは、",
+    "line": 2704,
+    "lastReviewed": 1770404765049,
+    "reviewCount": 1
+  },
+  "fixed absolute で縦と横をやるときは、  transform: translate(-50%, -50%);　ひとつでまとめないといけない。": {
+    "title": "fixed absolute で縦と横をやるときは、  transform: translate(-50%, -50%);　ひとつでまとめないといけない。",
+    "line": 2413,
+    "lastReviewed": 1770404815182,
+    "reviewCount": 1
+  },
+  "モバイルにして、アニメーションなどで画面が広がってなおらない場合は、Windowsの横幅が、規定のサイズをこえて全体によこにそれたら、隠す処理をいれる": {
+    "title": "モバイルにして、アニメーションなどで画面が広がってなおらない場合は、Windowsの横幅が、規定のサイズをこえて全体によこにそれたら、隠す処理をいれる",
+    "line": 1754,
+    "lastReviewed": 1770405060703,
+    "reviewCount": 1
+  },
+  "パララックス　": {
+    "title": "パララックス　",
+    "line": 1060,
+    "lastReviewed": 1770405117272,
+    "reviewCount": 1
+  },
+  "またそれを中間にもってきたいとき": {
+    "title": "またそれを中間にもってきたいとき",
+    "line": 1329,
+    "lastReviewed": 1770405372661,
+    "reviewCount": 1
+  },
+  "HTMLの構造": {
+    "title": "HTMLの構造",
+    "line": 1405,
+    "lastReviewed": 1770405426030,
+    "reviewCount": 1
+  },
+  "サイドバーのメニューの文字列が文字幅だけじゃなくて、文字幅＋残りの余白ありでクリックできてしまう場合": {
+    "title": "サイドバーのメニューの文字列が文字幅だけじゃなくて、文字幅＋残りの余白ありでクリックできてしまう場合",
+    "line": 1438,
+    "lastReviewed": 1770405592203,
+    "reviewCount": 1
+  },
+  "▢ 　マージンとパディングの違い": {
+    "title": "▢ 　マージンとパディングの違い",
+    "line": 486,
+    "lastReviewed": 1770405628148,
+    "reviewCount": 1
+  },
+  "本体自体を動かすときは、これをすれば、margin bottom や padding": {
+    "title": "本体自体を動かすときは、これをすれば、margin bottom や padding",
+    "line": 1039,
+    "lastReviewed": 1770406682005,
+    "reviewCount": 1
+  },
+  "縦線を書きたい時、かつボックスのサイズなどとちがってボーダーライトでかけないとき。疑似要素で表示する　aaaa::after ": {
+    "title": "縦線を書きたい時、かつボックスのサイズなどとちがってボーダーライトでかけないとき。疑似要素で表示する　aaaa::after ",
+    "line": 2575,
+    "lastReviewed": 1770406772019,
+    "reviewCount": 1
+  },
+  "明日の天気は？？": {
+    "title": "明日の天気は？？",
+    "line": 2941,
+    "lastReviewed": 1770409094830,
+    "reviewCount": 1
+  }
+}

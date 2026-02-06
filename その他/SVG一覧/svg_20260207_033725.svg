@@ -1,0 +1,93 @@
+﻿<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#f5f5f5"/>
+  
+  <!-- タイトル -->
+  <text x="400" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">パララックスのレイヤー構造</text>
+  
+  <!-- NG例 -->
+  <g id="ng-example">
+    <text x="150" y="70" font-size="18" font-weight="bold" fill="#d32f2f">❌ NG: 複数のfixed</text>
+    
+    <!-- 親要素1 -->
+    <rect x="50" y="90" width="150" height="180" fill="#ffcdd2" stroke="#d32f2f" stroke-width="3" rx="5"/>
+    <text x="125" y="110" font-size="14" font-weight="bold" text-anchor="middle" fill="#d32f2f">親要素A (fixed)</text>
+    
+    <!-- 子要素 -->
+    <rect x="70" y="130" width="110" height="60" fill="#fff" stroke="#999" stroke-width="2" rx="3"/>
+    <text x="125" y="165" font-size="12" text-anchor="middle" fill="#333">レイヤー1</text>
+    
+    <!-- 親要素2 -->
+    <rect x="50" y="200" width="150" height="60" fill="#ffcdd2" stroke="#d32f2f" stroke-width="3" rx="5"/>
+    <text x="125" y="220" font-size="14" font-weight="bold" text-anchor="middle" fill="#d32f2f">親要素B (fixed)</text>
+    <text x="125" y="245" font-size="12" text-anchor="middle" fill="#333">レイヤー2</text>
+    
+    <!-- 問題の説明 -->
+    <text x="125" y="300" font-size="11" text-anchor="middle" fill="#d32f2f">位置関係が崩れる</text>
+    <text x="125" y="315" font-size="11" text-anchor="middle" fill="#d32f2f">視差効果が不正確</text>
+  </g>
+  
+  <!-- OK例 -->
+  <g id="ok-example">
+    <text x="550" y="70" font-size="18" font-weight="bold" fill="#388e3c">✓ OK: 1つのfixed</text>
+    
+    <!-- 親要素（fixed） -->
+    <rect x="400" y="90" width="300" height="230" fill="#c8e6c9" stroke="#388e3c" stroke-width="3" rx="5"/>
+    <text x="550" y="110" font-size="14" font-weight="bold" text-anchor="middle" fill="#388e3c">親要素 (fixed)</text>
+    
+    <!-- 子レイヤー1 -->
+    <rect x="430" y="130" width="240" height="50" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="3"/>
+    <text x="550" y="160" font-size="12" text-anchor="middle" fill="#1976d2">レイヤー1 (速度: 0.5)</text>
+    
+    <!-- 子レイヤー2 -->
+    <rect x="430" y="190" width="240" height="50" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="3"/>
+    <text x="550" y="220" font-size="12" text-anchor="middle" fill="#f57c00">レイヤー2 (速度: 1.0)</text>
+    
+    <!-- 子レイヤー3 -->
+    <rect x="430" y="250" width="240" height="50" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="3"/>
+    <text x="550" y="280" font-size="12" text-anchor="middle" fill="#7b1fa2">レイヤー3 (速度: 1.5)</text>
+    
+    <!-- 利点の説明 -->
+    <text x="550" y="345" font-size="11" text-anchor="middle" fill="#388e3c">✓ レイヤーの重なりが正確</text>
+    <text x="550" y="360" font-size="11" text-anchor="middle" fill="#388e3c">✓ スクロール視差が適切に動作</text>
+  </g>
+  
+  <!-- スクロールの動き -->
+  <g id="scroll-visualization">
+    <text x="400" y="410" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">スクロール時の動作</text>
+    
+    <!-- スクロール矢印 -->
+    <line x1="100" y1="430" x2="100" y2="550" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="130" y="490" font-size="12" fill="#666">スクロール方向</text>
+    
+    <!-- レイヤーの移動速度 -->
+    <rect x="200" y="440" width="500" height="120" fill="#fff" stroke="#999" stroke-width="2" rx="5"/>
+    
+    <text x="220" y="465" font-size="13" fill="#1976d2">● レイヤー1: 遅く移動（奥行き感）</text>
+    <line x1="420" y1="460" x2="520" y2="460" stroke="#1976d2" stroke-width="3" marker-end="url(#arrowhead-blue)"/>
+    
+    <text x="220" y="495" font-size="13" fill="#f57c00">● レイヤー2: 中速で移動</text>
+    <line x1="420" y1="490" x2="570" y2="490" stroke="#f57c00" stroke-width="3" marker-end="url(#arrowhead-orange)"/>
+    
+    <text x="220" y="525" font-size="13" fill="#7b1fa2">● レイヤー3: 速く移動（手前感）</text>
+    <line x1="420" y1="520" x2="620" y2="520" stroke="#7b1fa2" stroke-width="3" marker-end="url(#arrowhead-purple)"/>
+    
+    <text x="450" y="545" font-size="11" fill="#666" text-anchor="middle">親要素fixedで全体を制御</text>
+  </g>
+  
+  <!-- 矢印マーカー定義 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#1976d2"/>
+    </marker>
+    <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#f57c00"/>
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#7b1fa2"/>
+    </marker>
+  </defs>
+</svg>
