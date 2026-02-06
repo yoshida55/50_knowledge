@@ -1,0 +1,68 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="sans-serif">
+
+  <!-- タイトル -->
+  <text x="450" y="30" text-anchor="middle" font-size="20" font-weight="bold">無限スクロールの仕組み</text>
+
+  <!-- ===== 上段: 全体の構造 ===== -->
+  <text x="20" y="65" font-size="14" font-weight="bold" fill="#555">slide_area（窓）= 画面に見える範囲</text>
+  
+  <!-- slide_area（窓） -->
+  <rect x="20" y="75" width="300" height="120" fill="none" stroke="blue" stroke-width="3" rx="4"/>
+  <text x="170" y="92" text-anchor="middle" font-size="11" fill="blue">← overflow: hidden で見える範囲 →</text>
+
+  <!-- slide_track（巻物） -->
+  <rect x="20" y="100" width="860" height="80" fill="#f0f0f0" stroke="#999" stroke-width="1" stroke-dasharray="4" rx="4"/>
+  <text x="450" y="195" text-anchor="middle" font-size="12" fill="#999">← slide_track（めちゃ長い巻物）→</text>
+
+  <!-- 画像6枚 -->
+  <rect x="25"  y="105" width="140" height="70" fill="#fdd" stroke="red" rx="4"/>
+  <text x="95"  y="145" text-anchor="middle" font-size="14" font-weight="bold">画像1</text>
+
+  <rect x="170" y="105" width="140" height="70" fill="#dfd" stroke="green" rx="4"/>
+  <text x="240" y="145" text-anchor="middle" font-size="14" font-weight="bold">画像2</text>
+
+  <rect x="315" y="105" width="140" height="70" fill="#ddf" stroke="blue" rx="4"/>
+  <text x="385" y="145" text-anchor="middle" font-size="14" font-weight="bold">画像3</text>
+
+  <rect x="460" y="105" width="140" height="70" fill="#fdd" stroke="red" rx="4" stroke-dasharray="4"/>
+  <text x="530" y="145" text-anchor="middle" font-size="14" fill="#999">画像1</text>
+  <text x="530" y="160" text-anchor="middle" font-size="9" fill="#999">コピー</text>
+
+  <rect x="605" y="105" width="140" height="70" fill="#dfd" stroke="green" rx="4" stroke-dasharray="4"/>
+  <text x="675" y="145" text-anchor="middle" font-size="14" fill="#999">画像2</text>
+  <text x="675" y="160" text-anchor="middle" font-size="9" fill="#999">コピー</text>
+
+  <rect x="750" y="105" width="140" height="70" fill="#ddf" stroke="blue" rx="4" stroke-dasharray="4"/>
+  <text x="820" y="145" text-anchor="middle" font-size="14" fill="#999">画像3</text>
+  <text x="820" y="160" text-anchor="middle" font-size="9" fill="#999">コピー</text>
+
+  <!-- セット区切り -->
+  <line x1="458" y1="100" x2="458" y2="185" stroke="orange" stroke-width="2" stroke-dasharray="4"/>
+  <text x="240" y="210" text-anchor="middle" font-size="12" fill="orange" font-weight="bold">1セット目</text>
+  <text x="670" y="210" text-anchor="middle" font-size="12" fill="orange" font-weight="bold">2セット目（コピー）</text>
+
+  <!-- ===== 中段: width: 100% の問題 ===== -->
+  <text x="20" y="250" font-size="16" font-weight="bold" fill="red">❌ width: 100%  →  親(slide_track)の幅 = 巻物全体</text>
+  
+  <rect x="20" y="265" width="860" height="50" fill="#fee" stroke="red" rx="4"/>
+  <rect x="20" y="265" width="860" height="50" fill="#fcc" stroke="red" stroke-width="2" rx="4"/>
+  <text x="450" y="295" text-anchor="middle" font-size="14" fill="red">画像1枚 = 巻物全体の幅（デカすぎ！！）</text>
+  
+  <text x="450" y="330" text-anchor="middle" font-size="12" fill="red">↑ 1枚が巻物と同じ幅 → 半分で戻る = 画像の途中で切り替わる</text>
+
+  <!-- ===== 下段: 正しい方法 ===== -->
+  <text x="20" y="370" font-size="16" font-weight="bold" fill="green">✅ width: calc(100vw - サイドバー)  →  窓と同じ幅</text>
+
+  <!-- 窓 -->
+  <rect x="20" y="385" width="300" height="60" fill="none" stroke="blue" stroke-width="3" rx="4"/>
+  <text x="170" y="400" text-anchor="middle" font-size="10" fill="blue">窓（slide_area）</text>
+
+  <!-- 正しいサイズの画像 -->
+  <rect x="20"  y="390" width="300" height="50" fill="#dfd" stroke="green" stroke-width="2" rx="4"/>
+  <text x="170" y="420" text-anchor="middle" font-size="14" fill="green" font-weight="bold">画像1枚 = 窓の幅 ぴったり！</text>
+
+  <!-- 数式 -->
+  <rect x="20" y="460" width="860" height="45" fill="#f8f8f8" stroke="#ccc" rx="8"/>
+  <text x="40" y="488" font-size="15" font-family="monospace">100%  = 親(track)の幅 ❌      100vw - サイドバー = 画面の幅 - サイドバー = 窓の幅 ✅</text>
+
+</svg>
