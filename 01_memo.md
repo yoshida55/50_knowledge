@@ -1053,7 +1053,7 @@ transform: translateY(2px);
 
 ボタン」や「ラベル」など、背景色をつけつつ中身の文字サイズにピタッと合わせたいときには、inline-block
 
-block = 親の幅いっぱいに広がる箱
+文字サイズに合わせてボックスのサイズを決めるっていうのをメモ.mdから探してblock = 親の幅いっぱいに広がる箱
 inline-block = 中身の幅だけの箱（でも高さと幅を指定できる）
 
 
@@ -1176,8 +1176,12 @@ background-size: 150%;
 
 line-height:1
 
+![](images/2026-02-07-00-33-44.png)
+
+
 大きなボックス（高さがしっかりあるボックス）で line-height: 1; を使うと、**「文字が天井（一番上）にベタッと張り付いた状態」**になります。
 (上の余白が消える)
+
 
 
 ## AI に確認する際の注意事項
@@ -1292,6 +1296,8 @@ min-height: 6.2rem;
 `中身が少ないとき： min-height が優先され、6.2rem の高さになります。`
 `中身が増えたとき（文字が改行した時など）： height: auto のおかげで、中身がはみ出さないように高さが 7rem、8rem と自動で伸びます。`
 
+![](images/2026-02-06-22-20-29.png)
+
 ★ 基本は auto 動作して まわりのパディングとかなかみの画像にあわせて伸縮する！！
 
 最低ラインを確保して、ふえたときは auto でまわりのサイズにあわせる
@@ -1303,6 +1309,10 @@ CTRL 　 SHIft O クラス検索
 Ctrl+P → ファイル名入力 → Enter → Alt+B → 
 ブラウザ表示
 CTRL　：　セクション一覧表示
+Ctrl+Shift+7: クイズ起動
+Ctrl+Shift+M: メモ検索
+
+
 
 
 
@@ -1423,6 +1433,8 @@ SVG表示保存CS+S.ahk　
 
 
 
+
+
 ## サイドバーのメニューの文字列が文字幅だけじゃなくて、文字幅＋残りの余白ありでクリックできてしまう場合
 
 ```css
@@ -1436,7 +1448,28 @@ SVG表示保存CS+S.ahk　
   gap: 3rem;
   align-items: flex-start; ★ここで制御する。　stretchなどにすると横全体になる
 }
+
 ```
+  ## 動作の違い
+
+### `align-items: flex-start`（現在の設定）
+- 子要素を左端に配置
+- 子要素の幅 = **コンテンツ（文字）の幅のみ**
+- クリック範囲 = 文字部分だけ ✅
+
+### `align-items: stretch`（デフォルト値）
+- 子要素を横幅いっぱいに伸ばす
+- 子要素の幅 = **サイドバー全体の幅**
+- クリック範囲 = 文字 + 右側の余白全体 ❌
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1721,7 +1754,10 @@ $(window).on("scroll", function () {
   }
 
 
-## なぜ、javascriptでwidthを変更しただけなのに、なめらかにするみるというと以下のプロパティが設定してあるから
+## transition: width 0.5s ease　**CSSの`transition`プロパティ**について解説
+
+![](images/2026-02-07-00-23-18.png)
+
 
 .mainvisual_img {
   width: 33%;
@@ -1729,21 +1765,34 @@ $(window).on("scroll", function () {
   /* ↓ これがあると、JSの変更が「アニメーション」になります */
   /**
     transition: width 0.5s ease; 　★
+## 何をしているか
 
-   * CSSのtransitionプロパティ（ショートハンド）の各値の意味：
-   * 
-   * 1. width (transition-property):
-   *    アニメーションを適用する対象のプロパティを指定します。
-   *    ここでは「要素の横幅」が変化したときにアニメーションが動作します。
-   *
-   * 2. 0.5s (transition-duration):
-   *    変化にかける時間（持続時間）を指定します。
-   *    ここでは0.5秒かけてアニメーションが完了します。
-   *
-   * 3. ease (transition-timing-function):
-   *    変化の進み方（速度の変化）を指定します。
-   *    easeはデフォルト値で、開始と終了を滑らかにする（最初はゆっくり、途中で加速し、最後にまたゆっくりになる）設定です。
-   */
+JavaScriptで要素の`width`（横幅）を変更したとき、**瞬時に切り替わるのではなく、なめらかにアニメーションさせる**設定です。
+
+## 仕組み
+
+transition: width 0.5s ease;
+
+この1行で：
+- **`width`** → 横幅が変化したときに
+- **`0.5s`** → 0.5秒かけて
+- **`ease`** → 滑らかに（最初と最後がゆっくり）
+
+アニメーションします。
+
+## 具体例
+
+// JSでwidthを変更
+element.style.width = '50%';
+
+- **transitionなし** → 33%から50%へ瞬時に変わる
+- **transitionあり** → 33%から50%へ0.5秒かけてなめらかに広がる
+
+つまり、**JSで値を変更するだけで自動的にアニメーション効果が付く**ようにするCSSの設定です。
+*/
+
+
+
 
 }
 
@@ -1767,6 +1816,10 @@ load・・・これがあることによって、
 
 この2つをセットで書くことで、**「いつ、どのタイミングでページを開いても、正しい表示状態にする」**ことができます。
 
+★スクロールとロードの違い
+![](images/2026-02-06-16-54-07.png)
+
+
 this・・・の中の this
 window（ブラウザの画面全体）を指します。
 
@@ -1777,6 +1830,7 @@ on(イベント名)・・・「〜のとき（イベント発生時）に、こ�
 ◎発火タイミング: 画面を「スクロールした時」または「読み込みが完了した時」
 ◎実行条件: 画面全体（this）のスクロール量が 100px を超えているかどうか
 ◎処理内容: 条件を満たせばクラスを追加し、満たさなければ削除する）
+
 
 
 ## aタグに▢で囲むとき、paddingではなくてwidthで横幅を指定する方法
@@ -1811,6 +1865,7 @@ widthを１００％にすることによって、画面一杯まで広がる
 親にpoisiton:fixedなどのパララックスをつけたら、親も子も
 z-indexをつける。これは必ず対にする！
 
+![](images/2026-02-06-16-50-44.png)
 
 
 - ハンバーガーメニューがクリックできない
@@ -2745,4 +2800,132 @@ widthとflexを利用する。
 
 
 ## 横スクロールアニメーション（無限ループ）
+
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 🔖 覚えておくと便利なCSSプロパティ集
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+```css
+/* クリック制御 */
+pointer-events: none;        /* クリックを無効化（すり抜け） */
+pointer-events: auto;        /* クリックを有効化（通常状態） */
+
+/* 選択制御 */
+user-select: none;           /* テキスト選択を禁止 */
+-webkit-user-select: none;   /* Safari対応 */
+
+/* スクロール制御 */
+overscroll-behavior: contain;  /* スクロール連鎖を防ぐ */
+scroll-behavior: smooth;       /* スムーズスクロール */
+scroll-snap-type: x mandatory; /* スナップスクロール（横） */
+scroll-snap-align: start;      /* スナップ位置 */
+
+/* テキスト */
+text-overflow: ellipsis;     /* はみ出したテキストを...に */
+white-space: nowrap;         /* テキストを改行させない */
+word-break: break-all;       /* 単語の途中でも改行 */
+line-clamp: 3;               /* 3行で切り捨て */
+-webkit-line-clamp: 3;       /* Safari対応 */
+
+/* 表示/非表示 */
+visibility: hidden;          /* 非表示だが場所は確保 */
+opacity: 0;                  /* 透明だが場所は確保 */
+display: none;               /* 完全に非表示 */
+
+/* 位置調整 */
+object-fit: cover;           /* 画像をトリミングして埋める */
+object-fit: contain;         /* 画像をそのまま収める */
+object-position: center;     /* 画像の基準位置 */
+
+/* レイアウト */
+aspect-ratio: 16 / 9;        /* アスペクト比を固定 */
+place-items: center;         /* Grid/Flexで中央配置 */
+gap: 2rem;                   /* Grid/Flexの隙間 */
+isolation: isolate;          /* 新しいスタッキングコンテキスト作成 */
+
+/* 境界 */
+box-sizing: border-box;      /* パディング込みでサイズ計算 */
+outline: none;               /* フォーカス枠を消す */
+resize: none;                /* textareaのリサイズ禁止 */
+
+/* 背景 */
+background-size: cover;      /* 背景画像を隙間なく埋める */
+background-position: center; /* 背景画像の位置 */
+background-attachment: fixed; /* 背景を固定（パララックス） */
+backdrop-filter: blur(10px); /* 背景をぼかす */
+
+/* アニメーション */
+will-change: transform;      /* GPUアクセラレーション有効化 */
+transform: translateZ(0);    /* 3D変換を強制してGPU使用 */
+backface-visibility: hidden; /* 裏面を非表示（ちらつき防止） */
+
+/* その他 */
+cursor: pointer;             /* マウスカーソルを指に */
+cursor: not-allowed;         /* 禁止マーク */
+appearance: none;            /* デフォルトスタイルを無効化 */
+-webkit-appearance: none;    /* Safari対応 */
+mix-blend-mode: multiply;    /* ブレンドモード */
+filter: grayscale(100%);     /* グレースケール */
+clip-path: circle(50%);      /* 円形に切り抜き */
+writing-mode: vertical-rl;   /* 縦書き */
+
+/* Flexbox高度 */
+flex-shrink: 0;              /* 縮小を禁止 */
+flex-grow: 1;                /* 伸縮を許可 */
+flex-basis: 0;               /* 初期サイズを0に */
+order: -1;                   /* 並び順を変更 */
+
+/* Grid高度 */
+grid-auto-flow: dense;       /* 隙間を詰める */
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* レスポンシブグリッド */
+
+/* モバイル対応 */
+-webkit-overflow-scrolling: touch;  /* iOSの慣性スクロール */
+-webkit-tap-highlight-color: transparent; /* タップ時のハイライト消去 */
+touch-action: pan-y;         /* 縦スクロールのみ許可 */
+
+/* パフォーマンス */
+contain: layout style paint; /* レンダリング最適化 */
+content-visibility: auto;    /* 見えない部分の描画をスキップ */
+```
+
+
+## AIへのコメントの指示：CSSにコメントを書いてもらうとき
+
+ここ、ソースみてHTMLも、直感的にわかりやすいコメントつけたして
+
+小カテゴリを以下のように記載するのもてです。　自由にきめてください。
+/* ═══════════════════════════════════════════════════════════════════════
+   【親】右サイド固定ヘッダー全体（<header id="side_area">）
+   画面右端に固定される白い縦長エリア
+   ═══════════════════════════════════════════════════════════════════════ */
+
+## 隣接要素
+/* ハンバーガーメニューがオープンしたら背景が白の目次のページを表示する。 */
+.hamburger_menu.open + .side_nav_overlay {
+  display: block;
+}
+
+
+
+CSSでは**隣接兄弟セレクタ（`+`）** を使うこと���、特定の要素の**直後にある兄弟要素**のスタイルを変更できます。
+
+このコードの場合：
+- `.hamburger_menu.open` の状態が変わると
+- その**直後の兄弟要素** `.side_nav_overlay` のスタイルが変わる
+
+ただし、CSSで操作できるのは：
+- ✅ 隣接する兄弟要素（`+`）
+- ✅ 後続の兄弟要素（`~`）
+- ✅ 子孫要素（` `や`>`）
+
+逆に操作できないのは：
+- ❌ 親要素
+- ❌ 前の兄弟要素
+
+つまり、**CSS単体では「後方・下方向」の要素しか操作できません**。
+*/
 

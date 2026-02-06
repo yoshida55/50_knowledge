@@ -1,0 +1,158 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800">
+  <!-- 定義 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- タイトル -->
+  <text x="500" y="40" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">
+    font-sizeとmax-widthの関係性
+  </text>
+  
+  <!-- パターン1: calc()のみの場合 -->
+  <rect x="50" y="80" width="400" height="300" fill="#FFE6E6" stroke="#CC0000" stroke-width="2" rx="10"/>
+  <text x="250" y="110" font-size="18" font-weight="bold" text-anchor="middle" fill="#CC0000">
+    ❌ 問題あるパターン
+  </text>
+  
+  <text x="70" y="145" font-size="14" fill="#333">
+    html { font-size: calc(10/1400*100vw); }
+  </text>
+  
+  <!-- 画面幅の変化 -->
+  <rect x="80" y="170" width="150" height="40" fill="#FFA500" stroke="#333" stroke-width="2"/>
+  <text x="155" y="195" font-size="13" text-anchor="middle" fill="#FFF" font-weight="bold">
+    画面幅: 700px
+  </text>
+  
+  <path d="M 155 220 L 155 250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <rect x="80" y="260" width="150" height="40" fill="#FF6B6B" stroke="#333" stroke-width="2"/>
+  <text x="155" y="280" font-size="12" text-anchor="middle" fill="#FFF">
+    font-size: 5px
+  </text>
+  <text x="155" y="295" font-size="11" text-anchor="middle" fill="#FFF">
+    (小さすぎる)</text>
+  
+  <rect x="270" y="170" width="150" height="40" fill="#FFA500" stroke="#333" stroke-width="2"/>
+  <text x="345" y="195" font-size="13" text-anchor="middle" fill="#FFF" font-weight="bold">
+    画面幅: 2000px
+  </text>
+  
+  <path d="M 345 220 L 345 250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <rect x="270" y="260" width="150" height="40" fill="#FF6B6B" stroke="#333" stroke-width="2"/>
+  <text x="345" y="280" font-size="12" text-anchor="middle" fill="#FFF">
+    font-size: 14.3px
+  </text>
+  <text x="345" y="295" font-size="11" text-anchor="middle" fill="#FFF">
+    (大きすぎる)</text>
+  
+  <text x="250" y="340" font-size="13" text-anchor="middle" fill="#CC0000" font-weight="bold">
+    → max-widthと一緒に伸びてしまう
+  </text>
+  <text x="250" y="360" font-size="13" text-anchor="middle" fill="#CC0000">
+    → レイアウトが崩れる
+  </text>
+  
+  <!-- パターン2: min()を使った場合 -->
+  <rect x="550" y="80" width="400" height="300" fill="#E6FFE6" stroke="#00AA00" stroke-width="2" rx="10"/>
+  <text x="750" y="110" font-size="18" font-weight="bold" text-anchor="middle" fill="#00AA00">
+    ✅ 推奨パターン
+  </text>
+  
+  <text x="570" y="145" font-size="13" fill="#333">
+    html { font-size: min(10px, calc(10/1400*100vw)); }
+  </text>
+  
+  <!-- 画面幅の変化 -->
+  <rect x="580" y="170" width="150" height="40" fill="#4CAF50" stroke="#333" stroke-width="2"/>
+  <text x="655" y="195" font-size="13" text-anchor="middle" fill="#FFF" font-weight="bold">
+    画面幅: 700px
+  </text>
+  
+  <path d="M 655 220 L 655 250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <rect x="580" y="260" width="150" height="40" fill="#66BB6A" stroke="#333" stroke-width="2"/>
+  <text x="655" y="280" font-size="12" text-anchor="middle" fill="#FFF">
+    min(10px, 5px)
+  </text>
+  <text x="655" y="295" font-size="12" text-anchor="middle" fill="#FFF" font-weight="bold">
+    = 5px ✓
+  </text>
+  
+  <rect x="770" y="170" width="150" height="40" fill="#4CAF50" stroke="#333" stroke-width="2"/>
+  <text x="845" y="195" font-size="13" text-anchor="middle" fill="#FFF" font-weight="bold">
+    画面幅: 2000px
+  </text>
+  
+  <path d="M 845 220 L 845 250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <rect x="770" y="260" width="150" height="40" fill="#66BB6A" stroke="#333" stroke-width="2"/>
+  <text x="845" y="280" font-size="12" text-anchor="middle" fill="#FFF">
+    min(10px, 14.3px)
+  </text>
+  <text x="845" y="295" font-size="12" text-anchor="middle" fill="#FFF" font-weight="bold">
+    = 10px ✓
+  </text>
+  
+  <text x="750" y="340" font-size="13" text-anchor="middle" fill="#00AA00" font-weight="bold">
+    → 常に10px以下に制限される
+  </text>
+  <text x="750" y="360" font-size="13" text-anchor="middle" fill="#00AA00">
+    → レイアウトが安定
+  </text>
+  
+  <!-- max-widthとの関係 -->
+  <rect x="150" y="430" width="700" height="320" fill="#F0F8FF" stroke="#4169E1" stroke-width="3" rx="10"/>
+  <text x="500" y="465" font-size="20" font-weight="bold" text-anchor="middle" fill="#4169E1">
+    width &amp; max-width との組み合わせ
+  </text>
+  
+  <!-- コンテナの例 -->
+  <text x="180" y="500" font-size="14" fill="#333" font-weight="bold">
+    .container { width: 100%; max-width: 140rem; }
+  </text>
+  
+  <!-- ケース1 -->
+  <text x="180" y="535" font-size="14" fill="#666">
+    画面幅: 1000px の場合
+  </text>
+  <rect x="180" y="545" width="300" height="60" fill="#FFF" stroke="#999" stroke-width="2"/>
+  <rect x="180" y="545" width="250" height="60" fill="#FFD700" fill-opacity="0.5" stroke="#FF8C00" stroke-width="2"/>
+  <text x="305" y="580" font-size="12" text-anchor="middle" fill="#333">
+    1000px (100%の幅)
+  </text>
+  
+  <text x="500" y="575" font-size="13" fill="#00AA00" font-weight="bold">
+    min(10px)適用
+  </text>
+  <text x="500" y="590" font-size="12" fill="#666">
+    → 140rem = 1400px
+  </text>
+  
+  <!-- ケース2 -->
+  <text x="180" y="640" font-size="14" fill="#666">
+    画面幅: 1600px の場合
+  </text>
+  <rect x="180" y="650" width="300" height="60" fill="#FFF" stroke="#999" stroke-width="2"/>
+  <rect x="180" y="650" width="300" height="60" fill="#87CEEB" fill-opacity="0.5" stroke="#4169E1" stroke-width="2"/>
+  <text x="330" y="685" font-size="12" text-anchor="middle" fill="#333">
+    1400px (max-width制限)
+  </text>
+  
+  <text x="500" y="675" font-size="13" fill="#00AA00" font-weight="bold">
+    min(10px)適用
+  </text>
+  <text x="500" y="690" font-size="12" fill="#666">
+    → 140rem = 1400px
+  </text>
+  
+  <!-- まとめ -->
+  <rect x="150" y="720" width="700" height="20" fill="#4169E1" fill-opacity="0.2"/>
+  <text x="500" y="735" font-size="14" text-anchor="middle" fill="#4169E1" font-weight="bold">
+    結論: min()でfont-sizeを固定 → max-widthが正しく機能
+  </text>
+</svg>

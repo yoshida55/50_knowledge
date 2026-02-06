@@ -1,0 +1,127 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  
+  <!-- タイトル -->
+  <text x="400" y="30" font-size="22" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+    scroll と load の違い
+  </text>
+  
+  <!-- 左側：scrollのみの場合 -->
+  <g>
+    <!-- 枠 -->
+    <rect x="30" y="60" width="350" height="500" fill="white" stroke="#e74c3c" stroke-width="3" rx="10"/>
+    <text x="205" y="90" font-size="18" font-weight="bold" text-anchor="middle" fill="#e74c3c">
+      ❌ scroll のみ（ダメな例）
+    </text>
+    
+    <!-- ブラウザウィンドウ -->
+    <rect x="60" y="110" width="290" height="180" fill="#ecf0f1" stroke="#34495e" stroke-width="2"/>
+    <text x="205" y="135" font-size="14" text-anchor="middle" fill="#7f8c8d">
+      ブラウザ画面
+    </text>
+    
+    <!-- スクロール位置インジケーター -->
+    <line x1="370" y1="150" x2="390" y2="150" stroke="#e74c3c" stroke-width="3"/>
+    <text x="395" y="155" font-size="12" fill="#e74c3c">← 150px地点</text>
+    
+    <!-- ページを途中で開いた状態 -->
+    <rect x="60" y="160" width="290" height="80" fill="#fff3cd" stroke="#ffc107" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="205" y="200" font-size="13" text-anchor="middle" fill="#856404">
+      ページを途中で開いた
+    </text>
+    
+    <!-- 矢印と説明 -->
+    <path d="M 205 310 L 205 340" stroke="#e74c3c" stroke-width="3" fill="none" marker-end="url(#arrowRed)"/>
+    <text x="205" y="365" font-size="14" text-anchor="middle" fill="#c0392b">
+      ここからスクロールしても
+    </text>
+    <text x="205" y="385" font-size="14" text-anchor="middle" fill="#c0392b">
+      チェックされない
+    </text>
+    
+    <!-- 問題点 -->
+    <rect x="60" y="410" width="290" height="130" fill="#fee" stroke="#e74c3c" stroke-width="2" rx="5"/>
+    <text x="205" y="435" font-size="15" font-weight="bold" text-anchor="middle" fill="#c0392b">
+      問題点
+    </text>
+    <text x="70" y="460" font-size="12" fill="#333">
+      • ページ読み込み時のチェックなし
+    </text>
+    <text x="70" y="480" font-size="12" fill="#333">
+      • 既に100px超えていても無視
+    </text>
+    <text x="70" y="500" font-size="12" fill="#333">
+      • スクロール動作があって初めて
+    </text>
+    <text x="70" y="520" font-size="12" fill="#333">
+      　判定が行われる
+    </text>
+  </g>
+  
+  <!-- 右側：scroll + load の場合 -->
+  <g>
+    <!-- 枠 -->
+    <rect x="420" y="60" width="350" height="500" fill="white" stroke="#27ae60" stroke-width="3" rx="10"/>
+    <text x="595" y="90" font-size="18" font-weight="bold" text-anchor="middle" fill="#27ae60">
+      ✅ scroll + load（正解）
+    </text>
+    
+    <!-- ブラウザウィンドウ -->
+    <rect x="450" y="110" width="290" height="180" fill="#ecf0f1" stroke="#34495e" stroke-width="2"/>
+    <text x="595" y="135" font-size="14" text-anchor="middle" fill="#7f8c8d">
+      ブラウザ画面
+    </text>
+    
+    <!-- スクロール位置インジケーター -->
+    <line x1="760" y1="150" x2="780" y2="150" stroke="#27ae60" stroke-width="3"/>
+    <text x="785" y="155" font-size="12" fill="#27ae60">← 150px</text>
+    
+    <!-- ページを途中で開いた状態 -->
+    <rect x="450" y="160" width="290" height="80" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+    <text x="595" y="200" font-size="13" text-anchor="middle" fill="#155724">
+      ページを途中で開いた
+    </text>
+    
+    <!-- 即座にチェック -->
+    <circle cx="595" cy="220" r="15" fill="#27ae60" opacity="0.3"/>
+    <text x="595" y="226" font-size="20" text-anchor="middle" fill="#fff">✓</text>
+    
+    <!-- 矢印と説明 -->
+    <path d="M 595 310 L 595 340" stroke="#27ae60" stroke-width="3" fill="none" marker-end="url(#arrowGreen)"/>
+    <text x="595" y="365" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">
+      load が即座にチェック！
+    </text>
+    <text x="595" y="385" font-size="13" text-anchor="middle" fill="#27ae60">
+      「100px超えてる→表示！」
+    </text>
+    
+    <!-- メリット -->
+    <rect x="450" y="410" width="290" height="130" fill="#d4edda" stroke="#27ae60" stroke-width="2" rx="5"/>
+    <text x="595" y="435" font-size="15" font-weight="bold" text-anchor="middle" fill="#27ae60">
+      メリット
+    </text>
+    <text x="460" y="460" font-size="12" fill="#333">
+      ✓ ページ読み込み時にチェック実行
+    </text>
+    <text x="460" y="480" font-size="12" fill="#333">
+      ✓ どの位置で開いても正しく表示
+    </text>
+    <text x="460" y="500" font-size="12" fill="#333">
+      ✓ scroll でその後の変化も監視
+    </text>
+    <text x="460" y="520" font-size="12" fill="#333">
+      ✓ 2つセットで完璧な動作
+    </text>
+  </g>
+  
+  <!-- 矢印マーカー定義 -->
+  <defs>
+    <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#e74c3c"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#27ae60"/>
+    </marker>
+  </defs>
+</svg>
