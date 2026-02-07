@@ -34,5 +34,53 @@
     "line": 3032,
     "lastReviewed": 1770422441144,
     "reviewCount": -1
+  },
+  "共通のクラスを作成した際に一部だけ変更することができる。書き方は以下のようにする。": {
+    "title": "共通のクラスを作成した際に一部だけ変更することができる。書き方は以下のようにする。",
+    "line": 1722,
+    "lastReviewed": 1770450527222,
+    "reviewCount": -1
+  },
+  "💡 重要ポイント": {
+    "title": "💡 重要ポイント",
+    "line": 192,
+    "lastReviewed": 1770450538385,
+    "reviewCount": -1
+  },
+  "具体例": {
+    "title": "具体例",
+    "line": 1799,
+    "lastReviewed": 1770450543901,
+    "reviewCount": -1
+  },
+  "HTMLの構造": {
+    "title": "HTMLの構造",
+    "line": 1416,
+    "lastReviewed": 1770450560764,
+    "reviewCount": -1
+  },
+  "文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）": {
+    "title": "文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）",
+    "line": 1678,
+    "lastReviewed": 1770450570329,
+    "reviewCount": -1
+  },
+  "▢ 　マージンとパディングの違い": {
+    "title": "▢ 　マージンとパディングの違い",
+    "line": 495,
+    "lastReviewed": 1770450637957,
+    "reviewCount": -1
+  },
+  "🏗 HTML タグの設計図（使い分け）まとめ": {
+    "title": "🏗 HTML タグの設計図（使い分け）まとめ",
+    "line": 304,
+    "lastReviewed": 1770450650705,
+    "reviewCount": -1
+  },
+  "JavaScriptでイベントリスナーを実行したときに動かない。": {
+    "title": "JavaScriptでイベントリスナーを実行したときに動かない。",
+    "line": 1490,
+    "lastReviewed": 1770450658796,
+    "reviewCount": 1
   }
 }
