@@ -19,8 +19,13 @@ ALT+Bでブラウザ表示.ahk
 
 設定追加: settings.jsonに以下追加
 
-"cssToHtmlJumper.memoFilePath": "D:\\50_knowledge\\01_memo.md",
-"cssToHtmlJumper.geminiApiKey": "YOUR_API_KEY"
+
+
+  "cssToHtmlJumper.claudeApiKey": "",
+  "cssToHtmlJumper.memoFilePath": "D:\\50_knowledge\\01_memo.md",
+  "cssToHtmlJumper.geminiApiKey": "",
+  "cssToHtmlJumper.quizCategory": "全て",
+  "cssToHtmlJumper.quizCategories": ["html", "不動産", "プライベート"],
 
 
 
