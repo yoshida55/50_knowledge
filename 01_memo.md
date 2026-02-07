@@ -99,6 +99,12 @@
 
 
 
+<svg width="300" height="100" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="30" cy="50" r="20" fill="#f9e2af">
+    <animate attributeName="cx" from="30" to="270" dur="2s" repeatCount="indefinite" direction="alternate"/>
+  </circle>
+</svg>
+
 
 
 
@@ -2701,6 +2707,10 @@ align-items: stretch;
   justify-content: center;
 }
 ```
+![SVG](./その他/SVG一覧/svg_20260207_124711.svg)
+![](images/2026-02-07-12-47-27.png)
+
+![SVG](./その他/SVG一覧/svg_20260207_124210.svg)
 
 
 
@@ -3028,3 +3038,11 @@ CSSでは**隣接兄弟セレクタ（`+`）** を使うこと���、特定
 - 画像が潰れるのを防ぎたい
 - サイドバーの幅を保ちたい
 */
+
+
+
+## CSS JUMP ツール
+
+![](images/2026-02-07-12-57-15.png)
+
+拡張機能の説明は、取説参照

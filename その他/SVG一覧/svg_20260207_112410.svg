@@ -1,0 +1,25 @@
+﻿クリップボードからSVGコードをコピーした際、AutoHotkeyがクリップボードを消してしまうため、一時ファイル経由でVS CodeのMarkdownファイルにSVGをインライン挿入する拡張機能。
+動作フロー
+
+AutoHotkeyがクリップボードのSVGを検知 → ブラウザ表示 → 一時ファイル（例：%TEMP%\svg_clipboard.svg）に保存 → クリップボードを消す
+VS Codeで.mdファイルを編集中に、**ショートカット（例：Ctrl+Alt+S）**を押す
+拡張機能が一時ファイルからSVGコードを読み取る
+カーソル位置にSVGコードをインライン挿入する
+挿入後、一時ファイルを削除（任意）
+
+技術要件
+
+VS Code Extension API を使用
+言語：TypeScript
+一時ファイルパス：%TEMP%\svg_clipboard.svg（設定で変更可能だと嬉しい）
+対象ファイル：.md ファイル（それ以外でも動いてOK）
+
+AutoHotkey側の変更（別途対応）
+既存のSVG検知処理に1行追加するだけ：
+ahk; クリップボードを消す前に一時ファイルに保存
+FileWrite(A_Temp "\svg_clipboard.svg", svgContent)
+補足
+
+SVGコードは <svg>...</svg> 形式のテキスト
+挿入時に前後に空行を入れると見やすい
+複雑な機能は不要、シンプルに一時ファイル→挿入だけでOK

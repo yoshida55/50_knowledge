@@ -19,6 +19,7 @@ ALT+Bでブラウザ表示.ahk
 
 設定追加: settings.jsonに以下追加
 
+![](images/2026-02-07-12-54-43.png)
 
 
   "cssToHtmlJumper.claudeApiKey": "",

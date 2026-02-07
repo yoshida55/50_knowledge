@@ -1,0 +1,110 @@
+<svg width="800" height="520" xmlns="http://www.w3.org/2000/svg" font-family="Meiryo, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+    <filter id="shadow">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- タイトル -->
+  <text x="400" y="35" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a1a2e">
+    SVGリンク挿入機能（Ctrl+Alt+S）の流れ
+    <animate attributeName="opacity" values="0;1" dur="0.5s" fill="freeze"/>
+  </text>
+
+  <!-- ① AI -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.4s" begin="0.3s" fill="freeze"/>
+    <rect x="30" y="60" width="160" height="70" rx="12" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" filter="url(#shadow)"/>
+    <text x="110" y="88" text-anchor="middle" font-size="13" font-weight="bold" fill="#2e7d32">① AIでSVG生成</text>
+    <text x="110" y="110" text-anchor="middle" font-size="11" fill="#555">コードをコピー</text>
+  </g>
+
+  <!-- 矢印 ①→② -->
+  <line x1="190" y1="95" x2="240" y2="95" stroke="#555" stroke-width="2" marker-end="url(#arrow)" opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.3s" begin="0.7s" fill="freeze"/>
+  </line>
+
+  <!-- ② AHK -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.4s" begin="1s" fill="freeze"/>
+    <rect x="250" y="55" width="220" height="80" rx="12" fill="#fff3e0" stroke="#ff9800" stroke-width="2" filter="url(#shadow)"/>
+    <text x="360" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#e65100">② AutoHotkey（常駐）</text>
+    <text x="360" y="100" text-anchor="middle" font-size="11" fill="#555">クリップボード監視で自動検知</text>
+    <text x="360" y="118" text-anchor="middle" font-size="11" fill="#555">→ SVG一覧に保存</text>
+  </g>
+
+  <!-- AHKから下に3つの処理 -->
+  <!-- 保存先 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.4s" begin="1.5s" fill="freeze"/>
+    <line x1="310" y1="135" x2="310" y2="175" stroke="#ff9800" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <rect x="180" y="180" width="260" height="50" rx="8" fill="#fff8e1" stroke="#ffb74d" stroke-width="1.5"/>
+    <text x="310" y="200" text-anchor="middle" font-size="11" fill="#e65100">📁 その他\SVG一覧\svg_20260207_xxx.svg</text>
+    <text x="310" y="218" text-anchor="middle" font-size="10" fill="#888">環境変数 KNOWLEDGE_ROOT で自宅/会社切替</text>
+  </g>
+
+  <!-- 一時ファイル -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.4s" begin="1.8s" fill="freeze"/>
+    <line x1="410" y1="135" x2="560" y2="175" stroke="#ff9800" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <rect x="480" y="180" width="240" height="50" rx="8" fill="#fff8e1" stroke="#ffb74d" stroke-width="1.5"/>
+    <text x="600" y="200" text-anchor="middle" font-size="11" fill="#e65100">📄 %TEMP%\svg_clipboard.svg</text>
+    <text x="600" y="218" text-anchor="middle" font-size="10" fill="#888">VS Code拡張が読む一時ファイル</text>
+  </g>
+
+  <!-- クリップボードクリア -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.4s" begin="2.1s" fill="freeze"/>
+    <rect x="530" y="60" width="190" height="45" rx="8" fill="#ffebee" stroke="#e53935" stroke-width="1.5"/>
+    <text x="625" y="87" text-anchor="middle" font-size="12" fill="#c62828">🗑 クリップボードをクリア</text>
+    <line x1="470" y1="82" x2="530" y2="82" stroke="#e53935" stroke-width="1.5" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- ③ VS Code拡張 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.4s" begin="2.8s" fill="freeze"/>
+    <line x1="600" y1="230" x2="600" y2="280" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="60" y="290" width="680" height="90" rx="12" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" filter="url(#shadow)"/>
+    <text x="400" y="318" text-anchor="middle" font-size="14" font-weight="bold" fill="#0d47a1">③ VS Code拡張（Ctrl+Alt+S）</text>
+    <text x="400" y="340" text-anchor="middle" font-size="12" fill="#555">一時ファイル確認 → SVG一覧の最新ファイル特定 → 相対パスリンク挿入</text>
+    <text x="400" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565c0">
+      ![SVG](./その他/SVG一覧/xxx.svg)
+      <animate attributeName="fill" values="#1565c0;#e53935;#1565c0" dur="2s" begin="3.5s" repeatCount="indefinite"/>
+    </text>
+  </g>
+
+  <!-- 矢印 SVG一覧→VS Code -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.3s" begin="2.6s" fill="freeze"/>
+    <line x1="310" y1="230" x2="310" y2="290" stroke="#1976d2" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+    <text x="280" y="265" font-size="10" fill="#1976d2">最新SVG特定</text>
+  </g>
+
+  <!-- ④ Ctrl+クリック -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.4s" begin="3.5s" fill="freeze"/>
+    <line x1="400" y1="380" x2="400" y2="420" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="250" y="425" width="300" height="60" rx="12" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" filter="url(#shadow)"/>
+    <text x="400" y="452" text-anchor="middle" font-size="13" font-weight="bold" fill="#4a148c">④ Ctrl+クリック → SVG表示 🎉</text>
+    <text x="400" y="472" text-anchor="middle" font-size="11" fill="#555">VS Code内でSVGプレビュー表示</text>
+  </g>
+
+  <!-- 注意書き -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="4s" fill="freeze"/>
+    <rect x="30" y="425" width="200" height="55" rx="8" fill="#ffebee" stroke="#e53935" stroke-width="1.5"/>
+    <text x="130" y="448" text-anchor="middle" font-size="11" font-weight="bold" fill="#c62828">⚠ Ctrl+Alt+V は禁止</text>
+    <text x="130" y="466" text-anchor="middle" font-size="10" fill="#888">Paste Image拡張と競合</text>
+  </g>
+
+  <!-- 相対パス説明 -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="4s" fill="freeze"/>
+    <rect x="570" y="425" width="200" height="55" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="1.5"/>
+    <text x="670" y="448" text-anchor="middle" font-size="11" font-weight="bold" fill="#2e7d32">✅ 相対パスで挿入</text>
+    <text x="670" y="466" text-anchor="middle" font-size="10" fill="#888">自宅(D:)も会社(T:)もOK</text>
+  </g>
+</svg>
