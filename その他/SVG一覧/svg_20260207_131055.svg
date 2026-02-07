@@ -1,0 +1,38 @@
+﻿<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景（固定層） -->
+  <rect x="0" y="0" width="800" height="600" fill="#4a90e2"/>
+  <text x="400" y="100" text-anchor="middle" fill="white" font-size="24" font-weight="bold">背景画像（固定 - fixed）</text>
+  <circle cx="150" cy="250" r="40" fill="white" opacity="0.3"/>
+  <circle cx="650" cy="200" r="60" fill="white" opacity="0.3"/>
+  <polygon points="400,350 350,450 450,450" fill="white" opacity="0.3"/>
+  
+  <!-- スクロール方向の矢印 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#ff6b6b"/>
+    </marker>
+  </defs>
+  <line x1="50" y1="150" x2="50" y2="450" stroke="#ff6b6b" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <text x="80" y="300" fill="#ff6b6b" font-size="18" font-weight="bold">スクロール方向</text>
+  
+  <!-- コンテンツ層 -->
+  <g opacity="0.9">
+    <!-- padding-topの透明な隙間 -->
+    <rect x="100" y="150" width="600" height="120" fill="none" stroke="#ffd700" stroke-width="3" stroke-dasharray="10,5"/>
+    <text x="400" y="210" text-anchor="middle" fill="#ffd700" font-size="16" font-weight="bold">padding-top（透明な隙間）</text>
+    <text x="400" y="230" text-anchor="middle" fill="#ffd700" font-size="14">→ 背景が透けて見える</text>
+    
+    <!-- メインコンテンツ -->
+    <rect x="100" y="280" width="600" height="250" fill="white" stroke="#333" stroke-width="2"/>
+    <text x="400" y="320" text-anchor="middle" fill="#333" font-size="20" font-weight="bold">メインコンテンツ</text>
+    <text x="400" y="350" text-anchor="middle" fill="#666" font-size="16">（通常スクロール）</text>
+    <line x1="150" y1="380" x2="650" y2="380" stroke="#ddd" stroke-width="2"/>
+    <line x1="150" y1="410" x2="650" y2="410" stroke="#ddd" stroke-width="2"/>
+    <line x1="150" y1="440" x2="650" y2="440" stroke="#ddd" stroke-width="2"/>
+  </g>
+  
+  <!-- 説明ラベル -->
+  <text x="400" y="570" text-anchor="middle" fill="#333" font-size="14">
+    背景は固定、コンテンツだけスクロール → 視差効果で立体感が生まれる
+  </text>
+</svg>

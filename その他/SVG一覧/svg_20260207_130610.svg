@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パララックス効果の説明</title>
+</head>
+<body>
+    <svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+        <!-- 背景レイヤー (固定 - background-attachment: fixed) -->
+        <g id="background-layer">
+            <rect width="800" height="600" fill="#87CEEB"/>
+            <circle cx="650" cy="100" r="60" fill="#FFD700">
+                <animate attributeName="cy" values="100;120;100" dur="4s" repeatCount="indefinite"/>
+            </circle>
+            <text x="400" y="50" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">背景レイヤー (fixed)</text>
+            <text x="400" y="75" text-anchor="middle" font-size="14" fill="#555">スクロールしても動かない</text>
+        </g>
+
+        <!-- スクロールインジケーター -->
+        <rect x="750" y="150" width="30" height="300" fill="#ddd" rx="15"/>
+        <rect x="755" y="150" width="20" height="60" fill="#4CAF50" rx="10">
+            <animate attributeName="y" values="150;390;150" dur="6s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- コンテンツレイヤー (スクロール) -->
+        <g id="content-layer">
+            <!-- 透明な隙間 (padding-top) -->
+            <rect x="50" y="200" width="700" height="150" fill="none" stroke="#FF6B6B" stroke-width="3" stroke-dasharray="10,5">
+                <animate attributeName="y" values="200;100;200" dur="6s" repeatCount="indefinite"/>
+            </rect>
+            <text x="400" y="260" text-anchor="middle" font-size="16" fill="#FF6B6B" font-weight="bold">
+                <animate attributeName="y" values="260;160;260" dur="6s" repeatCount="indefinite"/>
+                透明な隙間 (padding-top)
+            </text>
+            <text x="400" y="285" text-anchor="middle" font-size="12" fill="#FF6B6B">
+                <animate attributeName="y" values="285;185;285" dur="6s" repeatCount="indefinite"/>
+                background-color: transparent
+            </text>
+
+            <!-- メインコンテンツ -->
+            <rect x="50" y="370" width="700" height="200" fill="#FFFFFF" stroke="#333" stroke-width="2">
+                <animate attributeName="y" values="370;270;370" dur="6s" repeatCount="indefinite"/>
+            </rect>
+            <text x="400" y="410" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">
+                <animate attributeName="y" values="410;310;410" dur="6s" repeatCount="indefinite"/>
+                メインコンテンツ
+            </text>
+            <text x="400" y="440" text-anchor="middle" font-size="14" fill="#666">
+                <animate attributeName="y" values="440;340;440" dur="6s" repeatCount="indefinite"/>
+                スクロールと共に移動
+            </text>
+            <text x="400" y="470" text-anchor="middle" font-size="14" fill="#666">
+                <animate attributeName="y" values="470;370;470" dur="6s" repeatCount="indefinite"/>
+                背景が透けて見える
+            </text>
+        </g>
+
+        <!-- 矢印と説明 -->
+        <g id="arrows">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <polygon points="0 0, 10 3, 0 6" fill="#FF6B6B"/>
+                </marker>
+            </defs>
+            <line x1="400" y1="150" x2="400" y2="190" stroke="#FF6B6B" stroke-width="2" marker-end="url(#arrowhead)">
+                <animate attributeName="y2" values="190;90;190" dur="6s" repeatCount="indefinite"/>
+            </line>
+        </g>
+
+        <!-- 視差効果の説明 -->
+        <rect x="20" y="20" width="250" height="100" fill="#FFF" stroke="#333" stroke-width="2" opacity="0.9"/>
+        <text x="145" y="45" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">視差効果</text>
+        <text x="30" y="70" font-size="12" fill="#555">✓ 背景: 固定 (fixed)</text>
+        <text x="30" y="90" font-size="12" fill="#555">✓ コンテンツ: 移動</text>
+        <text x="30" y="110" font-size="12" fill="#555">✓ 奥行き感が生まれる</text>
+    </svg>
+</body>
+</html>

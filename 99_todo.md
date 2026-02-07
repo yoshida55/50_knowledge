@@ -14,20 +14,36 @@ ALT+Bでブラウザ表示.ahk
 
 
 ▢　CSS JUMP バージョンアップ　
-・改善
-・メモ検索
 
-設定追加: settings.jsonに以下追加
+準備するもの
+・フォルダ毎
+・ahk SVG表示保存CS
+・VSIX
 
-![](images/2026-02-07-12-54-43.png)
 
+手順
+・VSIXをインストール
+・セッティングjsonに以下をコピー
 
-  "cssToHtmlJumper.claudeApiKey": "",
+ "cssToHtmlJumper.claudeApiKey": "",
   "cssToHtmlJumper.memoFilePath": "D:\\50_knowledge\\01_memo.md",
   "cssToHtmlJumper.geminiApiKey": "",
   "cssToHtmlJumper.quizCategory": "全て",
   "cssToHtmlJumper.quizCategories": ["html", "不動産", "プライベート"],
 
+・環境変数にパスを設定
+![](images/2026-02-07-16-21-37.png)
+
+
+
+・全体イメージ。AHKとのからみ。
+⇀SVG表示時、直接クリップボートにコピーせず、一時ファイル。【AHK】
+⇀拡張機能が一時ファイルからSVGを取得。【拡張機能】
+⇀（PNGファイルはクリップボードにのこっているはず。SVGだけきえる。）
+![](images/2026-02-07-12-54-43.png)
+
+
+ 
 
 
 家
