@@ -1,0 +1,61 @@
+﻿<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="600" fill="#f0f0f0"/>
+  
+  <!-- タイトル -->
+  <text x="400" y="30" font-size="20" font-weight="bold" text-anchor="middle">position: fixed の動作比較</text>
+  
+  <!-- 左側：通常の場合 -->
+  <g>
+    <text x="200" y="70" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">通常の場合</text>
+    <text x="200" y="90" font-size="12" text-anchor="middle" fill="#666">親: display: flex のみ</text>
+    
+    <!-- ブラウザウィンドウ -->
+    <rect x="50" y="110" width="300" height="400" fill="white" stroke="#333" stroke-width="2"/>
+    <text x="200" y="135" font-size="11" text-anchor="middle" fill="#999">ブラウザ画面全体</text>
+    
+    <!-- 親要素 -->
+    <rect x="80" y="160" width="240" height="150" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="200" y="180" font-size="12" text-anchor="middle" fill="#1976d2">親 (display: flex)</text>
+    
+    <!-- 子要素（画面全体に固定） -->
+    <rect x="70" y="350" width="260" height="80" fill="#ffcdd2" stroke="#f44336" stroke-width="3"/>
+    <text x="200" y="380" font-size="12" text-anchor="middle" fill="#c62828">子 (position: fixed)</text>
+    <text x="200" y="400" font-size="11" text-anchor="middle" fill="#c62828">→ 親を無視して画面全体に固定</text>
+    
+    <!-- 矢印 -->
+    <path d="M 200 310 L 200 345" stroke="#f44336" stroke-width="2" fill="none" marker-end="url(#arrowred)"/>
+  </g>
+  
+  <!-- 右側：親もfixedの場合 -->
+  <g>
+    <text x="600" y="70" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">親もfixedの場合</text>
+    <text x="600" y="90" font-size="12" text-anchor="middle" fill="#666">親: position: fixed + display: flex</text>
+    
+    <!-- ブラウザウィンドウ -->
+    <rect x="450" y="110" width="300" height="400" fill="white" stroke="#333" stroke-width="2"/>
+    <text x="600" y="135" font-size="11" text-anchor="middle" fill="#999">ブラウザ画面全体</text>
+    
+    <!-- 親要素 -->
+    <rect x="480" y="160" width="240" height="150" fill="#e3f2fd" stroke="#2196f3" stroke-width="3"/>
+    <text x="600" y="180" font-size="12" text-anchor="middle" fill="#1976d2">親 (position: fixed + flex)</text>
+    <text x="600" y="200" font-size="11" text-anchor="middle" fill="#1976d2">★基準点になる</text>
+    
+    <!-- 子要素（親の中に固定） -->
+    <rect x="510" y="230" width="180" height="60" fill="#c8e6c9" stroke="#4caf50" stroke-width="3"/>
+    <text x="600" y="255" font-size="12" text-anchor="middle" fill="#2e7d32">子 (position: fixed)</text>
+    <text x="600" y="275" font-size="11" text-anchor="middle" fill="#2e7d32">→ 親の中に留まる！</text>
+  </g>
+  
+  <!-- 矢印マーカー定義 -->
+  <defs>
+    <marker id="arrowred" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#f44336"/>
+    </marker>
+  </defs>
+  
+  <!-- 説明 -->
+  <rect x="50" y="530" width="700" height="50" fill="#fff9c4" stroke="#fbc02d" stroke-width="2" rx="5"/>
+  <text x="400" y="552" font-size="13" text-anchor="middle" fill="#f57f17">💡 ポイント：親が position: fixed だと「基準点」になり、</text>
+  <text x="400" y="570" font-size="13" text-anchor="middle" fill="#f57f17">子の fixed も親を基準に配置される（Flexboxも効く）</text>
+</svg>

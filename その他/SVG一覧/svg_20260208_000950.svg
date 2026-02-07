@@ -1,0 +1,53 @@
+﻿ノートのサイズ選びに関する判断基準を、視覚的にわかりやすくSVG画像（ダイアグラム）で解説します。
+
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="600" height="400" fill="#f8f9fa" rx="10" ry="10"/>
+  
+  <!-- Title -->
+  <text x="300" y="40" font-family="Arial, sans-serif" font-size="22" font-weight="bold" text-anchor="middle" fill="#333">後悔しないノートサイズ判断法</text>
+  
+  <!-- Size Comparison Group -->
+  <g transform="translate(50, 80)">
+    <!-- B5 (Largest) -->
+    <rect x="0" y="20" width="130" height="180" fill="#ffffff" stroke="#333" stroke-width="2"/>
+    <text x="65" y="115" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">B5</text>
+    <text x="65" y="220" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#555">勉強・しっかり</text>
+    
+    <!-- A5 (Recommended) -->
+    <rect x="180" y="45" width="110" height="155" fill="#e7f3ff" stroke="#007bff" stroke-width="3"/>
+    <text x="235" y="125" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#007bff">A5</text>
+    <rect x="185" y="20" width="100" height="20" rx="10" fill="#ffc107"/>
+    <text x="235" y="35" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#333">一番おすすめ！</text>
+    <text x="235" y="220" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#555">持ち歩き・万能</text>
+
+    <!-- B6 (Smallest) -->
+    <rect x="340" y="75" width="95" height="125" fill="#ffffff" stroke="#333" stroke-width="2"/>
+    <text x="387" y="145" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">B6</text>
+    <text x="387" y="220" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#555">ポケット感覚</text>
+  </g>
+
+  <!-- Criteria Box -->
+  <rect x="50" y="260" width="500" height="110" rx="10" fill="#ffffff" stroke="#ddd"/>
+  <text x="70" y="290" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#d9534f">📌 究極の2択チェック：</text>
+  
+  <!-- Choice 1 -->
+  <circle cx="80" cy="315" r="5" fill="#333"/>
+  <text x="95" y="320" font-family="Arial, sans-serif" font-size="15" fill="#333">机でガッツリ書く「勉強メイン」なら → <tspan font-weight="bold">B5</tspan></text>
+  
+  <!-- Choice 2 -->
+  <circle cx="80" cy="345" r="5" fill="#333"/>
+  <text x="95" y="350" font-family="Arial, sans-serif" font-size="15" fill="#333">常にカバンに入れる「持ち歩き用」なら → <tspan font-weight="bold" fill="#007bff">A5</tspan></text>
+</svg>
+この図のポイント解説：
+B5サイズ（勉強用）
+
+学校のノートと同じサイズです。面積が広いため、図解や長文をしっかり書き込むのに適しています。ただし、持ち歩くには少し大きさを感じます。
+A5サイズ（一番のおすすめ）
+
+B5より一回り小さく、タブレット端末に近いサイズ感です。「小さすぎないから書きやすく、重すぎないから持ち歩きやすい」という絶妙なバランスで、最も汎用性が高いサイズです。
+B6サイズ（メモ用）
+
+コミック本くらいのサイズです。片手で持ちやすく、ポケットや小さなバッグに収まります。ただし、本格的な勉強や思考の整理には少し紙面が足りなく感じることがあります。
+結論：
+迷っているなら、まずはA5を選んでみてください。多くの人にとって「書きやすさ」と「機動性」のバランスが最も取れているサイズです。

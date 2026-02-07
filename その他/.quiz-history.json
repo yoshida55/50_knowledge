@@ -82,5 +82,14 @@
     "line": 1490,
     "lastReviewed": 1770450658796,
     "reviewCount": 1
+  },
+  "親要素でFlexをかけたときに子要素の幅を指定することが可能": {
+    "title": "親要素でFlexをかけたときに子要素の幅を指定することが可能",
+    "line": 1616,
+    "lastReviewed": 1770476599487,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
   }
 }

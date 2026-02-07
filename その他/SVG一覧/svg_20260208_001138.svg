@@ -1,0 +1,103 @@
+﻿<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 定義 -->
+  <defs>
+    <!-- 背景画像パターン -->
+    <pattern id="bgImage" x="0" y="0" width="100%" height="100%">
+      <rect width="100%" height="100%" fill="#4A90E2"/>
+      <circle cx="30%" cy="30%" r="50" fill="#FFD700"/>
+      <polygon points="60,80 40,120 80,120" fill="#228B22"/>
+      <circle cx="70%" cy="60%" r="40" fill="#FF6B6B"/>
+    </pattern>
+    
+    <!-- クリップパス：ビューポート -->
+    <clipPath id="viewport">
+      <rect x="0" y="0" width="300" height="200"/>
+    </clipPath>
+  </defs>
+
+  <!-- タイトル -->
+  <text x="400" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">
+    パララックス効果: background-size: 150% の動作
+  </text>
+
+  <!-- 左側: 100% (通常) -->
+  <g transform="translate(50, 60)">
+    <text x="150" y="-10" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">
+      background-size: 100% (通常)
+    </text>
+    
+    <!-- ビューポート枠 -->
+    <rect x="0" y="0" width="300" height="200" fill="none" stroke="#333" stroke-width="3"/>
+    <text x="150" y="220" font-size="12" text-anchor="middle" fill="#666">ビューポート</text>
+    
+    <!-- 背景画像 (100%) -->
+    <g clip-path="url(#viewport)">
+      <rect x="0" y="0" width="300" height="200" fill="url(#bgImage)"/>
+    </g>
+    
+    <text x="150" y="250" font-size="11" text-anchor="middle" fill="#E74C3C">
+      ❌ 画像が小さく、変化が少ない
+    </text>
+  </g>
+
+  <!-- 右側: 150% (拡大) -->
+  <g transform="translate(450, 60)">
+    <text x="150" y="-10" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">
+      background-size: 150% (拡大)
+    </text>
+    
+    <!-- ビューポート枠 -->
+    <rect x="0" y="0" width="300" height="200" fill="none" stroke="#333" stroke-width="3"/>
+    <text x="150" y="220" font-size="12" text-anchor="middle" fill="#666">ビューポート</text>
+    
+    <!-- 背景画像 (150% - 拡大表示) -->
+    <g clip-path="url(#viewport)">
+      <rect x="-75" y="-50" width="450" height="300" fill="url(#bgImage)">
+        <!-- アニメーション: スクロール効果 -->
+        <animate attributeName="y" values="-50;-100;-50" dur="3s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+    
+    <text x="150" y="250" font-size="11" text-anchor="middle" fill="#27AE60">
+      ✅ 拡大で奥行き感・動きが強調
+    </text>
+  </g>
+
+  <!-- 下��: スクロール動作の説明 -->
+  <g transform="translate(50, 340)">
+    <rect x="0" y="0" width="700" height="220" fill="#F8F9FA" stroke="#DDD" stroke-width="2" rx="5"/>
+    
+    <text x="350" y="30" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">
+      📜 スクロール時の挙動（右図がアニメーション中）
+    </text>
+    
+    <!-- 矢印と説明 -->
+    <g transform="translate(50, 60)">
+      <circle cx="0" cy="0" r="8" fill="#E74C3C"/>
+      <text x="20" y="5" font-size="13" fill="#333">
+        <tspan font-weight="bold">100%の場合:</tspan> 画像が固定され、変化が小さい → 平坦な印象
+      </text>
+    </g>
+    
+    <g transform="translate(50, 100)">
+      <circle cx="0" cy="0" r="8" fill="#27AE60"/>
+      <text x="20" y="5" font-size="13" fill="#333">
+        <tspan font-weight="bold">150%の場合:</tspan> 拡大された画像が固定 → スクロールで大きく景色が変わる
+      </text>
+    </g>
+    
+    <g transform="translate(50, 140)">
+      <rect x="-5" y="-12" width="10" height="24" fill="#4A90E2"/>
+      <text x="20" y="5" font-size="13" fill="#333">
+        <tspan font-weight="bold">視差効果:</tspan> コンテンツと背景の速度差��立体感・奥行きを演出
+      </text>
+    </g>
+    
+    <g transform="translate(50, 180)">
+      <polygon points="0,-8 8,8 -8,8" fill="#FFD700"/>
+      <text x="20" y="5" font-size="13" fill="#333">
+        <tspan font-weight="bold">150%の理由:</tspan> より広い範囲を表示 → ダイナミックな変化が可能
+      </text>
+    </g>
+  </g>
+</svg>
