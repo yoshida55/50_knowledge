@@ -1,0 +1,46 @@
+﻿<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="600" height="400" fill="#f0f0f0"/>
+  
+  <!-- fixed指定の背景画像（固定） -->
+  <g id="fixed-bg">
+    <rect x="50" y="50" width="200" height="300" fill="#4a90e2" opacity="0.3"/>
+    <circle cx="150" cy="200" r="40" fill="#fff" opacity="0.5"/>
+    <text x="150" y="210" text-anchor="middle" fill="#333" font-size="14">背景画像</text>
+    <text x="150" y="230" text-anchor="middle" fill="#333" font-size="12">(fixed)</text>
+  </g>
+  
+  <!-- スクロール前のコンテンツ -->
+  <g id="content-before">
+    <rect x="280" y="80" width="250" height="120" fill="white" stroke="#333" stroke-width="2"/>
+    <text x="405" y="110" text-anchor="middle" font-weight="bold">スクロール前</text>
+    <rect x="300" y="130" width="210" height="15" fill="#ddd" rx="2"/>
+    <rect x="300" y="155" width="180" height="15" fill="#ddd" rx="2"/>
+    <text x="405" y="190" text-anchor="middle" font-size="12">↓ スクロール</text>
+  </g>
+  
+  <!-- スクロール後のコンテンツ（下に移動） -->
+  <g id="content-after">
+    <rect x="280" y="220" width="250" height="120" fill="white" stroke="#e74c3c" stroke-width="2"/>
+    <text x="405" y="250" text-anchor="middle" font-weight="bold" fill="#e74c3c">スクロール後</text>
+    <rect x="300" y="270" width="210" height="15" fill="#ddd" rx="2"/>
+    <rect x="300" y="295" width="180" height="15" fill="#ddd" rx="2"/>
+  </g>
+  
+  <!-- 矢印と説明 -->
+  <path d="M 550 140 L 550 220" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="560" y="180" fill="#e74c3c" font-size="12">動く</text>
+  
+  <path d="M 30 200 L 30 200" stroke="#4a90e2" stroke-width="3"/>
+  <text x="10" y="360" fill="#4a90e2" font-size="12">動かない</text>
+  
+  <!-- 矢印の定義 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <polygon points="0 0, 10 5, 0 10" fill="#e74c3c"/>
+    </marker>
+  </defs>
+  
+  <!-- 説明ラベル -->
+  <text x="300" y="30" font-size="16" font-weight="bold">background-attachment: fixed の動作</text>
+</svg>
