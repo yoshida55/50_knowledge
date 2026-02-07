@@ -1,0 +1,7 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <circle cx="100" cy="80" r="50" fill="#FFD700"/>
+  <circle cx="80" cy="70" r="8" fill="#333"/>
+  <circle cx="120" cy="70" r="8" fill="#333"/>
+  <path d="M75 95 Q100 120 125 95" stroke="#333" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <text x="100" y="160" text-anchor="middle" font-size="14" fill="#333">Typeless Test!</text>
+</svg>

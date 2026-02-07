@@ -1,0 +1,8 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <rect width="240" height="240" rx="16" fill="#192a56"/>
+  <star/>
+  <polygon points="120,25 140,85 205,85 152,120 172,180 120,145 68,180 88,120 35,85 100,85" fill="#f5cd79"/>
+  <circle cx="120" cy="120" r="25" fill="#192a56"/>
+  <circle cx="120" cy="120" r="15" fill="#f5cd79" opacity="0.5"/>
+  <text x="120" y="225" text-anchor="middle" font-size="15" font-family="sans-serif" fill="#dcdde1">Test #5 ⭐</text>
+</svg>
