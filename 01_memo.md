@@ -3107,7 +3107,7 @@ CSSでは**隣接兄弟セレクタ（`+`）** を使うこと���、特定
 - パララックスは transform: translateY() で実装
 
 
-## Claudecodeのスキルズへの追加方法
+## Claudecodeのスキルズへの追加方法 
 
 ・～.claude\skills\memo-format\SKILL.md
 
@@ -3141,3 +3141,46 @@ triggers:
 
 例）
 ----------------------------
+
+## 📌 パララックスのシンプルな作り方 html
+
+【結論】
+固定背景 + スクロール前景の2層構造で視差効果を作る
+
+1. 大きくDivセクションを2つ作る
+   (a) 1つは背景画像
+   (b) 1つは前面画像
+2. 1つ目の背景画像には、position: fixed で固定配置させる
+3. 2つ目の前面の方には、あえて position: relative を付けて、z-index で前面に持ってくるようにする
+
+あとはJavaScript(`transform: translateY()` )で調整します。
+
+【具体例】
+```html
+<!-- ➀背景画像（固定） -->
+<div class="particle-bg">
+  <div class="house-illustration"></div>
+</div>
+
+<!-- ➁前面画像（スクロール） -->
+<div class="parallax-container">
+  <section class="parallax-section">
+    <!-- コンテンツ -->
+  </section>
+</div>
+```
+
+```css
+/* ➀背景：画面に固定 */
+.particle-bg {
+  position: fixed;
+  z-index: -1;  /* 背景に配置 */
+}
+
+/* ➁前面：z-indexで前面に */
+.parallax-container {
+  position: relative;  /* z-indexを有効化 */
+  z-index: 1;          /* 前面に配置 */
+  padding-top: 100vh;  /* 最初は背景だけ表示 */
+}
+```

@@ -1,0 +1,87 @@
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* ➀固定背景（絵の家） */
+.particle-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* パララックスの固定画像「お家の部分」 */
+.house-illustration {
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+}
+
+/* パララックスの固定画像「お家の屋根の部分」 */
+.house-illustration::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+
+  border-left: 180px solid transparent;
+  border-right: 180px solid transparent;
+  border-bottom: 80px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ➁スクロールするセクション */
+.parallax-container {
+  /* あえて高さをたすために、z-indexを指定するためにposition: relativeをつける */
+  position: relative;
+  z-index: 1;
+
+  /* 最初のセクションが画面下に隠れるように調整 */
+  padding-top: 100vh;
+}
+
+/* ➂パララックスの前景スクロールセクション1*/
+.parallax-section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 50px;
+}
+
+/* 写真ボックス（パララックス対象） */
+.photo-box {
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.05s ease-out;
+}
+
+.photo1 {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.photo2 {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.photo3 {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.photo4 {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
