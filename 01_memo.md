@@ -3054,3 +3054,90 @@ CSSでは**隣接兄弟セレクタ（`+`）** を使うこと���、特定
 
 
 ![SVG](./その他/SVG一覧/svg_20260207_131003.svg)
+
+
+## JavaScript が正しく動作しません。新しいライブラリを追加したものの動作しないのはなぜでしょうか。 html
+
+答えは、ライブラリを script タグで囲む必要があったからです。実際に動作するスクリプトとライブラリのスクリプトを、それぞれ別々に囲む必要があります。
+
+```html
+<!-- JavaScript -->
+<script src="js/shuffle-text.js"></script>
+<script>
+  const text = new ShuffleText(document.querySelector("#myText"));
+  text.start();
+</script>
+</body>
+```
+
+
+## 📌 パララックス　position: fixed と子要素の関係 html
+
+【結論】
+親が fixed で、子は relative や absolute のようなことができるということです。
+
+別に親は relative である必要はなく、fixed があれば relative の代わりになりつつ、本来の fixed としての意味（固定）も持たせられる、といった形になります
+
+- 親が固定されると、子も一緒に固定される
+- fixed は relative の代わりになる + 固定機能も持つ
+
+
+【具体例：固定背景のパララックス】
+```html
+<div class="particle-bg">       <!-- fixed -->
+  <div class="house"></div>      <!-- relative -->
+</div>
+```
+
+```css
+.particle-bg {
+  position: fixed;   /* 画面に固定 */
+  top: 0; left: 0;
+}
+
+.house {
+  position: relative; /* 親の中で配置 */
+  /* fixed 不要！親と一緒に固定される */
+}
+```
+
+【補足】
+- fixedは親1箇所のみ
+- 子に fixed を付けると親を無視して画面全体を基準に固定される
+- パララックスは transform: translateY() で実装
+
+
+## Claudecodeのスキルズへの追加方法
+
+・～.claude\skills\memo-format\SKILL.md
+
+に追加する。
+
+サンプル-------------------
+
+# 出力先
+d:\50_knowledge\01_memo.md に追記
+
+---
+name: memo-format
+description: 学習メモを指定フォーマットで作成
+triggers:
+  - メモ作成
+  - 学習メモ
+  - フォーマットで
+---
+
+# 学習メモフォーマット
+
+【結論】
+要点を簡潔に
+
+【具体例】
+```コード例```
+
+【補足】
+- 箇条書き
+
+
+例）
+----------------------------
