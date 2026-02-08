@@ -3184,3 +3184,52 @@ triggers:
   padding-top: 100vh;  /* 最初は背景だけ表示 */
 }
 ```
+
+----------------------------
+
+## 📌 particles.js の基本構成 ライブラリからスライドなどの実装をする場合　html
+
+【結論】
+CDN読込 → HTML要素準備 → particlesJS()で初期化の3ステップ
+
+【具体例】
+```html
+<!-- ➀要素準備 -->
+<div id="particles-js"></div>
+
+<!-- ➁CDN読込 -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+```
+
+```javascript
+/* ➂初期化（script2.js） */
+particlesJS("particles-js", {
+  particles: {
+    number: { value: 80 },           // パーティクル数
+    shape: { type: "circle" },       // 形状：円
+    size: { value: 3 },              // サイズ：3px
+    line_linked: {
+      enable: true,                  // 線接続ON
+      distance: 150,                 // 接続距離150px
+      color: "#ffffff",              // 線色：白
+      opacity: 0.4,
+      width: 1
+    },
+    move: {
+      enable: true,
+      speed: 6                       // 移動速度
+    }
+  },
+  interactivity: {
+    events: {
+      onhover: { enable: true, mode: "repulse" }  // ホバーで反発
+    }
+  }
+});
+```
+
+【補足】
+- 第1引数：対象要素のid名（`particles-js`）
+- 第2引数：設定オブジェクト
+- CDN v2.0.0使用（jsdelivr配信）
+- ホバー効果は `repulse`（反発）/ `grab`（つかむ）などが選択可能
