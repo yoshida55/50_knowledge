@@ -561,7 +561,7 @@ html {
 /_ @media screen and (max-width: 375px) {
 _/
 
-## ▢ git 個人メモ、★github ルールに追加する必要なし
+## ▢ git ★github ルールに追加する必要なし
 1. git の紐づけ
 
 ```
@@ -3233,3 +3233,18 @@ particlesJS("particles-js", {
 - 第2引数：設定オブジェクト
 - CDN v2.0.0使用（jsdelivr配信）
 - ホバー効果は `repulse`（反発）/ `grab`（つかむ）などが選択可能
+
+
+## 📌 javaScriptでボタンを追加した際に、ループでそれぞれのボタンを追加した際に、アドイベントリスナーをつけても、該当のボタンがおせない。イベントが発火しない。
+
+ループごとにconstで定義しないと初期化されないため。
+
+変数を宣言していないかった。
+
+
+## ライブラリのファイルを読み込む時、CDNなどはかならずjsの上に記述する。
+
+```html
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="js/particle_setting.js"></script>
+```
