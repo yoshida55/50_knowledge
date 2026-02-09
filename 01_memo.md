@@ -1325,6 +1325,7 @@ Ctrl+P → ファイル名入力 → Enter → Alt+B →
 CTRL　：　セクション一覧表示
 Ctrl+Shift+7: クイズ起動
 Ctrl+Shift+M: メモ検索
+Ctrl+Shift+l: セクションリスと表示
 
 
 
@@ -3187,10 +3188,13 @@ triggers:
 
 ----------------------------
 
-## 📌 particles.js の基本構成 ライブラリからスライドなどの実装をする場合　html
+## 📌 particles.js の基本構成 ライブラリからスライドなどの実装をする場合（星座のような背景）　html
 
 【結論】
 CDN読込 → HTML要素準備 → particlesJS()で初期化の3ステップ
+
+
+![SVG](./その他/SVG一覧/svg_20260210_000528.svg)
 
 【具体例】
 ```html
@@ -3248,3 +3252,111 @@ particlesJS("particles-js", {
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="js/particle_setting.js"></script>
 ```
+
+## ビューポートが小さくなった際、フォントサイズをある程度の大きさで止める。逆に、ビューポートが大きくなった場合も、指定したサイズであまり大きくしすぎないようにする。 html
+
+```css
+font-size: clamp(10px, (10 / 1280 * 100vw), 16px);
+/* ✨
+# clamp()の計算説明
+
+この`clamp()`は**最小値、推奨値、最大値**の3つを指定してい���す。
+
+clamp(10px, (10 / 1280 * 100vw), 16px)
+
+## 各値の意味
+
+1. **最小値: 10px** → これより小さくならない
+2. **推奨値: (10 / 1280 * 100vw)** → 画面幅に応じて変動
+3. **最大値: 16px** → これより大きくならない
+
+つまり、**画面幅に応じて10px〜16pxの範囲で可変するフォントサイズ**です。
+*/
+
+```
+
+
+## 検証画面のCSS画面への遷移の仕方、計算済みタブ(Computed)画面からギャップなどをクリックする。 html
+
+ソースが表示されるのでクリック
+![](images/2026-02-10-00-26-08.png)
+
+スタイルタブからも可能
+![](images/2026-02-10-00-28-48.png)
+
+
+
+## JavaScriptなどでオープンメニューなどのクラスを追加した際に他のクラスを操作する。　html
+
+`子クラス`（この場合は通常にクラス指定する）
+#side_area.open .side_nav_container {
+
+
+`兄弟セレクタ（~）を使う`(子要素ではない、親が同じ
+この場合　 `~ `で兄弟クラスを設定し、さらにそこからの経由で子要素を指定する　`~これで一回親を経由すると考える`) */`
+#side_area.open ~ #mainVisual_area .page_container {
+  display: none;
+}
+
+
+body（お母さん）
+├─ header#side_area（兄）
+└─ section#mainVisual_area（弟）
+   └─ nav.page_container（弟の子供）
+
+![](images/2026-02-10-01-29-55.png)
+
+## 📌 ハンバーガーメニュー　兄弟セレクタ（~）でサブメニュー画面表示 html
+
+【結論】
+別セクションの要素を消すには兄弟セレクタ（~）を使う。
+ハンバーガーメニュークリック時、JSでクラス付与 → CSSで全画面メニュー表示 + 他要素非表示。
+
+【具体例】
+```html
+<!-- HTML構造 -->
+<header id="side_area">         <!-- ここにopenクラス付与 -->
+  <div class="side_nav_container"><!-- 通常非表示 → open時に表示 --></div>
+</header>
+<section id="mainVisual_area">  <!-- 兄弟要素 -->
+  <nav class="page_container"><!-- open時に非表示にしたい --></nav>
+</section>
+```
+
+```css
+/* 通常時：サブメニュー非表示 */
+.side_nav_container {
+  display: none;
+}
+
+/* open時：サブメニューを全画面表示 */
+#side_area.open .side_nav_container {
+  display: flex;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  z-index: 999;
+}
+
+/* open時：兄弟要素の縦書きメニューを非表示 */
+#side_area.open ~ #mainVisual_area .page_container {
+  display: none;
+}
+```
+
+```javascript
+// JSでクラス付け外し
+hamburgerBtn.addEventListener("click", function () {
+  hamburgerBtn.classList.toggle("open");
+  document.getElementById("side_area").classList.toggle("open");
+});
+```
+
+【補足】
+- `~` = 兄弟セレクタ（同じ親を持つ後ろの要素を指定）
+- セクションが違っても、bodyの直下なら兄弟関係
+- position: fixed は1箇所のみ（サブメニュー画面のみ）
+- z-index で重なり順を制御
+

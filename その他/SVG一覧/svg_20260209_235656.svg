@@ -1,0 +1,148 @@
+﻿#Requires AutoHotkey v2.0
+#SingleInstance Force
+; ============================================================
+; SVGコピー監視（安全版）
+; - クリップボードの中身を「書き換えない」ので貼り付けが壊れにくい
+; - 「文字としてのSVG(<svg ...>)」が来た時だけ保存
+; - 画像としてコピーされたSVGは対象外（貼り付け壊し防止のため）
+; ============================================================
+
+; ========== 設定 ==========
+ENV_NAME      := "KNOWLEDGE_ROOT"          ; 環境変数（例: T:\50_knowledge / D:\50_knowledge）
+SUB_DIR       := "\その他\SVG一覧"         ; 保存先（KNOWLEDGE_ROOT の下）
+AUTO_OPEN_DIR := false                      ; 保存後にフォルダを開くか
+AUTO_SAVE     := true                       ; 自動保存ON/OFF（切替は F10）
+TEMP_SVG_PATH := A_Temp "\svg_clipboard.svg" ; 必要ならVS Code拡張などに使える一時ファイル
+; ==========================
+
+; 連続発火の暴走対策
+global g_LastSavedHash := ""
+global g_Saving := false
+
+; 保存先ベース
+BaseDir := EnvGet(ENV_NAME)
+if (BaseDir = "") {
+    ; 環境変数が無いなら、いったんユーザーの 50_knowledge を仮に使う（貼り付け破壊を避けるため動作は続行）
+    BaseDir := "C:\Users\sensh\Desktop\50_knowledge"
+}
+
+SAVE_DIR := RTrim(BaseDir, "\/") . SUB_DIR
+
+try {
+    if !DirExist(SAVE_DIR)
+        DirCreate(SAVE_DIR)
+} catch as e {
+    MsgBox("保存先フォルダを作れませんでした。`n" SAVE_DIR "`n`n" e.Message, "エラー", "Icon!")
+    ExitApp
+}
+
+; ============================================================
+; クリップボード監視（貼り付けを壊さないためのルール）
+; - クリップボードは絶対に書き換えない
+; - 文字としてのSVGだけ保存（<svg を含む）
+; ============================================================
+OnClipboardChange(ClipboardChanged)
+
+ClipboardChanged(type) {
+    global AUTO_SAVE, g_Saving
+
+    if !AUTO_SAVE
+        return
+
+    ; 二重発火・再入防止
+    if g_Saving
+        return
+
+    ; type は環境で違いが出るので「typeに依存しない」判定にする
+    ; ただし、A_Clipboard が空なら何もしない（画像コピーなどはここに来やすい）
+    text := A_Clipboard
+    if (text = "")
+        return
+
+    ; 文字としてのSVGだけ反応
+    if !InStr(text, "<svg")
+        return
+
+    ; 保存処理（クリップボードを書き換えない）
+    g_Saving := true
+    try {
+        SaveSvgText(text)
+    } catch as e {
+        MsgBox("SVG保存に失敗しました。`n`n" e.Message, "エラー", "Icon!")
+    }
+    g_Saving := false
+}
+
+; ============================================================
+; SVG文字列を保存する
+; ============================================================
+SaveSvgText(svgText) {
+    global SAVE_DIR, AUTO_OPEN_DIR, TEMP_SVG_PATH, g_LastSavedHash
+
+    ; 改行や空白が多少変わっても連続保存しないため、ざっくりハッシュ化（簡易）
+    hash := SimpleHash(svgText)
+    if (hash = g_LastSavedHash)
+        return
+    g_LastSavedHash := hash
+
+    fileName := "svg_" FormatTime(A_Now, "yyyyMMdd_HHmmss") ".svg"
+    savePath := SAVE_DIR "\" fileName
+
+    ; SVGの先頭にXML宣言が無い場合でもそのまま保存（余計な改変をしない）
+    FileDelete(savePath) ; 念のため
+    FileAppend(svgText, savePath, "UTF-8")
+
+    ; 一時ファイルも更新（必要な人だけ使う想定）
+    try {
+        FileDelete(TEMP_SVG_PATH)
+        FileAppend(svgText, TEMP_SVG_PATH, "UTF-8")
+    } catch {
+        ; 失敗しても本保存ができていればOK
+    }
+
+    if AUTO_OPEN_DIR
+        Run('explorer.exe "' SAVE_DIR '"')
+
+    ; 通知
+    TrayTip("SVG保存", "保存しました:`n" savePath, 2)
+}
+
+; ============================================================
+; 簡易ハッシュ（同じ内容の連続保存を防ぐだけ）
+; ============================================================
+SimpleHash(s) {
+    ; 文字コード全部をきちんと扱う強いハッシュではなく、暴走防止用の軽いやつ
+    h := 0
+    Loop Parse s {
+        h := Mod((h * 131) + Ord(A_LoopField), 2147483647)
+    }
+    return h
+}
+
+; ============================================================
+; 便利キー
+; ============================================================
+
+; 手動保存：Ctrl + Alt + S
+^!s:: {
+    text := A_Clipboard
+    if (text = "" || !InStr(text, "<svg")) {
+        MsgBox("クリップボードに「文字としてのSVG」がありません。`n`nメモ帳に貼って <svg が見える状態で実行してください。", "確認", "Icon!")
+        return
+    }
+    try {
+        SaveSvgText(text)
+    } catch as e {
+        MsgBox("SVG保存に失敗しました。`n`n" e.Message, "エラー", "Icon!")
+    }
+}
+
+; 自動保存ON/OFF切替：F10
+F10:: {
+    global AUTO_SAVE
+    AUTO_SAVE := !AUTO_SAVE
+    TrayTip("SVG監視", "AUTO_SAVE = " (AUTO_SAVE ? "ON" : "OFF"), 2)
+}
+
+; 強制終了：Ctrl + Alt + Q
+^!q::ExitApp

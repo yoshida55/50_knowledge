@@ -1,0 +1,56 @@
+﻿<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="600" height="400" fill="#f5f5f5"/>
+  
+  <!-- body(お母さん) -->
+  <rect x="50" y="30" width="500" height="340" fill="#e3f2fd" stroke="#1976d2" stroke-width="3" rx="5"/>
+  <text x="280" y="20" font-size="16" font-weight="bold" fill="#1976d2">body (お母さん)</text>
+  
+  <!-- header#side_area(兄) -->
+  <rect x="80" y="70" width="200" height="120" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="5"/>
+  <text x="120" y="95" font-size="14" font-weight="bold" fill="#e65100">header#side_area (兄)</text>
+  <text x="125" y="115" font-size="12" fill="#f57c00">.open クラス追加</text>
+  
+  <!-- side_nav_container(兄の子) -->
+  <rect x="100" y="130" width="160" height="40" fill="#ffecb3" stroke="#f57c00" stroke-width="1" rx="3"/>
+  <text x="115" y="155" font-size="11" fill="#e65100">.side_nav_container (子)</text>
+  
+  <!-- 矢印: 子セレクタ -->
+  <line x1="180" y1="120" x2="180" y2="130" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="190" y="125" font-size="10" fill="#4caf50" font-weight="bold">子セレクタ</text>
+  
+  <!-- section#mainVisual_area(弟) -->
+  <rect x="320" y="70" width="220" height="280" fill="#fce4ec" stroke="#c2185b" stroke-width="2" rx="5"/>
+  <text x="340" y="95" font-size="14" font-weight="bold" fill="#880e4f">section#mainVisual_area (弟)</text>
+  
+  <!-- nav.page_container(弟の子) -->
+  <rect x="345" y="130" width="170" height="50" fill="#f8bbd0" stroke="#c2185b" stroke-width="1" rx="3"/>
+  <text x="365" y="160" font-size="11" fill="#880e4f">nav.page_container (弟の子)</text>
+  
+  <!-- 矢印: 子セレクタ(弟→弟の子) -->
+  <line x1="430" y1="115" x2="430" y2="130" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  
+  <!-- 矢印: 兄弟セレクタ(~) -->
+  <path d="M 280 130 Q 300 50 320 130" fill="none" stroke="#ff5722" stroke-width="3" marker-end="url(#arrowRed)"/>
+  <text x="270" y="45" font-size="12" fill="#ff5722" font-weight="bold">兄弟セレクタ (~)</text>
+  
+  <!-- 説明ボックス -->
+  <rect x="70" y="220" width="230" height="120" fill="#ffffff" stroke="#666" stroke-width="1" rx="3"/>
+  <text x="80" y="240" font-size="11" font-weight="bold" fill="#333">セレクタの動作:</text>
+  <text x="80" y="260" font-size="10" fill="#555">① #side_area.open</text>
+  <text x="95" y="275" font-size="9" fill="#666">→ .side_nav_container</text>
+  <text x="95" y="287" font-size="9" fill="#666">(子要素を直接指定)</text>
+  <text x="80" y="305" font-size="10" fill="#555">② #side_area.open ~</text>
+  <text x="95" y="320" font-size="9" fill="#666">→ #mainVisual_area</text>
+  <text x="95" y="332" font-size="9" fill="#666">→ .page_container</text>
+  
+  <!-- マーカー定義 -->
+  <defs>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#4caf50"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#ff5722"/>
+    </marker>
+  </defs>
+</svg>

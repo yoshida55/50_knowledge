@@ -28,11 +28,26 @@ triggers:
   - フォーマットで
 ---
 
+
+▢　VSIXのインストール
+
+修正内容、Ctrl、Shift、Lが正しく動作しなかった。
+
+
+
+
+
+
+
+
+
+
 # 自宅でやること
 ![](images/2026-02-09-13-49-37.png)
 
 上記のエラーで分割ツールがエラーがおきる。
 時間も表示されない。
+
 
 
 
@@ -52,6 +67,8 @@ triggers:
 ----------------------------
 
 
+
+
 ▢ Alt-Bで, SVGをブラウザで開く.AHK
 ALT+Bでブラウザ表示.ahk
 
@@ -59,37 +76,6 @@ ALT+Bでブラウザ表示.ahk
 ・chatGptで修正する
 
 
-▢　CSS JUMP バージョンアップ　
-
-準備するもの
-・フォルダ毎
-・ahk SVG表示保存CS
-・VSIX
-
-
-手順
-・VSIXをインストール
-・セッティングjsonに以下をコピー
-
- "cssToHtmlJumper.claudeApiKey": "",
-  "cssToHtmlJumper.memoFilePath": "D:\\50_knowledge\\01_memo.md",
-  "cssToHtmlJumper.geminiApiKey": "",
-  "cssToHtmlJumper.quizCategory": "全て",
-  "cssToHtmlJumper.quizCategories": ["html", "不動産", "プライベート"],
-
-・環境変数にパスを設定
-![](images/2026-02-07-16-21-37.png)
-
-
-
-・全体イメージ。AHKとのからみ。
-⇀SVG表示時、直接クリップボートにコピーせず、一時ファイル。【AHK】
-⇀拡張機能が一時ファイルからSVGを取得。【拡張機能】
-⇀（PNGファイルはクリップボードにのこっているはず。SVGだけきえる。）
-![](images/2026-02-07-12-54-43.png)
-
-
- 
 
 
 家
@@ -291,22 +277,43 @@ Ctrl+Shift+P → 「Install from VSIX」→ vsix選択
 
 
 
+▢　CSS JUMP バージョンアップ　
+
+準備するもの
+・フォルダ毎
+・ahk SVG表示保存CS
+・VSIX
+
+
+手順
+・VSIXをインストール
+・セッティングjsonに以下をコピー
+
+ "cssToHtmlJumper.claudeApiKey": "",
+  "cssToHtmlJumper.memoFilePath": "D:\\50_knowledge\\01_memo.md",
+  "cssToHtmlJumper.geminiApiKey": "",
+  "cssToHtmlJumper.quizCategory": "全て",
+  "cssToHtmlJumper.quizCategories": ["html", "不動産", "プライベート"],
+
+・環境変数にパスを設定⇀会社ではできないため、AHKに直接パスを入力することになった。
+![](images/2026-02-07-16-21-37.png)
+
+
+
+・全体イメージ。AHKとのからみ。
+⇀SVG表示時、直接クリップボートにコピーせず、一時ファイル。【AHK】
+⇀拡張機能が一時ファイルからSVGを取得。【拡張機能】
+⇀（PNGファイルはクリップボードにのこっているはず。SVGだけきえる。）
+![](images/2026-02-07-12-54-43.png)
+
+
+ 
 
 
 
 
 
 
-
-ーーーーーーーーーーーーーーーーーーーーーーー
-完了/あとで他の端末でセットアップできるように拡張機能のセット手順などを記載
-
-
-
-
-
-▢サンプルソースは以下　エクセルをみながらする。
-⇀D:\02_作業\00_リンクワーク\HTML自動化\過去の課題\55_css_jump_pikaso_zyou_短い版_練習用
 
 
 
@@ -361,10 +368,6 @@ CTRL　：　セクション一覧表示
 
 
 
-▢　Googleドライブにある、vsixをインストールする
-css-to-html-jumper-1.2.0.vsix
-・CSS⇀HTML
-・コメント（セクションの一覧を表示）CTRL　SHIft L
 
 
 
