@@ -20,7 +20,8 @@
     <h1 class="shuffle-target">WELCOME</h1>
 
     <!-- ライブラリ読み込み -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/shuffle-text/0.3.0/shuffle-text.min.js"></script>
+<!-- shuffle-text v0.5.1 -->
+    <script src="https://unpkg.com/shuffle-text@0.5.1/build/shuffle-text.js"></script>
 </body>
 </html>
 ```
@@ -68,6 +69,19 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 ```
 
+`動画イメージ`
+★動画中の最初の「LOADING...」と「途中の黒いまるがおちてこないのをイメージ」★★
+<video controls width="600">
+  <source src="../../images/chrome_TVnJAHhbls.mp4" type="video/mp4">
+</video>
+
+
+
+
+
+
+
+
 ## 実用例2: クリックでテキスト変更
 
 ```html
@@ -88,6 +102,16 @@ btn.addEventListener('click', () => {
     shuffle.setText(messages[index]);
 });
 ```
+`動画イメージ`
+
+<video controls width="600">
+  <source src="../../images/chrome_HM7OFUycwA.mp4" type="video/mp4">
+</video>
+
+
+
+
+
 
 ## 実用例3: 数字カウントアップ風
 

@@ -4,26 +4,8 @@
 
 
 
-▢ スキルズ追加
 
-## Claudecodeのスキルズへの追加方法
 
-zipにしたので.Claudeフォルダにそのまま配置する
-・～.claude\skills\memo-format\SKILL.md
-
-サンプル-------------------
-
-# 出力先
-パス\01_memo.md に追記
-
----
-name: memo-format
-description: 学習メモを指定フォーマットで作成
-triggers:
-  - メモ作成
-  - 学習メモ
-  - フォーマットで
----
 
 
 ## 拡張機能
@@ -31,7 +13,6 @@ triggers:
 
 ▢　VSIXのインストール
 
-修正内容、Ctrl、Shift、Lが正しく動作しなかった。
 
 
 ▢　MV3.4 分割ツールのダウンロード
@@ -78,6 +59,17 @@ triggers:
 
 
 -----------------------------------------------------
+
+
+
+▢ スキルズ追加
+
+## Claudecodeのスキルズへの追加方法
+
+zipにしたので.Claudeフォルダにそのまま配置する
+・～.claude\skills\memo-format\SKILL.md
+
+
 
 ▢ Alt-Bで, SVGをブラウザで開く.AHK
 ALT+Bでブラウザ表示.ahk

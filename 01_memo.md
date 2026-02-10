@@ -3360,3 +3360,21 @@ hamburgerBtn.addEventListener("click", function () {
 - position: fixed は1箇所のみ（サブメニュー画面のみ）
 - z-index で重なり順を制御
 
+
+## javaScriptのオブジェクトがはいっているかを調べるには html
+
+console.log(typeof ShuffleText);
+
+はいっていれば「function」はいっていなければ「undefined」がかえってくる
+
+
+## 動画の入れかた
+
+・以下に動画を配置
+C:\Users\guest04\Desktop\高橋研三\03_knowledge\その他\00_サンプルソース
+
+・<video controls width="600">
+  <source src="../../images/chrome_TVnJAHhbls.mp4" type="video/mp4">
+</video>
+
+動画名を指定する。（なおこれは、サンプルソースからみたパス）
