@@ -3376,7 +3376,9 @@ C:\Users\guest04\Desktop\高橋研三\03_knowledge\その他\00_サンプルソ�
 
 動画名を指定する。（なおこれは、サンプルソースからみたパス）
 
-## 📌 アニメーションライブラリ デモ管理（Swiper等） html
+
+
+## 📌 アニメーションライブラリ デモ管理（Swiper等）skillsの説明 html
 
 【結論】
 - `/animation-library-snippet {ライブラリ} {タイプ日本語}` でデモ一式生成
@@ -3387,10 +3389,11 @@ C:\Users\guest04\Desktop\高橋研三\03_knowledge\その他\00_サンプルソ�
 【具体例：参照場所】
 ```
 # index.html（デモ一覧管理ページ）
-C:\Users\guest04\Desktop\高橋研三\03_knowledge\images\index.html
+\03_knowledge\images\
+index.html
 
 # デモHTML（4ファイル）
-C:\Users\guest04\Desktop\高橋研三\03_knowledge\images\
+\03_knowledge\images\
   {library}_demo1_*_simple.html  ← シンプル版（緑枠）
   {library}_demo2_*.html
   {library}_demo3_*.html
@@ -3431,6 +3434,16 @@ C:\Users\guest04\Desktop\高橋研三\03_knowledge\その他\00_サンプルソ�
 
 ## 📌 Flexboxの使い方で、片方はflex1、片方はflexなしの場合、どのような動きをするか。これは隠しメニューなどに使えるので、理解すること。とりあえず上を確保して、下に値があればその分増えていくけど、なければ上の枠で埋め尽くすというイメージ。 html
 
+クラスとプロパティのイメージ
+![](images/2026-02-10-21-11-14.png)
+
+
+画面イメージ。
+![](images/2026-02-10-21-14-27.png)
+画面イメージ（検証ツールイメージ）
+![](images/2026-02-10-21-15-05.png)
+
+
 ここが最重要ポイントです！
 
 ↓親要素のふたつの子要素（.menu_navi_upperと.menu_navi_lower）
@@ -3447,14 +3460,7 @@ C:\Users\guest04\Desktop\高橋研三\03_knowledge\その他\00_サンプルソ�
 上の子（upper）が flex: 1 で「余ったスペースは全部俺がもらう！」と巨大化する。
 その結果、下の子（lower）は、巨大化した upper にグイグイ押し出されて、一番下にくっつく。
 
-クラスとプロパティのイメージ
-![](images/2026-02-10-21-11-14.png)
 
-
-画面イメージ。
-![](images/2026-02-10-21-14-27.png)
-画面イメージ（検証ツールイメージ）
-![](images/2026-02-10-21-15-05.png)
 
 
 ## Flexboxを利用するときは、以下でも縦中央に持ってくることができるが、基本は親Flexboxで中央に指定してあげるのがベストプラクティス。 html
@@ -3465,21 +3471,67 @@ C:\Users\guest04\Desktop\高橋研三\03_knowledge\その他\00_サンプルソ�
   transform: translateY(-50%); /* 自分の高さの半分だけ上に戻る（これでピッタリ中央） */
 }
 
+![](images/2026-02-11-07-50-49.png)
+
+
 ★ベストプラクティス
 ```css
 /* 縦へのflex 100%でcenter【flex】 */
 .hidden_nav {
   flex: 1;
-
   display: flex;
-  align-items: center;
-
-  border: 0.5rem solid red;
+  justify-content: flex-end;
 }
 .hidden_menu {
-  display: flex;
-  align-items: flex-start;
-  gap: 5rem;
-  justify-content: center;
+  「右」に位置したい場合
 }
 ```
+
+
+
+## 兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。 html 
+
+#hamburger_btn は <header id="side_area"> の中にあるため、その外にある .mainVisual_area を直接 ~ で指定することはできません。
+
+✨他のセクションは操作できるのか？
+いいえ、できます。
+
+ただし、CSSの`~`セレクタでは直接指定できないため、**JavaScriptを使う**必要があります。
+
+// 例
+hamburger_btn.addEventListener('change', function() {
+  document.querySelector('.mainVisual_area').classList.toggle('active');
+});
+
+または、HTML構造を変更して、チェックボックスをheaderの外（兄弟要素として）に配置すれば、CSSだけで制御可能になります。
+*/
+
+
+
+## 表示と非表示にはいくつか種類があって、HTMLやCSSには以下のようなプロパティがある html
+
+1. display: block  レイアウトから削除、
+2. opacity: 1.0    透明化
+3. visibility: visible は領域を保持したまま非表示、
+
+`レイアウトから削除と領域保持の違い`
+
+## **レイアウトから削除** (`display: none`)
+- 要素が**完全に消えて、スペースも残らない**
+- 他の要素が詰めて配置される
+- 例：本棚から本を抜き取ると、隣の本が詰まる
+
+## **領域を保持したまま非表示** (`visibility: hidden`)
+- 要素は**見えないが、スペースは残る**
+- 他の要素の位置は変わらない
+- 例：本を透明にしても、本の場所は空いたまま
+
+## 視覚的なイメージ
+元の状態: [A][B][C]
+
+display: none で B を消す
+→ [A][C]  ← B のスペースも消える
+
+visibility: hidden で B を消す
+→ [A][  ][C]  ← B のスペースは残る
+*/
