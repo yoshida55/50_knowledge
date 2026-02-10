@@ -123,15 +123,63 @@
       display: inline-block;
       margin-bottom: 30px;
     }
+    .toc {
+      background: rgba(255,255,255,0.15);
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+    .toc-title {
+      color: white;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .toc-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .toc-link {
+      background: white;
+      color: #667eea;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+    .toc-link:hover {
+      transform: translateY(-3px);
+    }
+    .section-title {
+      color: white;
+      font-size: 36px;
+      text-align: center;
+      margin: 60px 0 30px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      border-bottom: 3px solid rgba(255,255,255,0.3);
+      padding-bottom: 15px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🎨 Swiper.js デモ一覧</h1>
-    <div style="text-align: center;">
-      <span class="version-badge">Swiper v12.1.0 (2026/01/28)</span>
+    <h1>🎨 アニメーションライブラリ デモ一覧</h1>
+    <p class="subtitle">Swiper, AOS等のアニメーションライブラリを段階的に学習</p>
+
+    <!-- 目次 -->
+    <div class="toc">
+      <h2 class="toc-title">📚 ライブラリ一覧</h2>
+      <div class="toc-links">
+        <a href="#swiper" class="toc-link">Swiper.js</a>
+        <a href="#aos" class="toc-link">AOS.js</a>
+      </div>
     </div>
-    <p class="subtitle">シンプルな基礎から応用まで、段階的に学べる4つのパターン</p>
+
+    <!-- Swiper.js セクション -->
+    <h2 id="swiper" class="section-title">Swiper.js</h2>
 
     <div class="demo-grid">
       <!-- デモ1: フェードエフェクト（シンプル版） -->
@@ -212,14 +260,95 @@
       </a>
     </div>
 
+    <!-- AOS.js セクション -->
+    <h2 id="aos" class="section-title">AOS.js</h2>
+
+    <div class="demo-grid">
+      <!-- ① シンプル版 -->
+      <a href="aos_demo1_scroll_simple.html" class="demo-card" style="border: 3px solid #4AE290;">
+        <div class="demo-icon">✅</div>
+        <h2 class="demo-title">AOS.js ① シンプル版【まずはここから】</h2>
+        <p class="demo-description">
+          AOS.jsの機能のみを使った最小限のコード。
+          <strong>これがAOS.js本来の姿</strong>です
+        </p>
+        <div class="demo-usage" style="background: #E8F5E9;">
+          <div class="demo-usage-title" style="color: #4AE290;">💡 おすすめポイント</div>
+          <div class="demo-usage-text">
+            ✓ AOS.jsの機能のみ<br>
+            ✓ 最小限のコード<br>
+            ✓ カスタマイズしやすい<br>
+            ✓ 学習に最適
+          </div>
+        </div>
+        <div class="demo-button" style="background: linear-gradient(135deg, #4AE290 0%, #4BC0C8 100%);">シンプル版を見る →</div>
+      </a>
+
+      <!-- ② フェードエフェクト集 -->
+      <a href="aos_demo2_fade.html" class="demo-card">
+        <div class="demo-icon">🥇</div>
+        <h2 class="demo-title">AOS.js ② フェードエフェクト集</h2>
+        <p class="demo-description">
+          上下左右からのフェードイン4方向を実装。
+          実務でよく使うパターンを集めました
+        </p>
+        <div class="demo-usage">
+          <div class="demo-usage-title">📋 主な用途</div>
+          <div class="demo-usage-text">
+            ✓ カード一覧の表示<br>
+            ✓ セクションの順次表示<br>
+            ✓ 見出しと本文の組み合わせ
+          </div>
+        </div>
+        <div class="demo-button">デモを見る →</div>
+      </a>
+
+      <!-- ③ スライドエフェクト集 -->
+      <a href="aos_demo3_slide.html" class="demo-card">
+        <div class="demo-icon">🥈</div>
+        <h2 class="demo-title">AOS.js ③ スライドエフェクト集</h2>
+        <p class="demo-description">
+          スライド・ズーム・回転など、
+          多彩なエフェクトを試せるデモ集
+        </p>
+        <div class="demo-usage">
+          <div class="demo-usage-title">📋 主な用途</div>
+          <div class="demo-usage-text">
+            ✓ 注目要素の強調<br>
+            ✓ 特別なセクション表示<br>
+            ✓ 派手な演出が必要な場合
+          </div>
+        </div>
+        <div class="demo-button">デモを見る →</div>
+      </a>
+
+      <!-- ④ 多機能版 -->
+      <a href="aos_demo4_advanced.html" class="demo-card">
+        <div class="demo-icon">🥉</div>
+        <h2 class="demo-title">AOS.js ④ 多機能版【応用例】</h2>
+        <p class="demo-description">
+          複数のエフェクトとオプションを組み合わせた、
+          実務での実装パターン
+        </p>
+        <div class="demo-usage">
+          <div class="demo-usage-title">⚠ 含まれる機能</div>
+          <div class="demo-usage-text">
+            ✅ AOS機能（fade、delay、easing等）<br>
+            ✅ カード順次表示パターン<br>
+            💡 LPやポートフォリオサイトに最適
+          </div>
+        </div>
+        <div class="demo-button">多機能版を見る →</div>
+      </a>
+    </div>
+
     <div class="footer">
       <p>
-        <a href="https://swiperjs.com/" target="_blank">Swiper公式サイト</a> |
-        <a href="https://swiperjs.com/swiper-api" target="_blank">API Documentation</a> |
-        <a href="https://github.com/nolimits4web/swiper" target="_blank">GitHub</a>
+        <a href="https://swiperjs.com/" target="_blank">Swiper.js</a> |
+        <a href="https://michalsnik.github.io/aos" target="_blank">AOS.js</a>
       </p>
       <p style="margin-top: 20px; font-size: 14px; opacity: 0.8;">
-        © 2026 Swiper.js Demos - Created with ❤️
+        © 2026 Animation Library Demos - Created with ❤️
       </p>
     </div>
   </div>

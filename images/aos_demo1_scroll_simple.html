@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AOS.js - シンプル版</title>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 60px 20px 40px;
+    }
+    .back-link {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+    .back-link a {
+      display: inline-block;
+      padding: 12px 24px;
+      background: rgba(255,255,255,0.95);
+      color: #667eea;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+    .back-link a:hover {
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+      color: white;
+      font-size: 48px;
+      margin-bottom: 60px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .box {
+      background: white;
+      padding: 40px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .box h2 {
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 28px;
+    }
+    .box p {
+      color: #666;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+    .spacer {
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="back-link">
+    <a href="index.html">← デモ一覧に戻る</a>
+  </div>
+
+  <div class="container">
+    <h1>AOS.js シンプル版</h1>
+
+    <!-- 基本的なフェードイン（data-aos="fade"のみ） -->
+    <div class="box" data-aos="fade">
+      <h2>基本フェード</h2>
+      <p>data-aos="fade" を指定するだけで、スクロール時にフェードイン表示されます。これがAOS.jsの最もシンプルな使い方です。</p>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- 持続時間を指定（data-aos-duration） -->
+    <div class="box" data-aos="fade" data-aos-duration="1000">
+      <h2>持続時間の指定</h2>
+      <p>data-aos-duration="1000" で1秒かけてフェードイン。持続時間は50〜3000ミリ秒で指定できます。</p>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- 遅延を指定（data-aos-delay） -->
+    <div class="box" data-aos="fade" data-aos-duration="800" data-aos-delay="200">
+      <h2>遅延の指定</h2>
+      <p>data-aos-delay="200" で0.2秒遅らせて開始。要素を順次表示する際に便利です。</p>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- 1回のみ実行（data-aos-once） -->
+    <div class="box" data-aos="fade" data-aos-duration="800" data-aos-once="true">
+      <h2>1回のみ実行</h2>
+      <p>data-aos-once="true" で、スクロールで1回だけアニメーション実行。デフォルトは何度でも実行されます。</p>
+    </div>
+
+    <div class="spacer"></div>
+  </div>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    // AOS初期化（最小限の設定）
+    AOS.init({
+      duration: 800,  // デフォルト持続時間
+      once: false,    // 何度でも実行（スクロールで繰り返し）
+      offset: 120     // トリガーオフセット（要素が画面に入る位置）
+    });
+  </script>
+</body>
+</html>

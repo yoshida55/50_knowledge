@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AOS.js - スライドエフェクト集</title>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #4bc0c8 0%, #c779d0 100%);
+      padding: 60px 20px 40px;
+    }
+    .back-link {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+    .back-link a {
+      display: inline-block;
+      padding: 12px 24px;
+      background: rgba(255,255,255,0.95);
+      color: #4bc0c8;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+    .back-link a:hover {
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+      color: white;
+      font-size: 48px;
+      margin-bottom: 60px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .box {
+      background: white;
+      padding: 40px;
+      margin-bottom: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .box h2 {
+      color: #4bc0c8;
+      margin-bottom: 15px;
+      font-size: 28px;
+    }
+    .box p {
+      color: #666;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+    .spacer {
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="back-link">
+    <a href="index.html">← デモ一覧に戻る</a>
+  </div>
+
+  <div class="container">
+    <h1>スライドエフェクト集</h1>
+
+    <!-- 下からスライド -->
+    <div class="box" data-aos="slide-up">
+      <h2>⬆ Slide Up</h2>
+      <p>下からスライドイン。フェードより動きが大きく目立ちます。</p>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- 上からスライド -->
+    <div class="box" data-aos="slide-down">
+      <h2>⬇ Slide Down</h2>
+      <p>上からスライドイン。ドロップダウン風の演出に。</p>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- ズームイン -->
+    <div class="box" data-aos="zoom-in">
+      <h2>🔍 Zoom In</h2>
+      <p>ズームイン。注目を集めたい要素に使います。</p>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- 回転 -->
+    <div class="box" data-aos="flip-left">
+      <h2>🔄 Flip Left</h2>
+      <p>左回転。派手な演出が必要な場合に。</p>
+    </div>
+
+    <div class="spacer"></div>
+  </div>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1200,  // さらに長めのアニメーション
+      once: false,
+      offset: 120
+    });
+  </script>
+</body>
+</html>

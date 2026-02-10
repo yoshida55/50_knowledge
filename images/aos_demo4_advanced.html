@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AOS.js - 多機能版</title>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #feac5e 0%, #c779d0 50%, #4bc0c8 100%);
+      padding: 60px 20px 40px;
+    }
+    .back-link {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+    .back-link a {
+      display: inline-block;
+      padding: 12px 24px;
+      background: rgba(255,255,255,0.95);
+      color: #feac5e;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+    .back-link a:hover {
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+      color: white;
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .subtitle {
+      text-align: center;
+      color: white;
+      font-size: 18px;
+      margin-bottom: 60px;
+    }
+    .section-title {
+      text-align: center;
+      color: white;
+      font-size: 32px;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .card h3 {
+      color: #feac5e;
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+    .card p {
+      color: #666;
+      line-height: 1.6;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .box h3 {
+      color: #c779d0;
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+    .box p {
+      color: #666;
+      line-height: 1.6;
+    }
+    .spacer {
+      height: 100vh;
+    }
+    .spacer-small {
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="back-link">
+    <a href="index.html">← デモ一覧に戻る</a>
+  </div>
+
+  <div class="container">
+    <h1 data-aos="zoom-in" data-aos-duration="1000">AOS.js 多機能版</h1>
+
+    <p class="subtitle" data-aos="fade-up" data-aos-delay="300">
+      複数のエフェクトとオプションを組み合わせた応用例
+    </p>
+
+    <div class="spacer"></div>
+
+    <!-- カード一覧の順次表示 -->
+    <h2 class="section-title" data-aos="fade-down">カード一覧（順次表示）</h2>
+
+    <div class="card-grid">
+      <div class="card" data-aos="fade-up" data-aos-delay="0">
+        <h3>カード 1</h3>
+        <p>遅延0ms。最初に表示されます。</p>
+      </div>
+
+      <div class="card" data-aos="fade-up" data-aos-delay="100">
+        <h3>カード 2</h3>
+        <p>遅延100ms。少し遅れて表示。</p>
+      </div>
+
+      <div class="card" data-aos="fade-up" data-aos-delay="200">
+        <h3>カード 3</h3>
+        <p>遅延200ms。順次表示の完成。</p>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- イージングの違い -->
+    <h2 class="section-title" data-aos="fade-down">イージングのカスタマイズ</h2>
+
+    <div class="box" data-aos="fade-right" data-aos-easing="linear">
+      <h3>Linear</h3>
+      <p>一定速度で動きます。</p>
+    </div>
+
+    <div class="spacer-small"></div>
+
+    <div class="box" data-aos="fade-right" data-aos-easing="ease-in-out">
+      <h3>Ease In Out</h3>
+      <p>ゆっくり始まり、ゆっくり終わります。</p>
+    </div>
+
+    <div class="spacer"></div>
+  </div>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: false,     // 何度でも実行
+      offset: 120,
+      easing: 'ease-out-cubic'  // デフォルトイージング
+    });
+  </script>
+</body>
+</html>
