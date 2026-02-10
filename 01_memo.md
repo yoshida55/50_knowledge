@@ -3376,7 +3376,7 @@ C:\Users\guest04\Desktop\高橋研三\03_knowledge\その他\00_サンプルソ�
 
 動画名を指定する。（なおこれは、サンプルソースからみたパス）
 
-## 📌 アニメーションライブラリ デモ管理（Swiper等）
+## 📌 アニメーションライブラリ デモ管理（Swiper等） html
 
 【結論】
 - `/animation-library-snippet {ライブラリ} {タイプ日本語}` でデモ一式生成
@@ -3421,3 +3421,65 @@ C:\Users\guest04\Desktop\高橋研三\03_knowledge\その他\00_サンプルソ�
 - ファイル名は日本語（わかりやすさ優先）
 - MD内リンクは相対パス（会社・自宅でパス異なるため）
 - パス自動判定機能を `/snippet` と `/memo-format` にも追加済み
+
+
+## 📌 検証ツールのフレックスボックスの見方、要素、スタイルなどを駆使してフレックスボックスを理解　特に、親spacebetweenで子がflex1の場合 html
+
+
+
+
+
+## 📌 Flexboxの使い方で、片方はflex1、片方はflexなしの場合、どのような動きをするか。これは隠しメニューなどに使えるので、理解すること。とりあえず上を確保して、下に値があればその分増えていくけど、なければ上の枠で埋め尽くすというイメージ。 html
+
+ここが最重要ポイントです！
+
+↓親要素のふたつの子要素（.menu_navi_upperと.menu_navi_lower）
+.menu_navi_upper（メニュー部分）に flex: 1 をかける →
+余っている空間をすべて自分が占領する という動きをします。
+
+・一番下に何もない（何も flex の指定がない）
+.menu_navi_lower
+.menu_navi_lower に何も（flex の特別な指定）ないからこそ、
+上手くいっています。
+
+・仕組み
+親（.menu_navi）が height: 100%（画面いっぱいの高さ）を持っている。
+上の子（upper）が flex: 1 で「余ったスペースは全部俺がもらう！」と巨大化する。
+その結果、下の子（lower）は、巨大化した upper にグイグイ押し出されて、一番下にくっつく。
+
+クラスとプロパティのイメージ
+![](images/2026-02-10-21-11-14.png)
+
+
+画面イメージ。
+![](images/2026-02-10-21-14-27.png)
+画面イメージ（検証ツールイメージ）
+![](images/2026-02-10-21-15-05.png)
+
+
+## Flexboxを利用するときは、以下でも縦中央に持ってくることができるが、基本は親Flexboxで中央に指定してあげるのがベストプラクティス。 html
+
+.hidden_nav {
+  position: absolute; /* 親に対して自由になる */
+  top: 50%;           /* 上から50%の位置へ */
+  transform: translateY(-50%); /* 自分の高さの半分だけ上に戻る（これでピッタリ中央） */
+}
+
+★ベストプラクティス
+```css
+/* 縦へのflex 100%でcenter【flex】 */
+.hidden_nav {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+
+  border: 0.5rem solid red;
+}
+.hidden_menu {
+  display: flex;
+  align-items: flex-start;
+  gap: 5rem;
+  justify-content: center;
+}
+```
