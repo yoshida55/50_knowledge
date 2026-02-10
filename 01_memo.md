@@ -3378,3 +3378,49 @@ C:\Users\guest04\Desktop\高橋研三\03_knowledge\その他\00_サンプルソ�
 </video>
 
 動画名を指定する。（なおこれは、サンプルソースからみたパス）
+
+## 📌 アニメーションライブラリ デモ管理（Swiper等）
+
+【結論】
+- `/animation-library-snippet {ライブラリ} {タイプ日本語}` でデモ一式生成
+- `index.html` で全ライブラリのデモを一元管理（クライアント向け説明なし）
+- ファイル名: `{ライブラリ英語}_{タイプ日本語}.md` （例: swiper_フェード切替.md）
+- 必ず4デモ構成（シンプル版→パターン2つ→多機能版）
+
+【具体例：参照場所】
+```
+# index.html（デモ一覧管理ページ）
+C:\Users\guest04\Desktop\高橋研三\03_knowledge\images\index.html
+
+# デモHTML（4ファイル）
+C:\Users\guest04\Desktop\高橋研三\03_knowledge\images\
+  {library}_demo1_*_simple.html  ← シンプル版（緑枠）
+  {library}_demo2_*.html
+  {library}_demo3_*.html
+  {library}_demo4_*.html
+
+# MDファイル（スニペット）
+C:\Users\guest04\Desktop\高橋研三\03_knowledge\その他\00_サンプルソース\
+  ★{library}_{タイプ}.md
+```
+
+【具体例：コマンド】
+```bash
+# 新規ライブラリ追加
+/animation-library-snippet swiper フェード切替
+/animation-library-snippet gsap スクロール連動
+/animation-library-snippet anime パララックス
+
+# 生成されるもの
+- ★{library}_{タイプ}.md
+- 4つのデモHTML
+- index.html に新規カード追加
+```
+
+【補足】
+- デモHTML内に説明パネル禁止（クライアント向けのため）
+- 説明は index.html のカードのみ（開発者向け情報）
+- シンプル版は必ず最初（学習効率）
+- ファイル名は日本語（わかりやすさ優先）
+- MD内リンクは相対パス（会社・自宅でパス異なるため）
+- パス自動判定機能を `/snippet` と `/memo-format` にも追加済み
