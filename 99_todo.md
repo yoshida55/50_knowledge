@@ -11,13 +11,6 @@
 ## 拡張機能
 
 
-1. css-jumper/ フォルダをUSB等で持ち込み
-2. Chrome → chrome://extensions → デベロッパーモード ON
-3. 「パッケージ化されていない拡張機能を読み込む」→ css-jumper/ 選択
-4. 拡張機能IDをメモ
-5. setup.bat を実行 → IDを入力
-6. Chrome再起動
-
 
 
 ▢　MV3.4 分割ツールのダウンロード

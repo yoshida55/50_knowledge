@@ -3535,3 +3535,146 @@ display: none で B を消す
 visibility: hidden で B を消す
 → [A][  ][C]  ← B のスペースは残る
 */
+
+
+## 先生への質問
+▢　 --content-width: 129.6rem;
+などのCSSでは共通定数を設定することがあると思うのですが、
+これは一般的にアンダーラインではなくて、ハイフンを推奨されていると
+のことでしたが、これは統一すべきでしょうか
+
+▢　
+## 📌 セクション高さは固定しない（height → min-height）
+
+【結論】
+コンテンツ増減に対応できるよう、セクションはmin-heightまたはautoを使う
+
+【具体例】
+```css
+/* ❌ 悪い例：固定 */
+.about_area {
+  height: 60rem;  /* コンテンツが増えるとはみ出す */
+}
+
+/* ✅ 良い例：最低限の高さを確保 */
+.about_area {
+  min-height: 60rem;  /* 最低60rem、増えれば伸びる */
+}
+
+/* ✅ または完全自動 */
+.about_area {
+  height: auto;  /* コンテンツに合わせる */
+}
+```
+
+【補足】
+- 固定高さ → スマホ・タブレットでレイアウト崩れ
+- min-height → デザイン維持 + 柔軟性
+- レスポンシブ対応に必須
+
+---
+
+## 📌 CSS変数で繰り返し計算を共通化
+
+【結論】
+同じ計算式が複数箇所にある → CSS変数で一元管理
+
+【具体例】
+```css
+/* ❌ 悪い例：同じ計算を3回 */
+.news_area {
+  width: calc(100% - var(--space-hor-pc) - var(--space-hor-pc-right) - var(--header-side-width));
+}
+.access_area {
+  width: calc(100% - var(--space-hor-pc) - var(--space-hor-pc-right) - var(--header-side-width));
+}
+.access_container {
+  width: calc(100% - var(--space-hor-pc) - var(--space-hor-pc-right) - var(--header-side-width));
+}
+
+/* ✅ 良い例：変数化 */
+:root {
+  --main-content-width: calc(100% - var(--space-hor-pc) - var(--space-hor-pc-right) - var(--header-side-width));
+}
+
+.news_area { width: var(--main-content-width); }
+.access_area { width: var(--main-content-width); }
+.access_container { width: var(--main-content-width); }
+```
+
+【補足】
+- メリット1: 修正が1箇所で済む
+- メリット2: コード量削減
+- メリット3: 可読性向上
+
+---
+
+## 📌 JavaScript関数化で重複コード削減
+
+【結論】
+同じパターンの処理 → 関数にまとめて再利用
+
+【具体例】
+```javascript
+// ❌ 悪い例：同じ処理を繰り返し
+if (rect.top <= windowHeight) {
+  storeImg.classList.add("animate");
+}
+if (rectManekiNeko.top <= windowHeight) {
+  manekiNekoImg.classList.add("animate");
+}
+
+// ✅ 良い例：関数化
+function addAnimateOnScroll(element) {
+  const rect = element.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+  
+  if (rect.top <= windowHeight) {
+    element.classList.add("animate");
+  }
+}
+
+// 使用
+addAnimateOnScroll(storeImg);
+addAnimateOnScroll(manekiNekoImg);
+```
+
+【補足】
+- 要素追加時に関数呼び出すだけ
+- バグ修正が1箇所で済む
+- テスト・保守が簡単
+
+---
+
+## 📌 要素取得方法の統一（querySelector推奨） html
+
+【結論】
+getElementByIdとquerySelectorを混在させず、querySelectorに統一
+
+【具体例】
+```javascript
+// ❌ 悪い例：混在
+const btn = document.getElementById("btn");
+const area = document.querySelector("#area");
+
+// ✅ 良い例：querySelector統一
+const btn = document.querySelector("#btn");
+const area = document.querySelector("#area");
+```
+
+【補足】
+- querySelectorはID・クラス・属性全対応
+- モダンで柔軟（CSS セレクタ使用可）
+- コードの一貫性向上
+- チーム開発で混乱を防ぐ
+
+
+## 📌background-image: url("../img/logo_omodakaya-vrt.png");で画像が取得できない　html
+
+htmlをimgタグではなくてdivタグにする必要あり
+
+
+## メディアクエリ内で当たり前のように設定しているのに、うまくいかない場合、おおもとのPCを崩している可能性があるのでチェックすること html
+
+
+## PCのＣＳＳを、left 50rem　などを取り消して　メディアクエリでright 1remとかに修正したい場合、left:autoに設定する html
