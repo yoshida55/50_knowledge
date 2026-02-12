@@ -2467,6 +2467,7 @@ Flexで、二段階でflex横並びにしてflex-endをすると両要素が下�
 .about_area {
   display: flex;
   align-items: flex-end; /* 左右コンテナを下揃え */
+  min-height:60rem 　✖これだと左を１００%にしたとき、基準がないためひろげられない。　height:60rem など固定にする
 }
 
 /* 子: 高さ確保 */
@@ -2481,6 +2482,55 @@ Flexで、二段階でflex横並びにしてflex-endをすると両要素が下�
   margin-top: auto;      /* 上の余白を最大に */
 }
 ```
+
+
+
+## 📌 flexbox子要素を親の高さ100%にする方法 CSS
+
+【結論】
+- 親に具体的な高さ（`height`）が必要
+- `min-height` だけでは子の `height: 100%` が効かない
+- `align-self: stretch` で親の `align-items` を個別に上書き可能
+（
+設定	　　　　　　　意味	　　　　高さの決まり方
+min-height: 60rem	最低60rem確保	内容次第で変動
+height: 　　60rem	　必ず60rem	　固定値
+➡ `子の height: 100% は 固定値が必要`
+
+➡ min-height は「可変」なので基準にできない）
+
+【具体例】
+```css
+/* ❌ 効かない */
+.about_area {
+  display: flex;
+  align-items: flex-end;
+  min-height: 60rem; /* ← これだけだと子がheight: 100%にならない */
+}
+
+.left_container {
+  height: 100%; /* 効かない */
+}
+```
+
+```css
+/* ✅ 効く */
+.about_area {
+  display: flex;
+  align-items: flex-end;
+  height: 60rem; /* ← 具体的な高さを指定 */
+}
+
+.left_container {
+  align-self: stretch; /* align-items: flex-endを上書き */
+  height: 100%; /* これで親の高さいっぱいに伸びる */
+}
+```
+
+【補足】
+- `min-height` は最小高さの指定で、内容に応じて伸びる
+- 子要素の `height: 100%` は親の確定した高さを参照
+- `align-self` で個別の子要素だけ配置を変更可能
 
 
 ## アニメーションの付け方　後ろに吸い込まれるような
@@ -3678,3 +3728,94 @@ htmlをimgタグではなくてdivタグにする必要あり
 
 
 ## PCのＣＳＳを、left 50rem　などを取り消して　メディアクエリでright 1remとかに修正したい場合、left:autoに設定する html
+
+
+
+
+
+## 📌 CSS変数とメディアクエリでレスポンシブ余白管理 html
+
+【結論】
+- CSS変数を `:root` で定義
+- メディアクエリで**上書き**して画面サイズごとの余白を変更
+- 各要素は `var()` で参照するだけ
+
+
+★★★　基本きめておくのは、（必須）
+1. 左右余白（--space-hor）
+2. 上下余白（--space-vrt）
+3. セクション間（--section-top/bottom）← これも必須！
+4. サイドバー
+
+【具体例】
+```css
+/* デフォルト（スマホ: ~767px） */
+:root {
+  --space-hor: 2rem;
+  --space-vrt: 12rem;
+}
+
+/* タブレット（768px~1024px）でCSSvariable変数を上書き */
+@media screen and (min-width: 76.8rem) {
+  :root {
+    --space-hor: 4rem;  /* 上書き */
+    --space-vrt: 16rem;
+  }
+}
+
+/* PC（1025px~）でCSSvariable変数を上書き */
+@media screen and (min-width: 102.5rem) {
+  :root {
+    --space-hor: 8rem;  /* さらに上書き */
+    --space-vrt: 24rem;
+  }
+}
+
+/* 使用側（画面サイズで自動変更） */
+.about_area {
+  margin-left: var(--space-hor);  /* スマホ2rem→タブレット4rem→PC8rem */
+}
+```
+
+【補足】
+- 一箇所変更で全セクションに適用
+- 保守性・可読性が高い
+- `--space-hor` = 左右余白、`--space-vrt` = 上下余白
+
+## 📌 overflow: hidden と height の関係 CSS
+
+【結論】
+`overflow: hidden` を使うには、親要素に `height` の指定が必須。`height` がないと、親が子のサイズに合わせて自動的に伸びるため、`overflow: hidden` は効果を発揮しない。
+
+【具体例】
+```css
+/* ❌ 効かない（heightなし） */
+.right_container {
+  overflow: hidden;  /* 親が伸びるので効果なし */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ✅ 効く（height指定あり） */
+.right_container {
+  overflow: hidden;  /* はみ出しを切り取る */
+  display: flex;
+  flex-direction: column;
+  height: 100%;     ★ /* ← 親の高さに固定 */
+}
+
+/* ✅ calc()で微調整も可能 */
+.right_container {
+  overflow: hidden;
+  height: calc(100% - 5rem); ★右下に調整したいとき /* 演算子の前後にスペース必須 */
+}
+```
+
+![](images/2026-02-12-13-39-50.png)
+
+【補足】
+- `height` なし → 親が子に合わせて伸びる → `overflow: hidden` 無効
+- `height` あり → 親が固定される → はみ出し部分を切り取る
+- `calc()` の演算子（+, -, *, /）の前後には必ずスペースが必要
+- `height: 100%` は親に固定サイズが必要（`min-height` では動作しない）
+
