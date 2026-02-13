@@ -4011,3 +4011,58 @@ html {
 - font-sizeはremの基準値
 - 全てremなら absolute/fixed の位置は変わらない（違いはスクロール時の挙動のみ）
 - px固定の場合のみ、absoluteで位置がズレる
+
+## 📌 list-style: none が効かない html/css
+
+【結論】
+`ul { list-style: none; }` だけでは黒丸が消えないことがある。
+`ul li { list-style: none; }` のように li にも指定する必要がある。
+
+【具体例】
+```html
+<ul class="page_nav">
+  <li><a href="#">リンク</a></li>
+</ul>
+```
+
+```css
+/* ❌ これだけでは消えないことがある */
+.page_nav {
+  list-style: none;
+}
+
+/* ✅ li にも指定（確実） */
+.page_nav li {
+  list-style: none;
+}
+```
+
+【補足】
+- ulに指定しても継承されないケースがある
+- 念のためliにも指定すると確実
+- または `ul, li { list-style: none; }` でまとめて指定
+
+## 📌 ホバーで画像拡大エフェクト CSS
+
+【結論】
+マウスを乗せると画像が拡大、離すと元に戻るエフェクトは、`transition` + `:hover` + `transform: scale()` で実装。
+
+【具体例】
+```css
+/* 通常状態 */
+.weekly_cat_img {
+  transition: transform 0.3s ease; /* スムーズに変化 */
+  cursor: pointer; /* カーソルをポインターに */
+}
+
+/* ホバー時 */
+.weekly_cat_img:hover {
+  transform: scale(1.2); /* 1.2倍に拡大 */
+}
+```
+
+【補足】
+- `transition` で変化速度を指定（0.3s = 0.3秒）
+- `scale(1.2)` で1.2倍に拡大（数値変更で調整可能）
+- `ease` でスムーズに（`linear`もあり）
+- マウスを離すと自動で元に戻る
