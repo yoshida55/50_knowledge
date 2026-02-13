@@ -1446,8 +1446,45 @@ SVG表示保存CS+S.ahk　
 
 ## position: fixed はrelativeも兼ねる。つまり、子で Absoluteが指定できる。
 
+✅ position: fixed でも top / right / bottom / left が使える
 
+```css
+/* position: fixed = 画面全体を基準に固定 */
+.page_container {
+    position: fixed;  /* 画面全体を基準 */
+    top: 2rem;        /* 上から2rem */
+    right: 5rem;      /* 右から5rem */
+    z-index: 1200;
+}
+```
 
+### 📊 fixed vs absolute の違い
+
+| position | 基準 | 画面を伸ばすと |
+|----------|------|---------------|
+| **fixed** | 画面全体 | 右端からの距離が固定 ✅ |
+| **absolute** | 親要素 | 親の幅が変わる → 位置が中央に寄る ❌ |
+
+### 💡 使い分け
+
+```css
+/* ❌ absolute: 親要素を基準（画面を伸ばすと位置がズレる） */
+#mainVisual_area {
+    width: calc(100% - var(--header-side-width)); /* 可変 */
+}
+.page_container {
+    position: absolute;  /* 親要素を基準 */
+    right: calc(var(--header-side-width) + 2rem);
+    /* → 画面を伸ばすと親の幅が広がる → 中央に寄る */
+}
+
+/* ✅ fixed: 画面全体を基準（常に右端から固定距離） */
+.page_container {
+    position: fixed;  /* 画面全体を基準 */
+    right: calc(var(--header-side-width) + 2rem);
+    /* → 画面を伸ばしても右端から固定 */
+}
+```
 
 
 ## サイドバーのメニューの文字列が文字幅だけじゃなくて、文字幅＋残りの余白ありでクリックできてしまう場合
@@ -3942,3 +3979,35 @@ code --install-extension css-to-html-jumper-1.10.0.vsix --force
 ## 画面幅一杯にひろげたいときwidth100％でもできないとき
 
 width: 100vw;
+## 📌 CSSの読み込み順とrem単位の挙動
+
+【結論】
+CSSは後から読み込まれたファイルが優先される（後勝ち）。
+work.cssでfont-size: 62.5%が適用されてremが固定になっていた。
+全てremで設定されている場合、absoluteでもfixedでも位置は変わらない。
+
+【具体例】
+```html
+<!-- index.html -->
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/work.css" />  <!-- この順番が重要！後勝ち -->
+```
+
+```css
+/* style.css */
+html {
+  font-size: calc(10 / 1280 * 100vw); /* レスポンシブなrem */
+}
+
+/* work.css（後に読み込まれるため優先される） */
+html {
+  font-size: 62.5%; /* 固定rem（1rem = 10px） */
+}
+```
+
+【補足】
+- CSSの読み込み順で同じプロパティは後勝ち
+- font-sizeはremの基準値
+- 全てremなら absolute/fixed の位置は変わらない（違いはスクロール時の挙動のみ）
+- px固定の場合のみ、absoluteで位置がズレる
