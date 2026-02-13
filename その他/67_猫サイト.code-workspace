@@ -1,13 +1,13 @@
 {
   "folders": [
-	{
-		"path": "../../02_作業/00_リンクワーク/HTML自動化/過去の課題/67_猫サイト"
-	},
-	{
-		"path": ".."
-	}
-],
+    {
+      "path": "../../02_作業/00_リンクワーク/HTML自動化/過去の課題/67_猫サイト",
+    },
+    {
+      "path": "..",
+    },
+  ],
   "settings": {
-    "liveServer.settings.multiRootWorkspaceName": "67_猫サイト"
-  }
+    "liveServer.settings.multiRootWorkspaceName": "50_knowledge",
+  },
 }

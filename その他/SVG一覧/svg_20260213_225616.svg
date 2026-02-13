@@ -1,0 +1,121 @@
+﻿<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- タイトル -->
+  <text x="400" y="30" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">
+    position: fixed と親要素の z-index の関係
+  </text>
+  
+  <!-- ケース1: 親にz-indexなし -->
+  <g id="case1">
+    <text x="200" y="70" font-size="16" font-weight="bold" text-anchor="middle" fill="#2563eb">
+      ケース1: 親に z-index なし
+    </text>
+    
+    <!-- ルートレイヤー -->
+    <rect x="50" y="90" width="300" height="200" fill="#f0f0f0" stroke="#999" stroke-width="2"/>
+    <text x="200" y="110" text-anchor="middle" font-size="14" fill="#666">ルートレイヤー</text>
+    
+    <!-- 親1 (z-indexなし) -->
+    <rect x="70" y="130" width="120" height="80" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+    <text x="130" y="150" text-anchor="middle" font-size="12" fill="#1e40af">親1 (z-index: なし)</text>
+    
+    <!-- Fixed子要素が独立 -->
+    <rect x="90" y="240" width="100" height="40" fill="#22c55e" stroke="#16a34a" stroke-width="2"/>
+    <text x="140" y="265" text-anchor="middle" font-size="12" fill="white" font-weight="bold">
+      Fixed子 (z:999)
+    </text>
+    <text x="140" y="230" text-anchor="middle" font-size="11" fill="#16a34a">↑ 独立したレイヤー</text>
+    
+    <!-- 親2 -->
+    <rect x="210" y="150" width="120" height="60" fill="#fecaca" stroke="#ef4444" stroke-width="2"/>
+    <text x="270" y="170" text-anchor="middle" font-size="12" fill="#991b1b">親2</text>
+    <text x="270" y="190" text-anchor="middle" font-size="11" fill="#991b1b">(z-index: 2)</text>
+    
+    <text x="200" y="265" font-size="14" fill="#16a34a" font-weight="bold">✅ Fixed子が上に表示</text>
+  </g>
+  
+  <!-- ケース2: 親にz-indexあり -->
+  <g id="case2">
+    <text x="600" y="70" font-size="16" font-weight="bold" text-anchor="middle" fill="#dc2626">
+      ケース2: 親に z-index あり
+    </text>
+    
+    <!-- ルートレイヤー -->
+    <rect x="450" y="90" width="300" height="200" fill="#f0f0f0" stroke="#999" stroke-width="2"/>
+    <text x="600" y="110" text-anchor="middle" font-size="14" fill="#666">ルートレイヤー</text>
+    
+    <!-- スタッキングコンテキスト1 -->
+    <g opacity="0.9">
+      <rect x="470" y="130" width="130" height="140" fill="#dbeafe" stroke="#3b82f6" stroke-width="3" stroke-dasharray="5,5"/>
+      <text x="535" y="150" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="bold">
+        親1 (z-index: 1)
+      </text>
+      <text x="535" y="165" text-anchor="middle" font-size="10" fill="#1e40af">
+        スタッキングコンテキスト
+      </text>
+      
+      <!-- Fixed子要素が閉じ込められる -->
+      <rect x="490" y="190" width="90" height="40" fill="#22c55e" stroke="#16a34a" stroke-width="2"/>
+      <text x="535" y="205" text-anchor="middle" font-size="11" fill="white">Fixed子</text>
+      <text x="535" y="220" text-anchor="middle" font-size="11" fill="white">(z:999)</text>
+      <path d="M 520 180 L 520 190" stroke="#ef4444" stroke-width="2" marker-end="url(#arrowred)"/>
+      <text x="535" y="245" text-anchor="middle" font-size="9" fill="#dc2626">閉じ込められる</text>
+    </g>
+    
+    <!-- スタッキングコンテキスト2 -->
+    <g>
+      <rect x="620" y="150" width="110" height="60" fill="#fecaca" stroke="#ef4444" stroke-width="3"/>
+      <text x="675" y="170" text-anchor="middle" font-size="12" fill="#991b1b" font-weight="bold">親2</text>
+      <text x="675" y="190" text-anchor="middle" font-size="11" fill="#991b1b">(z-index: 2)</text>
+    </g>
+    
+    <text x="600" y="265" font-size="14" fill="#dc2626" font-weight="bold">❌ 親2が上に表示</text>
+  </g>
+  
+  <!-- 矢印マーカー定義 -->
+  <defs>
+    <marker id="arrowred" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <polygon points="0,0 10,5 0,10" fill="#ef4444"/>
+    </marker>
+  </defs>
+  
+  <!-- 下部説明 -->
+  <g id="explanation">
+    <rect x="50" y="320" width="700" height="250" fill="#fffbeb" stroke="#f59e0b" stroke-width="2" rx="5"/>
+    
+    <text x="400" y="350" font-size="18" font-weight="bold" text-anchor="middle" fill="#92400e">
+      重要ポイント
+    </text>
+    
+    <!-- ポイント1 -->
+    <circle cx="80" cy="385" r="8" fill="#3b82f6"/>
+    <text x="100" y="390" font-size="14" fill="#333">
+      <tspan font-weight="bold">親に z-index がない場合:</tspan>
+    </text>
+    <text x="120" y="410" font-size="13" fill="#555">
+      → Fixed子は独立したレイヤーとしてルート直下に配置
+    </text>
+    <text x="120" y="428" font-size="13" fill="#555">
+      → 他の要素より上に表示できる
+    </text>
+    
+    <!-- ポイント2 -->
+    <circle cx="80" cy="460" r="8" fill="#ef4444"/>
+    <text x="100" y="465" font-size="14" fill="#333">
+      <tspan font-weight="bold">親に z-index がある場合:</tspan>
+    </text>
+    <text x="120" y="485" font-size="13" fill="#555">
+      → 新しいスタッキングコンテキストが作られる
+    </text>
+    <text x="120" y="503" font-size="13" fill="#555">
+      → Fixed子はその中に閉じ込められる
+    </text>
+    <text x="120" y="521" font-size="13" fill="#555">
+      → 子がいくら高い z-index でも、親のレイヤーが下なら負ける
+    </text>
+    
+    <!-- 結論 -->
+    <text x="400" y="555" font-size="15" font-weight="bold" text-anchor="middle" fill="#dc2626">
+      親1(z:1) &lt; 親2(z:2) なので、子(z:999)も道連れで負ける！
+    </text>
+  </g>
+</svg>

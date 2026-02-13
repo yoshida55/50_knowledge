@@ -1,0 +1,54 @@
+﻿<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- タイトル -->
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">プログラム構造図</text>
+  
+  <!-- 入力 -->
+  <rect x="320" y="60" width="160" height="60" fill="#E3F2FD" stroke="#1976D2" stroke-width="2" rx="5"/>
+  <text x="400" y="95" text-anchor="middle" font-size="16" fill="#333">入力データ</text>
+  
+  <!-- 矢印1 -->
+  <line x1="400" y1="120" x2="400" y2="170" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- 処理1 -->
+  <rect x="320" y="170" width="160" height="60" fill="#FFF3E0" stroke="#F57C00" stroke-width="2" rx="5"/>
+  <text x="400" y="205" text-anchor="middle" font-size="16" fill="#333">データ処理</text>
+  
+  <!-- 矢印2 -->
+  <line x1="400" y1="230" x2="400" y2="280" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- 条件分岐 -->
+  <polygon points="400,280 500,330 400,380 300,330" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
+  <text x="400" y="335" text-anchor="middle" font-size="16" fill="#333">条件判定</text>
+  
+  <!-- 矢印3 (YES) -->
+  <line x1="300" y1="330" x2="200" y2="330" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="240" y="320" font-size="14" fill="#4CAF50">YES</text>
+  
+  <!-- 矢印4 (NO) -->
+  <line x1="500" y1="330" x2="600" y2="330" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="560" y="320" font-size="14" fill="#F44336">NO</text>
+  
+  <!-- 処理2 (YES側) -->
+  <rect x="100" y="410" width="160" height="60" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2" rx="5"/>
+  <text x="180" y="445" text-anchor="middle" font-size="16" fill="#333">処理A実行</text>
+  <line x1="200" y1="330" x2="180" y2="410" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- 処理3 (NO側) -->
+  <rect x="540" y="410" width="160" height="60" fill="#FFEBEE" stroke="#F44336" stroke-width="2" rx="5"/>
+  <text x="620" y="445" text-anchor="middle" font-size="16" fill="#333">処理B実行</text>
+  <line x1="600" y1="330" x2="620" y2="410" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- 結果へ収束 -->
+  <line x1="180" y1="470" x2="400" y2="520" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="620" y1="470" x2="400" y2="520" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- 出力 -->
+  <rect x="320" y="520" width="160" height="60" fill="#C8E6C9" stroke="#388E3C" stroke-width="2" rx="5"/>
+  <text x="400" y="555" text-anchor="middle" font-size="16" fill="#333">結果出力</text>
+</svg>

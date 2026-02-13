@@ -1,0 +1,46 @@
+﻿<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景（キャンバス） -->
+  <rect width="600" height="400" fill="#f8f9fa" />
+  
+  <!-- 奥行きの軸（Z軸） -->
+  <line x1="100" y1="350" x2="500" y2="50" stroke="#dee2e6" stroke-width="2" stroke-dasharray="5,5" />
+  <text x="510" y="50" font-family="sans-serif" font-size="12" fill="#adb5bd">奥行き (Z軸)</text>
+
+  <!-- 背面層 (particle-bg) -->
+  <g transform="translate(150, 150)">
+    <rect x="0" y="0" width="250" height="150" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" fill-opacity="0.8" />
+    <circle cx="50" cy="40" r="5" fill="#2196f3" />
+    <circle cx="180" cy="110" r="8" fill="#2196f3" />
+    <circle cx="120" cy="60" r="4" fill="#2196f3" />
+    <text x="10" y="25" font-family="sans-serif" font-weight="bold" fill="#0d47a1">固定背景 (.particle-bg)</text>
+    <text x="10" y="140" font-family="sans-serif" font-size="14" fill="#0d47a1">z-index: -1</text>
+  </g>
+
+  <!-- 前面層 (parallax-container) -->
+  <g transform="translate(200, 80)">
+    <rect x="0" y="0" width="250" height="150" fill="#fff3e0" stroke="#ff9800" stroke-width="2" fill-opacity="0.9" />
+    <rect x="20" y="40" width="210" height="15" rx="5" fill="#ffb74d" />
+    <rect x="20" y="65" width="150" height="15" rx="5" fill="#ffb74d" />
+    <text x="10" y="25" font-family="sans-serif" font-weight="bold" fill="#e65100">スクロール前景 (.parallax-container)</text>
+    <text x="10" y="140" font-family="sans-serif" font-size="14" fill="#e65100">z-index: 1</text>
+  </g>
+
+  <!-- 視点・ユーザー -->
+  <circle cx="520" cy="300" r="20" fill="#424242" />
+  <path d="M520 280 Q550 280 550 300" fill="none" stroke="#424242" stroke-width="2" />
+  <text x="495" y="340" font-family="sans-serif" font-size="14" font-weight="bold">閲覧者</text>
+
+  <!-- 重なり順の矢印 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#616161" />
+    </marker>
+  </defs>
+  <line x1="480" y1="280" x2="380" y2="200" stroke="#616161" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="410" y="235" font-family="sans-serif" font-size="12" fill="#424242" transform="rotate(-35, 410, 235)">重なり順</text>
+
+  <!-- 補足説明 -->
+  <rect x="20" y="320" width="280" height="60" rx="5" fill="#ffffff" stroke="#ced4da" />
+  <text x="35" y="345" font-family="sans-serif" font-size="13" fill="#333">・z-indexが大きいほど手前に表示</text>
+  <text x="35" y="365" font-family="sans-serif" font-size="13" fill="#333">・position指定によりz-indexが有効化</text>
+</svg>

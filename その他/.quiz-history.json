@@ -1,83 +1,616 @@
 {
-  "家にかってから、": {
-    "title": "家にかってから、",
-    "line": 100,
-    "lastReviewed": 1770598939924,
-    "reviewCount": 1
-  },
-  "軽減税率の特例不動産": {
-    "title": "軽減税率の特例不動産",
-    "line": 2970,
-    "lastReviewed": 1770599071936,
+  "パララックス、レイヤーを重ねるときに必要なこと,": {
+    "title": "パララックス、レイヤーを重ねるときに必要なこと,",
+    "line": 1544,
+    "lastReviewed": 1770422193162,
     "reviewCount": -1
+  },
+  "✅ 正しい修正方法": {
+    "title": "✅ 正しい修正方法",
+    "line": 1962,
+    "lastReviewed": 1770422197173,
+    "reviewCount": -1
+  },
+  "隣接要素": {
+    "title": "隣接要素",
+    "line": 2914,
+    "lastReviewed": 1770422305275,
+    "reviewCount": -1
+  },
+  "fixed absolute で縦と横をやるときは、  transform: translate(-50%, -50%);　ひとつでまとめないといけない。": {
+    "title": "fixed absolute で縦と横をやるときは、  transform: translate(-50%, -50%);　ひとつでまとめないといけない。",
+    "line": 2416,
+    "lastReviewed": 1770422308769,
+    "reviewCount": -1
+  },
+  "■ 中央揃え": {
+    "title": "■ 中央揃え",
+    "line": 849,
+    "lastReviewed": 1770422311383,
+    "reviewCount": -1
+  },
+  "テスト": {
+    "title": "テスト",
+    "line": 3032,
+    "lastReviewed": 1770422441144,
+    "reviewCount": -1
+  },
+  "共通のクラスを作成した際に一部だけ変更することができる。書き方は以下のようにする。": {
+    "title": "共通のクラスを作成した際に一部だけ変更することができる。書き方は以下のようにする。",
+    "line": 1722,
+    "lastReviewed": 1770450527222,
+    "reviewCount": -1
+  },
+  "💡 重要ポイント": {
+    "title": "💡 重要ポイント",
+    "line": 192,
+    "lastReviewed": 1770450538385,
+    "reviewCount": -1
+  },
+  "具体例": {
+    "title": "具体例",
+    "line": 1799,
+    "lastReviewed": 1770450543901,
+    "reviewCount": -1
+  },
+  "HTMLの構造": {
+    "title": "HTMLの構造",
+    "line": 1416,
+    "lastReviewed": 1770450560764,
+    "reviewCount": -1
+  },
+  "文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）": {
+    "title": "文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）",
+    "line": 1678,
+    "lastReviewed": 1770450570329,
+    "reviewCount": -1
+  },
+  "▢ 　マージンとパディングの違い": {
+    "title": "▢ 　マージンとパディングの違い",
+    "line": 495,
+    "lastReviewed": 1770450637957,
+    "reviewCount": -1
+  },
+  "🏗 HTML タグの設計図（使い分け）まとめ": {
+    "title": "🏗 HTML タグの設計図（使い分け）まとめ",
+    "line": 304,
+    "lastReviewed": 1770450650705,
+    "reviewCount": -1
+  },
+  "JavaScriptでイベントリスナーを実行したときに動かない。": {
+    "title": "JavaScriptでイベントリスナーを実行したときに動かない。",
+    "line": 1490,
+    "lastReviewed": 1770825439557,
+    "reviewCount": 4,
+    "evaluations": [
+      3
+    ]
+  },
+  "親要素でFlexをかけたときに子要素の幅を指定することが可能": {
+    "title": "親要素でFlexをかけたときに子要素の幅を指定することが可能",
+    "line": 1616,
+    "lastReviewed": 1770825468169,
+    "reviewCount": 4,
+    "evaluations": [
+      2,
+      3
+    ]
+  },
+  "📌 パララックスのシンプルな作り方": {
+    "title": "📌 パララックスのシンプルな作り方",
+    "line": 3145,
+    "lastReviewed": 1770977461126,
+    "reviewCount": 0,
+    "evaluations": [
+      2,
+      1
+    ]
+  },
+  "Flex wrapや2つの列を構成する場合、以下のように作成すると良い。": {
+    "title": "Flex wrapや2つの列を構成する場合、以下のように作成すると良い。",
+    "line": 1664,
+    "lastReviewed": 1770567594084,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "またそれを中間にもってきたいとき": {
+    "title": "またそれを中間にもってきたいとき",
+    "line": 1343,
+    "lastReviewed": 1770567640082,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "▢ 　以下のようにして　左右に画像と、その中にテキストを浮かびあがらせるこができる": {
+    "title": "▢ 　以下のようにして　左右に画像と、その中にテキストを浮かびあがらせるこができる",
+    "line": 598,
+    "lastReviewed": 1770567687455,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
   },
   "背景画像（background-image）": {
     "title": "背景画像（background-image）",
     "line": 807,
-    "lastReviewed": 1770599087732,
+    "lastReviewed": 1770567737151,
     "reviewCount": 3,
     "evaluations": [
       3
     ]
   },
-  "▢ 　手書きの図形の書き方": {
-    "title": "▢ 　手書きの図形の書き方",
-    "line": 535,
-    "lastReviewed": 1770599106309,
+  "命名ルール　規則": {
+    "title": "命名ルール　規則",
+    "line": 1300,
+    "lastReviewed": 1770567818069,
+    "reviewCount": -1
+  },
+  "javaScriptの基本(学習)": {
+    "title": "javaScriptの基本(学習)",
+    "line": 1639,
+    "lastReviewed": 1770567841225,
     "reviewCount": 3,
     "evaluations": [
       3
     ]
   },
-  "使��道": {
-    "title": "使��道",
-    "line": 3030,
-    "lastReviewed": 1770609418001,
-    "reviewCount": -1
+  "javascriptスクロールをしても、文字が表示されない。": {
+    "title": "javascriptスクロールをしても、文字が表示されない。",
+    "line": 1819,
+    "lastReviewed": 1770825510331,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
   },
-  "display:inline_flexと　display:blockの違い。": {
-    "title": "display:inline_flexと　display:blockの違い。",
-    "line": 2609,
-    "lastReviewed": 1770609427590,
-    "reviewCount": 1
-  },
-  "📝 覚えておくこと": {
-    "title": "📝 覚えておくこと",
-    "line": 2062,
-    "lastReviewed": 1770611460134,
-    "reviewCount": -1
-  },
-  "▢ git 個人メモ、★github ルールに追加する必要なし": {
-    "title": "▢ git 個人メモ、★github ルールに追加する必要なし",
-    "line": 564,
-    "lastReviewed": 1770611519142,
+  "兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。": {
+    "title": "兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。",
+    "line": 3492,
+    "lastReviewed": 1770825727458,
     "reviewCount": 3,
     "evaluations": [
       3
+    ]
+  },
+  "分かった一番重要なこと　暗記": {
+    "title": "分かった一番重要なこと　暗記",
+    "line": 465,
+    "lastReviewed": 1770825770576,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "何をしているか": {
+    "title": "何をしているか",
+    "line": 1825,
+    "lastReviewed": 1770977542851,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "縦線を書きたい時、かつボックスのサイズなどとちがってボーダーライトでかけないとき。疑似要素で表示する　aaaa::after": {
+    "title": "縦線を書きたい時、かつボックスのサイズなどとちがってボーダーライトでかけないとき。疑似要素で表示する　aaaa::after",
+    "line": 2676,
+    "lastReviewed": 1770977579192,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "モバイルにして、アニメーションなどで画面が広がってなおらない場合は、Windowsの横幅が、規定のサイズをこえて全体によこにそれたら、隠す処理をいれる": {
+    "title": "モバイルにして、アニメーションなどで画面が広がってなおらない場合は、Windowsの横幅が、規定のサイズをこえて全体によこにそれたら、隠す処理をいれる",
+    "line": 1806,
+    "lastReviewed": 1770985851290,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "📌 Flexboxの使い方で、片方はflex1、片方はflexなしの場合、どのような動きをするか。これは隠しメニューなどに使えるので、理解すること。とりあえず上を確保して、下に値があればその分増えていくけど、なければ上の枠で埋め尽くすというイメージ。": {
+    "title": "📌 Flexboxの使い方で、片方はflex1、片方はflexなしの場合、どのような動きをするか。これは隠しメニューなどに使えるので、理解すること。とりあえず上を確保して、下に値があればその分増えていくけど、なければ上の枠で埋め尽くすというイメージ。",
+    "line": 3524,
+    "lastReviewed": 1770985904215,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "📌 要素取得方法の統一（querySelector推奨）": {
+    "title": "📌 要素取得方法の統一（querySelector推奨）",
+    "line": 3738,
+    "lastReviewed": 1770987749908,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "📌 JavaScript関数化で重複コード削減": {
+    "title": "📌 JavaScript関数化で重複コード削減",
+    "line": 3701,
+    "lastReviewed": 1770987775786,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "CSS JUMP ツール": {
+    "title": "CSS JUMP ツール",
+    "line": 3136,
+    "lastReviewed": 1770987804669,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "📌 overflow: hidden と height の関係 CSS": {
+    "title": "📌 overflow: hidden と height の関係 CSS",
+    "line": 3824,
+    "lastReviewed": 1770987829515,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "専門用語": {
+    "title": "専門用語",
+    "line": 1632,
+    "lastReviewed": 1770988009904,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "可変REMをつかうなら": {
+    "title": "可変REMをつかうなら",
+    "line": 2372,
+    "lastReviewed": 1770988040331,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "要素を隠して特定のアクションで出力させたい場合、": {
+    "title": "要素を隠して特定のアクションで出力させたい場合、",
+    "line": 1609,
+    "lastReviewed": 1770988077005,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "拡張機能": {
+    "title": "拡張機能",
+    "line": 975,
+    "lastReviewed": 1770988101812,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "横スクロールアニメーション（無限ループ）": {
+    "title": "横スクロールアニメーション（無限ループ）",
+    "line": 2912,
+    "lastReviewed": 1770988144548,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "パララックス": {
+    "title": "パララックス",
+    "line": 1069,
+    "lastReviewed": 1770988329335,
+    "reviewCount": 0,
+    "evaluations": [
+      1
     ]
   },
   "相続するとき注意したいこと。": {
     "title": "相続するとき注意したいこと。",
-    "line": 2994,
-    "lastReviewed": 1770690436690,
-    "reviewCount": 1
+    "line": 3192,
+    "lastReviewed": 1770990085899,
+    "reviewCount": -1
   },
-  "実務（コーディング）着手前の準備・手順": {
-    "title": "実務（コーディング）着手前の準備・手順",
-    "line": 2102,
-    "lastReviewed": 1770690609349,
+  "（行ごとにペアにする）": {
+    "title": "（行ごとにペアにする）",
+    "line": 2996,
+    "lastReviewed": 1770990094062,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "**領域を保持したまま非表示** (`visibility: hidden`)": {
+    "title": "**領域を保持したまま非表示** (`visibility: hidden`)",
+    "line": 3725,
+    "lastReviewed": 1770990116059,
+    "reviewCount": 0,
+    "evaluations": [
+      1
+    ]
+  },
+  "justify-content: space-between を使用した際は、子要素にサイズを指定できる。間のギャップは、自動！！": {
+    "title": "justify-content: space-between を使用した際は、子要素にサイズを指定できる。間のギャップは、自動！！",
+    "line": 1267,
+    "lastReviewed": 1770990324155,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "居住用不動産の3000万円控除": {
+    "title": "居住用不動産の3000万円控除",
+    "line": 3206,
+    "lastReviewed": 1770990363044,
+    "reviewCount": -1
+  },
+  "javaScript バブルソート法": {
+    "title": "javaScript バブルソート法",
+    "line": 2224,
+    "lastReviewed": 1770990369657,
+    "reviewCount": -1
+  },
+  "▢ ホバー時にレイアウトを崩さない「枠線」の使い分け（outline vs border）": {
+    "title": "▢ ホバー時にレイアウトを崩さない「枠線」の使い分け（outline vs border）",
+    "line": 1311,
+    "lastReviewed": 1770990407895,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "📝 覚えておくこと": {
+    "title": "📝 覚えておくこと",
+    "line": 2212,
+    "lastReviewed": 1770990459680,
+    "reviewCount": 0,
+    "evaluations": [
+      1
+    ]
+  },
+  "transition: width 0.5s ease　**CSSの`transition`プロパティ**について解説": {
+    "title": "transition: width 0.5s ease　**CSSの`transition`プロパティ**について解説",
+    "line": 1926,
+    "lastReviewed": 1771002924620,
     "reviewCount": 1,
     "evaluations": [
       2
     ]
   },
-  "📌 パララックス position: fixed と子要素の関係": {
-    "title": "📌 パララックス position: fixed と子要素の関係",
-    "line": 3075,
-    "lastReviewed": 1770690718761,
+  "▢ git ★github ルールに追加する必要なし": {
+    "title": "▢ git ★github ルールに追加する必要なし",
+    "line": 564,
+    "lastReviewed": 1771010631233,
     "reviewCount": 1,
     "evaluations": [
       2
+    ]
+  },
+  "📌 アニメーションライブラリ デモ管理（Swiper等）skillsの説明": {
+    "title": "📌 アニメーションライブラリ デモ管理（Swiper等）skillsの説明",
+    "line": 3586,
+    "lastReviewed": 1771010715705,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "📌 セクション高さは固定しない（height → min-height）": {
+    "title": "📌 セクション高さは固定しない（height → min-height）",
+    "line": 3752,
+    "lastReviewed": 1771011098980,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "position: absolute で中央配置する方法": {
+    "title": "position: absolute で中央配置する方法",
+    "line": 634,
+    "lastReviewed": 1771011165983,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "javaScriptのオブジェクトがはいっているかを調べるには": {
+    "title": "javaScriptのオブジェクトがはいっているかを調べるには",
+    "line": 3566,
+    "lastReviewed": 1771011241460,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "Flex 2階層(階段式)で下揃えするテクニック。かつ、左右の高さをかえる。": {
+    "title": "Flex 2階層(階段式)で下揃えするテクニック。かつ、左右の高さをかえる。",
+    "line": 2585,
+    "lastReviewed": 1771011272795,
+    "reviewCount": 1
+  },
+  "親要素に relative をかける理由（画像へのテキスト重ね）": {
+    "title": "親要素に relative をかける理由（画像へのテキスト重ね）",
+    "line": 396,
+    "lastReviewed": 1771011558672,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "検証画面のCSS画面への遷移の仕方、計算済みタブ(Computed)画面からギャップなどをクリックする。": {
+    "title": "検証画面のCSS画面への遷移の仕方、計算済みタブ(Computed)画面からギャップなどをクリックする。",
+    "line": 3481,
+    "lastReviewed": 1771011630668,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "背景コンテンツエリアの固定背景固定（パララックス風）の表示を記載したいとき前お物理エリアの背景画像分のサイズを確保したい場合、　シンプルなパララックス": {
+    "title": "背景コンテンツエリアの固定背景固定（パララックス風）の表示を記載したいとき前お物理エリアの背景画像分のサイズを確保したい場合、　シンプルなパララックス",
+    "line": 1477,
+    "lastReviewed": 1771011653782,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "ヘッダーを作成するうえでの注意事項": {
+    "title": "ヘッダーを作成するうえでの注意事項",
+    "line": 1399,
+    "lastReviewed": 1771011699196,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "▢ 　 writing-mode: vertical-rl": {
+    "title": "▢ 　 writing-mode: vertical-rl",
+    "line": 552,
+    "lastReviewed": 1771011724208,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "▢ メディアクエリ": {
+    "title": "▢ メディアクエリ",
+    "line": 560,
+    "lastReviewed": 1771011745752,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "メニューが２列あって、同じ幅でフォーマットを構築する際の計算式": {
+    "title": "メニューが２列あって、同じ幅でフォーマットを構築する際の計算式",
+    "line": 1446,
+    "lastReviewed": 1771011782242,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "特定のセクションの下に同じ位置に配置したい場合は、新たにセクションの下にdivをつけることも考える。": {
+    "title": "特定のセクションの下に同じ位置に配置したい場合は、新たにセクションの下にdivをつけることも考える。",
+    "line": 2952,
+    "lastReviewed": 1771011828367,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "先生への質問": {
+    "title": "先生への質問",
+    "line": 3745,
+    "lastReviewed": 1771011852166,
+    "reviewCount": -1
+  },
+  "各値の意味": {
+    "title": "各値の意味",
+    "line": 3469,
+    "lastReviewed": 1771011864361,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "display:inline_flexと　display:blockの違い。": {
+    "title": "display:inline_flexと　display:blockの違い。",
+    "line": 2809,
+    "lastReviewed": 1771011916573,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "📌 flexbox子要素を親の高さ100%にする方法 CSS": {
+    "title": "📌 flexbox子要素を親の高さ100%にする方法 CSS",
+    "line": 2638,
+    "lastReviewed": 1771011953036,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "動きの違い": {
+    "title": "動きの違い",
+    "line": 1151,
+    "lastReviewed": 1771012002317,
+    "reviewCount": 0,
+    "evaluations": [
+      1
+    ]
+  },
+  "フレックスボックスにするか、アブソリュートにするかの切り分け": {
+    "title": "フレックスボックスにするか、アブソリュートにするかの切り分け",
+    "line": 1714,
+    "lastReviewed": 1771012038580,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "基本の誤解を解消": {
+    "title": "基本の誤解を解消",
+    "line": 3203,
+    "lastReviewed": 1771012099479,
+    "reviewCount": -1
+  },
+  "🔧 デバッグ手順": {
+    "title": "🔧 デバッグ手順",
+    "line": 2198,
+    "lastReviewed": 1771012103081,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "ライブラリのファイルを読み込む時、CDNなどはかならずjsの上に記述する。": {
+    "title": "ライブラリのファイルを読み込む時、CDNなどはかならずjsの上に記述する。",
+    "line": 3451,
+    "lastReviewed": 1771012176149,
+    "reviewCount": 1
+  },
+  "パディングとマージンの違い": {
+    "title": "パディングとマージンの違い",
+    "line": 2433,
+    "lastReviewed": 1771012486252,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "【前提】ヘッダーを固定して、その中でロゴとメニューを左右に並べたい」という場合、以下のルールになります。（つまりfixedとフレックスボックスを併用する際にきをつけること）": {
+    "title": "【前提】ヘッダーを固定して、その中でロゴとメニューを左右に並べたい」という場合、以下のルールになります。（つまりfixedとフレックスボックスを併用する際にきをつけること）",
+    "line": 2403,
+    "lastReviewed": 1771012543233,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "aタグに▢で囲むとき、paddingではなくてwidthで横幅を指定する方法": {
+    "title": "aタグに▢で囲むとき、paddingではなくてwidthで横幅を指定する方法",
+    "line": 2006,
+    "lastReviewed": 1771012578071,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "📌background-image: url(\"../img/logo_omodakaya-vrt.png\");で画像が取得できない": {
+    "title": "📌background-image: url(\"../img/logo_omodakaya-vrt.png\");で画像が取得できない",
+    "line": 3877,
+    "lastReviewed": 1771012617586,
+    "reviewCount": 3,
+    "evaluations": [
+      3
     ]
   }
 }

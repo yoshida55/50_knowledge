@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パーティクル背景</title>
+    <style>
+        /* パーティクル表示エリアのスタイル */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: -1;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 1. パーティクルを表示する場所 -->
+    <div id="particles-js"></div>
+
+    <!-- ここにコンテンツを追加できます -->
+    <h1 style="color: white; text-align: center; padding-top: 50px;">
+        パーティクル背景
+    </h1>
+
+    <!-- 2. ライブラリを読み込み -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- 3. 設定ファイルで動かす -->
+    <script src="js/particle_setting.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Transition デモ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background: #f0f0f0;
+    }
+    
+    .container {
+      margin-bottom: 40px;
+    }
+    
+    h2 {
+      font-size: 18px;
+      color: #333;
+    }
+    
+    /* Transition なし */
+    .box-no-transition {
+      width: 200px;
+      height: 100px;
+      background: #ff6b6b;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    
+    .box-no-transition:hover {
+      width: 400px;
+      background: #ee5a52;
+    }
+    
+    /* Transition あり */
+    .box-with-transition {
+      width: 200px;
+      height: 100px;
+      background: #4ecdc4;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: width 0.5s ease, background 0.5s ease;
+    }
+    
+    .box-with-transition:hover {
+      width: 400px;
+      background: #45b7af;
+    }
+    
+    /* 複数プロパティのTransition */
+    .box-multiple {
+      width: 200px;
+      height: 100px;
+      background: #a29bfe;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border-radius: 5px;
+      transform: rotate(0deg);
+      transition: all 0.8s ease;
+    }
+    
+    .box-multiple:hover {
+      width: 400px;
+      height: 120px;
+      background: #6c5ce7;
+      border-radius: 50px;
+      transform: rotate(5deg);
+    }
+  </style>
+</head>
+<body>
+  <h1>🎨 CSS Transition デモ</h1>
+  <p>各ボックスにマウスを乗せてみてください</p>
+  
+  <div class="container">
+    <h2>❌ Transition なし（瞬時に変化）</h2>
+    <div class="box-no-transition">マウスを乗せて</div>
+  </div>
+  
+  <div class="container">
+    <h2>✅ Transition あり（0.5秒かけて滑らか）</h2>
+    <div class="box-with-transition">マウスを乗せて</div>
+  </div>
+  
+  <div class="container">
+    <h2>🌟 複数プロパティ（0.8秒かけて変化）</h2>
+    <div class="box-multiple">マウスを乗せて</div>
+  </div>
+</body>
+</html>

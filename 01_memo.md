@@ -1070,7 +1070,103 @@ inline-block = 中身の幅だけの箱（でも高さと幅を指定できる�
 
 透ける　背景
 
-画像の後ろがすけさせるる。
+`background-attachment: fixed;` は背景画像をビューポートに固定するプロパティで、透過効果とは関係ありません。
+
+/* ✨
+# `background-attachment: fixed;` の説明
+
+## どういうこと？
+背景画像がページのスクロールに追従せず、**画面に貼り付いたまま動かない**状態になります。
+
+## 具体的な動き
+- **通常**：ページをスクロールすると背景も一緒に動く
+- **fixed**：ページをスクロールしても背景は画面の同じ位置に留まる（コンテンツだけが上下に動く）
+
+## どんな時に使う？
+
+### 1. **パララックス効果**
+.hero {
+  background-image: url('背景.jpg');
+  background-attachment: fixed;
+}
+→ 背景が固定され、手前のコンテンツだけ動いて奥行き感を演出
+
+/* ✨
+# 実際に動くHTMLで説明
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<style>
+  body { margin: 0; font-family: sans-serif; }
+  
+  /* 固定背景のセクション */
+  .fixed-bg {
+    height: 100vh;
+    background-image: url('https://picsum.photos/1200/800');
+    background-attachment: fixed; /* ←これがポイント */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* 通常背景のセクション（比較用） */
+  .normal-bg {
+    height: 100vh;
+    background-image: url('https://picsum.photos/1200/801');
+    background-attachment: scroll; /* 通常 */
+    background-size: cover;
+  }
+  
+  .content {
+    background: rgba(255,255,255,0.9);
+    padding: 50px;
+    margin: 200px auto;
+    max-width: 600px;
+  }
+</style>
+</head>
+<body>
+
+<div class="normal-bg">
+  <div class="content">
+    <h2>🔴 通常の背景（scroll）</h2>
+    <p>スクロールすると背景も一緒に動きます</p>
+  </div>
+</div>
+
+<div class="fixed-bg">
+  <div class="content">
+    <h2>🟢 固定背景（fixed）</h2>
+    <p>スクロールしても背景は動かず、<br>このボックスだけが動きます</p>
+  </div>
+</div>
+
+<div style="height:100vh; background:#333; color:white; display:flex; align-items:center; justify-content:center;">
+  <h2>下にもコンテンツ</h2>
+</div>
+
+</body>
+</html>
+
+## 動きの違い
+
+- **🔴 通常部分**：スクロー���で背景も消えていく
+- **🟢 固定部分**：スクロールしても背景は画面に張り付いたまま、白いボックスだけが上に移動
+
+→ **「窓から外の景色を見ているような効果」** が `fixed` です！
+*/
+
+### 2. **ヘッダー画像の演出**
+サイトのトップページなどで、スクロールしても背景画像が動かず、テキストだけが流れていく効果
+
+### 3. **セクション区切り**
+各セクション間に固定背景を挟んで、メリハリのあるデザインに
+
+---
+
+**要するに**：「見た目のおしゃれな演出」に使うプロパティです！
+*/
+
 background-attachment: fixed;
 
 これを背景に設定するだけ。
@@ -1554,12 +1650,28 @@ SVG表示保存CS+S.ahk　
   transition: transform 0.3s ease-in-out;
 }
 
+
+★transitiontransforms.html
+
+
 .header.hidden {　　　　　　　　　 ★JavaScriptでhiddenにした。
   transform: translateX(-100%);　★要素分移動する
   transition: transform 0.3s ease-in-out;　★なめらかにする
 }
 ```
-※これをしてもなかみしか移動しない場合、もともとある、背景の要素で、そもそも幅をとっていることがある。
+
+**`.header` の方だけに書けばOK**です。
+/* ✨
+# HTMLの例
+
+
+
+**動作説明:**
+- ボタンを押すと、`.hidden`クラスが付いたり外れたりする
+- メニューが左からスルッと出たり隠れたりする
+*/
+
+
 
 
 ## オーバーレイ、黒いマスクのつけ方
@@ -1815,6 +1927,7 @@ $(window).on("scroll", function () {
 
 ![](images/2026-02-07-00-23-18.png)
 
+[プレビュー](http://localhost:8080/preview-20260214-025304.html)
 
 .mainvisual_img {
   width: 33%;
@@ -2523,6 +2636,8 @@ Flexで、二段階でflex横並びにしてflex-endをすると両要素が下�
 
 
 ## 📌 flexbox子要素を親の高さ100%にする方法 CSS
+例）同じボックス内に段差などある場合
+![](images/2026-02-13-18-30-18.png)
 
 【結論】
 - 親に具体的な高さ（`height`）が必要
@@ -3229,6 +3344,7 @@ triggers:
 
 ## 📌 パララックスのシンプルな作り方 html
 
+![](images/2026-02-14-01-55-43.png)
 【結論】
 固定背景 + スクロール前景の2層構造で視差効果を作る
 
@@ -3254,6 +3370,8 @@ triggers:
   </section>
 </div>
 ```
+
+
 
 ```css
 /* ➀背景：画面に固定 */
@@ -3599,7 +3717,7 @@ hamburger_btn.addEventListener('change', function() {
 
 1. display: block  レイアウトから削除、
 2. opacity: 1.0    透明化
-3. visibility: visible は領域を保持したまま非表示、
+3. visibility: visible は領域を保持したまま非表示、★あまり使用頻度は高くない。エラーメッセージなどに使える
 
 `レイアウトから削除と領域保持の違い`
 
@@ -3822,7 +3940,7 @@ htmlをimgタグではなくてdivタグにする必要あり
 ## 📌 overflow: hidden と height の関係 CSS
 
 【結論】
-`overflow: hidden` を使うには、親要素に `height` の指定が必須。`height` がないと、親が子のサイズに合わせて自動的に伸びるため、`overflow: hidden` は効果を発揮しない。
+`overflow: hidden` を使うには、親要素に `height` の指定が必須。`height`、`width` がないと、親が子のサイズに合わせて自動的に伸びるため、`overflow: hidden` は効果を発揮しない。
 
 【具体例】
 ```css
@@ -3976,7 +4094,7 @@ code --install-extension css-to-html-jumper-1.10.0.vsix --force
 
 
 
-## 画面幅一杯にひろげたいときwidth100％でもできないとき
+## 画面幅一杯にひろげたいときwidth100％でもできないとき html
 
 width: 100vw;
 ## 📌 CSSの読み込み順とrem単位の挙動
@@ -4012,7 +4130,7 @@ html {
 - 全てremなら absolute/fixed の位置は変わらない（違いはスクロール時の挙動のみ）
 - px固定の場合のみ、absoluteで位置がズレる
 
-## 📌 list-style: none が効かない html/css
+## 📌 list-style: none が効かない html
 
 【結論】
 `ul { list-style: none; }` だけでは黒丸が消えないことがある。
@@ -4042,7 +4160,7 @@ html {
 - 念のためliにも指定すると確実
 - または `ul, li { list-style: none; }` でまとめて指定
 
-## 📌 ホバーで画像拡大エフェクト CSS
+## 📌 ホバーで画像拡大エフェクト html
 
 【結論】
 マウスを乗せると画像が拡大、離すと元に戻るエフェクトは、`transition` + `:hover` + `transform: scale()` で実装。
@@ -4066,3 +4184,8 @@ html {
 - `scale(1.2)` で1.2倍に拡大（数値変更で調整可能）
 - `ease` でスムーズに（`linear`もあり）
 - マウスを離すと自動で元に戻る
+
+
+
+
+

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100vh;
+        background-color: white;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        /* ここに書くだけでOK */
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .header.hidden {
+        transform: translateX(-100%);
+        /* ここには書かなくてもOK */
+      }
+
+      button {
+        position: fixed;
+        top: 20px;
+        left: 270px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- サイドメニュー -->
+    <div class="header">
+      <h2>メニュー</h2>
+      <ul>
+        <li>ホーム</li>
+        <li>プロフィール</li>
+        <li>設定</li>
+      </ul>
+    </div>
+
+    <!-- 切り替えボタン -->
+    <button onclick="toggleMenu()">メニュー表示/非表示</button>
+
+    <script>
+      function toggleMenu() {
+        document.querySelector(".header").classList.toggle("hidden");
+      }
+    </script>
+  </body>
+</html>
