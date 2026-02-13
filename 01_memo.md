@@ -1093,60 +1093,8 @@ inline-block = 中身の幅だけの箱（でも高さと幅を指定できる�
 
 /* ✨
 # 実際に動くHTMLで説明
+[プレビュー](http://localhost:54321/preview-20260214-065437.html)
 
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<style>
-  body { margin: 0; font-family: sans-serif; }
-  
-  /* 固定背景のセクション */
-  .fixed-bg {
-    height: 100vh;
-    background-image: url('https://picsum.photos/1200/800');
-    background-attachment: fixed; /* ←これがポイント */
-    background-size: cover;
-    background-position: center;
-  }
-  
-  /* 通常背景のセクション（比較用） */
-  .normal-bg {
-    height: 100vh;
-    background-image: url('https://picsum.photos/1200/801');
-    background-attachment: scroll; /* 通常 */
-    background-size: cover;
-  }
-  
-  .content {
-    background: rgba(255,255,255,0.9);
-    padding: 50px;
-    margin: 200px auto;
-    max-width: 600px;
-  }
-</style>
-</head>
-<body>
-
-<div class="normal-bg">
-  <div class="content">
-    <h2>🔴 通常の背景（scroll）</h2>
-    <p>スクロールすると背景も一緒に動きます</p>
-  </div>
-</div>
-
-<div class="fixed-bg">
-  <div class="content">
-    <h2>🟢 固定背景（fixed）</h2>
-    <p>スクロールしても背景は動かず、<br>このボックスだけが動きます</p>
-  </div>
-</div>
-
-<div style="height:100vh; background:#333; color:white; display:flex; align-items:center; justify-content:center;">
-  <h2>下にもコンテンツ</h2>
-</div>
-
-</body>
-</html>
 
 ## 動きの違い
 
@@ -1167,13 +1115,11 @@ inline-block = 中身の幅だけの箱（でも高さと幅を指定できる�
 **要するに**：「見た目のおしゃれな演出」に使うプロパティです！
 */
 
-background-attachment: fixed;
 
-これを背景に設定するだけ。
 
 ![](images/2026-02-07-16-31-23.png)
 
-## パララックス効果（視差効果）を実装する際に、背景画像をわざと大きく表示（ズームアップ）させている設定です。
+## パララックス効果（視差効果）を実装する際に、背景画像をわざと大きく表示（ズームアップ）させている設定です。 html
 
 
 「画像を拡大して画面に固定することで、スクロールしたときにダイナミックに景色が変わるように見せている」
@@ -1213,7 +1159,7 @@ background-size: 150%;
 ![](images/2026-01-07-13-10-02.png)
 
 
-## width を指定して、height を auto にすると自然なかたちになる。
+## width を指定して、height を auto にすると自然なかたちになる。 html
 
 # ヘッダータイトル　固定幅　画像指定
 
@@ -1242,7 +1188,7 @@ background-size: 150%;
 }
 ```
 
-## radius で ◯（丸の形の形をつくる）
+## radius で ◯（丸の形の形をつくる） html
 
 ```html
 <ul class="feature_list">
@@ -1264,7 +1210,7 @@ background-size: 150%;
 }
 ```
 
-## justify-content: space-between を使用した際は、子要素にサイズを指定できる。間のギャップは、自動！！
+## justify-content: space-between を使用した際は、子要素にサイズを指定できる。間のギャップは、自動！！ html
 
 「子要素にパーセント（%）や
 幅（width）を指定することは【可能】であり、むしろ【必須】に近いテクニック」**
