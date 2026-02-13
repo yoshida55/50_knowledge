@@ -4133,5 +4133,48 @@ html {
 
 
 
+## .共通クラス:nth-child(2) {display: none;}ここを消すと2つのリンクが消えるんだけど、なぜだろう？  共通クラスを複数に作成するとdisplay none ネストで対応する　配列ではなく html
 
+
+
+display: contents を使うと、.left_container と .right_container の子がすべて共通の親（.about_area）の直下として扱われます。そのため、nth-child(2) が意図しない複数の要素（それぞれのコンテナ内の2番目の子）にヒットしている可能性が高いです ❌
+
+⇀親要素がはっきりしなくなるため
+
+/* 非表示「今週のひと品　詳しく見るリンク」  同じ`クラスを指定しているため、ネストで対応`*/
+  .weekly_area .weekly_container .weekly_info_container .radius_link {
+    display: none;
+  }
+  
+## 📌 同じクラスが複数ある場合の対処法 CSS
+
+【結論】
+同じクラスが複数箇所で使われている場合、1箇所だけスタイルを変更したいときは**専用クラスを追加**する
+
+【具体例】
+```html
+<!-- 元のコード（3箇所で使用） -->
+<a href="#" class="radius_link">おもだか屋について</a>
+<a href="#" class="radius_link weekly_space">くわしく見る</a>
+<div class="radius_link">今週のひと品 一覧</div>
+
+<!-- 1箇所だけ変更したい場合 -->
+<div class="radius_link item_list_link">今週のひと品 一覧</div>
+```
+
+```css
+/* モバイル専用のクラスを追加し場所を変更 */
+/* 同じクラスを指定しているため、専用クラスで対応 */
+@media (max-width: 768px) {
+  .item_list_link {
+    transform: translateY(180px); /* 見た目だけ移動 */
+  }
+}
+```
+
+【補足】
+- **margin-top**: 親要素の高さも広がる（スペースができる）
+- **transform**: 見た目だけ移動、親は広がらない（レイアウトに影響なし）
+- **rem単位注意**: `300rem` = 約4800px（超巨大！）→ `px` 使用推奨
+- モバイル専用は `@media (max-width: 768px)` 内に記述
 
