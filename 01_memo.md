@@ -3936,3 +3936,9 @@ code --install-extension css-to-html-jumper-1.10.0.vsix --force
 | Alt+クリック | 通常ジャンプ |
 
 **⚠ DevToolsレスポンシブモード中のダブルクリックは動作しない**（Chrome仕様）
+
+
+
+## 画面幅一杯にひろげたいときwidth100％でもできないとき
+
+width: 100vw;
