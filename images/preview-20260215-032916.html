@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ホバーで画像拡大エフェクト</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(90, 143, 196, 0.1);
+}
+
+h1 {
+  color: #5A8FC4;
+  font-size: 28px;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #5A8FC4;
+}
+
+h2 {
+  color: #5A8FC4;
+  font-size: 20px;
+  margin: 30px 0 15px;
+  padding-left: 12px;
+  border-left: 4px solid #5A8FC4;
+}
+
+.conclusion {
+  background: #f0f7ff;
+  border-left: 4px solid #5A8FC4;
+  padding: 20px;
+  margin: 20px 0;
+  font-weight: 600;
+}
+
+.svg-container {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.demo-area {
+  text-align: center;
+  padding: 40px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin: 30px 0;
+}
+
+.demo-image {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, #5A8FC4, #7BA8D1);
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.demo-image:hover {
+  transform: scale(1.2);
+}
+
+.code-block {
+  position: relative;
+  margin: 20px 0;
+}
+
+.code-block pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #5A8FC4;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.copy-btn:hover {
+  background: #4a7fb4;
+}
+
+.copy-btn.copied {
+  background: #52c41a;
+}
+
+.point-list {
+  background: #f8f9fa;
+  padding: 20px 20px 20px 40px;
+  border-radius: 6px;
+  margin: 20px 0;
+}
+
+.point-list li {
+  margin: 8px 0;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📌 ホバーで画像拡大エフェクト</h1>
+  
+  <div class="conclusion">
+    マウスを乗せると画像が拡大、離すと元に戻るエフェクトは、<strong>transition + :hover + transform: scale()</strong> で実装
+  </div>
+
+  <h2>🎯 動作デモ</h2>
+  <div class="demo-area">
+    <div class="demo-image">ホバーしてみて！</div>
+  </div>
+
+  <h2>💻 実装コード</h2>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    <pre><code>/* 通常状態 */
+.weekly_cat_img {
+  transition: transform 0.3s ease; /* スムーズに変化 */
+  cursor: pointer; /* カーソルをポインターに */
+}
+
+/* ホバー時 */
+.weekly_cat_img:hover {
+  transform: scale(1.2); /* 1.2倍に拡大 */
+}</code></pre>
+  </div>
+
+  <h2>📊 仕組み図解</h2>
+  <div class="svg-container">
+    <svg viewBox="0 0 800 300" style="max-width: 100%; height: auto;">
+      <!-- 通常状態 -->
+      <rect x="50" y="80" width="120" height="120" fill="#5A8FC4" rx="5"/>
+      <text x="110" y="150" text-anchor="middle" fill="white" font-size="16" font-weight="bold">通常</text>
+      <text x="110" y="230" text-anchor="middle" fill="#333" font-size="14">scale(1.0)</text>
+      
+      <!-- 矢印 -->
+      <path d="M 200 140 L 280 140" stroke="#5A8FC4" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+      <text x="240" y="130" text-anchor="middle" fill="#5A8FC4" font-size="14" font-weight="bold">hover</text>
+      
+      <!-- ホバー状態 -->
+      <g transform="translate(370, 50)">
+        <rect x="0" y="0" width="144" height="144" fill="#5A8FC4" rx="5" opacity="0.3"/>
+        <rect x="12" y="12" width="120" height="120" fill="#5A8FC4" rx="5"/>
+        <text x="72" y="82" text-anchor="middle" fill="white" font-size="16" font-weight="bold">拡大</text>
+      </g>
+      <text x="442" y="230" text-anchor="middle" fill="#333" font-size="14">scale(1.2)</text>
+      
+      <!-- 戻る矢印 -->
+      <path d="M 550 140 L 630 140" stroke="#999" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead2)"/>
+      <text x="590" y="130" text-anchor="middle" fill="#999" font-size="12">離すと戻る</text>
+      
+      <!-- 元に戻った状態 -->
+      <rect x="660" y="80" width="120" height="120" fill="#5A8FC4" rx="5"/>
+      <text x="720" y="150" text-anchor="middle" fill="white" font-size="16" font-weight="bold">通常</text>
+      
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <polygon points="0 0, 10 3, 0 6" fill="#5A8FC4"/>
+        </marker>
+        <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <polygon points="0 0, 10 3, 0 6" fill="#999"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <h2>🔧 カスタマイズポイント</h2>
+  <ul class="point-list">
+    <li><strong>transition</strong>: 変化速度を指定（0.3s = 0.3秒）</li>
+    <li><strong>scale(1.2)</strong>: 1.2倍に拡大（数値変更で調整可能）</li>
+    <li><strong>ease</strong>: スムーズに変化（linear も使用可）</li>
+    <li>マウスを離すと<strong>自動で元に戻る</strong></li>
+  </ul>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const code = btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'コピー完了！';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'コピー';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

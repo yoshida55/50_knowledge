@@ -1932,6 +1932,8 @@ load・・・これがあることによって、
 
 この2つをセットで書くことで、**「いつ、どのタイミングでページを開いても、正しい表示状態にする」**ことができます。
 
+[プレビュー](http://localhost:54321/preview-20260215-031026.html)
+
 ★スクロールとロードの違い
 ![](images/2026-02-06-16-54-07.png)
 
@@ -4131,7 +4133,7 @@ html {
 - `ease` でスムーズに（`linear`もあり）
 - マウスを離すと自動で元に戻る
 
-
+[プレビュー](http://localhost:54321/preview-20260215-032945.html)
 
 ## .共通クラス:nth-child(2) {display: none;}ここを消すと2つのリンクが消えるんだけど、なぜだろう？  共通クラスを複数に作成するとdisplay none ネストで対応する　配列ではなく html
 
@@ -4145,6 +4147,9 @@ display: contents を使うと、.left_container と .right_container の子が�
   .weekly_area .weekly_container .weekly_info_container .radius_link {
     display: none;
   }
+
+  [プレビュー](http://localhost:54321/preview-20260215-033142.html)
+
   
 ## 📌 同じクラスが複数ある場合の対処法 CSS
 
@@ -4177,6 +4182,8 @@ display: contents を使うと、.left_container と .right_container の子が�
 - **transform**: 見た目だけ移動、親は広がらない（レイアウトに影響なし）
 - **rem単位注意**: `300rem` = 約4800px（超巨大！）→ `px` 使用推奨
 - モバイル専用は `@media (max-width: 768px)` 内に記述
+
+
 
 ## jQueryの拡張機能セットアップ
 
@@ -4217,6 +4224,8 @@ $(".myClass").slideToggle(2000);
 
 ・アコーディオンタグと
 非表示のタグは、同じ階層
+
+[プレビュー](http://localhost:54321/preview-20260215-033626.html)
 
 ## CSSでの構文 html
 ボタンがおされた時は

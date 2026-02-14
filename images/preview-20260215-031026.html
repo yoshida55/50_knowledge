@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptスクロールイベント：初期表示の問題と解決策</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+            line-height: 1.8;
+            background-color: #EBF1F6;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #5A8FC4 0%, #7AB693 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        h2 {
+            color: #5A8FC4;
+            font-size: 24px;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #7AB693;
+        }
+
+        h3 {
+            color: #5A8FC4;
+            font-size: 20px;
+            margin: 30px 0 15px;
+        }
+
+        .info-box {
+            background: #FFF9F0;
+            border-left: 5px solid #E8A87C;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .info-box h3 {
+            margin-top: 0;
+            color: #E8A87C;
+        }
+
+        .svg-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .code-block {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .code-header {
+            background: #444;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px 6px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .code-label {
+            font-weight: bold;
+        }
+
+        .copy-btn {
+            background: #7AB693;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #68a582;
+        }
+
+        .copy-btn:active {
+            background: #5a9371;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 0 0 6px 6px;
+            overflow-x: auto;
+            margin: 0;
+        }
+
+        code {
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 14px;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .comparison-box {
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+
+        .comparison-box.before {
+            border-color: #E8A87C;
+            background: #FFF5EC;
+        }
+
+        .comparison-box.after {
+            border-color: #7AB693;
+            background: #F0F8F4;
+        }
+
+        .comparison-box h3 {
+            margin-top: 0;
+        }
+
+        .comparison-box.before h3 {
+            color: #E8A87C;
+        }
+
+        .comparison-box.after h3 {
+            color: #7AB693;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #5A8FC4;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: #F8FAFB;
+        }
+
+        .summary {
+            background: #E8F4F8;
+            border: 2px solid #5A8FC4;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 40px 0 0;
+        }
+
+        .summary h2 {
+            color: #5A8FC4;
+            margin-top: 0;
+            border: none;
+        }
+
+        .summary ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        .summary li {
+            margin: 10px 0;
+        }
+
+        .highlight {
+            background: linear-gradient(transparent 60%, #FFE97F 60%);
+            padding: 0 4px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            pre {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScriptスクロールイベントの落とし穴</h1>
+            <p class="subtitle">ページ読み込み時の初期表示が正しく動作しない原因と解決策</p>
+        </header>
+
+        <h2>問題の概要</h2>
+        <p>JavaScriptで「スクロール位置に応じて要素を表示・非表示させる」機能を実装する際、<span class="highlight">ページ読み込み時点で既にスクロールされている場合</span>に正しく表示されない問題が発生します。</p>
+
+        <div class="svg-container">
+            <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- 問題のシナリオ -->
+                <rect x="50" y="30" width="300" height="240" fill="#FFF5EC" stroke="#E8A87C" stroke-width="3" rx="8"/>
+                <text x="200" y="60" text-anchor="middle" font-size="18" font-weight="bold" fill="#E8A87C">❌ 問題のあるコード</text>
+                
+                <!-- ページアイコン -->
+                <rect x="80" y="90" width="80" height="100" fill="white" stroke="#333" stroke-width="2" rx="4"/>
+                <line x1="90" y1="110" x2="150" y2="110" stroke="#999" stroke-width="2"/>
+                <line x1="90" y1="130" x2="150" y2="130" stroke="#999" stroke-width="2"/>
+                <line x1="90" y1="150" x2="140" y2="150" stroke="#999" stroke-width="2"/>
+                <text x="120" y="210" text-anchor="middle" font-size="14" fill="#333">初期位置</text>
+                <text x="120" y="230" text-anchor="middle" font-size="14" fill="#E8A87C">150px下</text>
+                
+                <!-- スクロールイベントのみ -->
+                <rect x="200" y="90" width="120" height="50" fill="#FFE97F" stroke="#E8A87C" stroke-width="2" rx="4"/>
+                <text x="260" y="120" text-anchor="middle" font-size="14" fill="#333">scrollイベント</text>
+                <text x="260" y="160" text-anchor="middle" font-size="12" fill="#E8A87C">⚠ loadが無い</text>
+                
+                <!-- 結果：要素が表示されない -->
+                <circle cx="260" cy="230" r="30" fill="none" stroke="#E8A87C" stroke-width="3"/>
+                <line x1="245" y1="215" x2="275" y2="245" stroke="#E8A87C" stroke-width="4"/>
+                <line x1="275" y1="215" x2="245" y2="245" stroke="#E8A87C" stroke-width="4"/>
+
+                <!-- 解決策 -->
+                <rect x="450" y="30" width="300" height="240" fill="#F0F8F4" stroke="#7AB693" stroke-width="3" rx="8"/>
+                <text x="600" y="60" text-anchor="middle" font-size="18" font-weight="bold" fill="#7AB693">✅ 解決策</text>
+                
+                <!-- ページアイコン -->
+                <rect x="480" y="90" width="80" height="100" fill="white" stroke="#333" stroke-width="2" rx="4"/>
+                <line x1="490" y1="110" x2="550" y2="110" stroke="#999" stroke-width="2"/>
+                <line x1="490" y1="130" x2="550" y2="130" stroke="#999" stroke-width="2"/>
+                <line x1="490" y1="150" x2="540" y2="150" stroke="#999" stroke-width="2"/>
+                <text x="520" y="210" text-anchor="middle" font-size="14" fill="#333">初期位置</text>
+                <text x="520" y="230" text-anchor="middle" font-size="14" fill="#7AB693">150px下</text>
+                
+                <!-- scroll + load イベント -->
+                <rect x="600" y="80" width="120" height="40" fill="#D4EDDA" stroke="#7AB693" stroke-width="2" rx="4"/>
+                <text x="660" y="105" text-anchor="middle" font-size="14" fill="#333">scroll + load</text>
+                
+                <rect x="600" y="130" width="120" height="40" fill="#D4EDDA" stroke="#7AB693" stroke-width="2" rx="4"/>
+                <text x="660" y="155" text-anchor="middle" font-size="12" fill="#333">✓ 初期チェック</text>
+                
+                <!-- 結果：正しく表示 -->
+                <circle cx="660" cy="220" r="30" fill="#7AB693"/>
+                <path d="M 645 220 L 655 230 L 680 205" stroke="white" stroke-width="4" fill="none"/>
+
+                <!-- 矢印 -->
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#5A8FC4"/>
+                    </marker>
+                </defs>
+                <path d="M 350 150 L 450 150" stroke="#5A8FC4" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                <text x="400" y="140" text-anchor="middle" font-size="14" fill="#5A8FC4" font-weight="bold">改善</text>
+            </svg>
+        </div>
+
+        <h2>問題が発生する原因</h2>
+        
+        <div class="info-box">
+            <h3>なぜ要素が表示されないのか？</h3>
+            <p><code>scroll</code>イベ��トは<strong>「スクロールが発生したとき」にのみ</strong>実行されます。つまり：</p>
+            <ul>
+                <li>ページ読み込み時点で既にスクロール位置が100pxを超えていても、スクロール操作がなければイベントは発火しない</li>
+                <li>ブックマークやページ内リンクで途中から表示された場合も同様</li>
+                <li>ブラウザが前回のスクロール位置を復元した場合も判定されない</li>
+            </ul>
+        </div>
+
+        <div class="svg-container">
+            <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- タイムライン -->
+                <line x1="100" y1="200" x2="700" y2="200" stroke="#5A8FC4" stroke-width="3"/>
+                
+                <!-- ページロード -->
+                <circle cx="150" cy="200" r="8" fill="#5A8FC4"/>
+                <text x="150" y="180" text-anchor="middle" font-size="14" fill="#333" font-weight="bold">ページ読み込み</text>
+                <text x="150" y="240" text-anchor="middle" font-size="12" fill="#999">スクロール位置: 150px</text>
+                
+                <!-- scrollイベントのみ -->
+                <rect x="200" y="80" width="180" height="100" fill="#FFF5EC" stroke="#E8A87C" stroke-width="2" rx="4"/>
+                <text x="290" y="105" text-anchor="middle" font-size="14" fill="#E8A87C" font-weight="bold">scrollイベントのみ</text>
+                <text x="290" y="130" text-anchor="middle" font-size="13" fill="#333">❌ 発火しない</text>
+                <text x="290" y="155" text-anchor="middle" font-size="12" fill="#666">（スクロール操作なし）</text>
+                
+                <!-- ユーザーがスクロール -->
+                <circle cx="450" cy="200" r="8" fill="#E8A87C"/>
+                <text x="450" y="180" text-anchor="middle" font-size="14" fill="#333" font-weight="bold">ユーザーがスクロール</text>
+                <text x="450" y="240" text-anchor="middle" font-size="12" fill="#E8A87C">⚠ ここで初めて発火</text>
+                
+                <!-- scroll + load -->
+                <rect x="420" y="260" width="180" height="100" fill="#F0F8F4" stroke="#7AB693" stroke-width="2" rx="4"/>
+                <text x="510" y="285" text-anchor="middle" font-size="14" fill="#7AB693" font-weight="bold">scroll + load</text>
+                <text x="510" y="310" text-anchor="middle" font-size="13" fill="#333">✅ 読み込み時に発火</text>
+                <text x="510" y="335" text-anchor="middle" font-size="12" fill="#666">（初期位置を即座に判定）</text>
+                
+                <!-- 矢印 -->
+                <path d="M 290 185 L 150 205" stroke="#E8A87C" stroke-width="2" fill="none" marker-end="url(#arrowhead2)" stroke-dasharray="5,5"/>
+                <path d="M 510 260 L 150 205" stroke="#7AB693" stroke-width="2" fill="none" marker-end="url(#arrowhead3)"/>
+                
+                <defs>
+                    <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#E8A87C"/>
+                    </marker>
+                    <marker id="arrowhead3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#7AB693"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+
+        <h2>解決策：loadイベントの追加</h2>
+        
+        <div class="comparison">
+            <div class="comparison-box before">
+                <h3>❌ 問題のあるコード</h3>
+                <p>scrollイベントのみを監視</p>
+            </div>
+            <div class="comparison-box after">
+                <h3>✅ 改善されたコード</h3>
+                <p>scroll と load の両方を監視</p>
+            </div>
+        </div>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="code-label">❌ Before：scrollイベントのみ</span>
+                <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+            </div>
+            <pre><code>$(window).on("scroll", function () {
+  if ($(this).scrollTop() > 100) {
+    $("#site_title .site_title_text").addClass("is-show");
+  } else {
+    $("#site_title .site_title_text").removeClass("is-show");
+  }
+});</code></pre>
+        </div>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="code-label">✅ After：scroll + loadイベント</span>
+                <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+            </div>
+            <pre><code>$(window).on("scroll load", function () {
+  if ($(this).scrollTop() > 100) {
+    $("#site_title .site_title_text").addClass("is-show");
+  } else {
+    $("#site_title .site_title_text").removeClass("is-show");
+  }
+});</code></pre>
+        </div>
+
+        <h2>動作の比較</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>シナリオ</th>
+                    <th>scrollのみ</th>
+                    <th>scroll + load</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ページ最上部から読み込み</td>
+                    <td>✅ 正常動作</td>
+                    <td>✅ 正常動作</td>
+                </tr>
+                <tr>
+                    <td>途中位置から読み込み（ブックマーク等）</td>
+                    <td>❌ 初期表示が不正確</td>
+                    <td>✅ 正常動作</td>
+                </tr>
+                <tr>
+                    <td>ブラウザのスクロール位置復元</td>
+                    <td>❌ 初期表示が不正確</td>
+                    <td>✅ 正常動作</td>
+                </tr>
+                <tr>
+                    <td>ページ内リンク（#anchor）</td>
+                    <td>❌ 初期表示が不正確</td>
+                    <td>✅ 正常動作</td>
+                </tr>
+                <tr>
+                    <td>ユーザーがスクロール操作</td>
+                    <td>✅ 正常動作</td>
+                    <td>✅ 正常動作</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>具体的な使用例</h2>
+
+        <div class="info-box">
+            <h3>実際の使用シーン</h3>
+            <p><strong>シナリオ：</strong>ブログ記事をブックマークから開いた場合</p>
+            <ul>
+                <li>ユーザーが前回読んでいた位置（例：スクロール位置 500px）からページが開く</li>
+                <li><strong>scrollのみ：</strong>サイトタイトルが表示されない → ユーザーが少しスクロールすると突然表示される（不自然）</li>
+                <li><strong>scroll + load：</strong>ページ読み込み時に即座に適切な状態（表示）になる → 自然な動作</li>
+            </ul>
+        </div>
+
+        <h3>他の実装パターン</h3>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="code-label">パターン1：関数化してDRY原則に従う</span>
+                <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+            </div>
+            <pre><code>function checkScrollPosition() {
+  if ($(window).scrollTop() > 100) {
+    $("#site_title .site_title_text").addClass("is-show");
+  } else {
+    $("#site_title .site_title_text").removeClass("is-show");
+  }
+}
+
+$(window).on("scroll", checkScrollPosition);
+$(window).on("load", checkScrollPosition);</code></pre>
+        </div>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="code-label">パターン2：バニラJavaScript版</span>
+                <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+            </div>
+            <pre><code>function checkScrollPosition() {
+  const element = document.querySelector("#site_title .site_title_text");
+  if (window.scrollY > 100) {
+    element.classList.add("is-show");
+  } else {
+    element.classList.remove("is-show");
+  }
+}
+
+window.addEventListener("scroll", checkScrollPosition);
+window.addEventListener("load", checkScrollPosition);</code></pre>
+        </div>
+
+        <div class="code-block">
+            <div class="code-header">
+                <span class="code-label">パターン3：パフォーマンス最適化版（スロットル付き）</span>
+                <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+            </div>
+            <pre><code>let throttleTimer;
+
+function checkScrollPosition() {
+  const element = document.querySelector("#site_title .site_title_text");
+  if (window.scrollY > 100) {
+    element.classList.add("is-show");
+  } else {
+    element.classList.remove("is-show");
+  }
+}
+
+function throttle(callback, delay) {
+  if (throttleTimer) return;
+  throttleTimer = setTimeout(() => {
+    callback();
+    throttleTimer = null;
+  }, delay);
+}
+
+window.addEventListener("scroll", () => throttle(checkScrollPosition, 100));
+window.addEventListener("load", checkScrollPosition);</code></pre>
+        </div>
+
+        <h2>注意点とベストプラクティス</h2>
+
+        <div class="info-box">
+            <h3>⚠ パフォーマンスへの配慮</h3>
+            <ul>
+                <li><strong>スクロールイベントは頻繁に発火：</strong>スロットルやデバウンスを使って処理頻度を制限することを推奨</li>
+                <li><strong>DOMアクセスの最小化：</strong>要素を変数にキャッシュしておくと高速化できる</li>
+                <li><strong>Intersection Observer API：</strong>より高度な要件には、モダンなAPIの使用も検討する</li>
+            </ul>
+        </div>
+
+        <div class="svg-container">
+            <svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
+                <!-- ベストプラクティスのフロー -->
+                <rect x="50" y="30" width="150" height="80" fill="#E8F4F8" stroke="#5A8FC4" stroke-width="2" rx="6"/>
+                <text x="125" y="60" text-anchor="middle" font-size="14" fill="#333" font-weight="bold">1. イベント登録</text>
+                <text x="125" y="85" text-anchor="middle" font-size="12" fill="#666">scroll + load</text>
+                
+                <rect x="275" y="30" width="150" height="80" fill="#E8F4F8" stroke="#5A8FC4" stroke-width="2" rx="6"/>
+                <text x="350" y="60" text-anchor="middle" font-size="14" fill="#333" font-weight="bold">2. スロットル</text>
+                <text x="350" y="85" text-anchor="middle" font-size="12" fill="#666">処理頻度を制限</text>
+                
+                <rect x="500" y="30" width="150" height="80" fill="#E8F4F8" stroke="#5A8FC4" stroke-width="2" rx="6"/>
+                <text x="575" y="60" text-anchor="middle" font-size="14" fill="#333" font-weight="bold">3. DOM更新</text>
+                <text x="575" y="85" text-anchor="middle" font-size="12" fill="#666">クラス追加/削除</text>
+                
+                <!-- 矢印 -->
+                <path d="M 200 70 L 275 70" stroke="#5A8FC4" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                <path d="M 425 70 L 500 70" stroke="#5A8FC4" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                
+                <!-- 補足 -->
+                <rect x="150" y="150" width="400" height="80" fill="#FFF9F0" stroke="#E8A87C" stroke-width="2" rx="6"/>
+                <text x="350" y="175" text-anchor="middle" font-size="13" fill="#E8A87C" font-weight="bold">💡 Tip</text>
+                <text x="350" y="200" text-anchor="middle" font-size="12" fill="#333">要素をキャッシュして毎回のDOM検索を避ける</text>
+                <text x="350" y="218" text-anchor="middle" font-size="12" fill="#666">const el = $("#site_title .site_title_text");</text>
+            </svg>
+        </div>
+
+        <div class="summary">
+            <h2>まとめ</h2>
+            <ul>
+                <li><span class="highlight">scrollイベントのみ</span>では、ページ読み込み時点のスクロール位置を判定できない</li>
+                <li><span class="highlight">loadイベントを追加</span>することで、初期表示時にも正しい状態を設定できる</li>
+                <li>記述方法：<code>$(window).on("scroll load", function() {...})</code></li>
+                <li>ブックマーク、ページ内リンク、スクロール位置復元などのシナリオで正しく動作する</li>
+                <li>パフォーマンスを考慮する場合は、スロットルやデバウンスも検討する</li>
+            </ul>
+            <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #5A8FC4;">
+                <strong>🏠 本棚の例え：</strong>scrollイベントだけだと「本を動かしたとき」にしか場所を確認しない。loadイベントを追加すると「本棚を開けた瞬間」にも場所を確認できる。両方あって初めて、どんな状況でも正しい本の位置が分かります。
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block').querySelector('code');
+            const text = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'コピー完了！';
+                button.style.background = '#5A8FC4';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#7AB693';
+                }, 2000);
+            }).catch(err => {
+                console.error('コピーに失敗しました:', err);
+                button.textContent = 'コピー失敗';
+                setTimeout(() => {
+                    button.textContent = 'コピー';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

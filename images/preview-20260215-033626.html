@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>classList.add と classList.toggle の使い方</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(90, 143, 196, 0.1);
+}
+
+h1 {
+  color: #5A8FC4;
+  font-size: 28px;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #5A8FC4;
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: #5A8FC4;
+  font-size: 22px;
+  margin: 35px 0 20px;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.svg-container {
+  margin: 25px 0;
+  text-align: center;
+}
+
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  position: relative;
+  margin: 20px 0;
+}
+
+.code-block {
+  position: relative;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #5A8FC4;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.copy-btn:hover {
+  background: #4a7fb4;
+}
+
+.copy-btn:active {
+  background: #3a6f9f;
+}
+
+.note {
+  background: #e8f2f9;
+  border-left: 4px solid #5A8FC4;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+.point {
+  color: #5A8FC4;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>classList.add と classList.toggle</h1>
+
+  <div class="section">
+    <h2>classList.add() - クラスの追加</h2>
+    <p><span class="point">指定したクラスを要素に追加</span>します。既に存在する場合は何もしません。</p>
+    
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+      <pre>element.classList.add("aaa");</pre>
+    </div>
+
+    <div class="svg-container">
+      <svg width="700" height="120" viewBox="0 0 700 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- Before -->
+        <rect x="20" y="20" width="280" height="80" fill="#fff" stroke="#5A8FC4" stroke-width="2" rx="4"/>
+        <text x="40" y="50" font-size="14" fill="#666">element</text>
+        <text x="40" y="75" font-size="16" fill="#333" font-weight="bold">class=""</text>
+        
+        <!-- Arrow -->
+        <path d="M 310 60 L 380 60" stroke="#5A8FC4" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+        <text x="320" y="50" font-size="13" fill="#5A8FC4">.add("aaa")</text>
+        
+        <!-- After -->
+        <rect x="400" y="20" width="280" height="80" fill="#e8f2f9" stroke="#5A8FC4" stroke-width="2" rx="4"/>
+        <text x="420" y="50" font-size="14" fill="#666">element</text>
+        <text x="420" y="75" font-size="16" fill="#5A8FC4" font-weight="bold">class="aaa"</text>
+        
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0 0, 10 3, 0 6" fill="#5A8FC4"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>classList.toggle() - クラスのON/OFF</h2>
+    <p><span class="point">クラスが存在すれば削除、存在しなければ追加</span>します。選択のたびに切り替わります。</p>
+    
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+      <pre>element.classList.toggle("aaa");</pre>
+    </div>
+
+    <div class="svg-container">
+      <svg width="700" height="200" viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- State 1 -->
+        <rect x="50" y="20" width="220" height="70" fill="#fff" stroke="#5A8FC4" stroke-width="2" rx="4"/>
+        <text x="70" y="45" font-size="14" fill="#666">element</text>
+        <text x="70" y="70" font-size="16" fill="#333" font-weight="bold">class=""</text>
+        
+        <!-- Arrow Down -->
+        <path d="M 160 100 L 160 130" stroke="#5A8FC4" stroke-width="2" marker-end="url(#arrowhead2)"/>
+        <text x="175" y="120" font-size="13" fill="#5A8FC4">.toggle("aaa")</text>
+        
+        <!-- State 2 -->
+        <rect x="50" y="140" width="220" height="70" fill="#e8f2f9" stroke="#5A8FC4" stroke-width="2" rx="4"/>
+        <text x="70" y="165" font-size="14" fill="#666">element</text>
+        <text x="70" y="190" font-size="16" fill="#5A8FC4" font-weight="bold">class="aaa"</text>
+        
+        <!-- Arrow Up -->
+        <path d="M 300 180 Q 350 110 300 40" stroke="#5A8FC4" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead2)" fill="none"/>
+        <text x="355" y="115" font-size="13" fill="#5A8FC4">.toggle("aaa")</text>
+        <text x="355" y="135" font-size="12" fill="#999">再度実行で戻る</text>
+        
+        <defs>
+          <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0 0, 10 3, 0 6" fill="#5A8FC4"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>重要ポイント</strong><br>
+    • <code>classList</code> と <code>add</code> / <code>toggle</code> の組み合わせが必須<br>
+    • toggle は状態の切り替えに便利（メニュー開閉、表示/非表示など）
+  </div>
+
+</div>
+
+<script>
+function copyCode(button) {
+  const pre = button.nextElementSibling;
+  const code = pre.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    button.textContent = 'コピー完了！';
+    setTimeout(() => {
+      button.textContent = 'コピー';
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

@@ -17,7 +17,7 @@ https://animista.net/
 
 
 
-▢
+■
 ・ACML自動プレビューで無駄なゴミが入る。
 ・HTML自動プレビューで、保存したときは画面が白かったのに、貼り付けて起動すると黒くなる。
 
@@ -49,9 +49,9 @@ https://animista.net/
 
 
 
+[プレビュー](http://localhost:54321/preview-20260215-025404.html)
 
-
-
+[プレビュー](http://localhost:54321/preview-20260215-025733.html)
 
 
 
@@ -81,7 +81,10 @@ ALT+Bでブラウザ表示.ahk
 
 
 
+▢　CSS　jump
 
+ダブルクリックしたら猫サイトをひらいた。
+cssを。ないはずなのに。
 
 
 

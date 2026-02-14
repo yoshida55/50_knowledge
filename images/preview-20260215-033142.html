@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>display: contents と nth-child の関係</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  padding: 40px 20px;
+  line-height: 1.8;
+  color: #333;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(90, 143, 196, 0.1);
+}
+
+h1 {
+  color: #5A8FC4;
+  font-size: 26px;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #5A8FC4;
+}
+
+h2 {
+  color: #5A8FC4;
+  font-size: 20px;
+  margin: 35px 0 20px;
+  padding-left: 12px;
+  border-left: 4px solid #5A8FC4;
+}
+
+.section {
+  margin-bottom: 35px;
+}
+
+.svg-container {
+  margin: 30px 0;
+  text-align: center;
+}
+
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.code-block {
+  position: relative;
+  margin: 20px 0;
+}
+
+pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #5A8FC4;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.copy-btn:hover {
+  background: #4a7fb4;
+}
+
+.highlight {
+  background: #fff3cd;
+  padding: 15px;
+  border-left: 4px solid #ffc107;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.summary {
+  background: #e8f4f8;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 25px 0;
+}
+
+.summary-title {
+  color: #5A8FC4;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>display: contents と nth-child の問題</h1>
+
+  <div class="section">
+    <h2>問題の原因</h2>
+    <p><code>display: contents</code> を使うと、その要素が「透明」になり、子要素が直接親要素の子として扱われます。そのため、<code>nth-child()</code> のカウントが想定外の動作をします。</p>
+  </div>
+
+  <div class="svg-container">
+    <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+      <!-- 通常の構造 -->
+      <g>
+        <text x="50" y="30" font-size="18" font-weight="bold" fill="#5A8FC4">通常の構造</text>
+        
+        <rect x="50" y="50" width="300" height="80" fill="#5A8FC4" opacity="0.2" stroke="#5A8FC4" stroke-width="2" rx="4"/>
+        <text x="60" y="75" font-size="14" fill="#333">.about_area（親）</text>
+        
+        <rect x="70" y="100" width="120" height="60" fill="#7fb3d5" opacity="0.3" stroke="#5A8FC4" stroke-width="2" rx="4"/>
+        <text x="80" y="125" font-size="12" fill="#333">.left_container</text>
+        <text x="80" y="145" font-size="11" fill="#666">子1, 子2, 子3...</text>
+        
+        <rect x="210" y="100" width="120" height="60" fill="#7fb3d5" opacity="0.3" stroke="#5A8FC4" stroke-width="2" rx="4"/>
+        <text x="220" y="125" font-size="12" fill="#333">.right_container</text>
+        <text x="220" y="145" font-size="11" fill="#666">子1, 子2, 子3...</text>
+      </g>
+
+      <!-- display: contents 適用後 -->
+      <g>
+        <text x="450" y="30" font-size="18" font-weight="bold" fill="#d9534f">display: contents 適用後</text>
+        
+        <rect x="450" y="50" width="300" height="130" fill="#5A8FC4" opacity="0.2" stroke="#5A8FC4" stroke-width="2" rx="4"/>
+        <text x="460" y="75" font-size="14" fill="#333">.about_area（親）</text>
+        
+        <rect x="470" y="100" width="120" height="25" fill="#ffcccc" opacity="0.5" stroke="#d9534f" stroke-width="2" stroke-dasharray="5,5" rx="4"/>
+        <text x="480" y="117" font-size="11" fill="#d9534f">.left_container（透明）</text>
+        
+        <rect x="610" y="100" width="120" height="25" fill="#ffcccc" opacity="0.5" stroke="#d9534f" stroke-width="2" stroke-dasharray="5,5" rx="4"/>
+        <text x="620" y="117" font-size="11" fill="#d9534f">.right_container（透明）</text>
+        
+        <text x="470" y="150" font-size="12" fill="#333" font-weight="bold">すべての子が直下に配置</text>
+        <text x="470" y="170" font-size="11" fill="#d9534f">→ nth-child(2)が複数該当！</text>
+      </g>
+
+      <!-- 矢印 -->
+      <path d="M 360 90 L 440 90" stroke="#5A8FC4" stroke-width="2" marker-end="url(#arrowhead)" fill="none"/>
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <polygon points="0 0, 10 3, 0 6" fill="#5A8FC4" />
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="highlight">
+    ⚠️ コンテナが「透明化」されると、nth-child() は親要素から直接数えるため、意図しない複数の要素が選択される
+  </div>
+
+  <div class="section">
+    <h2>解決策：ネストで明示的に指定</h2>
+    <p>共通クラス名を使う場合、ネスト（親からの階層指定）で対象を絞り込むことで、意図した要素のみを選択できます。</p>
+  </div>
+
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    <pre><code>/* ❌ 曖昧な指定（複数該当する可能性） */
+.共通クラス:nth-child(2) {
+  display: none;
+}
+
+/* ✅ ネストで明示的に指定 */
+.weekly_area .weekly_container .weekly_info_container .radius_link {
+  display: none;
+}</code></pre>
+  </div>
+
+  <div class="summary">
+    <div class="summary-title">まとめ</div>
+    <ul style="margin-left: 20px;">
+      <li><code>display: contents</code> は要素を「透明化」し、子要素が直接親の下に配置される</li>
+      <li><code>nth-child()</code> は親からのカウントなので、意図しない要素が複数選択される</li>
+      <li><strong>解決策：</strong> 親要素から階層を明示的に指定（ネスト）して対象を絞り込む</li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const code = btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'コピー完了！';
+    setTimeout(() => btn.textContent = 'コピー', 2000);
+  });
+}
+</script>
+
+</body>
+</html>
