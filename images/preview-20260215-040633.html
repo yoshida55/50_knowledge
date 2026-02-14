@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS兄弟セレクタ (~) の動作解説</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(90, 143, 196, 0.15);
+  overflow: hidden;
+}
+
+header {
+  background: linear-gradient(135deg, #5A8FC4, #4a7fb4);
+  color: #fff;
+  padding: 32px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.content {
+  padding: 40px 32px;
+}
+
+h2 {
+  font-size: 18px;
+  color: #5A8FC4;
+  margin: 32px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #5A8FC4;
+}
+
+h2:first-child {
+  margin-top: 0;
+}
+
+.svg-wrapper {
+  margin: 24px 0;
+  padding: 24px;
+  background: #f8fbfd;
+  border-radius: 6px;
+  border: 1px solid #d0e0ed;
+}
+
+svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.code-block {
+  position: relative;
+  margin: 20px 0;
+  background: #2d2d2d;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.code-header {
+  background: #1a1a1a;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #444;
+}
+
+.code-title {
+  color: #888;
+  font-size: 12px;
+}
+
+.copy-btn {
+  background: #5A8FC4;
+  color: #fff;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.copy-btn:hover {
+  background: #4a7fb4;
+}
+
+.copy-btn.copied {
+  background: #4caf50;
+}
+
+pre {
+  margin: 0;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+code {
+  color: #f8f8f2;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.keyword { color: #66d9ef; }
+.selector { color: #a6e22e; }
+.property { color: #f92672; }
+.value { color: #e6db74; }
+.comment { color: #75715e; }
+
+.note {
+  background: #fff9e6;
+  border-left: 4px solid #ffc107;
+  padding: 16px;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+.correct {
+  background: #e8f5e9;
+  border-left: 4px solid #4caf50;
+  padding: 16px;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+.incorrect {
+  background: #ffebee;
+  border-left: 4px solid #f44336;
+  padding: 16px;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+strong {
+  color: #5A8FC4;
+  font-weight: 600;
+}
+
+.flow-step {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #5A8FC4;
+  color: #fff;
+  border-radius: 12px;
+  font-size: 13px;
+  margin: 0 4px;
+}
+
+@keyframes slideRight {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+
+.animate-arrow {
+  animation: slideRight 2s ease-in-out infinite;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>CSS兄弟セレクタ (~) の動作解説</h1>
+  </header>
+
+  <div class="content">
+    <h2>核心の誤解</h2>
+    <div class="incorrect">
+      <strong>❌ 誤り:</strong> 「<code>~</code>で一回親を経由する」<br>
+      → 兄弟セレクタは<strong>親を経由しません</strong>
+    </div>
+
+    <div class="correct">
+      <strong>✅ 正しい:</strong> 「<code>~</code>は同じ親を持つ後続の兄弟要素を直接選択」<br>
+      → <strong>横移動</strong>して兄弟へ、その後<strong>子孫へ降りる</strong>
+    </div>
+
+    <h2>セレクタの動作フロー</h2>
+    <div class="svg-wrapper">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+        <!-- Body -->
+        <rect x="50" y="30" width="700" height="260" fill="none" stroke="#5A8FC4" stroke-width="2" rx="6"/>
+        <text x="70" y="55" font-size="16" fill="#5A8FC4" font-weight="600">body（親）</text>
+        
+        <!-- Header (兄) -->
+        <rect x="100" y="80" width="280" height="80" fill="#5A8FC4" fill-opacity="0.2" stroke="#5A8FC4" stroke-width="2" rx="4"/>
+        <text x="120" y="110" font-size="14" fill="#333" font-weight="600">#side_area.open</text>
+        <text x="120" y="135" font-size="12" fill="#666">（兄）</text>
+        
+        <!-- Arrow (兄弟関係) -->
+        <g class="animate-arrow">
+          <line x1="385" y1="120" x2="465" y2="120" stroke="#f92672" stroke-width="3" marker-end="url(#arrowhead)"/>
+          <text x="395" y="110" font-size="14" fill="#f92672" font-weight="700">~</text>
+        </g>
+        
+        <!-- Section (弟) -->
+        <rect x="470" y="80" width="250" height="180" fill="#a6e22e" fill-opacity="0.15" stroke="#4caf50" stroke-width="2" rx="4"/>
+        <text x="490" y="110" font-size="14" fill="#333" font-weight="600">#mainVisual_area</text>
+        <text x="490" y="135" font-size="12" fill="#666">（弟）</text>
+        
+        <!-- Nav (弟の子) -->
+        <rect x="500" y="160" width="190" height="70" fill="#ffc107" fill-opacity="0.2" stroke="#ffc107" stroke-width="2" rx="4"/>
+        <text x="520" y="190" font-size="13" fill="#333" font-weight="600">.page_container</text>
+        <text x="520" y="210" font-size="11" fill="#666">（弟の子）</text>
+        
+        <!-- Vertical Arrow (子孫) -->
+        <line x1="595" y1="145" x2="595" y2="155" stroke="#333" stroke-width="2" marker-end="url(#arrowhead2)"/>
+        <text x="610" y="153" font-size="12" fill="#333">子孫</text>
+        
+        <!-- Flow explanation -->
+        <text x="100" y="290" font-size="13" fill="#5A8FC4" font-weight="600">
+          1. 起点 → 2. 兄弟へ横移動 (~) → 3. 子孫へ降りる
+        </text>
+        
+        <!-- Arrow markers -->
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0 0, 10 3, 0 6" fill="#f92672"/>
+          </marker>
+          <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="3" refY="9" orient="auto">
+            <polygon points="0 0, 6 0, 3 10" fill="#333"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <h2>コード例</h2>
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-title">CSS</span>
+        <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+      </div>
+      <pre><code><span class="comment">/* ❌ 誤った理解: 親を経由する */</span>
+<span class="comment">/* ✅ 正しい理解: 兄弟へ横移動 → 子孫へ降りる */</span>
+
+<span class="selector">#side_area.open</span> <span class="keyword">~</span> <span class="selector">#mainVisual_area</span> <span class="selector">.page_container</span> {
+  <span class="property">display</span>: <span class="value">none</span>;
+}
+
+<span class="comment">/* 動作の流れ:
+   1. #side_area.open を起点
+   2. ~ で後続の兄弟 #mainVisual_area を選択（横移動）
+   3. その子孫 .page_container を選択（下降）
+*/</span></code></pre>
+    </div>
+
+    <h2>セレクタの選択パターン比較</h2>
+    <div class="svg-wrapper">
+      <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- 子孫セレクタ -->
+        <text x="50" y="30" font-size="14" fill="#5A8FC4" font-weight="600">子孫セレクタ（スペース）</text>
+        <rect x="50" y="40" width="320" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="4"/>
+        <text x="70" y="65" font-size="13" fill="#333">.parent .child</text>
+        <text x="70" y="85" font-size="12" fill="#666">→ 親の配下すべての子孫</text>
+        
+        <!-- 兄弟セレクタ -->
+        <text x="430" y="30" font-size="14" fill="#5A8FC4" font-weight="600">兄弟セレクタ（~）</text>
+        <rect x="430" y="40" width="320" height="60" fill="#fff9e6" stroke="#ffc107" stroke-width="2" rx="4"/>
+        <text x="450" y="65" font-size="13" fill="#333">.brother ~ .sibling</text>
+        <text x="450" y="85" font-size="12" fill="#666">→ 同階層の後続兄弟のみ</text>
+        
+        <!-- 複合例 -->
+        <text x="50" y="140" font-size="14" fill="#5A8FC4" font-weight="600">複合（兄弟 + 子孫）</text>
+        <rect x="50" y="150" width="700" height="40" fill="#e3f2fd" stroke="#5A8FC4" stroke-width="2" rx="4"/>
+        <text x="70" y="175" font-size="13" fill="#333">
+          <tspan fill="#f92672" font-weight="600">#side_area.open</tspan>
+          <tspan fill="#666"> ~ </tspan>
+          <tspan fill="#4caf50" font-weight="600">#mainVisual_area</tspan>
+          <tspan fill="#666"> </tspan>
+          <tspan fill="#ffc107" font-weight="600">.page_container</tspan>
+        </text>
+      </svg>
+    </div>
+
+    <div class="note">
+      <strong>📌 重要ポイント</strong><br>
+      <code>~</code> は<strong>DOM階層を上下しません</strong>。同じ親を持つ兄弟要素間を<strong>水平に移動</strong>するセレクタです。
+    </div>
+
+  </div>
+</div>
+
+<script>
+function copyCode(btn) {
+  const codeBlock = btn.closest('.code-block').querySelector('code');
+  const text = codeBlock.textContent;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'コピー完了！';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'コピー';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

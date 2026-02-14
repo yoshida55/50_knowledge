@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>パララックス効果の2層構造</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: "Yu Gothic", "游ゴシック", YuGothic, sans-serif;
+    background: #EBF1F6;
+    color: #333;
+    line-height: 1.8;
+    padding: 40px 20px;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  h1 {
+    color: #5A8FC4;
+    font-size: 28px;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #5A8FC4;
+  }
+  h2 {
+    color: #5A8FC4;
+    font-size: 20px;
+    margin: 30px 0 15px;
+  }
+  .svg-container {
+    margin: 30px 0;
+    text-align: center;
+  }
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+  .code-block {
+    position: relative;
+    background: #2d2d2d;
+    color: #f8f8f2;
+    padding: 20px;
+    border-radius: 6px;
+    margin: 20px 0;
+    overflow-x: auto;
+  }
+  .code-block code {
+    font-family: Consolas, Monaco, monospace;
+    font-size: 14px;
+    white-space: pre;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #5A8FC4;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .copy-btn:hover {
+    background: #4a7fb4;
+  }
+  .key-point {
+    background: #f0f7fc;
+    border-left: 4px solid #5A8FC4;
+    padding: 15px;
+    margin: 20px 0;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>パララックス効果の2層構造</h1>
+  
+  <div class="key-point">
+    <strong>答え：2層構造（固定背景 + スクロール前景）</strong><br>
+    背景を<code>position: fixed</code>で固定、前景を<code>position: relative</code>で配置することで視差効果を実現
+  </div>
+
+  <div class="svg-container">
+    <svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg">
+      <!-- 背景層 -->
+      <rect x="50" y="80" width="280" height="280" fill="#5A8FC4" opacity="0.3" stroke="#5A8FC4" stroke-width="2"/>
+      <text x="190" y="50" text-anchor="middle" font-size="18" fill="#5A8FC4" font-weight="bold">背景層（固定）</text>
+      <text x="100" y="115" font-size="14" fill="#333">position: fixed</text>
+      <text x="100" y="140" font-size="14" fill="#333">z-index: -1</text>
+      <circle cx="190" cy="220" r="40" fill="#7BA8D1" opacity="0.6"/>
+      <text x="190" y="230" text-anchor="middle" font-size="12" fill="white">背景要素</text>
+      
+      <!-- 前景層 -->
+      <rect x="370" y="120" width="280" height="240" fill="#ffffff" stroke="#5A8FC4" stroke-width="3"/>
+      <text x="510" y="50" text-anchor="middle" font-size="18" fill="#5A8FC4" font-weight="bold">前景層（スクロール）</text>
+      <text x="420" y="155" font-size="14" fill="#333">position: relative</text>
+      <text x="420" y="180" font-size="14" fill="#333">z-index: 1</text>
+      <text x="420" y="205" font-size="14" fill="#333">padding-top: 100vh</text>
+      <rect x="420" y="240" width="180" height="60" fill="#EBF1F6" stroke="#5A8FC4" stroke-width="1"/>
+      <text x="510" y="275" text-anchor="middle" font-size="12" fill="#333">コンテンツ</text>
+      
+      <!-- 矢印 -->
+      <path d="M 340 220 L 360 220" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+      <text x="345" y="210" font-size="12" fill="#666">重なる</text>
+      
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <h2>HTML構造</h2>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    <code>&lt;!-- 背景（固定） --&gt;
+&lt;div class="particle-bg"&gt;&lt;/div&gt;
+
+&lt;!-- 前景（スクロール） --&gt;
+&lt;div class="parallax-container"&gt;
+  &lt;!-- コンテンツ --&gt;
+&lt;/div&gt;</code>
+  </div>
+
+  <h2>CSS設定</h2>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    <code>.particle-bg {
+  position: fixed;  /* 画面に固定 */
+  z-index: -1;      /* 背面に配置 */
+  width: 100%;
+  height: 100vh;
+}
+
+.parallax-container {
+  position: relative;  /* 通常フロー */
+  z-index: 1;          /* 前面に配置 */
+  padding-top: 100vh;  /* 初期は背景のみ表示 */
+}</code>
+  </div>
+
+  <div class="key-point">
+    <strong>ポイント</strong><br>
+    • 背景は<code>fixed</code>でスクロールに追従しない<br>
+    • 前景は通常通りスクロール<br>
+    • <code>padding-top: 100vh</code>で最初は背景だけが見える
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const code = btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'コピー完了！';
+    setTimeout(() => btn.textContent = 'コピー', 2000);
+  });
+}
+</script>
+</body>
+</html>

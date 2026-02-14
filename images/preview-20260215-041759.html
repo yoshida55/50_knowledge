@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flexbox レイアウトの正しい構造</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(90,143,196,0.15);
+}
+
+h1 {
+  color: #5A8FC4;
+  font-size: 28px;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #5A8FC4;
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: #5A8FC4;
+  font-size: 20px;
+  margin: 40px 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h2.wrong::before {
+  content: "❌";
+  font-size: 24px;
+}
+
+h2.correct::before {
+  content: "✅";
+  font-size: 24px;
+}
+
+.svg-container {
+  margin: 30px 0;
+  text-align: center;
+}
+
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.code-block {
+  position: relative;
+  margin: 20px 0;
+}
+
+.code-block pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.code-block .copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #5A8FC4;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.code-block .copy-btn:hover {
+  background: #4a7fb4;
+}
+
+.point-box {
+  background: #f0f7fc;
+  border-left: 4px solid #5A8FC4;
+  padding: 20px;
+  margin: 30px 0;
+}
+
+.point-box strong {
+  color: #5A8FC4;
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.point-box ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.point-box li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+}
+
+.point-box li::before {
+  content: "💡";
+  position: absolute;
+  left: 0;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.align-issue {
+  animation: slideDown 0.6s ease-out;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📋 Flexbox レイアウトの正しい構造</h1>
+
+  <h2 class="wrong">間違い：列ごとにまとめる</h2>
+  
+  <div class="svg-container">
+    <svg viewBox="0 0 700 280" width="700" height="280">
+      <!-- 列構造（間違い） -->
+      <rect x="20" y="20" width="300" height="240" fill="#fff" stroke="#e74c3c" stroke-width="3" rx="4"/>
+      <text x="170" y="45" text-anchor="middle" font-size="14" fill="#e74c3c" font-weight="bold">labels列</text>
+      
+      <rect x="30" y="60" width="280" height="50" fill="#fff3f3" stroke="#ccc" stroke-width="1" rx="3"/>
+      <text x="40" y="90" font-size="13" fill="#333">電車でお越しの方</text>
+      
+      <rect x="30" y="120" width="280" height="50" fill="#fff3f3" stroke="#ccc" stroke-width="1" rx="3"/>
+      <text x="40" y="150" font-size="13" fill="#333">車でお越しの方</text>
+      
+      <rect x="30" y="180" width="280" height="50" fill="#fff3f3" stroke="#ccc" stroke-width="1" rx="3"/>
+      <text x="40" y="210" font-size="13" fill="#333">駐車場のご案内</text>
+
+      <!-- details列 -->
+      <rect x="380" y="20" width="300" height="240" fill="#fff" stroke="#e74c3c" stroke-width="3" rx="4"/>
+      <text x="530" y="45" text-anchor="middle" font-size="14" fill="#e74c3c" font-weight="bold">details列</text>
+      
+      <rect x="390" y="60" width="280" height="50" fill="#fff3f3" stroke="#ccc" stroke-width="1" rx="3"/>
+      <text x="400" y="90" font-size="13" fill="#333">徒歩10分</text>
+      
+      <rect x="390" y="120" width="280" height="80" fill="#ffe6e6" stroke="#e74c3c" stroke-width="2" rx="3" class="align-issue"/>
+      <text x="400" y="150" font-size="13" fill="#333">名古屋ICから30分</text>
+      <text x="400" y="175" font-size="13" fill="#333">赤津ICから5分</text>
+      
+      <rect x="390" y="210" width="280" height="50" fill="#fff3f3" stroke="#ccc" stroke-width="1" rx="3" class="align-issue"/>
+      <text x="400" y="240" font-size="13" fill="#333">STUDIO 894...</text>
+      
+      <!-- 問題を示す矢印 -->
+      <path d="M 530 205 L 530 215" stroke="#e74c3c" stroke-width="2" fill="none" marker-end="url(#arrowRed)"/>
+      <text x="540" y="212" font-size="12" fill="#e74c3c" font-weight="bold">ズレる</text>
+      
+      <defs>
+        <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+          <polygon points="0,0 10,5 0,10" fill="#e74c3c"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    <pre><code>&lt;div class="labels"&gt;
+  &lt;p&gt;電車でお越しの方&lt;/p&gt;
+  &lt;p&gt;車でお越しの方&lt;/p&gt;
+  &lt;p&gt;駐車場のご案内&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="details"&gt;
+  &lt;p&gt;���歩10分&lt;/p&gt;
+  &lt;p&gt;名古屋ICから30分&lt;br&gt;赤津ICから5分&lt;/p&gt;  ← 2行で高さズレる
+  &lt;p&gt;STUDIO 894...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+
+  <h2 class="correct">正しい：行ごとにペアにする</h2>
+
+  <div class="svg-container">
+    <svg viewBox="0 0 700 280" width="700" height="280">
+      <!-- 行構造（正しい） -->
+      <rect x="20" y="20" width="660" height="70" fill="#fff" stroke="#27ae60" stroke-width="3" rx="4"/>
+      <text x="30" y="45" font-size="14" fill="#27ae60" font-weight="bold">row 1</text>
+      <rect x="30" y="55" width="200" height="25" fill="#e8f5e9" stroke="#27ae60" stroke-width="1" rx="3"/>
+      <text x="40" y="73" font-size="13" fill="#333">電車でお越しの方</text>
+      <rect x="240" y="55" width="430" height="25" fill="#f0f7fc" stroke="#5A8FC4" stroke-width="1" rx="3"/>
+      <text x="250" y="73" font-size="13" fill="#333">徒歩10分</text>
+
+      <rect x="20" y="100" width="660" height="90" fill="#fff" stroke="#27ae60" stroke-width="3" rx="4"/>
+      <text x="30" y="125" font-size="14" fill="#27ae60" font-weight="bold">row 2</text>
+      <rect x="30" y="135" width="200" height="45" fill="#e8f5e9" stroke="#27ae60" stroke-width="1" rx="3"/>
+      <text x="40" y="162" font-size="13" fill="#333">車でお越しの方</text>
+      <rect x="240" y="135" width="430" height="45" fill="#f0f7fc" stroke="#5A8FC4" stroke-width="1" rx="3"/>
+      <text x="250" y="153" font-size="13" fill="#333">名古屋ICから30分</text>
+      <text x="250" y="173" font-size="13" fill="#333">赤津ICから5分</text>
+
+      <rect x="20" y="200" width="660" height="70" fill="#fff" stroke="#27ae60" stroke-width="3" rx="4"/>
+      <text x="30" y="225" font-size="14" fill="#27ae60" font-weight="bold">row 3</text>
+      <rect x="30" y="235" width="200" height="25" fill="#e8f5e9" stroke="#27ae60" stroke-width="1" rx="3"/>
+      <text x="40" y="253" font-size="13" fill="#333">駐車場のご案内</text>
+      <rect x="240" y="235" width="430" height="25" fill="#f0f7fc" stroke="#5A8FC4" stroke-width="1" rx="3"/>
+      <text x="250" y="253" font-size="13" fill="#333">STUDIO 894...</text>
+      
+      <!-- ラベル -->
+      <text x="130" y="15" text-anchor="middle" font-size="12" fill="#27ae60" font-weight="bold">label (固定幅)</text>
+      <text x="455" y="15" text-anchor="middle" font-size="12" fill="#5A8FC4" font-weight="bold">detail (flex: 1)</text>
+    </svg>
+  </div>
+
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    <pre><code>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;p class="label"&gt;電車でお越しの方&lt;/p&gt;
+    &lt;p class="detail"&gt;徒歩10分&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="row"&gt;
+    &lt;p class="label"&gt;車でお越しの方&lt;/p&gt;
+    &lt;p class="detail"&gt;名古屋ICから30分&lt;br&gt;赤津ICから5分&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="row"&gt;
+    &lt;p class="label"&gt;駐車場のご案内&lt;/p&gt;
+    &lt;p class="detail"&gt;STUDIO 894...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    <pre><code>.container { display: flex; flex-direction: column; }
+.row       { display: flex; align-items: flex-start; }
+.label     { width: 15rem; }    /* 固定幅 */
+.detail    { flex: 1; }         /* 残り全部 */</code></pre>
+  </div>
+
+  <div class="point-box">
+    <strong>💡 3つのポイント</strong>
+    <ul>
+      <li>ラベルと詳細は同じ行（row）にペアで入れる</li>
+      <li>ラベルは width: 固定値 で揃える</li>
+      <li>詳���は flex: 1 で残りスペースを自動で使う</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function copyCode(btn) {
+  const code = btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'コピー完了!';
+    setTimeout(() => btn.textContent = 'コピー', 2000);
+  });
+}
+</script>
+
+</body>
+</html>

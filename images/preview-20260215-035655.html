@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>パララックス効果 - relative vs absolute</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(90, 143, 196, 0.1);
+}
+
+h1 {
+  color: #5A8FC4;
+  font-size: 28px;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #5A8FC4;
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: #5A8FC4;
+  font-size: 22px;
+  margin: 30px 0 20px;
+}
+
+.svg-container {
+  margin: 30px 0;
+  text-align: center;
+}
+
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.code-block {
+  position: relative;
+  margin: 20px 0;
+}
+
+.code-header {
+  background: #5A8FC4;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px 4px 0 0;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copy-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.copy-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 0 0 4px 4px;
+  overflow-x: auto;
+  margin: 0;
+}
+
+code {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
+}
+
+.highlight {
+  background: rgba(90, 143, 196, 0.1);
+  padding: 15px;
+  border-left: 4px solid #5A8FC4;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+.key-point {
+  background: #5A8FC4;
+  color: white;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 25px 0;
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+}
+
+@keyframes scroll-motion {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(30px); }
+}
+
+.scroll-demo {
+  animation: scroll-motion 2s ease-in-out infinite;
+}
+
+@keyframes fade-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.space-indicator {
+  animation: fade-pulse 2s ease-in-out infinite;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>パララックス効果：なぜ relative なのか？</h1>
+
+  <h2>核心の違い：スペース占有の有無</h2>
+
+  <div class="svg-container">
+    <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+      <!-- relative の場合 -->
+      <g>
+        <text x="100" y="30" font-size="18" font-weight="bold" fill="#5A8FC4">✓ relative の場合</text>
+        
+        <!-- ページ全体 -->
+        <rect x="20" y="50" width="300" height="300" fill="#EBF1F6" stroke="#5A8FC4" stroke-width="2"/>
+        <text x="30" y="70" font-size="14" fill="#666">ページ全体</text>
+        
+        <!-- 背景 fixed -->
+        <rect x="40" y="90" width="260" height="100" fill="#5A8FC4" opacity="0.3"/>
+        <text x="120" y="145" font-size="14" fill="#333" font-weight="bold">背景 (fixed)</text>
+        
+        <!-- 前景 relative（スペース占有） -->
+        <rect class="space-indicator" x="40" y="90" width="260" height="240" fill="none" stroke="#FF6B6B" stroke-width="3" stroke-dasharray="5,5"/>
+        <rect class="scroll-demo" x="40" y="200" width="260" height="130" fill="#5A8FC4" opacity="0.8"/>
+        <text x="105" y="270" font-size="14" fill="white" font-weight="bold">前景 (relative)</text>
+        
+        <!-- スペース占有の説明 -->
+        <text x="60" y="225" font-size="12" fill="#FF6B6B" font-weight="bold">↑スペースを占有↓</text>
+        
+        <!-- スクロールバー -->
+        <rect x="310" y="50" width="10" height="300" fill="#ddd" rx="5"/>
+        <rect x="310" y="150" width="10" height="80" fill="#5A8FC4" rx="5"/>
+        <text x="250" y="370" font-size="13" fill="#5A8FC4" font-weight="bold">→ スクロール可能</text>
+      </g>
+
+      <!-- absolute の場合 -->
+      <g transform="translate(420, 0)">
+        <text x="80" y="30" font-size="18" font-weight="bold" fill="#999">✗ absolute の場合</text>
+        
+        <!-- ページ全体（小さい） -->
+        <rect x="20" y="50" width="300" height="100" fill="#EBF1F6" stroke="#999" stroke-width="2"/>
+        <text x="30" y="70" font-size="14" fill="#666">ページ全体</text>
+        
+        <!-- 背景 fixed -->
+        <rect x="40" y="90" width="260" height="40" fill="#999" opacity="0.3"/>
+        <text x="120" y="115" font-size="14" fill="#333">背景 (fixed)</text>
+        
+        <!-- 前景 absolute（浮いている） -->
+        <rect x="40" y="200" width="260" height="130" fill="#999" opacity="0.5"/>
+        <text x="105" y="270" font-size="14" fill="#666">前景 (absolute)</text>
+        
+        <!-- スペース占有しない -->
+        <line x1="150" y1="150" x2="150" y2="190" stroke="#FF6B6B" stroke-width="2"/>
+        <text x="80" y="175" font-size="12" fill="#FF6B6B" font-weight="bold">スペース占有せず</text>
+        
+        <!-- スクロールバーなし -->
+        <rect x="310" y="50" width="10" height="100" fill="#ddd" rx="5"/>
+        <line x1="225" y1="170" x2="305" y2="170" stroke="#FF6B6B" stroke-width="2"/>
+        <line x1="220" y1="165" x2="230" y2="170" stroke="#FF6B6B" stroke-width="2"/>
+        <line x1="220" y1="175" x2="230" y2="170" stroke="#FF6B6B" stroke-width="2"/>
+        <text x="205" y="190" font-size="13" fill="#FF6B6B" font-weight="bold">スクロール不可</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="key-point">
+    💡 relative はスペースを占有 → スクロール発生<br>
+    absolute はスペースを占有しない → スクロール不可
+  </div>
+
+  <h2>実装コード</h2>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span>HTML</span>
+      <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    </div>
+    <pre><code>&lt;!-- 背景（固定） --&gt;
+&lt;div class="particle-bg"&gt;&lt;/div&gt;
+&lt;!-- 前景（スクロール） --&gt;
+&lt;div class="parallax-container"&gt;&lt;/div&gt;</code></pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span>CSS</span>
+      <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    </div>
+    <pre><code>.particle-bg {
+  position: fixed;  /* 画面に固定 */
+  z-index: -1;
+}
+.parallax-container {
+  position: relative;  /* ✓ スペースを占有 */
+  z-index: 1;
+  padding-top: 100vh;  /* スクロール領域を確保 */
+}</code></pre>
+  </div>
+
+  <div class="highlight">
+    <strong>重要：</strong><br>
+    • <code>relative</code> = ドキュメントフロー内 → 高さが生成される → スクロール可能<br>
+    • <code>absolute</code> = ドキュメントフローから外れる → 高さ0 → スクロール不可
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  const code = pre.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'コピー完了!';
+    setTimeout(() => {
+      btn.textContent = 'コピー';
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
