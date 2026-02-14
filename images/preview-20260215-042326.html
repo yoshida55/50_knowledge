@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>background-attachment: fixed の解説</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: '游ゴシック体', 'Yu Gothic', YuGothic, sans-serif;
+            background: #EBF1F6;
+            color: #333;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(90, 143, 196, 0.15);
+        }
+        h1 {
+            color: #5A8FC4;
+            font-size: 28px;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #5A8FC4;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #5A8FC4;
+            font-size: 20px;
+            margin: 30px 0 15px;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .svg-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .code-block {
+            position: relative;
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .code-block pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #5A8FC4;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: #4a7fb4;
+        }
+        .visual-demo {
+            background: #f8f9fa;
+            border: 2px solid #5A8FC4;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        @keyframes scroll-content {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+        .demo-viewport {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            border: 2px solid #5A8FC4;
+            overflow: hidden;
+            background: #fff;
+        }
+        .demo-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0.3;
+        }
+        .demo-content {
+            position: relative;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            margin: 20px;
+            border-radius: 4px;
+            animation: scroll-content 3s ease-in-out infinite;
+        }
+        .label {
+            font-size: 12px;
+            color: #5A8FC4;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>background-attachment: fixed</h1>
+        
+        <p><strong>背景画像をビューポートに固定</strong>し、スクロールしても背景が動かないプロパティです。視差効果（パララックス）の実装に使用されます。</p>
+
+        <h2>動作の仕組み</h2>
+        
+        <div class="svg-container">
+            <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Fixed背景 -->
+                <g>
+                    <rect x="50" y="30" width="280" height="240" fill="#667eea" opacity="0.3" stroke="#5A8FC4" stroke-width="2"/>
+                    <text x="190" y="60" text-anchor="middle" font-size="14" fill="#5A8FC4" font-weight="bold">背景画像 (fixed)</text>
+                    <circle cx="120" cy="120" r="30" fill="#fff" opacity="0.6"/>
+                    <circle cx="260" cy="180" r="25" fill="#fff" opacity="0.6"/>
+                    <path d="M 160 100 L 200 140 L 180 140 L 180 180 L 140 180 L 140 140 L 120 140 Z" fill="#fff" opacity="0.5"/>
+                    <text x="190" y="265" text-anchor="middle" font-size="12" fill="#333">位置固定</text>
+                </g>
+
+                <!-- スクロールするコンテンツ -->
+                <g>
+                    <rect x="370" y="30" width="280" height="240" fill="#EBF1F6" stroke="#5A8FC4" stroke-width="2"/>
+                    <rect x="390" y="50" width="240" height="60" fill="#fff" stroke="#5A8FC4" stroke-width="1" rx="4"/>
+                    <text x="510" y="85" text-anchor="middle" font-size="12" fill="#333">コンテンツ</text>
+                    
+                    <!-- 矢印（スクロール） -->
+                    <path d="M 510 130 L 510 190" stroke="#5A8FC4" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                    <animateTransform attributeName="transform" type="translate" values="0 0; 0 20; 0 0" dur="2s" repeatCount="indefinite"/>
+                    
+                    <text x="510" y="225" text-anchor="middle" font-size="12" fill="#5A8FC4" font-weight="bold">スクロール可能</text>
+                    <text x="510" y="265" text-anchor="middle" font-size="12" fill="#333">前景のみ移動</text>
+                </g>
+
+                <!-- 矢印定義 -->
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                        <polygon points="0 0, 10 5, 0 10" fill="#5A8FC4"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+
+        <h2>視覚デモ</h2>
+        <div class="visual-demo">
+            <div class="demo-viewport">
+                <div class="demo-bg"></div>
+                <div class="demo-content">
+                    <strong>コンテンツエリア</strong><br>
+                    背景は固定、このエリアだけスクロール
+                </div>
+            </div>
+            <div class="label">⬆️ 背景固定・コンテンツ移動のイメージ</div>
+        </div>
+
+        <h2>実装コード</h2>
+        <div class="code-block">
+            <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+            <pre>.hero {
+  background-image: url('image.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}</pre>
+        </div>
+
+        <p><strong>結果：</strong>ページをスクロールしても背景画像はビューポートに固定され、コンテンツだけが上下に移動します。</p>
+    </div>
+
+    <script>
+        function copyCode(btn) {
+            const code = btn.nextElementSibling.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = 'コピー完了！';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

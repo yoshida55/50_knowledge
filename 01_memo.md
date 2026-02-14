@@ -1069,6 +1069,8 @@ inline-block = 中身の幅だけの箱（でも高さと幅を指定できる�
 
 ## パララックス　
 
+[プレビュー](http://localhost:54321/preview-20260215-042326.html)
+
 透ける　背景
 
 `background-attachment: fixed;` は背景画像をビューポートに固定するプロパティで、透過効果とは関係ありません。
