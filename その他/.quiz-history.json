@@ -329,10 +329,11 @@
   "**領域を保持したまま非表示** (`visibility: hidden`)": {
     "title": "**領域を保持したまま非表示** (`visibility: hidden`)",
     "line": 3725,
-    "lastReviewed": 1770990116059,
-    "reviewCount": 0,
+    "lastReviewed": 1771097906320,
+    "reviewCount": 3,
     "evaluations": [
-      1
+      1,
+      3
     ]
   },
   "justify-content: space-between を使用した際は、子要素にサイズを指定できる。間のギャップは、自動！！": {
@@ -368,10 +369,11 @@
   "📝 覚えておくこと": {
     "title": "📝 覚えておくこと",
     "line": 2212,
-    "lastReviewed": 1770990459680,
-    "reviewCount": 0,
+    "lastReviewed": 1771097920883,
+    "reviewCount": 1,
     "evaluations": [
-      1
+      1,
+      2
     ]
   },
   "transition: width 0.5s ease　**CSSの`transition`プロパティ**について解説": {
@@ -661,5 +663,14 @@
     "line": 3176,
     "lastReviewed": 1771057204612,
     "reviewCount": 1
+  },
+  "JavaScriptとHTMLの関係性": {
+    "title": "JavaScriptとHTMLの関係性",
+    "line": 1738,
+    "lastReviewed": 1771097985781,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
   }
 }

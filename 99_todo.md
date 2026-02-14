@@ -17,10 +17,6 @@ https://animista.net/
 
 
 
-■
-・ACML自動プレビューで無駄なゴミが入る。
-・HTML自動プレビューで、保存したときは画面が白かったのに、貼り付けて起動すると黒くなる。
-
 
 
 ▢
@@ -28,7 +24,7 @@ https://animista.net/
 
 1. HTMLプレビューのEXE
 3. AHKを削除（SVGの表示システム）
-2. CSSプレビューのEXE
+2. CSSジャンプのEXE
 
 ## 拡張機能
 
@@ -48,10 +44,6 @@ https://animista.net/
 ・MDファイルに張り付けでリンク
 
 
-
-[プレビュー](http://localhost:54321/preview-20260215-025404.html)
-
-[プレビュー](http://localhost:54321/preview-20260215-025733.html)
 
 
 
