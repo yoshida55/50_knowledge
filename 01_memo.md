@@ -4178,3 +4178,31 @@ display: contents を使うと、.left_container と .right_container の子が�
 - **rem単位注意**: `300rem` = 約4800px（超巨大！）→ `px` 使用推奨
 - モバイル専用は `@media (max-width: 768px)` 内に記述
 
+## jQueryの拡張機能セットアップ
+
+ひな形が欲しい → 拡張機能「jQuery Code Snippets」（donjayamanne.jquerysnippets など）を入れる
+
+ちゃんと補完したい → プロジェクト直下に jsconfig.json を作って
+
+{ "typeAcquisition": { "include": ["jquery"] } }
+
+
+## jQuery 構文
+
+// Pタグを要素にいれる
+$(".inPTag").append("<p class='myClass'>jQuery</p>");
+$(".myClass").slideToggle(2000);
+/* ✨
+「Toggle」は「切り替え」という意味で、**表示/非表示を切り替える動作**を指します。
+
+`slideToggle()`は：
+- **非表示の要素** → スライドしながら**表示**
+- **表示中の要素** → スライドしながら**非表示**
+
+このように、実行するたびに**表示状態を自動で切り替える（Toggle）**のが特徴です。
+
+つまり「Slide」は**動き方**、「Toggle」は**切り替え機能**を表しています。現在の状態を判断して逆の動作をする点が「Toggle」の意味です。
+*/
+
+[プレビュー](http://localhost:54321/preview-20260214-091739.html)
+

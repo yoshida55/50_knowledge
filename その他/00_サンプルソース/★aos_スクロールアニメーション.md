@@ -1,10 +1,11 @@
 # AOS.js - スクロールアニメーション
 
 ★ 最新版 **AOS v3.0.0-beta.6** を使用
+正式名称: Animate On Scroll Library
 
 ## 📚 目次ページ
-📺 **[デモ一覧を見る](../../images/index.html)**
 
+[プレビュー](http://localhost:54321/preview-20260214-082619.html)
 ---
 
 ## ✅ ① シンプル版【まずはここから】

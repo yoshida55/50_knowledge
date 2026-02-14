@@ -2,7 +2,18 @@
 
 
 
+▢
+## jQueryの拡張機能セットアップ
 
+ひな形が欲しい → 拡張機能「jQuery Code Snippets」（donjayamanne.jquerysnippets など）を入れる
+
+ちゃんと補完したい → プロジェクト直下に jsconfig.json を作って
+
+{ "typeAcquisition": { "include": ["jquery"] } }
+
+
+▢サイト
+https://animista.net/
 
 
 

@@ -1,0 +1,44 @@
+/* ✨
+# slideToggle(2000)のイメージ
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slideToggle デモ</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .myClass {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>slideToggle(2000) デモ</h1>
+    <button id="toggleBtn">クリックして開閉</button>
+    
+    <div class="myClass">
+        この要素が2秒かけてスライド開閉します
+    </div>
+
+    <script>
+        $("#toggleBtn").click(function() {
+            $(".myClass").slideToggle(2000);
+        });
+    </script>
+</body>
+</html>
