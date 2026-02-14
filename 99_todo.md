@@ -199,6 +199,8 @@ hamburgerBtn.addEventListener("click", function () {
   --contents_main_width: 80rem;
 }
 
+・クラス名は小文字か単語間の接続は`_`か
+
 ```
 ーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 

@@ -4206,3 +4206,114 @@ $(".myClass").slideToggle(2000);
 
 [プレビュー](http://localhost:54321/preview-20260214-091739.html)
 
+
+## JavaScriptなど html
+・クラスの追加　element.classList.add("aaa"); 
+★クラスリストとaddが必要
+
+・選択するたびにクラスをON/Offする　element.classList.toggle("aaa");　
+★クラスリストとトグルが必要
+
+
+・アコーディオンタグと
+非表示のタグは、同じ階層
+
+## CSSでの構文 html
+ボタンがおされた時は
+.要素.クラス{
+
+}
+★要素とクラスをブランクなしでくっつける
+
+例）#acc-btn-icon.active {}
+
+## アコーディオンメニューの作り方 html
+
+<!-- 親要素を並列で並べる。アコーディオンのボックス -->
+
+★　親要素を並列で並べる（子要素に記載するのではない。）
+```html
+    <div class="acc">
+      <!-- アコーディオン・選択するとメニュー -->
+      <div class="acc-btn" type="button">
+        <div class="acc-btn-title">Webディレクター</div>
+        <div id="acc-btn-icon"></div>
+      </div>
+      <!-- 表示エリア flex -->
+      <div class="acc-panel">
+        <div class="acc-panel-title">Webディレクター</div>
+        <div class="acc-panel-description">テキストテキスト</div>
+      </div>
+    </div>
+
+```
+
+```css
+/* アコーディオン・選択するとメニュー */
+.acc-btn {
+  width: 80%;
+  padding: 16px;
+  /* border: 1px solid #000; */
+  background: #ffd86a;
+
+  display: flex;
+  justify-content: space-between;
+
+  border: 0.1px solid blue;
+}
+.acc-btn-title {
+  font-size: 16px;
+  display: block;
+}
+
+★CSSでインラインの文字を変更する際は、疑似要素を利用する！
+（おそらく通常のクラスのプロパティではcontent:"文字"がつかえない）
+★クラスが追加された際の書き方は「.クラス名.クラス名　」　
+空白をいれない！！
+
+#acc-btn-icon.active::before {
+  display: block;
+  content: "ー";
+  font-size: 20px;
+}
+
+#acc-btn-icon::before {
+  display: block;
+  padding-right: 10px;
+  cursor: pointer;
+  content: "＋";
+}
+
+/* 表示エリア flex */
+.acc-panel {
+  width: 60%;
+  padding: 16px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+
+```
+
+```javascript
+
+// HTMLの読み込みが完了してから中の処理を実行する
+const accBtnIcon = document.getElementById("acc-btn-icon");
+
+
+★クラスを`切り替える`ロジックは　element.classList.toggleとかく。クラスリストがつくことの注意！！！
+
+★スライドトグル($(this).next(".acc-panel").slideToggle(200);)スライドの切り替えを表す。
+
+//ドキュメント読み込み完了を待つ関数（した後）
+$(function () {
+  // ボタンがクリックされたら、（した後）
+  $(".acc-btn").on("click", function () {
+    $(this).next(".acc-panel").slideToggle(200);
+    accBtnIcon.classList.toggle("active");
+  });
+});
+
+
+```
