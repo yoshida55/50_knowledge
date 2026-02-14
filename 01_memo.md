@@ -3645,7 +3645,7 @@ C:\Users\guest04\Desktop\高橋研三\03_knowledge\その他\00_サンプルソ�
 #hamburger_btn は <header id="side_area"> の中にあるため、その外にある .mainVisual_area を直接 ~ で指定することはできません。
 
 ✨他のセクションは操作できるのか？
-いいえ、できます。
+できます。
 
 ただし、CSSの`~`セレクタでは直接指定できないため、**JavaScriptを使う**必要があります。
 
@@ -4317,3 +4317,44 @@ $(function () {
 
 
 ```
+
+## 📌 Claude Code スキル一覧
+
+【結論】
+自作スキルは5つ。`/スキル名` で呼び出せる。
+
+【具体例】
+
+### 1. `/snippet` - コードスニペット保存
+- コードを `★{名前}.md` 形式で保存する
+- 保存先: `D:\50_knowledge\その他\00_サンプルソース\`（自宅）
+- 使い方: `/snippet` → 機能名・コードを伝える → ★付きmdで保存
+- 例: `★ハンバーガーメニュー全画面表示.md`
+
+### 2. `/memo-format` - 学習メモ作成
+- 【結論】【具体例】【補足】フォーマットでメモを追記
+- 保存先: `D:\50_knowledge\01_memo.md`（自宅）
+
+### 3. `/animation-library-snippet` - アニメーションライブラリ デモ生成
+- Swiper, GSAP, AOS等のアニメーションライブラリの学習用デモを一括生成
+- 引数: `<ライブラリ名> <アニメーション種類>`
+- 例: `/animation-library-snippet swiper フェード切替`
+- 生成物:
+  - ★mdファイル（HTML/CSS/JS分離で解説）
+  - デモHTML 4つ（①シンプル版 ②③パターン ④多機能版）
+  - index.html更新（全ライブラリ統合一覧）
+- 保存先: 会社PC `03_knowledge\images\` 配下
+
+### 4. `/class-auto` - クラス名自動付与
+- HTMLの `<タグ>` だけ書く → AIが `class="クラス名"` を全タグに付与
+- ルール: `[section]_[element]`（2単語）、状態は `_[state]`（3単語MAX）
+- 外枠は `_area`（`_container`禁止）、省略禁止（img/nav除く）
+
+### 5. `/section-auto` - セクション名自動提案
+- スクショやURLを渡す → 大セクション名を日本語で一括提案
+- HTMLコメント + CSS特徴付きコメントを生成
+- `/class-auto` と連携可能（セクション確定後 → クラス名付与）
+
+【補足】
+- スキル保存先: `C:\Users\sensh\.claude\skills\[スキル名]\`
+- 4と5は連携: `/section-auto` → `/class-auto`
