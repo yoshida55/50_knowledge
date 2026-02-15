@@ -2,6 +2,10 @@
 
 これはテストです
 
+---
+
+---
+
 
 ### ul li メニューの作り方
 
@@ -1811,7 +1815,6 @@ $(window).on("scroll", function () {
 ## 文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）
 
 ```html
-<!-- スクロールした段階でしたからタイトルが上にフェードインする -->
 <section id="information">
   <h1 class="section_title">
     <p class="section_title_text">INFORMATION</p>
@@ -4442,6 +4445,8 @@ $(function () {
   - index.html更新（全ライブラリ統合一覧）
 - 保存先: 会社PC `03_knowledge\images\` 配下
 
+
+
 ### 4. `/class-auto` - クラス名自動付与
 - HTMLの `<タグ>` だけ書く → AIが `class="クラス名"` を全タグに付与
 - ルール: `[section]_[element]`（2単語）、状態は `_[state]`（3単語MAX）
@@ -4456,7 +4461,7 @@ $(function () {
 - スキル保存先: `C:\Users\sensh\.claude\skills\[スキル名]\`
 - 4と5は連携: `/section-auto` → `/class-auto`
 
-##  メモ：jQuery画像切り替えギャラリー実装のポイント html
+##  メモ：jQuery画像切り替えギャラリー実装のポイント・イメージ・下に４つの小さな画像があって、クリックすると上の大きな画像に切り替える html
 
 
 【気づき】
@@ -4512,4 +4517,282 @@ $(".gallery_main").html('<img src="' + src + '">');
 $(".gallery_main").attr("src", src);
 ```
 
+
+
+
 📋 [詳細ソース](./その他/00_サンプルソース/★jQuery画像小サイズ⇀大に切替ギャラリー.md)
+
+
+
+## フィードインする。下から上に、画面スクロールで該当の要素にきたら
+
+メモ：jQueryスクロールアニメーション_not構文と完了済み判定
+
+【気づき】
+★jQuery未読込で`$ is not defined`エラー発生
+★`:not(.is-visible)`という除外構文を知らなかった
+★動的にクラス追加で完了済み判定する仕組みを理解した
+★ページ読込時にもチェックが必要（最初から見える要素対応）
+
+【ポイント】
+
+★ポイント1: jQuery読込確認（CDNでもOK）
+```html
+<!-- CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- work.jsより前に配置必須 -->
+<script src="js/work.js"></script>
+```
+
+★ポイント2: `:not(.is-visible)` 除外構文
+```javascript
+// .is-visibleクラスが無い要素だけ処理
+$(".news_title_container:not(.is-visible)").each(function () {
+  // 一度表示した要素は is-visible が付くので次回スキップ
+});
+```
+
+★ポイント3: 動的クラス追加で完了判定
+```javascript
+// 条件満たしたら is-visible クラス追加
+$(this).addClass("is-visible");
+// → 次回ループ時は :not(.is-visible) で除外される
+```
+
+★ポイント4: ページ読込時チェック必須　　★ここから関数を呼び込むイメージ
+```javascript
+// スクロール時
+$(window).scroll(checkNewsAnimation);
+// ページ読込時も実行（最初から見える要素対応）
+$(document).ready(checkNewsAnimation);
+```
+
+★ポイント5: CSS初期状態　★初期表示はけしておく。
+```css
+.news_title_container {
+  opacity: 0;
+  transform: translateY(2rem); /* 下に配置 */
+  transition: all 0.5s ease;
+}
+```
+
+📋 [詳細ソース](./その他/00_サンプルソース/★フェードイン「カードを下から上に動かす」（最新）.md)
+
+---
+
+## 文字が上から下に徐々に現れてくるアニメーション
+---
+
+▢
+メモ：clip-path リビールアニメーション_上から下へ文字表示
+テキストライティング効果
+
+
+【気づき】
+★`clip-path: inset()` でマスク効果を作れる
+★`inset(上 右 下 左)` の引数順序（時計回り）
+★リビール（Reveal）アニメーションという手法名を知った
+
+【ポイント】
+
+★ポイント1: clip-path insetの構文
+```css
+clip-path: inset(上 右 下 左);
+/* 各辺からどれだけ切り取るか指定 */
+/* 例: inset(0 0 100% 0) = 下から100%カット */
+
+.news_title {
+  animation: revealRightToLeft 1.5s ease-out forwards;
+}
+```
+
+★ポイント2: 上から下へ表示する仕組み
+@keyframes revealRightToLeft {
+  from {
+    clip-path: inset(0 0 100% 0); /* 下を100%隠す */
+  }
+  to {
+    clip-path: inset(0 0 0 0); /* 全て表示 */
+  }
+}
+
+下部が徐々に見えてくる = 上から下にマスクが外れる
+
+★ポイント3: アニメーション名称
+
+リビール（Reveal）アニメーション（広い概念・📦→🎁 隠れてたものが露出）
+└ ワイプ（Wipe）アニメーション（方向指定のリビール・一方向に拭き取るように切り替わる・）
+└ カーテン効果（左右対称のリビール・中央から左右に開く／閉じる）
+└ テキストライティング効果（テキストライティング・文字専用の段階的リビール）
+
+
+★リビール実際の画面イメージ
+[プレビュー](http://localhost:54321/preview-20260215-190419.html)
+
+```
+
+📋 [詳細ソース](./その他/00_サンプルソース/★clip-path_上から下に文字を表示する仕組み.md)
+---
+
+## 📌 セマンティックHTML：ヘッダー構造の改善 html
+
+【結論】
+- **ロゴは見出しではない** → `<h1>` → `<div>`
+- **サイトタイトルが最重要見出し** → `<h2>` → `<h1>`
+- **レイアウト用リストは不要** → `<ul><li>` → `<div>` + `<a>`
+
+【具体例：改善前】
+```html
+<header>
+  <h1 class="logo">              <!-- ❌ ロゴに見出しタグ -->
+    <a href="/"><img src="logo.png"></a>
+  </h1>
+  <nav>
+    <ul>                          <!-- ❌ レイアウト用リスト -->
+      <li><a href="#">リンク</a></li>
+    </ul>
+  </nav>
+  <h2>サイトタイトル</h2>        <!-- ❌ メインタイトルがh2 -->
+</header>
+```
+
+【具体例：改善後】
+```html
+<header>
+  <div class="logo">             <!-- ✅ ロゴはdiv -->
+    <a href="/"><img src="logo.png"></a>
+  </div>
+  <nav>
+    <div class="nav_list">       <!-- ✅ レイアウトコンテナ -->
+      <a href="#" class="nav_link">リンク</a>
+    </div>
+  </nav>
+  <h1>サイトタイトル</h1>        <!-- ✅ メインタイトルはh1 -->
+</header>
+```
+
+【補足】
+- 1ページに`<h1>`は1つ（最重要見出し）
+- ロゴ画像は見出しではなくリンク付き画像
+- `<ul><li>`は順序性・項目性がある時のみ使う
+- レイアウト目的なら`<div>`でシンプルに
+- `list-style: none`を使う構造は見直し対象
+
+## 📌 100svh vs 100vh（ビューポート高さの単位） html
+
+【結論】
+スマホではアドレスバーの表示/非表示で画面高さが変わる。`svh`はアドレスバー表示時の小さい方を基準にするので、はみ出さない。
+
+【具体例】
+```css
+.header_inner {
+  height: 100svh; /* アドレスバーが出ててもはみ出さない */
+}
+```
+
+【補足】
+- `vh` = アドレスバー考慮しない（変動する）
+- `svh` = 最小ビューポート高さ（安全）
+- `lvh` = 最大ビューポート高さ
+- `dvh` = 動的（リアルタイム追従）
+- PCではvhとsvhはほぼ同じ。差が出るのはスマホ
+
+---
+
+## 📌 ドロップダウンアニメーション（上から降りてくる） html
+
+【結論】
+要素自体を上から下に移動させるには `transform: translateY()` を使う。リビール（clip-path）とは違い、要素が実際に動く。
+
+【具体例】
+```css
+@keyframes dropDown {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem); /* 上から */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header_logo {
+  animation: dropDown 1.5s ease-out forwards;
+}
+```
+
+【補足】
+- リビール = マスクが外れて見える（文字は動かない）
+- ドロップダウン = 要素自体が上→下に移動する
+
+---
+
+## 📌 animation-delayで時間差アニメーション html
+
+【結論】
+省略記法の4番目がdelay。先のアニメーション完了後に次を開始できる。
+
+【具体例】
+```css
+/* 省略記法: animation: 名前 時間 イージング 遅延 forwards */
+.header_title {
+  animation: revealLeftToRight 1.5s ease-out forwards;       /* 0s開始 */
+}
+.header_logo {
+  opacity: 0;  /* ★delay中のチラ見え防止 */
+  animation: dropDown 1.5s ease-out 1.5s forwards;           /* 1.5s後 */
+}
+.header_nav {
+  opacity: 0;
+  animation: dropDown 1.5s ease-out 2s forwards;             /* 2s後 */
+}
+```
+
+【補足】
+- `opacity: 0` を初期値にしないと、delay中に一瞬表示されてしまう
+- `forwards` で最終状態（opacity:1）を維持する
+- delay中のチラ見え防止は忘れやすいので注意
+
+---
+
+## 📌 clip-path insetの方向（リビール方向の制御） html
+
+【結論】
+`clip-path: inset(上 右 下 左)` で、100%にした辺から0%に開くことでリビール方向を制御する。
+
+【具体例】
+```css
+/* 左→右リビール */
+@keyframes revealLeftToRight {
+  from { clip-path: inset(0 100% 0 0); } /* 右を100%隠す */
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+/* 上→下リビール */
+@keyframes revealTopToBottom {
+  from { clip-path: inset(0 0 100% 0); } /* 下を100%隠す */
+  to   { clip-path: inset(0 0 0 0); }
+}
+```
+
+【補足】
+- `inset(上 右 下 左)` = marginやpaddingと同じ順番
+- 右を100%→0% = 左から右に表示
+- 下を100%→0% = 上から下に表示
+
+---
+
+## 📌 VS Code Tab Moves Focus問題
+
+【結論】
+`Ctrl+M` を誤って押すと、Tabキーがインデント/サジェスト確定ではなく、UIのフォーカス移動に切り替わる。
+
+【具体例】
+- ステータスバー左下に `Tab Moves Focus` と表示されていたらこのモード
+- `Ctrl+M` をもう一度押す → 通常モードに戻る
+
+【補足】
+- コーディング中に誤爆しやすいショートカット
+- 起動時は正常だが途中から挙動が変わる → これが原因
+

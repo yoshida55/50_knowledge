@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>リビールアニメーション集</title>
+<style>
+  body {
+    font-family: sans-serif;
+    padding: 20px;
+    background: #f0f0f0;
+  }
+  .container {
+    margin: 30px 0;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  .box {
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    position: relative;
+    overflow: hidden;
+    margin: 20px 0;
+  }
+  
+  /* 1. ワイプアニメーション（左から右へ） */
+  .wipe::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    animation: wipeAnim 2s infinite;
+  }
+  @keyframes wipeAnim {
+    0%, 100% { left: -100%; }
+    50% { left: 100%; }
+  }
+  
+  /* 2. カーテン効果（中央から左右に開く） */
+  .curtain::before,
+  .curtain::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: #222;
+  }
+  .curtain::before {
+    left: 0;
+    animation: curtainLeft 3s infinite;
+  }
+  .curtain::after {
+    right: 0;
+    animation: curtainRight 3s infinite;
+  }
+  @keyframes curtainLeft {
+    0%, 100% { transform: translateX(0); }
+    40%, 60% { transform: translateX(-100%); }
+  }
+  @keyframes curtainRight {
+    0%, 100% { transform: translateX(0); }
+    40%, 60% { transform: translateX(100%); }
+  }
+  
+  /* 3. テキストライティング効果 */
+  .text-writing {
+    background: white;
+    color: #333;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  .text-writing span {
+    display: inline-block;
+    opacity: 0;
+    animation: writeText 0.1s forwards;
+  }
+  .text-writing span:nth-child(1) { animation-delay: 0s; }
+  .text-writing span:nth-child(2) { animation-delay: 0.1s; }
+  .text-writing span:nth-child(3) { animation-delay: 0.2s; }
+  .text-writing span:nth-child(4) { animation-delay: 0.3s; }
+  .text-writing span:nth-child(5) { animation-delay: 0.4s; }
+  .text-writing span:nth-child(6) { animation-delay: 0.5s; }
+  .text-writing span:nth-child(7) { animation-delay: 0.6s; }
+  .text-writing span:nth-child(8) { animation-delay: 0.7s; }
+  .text-writing span:nth-child(9) { animation-delay: 0.8s; }
+  @keyframes writeText {
+    to { opacity: 1; }
+  }
+  
+  h2 {
+    color: #333;
+    border-left: 4px solid #667eea;
+    padding-left: 10px;
+  }
+  p {
+    color: #666;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<h1>���� リビールアニメーション集</h1>
+
+<div class="container">
+  <h2>1. ワイプアニメーション</h2>
+  <p>🔹 <strong>動き：</strong>左から右へ黒い幕が拭き取るように移動し、内容が現れる</p>
+  <div class="box wipe">コンテンツ</div>
+</div>
+
+<div class="container">
+  <h2>2. カーテン効果</h2>
+  <p>🔹 <strong>動き：</strong>中央から左右に黒いカーテンが開き、内容が現れてから再び閉じる</p>
+  <div class="box curtain">コンテンツ</div>
+</div>
+
+<div class="container">
+  <h2>3. テキストライティング効果</h2>
+  <p>🔹 <strong>動き：</strong>文字が一文字ずつ順番に表示される（タイピング風）</p>
+  <div class="box text-writing">
+    <div>
+      <span>ア</span><span>ニ</span><span>メ</span><span>ー</span><span>シ</span><span>ョ</span><span>ン</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

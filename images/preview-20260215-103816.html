@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>フェードインアニメーション</title>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.spacer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+}
+
+.feature_item {
+  padding: 50px;
+  text-align: center;
+}
+
+.feature_image {
+  width: 38.5rem;
+  height: 25.7rem;
+  max-width: 90%;
+  object-fit: cover;
+  background: #ddd;
+  
+  /* フェードイン初期状態 */
+  opacity: 0;
+  transform: translateY(2rem);
+  transition: all 1s;
+}
+
+.feature_image.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<div class="spacer">
+  <h1>下にスクロール ↓</h1>
+</div>
+
+<div class="feature_item">
+  <img class="feature_image" src="https://picsum.photos/600/400?random=1" alt="" />
+</div>
+
+<div class="feature_item">
+  <img class="feature_image" src="https://picsum.photos/600/400?random=2" alt="" />
+</div>
+
+<div class="feature_item">
+  <img class="feature_image" src="https://picsum.photos/600/400?random=3" alt="" />
+</div>
+
+<div class="spacer">
+  <h2>終わり</h2>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(window).scroll(function () {
+  $(".feature_item img").each(function () {
+    let scroll = $(window).scrollTop();
+    let target = $(this).offset().top;
+    let windowHeight = $(window).height();
+    
+    if (scroll > target - windowHeight + 200) {
+      $(this).addClass("show");
+    }
+  });
+});
+</script>
+
+</body>
+</html>

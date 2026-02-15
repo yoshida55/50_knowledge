@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スクロールアニメーション解説</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(90, 143, 196, 0.1);
+}
+
+h1 {
+  color: #5A8FC4;
+  font-size: 28px;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #5A8FC4;
+}
+
+h2 {
+  color: #5A8FC4;
+  font-size: 20px;
+  margin: 35px 0 15px;
+}
+
+p {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.svg-container {
+  margin: 30px 0;
+  padding: 20px;
+  background: #F8FBFD;
+  border-radius: 6px;
+  border: 1px solid #D1E3F0;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.code-block {
+  position: relative;
+  margin: 25px 0;
+}
+
+.code-header {
+  background: #404040;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.copy-btn {
+  background: #5A8FC4;
+  color: #fff;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.copy-btn:hover {
+  background: #4A7FB4;
+}
+
+.copy-btn.copied {
+  background: #50C878;
+}
+
+pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 0 0 6px 6px;
+  overflow-x: auto;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+code {
+  font-family: "Consolas", "Monaco", monospace;
+}
+
+.keyword { color: #ff79c6; }
+.function { color: #50fa7b; }
+.string { color: #f1fa8c; }
+.comment { color: #6272a4; }
+.number { color: #bd93f9; }
+
+.scroll-demo {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  margin: 30px 0;
+  border: 2px solid #5A8FC4;
+  border-radius: 6px;
+}
+
+.viewport {
+  position: absolute;
+  width: 100%;
+  height: 150px;
+  border: 3px dashed #5A8FC4;
+  background: rgba(90, 143, 196, 0.1);
+  animation: scrollMove 4s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5A8FC4;
+  font-weight: bold;
+}
+
+.target-element {
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 80px;
+  background: #FFD700;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #333;
+  opacity: 0.3;
+  transition: opacity 0.6s;
+}
+
+.target-element.visible {
+  opacity: 1;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes scrollMove {
+  0%, 100% { top: 0; }
+  50% { top: 150px; }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.3;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.note {
+  background: #FFF9E6;
+  border-left: 4px solid #FFB347;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+ul {
+  margin: 15px 0 15px 20px;
+}
+
+li {
+  margin: 8px 0;
+  color: #555;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>スクロールアニメーション解説</h1>
+
+  <p>要素がスクロールして画面内に入ったときにアニメーションを発動させる関数です。</p>
+
+  <h2>動作の仕組み</h2>
+  
+  <div class="svg-container">
+    <svg viewBox="0 0 800 350">
+      <!-- 画面領域 -->
+      <rect x="50" y="30" width="300" height="250" fill="none" stroke="#5A8FC4" stroke-width="3" stroke-dasharray="8,5"/>
+      <text x="200" y="20" text-anchor="middle" fill="#5A8FC4" font-size="16" font-weight="bold">ブラウザ画面（viewport）</text>
+      
+      <!-- スクロール位置 -->
+      <line x1="50" y1="80" x2="350" y2="80" stroke="#FF6B6B" stroke-width="2"/>
+      <text x="370" y="85" fill="#FF6B6B" font-size="14">scrollTop</text>
+      
+      <!-- ターゲット要素 -->
+      <rect x="100" y="180" width="200" height="60" fill="#FFD700" stroke="#333" stroke-width="2" rx="4"/>
+      <text x="200" y="215" text-anchor="middle" fill="#333" font-weight="bold">target要素</text>
+      
+      <!-- 判定ライン -->
+      <line x1="50" y1="130" x2="350" y2="130" stroke="#50C878" stroke-width="3" stroke-dasharray="5,3"/>
+      <text x="370" y="135" fill="#50C878" font-size="13">判定ライン（-200px）</text>
+      
+      <!-- 計算式 -->
+      <rect x="450" y="50" width="320" height="220" fill="#F8FBFD" stroke="#5A8FC4" stroke-width="2" rx="6"/>
+      <text x="610" y="80" text-anchor="middle" fill="#5A8FC4" font-size="16" font-weight="bold">アニメーション発動条件</text>
+      
+      <text x="470" y="115" fill="#333" font-size="14" font-weight="bold">scroll（現在位置）</text>
+      <text x="610" y="145" text-anchor="middle" fill="#333" font-size="16">＞</text>
+      <text x="470" y="175" fill="#333" font-size="14" font-weight="bold">target - windowHeight + 200</text>
+      
+      <line x1="470" y1="190" x2="750" y2="190" stroke="#D1E3F0" stroke-width="1"/>
+      
+      <text x="470" y="215" fill="#666" font-size="13">→ 要素が画面下から200px手前に</text>
+      <text x="485" y="238" fill="#666" font-size="13">来たら発動</text>
+    </svg>
+  </div>
+
+  <h2>スクロール判定デモ</h2>
+  <div class="scroll-demo">
+    <div class="viewport">🔍 ビューポート（判定エリア）</div>
+    <div class="target-element" id="demoTarget">アニメーション対象</div>
+  </div>
+  <p style="text-align: center; color: #666; font-size: 14px;">※ビューポートが下に移動すると要素が表示されます</p>
+
+  <h2>コード解説</h2>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span>JavaScript</span>
+      <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    </div>
+    <pre><code><span class="keyword">function</span> <span class="function">checkNewsAnimation</span>() {
+  $(<span class="string">".news_title_container:not(.is-visible)"</span>).<span class="function">each</span>(<span class="keyword">function</span> () {
+    <span class="keyword">let</span> scroll = $(window).<span class="function">scrollTop</span>();        <span class="comment">// 現在のスクロール量</span>
+    <span class="keyword">let</span> target = $(<span class="keyword">this</span>).<span class="function">offset</span>().top;         <span class="comment">// 要素の位置</span>
+    <span class="keyword">let</span> windowHeight = $(window).<span class="function">height</span>();     <span class="comment">// 画面の高さ</span>
+
+    <span class="comment">// 要素が画面内の判定ラインを超えたら発動</span>
+    <span class="keyword">if</span> (scroll > target - windowHeight + <span class="number">200</span>) {
+      $(<span class="keyword">this</span>).<span class="function">addClass</span>(<span class="string">"is-visible"</span>);
+      $(<span class="keyword">this</span>).<span class="function">css</span>({
+        opacity: <span class="string">"1"</span>,
+        transform: <span class="string">"translateY(0)"</span>,
+      });
+    }
+  });
+}</code></pre>
+  </div>
+
+  <div class="note">
+    <strong>ポイント</strong><br>
+    <ul>
+      <li><code>:not(.is-visible)</code> で未アニメーション要素のみ処理</li>
+      <li><code>+200</code> で画面下から200px手前で発動</li>
+      <li>一度アニメーションしたらクラスを付与し再実行を防止</li>
+    </ul>
+  </div>
+
+  <h2>必要なCSS</h2>
+
+  <div class="code-block">
+    <div class="code-header">
+      <span>CSS</span>
+      <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    </div>
+    <pre><code><span class="keyword">.news_title_container</span> {
+  opacity: <span class="number">0</span>;
+  transform: <span class="function">translateY</span>(<span class="number">30px</span>);
+  transition: opacity <span class="number">0.6s</span>, transform <span class="number">0.6s</span>;
+}
+
+<span class="keyword">.news_title_container.is-visible</span> {
+  opacity: <span class="number">1</span>;
+  transform: <span class="function">translateY</span>(<span class="number">0</span>);
+}</code></pre>
+  </div>
+
+</div>
+
+<script>
+function copyCode(button) {
+  const pre = button.closest('.code-block').querySelector('pre');
+  const text = pre.textContent;
+  
+  navigator.clipboard.writeText(text).then(() => {
+    button.textContent = 'コピー完了！';
+    button.classList.add('copied');
+    setTimeout(() => {
+      button.textContent = 'コピー';
+      button.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// デモアニメーション
+let scrolling = true;
+setInterval(() => {
+  const target = document.getElementById('demoTarget');
+  if (scrolling) {
+    target.classList.add('visible');
+  } else {
+    target.classList.remove('visible');
+  }
+  scrolling = !scrolling;
+}, 4000);
+</script>
+
+</body>
+</html>

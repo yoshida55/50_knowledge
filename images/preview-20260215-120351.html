@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>吹き出しアニメーション</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 10px; }
+body { font-family: sans-serif; }
+
+/* スクロール用のスペース */
+.spacer { height: 100vh; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+
+/* 背景・フレックスで３人分の吹き出し */
+.voice_bg {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 12rem 20rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10.3rem;
+}
+
+/* フレックスで左右にイメージとテキスト（吹き出し）を並べる */
+.voice_card {
+  display: flex;
+  justify-content: flex-start;
+  gap: 4.6rem;
+  opacity: 0; /* JSで表示するまで隠す */
+}
+
+.img_voice {
+  display: block;
+  width: 12rem;
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background-color: #ddd;
+}
+
+/* 吹き出し部分 */
+.voice_text {
+  width: 46.8rem;
+  line-height: 2.7rem;
+  color: #333333;
+  background-color: #e9f1fb;
+  padding: 2rem;
+  font-size: 1.6rem;
+  border-radius: 1.5rem;
+  position: relative;
+}
+
+/* 吹き出しの三角形（左側） */
+.voice_text::before {
+  content: "";
+  position: absolute;
+  bottom: 2rem;
+  left: -1.8rem;
+  width: 0;
+  height: 0;
+  border-top: 2rem solid transparent;
+  border-bottom: 2rem solid transparent;
+  border-right: 2rem solid #e9f1fb;
+}
+
+/* 右寄せの吹き出し：三角形の位置と向きを上書き */
+.right_speech .voice_text::before {
+  left: auto;
+  right: -1.5rem;
+  border-right: none;
+  border-left: 1.5rem solid #e9f1fb;
+}
+
+/* 画面内に入った時にバルーンのように表示する */
+.voice_card.is-visible {
+  animation: balloon 0.5s ease-out forwards;
+}
+
+/* 背景から突然現れるアニメーション */
+@keyframes balloon {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="spacer">↓ 下にスクロールしてください ↓</div>
+
+<div class="voice_bg">
+  <div class="voice_card">
+    <img class="img_voice" src="https://via.placeholder.com/120/4A90E2/FFFFFF?text=1" alt="受講生の声1" />
+    <div class="voice_text">
+      プログラミングが全くの初心者でしたが、丁寧な指導のおかげで3ヶ月でWebサイトを作れるようになりました！
+    </div>
+  </div> 
+  
+  <div class="voice_card right_speech">
+    <img class="img_voice" src="https://via.placeholder.com/120/E94A90/FFFFFF?text=2" alt="受講生の声2" />
+    <div class="voice_text">
+      オンラインでも先生がしっかりサポートしてくれるので、わからないことをすぐに解決できました。
+    </div>  
+  </div>
+  
+  <div class="voice_card">
+    <img class="img_voice" src="https://via.placeholder.com/120/90E24A/FFFFFF?text=3" alt="受講生の声3" />
+    <div class="voice_text">
+      実践的なカリキュラムで、学んだことがすぐに仕事で活かせています。受講して本当に良かったです！
+    </div>
+  </div>
+</div>
+
+<div class="spacer">アニメーション完了 ✨</div>
+
+<script>
+// 音声吹き出し部分のアニメーション
+const voiceSection = document.querySelector(".voice_bg");
+
+const voiceObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const voiceCards = entry.target.querySelectorAll(".voice_card");
+      voiceCards.forEach((card) => {
+        card.classList.add("is-visible");
+      });
+      voiceObserver.unobserve(entry.target);
+    }
+  });
+});
+
+voiceObserver.observe(voiceSection);
+</script>
+
+</body>
+</html>
