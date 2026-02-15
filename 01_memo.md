@@ -4284,6 +4284,7 @@ $(".myClass").slideToggle(2000);
 つまり「Slide」は**動き方**、「Toggle」は**切り替え機能**を表しています。現在の状態を判断して逆の動作をする点が「Toggle」の意味です。
 */
 
+動作デモ
 [プレビュー](http://localhost:54321/preview-20260214-091739.html)
 
 
@@ -4297,6 +4298,7 @@ $(".myClass").slideToggle(2000);
 
 ・アコーディオンタグと
 非表示のタグは、同じ階層
+
 
 [プレビュー](http://localhost:54321/preview-20260215-033626.html)
 
@@ -4327,6 +4329,13 @@ $(".myClass").slideToggle(2000);
         <div class="acc-panel-description">テキストテキスト</div>
       </div>
     </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js">      </script>
+    <script src="js/XXXXX.js"></script>
+  </body>
+
+  <!-- 　かならず最後にアコーディオンのライブラリを取得すること -->
+
 
 ```
 
@@ -4392,6 +4401,7 @@ const accBtnIcon = document.getElementById("acc-btn-icon");
 $(function () {
   // ボタンがクリックされたら、（した後）
   $(".acc-btn").on("click", function () {
+    // 複数必要な場合は　nextAll
     $(this).next(".acc-panel").slideToggle(200);
     accBtnIcon.classList.toggle("active");
   });
@@ -4407,11 +4417,16 @@ $(function () {
 
 【具体例】
 
-### 1. `/snippet` - コードスニペット保存
-- コードを `★{名前}.md` 形式で保存する
+### 1. `/snippet` - コードスニペット保存（memo.md連携版） html
+- コードを `★{名前}.md` 形式で保存 + memo.mdに自動追記
 - 保存先: `D:\50_knowledge\その他\00_サンプルソース\`（自宅）
-- 使い方: `/snippet` → 機能名・コードを伝える → ★付きmdで保存
-- 例: `★ハンバーガーメニュー全画面表示.md`
+- 使い方:
+  1. `/snippet` 実行
+  2. AI が会話履歴から★ポイントを自動抽出して提示
+  3. ユーザーが確認・追加・修正
+  4. スニペット作成（フルソース + ★ポイントをソース横に配置）
+  5. memo.md に自動追記（★ポイント一覧 + リンク）
+- 例: `★jQueryアコーディオン_slideToggle_flex対応.md`
 
 ### 2. `/memo-format` - 学習メモ作成
 - 【結論】【具体例】【補足】フォーマットでメモを追記
@@ -4440,3 +4455,61 @@ $(function () {
 【補足】
 - スキル保存先: `C:\Users\sensh\.claude\skills\[スキル名]\`
 - 4と5は連携: `/section-auto` → `/class-auto`
+
+##  メモ：jQuery画像切り替えギャラリー実装のポイント html
+
+
+【気づき】
+★object-fit は div には効かない。img タグに設定する必要がある
+★Flexbox の gap と width を組み合わせる時は calc で計算が必要
+★jQuery の attr() メソッドで HTML 要素の属性を取得・設定できる
+★画像切り替えは html() より attr("src") の方が効率的
+
+【ポイント】
+
+★ポイント1: object-fit は img に設定
+```css
+/* ❌ div に設定 → 効かない */
+.gallery_main {  /* div */
+  object-fit: contain;
+}
+
+/* ✅ img に設定 → 正しく動作 */
+.gallery_main {  /* img タグ */
+  object-fit: contain;
+}
+```
+
+★ポイント2: Flex gap + width の calc 計算
+```css
+.gallery_thumbnails {
+  display: flex;
+  gap: 10px;  /* 画像間の余白 */
+}
+
+.gallery_img {
+  /* gap 4箇所分を引いて、5枚で割る */
+  width: calc((100% - (10px * 4)) / 5);
+}
+```
+公式: `calc((100% - (gap × (枚数 - 1))) / 枚数)`
+
+★ポイント3: attr() で属性取得・設定
+```javascript
+// 取得
+const src = $(this).attr("src");
+
+// 設定
+$(".gallery_main").attr("src", src);
+```
+
+★ポイント4: html() vs attr()
+```javascript
+// ❌ html() で全体生成
+$(".gallery_main").html('<img src="' + src + '">');
+
+// ✅ attr() で src だけ変更（効率的）
+$(".gallery_main").attr("src", src);
+```
+
+📋 [詳細ソース](./その他/00_サンプルソース/★jQuery画像小サイズ⇀大に切替ギャラリー.md)

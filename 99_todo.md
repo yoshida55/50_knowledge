@@ -24,7 +24,7 @@ https://animista.net/
 
 1. HTMLプレビューのEXE
 3. AHKを削除（SVGの表示システム）
-2. CSSジャンプのEXE
+2. CSSジャンプのEXE  VSIXもchrome拡張機能（CSSJUMPフォルダ）
 
 ## 拡張機能
 
