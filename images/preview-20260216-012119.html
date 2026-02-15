@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>パララックス効果デモ</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* 背景レイヤー（固定） */
+  .particle-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .particle-bg::before {
+    content: "🌟 固定された背景 🌟";
+    font-size: 3rem;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  /* パーティクルアニメーション */
+  .particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-30px); }
+  }
+
+  /* 前景レイヤー（スクロール） */
+  .parallax-container {
+    position: relative;
+    z-index: 1;
+    padding-top: 100vh; /* 最初は背景だけ表示 */
+    background: white;
+  }
+
+  /* コンテンツセクション */
+  .section {
+    padding: 100px 50px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: white;
+    border-top: 5px solid #667eea;
+  }
+
+  .section h2 {
+    font-size: 3rem;
+    color: #667eea;
+    margin-bottom: 20px;
+  }
+
+  .section p {
+    font-size: 1.5rem;
+    color: #666;
+    max-width: 800px;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  .code-box {
+    background: #f5f5f5;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 30px;
+    font-family: monospace;
+    border-left: 5px solid #667eea;
+  }
+
+  /* スクロール指示 */
+  .scroll-indicator {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 1.2rem;
+    animation: bounce 2s ease-in-out infinite;
+    z-index: 10;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-20px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- 背景（固定） -->
+<div class="particle-bg">
+  <div class="particle" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+  <div class="particle" style="top: 60%; left: 80%; animation-delay: 1s;"></div>
+  <div class="particle" style="top: 40%; left: 30%; animation-delay: 2s;"></div>
+  <div class="particle" style="top: 70%; left: 60%; animation-delay: 1.5s;"></div>
+</div>
+
+<!-- スクロール指示 -->
+<div class="scroll-indicator">
+  ⬇️ スクロールしてください ⬇️
+</div>
+
+<!-- 前景（スクロール） -->
+<div class="parallax-container">
+  
+  <div class="section">
+    <h2>📜 Section 1</h2>
+    <p>背景は<strong>固定</strong>されたまま、この前景だけがスクロールします。</p>
+    <div class="code-box">
+      .particle-bg { position: fixed; z-index: -1; }
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🎨 Section 2</h2>
+    <p>これが<strong>パララックス効果</strong>です。<br>
+    背景と前景の移動速度が異なることで立体感が生まれます。</p>
+    <div class="code-box">
+      .parallax-container { position: relative; z-index: 1; }
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>✨ Section 3</h2>
+    <p><strong>relative</strong>を使うことで、この要素がスペースを占有し、<br>
+    スクロール可能な高さが生成されます。</p>
+    <div class="code-box">
+      padding-top: 100vh; /* 最初は��景のみ表示 */
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🎯 仕組み</h2>
+    <p>
+      <strong>2層構造</strong><br><br>
+      🔹 背景: position: fixed（画面に固定）<br>
+      🔹 前景: position: relative（スクロール）<br><br>
+      この速度差が視差効果を生み出します！
+    </p>
+  </div>
+
+</div>
+
+<script>
+  // スクロールで指示を非表示
+  window.addEventListener('scroll', () => {
+    const indicator = document.querySelector('.scroll-indicator');
+    if (window.scrollY > 50) {
+      indicator.style.opacity = '0';
+    } else {
+      indicator.style.opacity = '1';
+    }
+  });
+</script>
+
+</body>
+</html>

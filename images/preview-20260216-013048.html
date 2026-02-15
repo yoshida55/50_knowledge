@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スクロールアニメーションデモ</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom, #667eea 0%, #764ba2 100%);
+}
+
+#site_title {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.site_title_text {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  opacity: 0;
+  transform: translateY(-30px) scale(0.8);
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.site_title_text.is-show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.scroll-indicator {
+  position: fixed;
+  top: 100px;
+  right: 30px;
+  background: rgba(255,255,255,0.9);
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  font-weight: bold;
+  color: #667eea;
+}
+
+.content {
+  padding-top: 200px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section {
+  background: white;
+  margin: 30px;
+  padding: 60px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transform: translateY(50px);
+  opacity: 0;
+  animation: fadeInUp 0.8s forwards;
+}
+
+.section:nth-child(1) { animation-delay: 0.2s; }
+.section:nth-child(2) { animation-delay: 0.4s; }
+.section:nth-child(3) { animation-delay: 0.6s; }
+.section:nth-child(4) { animation-delay: 0.8s; }
+
+@keyframes fadeInUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+h2 {
+  color: #667eea;
+  margin-bottom: 15px;
+}
+
+p {
+  line-height: 1.8;
+  color: #555;
+}
+
+.highlight {
+  background: #fff3cd;
+  padding: 20px;
+  border-left: 5px solid #ffc107;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+</style>
+</head>
+<body>
+
+<div id="site_title">
+  <div class="site_title_text">🌟 サイトタイトル 🌟</div>
+</div>
+
+<div class="scroll-indicator">
+  スクロール位置: <span id="scrollPos">0</span>px
+</div>
+
+<div class="content">
+  <div class="section">
+    <h2>📜 使い方</h2>
+    <p>下にスクロールしてください。100px以上スクロールすると、上部のタイトルがアニメーション付きで表示されます。</p>
+  </div>
+
+  <div class="section">
+    <h2>⚙️ 動作の仕組み</h2>
+    <div class="highlight">
+      <strong>スクロール位置 &lt; 100px:</strong> タイトル非表示<br>
+      <strong>スクロール位置 ≥ 100px:</strong> タイトル表示（.is-showクラスが追加）
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>✨ アニメーション効果</h2>
+    <p>上から滑らかに現れるバウンドエフェクトを使用しています。CSSのtransformとopacityで立体的な動きを実現しています。</p>
+  </div>
+
+  <div class="section">
+    <h2>🎯 実用例</h2>
+    <p>このテクニックは、ナビゲーションメニューやロゴの表示・非表示、スクロール進捗の表示などに活用されます。</p>
+  </div>
+
+  <div class="section">
+    <h2>🔄 上にスクロール</h2>
+    <p>再度上にスクロールして100px未満に戻ると、タイトルが消えます。何度でも試してみてください！</p>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(window).on("scroll load", function () {
+  const scrollPos = $(this).scrollTop();
+  $("#scrollPos").text(Math.round(scrollPos));
+  
+  if (scrollPos > 100) {
+    $("#site_title .site_title_text").addClass("is-show");
+  } else {
+    $("#site_title .site_title_text").removeClass("is-show");
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSSトランジションの実装方法</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(90, 143, 196, 0.15);
+  overflow: hidden;
+}
+
+header {
+  background: linear-gradient(135deg, #5A8FC4, #4A7FB4);
+  color: #fff;
+  padding: 40px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.content {
+  padding: 40px;
+}
+
+h2 {
+  color: #5A8FC4;
+  font-size: 22px;
+  margin: 30px 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #5A8FC4;
+}
+
+.demo-box {
+  background: #F8FAFB;
+  border: 2px solid #5A8FC4;
+  border-radius: 8px;
+  padding: 40px;
+  margin: 30px 0;
+  text-align: center;
+}
+
+.element {
+  width: 100px;
+  height: 80px;
+  background: linear-gradient(135deg, #5A8FC4, #4A7FB4);
+  margin: 0 auto;
+  border-radius: 8px;
+  transition: width 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.element:hover {
+  width: 200px;
+}
+
+.demo-hint {
+  margin-top: 15px;
+  color: #666;
+  font-size: 14px;
+}
+
+.svg-container {
+  margin: 30px 0;
+  text-align: center;
+}
+
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.code-block {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  position: relative;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #5A8FC4;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.copy-btn:hover {
+  background: #4A7FB4;
+}
+
+.copy-btn.copied {
+  background: #4CAF50;
+}
+
+.property-list {
+  background: #F8FAFB;
+  border-left: 4px solid #5A8FC4;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.property-list li {
+  margin: 10px 0;
+  margin-left: 20px;
+}
+
+.property-list strong {
+  color: #5A8FC4;
+}
+
+@keyframes flow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.timeline-arrow {
+  animation: flow 2s ease-in-out infinite;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>✨ CSSトランジションの実装方法</h1>
+  </header>
+
+  <div class="content">
+    <h2>実際の動作</h2>
+    <div class="demo-box">
+      <div class="element">HOVER</div>
+      <p class="demo-hint">👆 マウスを乗せてみてください</p>
+    </div>
+
+    <h2>トランジションの仕組み</h2>
+    <div class="svg-container">
+      <svg viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
+        <!-- 初期状態 -->
+        <rect x="50" y="60" width="100" height="60" fill="#5A8FC4" rx="5"/>
+        <text x="100" y="95" fill="#fff" font-size="14" text-anchor="middle" font-weight="600">100px</text>
+        <text x="100" y="145" fill="#333" font-size="13" text-anchor="middle">初期状態</text>
+        
+        <!-- 矢印とトランジション情報 -->
+        <line x1="170" y1="90" x2="280" y2="90" stroke="#5A8FC4" stroke-width="2" class="timeline-arrow"/>
+        <polygon points="280,90 270,85 270,95" fill="#5A8FC4" class="timeline-arrow"/>
+        <text x="225" y="75" fill="#5A8FC4" font-size="12" text-anchor="middle" font-weight="600">0.5s ease</text>
+        
+        <!-- 中間状態（アニメーション） -->
+        <rect x="300" y="60" width="150" height="60" fill="#6B9FD4" rx="5" opacity="0.6"/>
+        <text x="375" y="95" fill="#fff" font-size="14" text-anchor="middle" font-weight="600">150px</text>
+        <text x="375" y="145" fill="#666" font-size="13" text-anchor="middle">遷移中...</text>
+        
+        <!-- 矢印 -->
+        <line x1="470" y1="90" x2="580" y2="90" stroke="#5A8FC4" stroke-width="2" class="timeline-arrow"/>
+        <polygon points="580,90 570,85 570,95" fill="#5A8FC4" class="timeline-arrow"/>
+        
+        <!-- 最終状態 -->
+        <rect x="600" y="60" width="200" height="60" fill="#5A8FC4" rx="5"/>
+        <text x="700" y="95" fill="#fff" font-size="14" text-anchor="middle" font-weight="600">200px</text>
+        <text x="700" y="145" fill="#333" font-size="13" text-anchor="middle">:hover状態</text>
+      </svg>
+    </div>
+
+    <h2>コード実装</h2>
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+<pre>.element {
+  width: 100px;
+  transition: width 0.5s ease;
+}
+
+.element:hover {
+  width: 200px;
+}</pre>
+    </div>
+
+    <h2>プロパティの説明</h2>
+    <ul class="property-list">
+      <li><strong>width</strong> — 変化させるプロパティ</li>
+      <li><strong>0.5s</strong> — アニメーション時間（0.5秒）</li>
+      <li><strong>ease</strong> — 変化の速度曲線（ゆっくり始��り → 速く → ゆっくり終わる）</li>
+    </ul>
+
+    <h2>よくある使い方</h2>
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+<pre>/* ① :hoverで幅を変える */
+.box:hover {
+  width: 200px;
+}
+
+/* ② JavaScriptでクラスを追加/削除 */
+.box.active {
+  width: 200px;
+}</pre>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function copyCode(btn) {
+  const code = btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'コピー完了！';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'コピー';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

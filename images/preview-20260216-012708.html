@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>パララックス効果デモ - 2層構造体験</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif; }
+
+    /* ========================================
+       背景層（固定） - Layer 1
+       ======================================== */
+    .particle-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      overflow: hidden;
+    }
+
+    /* 星空 */
+    .stars {
+      position: absolute;
+      width: 100%; height: 100%;
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 3s ease-in-out infinite alternate;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.2; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* 浮遊パーティクル */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+    }
+
+    /* 山のシルエット */
+    .mountains {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 40%;
+    }
+    .mountain {
+      position: absolute;
+      bottom: 0;
+    }
+    .mountain-back {
+      left: -5%; width: 55%; height: 100%;
+      background: linear-gradient(170deg, #1a1a3e 0%, #12122a 100%);
+      clip-path: polygon(0% 100%, 25% 20%, 45% 55%, 60% 15%, 80% 45%, 100% 30%, 100% 100%);
+      opacity: 0.5;
+    }
+    .mountain-mid {
+      left: 20%; width: 80%; height: 80%;
+      background: linear-gradient(160deg, #1e1e4a 0%, #151535 100%);
+      clip-path: polygon(0% 100%, 15% 50%, 35% 25%, 50% 60%, 70% 10%, 90% 40%, 100% 100%);
+      opacity: 0.7;
+    }
+    .mountain-front {
+      left: -10%; width: 120%; height: 55%;
+      background: linear-gradient(150deg, #252555 0%, #1a1a40 100%);
+      clip-path: polygon(0% 100%, 5% 60%, 20% 35%, 35% 65%, 50% 20%, 65% 50%, 80% 30%, 95% 55%, 100% 40%, 100% 100%);
+    }
+
+    /* 月 */
+    .moon {
+      position: absolute;
+      top: 12%; right: 15%;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle at 35% 35%, #fff8dc, #ffe4a0 40%, #ffd06060 80%);
+      border-radius: 50%;
+      box-shadow: 0 0 60px 20px rgba(255, 220, 100, 0.15), 0 0 120px 60px rgba(255, 220, 100, 0.08);
+    }
+    .moon-crater {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(200, 180, 130, 0.2);
+    }
+
+    /* 流れ星 */
+    .shooting-star {
+      position: absolute;
+      width: 3px; height: 3px;
+      background: #fff;
+      border-radius: 50%;
+      animation: shoot 4s ease-in infinite;
+      opacity: 0;
+    }
+    .shooting-star::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 80px; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.6));
+      transform-origin: right center;
+      transform: rotate(-35deg);
+    }
+    .shooting-star:nth-child(1) { top: 15%; left: 30%; animation-delay: 0s; }
+    .shooting-star:nth-child(2) { top: 25%; left: 60%; animation-delay: 2.5s; }
+    .shooting-star:nth-child(3) { top: 10%; left: 80%; animation-delay: 5s; }
+    @keyframes shoot {
+      0%   { transform: translate(0,0); opacity: 0; }
+      5%   { opacity: 1; }
+      15%  { transform: translate(-200px, 120px); opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* ========================================
+       前景層（スクロール） - Layer 2
+       ======================================== */
+    .parallax-container {
+      position: relative;
+      z-index: 1;
+      padding-top: 100vh;
+    }
+
+    /* ヒーローテキスト（背景上に表示） */
+    .hero-text-fixed {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .hero-title {
+      font-size: 52px;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: 12px;
+      text-shadow: 0 0 40px rgba(100, 100, 255, 0.3);
+      animation: fadeInUp 1.5s ease-out;
+    }
+    .hero-sub {
+      margin-top: 20px;
+      font-size: 16px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 6px;
+      animation: fadeInUp 1.5s ease-out 0.3s both;
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 4px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+      margin: 10px auto 0;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+
+    /* コンテンツセクション */
+    .content-section {
+      background: #fff;
+      border-radius: 30px 30px 0 0;
+      padding: 80px 40px 60px;
+      min-height: 100vh;
+    }
+    .content-section:first-of-type {
+      box-shadow: 0 -20px 60px rgba(0,0,0,0.3);
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* 解説ラベル */
+    .layer-label {
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+    }
+    .label-bg { background: #302b63; color: #fff; }
+    .label-fg { background: #e8f5e9; color: #2e7d32; }
+    .label-how { background: #fff3e0; color: #e65100; }
+
+    .section-heading {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      line-height: 1.5;
+      color: #222;
+    }
+
+    /* 図解エリア */
+    .diagram {
+      background: #f8f9fa;
+      border-radius: 16px;
+      padding: 40px;
+      margin: 30px 0;
+      position: relative;
+    }
+    .diagram-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #666;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+    }
+
+    /* 2層構造の図 */
+    .layer-visual {
+      display: flex;
+      gap: 30px;
+      align-items: stretch;
+    }
+    .layer-box {
+      flex: 1;
+      border-radius: 12px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .layer-box-bg {
+      background: linear-gradient(135deg, #1a1a3e, #302b63);
+      color: #fff;
+      border: 2px solid #5a5a9e;
+    }
+    .layer-box-fg {
+      background: #fff;
+      color: #333;
+      border: 2px solid #4caf50;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .layer-box h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .layer-box p {
+      font-size: 13px;
+      line-height: 1.8;
+      opacity: 0.85;
+    }
+    .layer-box code {
+      display: block;
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: "Fira Code", "Consolas", monospace;
+      line-height: 1.7;
+      white-space: pre;
+    }
+    .layer-box-bg code {
+      background: rgba(0,0,0,0.3);
+      color: #a5d6ff;
+    }
+    .layer-box-fg code {
+      background: #f1f8e9;
+      color: #33691e;
+    }
+
+    /* 動作フロー */
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .flow-step {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px 16px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      position: relative;
+    }
+    .flow-step::after {
+      content: '→';
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #bbb;
+      font-size: 18px;
+    }
+    .flow-step:last-child::after { display: none; }
+    .flow-step-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #302b63, #24243e);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .flow-step h4 {
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: #333;
+    }
+    .flow-step p {
+      font-size: 11px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* キーポイント */
+    .key-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: linear-gradient(135deg, #ede7f6, #e8eaf6);
+      border-radius: 12px;
+      margin: 16px 0;
+      border-left: 4px solid #5c6bc0;
+    }
+    .key-point-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .key-point-text h4 {
+      font-size: 15px;
+      margin-bottom: 6px;
+      color: #283593;
+    }
+    .key-point-text p {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    /* インタラクティブデモ */
+    .interactive-demo {
+      background: #1a1a2e;
+      border-radius: 16px;
+      padding: 30px;
+      margin: 30px 0;
+      position: relative;
+      height: 400px;
+      overflow: hidden;
+    }
+    .demo-label {
+      position: absolute;
+      top: 12px; left: 20px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 2px;
+    }
+    .demo-viewport {
+      position: absolute;
+      top: 50px; left: 50%;
+      transform: translateX(-50%);
+      width: 260px; height: 320px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0f0c29, #302b63);
+    }
+    /* デモ内背景 */
+    .demo-bg-layer {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    }
+    .demo-bg-layer .demo-moon {
+      position: absolute;
+      top: 20px; right: 30px;
+      width: 30px; height: 30px;
+      background: radial-gradient(circle at 35% 35%, #fff8dc, #ffe4a0);
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(255,220,100,0.3);
+    }
+    .demo-bg-layer .demo-stars-dot {
+      position: absolute;
+      width: 2px; height: 2px;
+      background: #fff;
+      border-radius: 50%;
+    }
+    .demo-mountain-shape {
+      position: absolute;
+      bottom: 0; left: -5%;
+      width: 110%; height: 40%;
+      background: #1e1e4a;
+      clip-path: polygon(0% 100%, 10% 50%, 30% 30%, 50% 60%, 70% 20%, 90% 50%, 100% 35%, 100% 100%);
+    }
+    /* デモ内前景 */
+    .demo-fg-layer {
+      position: absolute;
+      top: 60%;
+      left: 0; width: 100%;
+      transition: top 0.05s linear;
+    }
+    .demo-fg-card {
+      background: #fff;
+      border-radius: 14px 14px 0 0;
+      padding: 20px 16px;
+      min-height: 300px;
+      box-shadow: 0 -8px 30px rgba(0,0,0,0.3);
+    }
+    .demo-fg-card .demo-bar {
+      height: 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .demo-fg-card .demo-bar-long { width: 80%; background: #e0e0e0; }
+    .demo-fg-card .demo-bar-mid { width: 60%; background: #eeeeee; }
+    .demo-fg-card .demo-bar-short { width: 40%; background: #f5f5f5; }
+    .demo-fg-card .demo-bar-title { width: 50%; background: #333; height: 12px; margin-bottom: 16px; }
+    .demo-fg-card .demo-img-placeholder {
+      width: 100%; height: 50px;
+      background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+      border-radius: 8px;
+      margin: 12px 0;
+    }
+
+    /* デモ注釈 */
+    .demo-annotation {
+      position: absolute;
+      font-size: 11px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .demo-annotation-bg {
+      top: 70px; left: 30px;
+      color: #7c7cff;
+    }
+    .demo-annotation-bg::before {
+      content: '←';
+      margin-right: 4px;
+    }
+    .demo-annotation-fg {
+      bottom: 40px; right: 30px;
+      color: #4caf50;
+    }
+    .demo-annotation-fg::before {
+      content: '→';
+      margin-right: 4px;
+      display: inline-block;
+      transform: rotate(180deg);
+    }
+    .demo-scroll-instruction {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 1px;
+    }
+
+    /* relativeの説明 */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .compare-box {
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .compare-ok {
+      background: #e8f5e9;
+      border: 2px solid #4caf50;
+    }
+    .compare-ng {
+      background: #ffebee;
+      border: 2px solid #ef5350;
+    }
+    .compare-box h4 {
+      font-size: 15px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .compare-box p {
+      font-size: 12px;
+      line-height: 1.8;
+      color: #555;
+    }
+    .compare-box code {
+      display: block;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-family: "Consolas", monospace;
+      line-height: 1.6;
+      white-space: pre;
+    }
+    .compare-ok code { background: rgba(0,0,0,0.05); color: #2e7d32; }
+    .compare-ng code { background: rgba(0,0,0,0.05); color: #c62828; }
+
+    /* セクション区切り */
+    .section-divider {
+      height: 80px;
+      background: linear-gradient(to bottom, #fff, #f5f5f5, #fff);
+    }
+
+    /* 最終セクション */
+    .summary-card {
+      background: linear-gradient(135deg, #302b63, #24243e);
+      color: #fff;
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      margin: 30px 0;
+    }
+    .summary-card h3 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      letter-spacing: 3px;
+    }
+    .summary-card p {
+      font-size: 14px;
+      opacity: 0.7;
+      line-height: 1.8;
+    }
+
+    /* レスポンシブ */
+    @media (max-width: 768px) {
+      .hero-title { font-size: 28px; letter-spacing: 6px; }
+      .content-section { padding: 50px 20px; }
+      .layer-visual { flex-direction: column; }
+      .flow-steps { grid-template-columns: 1fr 1fr; }
+      .flow-step::after { display: none; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .diagram { padding: 24px; }
+      .moon { width: 70px; height: 70px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================
+       Layer 1: 固定背景
+       ======================================== -->
+  <div class="particle-bg">
+    <!-- 月 -->
+    <div class="moon">
+      <div class="moon-crater" style="width:20px;height:20px;top:30px;left:50px;"></div>
+      <div class="moon-crater" style="width:12px;height:12px;top:60px;left:30px;"></div>
+      <div class="moon-crater" style="width:8px;height:8px;top:45px;left:70px;"></div>
+    </div>
+
+    <!-- 星 -->
+    <div class="stars" id="stars"></div>
+
+    <!-- 流れ星 -->
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+
+    <!-- 山 -->
+    <div class="mountains">
+      <div class="mountain mountain-back"></div>
+      <div class="mountain mountain-mid"></div>
+      <div class="mountain mountain-front"></div>
+    </div>
+  </div>
+
+  <!-- ========================================
+       Layer 2: スクロール前景
+       ======================================== -->
+  <div class="parallax-container">
+    <!-- ヒーローテキスト -->
+    <div class="hero-text-fixed" id="heroText">
+      <div class="hero-title">PARALLAX</div>
+      <div class="hero-sub">2層構造で作る視差効果</div>
+      <div class="scroll-hint">SCROLL</div>
+    </div>
+
+    <!-- セクション1: 概要 -->
+    <div class="content-section">
+      <div class="section-inner">
+        <span class="layer-label label-how">STRUCTURE</span>
+        <h2 class="section-heading">パララックス = 2層構造</h2>
+
+        <div class="diagram">
+          <div class="diagram-title">▼ 2つのレイヤー</div>
+          <div class="layer-visual">
+            <div class="layer-box layer-box-bg">
+              <h3>🌌 背景層（固定）</h3>
+              <p>画面に固定され、スクロールしても動かない。<br>星空や画像を配置。</p>
+              <code>position: fixed;
+z-index: -1;
+/* 画面全体を覆う */</code>
+            </div>
+            <div class="layer-box layer-box-fg">
+              <h3>📄 前景層（スクロール）</h3>
+              <p>通常のコンテンツ。ユーザーのスクロールに追従して動く。</p>
+              <code>position: relative;
+z-index: 1;
+padding-top: 100vh;
+/* ↑最初は背景だけ見える */</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-point">
+          <div class="key-point-icon">💡</div>
+          <div class="key-point-text">
+            <h4>このページ自体がパララックス</h4>
+            <p>今見ている星空の背景は <code>position: fixed</code> で固定。白いコンテンツ部分がスクロールで動いています。上にスクロールして戻ると、背景がまた見えます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- セクション2: 動作フロー -->
+    <div class="content-section">
+      <div class="section-inner">
+        <span class="layer-label label-bg">FLOW</span>
+        <h2 class="section-heading">動作の仕組み（4ステップ）</h2>
+
+        <div class="diagram">
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="flow-step-num">1</div>
+              <h4>初期表示</h4>
+              <p>padding-top: 100vh で背景だけが見える</p>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-num">2</div>
+              <h4>スクロール開始</h4>
+              <p>前景が上へ移動し始める</p>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-num">3</div>
+              <h4>視差発生</h4>
+              <p>背景は固定、前景だけ動く = 速度差</p>
+            </div>
+            <div class="flow-step">
+              <div class="flow-step-num">4</div>
+              <h4>コンテンツ表示</h4>
+              <p>前景が背景を覆い、通常のページに</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ミニデモ -->
+        <div class="interactive-demo" id="miniDemo">
+          <div class="demo-label">INTERACTIVE DEMO</div>
+          <div class="demo-viewport" id="demoViewport">
+            <div class="demo-bg-layer">
+              <div class="demo-moon"></div>
+              <div class="demo-stars-dot" style="top:15%;left:20%;"></div>
+              <div class="demo-stars-dot" style="top:25%;left:55%;"></div>
+              <div class="demo-stars-dot" style="top:10%;left:75%;"></div>
+              <div class="demo-stars-dot" style="top:35%;left:40%;"></div>
+              <div class="demo-stars-dot" style="top:20%;left:85%;"></div>
+              <div class="demo-stars-dot" style="top:40%;left:15%;"></div>
+              <div class="demo-mountain-shape"></div>
+            </div>
+            <div class="demo-fg-layer" id="demoFg">
+              <div class="demo-fg-card">
+                <div class="demo-bar demo-bar-title"></div>
+                <div class="demo-bar demo-bar-long"></div>
+                <div class="demo-bar demo-bar-mid"></div>
+                <div class="demo-img-placeholder"></div>
+                <div class="demo-bar demo-bar-long"></div>
+                <div class="demo-bar demo-bar-short"></div>
+                <div class="demo-bar demo-bar-mid"></div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-annotation demo-annotation-bg">fixed 背景</div>
+          <div class="demo-annotation demo-annotation-fg">relative 前景 ←</div>
+          <div class="demo-scroll-instruction">▲▼ ホバーでデモ再生</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- セクション3: relativeの理由 -->
+    <div class="content-section">
+      <div class="section-inner">
+        <span class="layer-label label-fg">KEY POINT</span>
+        <h2 class="section-heading">なぜ relative なのか？</h2>
+
+        <div class="compare-grid">
+          <div class="compare-box compare-ok">
+            <h4>✅ relative（正解）</h4>
+            <p>ドキュメントフローに残る<br>→ スペースを占有<br>→ スクロール領域が生成される</p>
+            <code>position: relative;
+/* 要素が場所を取る */
+/* スクロールバー = 出る */
+/* padding-top = 有効 */</code>
+          </div>
+          <div class="compare-box compare-ng">
+            <h4>❌ absolute（NG）</h4>
+            <p>フローから外れる<br>→ スペース = 0<br>→ スクロールできない</p>
+            <code>position: absolute;
+/* 要素が場所を取らない */
+/* スクロールバー = 出ない */
+/* ページ高さ = 0 */</code>
+          </div>
+        </div>
+
+        <div class="key-point">
+          <div class="key-point-icon">⚡</div>
+          <div class="key-point-text">
+            <h4>要するに</h4>
+            <p><strong>relative</strong> じゃないとスクロール自体が発生しない。スクロールがなければ視差効果も生まれない。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- まとめ -->
+    <div class="content-section">
+      <div class="section-inner">
+        <div class="summary-card">
+          <h3>PARALLAX = 2層構造</h3>
+          <p>
+            背景: position: fixed（動かない）<br>
+            前景: position: relative（スクロールする）<br><br>
+            この速度差が「視差効果」を生む
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // 星を動的生成
+    const starsEl = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 3 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.top = Math.random() * 70 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      starsEl.appendChild(star);
+    }
+
+    // パーティクル生成
+    const bgEl = document.querySelector('.particle-bg');
+    for (let i = 0; i < 15; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 6 + 2;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.background = `hsl(${Math.random() * 60 + 220}, 70%, 70%)`;
+      p.style.animationDuration = (Math.random() * 8 + 6) + 's';
+      p.style.animationDelay = Math.random() * 10 + 's';
+      bgEl.appendChild(p);
+    }
+
+    // ヒーローテキストフェードアウト
+    const heroText = document.getElementById('heroText');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const vh = window.innerHeight;
+      const opacity = Math.max(0, 1 - scrollY / (vh * 0.6));
+      heroText.style.opacity = opacity;
+    });
+
+    // ミニデモ：ホバーでアニメーション
+    const demoFg = document.getElementById('demoFg');
+    const miniDemo = document.getElementById('miniDemo');
+    let demoAnim = null;
+    let demoPos = 60;
+    let demoDir = -1;
+
+    miniDemo.addEventListener('mouseenter', () => {
+      demoAnim = setInterval(() => {
+        demoPos += demoDir * 0.5;
+        if (demoPos <= 10) demoDir = 1;
+        if (demoPos >= 60) demoDir = -1;
+        demoFg.style.top = demoPos + '%';
+      }, 30);
+    });
+    miniDemo.addEventListener('mouseleave', () => {
+      clearInterval(demoAnim);
+      // 元に戻す
+      demoPos = 60;
+      demoFg.style.top = '60%';
+    });
+  </script>
+</body>
+</html>

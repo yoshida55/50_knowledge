@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flexbox min-width デモ</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  margin-bottom: 50px;
+  font-size: 2.5em;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.demo-section {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 40px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+.demo-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+}
+
+.title {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.badge {
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.5em;
+  font-weight: bold;
+  animation: pulse 2s infinite;
+}
+
+.badge.bad {
+  background: #ff6b6b;
+  color: white;
+}
+
+.badge.good {
+  background: #51cf66;
+  color: white;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.flex-container {
+  display: flex;
+  gap: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.1);
+  perspective: 1000px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.flex-item {
+  padding: 30px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.flex-item::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: rotate(45deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.item-a {
+  flex: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.item-b {
+  flex: 2;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  position: relative;
+}
+
+.item-c {
+  flex: 1;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.overflow-content {
+  width: 400px;
+  height: 100px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100"><rect fill="%23ff6b6b" width="400" height="100"/><text x="200" y="55" font-size="20" fill="white" text-anchor="middle" font-weight="bold">大きな画像 (400px)</text></svg>');
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  animation: wiggle 2s infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+}
+
+.problem .flex-container:hover .overflow-content {
+  animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.code-block {
+  background: #2d3748;
+  color: #a0aec0;
+  padding: 20px;
+  border-radius: 10px;
+  font-family: 'Consolas', monospace;
+  font-size: 14px;
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+  overflow-x: auto;
+}
+
+.code-block .property {
+  color: #63b3ed;
+}
+
+.code-block .value {
+  color: #f6ad55;
+}
+
+.code-block .comment {
+  color: #68d391;
+  font-style: italic;
+}
+
+.explanation {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  border-left: 5px solid #e17055;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.label {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-5px); }
+}
+
+.interactive-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+}
+
+.interactive-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+.interactive-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.toggle-container {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.size-indicator {
+  font-size: 12px;
+  margin-top: 10px;
+  color: #666;
+  font-weight: normal;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>📦 Flexbox min-width 問題の視覚化</h1>
+  
+  <div class="demo-section problem">
+    <div class="title">
+      ❌ 問題：min-width: auto（デフォルト）
+      <span class="badge bad">はみ出す</span>
+    </div>
+    <div class="flex-container" id="problem-container">
+      <div class="flex-item item-a">
+        <div>
+          <div class="label">flex: 1</div>
+          要素A
+        </div>
+      </div>
+      <div class="flex-item item-b">
+        <div>
+          <div class="label">flex: 2 (min-width: auto)</div>
+          <div class="overflow-content"></div>
+          <div class="size-indicator">⚠️ コンテンツより小さくならない</div>
+        </div>
+      </div>
+      <div class="flex-item item-c">
+        <div>
+          <div class="label">flex: 1</div>
+          要素C
+        </div>
+      </div>
+    </div>
+    <div class="code-block">
+.b {<br>
+  &nbsp;&nbsp;<span class="property">flex</span>: <span class="value">2</span>;<br>
+  &nbsp;&nbsp;<span class="comment">/* min-width: auto がデフォルト → はみ出す */</span><br>
+}
+    </div>
+    <div class="explanation">
+      <strong>⚠️ 問題点：</strong> Flexboxの子要素はデフォルトで<code>min-width: auto</code>が適用され、コンテンツサイズより小さくなれません。大きな画像やテキストがあると、コンテナからはみ出してしまいます。
+    </div>
+  </div>
+
+  <div class="demo-section solution">
+    <div class="title">
+      ✅ 解決：min-width: 0
+      <span class="badge good">ピッタリ</span>
+    </div>
+    <div class="flex-container" id="solution-container">
+      <div class="flex-item item-a">
+        <div>
+          <div class="label">flex: 1</div>
+          要素A
+        </div>
+      </div>
+      <div class="flex-item item-b" style="min-width: 0;">
+        <div style="width: 100%; overflow: hidden;">
+          <div class="label">flex: 2 (min-width: 0)</div>
+          <div class="overflow-content" style="width: 100%; max-width: 100%;"></div>
+          <div class="size-indicator">✅ 柔軟に縮小可能</div>
+        </div>
+      </div>
+      <div class="flex-item item-c">
+        <div>
+          <div class="label">flex: 1</div>
+          要素C
+        </div>
+      </div>
+    </div>
+    <div class="code-block">
+.b {<br>
+  &nbsp;&nbsp;<span class="property">flex</span>: <span class="value">2</span>;<br>
+  &nbsp;&nbsp;<span class="property">min-width</span>: <span class="value">0</span>; <span class="comment">/* 縮小を許可！ */</span><br>
+}
+    </div>
+    <div class="explanation">
+      <strong>✅ 解決策：</strong> <code>min-width: 0</code>を指定することで、子要素がコンテンツサイズより小さく縮小できるようになります。これにより、大きな要素もコンテナ内に収まります。
+    </div>
+  </div>
+
+  <div class="toggle-container">
+    <button class="interactive-btn" onclick="toggleAnimation()">
+      🎬 アニメーションで比較
+    </button>
+  </div>
+</div>
+
+<script>
+let isAnimating = false;
+
+function toggleAnimation() {
+  const problemContainer = document.getElementById('problem-container');
+  const solutionContainer = document.getElementById('solution-container');
+  const btn = document.querySelector('.interactive-btn');
+  
+  if (isAnimating) {
+    problemContainer.style.transform = 'scale(1)';
+    solutionContainer.style.transform = 'scale(1)';
+    btn.textContent = '🎬 アニメーションで比較';
+    isAnimating = false;
+  } else {
+    btn.textContent = '⏸️ アニメーション停止';
+    isAnimating = true;
+    animateComparison();
+  }
+}
+
+function animateComparison() {
+  if (!isAnimating) return;
+  
+  const problemContainer = document.getElementById('problem-container');
+  const solutionContainer = document.getElementById('solution-container');
+  
+  // 問題のコンテナを強調
+  problemContainer.style.transition = 'transform 0.5s ease';
+  problemContainer.style.transform = 'scale(1.02)';
+  
+  setTimeout(() => {
+    if (!isAnimating) return;
+    problemContainer.style.transform = 'scale(1)';
+    
+    setTimeout(() => {
+      if (!isAnimating) return;
+      // 解決のコンテナを強調
+      solutionContainer.style.transition = 'transform 0.5s ease';
+      solutionContainer.style.transform = 'scale(1.02)';
+      
+      setTimeout(() => {
+        if (!isAnimating) return;
+        solutionContainer.style.transform = 'scale(1)';
+        setTimeout(animateComparison, 500);
+      }, 1000);
+    }, 500);
+  }, 1000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スライダー slidesToShow デモ</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  h1 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .info-box {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  
+  .info-box h2 {
+    color: #667eea;
+    margin-bottom: 10px;
+  }
+  
+  .code-block {
+    background: #2d3748;
+    color: #a0aec0;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    margin: 15px 0;
+    overflow-x: auto;
+  }
+  
+  .code-block .key {
+    color: #ed8936;
+  }
+  
+  .code-block .value {
+    color: #48bb78;
+  }
+  
+  .slider-container {
+    perspective: 1500px;
+    margin-bottom: 40px;
+  }
+  
+  .slider-wrapper {
+    background: white;
+    padding: 40px 20px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .slider-title {
+    text-align: center;
+    color: #667eea;
+    margin-bottom: 30px;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .slider-viewport {
+    overflow: hidden;
+    padding: 20px 0;
+  }
+  
+  .slider-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    gap: 20px;
+  }
+  
+  .slide {
+    flex: 0 0 calc(33.333% - 14px);
+    height: 250px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+    font-weight: bold;
+    color: white;
+    position: relative;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+  
+  .slide:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+  
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+    border-radius: 15px;
+  }
+  
+  .slide:nth-child(1) { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+  .slide:nth-child(2) { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+  .slide:nth-child(3) { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+  .slide:nth-child(4) { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+  .slide:nth-child(5) { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+  .slide:nth-child(6) { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+  
+  .slide-label {
+    position: absolute;
+    bottom: 20px;
+    font-size: 0.4em;
+    background: rgba(0,0,0,0.5);
+    padding: 5px 15px;
+    border-radius: 20px;
+  }
+  
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  
+  .btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+  }
+  
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+  }
+  
+  .btn:active {
+    transform: translateY(-1px);
+  }
+  
+  .indicator {
+    text-align: center;
+    margin-top: 20px;
+    color: #667eea;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  
+  .feature-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .feature-item {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .feature-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .feature-item h3 {
+    color: #667eea;
+    margin-bottom: 10px;
+  }
+  
+  .highlight {
+    background: #ffd700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📱 Slick Slider: slidesToShow デモ</h1>
+  
+  <div class="info-box">
+    <h2>💡 設定説明</h2>
+    <p><span class="highlight">slidesToShow: 3</span> を設定すると、常に<strong>3つの画像</strong>が画面に表示されます。</p>
+    
+    <div class="code-block">
+$(".slider").slick({<br>
+  <span class="key">slidesToShow</span>: <span class="value">3</span>,<br>
+  <span class="key">centerMode</span>: <span class="value">true</span>,<br>
+  <span class="key">centerPadding</span>: <span class="value">"0.3rem"</span><br>
+});
+    </div>
+    
+    <div class="feature-list">
+      <div class="feature-item">
+        <h3>🎯 均等配置</h3>
+        <p>各画像は自動的に均等な幅で配置されます</p>
+      </div>
+      <div class="feature-item">
+        <h3>👀 視認性</h3>
+        <p>常に3つのスライドが見える状態を維持</p>
+      </div>
+      <div class="feature-item">
+        <h3>🔄 スムーズ移動</h3>
+        <p>スライド時も3つ表示をキープ</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <div class="slider-title">📸 スライダー（slidesToShow: 3）</div>
+      
+      <div class="slider-viewport">
+        <div class="slider-track" id="sliderTrack">
+          <div class="slide">
+            1
+            <span class="slide-label">スライド 1</span>
+          </div>
+          <div class="slide">
+            2
+            <span class="slide-label">スライド 2</span>
+          </div>
+          <div class="slide">
+            3
+            <span class="slide-label">スライド 3</span>
+          </div>
+          <div class="slide">
+            4
+            <span class="slide-label">スライド 4</span>
+          </div>
+          <div class="slide">
+            5
+            <span class="slide-label">スライド 5</span>
+          </div>
+          <div class="slide">
+            6
+            <span class="slide-label">スライド 6</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="controls">
+        <button class="btn" onclick="prevSlide()">⬅️ 前へ</button>
+        <button class="btn" onclick="nextSlide()">次へ ➡️</button>
+      </div>
+      
+      <div class="indicator" id="indicator">
+        表示中: スライド <span id="currentSlide">1-3</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentIndex = 0;
+  const track = document.getElementById('sliderTrack');
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  const slidesToShow = 3;
+  const maxIndex = totalSlides - slidesToShow;
+  
+  function updateSlider() {
+    const slideWidth = slides[0].offsetWidth;
+    const gap = 20;
+    const offset = -(currentIndex * (slideWidth + gap));
+    track.style.transform = `translateX(${offset}px)`;
+    
+    const start = currentIndex + 1;
+    const end = Math.min(currentIndex + slidesToShow, totalSlides);
+    document.getElementById('currentSlide').textContent = `${start}-${end}`;
+  }
+  
+  function nextSlide() {
+    if (currentIndex < maxIndex) {
+      currentIndex++;
+      updateSlider();
+    } else {
+      currentIndex = 0;
+      updateSlider();
+    }
+  }
+  
+  function prevSlide() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateSlider();
+    } else {
+      currentIndex = maxIndex;
+      updateSlider();
+    }
+  }
+  
+  // 自動スライド（5秒ごと）
+  setInterval(nextSlide, 5000);
+  
+  // ウィンドウリサイズ時の調整
+  window.addEventListener('resize', updateSlider);
+  
+  // 初期表示
+  updateSlider();
+</script>
+
+</body>
+</html>

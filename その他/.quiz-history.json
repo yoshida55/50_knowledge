@@ -787,5 +787,86 @@
     "evaluations": [
       2
     ]
+  },
+  "仕組み": {
+    "title": "仕組み",
+    "line": 1925,
+    "lastReviewed": 1771170855859,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "フレックスの子要素は画像などのもとサイズより小さくならない。例えば画像など大きいサイズをうめるときに、想定した配置にならないときは、": {
+    "title": "フレックスの子要素は画像などのもとサイズより小さくならない。例えば画像など大きいサイズをうめるときに、想定した配置にならないときは、",
+    "line": 2909,
+    "lastReviewed": 1771170912721,
+    "reviewCount": 0,
+    "evaluations": [
+      1
+    ]
+  },
+  "videoなど画像を使う際は、 比率を保ってトリミングするために、heightとwidthを指定した上で、object-fit: cover;を利用する": {
+    "title": "videoなど画像を使う際は、 比率を保ってトリミングするために、heightとwidthを指定した上で、object-fit: cover;を利用する",
+    "line": 2408,
+    "lastReviewed": 1771171011094,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "幅がひろいwidthを文字は文字幅にあわせる": {
+    "title": "幅がひろいwidthを文字は文字幅にあわせる",
+    "line": 2791,
+    "lastReviewed": 1771171033669,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "スライダーについて。３つの画面の一緒に画面に表示、": {
+    "title": "スライダーについて。３つの画面の一緒に画面に表示、",
+    "line": 2479,
+    "lastReviewed": 1771171070577,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "正確な説明": {
+    "title": "正確な説明",
+    "line": 3526,
+    "lastReviewed": 1771171111963,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
+  },
+  "アニメーションの付け方　後ろに吸い込まれるような": {
+    "title": "アニメーションの付け方　後ろに吸い込まれるような",
+    "line": 2675,
+    "lastReviewed": 1771171156922,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "フレックスの片方の幅が固定で、残りを幅をすべて等び省略した場合は以下のようにする。": {
+    "title": "フレックスの片方の幅が固定で、残りを幅をすべて等び省略した場合は以下のようにする。",
+    "line": 2949,
+    "lastReviewed": 1771171187540,
+    "reviewCount": 3,
+    "evaluations": [
+      3
+    ]
+  },
+  "このCSSコードは、**Flexboxコンテナの子要素を縦方向（交差軸方向）に引き伸ばして、コンテナの高さいっぱいに広げる**設定です。": {
+    "title": "このCSSコードは、**Flexboxコンテナの子要素を縦方向（交差軸方向）に引き伸ばして、コンテナの高さいっぱいに広げる**設定です。",
+    "line": 2859,
+    "lastReviewed": 1771171218607,
+    "reviewCount": 1,
+    "evaluations": [
+      2
+    ]
   }
 }

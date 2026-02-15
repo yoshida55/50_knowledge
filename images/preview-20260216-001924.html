@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swiper - フェードエフェクト【シンプル版：Swiperのみ】</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
+  <style>
+    /* ========================================
+       ✅ これがSwiper.js本来の姿
+       ========================================
+       このファイルは Swiper.js の機能のみを使用した
+       最小限のシンプル版です。
+
+       【含まれるもの】
+       - Swiper本体（フェードエフェクト）
+       - 自動再生
+       - ナビゲーション矢印
+       - ページネーション（ドット）
+       - 戻るボタン（ナビゲーション用）
+
+       【含まれないもの】
+       - オーバーレイ
+       - テキスト・ボタン
+       - アニメーション
+       - 情報パネル
+       - カスタムデザイン
+
+       👉 多機能版は demo3 を参照
+       ======================================== */
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* 戻るボタン（ナビゲーション用） */
+    .back-link {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+    .back-link a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .back-link a:hover {
+      background: rgba(0, 122, 255, 0.8);
+    }
+
+    /* Swiperコンテナ */
+    .swiper {
+      width: 100%;
+      height: 100vh;
+    }
+
+    /* スライド */
+    .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: white;
+      background: #333;
+    }
+
+    /* 画像スタイル */
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <!-- 戻るボタン -->
+  <div class="back-link">
+    <a href="index.html">← デモ一覧に戻る</a>
+  </div>
+
+  <!-- ✅ Swiper本体 -->
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <!-- スライド1 -->
+      <div class="swiper-slide">
+        <img src="https://placehold.co/1920x1080/667EEA/FFF?text=Slide+1" alt="スライド1">
+      </div>
+      <!-- スライド2 -->
+      <div class="swiper-slide">
+        <img src="https://placehold.co/1920x1080/F093FB/FFF?text=Slide+2" alt="スライド2">
+      </div>
+      <!-- スライド3 -->
+      <div class="swiper-slide">
+        <img src="https://placehold.co/1920x1080/4BC0C8/FFF?text=Slide+3" alt="スライド3">
+      </div>
+      <!-- スライド4 -->
+      <div class="swiper-slide">
+        <img src="https://placehold.co/1920x1080/FEAC5E/333?text=Slide+4" alt="スライド4">
+      </div>
+    </div>
+
+    <!-- ナビゲーション矢印 -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+
+    <!-- ページネーション -->
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  <script>
+    /* ========================================
+       ✅ Swiper.js の初期化（シンプル版）
+       ======================================== */
+    const swiper = new Swiper('.swiper', {
+      // フェードエフェクト（Swiper独自機能）
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true,
+      },
+
+      // 基本設定
+      speed: 1000,      // 切り替え速度
+      loop: true,       // ループ再生
+
+      // 自動再生
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+
+      // ページネーション（ドット）
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+
+      // ナビゲーション（矢印）
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+
+    /* 💡 これが Swiper.js の本来の使い方です
+       デモ3の多機能版と比較してみてください！ */
+  </script>
+</body>
+</html>
