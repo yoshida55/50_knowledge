@@ -24,11 +24,16 @@ https://mizota-ks.com/
 会社に持っていくもの：
 
 1. HTMLプレビューのEXE（VPSをね。スタートアップに登録）
-3. AHKを削除（SVGの表示システム）
 2. CSSジャンプのEXE  VSIXもchrome拡張機能（CSSJUMPフォルダ）
+5. スニペット
+
+6. pull パスを変更
+
 
 4. アニメーションのURL
 https://animista.net/play/exits/bounce-out
+
+
 
 ## 拡張機能
 
