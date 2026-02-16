@@ -187,10 +187,11 @@
   "何をしているか": {
     "title": "何をしているか",
     "line": 1825,
-    "lastReviewed": 1770977542851,
-    "reviewCount": 1,
+    "lastReviewed": 1771258612713,
+    "reviewCount": 0,
     "evaluations": [
-      2
+      2,
+      1
     ]
   },
   "縦線を書きたい時、かつボックスのサイズなどとちがってボーダーライトでかけないとき。疑似要素で表示する　aaaa::after": {

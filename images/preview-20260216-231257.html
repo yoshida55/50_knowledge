@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アコーディオン動作デモ</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Meiryo, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    max-width: 700px;
+    width: 100%;
+  }
+  
+  h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+    font-size: 32px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .accordion-item {
+    margin-bottom: 20px;
+    perspective: 1000px;
+  }
+  
+  #work, #work1, #work2 {
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    padding: 20px 25px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 
+      5px 5px 15px rgba(0,0,0,0.2),
+      -5px -5px 15px rgba(255,255,255,0.7),
+      inset 0 0 0 rgba(255,255,255,0);
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+  }
+  
+  #work:hover, #work1:hover, #work2:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+      8px 8px 20px rgba(0,0,0,0.25),
+      -5px -5px 15px rgba(255,255,255,0.7),
+      inset 2px 2px 5px rgba(255,255,255,0.5);
+  }
+  
+  #work:active, #work1:active, #work2:active {
+    transform: translateY(1px);
+    box-shadow: 
+      2px 2px 8px rgba(0,0,0,0.2),
+      -2px -2px 8px rgba(255,255,255,0.7);
+  }
+  
+  .work-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .plus, .plus1, .plus2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #667eea;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #f0f0f0, #ffffff);
+    border-radius: 50%;
+    box-shadow: 
+      3px 3px 8px rgba(0,0,0,0.15),
+      -3px -3px 8px rgba(255,255,255,0.8);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .plus.rotate, .plus1.rotate, .plus2.rotate {
+    transform: rotate(180deg);
+    background: linear-gradient(145deg, #667eea, #764ba2);
+    color: white;
+  }
+  
+  .accordion-content, .accordion-content1, .accordion-content2 {
+    background: white;
+    border-radius: 0 0 12px 12px;
+    margin-top: -10px;
+    padding: 0 25px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    box-shadow: 
+      inset 0 5px 10px rgba(0,0,0,0.05),
+      5px 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.5s ease, opacity 0.3s ease;
+    transform: translateZ(-50px);
+  }
+  
+  .accordion-content.open, .accordion-content1.open, .accordion-content2.open {
+    max-height: 300px;
+    padding: 25px;
+    opacity: 1;
+    margin-top: 5px;
+    transform: translateZ(0);
+  }
+  
+  .content-text {
+    color: #555;
+    line-height: 1.8;
+    font-size: 15px;
+  }
+  
+  .label {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🎨 アコーディオンUI動作デモ</h1>
+  
+  <div class="accordion-item">
+    <div id="work">
+      <span class="work-title">📁 プロジェクトA の詳細</span>
+      <span class="plus">＋</span>
+    </div>
+    <div class="accordion-content">
+      <span class="label">.accordion-content</span>
+      <p class="content-text">
+        クリックすると、この部分がslideToggle()で開閉します。<br>
+        ＋記号が ー に変化し、コンテンツが滑らかに表示されます。<br>
+        立体的なシャドウとトランジションで視覚的なフィードバックを実現。
+      </p>
+    </div>
+  </div>
+  
+  <div class="accordion-item">
+    <div id="work1">
+      <span class="work-title">📁 プロジェクトB の詳細</span>
+      <span class="plus1">＋</span>
+    </div>
+    <div class="accordion-content1">
+      <span class="label">.accordion-content1</span>
+      <p class="content-text">
+        2つ目のアコーディオンアイテムです。<br>
+        各要素は独立して動作し、クリックイベントで開閉状態を切り替えます。<br>
+        ホバー時には浮き上がるようなエフェクトが適用されます。
+      </p>
+    </div>
+  </div>
+  
+  <div class="accordion-item">
+    <div id="work2">
+      <span class="work-title">📁 プロジェクトC の詳細</span>
+      <span class="plus2">＋</span>
+    </div>
+    <div class="accordion-content2">
+      <span class="label">.accordion-content2</span>
+      <p class="content-text">
+        3つ目のアコーディオンアイテムです。<br>
+        jQueryのslideToggle()の動作を、CSS transitionで再現しています。<br>
+        立体感のあるデ��インで、実際のUI動作を視覚的に理解できます。
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const works = ['work', 'work1', 'work2'];
+  const plusClasses = ['plus', 'plus1', 'plus2'];
+  const contentClasses = ['accordion-content', 'accordion-content1', 'accordion-content2'];
+  
+  works.forEach((workId, index) => {
+    const workElement = document.getElementById(workId);
+    const plusElement = workElement.querySelector(`.${plusClasses[index]}`);
+    const contentElement = workElement.nextElementSibling;
+    
+    workElement.addEventListener('click', function() {
+      contentElement.classList.toggle('open');
+      plusElement.classList.toggle('rotate');
+      
+      if (contentElement.classList.contains('open')) {
+        plusElement.textContent = 'ー';
+      } else {
+        plusElement.textContent = '＋';
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

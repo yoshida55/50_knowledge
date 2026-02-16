@@ -1622,9 +1622,28 @@ SVG表示保存CS+S.ahk　
 ```
 
 
-## なめらか(滑らかに)に移動させたいときは、以下の構文を使う。
+**Q: JavaScriptで要素のwidth変更をなめらかにアニメーションさせる設定とは？**
 
+`transition`プロパティをCSSに設定する
+
+JavaScriptで`width`を変更する前に、CSS側で`transition: width 0.3s ease;`などを指定しておくと、値の変化が自動的にアニメーション化される。
+
+例：
+```css
+.element {
+  transition: width 0.3s ease;
+}
+```
+
+```javascript
+element.style.width = '500px'; // なめらかに変化
+```
+
+例２）
 ゆっくりと　アニメーション。これは左固定メニューバーから、を外部から引っ張りだして表示させるとき
+
+
+[プレビュー](http://localhost:54321/preview-20260217-012154.html)
 
 ```css
 .header {
@@ -1634,19 +1653,7 @@ SVG表示保存CS+S.ahk　
   transition: transform 0.3s ease-in-out;
 }
 
-
-★transitiontransforms.html
-
-
-.header.hidden {　　　　　　　　　 ★JavaScriptでhiddenにした。
-  transform: translateX(-100%);　★要素分移動する
-  transition: transform 0.3s ease-in-out;　★なめらかにする
-}
-```
-
 **`.header` の方だけに書けばOK**です。
-/* ✨
-# HTMLの例
 
 
 
@@ -3917,6 +3924,7 @@ const area = document.querySelector("#area");
 - チーム開発で混乱を防ぐ
 
 
+
 ## 📌background-image: url("../img/logo_omodakaya-vrt.png");で画像が取得できない　html
 
 htmlをimgタグではなくてdivタグにする必要あり
@@ -4834,7 +4842,8 @@ clip-path: inset(上 右 下 左);
 [プレビュー](http://localhost:54321/preview-20260216-173209.html)
 
 ▢
-メモ：jQueryアコーディオン＋/ー切替の失敗ポイント
+## ：jQueryアコーディオン＋/ー切替の失敗ポイントtext,find,next
+
 
 【気づき】
 - `.text("＋")` はセッター、`.text()` はゲッター。if文で比較するなら引数なし
@@ -4926,3 +4935,104 @@ $(function () {
 ```
 
 📋 [詳細ソース](./その他/00_サンプルソース/★jQueryアコーディオン＋ー切替.md)
+
+
+
+## 📌 lastScrollTop でスクロール方向を判定する js jQuer スクロールで下に移動したか上に移動したか
+
+【結論】
+`lastScrollTop` は「前回のスクロール位置」を記録する変数。
+現在のスクロール位置と比較することで、**上下どちらにスクロールしているか**を判定できる。
+
+- `scrollTop > lastScrollTop` → 下スクロール中
+- `scrollTop < lastScrollTop` → 上スクロール中
+- 比較後に `lastScrollTop = scrollTop` で今回の値を保存（次回比較用）
+
+【具体例：スクロール方向でサイドエリアの表示/非表示】
+
+```css
+  #side_area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* 18rem */
+    height: 10rem;
+    background-color: #fff;
+    z-index: 1000;
+    padding: 0rem 1.5rem;
+
+    /* ゆっくり隠す */
+    transition: transform 0.3s ease; /* スムーズなアニメーション */
+  }
+
+  #side_area.hidden {
+    transform: translateY(-100%); /* 上に隠す */
+  }
+```
+
+
+```js
+let lastScrollTop = 0; // 前回位置の初期値
+
+$(window).on("scroll", function () {
+  const scrollTop = $(this).scrollTop(); // 現在位置
+
+  if (scrollTop > lastScrollTop) {
+    // 下スクロール → 隠す
+    $("#side_area").addClass("hidden");
+  } else {
+    // 上スクロール → 表示
+    $("#side_area").removeClass("hidden");
+  }
+
+  lastScrollTop = scrollTop; // 今回の値を保存
+});
+```
+
+【補足】
+- `lastScrollTop` はスクロールイベントの**外側**で宣言（値を保持するため）
+- ヘッダやサイドバーの自動非表示によく使うパターン
+- 閾値を追加すれば微小スクロールを無視できる（例: `Math.abs(scrollTop - lastScrollTop) > 10`）
+
+
+
+
+## transform 
+
+ transform の用途
+1. 要素の移動（translate）
+
+transform: translateX(100px);  /* 横移動 */
+
+2. 中央配置の定番
+
+position: absolute;
+top: 50%; left: 50%;
+transform: translate(-50%, -50%); /* 自分自身の半分戻す */
+
+```html
+<!-- 画面中央に中央配置する -->
+<div class="centered_content">
+  <p class="tyuou">画面中央配置。</p>
+</div>
+```
+```css
+.centered_content {
+  height: 10rem;
+  position: relative;
+}
+
+.tyuou {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+```
+![](images/2026-02-17-01-59-13.png)
+
+3. 拡大・縮小（scale）
+transform: scale(1.2);   /* 1.2倍 */
+
+4. 回転（rotate）
+transform: rotate(45deg);  /* 45度回転 */
