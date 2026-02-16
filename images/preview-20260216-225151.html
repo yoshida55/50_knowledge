@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>視差効果デモ - 固定背景とスクロール前景</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ➀背景レイヤー：固定 */
+    .particle-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    /* 背景ラベル */
+    .bg-label {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 15px 25px;
+      border-radius: 12px;
+      font-weight: bold;
+      color: #667eea;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* 背景の家イラスト */
+    .house-illustration {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 200px;
+    }
+
+    /* 家の本体 */
+    .house-body {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 100px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* 屋根 */
+    .house-roof {
+      position: absolute;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 70px solid transparent;
+      border-right: 70px solid transparent;
+      border-bottom: 60px solid #ff6b6b;
+      filter: drop-shadow(0 5px 20px rgba(0, 0, 0, 0.3));
+      animation: float 3s ease-in-out infinite 0.2s;
+    }
+
+    /* ドア */
+    .house-door {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 45px;
+      background: #4ecdc4;
+      border-radius: 4px 4px 0 0;
+    }
+
+    /* 窓 */
+    .house-window {
+      position: absolute;
+      top: 20px;
+      width: 25px;
+      height: 25px;
+      background: #ffe66d;
+      border-radius: 4px;
+      animation: lightBlink 2s ease-in-out infinite;
+    }
+
+    .house-window.left { left: 15px; }
+    .house-window.right { right: 15px; }
+
+    @keyframes float {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    @keyframes lightBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    /* パーティクル */
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      animation: particleFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes particleFloat {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+    }
+
+    /* ➁前景レイヤー：スクロール */
+    .parallax-container {
+      position: relative;
+      z-index: 1;
+      padding-top: 100vh;
+    }
+
+    .fg-label {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      background: rgba(255, 107, 107, 0.95);
+      padding: 15px 25px;
+      border-radius: 12px;
+      font-weight: bold;
+      color: white;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      animation: slideIn 1s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* セクション */
+    .parallax-section {
+      min-height: 100vh;
+      background: white;
+      padding: 60px 40px;
+      box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.3);
+      border-radius: 30px 30px 0 0;
+    }
+
+    .content-card {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      transform: translateY(50px);
+      opacity: 0;
+      animation: cardAppear 0.8s ease-out forwards;
+    }
+
+    .content-card:nth-child(2) { animation-delay: 0.2s; }
+    .content-card:nth-child(3) { animation-delay: 0.4s; }
+    .content-card:nth-child(4) { animation-delay: 0.6s; }
+
+    @keyframes cardAppear {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .content-card h2 {
+      color: #667eea;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .content-card p {
+      color: #555;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .code-block {
+      background: #2d3748;
+      color: #a0aec0;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 15px;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .code-block span {
+      color: #4ecdc4;
+    }
+
+    /* スクロール指示 */
+    .scroll-indicator {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 14px;
+      z-index: 2;
+      animation: bounce 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    .scroll-indicator::after {
+      content: '↓';
+      display: block;
+      font-size: 24px;
+      text-align: center;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ➀背景画像（固定） -->
+  <div class="particle-bg">
+    <div class="bg-label">➀ 背景レイヤー（position: fixed）</div>
+    
+    <!-- 家のイラスト -->
+    <div class="house-illustration">
+      <div class="house-roof"></div>
+      <div class="house-body">
+        <div class="house-window left"></div>
+        <div class="house-window right"></div>
+        <div class="house-door"></div>
+      </div>
+    </div>
+
+    <!-- パーティクル -->
+    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="left: 25%; animation-delay: 1.5s;"></div>
+    <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
+    <div class="particle" style="left: 60%; animation-delay: 2s;"></div>
+    <div class="particle" style="left: 75%; animation-delay: 4s;"></div>
+    <div class="particle" style="left: 90%; animation-delay: 0.5s;"></div>
+  </div>
+
+  <!-- スクロール指示 -->
+  <div class="scroll-indicator">スクロールしてください</div>
+
+  <!-- ➁前面画像（スクロール） -->
+  <div class="parallax-container">
+    <div class="fg-label">➁ 前景レイヤー（z-index: 1）</div>
+    
+    <section class="parallax-section">
+      <div class="content-card">
+        <h2>📌 視差効果の仕組み</h2>
+        <p>背景を<strong>position: fixed</strong>で固定し、前景を通常スクロールさせることで、奥行きのある立体的な表現を実現しています。</p>
+      </div>
+
+      <div class="content-card">
+        <h2>🎨 背景レイヤー</h2>
+        <p>画面に固定されたまま動かず、スクロールしても常に同じ位置に表示されます。</p>
+        <div class="code-block">
+.particle-bg {
+  <span>position: fixed;</span>
+  <span>z-index: -1;</span>
+}</div>
+      </div>
+
+      <div class="content-card">
+        <h2>📄 前景レイヤー</h2>
+        <p>通常通りスクロールし、z-indexで背景��前面に配置されます。</p>
+        <div class="code-block">
+.parallax-container {
+  <span>position: relative;</span>
+  <span>z-index: 1;</span>
+  <span>padding-top: 100vh;</span>
+}</div>
+      </div>
+
+      <div class="content-card">
+        <h2>✨ 実装完了</h2>
+        <p>シンプルな2層構造で、美しい視差スクロール効果が完成しました。JavaScriptを追加すれば、さらに複雑なアニメーションも可能です。</p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // スクロール時の動的効果
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const indicator = document.querySelector('.scroll-indicator');
+      
+      // スクロール指示を非表示
+      if (scrolled > 50 && indicator) {
+        indicator.style.opacity = '0';
+      } else if (indicator) {
+        indicator.style.opacity = '1';
+      }
+
+      // 背景の家にパララックス効果
+      const house = document.querySelector('.house-illustration');
+      if (house) {
+        house.style.transform = `translateX(-50%) translateY(${scrolled * 0.3}px)`;
+      }
+
+      // 背景のパーティクルに動き
+      const particles = document.querySelectorAll('.particle');
+      particles.forEach((particle, index) => {
+        const speed = (index + 1) * 0.1;
+        particle.style.transform = `translateY(${-scrolled * speed}px)`;
+      });
+    });
+  </script>
+
+</body>
+</html>

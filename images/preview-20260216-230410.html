@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ヘッダー構造の立体的可視化</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Serif JP", "Yu Mincho", "游明朝", serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  perspective: 2000px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  animation: floatIn 1.5s ease-out;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px) rotateX(20deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+.header_area {
+  background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 100%),
+              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23c9a98f" width="1200" height="800"/><path fill="%23e8d5c4" d="M0 400h1200L900 800H0z"/></svg>');
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  box-shadow: 
+    0 50px 100px rgba(0,0,0,0.3),
+    0 20px 40px rgba(0,0,0,0.2),
+    inset 0 -2px 10px rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.header_area:hover {
+  transform: translateY(-5px) scale(1.01);
+}
+
+.header_inner {
+  position: relative;
+  height: 700px;
+  padding: 40px;
+}
+
+/* ラベル共通スタイル */
+.label {
+  position: absolute;
+  background: rgba(255,255,255,0.95);
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  border: 2px solid #fff;
+  z-index: 100;
+  animation: pulse 2s ease-in-out infinite;
+  backdrop-filter: blur(10px);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ロゴエリア */
+.header_logo {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  background: linear-gradient(135deg, #fff 0%, #f0f0f0 100%);
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.3),
+    inset 0 2px 5px rgba(255,255,255,0.8);
+  animation: dropDown 1.5s ease-out 0.5s backwards;
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.header_logo:hover {
+  transform: translateZ(20px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+@keyframes dropDown {
+  from {
+    opacity: 0;
+    transform: translateY(-60px) rotateX(-90deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+.header_logo_img {
+  width: 240px;
+  height: 30px;
+  background: linear-gradient(90deg, #333 0%, #666 100%);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.label-logo {
+  top: 10px;
+  left: 50px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: white;
+}
+
+/* ナビゲーションエリア */
+.header_nav {
+  position: absolute;
+  top: 32px;
+  right: 320px;
+  display: flex;
+  gap: 32px;
+  animation: dropDown 1.5s ease-out 0.8s backwards;
+  transform-style: preserve-3d;
+}
+
+.header_nav_list {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
+  padding: 20px 25px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.25),
+    inset 0 2px 5px rgba(255,255,255,0.9);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.header_nav_list:hover {
+  transform: translateZ(15px) translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+}
+
+.header_nav_link {
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, transparent 0%, rgba(103,126,234,0.1) 100%);
+}
+
+.header_nav_link:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+}
+
+.label-nav {
+  top: 10px;
+  right: 400px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+/* タイトルエリア */
+.header_title {
+  position: absolute;
+  bottom: 240px;
+  left: 64px;
+  color: #fff;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-shadow: 
+    0 4px 20px rgba(0,0,0,0.5),
+    0 2px 10px rgba(0,0,0,0.3);
+  animation: revealLeftToRight 1.5s ease-out 1.2s backwards;
+  background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transform-style: preserve-3d;
+}
+
+@keyframes revealLeftToRight {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+  }
+}
+
+.label-title {
+  bottom: 380px;
+  left: 80px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+/* 説明文エリア */
+.header_description {
+  position: absolute;
+  bottom: 160px;
+  left: 64px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 400;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  animation: revealLeftToRight 2s ease-out 1.5s backwards;
+  padding: 12px 20px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  border-left: 4px solid #fff;
+}
+
+.label-desc {
+  bottom: 140px;
+  left: 80px;
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: #333;
+}
+
+/* 構造線 */
+.structure-line {
+  position: absolute;
+  background: rgba(255,255,255,0.3);
+  z-index: 99;
+  animation: drawLine 1s ease-out forwards;
+}
+
+@keyframes drawLine {
+  from { width: 0; height: 0; }
+  to { width: 100%; height: 100%; }
+}
+
+.line1 {
+  top: 52px;
+  left: 32px;
+  width: 2px;
+  height: 80px;
+  animation-delay: 1.5s;
+}
+
+.line2 {
+  top: 52px;
+  right: 320px;
+  width: 2px;
+  height: 80px;
+  animation-delay: 1.8s;
+}
+
+.line3 {
+  bottom: 200px;
+  left: 64px;
+  width: 100px;
+  height: 2px;
+  animation-delay: 2.2s;
+}
+
+/* 情報パネル */
+.info-panel {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.95);
+  padding: 20px 40px;
+  border-radius: 50px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  display: flex;
+  gap: 30px;
+  animation: slideUp 1s ease-out 2s backwards;
+  backdrop-filter: blur(10px);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.info-icon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.icon-logo { background: #ff6b6b; }
+.icon-nav { background: #4facfe; }
+.icon-title { background: #f093fb; }
+.icon-desc { background: #fa709a; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header_area">
+    <div class="header_inner">
+      
+      <!-- ロゴエリア -->
+      <div class="header_logo">
+        <div class="header_logo_img">溝田建築設計株式会社</div>
+      </div>
+      <div class="label label-logo">📍 .header_logo</div>
+      
+      <!-- ナビゲーションエリア -->
+      <nav class="header_nav">
+        <div class="header_nav_list">
+          <a href="#" class="header_nav_link">私たちについて</a>
+          <a href="#" class="header_nav_link">家づくりのこだわり</a>
+          <a href="#" class="header_nav_link">施工事例</a>
+        </div>
+        <div class="header_nav_list">
+          <a href="#" class="header_nav_link">モデルハウス</a>
+          <a href="#" class="header_nav_link">土地・分譲情報</a>
+          <a href="#" class="header_nav_link">会社概要</a>
+        </div>
+      </nav>
+      <div class="label label-nav">🧭 .header_nav (flex 2列)</div>
+      
+      <!-- タイトル -->
+      <h1 class="header_title">わたしたちに<br>ちょうどいい家</h1>
+      <div class="label label-title">✨ .header_title (h1)</div>
+      
+      <!-- 説明文 -->
+      <p class="header_description">数十年先も続く、家族にも環境にも心地いい住まい。</p>
+      <div class="label label-desc">📝 .header_description</div>
+      
+      <!-- 構造線 -->
+      <div class="structure-line line1"></div>
+      <div class="structure-line line2"></div>
+      <div class="structure-line line3"></div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- 情報パネル -->
+<div class="info-panel">
+  <div class="info-item">
+    <span class="info-icon icon-logo"></span>
+    <span>ロゴ: position absolute (左上)</span>
+  </div>
+  <div class="info-item">
+    <span class="info-icon icon-nav"></span>
+    <span>ナビ: flex 縦並び×2列</span>
+  </div>
+  <div class="info-item">
+    <span class="info-icon icon-title"></span>
+    <span>タイトル: リビールアニメーション</span>
+  </div>
+  <div class="info-item">
+    <span class="info-icon icon-desc"></span>
+    <span>説明: 左から右へ表示</span>
+  </div>
+</div>
+
+</body>
+</html>

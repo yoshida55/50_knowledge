@@ -3337,9 +3337,9 @@ triggers:
 
 ## 📌 パララックスのシンプルな作り方 html
 
-![](images/2026-02-14-01-55-43.png)
 
-[プレビュー](http://localhost:54321/preview-20260215-035019.html)
+実際の画像にちかい
+[プレビュー](http://localhost:54321/preview-20260216-225151.html)
 
 ★なぜリラティブなのか！？
 [プレビュー](http://localhost:54321/preview-20260215-035655.html)
@@ -4721,7 +4721,7 @@ clip-path: inset(上 右 下 左);
 ## 📌 ドロップダウンアニメーション（上から降りてくる） html
 
 【結論】
-要素自体を上から下に移動させるには `transform: translateY()` を使う。リビール（clip-path）とは違い、要素が実際に動く。
+要素自体を上から下に移動させるには `@keyframes dropDown と、transform: translateY()` を使う。リビール（clip-path）とは違い、要素が実際に動く。
 
 【具体例】
 ```css
@@ -4802,7 +4802,7 @@ clip-path: inset(上 右 下 左);
 
 ---
 
-## 📌 VS Code Tab Moves Focus問題
+## 📌 VS Code Tab Moves Focus問題 html
 
 【結論】
 `Ctrl+M` を誤って押すと、Tabキーがインデント/サジェスト確定ではなく、UIのフォーカス移動に切り替わる。
@@ -4824,7 +4824,9 @@ clip-path: inset(上 右 下 左);
 
 
 
-## javaScriptの流れ
+## javaScriptの流れ　詳細なロジック：
+1. 実際のコードより短縮系
+2. 新しいロジックなど html
 
 
 
