@@ -42,7 +42,8 @@ https://animista.net/play/exits/bounce-out
 
 
 
-
+【自宅】
+ワーキングメモリにダブルクリックで検索要約モードを追加する
 
 
 
