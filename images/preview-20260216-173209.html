@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript実行フローの理解</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #1a1a2e; color: #eee; padding: 20px; }
+  h1 { text-align: center; margin-bottom: 20px; color: #e94560; }
+
+  .container { display: flex; gap: 20px; max-width: 1200px; margin: 0 auto; }
+
+  /* コードパネル */
+  .code-panel {
+    flex: 1;
+    background: #16213e;
+    border-radius: 12px;
+    padding: 20px;
+    font-family: 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-y: auto;
+    max-height: 80vh;
+  }
+  .code-line {
+    padding: 2px 8px;
+    border-radius: 4px;
+    transition: all 0.3s;
+    white-space: pre;
+  }
+  .code-line.active {
+    background: #e94560;
+    color: #fff;
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(233, 69, 96, 0.5);
+  }
+  .code-line.done {
+    background: rgba(0, 210, 106, 0.15);
+    color: #00d26a;
+  }
+  .code-line.registered {
+    background: rgba(79, 172, 254, 0.15);
+    color: #4facfe;
+  }
+  .code-line.skip {
+    opacity: 0.3;
+  }
+  .line-num { color: #555; margin-right: 10px; display: inline-block; width: 24px; text-align: right; }
+
+  /* 右パネル */
+  .right-panel { width: 380px; display: flex; flex-direction: column; gap: 15px; }
+
+  /* ブラウザの記憶 */
+  .memory-box {
+    background: #16213e;
+    border-radius: 12px;
+    padding: 15px;
+  }
+  .memory-box h3 { color: #4facfe; margin-bottom: 10px; font-size: 14px; }
+  .memory-item {
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: all 0.5s;
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  .memory-item.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .memory-item.event { background: rgba(79, 172, 254, 0.2); border-left: 3px solid #4facfe; }
+  .memory-item.dom { background: rgba(0, 210, 106, 0.2); border-left: 3px solid #00d26a; }
+
+  /* 解説 */
+  .narration-box {
+    background: #16213e;
+    border-radius: 12px;
+    padding: 15px;
+    min-height: 100px;
+  }
+  .narration-box h3 { color: #e94560; margin-bottom: 10px; font-size: 14px; }
+  #narration {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #ccc;
+  }
+
+  /* アコーディオンデモ */
+  .demo-box {
+    background: #16213e;
+    border-radius: 12px;
+    padding: 15px;
+  }
+  .demo-box h3 { color: #00d26a; margin-bottom: 10px; font-size: 14px; }
+  .demo-accordion {
+    background: #0f3460;
+    border-radius: 8px;
+    margin: 5px 0;
+    overflow: hidden;
+  }
+  .demo-title {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.3s;
+  }
+  .demo-title:hover { background: rgba(255,255,255,0.05); }
+  .demo-title .mark { color: #e94560; font-weight: bold; }
+  .demo-content {
+    padding: 0 15px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s, padding 0.3s;
+    font-size: 12px;
+    color: #aaa;
+  }
+  .demo-content.open {
+    max-height: 100px;
+    padding: 10px 15px;
+  }
+
+  /* ボタン */
+  .controls {
+    display: flex; gap: 10px; justify-content: center;
+    margin: 20px 0;
+  }
+  .btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-start { background: #e94560; color: #fff; }
+  .btn-click { background: #4facfe; color: #fff; opacity: 0.3; pointer-events: none; }
+  .btn-click.enabled { opacity: 1; pointer-events: auto; }
+  .btn-reset { background: #555; color: #fff; }
+
+  /* フェーズ表示 */
+  .phase-indicator {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  .phase-load { background: rgba(233, 69, 96, 0.2); color: #e94560; }
+  .phase-wait { background: rgba(85, 85, 85, 0.3); color: #888; }
+  .phase-click { background: rgba(79, 172, 254, 0.2); color: #4facfe; }
+
+  .legend {
+    display: flex; gap: 15px; justify-content: center; margin: 10px 0; font-size: 12px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-color {
+    width: 14px; height: 14px; border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+
+<h1>JavaScript 実行フローを可視化</h1>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-color" style="background:#e94560"></div> 今実行中</div>
+  <div class="legend-item"><div class="legend-color" style="background:rgba(0,210,106,0.3)"></div> 実行済み</div>
+  <div class="legend-item"><div class="legend-color" style="background:rgba(79,172,254,0.3)"></div> ブラウザに登録済み</div>
+  <div class="legend-item"><div class="legend-color" style="background:rgba(255,255,255,0.05)"></div> スキップ</div>
+</div>
+
+<div id="phaseIndicator" class="phase-indicator phase-wait">待機中</div>
+
+<div class="controls">
+  <button class="btn btn-start" id="btnStart" onclick="startPageLoad()">① ページ読み込み開始</button>
+  <button class="btn btn-click" id="btnClick1" onclick="simulateClick('work')">② #work をクリック</button>
+  <button class="btn btn-click" id="btnClick2" onclick="simulateClick('work1')">③ #work1 をクリック</button>
+  <button class="btn btn-reset" onclick="resetAll()">リセット</button>
+</div>
+
+<div class="container">
+  <!-- コードパネル -->
+  <div class="code-panel" id="codePanel"></div>
+
+  <!-- 右パネル -->
+  <div class="right-panel">
+    <div class="narration-box">
+      <h3>💬 解説</h3>
+      <div id="narration">「① ページ読み込み開始」を押してね</div>
+    </div>
+
+    <div class="memory-box">
+      <h3>🧠 ブラウザの記憶（イベント登録）</h3>
+      <div id="memoryList">
+        <div style="color:#555; font-size:13px;">まだ何も登録されていない</div>
+      </div>
+    </div>
+
+    <div class="demo-box">
+      <h3>🎯 実際の表示（デモ）</h3>
+      <div class="demo-accordion">
+        <div class="demo-title" id="demoWork">
+          <span>1. WEBディレクター</span>
+          <span class="mark" id="demoPlus"></span>
+        </div>
+        <div class="demo-content" id="demoContent">募集職種: テキスト</div>
+      </div>
+      <div class="demo-accordion">
+        <div class="demo-title" id="demoWork1">
+          <span>2. WEBデザイナー</span>
+          <span class="mark" id="demoPlus1"></span>
+        </div>
+        <div class="demo-content" id="demoContent1">募集職種: テキスト</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// コードの定義
+const codeLines = [
+  { text: '$(function () {', type: 'structure', id: 'domready-start' },
+  { text: '  $(".plus").text("＋");', type: 'init', id: 'init-plus' },
+  { text: '  $(".plus1").text("＋");', type: 'init', id: 'init-plus1' },
+  { text: '  $(".plus2").text("＋");', type: 'init', id: 'init-plus2' },
+  { text: '', type: 'blank' },
+  { text: '  $("#work").click(function () {', type: 'register', id: 'reg-work' },
+  { text: '    var content = $(".accordion-content");', type: 'click-work', id: 'cw-1' },
+  { text: '    var plusObj = $(".plus");', type: 'click-work', id: 'cw-2' },
+  { text: '    content.slideToggle();', type: 'click-work', id: 'cw-3' },
+  { text: '    if (plusObj.text() === "＋") {', type: 'click-work', id: 'cw-4' },
+  { text: '      plusObj.text("ー");', type: 'click-work', id: 'cw-5' },
+  { text: '    } else {', type: 'click-work', id: 'cw-6' },
+  { text: '      plusObj.text("＋");', type: 'click-work', id: 'cw-7' },
+  { text: '    }', type: 'click-work', id: 'cw-8' },
+  { text: '  });', type: 'structure' },
+  { text: '', type: 'blank' },
+  { text: '  $("#work1").click(function () {', type: 'register', id: 'reg-work1' },
+  { text: '    var content1 = $(".accordion-content1");', type: 'click-work1', id: 'cw1-1' },
+  { text: '    var plusObj1 = $(".plus1");', type: 'click-work1', id: 'cw1-2' },
+  { text: '    content1.slideToggle();', type: 'click-work1', id: 'cw1-3' },
+  { text: '    if (plusObj1.text() === "＋") {', type: 'click-work1', id: 'cw1-4' },
+  { text: '      plusObj1.text("ー");', type: 'click-work1', id: 'cw1-5' },
+  { text: '    } else {', type: 'click-work1', id: 'cw1-6' },
+  { text: '      plusObj1.text("＋");', type: 'click-work1', id: 'cw1-7' },
+  { text: '    }', type: 'click-work1', id: 'cw1-8' },
+  { text: '  });', type: 'structure' },
+  { text: '', type: 'blank' },
+  { text: '});', type: 'structure', id: 'domready-end' },
+];
+
+// コードをHTMLに描画
+const codePanel = document.getElementById('codePanel');
+codeLines.forEach((line, i) => {
+  const div = document.createElement('div');
+  div.className = 'code-line';
+  div.id = 'line-' + i;
+  div.innerHTML = `<span class="line-num">${i + 1}</span>${escapeHtml(line.text)}`;
+  codePanel.appendChild(div);
+});
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// 状態管理
+let plusState = '';
+let plus1State = '';
+let isRegistered = { work: false, work1: false };
+let isRunning = false;
+
+// ナレーション更新
+function setNarration(html) {
+  document.getElementById('narration').innerHTML = html;
+}
+
+// フェーズ更新
+function setPhase(type, text) {
+  const el = document.getElementById('phaseIndicator');
+  el.className = 'phase-indicator phase-' + type;
+  el.textContent = text;
+}
+
+// 行をハイライト
+function highlightLine(index, className) {
+  document.getElementById('line-' + index).className = 'code-line ' + className;
+}
+function clearAllLines() {
+  for (let i = 0; i < codeLines.length; i++) {
+    document.getElementById('line-' + i).className = 'code-line';
+  }
+}
+
+// メモリ表示
+function addMemory(id, text, type) {
+  const list = document.getElementById('memoryList');
+  if (list.querySelector('[data-id="placeholder"]') || list.children[0]?.dataset?.id === undefined) {
+    list.innerHTML = '';
+  }
+  const div = document.createElement('div');
+  div.className = 'memory-item ' + type;
+  div.dataset.id = id;
+  div.textContent = text;
+  list.appendChild(div);
+  setTimeout(() => div.classList.add('show'), 50);
+}
+
+// sleep
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ===== ページ読み込みアニメーション =====
+async function startPageLoad() {
+  if (isRunning) return;
+  isRunning = true;
+  document.getElementById('btnStart').style.opacity = '0.3';
+  document.getElementById('btnStart').style.pointerEvents = 'none';
+
+  setPhase('load', '📄 ページ読み込み中...');
+
+  // Step 1: $(function(){}) に入る
+  highlightLine(0, 'active');
+  setNarration('🔵 <b>$(function(){})</b> に入った！<br>→ HTMLの読み込みが完了したので、中の処理を<b>上から順に</b>実行していく');
+  await sleep(2000);
+  highlightLine(0, 'done');
+
+  // Step 2: .plus に ＋
+  highlightLine(1, 'active');
+  setNarration('✅ <b>$(".plus").text("＋")</b><br>→ .plus要素に「＋」をセット！<br><b>この行は今1回だけ実行される</b>');
+  document.getElementById('demoPlus').textContent = '＋';
+  plusState = '＋';
+  addMemory('dom-plus', '.plus → "＋" をセット', 'dom');
+  await sleep(2000);
+  highlightLine(1, 'done');
+
+  // Step 3: .plus1 に ＋
+  highlightLine(2, 'active');
+  setNarration('✅ <b>$(".plus1").text("＋")</b><br>→ .plus1要素にも「＋」をセット！');
+  document.getElementById('demoPlus1').textContent = '＋';
+  plus1State = '＋';
+  addMemory('dom-plus1', '.plus1 → "＋" をセット', 'dom');
+  await sleep(1500);
+  highlightLine(2, 'done');
+
+  // Step 4: .plus2 に ＋
+  highlightLine(3, 'active');
+  setNarration('✅ <b>$(".plus2").text("＋")</b><br>→ .plus2にも「＋」をセット！');
+  await sleep(1500);
+  highlightLine(3, 'done');
+
+  // Step 5: click登録（#work）
+  highlightLine(5, 'active');
+  setNarration('🔵 <b>$("#work").click(function(){...})</b><br>→ ⚠️ <b>中身は実行しない！</b><br>→ 「#workがクリックされたらこの関数を実行してね」と<br>　 <b>ブラウザに登録（予約）するだけ</b>');
+  await sleep(3000);
+  // 中の行をスキップ表示
+  for (let i = 6; i <= 14; i++) {
+    highlightLine(i, 'skip');
+  }
+  highlightLine(5, 'registered');
+  isRegistered.work = true;
+  addMemory('ev-work', '🎯 #work クリック → function() 実行', 'event');
+  setNarration('📋 ブラウザが覚えた！<br>「<b>#workがクリックされたら、6〜14行目を実行する</b>」<br><br>⚠️ 6〜14行目は今はスキップ！');
+  await sleep(3000);
+
+  // Step 6: click登録（#work1）
+  highlightLine(16, 'active');
+  setNarration('🔵 <b>$("#work1").click(function(){...})</b><br>→ こっちも<b>登録するだけ</b>。中身は実行しない');
+  await sleep(2500);
+  for (let i = 17; i <= 25; i++) {
+    highlightLine(i, 'skip');
+  }
+  highlightLine(16, 'registered');
+  isRegistered.work1 = true;
+  addMemory('ev-work1', '🎯 #work1 クリック → function() 実行', 'event');
+  await sleep(1500);
+
+  // Step 7: 閉じ括弧
+  highlightLine(27, 'active');
+  setNarration('✅ <b>$(function(){}) 終了！</b><br><br>やったこと：<br>① ＋を表示（初期化）<br>② クリックイベントを登録<br><br>🔴 <b>ここでJSの実行は完全に終了</b><br>→ もう上からやり直すことはない！');
+  await sleep(3000);
+  highlightLine(27, 'done');
+
+  // 待機状態
+  setPhase('wait', '⏸ 待機中... ユーザーのクリックを待っている');
+  setNarration('JSの実行は終わった。<br><br>ブラウザは<b>イベント登録だけ覚えて</b>待機中。<br><br>👆 <b>②か③のボタンを押してみよう！</b>');
+
+  document.getElementById('btnClick1').classList.add('enabled');
+  document.getElementById('btnClick2').classList.add('enabled');
+  isRunning = false;
+}
+
+// ===== クリック時のアニメーション =====
+async function simulateClick(target) {
+  if (isRunning) return;
+  isRunning = true;
+
+  // 全行リセット（登録済みは維持）
+  for (let i = 0; i < codeLines.length; i++) {
+    const line = codeLines[i];
+    const el = document.getElementById('line-' + i);
+    if (line.type === 'register') {
+      el.className = 'code-line registered';
+    } else if (line.type === 'init' || i === 0 || i === 27) {
+      el.className = 'code-line done';
+    } else if (line.type.startsWith('click-')) {
+      el.className = 'code-line skip';
+    } else {
+      el.className = 'code-line';
+    }
+  }
+
+  if (target === 'work') {
+    setPhase('click', '🖱 #work がクリックされた！');
+    setNarration('🖱 <b>#workがクリックされた！</b><br><br>ブラウザ「あ、#workの登録あったな...」<br>→ <b>登録された関数だけ</b>実行開始！<br><br>⚠️ 1行目からやり直しではない！');
+    await sleep(2500);
+
+    // 登録行をハイライト
+    highlightLine(5, 'active');
+    setNarration('→ ブラウザが<b>5行目で登録した関数</b>を呼び出す<br>→ <b>6行目から実行開始</b>');
+    await sleep(2000);
+
+    // 中身を順番に実行
+    const clickLines = [6, 7, 8, 9];
+    const messages = [
+      '変数contentにアコーディオンの要素を取得',
+      '変数plusObjに.plus要素を取得',
+      '<b>slideToggle()</b> → アコーディオンを開閉！',
+      '<b>plusObj.text() === "＋" ?</b><br>→ 今の値は「' + plusState + '」'
+    ];
+
+    for (let j = 0; j < clickLines.length; j++) {
+      highlightLine(clickLines[j], 'active');
+      setNarration(messages[j]);
+      if (clickLines[j] === 8) {
+        document.getElementById('demoContent').classList.toggle('open');
+      }
+      await sleep(1800);
+      highlightLine(clickLines[j], 'done');
+    }
+
+    // if分岐
+    if (plusState === '＋') {
+      highlightLine(10, 'active');
+      setNarration('✅ 「＋」だったので → <b>「ー」に変更！</b>');
+      document.getElementById('demoPlus').textContent = 'ー';
+      plusState = 'ー';
+      await sleep(2000);
+      highlightLine(10, 'done');
+      highlightLine(11, 'skip');
+      highlightLine(12, 'skip');
+    } else {
+      highlightLine(11, 'skip');
+      highlightLine(12, 'active');
+      setNarration('✅ 「ー」だったので → <b>「＋」に戻す！</b>');
+      document.getElementById('demoPlus').textContent = '＋';
+      plusState = '＋';
+      await sleep(2000);
+      highlightLine(12, 'done');
+    }
+
+    highlightLine(13, 'done');
+    await sleep(500);
+
+    setNarration('✅ <b>クリック処理完了！</b><br><br>実行されたのは<b>6〜14行目だけ</b>。<br>1行目の初期化は通ってない！<br><br>👆 もう一度押すと＋/ーが切り替わるよ');
+
+  } else if (target === 'work1') {
+    setPhase('click', '🖱 #work1 がクリックされた！');
+    setNarration('🖱 <b>#work1がクリックされた！</b><br><br>ブラウザ「#work1の登録あったな...」<br>→ <b>16行目で登録した関数</b>を実行！');
+    await sleep(2500);
+
+    highlightLine(16, 'active');
+    await sleep(1500);
+
+    const clickLines = [17, 18, 19, 20];
+    const messages = [
+      '変数content1にアコーディオン要素を取得',
+      '変数plusObj1に.plus1要素を取得',
+      '<b>slideToggle()</b> → アコーディオンを開閉！',
+      '<b>plusObj1.text() === "＋" ?</b><br>→ 今の値は「' + plus1State + '」'
+    ];
+
+    for (let j = 0; j < clickLines.length; j++) {
+      highlightLine(clickLines[j], 'active');
+      setNarration(messages[j]);
+      if (clickLines[j] === 19) {
+        document.getElementById('demoContent1').classList.toggle('open');
+      }
+      await sleep(1800);
+      highlightLine(clickLines[j], 'done');
+    }
+
+    if (plus1State === '＋') {
+      highlightLine(21, 'active');
+      setNarration('✅ 「＋」だったので → <b>「ー」に変更！</b>');
+      document.getElementById('demoPlus1').textContent = 'ー';
+      plus1State = 'ー';
+      await sleep(2000);
+      highlightLine(21, 'done');
+    } else {
+      highlightLine(23, 'active');
+      setNarration('✅ 「ー」だったので → <b>「＋」に戻す！</b>');
+      document.getElementById('demoPlus1').textContent = '＋';
+      plus1State = '＋';
+      await sleep(2000);
+      highlightLine(23, 'done');
+    }
+
+    setNarration('✅ <b>クリック処理完了！</b><br><br>実行されたのは<b>17〜25行目だけ</b>。<br>他の行は一切通ってない！');
+  }
+
+  setPhase('wait', '⏸ 待機中... 次のクリックを待っている');
+  isRunning = false;
+}
+
+// リセット
+function resetAll() {
+  clearAllLines();
+  document.getElementById('memoryList').innerHTML = '<div style="color:#555; font-size:13px;">まだ何も登録されていない</div>';
+  document.getElementById('narration').innerHTML = '「① ページ読み込み開始」を押してね';
+  document.getElementById('demoPlus').textContent = '';
+  document.getElementById('demoPlus1').textContent = '';
+  document.getElementById('demoContent').classList.remove('open');
+  document.getElementById('demoContent1').classList.remove('open');
+  document.getElementById('btnStart').style.opacity = '1';
+  document.getElementById('btnStart').style.pointerEvents = 'auto';
+  document.getElementById('btnClick1').classList.remove('enabled');
+  document.getElementById('btnClick2').classList.remove('enabled');
+  setPhase('wait', '待機中');
+  plusState = '';
+  plus1State = '';
+  isRegistered = { work: false, work1: false };
+  isRunning = false;
+}
+</script>
+</body>
+</html>

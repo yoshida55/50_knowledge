@@ -4821,3 +4821,106 @@ clip-path: inset(上 右 下 左);
 ・62_HTMLからCSSへジャンプ
 ・64_ループビジュアル拡張機能_anti
 ・65_HTML自動プレビュー
+
+
+
+## javaScriptの流れ
+
+
+
+
+[プレビュー](http://localhost:54321/preview-20260216-173209.html)
+
+▢
+メモ：jQueryアコーディオン＋/ー切替の失敗ポイント
+
+【気づき】
+- `.text("＋")` はセッター、`.text()` はゲッター。if文で比較するなら引数なし
+- `$(function(){})` は1回だけ。クリック時は `.click()` の中だけ実行される
+- `$(this)` + `.next()` + `.find()` で3つの個別処理を1つにまとめられる
+- CSSの `::after` とJSの `.text()` を両方使うと＋が2個出る
+
+【ポイント】
+
+★ゲッターとセッターの違い
+```javascript
+// ❌ if (plusObj.text("＋")) → 常にtrue
+// ✅ if (plusObj.text() === "＋") → 比較できる
+```
+
+★$(this)で共通化
+```javascript
+$("#work, #work1, #work2").click(function () {
+  var content = $(this).next();
+  var plusObj = $(this).find(".plus, .plus1, .plus2");
+});
+```
+
+★コピペで動く最小コード（ファイル分離版）
+
+**HTML**
+```html
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="css/accordion.css" />
+</head>
+<body>
+
+<div class="accordion-title">
+  <span>1. WEBディレクター</span>
+  <span class="plus"></span>
+</div>
+<div class="accordion-content">
+  <p>仕事内容: テキスト</p>
+</div>
+
+<div class="accordion-title">
+  <span>2. WEBデザイナー</span>
+  <span class="plus"></span>
+</div>
+<div class="accordion-content">
+  <p>募集職種: テキスト</p>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="js/accordion.js"></script>
+</body>
+</html>
+```
+
+**CSS（css/accordion.css）**
+```css
+.accordion-title {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: orange;
+  cursor: pointer;
+  border-top: 1px solid #000;
+}
+.accordion-content {
+  display: none;
+  padding: 10px;
+}
+```
+
+**JavaScript（js/accordion.js）**
+```javascript
+$(function () {
+  $(".plus").text("＋");
+
+  $(".accordion-title").click(function () {
+    $(this).next().slideToggle();
+    var p = $(this).find(".plus");
+    if (p.text() === "＋") {
+      p.text("ー");
+    } else {
+      p.text("＋");
+    }
+  });
+});
+```
+
+📋 [詳細ソース](./その他/00_サンプルソース/★jQueryアコーディオン＋ー切替.md)
