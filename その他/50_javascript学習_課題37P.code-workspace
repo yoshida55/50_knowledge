@@ -8,6 +8,7 @@
     }
   ],
   "settings": {
-    "liveServer.settings.multiRootWorkspaceName": "50_javascript学習_課題37P"
+    "liveServer.settings.multiRootWorkspaceName": "50_javascript学習_課題37P",
+    "liveServer.settings.port": 5501
   }
 }

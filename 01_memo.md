@@ -5221,3 +5221,144 @@ html {
   font-size: calc(10 / 1400 * 100vw);
   font-size: clamp(8px, calc(10 / 1400 * 100vw), 10px)
 ```
+
+---
+
+## 📌 vw vs % とスクロールバーのズレ問題 css
+
+【結論】
+`100vw` はスクロールバーを含むが、`100%` は含まない。
+`font-size: calc(10 / 1280 * 100vw)` でrem計算すると、rem指定のwidthがスクロールバー分（約15px）大きくなり、`margin: 0 auto` が負の値になって中央からズレる。
+
+- `width: 92rem`（vwベース）→ スクロールバー分ズレる
+- `width: 100%` → 親のcontent幅基準なのでズレない
+
+【具体例】
+```css
+/* NG: vwベースのremで固定幅 → スクロールバー分ズレる */
+html { font-size: calc(10 / 1280 * 100vw); }
+#work {
+  width: 92rem;       /* vw経由で計算 → 親より15px大きい */
+  margin: 0 auto;     /* → margin-right: -15px になる！ */
+}
+
+/* OK: %指定 → スクロールバー影響なし */
+#work {
+  width: 100%;         /* 親のcontent幅にフィット */
+  box-sizing: border-box; /* padding込みで100% */
+}
+```
+
+【補足】
+- `100vw` = ウィンドウ幅（スクロールバー含む）
+- `100%` = 親のcontent幅（スクロールバー除く）
+- block要素はwidth未指定でも親幅いっぱいになる（width: auto）
+- `width: 100%` + `margin-left: 3rem` → はみ出す！この場合はwidth削除がベスト
+
+---
+
+## 📌 box-sizing: content-box vs border-box css
+
+【結論】
+`content-box`（デフォルト）はpaddingがボックス幅に加算される。
+`border-box` はpadding込みでwidth指定の幅に収まる。
+現場では `border-box` が標準。
+
+- content-box: width = contentのみ → paddingで膨らむ
+- border-box: width = content + padding + border → 膨らまない
+
+【具体例】
+```css
+/* リセットCSS定番（全要素に適用） */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* content-box（デフォルト） */
+width: 900px; padding-left: 30px;
+→ ボックス幅 = 930px（paddingが加算）
+
+/* border-box */
+box-sizing: border-box;
+width: 900px; padding-left: 30px;
+→ ボックス幅 = 900px（固定！content幅が870pxに縮む）
+```
+
+【補足】
+- デザインカンプとの比較は border-box の方が計算しやすい
+- 左距離 + ボックス幅 + 右距離 = 親幅 で一発確認できる
+- DevToolsのComputed → box-sizingで確認可能
+
+---
+
+## 📌 margin vs padding の使い分け css
+
+【結論】
+marginはボックス自体が移動する（外側の余白）。paddingはボックス内側が広がる。
+迷ったらpaddingの方が予測しやすい。marginには相殺（collapse）の罠がある。
+
+- margin = 他の要素との距離（自分が動く）
+- padding = 自分の中身との距離（自分が太る）
+
+【具体例】
+```css
+/* margin: ボックスが移動 */
+margin-top: 20px; → 要素が20px下にずれる
+
+/* padding: ボックス内部が広がる */
+padding-top: 35px; → 要素のサイズが大きくなる
+```
+
+```
+margin collapse（相殺）:
+  div A  margin-bottom: 30px
+  div B  margin-top: 20px
+  → 間隔 = 30px（大きい方が勝つ、50pxにならない！）
+
+padding は相殺しない:
+  div A  padding-bottom: 30px
+  div B  padding-top: 20px
+  → 間隔 = 50px（そのまま加算）
+```
+
+【補足】
+- セクション内の余白 → padding
+- セクション間の余白 → margin
+- 背景色がある → padding一択（margin部分は背景が塗られない）
+- クリック領域を広げたい → padding（marginはクリック範囲外）
+- margin collapseは上下のみ発生（左右は発生しない）
+
+---
+
+## 📌 width: 100% + margin-left がある時の注意 css
+
+【結論】
+`width: 100%` に `margin-left` を足すと親からはみ出す。
+block要素はwidth未指定（auto）なら margin 分だけ自動で縮むので、widthを削除するのがベスト。
+
+【具体例】
+```css
+/* NG: はみ出す */
+.work_list {
+  width: 100%;
+  margin-left: 3rem;  /* 100% + 3rem = はみ出し！ */
+}
+
+/* OK: width削除（autoで自動調整） */
+.work_list {
+  /* width指定なし = auto */
+  margin-left: 3rem;  /* 親幅 - 3rem に自動で縮む */
+}
+
+/* OK: calcで引く */
+.work_list {
+  width: calc(100% - 3rem);
+  margin-left: 3rem;
+}
+```
+
+【補足】
+- block要素のデフォルト width: auto は「親のcontent幅 - 自分のmargin」
+- width: 100% は「親のcontent幅ちょうど」（marginは考慮しない）
+- flexやgridの子要素では挙動が異なる場合あり
+```
