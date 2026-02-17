@@ -5036,3 +5036,51 @@ transform: scale(1.2);   /* 1.2倍 */
 
 4. 回転（rotate）
 transform: rotate(45deg);  /* 45度回転 */
+
+## AOSの実装手順
+
+https://michalsnik.github.io/aos/
+
+★　スタイルCSSを設定する。➡　AOSのデザイン
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+★　javaScriptを読み込む　➡　AOSの機能
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+★　ちゃんとCSSにカラーをつけること。
+
+
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- work.css" を読み込む -->
+    <link rel="stylesheet" href="css/work_AOS.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- クラス名をつける。 -->
+    <div class="AOS" data-aos="fade-up" data-aos-anchor-placement="bottom-bottom">
+      <h1>テスト</h1>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script src="js/AOS_work.js"></script>
+  </body>
+</html>
+```
+
+```css
+.AOS {
+  background-color: red;
+  width: 400px;
+  height: 300px;
+}
+```

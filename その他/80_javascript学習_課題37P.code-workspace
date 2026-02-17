@@ -1,11 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "../../01_研修用/96_過去の成果物（最新）/80_javascript学習_課題37P"
-		},
-		{
-			"path": ".."
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "../../01_研修用/96_過去の成果物（最新）/80_javascript学習_課題37P",
+    },
+    {
+      "path": "..",
+    },
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "80_javascript学習_課題37P",
+  },
 }
