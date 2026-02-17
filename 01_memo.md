@@ -5084,3 +5084,130 @@ https://michalsnik.github.io/aos/
   height: 300px;
 }
 ```
+
+## 📌 jQuery イベントタイミング - $(function) vs $(window).on("load")
+
+【結論】
+- `$(function () {})` = HTML読込完了（DOM構築完了）
+- `$(window).on("load", ...)` = CSS・画像等**全リソース**DL完了
+- ページ更新時は**両方とも再実行**される
+- 通常は `$(function...)` で十分
+
+【具体例：実行タイミングの違い】
+```javascript
+// ⚡ 早い: HTML解析完了後すぐ実行（DOM操作可能）
+$(function () {
+  $(".btn").click(function () {
+    alert("クリック");
+  });
+});
+
+// 🐌 遅い: 全リソースDL完了後に実行
+$(window).on("load", function () {
+  // 画像の実寸取得が必要な場合はこっち
+  const imgHeight = $("img").height();
+  console.log(imgHeight); // → 正確なサイズ
+});
+```
+
+【実行順序】
+```
+1. HTML解析開始
+   ↓
+2. HTML解析完了（DOMツリー構築）
+   ↓
+   ⚡ $(function () {}) ← ここ
+   ↓
+3. CSS・画像・外部JS等のDL
+   ↓
+   🐌 $(window).on("load", ...) ← ここ
+```
+
+【補足】
+- `$(function...)` = `$(document).ready(...)` の省略形
+- 画像サイズ取得・Canvas描画等は `load` イベント必須
+- 95%のケースは `$(function...)` でOK
+- F5更新時は両方とも毎回実行される
+
+
+## 📌 jQuery .css() メソッドの3つの使い方 カラーの比較、設定、オブジェクトの設定方法、
+
+【結論】
+- ① CSS設定：オブジェクトで複数プロパティをセット
+- ② CSS取得：引数にプロパティ名を入れる
+- ③ CSS比較：rgb() 形式で比較する
+
+【具体例】
+```javascript
+// ① セット：オブジェクトで複数設定
+$(".acodeTitle").css({
+  "color": "red",
+  "background-color": "yellow"
+});
+
+// ② 取得：プロパティ名を引数に入れる
+var color = $(".acodeTitle").css("color");
+console.log(color); // → "rgb(255, 0, 0)"
+
+// ③ 比較：rgb形式で比較
+if (color === "rgb(255, 0, 0)") {
+  // 赤色の場合の処理
+}
+```
+
+【セットの書き方】
+```javascript
+// パターン1：オブジェクト（複数まとめて）
+.css({"color": "red", "font-size": "20px"})
+
+// パターン2：チェーン（1個ずつ）
+.css("color", "red").css("font-size", "20px")
+
+// パターン3：引数2つ（1個だけ）
+.css("color", "red")
+```
+
+【補足】
+- オブジェクトは `:` コロンで「プロパティ: 値」
+- 引数は `,` カンマで区切る
+- 色の比較は必ず rgb() 形式（"red" や "blue" では比較できない）
+- rgb値の確認：`console.log(要素.css("color"))` で確認可能
+
+
+## 📌 jQuery セレクター - カンマは""の中に入れる（複数クラスを一度に選択する方法）
+
+【結論】
+- jQueryのセレクターはCSSと同じくカンマで複数まとめられる
+- カンマは " " の中に入れる（引数を分けない）
+- CSSのセレクター記法と完全に同じ
+
+【具体例】
+```javascript
+// ✅ 正しい：カンマは文字列の中
+$(".plus, .plus1, .plus2").text("＋");
+// → 3つのクラス全て選択される
+
+// ❌ 間違い：カンマで引数を分けている
+$(".plus", ".plus1", ".plus2").text("＋");
+// → .plus だけが選択される（第2,3引数は無視）
+```
+
+【CSSとの対応】
+```css
+/* CSSでの書き方 */
+.plus, .plus1, .plus2 {
+  color: red;
+}
+```
+
+```javascript
+/* jQueryでも同じ書き方 */
+$(".plus, .plus1, .plus2").css("color", "red");
+```
+
+【補足】
+- ID と クラス の混在もOK：`$("#work, .test, #btn")`
+- カンマで区切ると「OR条件」（どれか1つに該当すれば選択）
+- 第2引数以降は「コンテキスト（検索範囲）」として扱われる場合がある
+- CSS選択できるものは全てjQueryでも選択可能
+
