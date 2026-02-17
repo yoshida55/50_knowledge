@@ -3466,6 +3466,9 @@ particlesJS("particles-js", {
 
 ```css
 font-size: clamp(10px, (10 / 1280 * 100vw), 16px);
+
+一般的なやつ
+font-size: calc(10 / 1400 * 100vw);
 /* ✨
 # clamp()の計算説明
 
@@ -5211,3 +5214,10 @@ $(".plus, .plus1, .plus2").css("color", "red");
 - 第2引数以降は「コンテキスト（検索範囲）」として扱われる場合がある
 - CSS選択できるものは全てjQueryでも選択可能
 
+## htmlの基本となるfont-size style.cssでも利用。　画面幅によって、サイズを変更する。
+
+```css
+html {
+  font-size: calc(10 / 1400 * 100vw);
+  font-size: clamp(8px, calc(10 / 1400 * 100vw), 10px)
+```
