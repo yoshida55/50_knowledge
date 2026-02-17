@@ -1,5 +1,8 @@
 
+▢　HTMLプレビューの入り方
 
+・Git cloneで開発環境にダウンロード。
+・buildの、build\start-hidden.bat のショートカットをスタートアップにおく。
 
 
 ▢
