@@ -40,9 +40,11 @@ https://animista.net/play/exits/bounce-out
 
 ## 拡張機能
 
-▢ css jump　修正したので会社におく
-・会社のPCではALT Fはきかない。
 
+`自宅でやること`
+▢　バグ　ドラッグしながらCTRLVすると、「どのような修正がしたいですか」とメッセージがでる　
+
+CSS JUMP
 
 
 
