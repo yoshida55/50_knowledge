@@ -1,8 +1,8 @@
 
 ▢　HTMLプレビューの入り方
 
-・Git cloneで開発環境にダウンロード。
-・buildの、build\start-hidden.bat のショートカットをスタートアップにおく。
+・会社PC	start-hidden.bat のショートカット → スタートアップ
+
 
 
 ▢
@@ -26,9 +26,7 @@ https://mizota-ks.com/
 ▢
 会社に持っていくもの：
 
-1. HTMLプレビューのEXE（VPSをね。スタートアップに登録）
-2. CSSジャンプのEXE  VSIXもchrome拡張機能（CSSJUMPフォルダ）
-5. スニペット
+
 
 6. pull パスを変更
 
