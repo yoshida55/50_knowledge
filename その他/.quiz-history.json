@@ -2,32 +2,41 @@
   "パララックス、レイヤーを重ねるときに必要なこと,": {
     "title": "パララックス、レイヤーを重ねるときに必要なこと,",
     "line": 1544,
-    "lastReviewed": 1770422193162,
-    "reviewCount": -1
+    "lastReviewed": 1771452970977,
+    "reviewCount": 0
   },
   "✅ 正しい修正方法": {
     "title": "✅ 正しい修正方法",
     "line": 1962,
-    "lastReviewed": 1770422197173,
-    "reviewCount": -1
+    "lastReviewed": 1771453093631,
+    "reviewCount": 0,
+    "evaluations": [
+      2
+    ]
   },
   "隣接要素": {
     "title": "隣接要素",
     "line": 2914,
-    "lastReviewed": 1770422305275,
-    "reviewCount": -1
+    "lastReviewed": 1771453124511,
+    "reviewCount": 0,
+    "evaluations": [
+      1
+    ]
   },
   "fixed absolute で縦と横をやるときは、  transform: translate(-50%, -50%);　ひとつでまとめないといけない。": {
     "title": "fixed absolute で縦と横をやるときは、  transform: translate(-50%, -50%);　ひとつでまとめないといけない。",
     "line": 2416,
-    "lastReviewed": 1770422308769,
-    "reviewCount": -1
+    "lastReviewed": 1771454117684,
+    "reviewCount": 0
   },
   "■ 中央揃え": {
     "title": "■ 中央揃え",
     "line": 849,
-    "lastReviewed": 1770422311383,
-    "reviewCount": -1
+    "lastReviewed": 1771454569596,
+    "reviewCount": 2,
+    "evaluations": [
+      3
+    ]
   },
   "テスト": {
     "title": "テスト",
@@ -38,8 +47,11 @@
   "共通のクラスを作成した際に一部だけ変更することができる。書き方は以下のようにする。": {
     "title": "共通のクラスを作成した際に一部だけ変更することができる。書き方は以下のようにする。",
     "line": 1722,
-    "lastReviewed": 1770450527222,
-    "reviewCount": -1
+    "lastReviewed": 1771454615139,
+    "reviewCount": 0,
+    "evaluations": [
+      2
+    ]
   },
   "💡 重要ポイント": {
     "title": "💡 重要ポイント",

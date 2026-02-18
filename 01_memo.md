@@ -1,3 +1,62 @@
+## ★ アニメーション一覧
+
+### スクロール・フェードイン
+
+| アニメーション | 概要 | プレビュー |
+|---|---|---|
+| AOS スクロールアニメーション | スクロールで下から表示・スライド・ズーム等。シンプル〜多機能版4パターン | [▶](http://localhost:54321/preview-20260214-082619.html) |
+| フェードイン（最新版） | スクロールで要素が下から上に浮き上がる。一度表示した要素を除外してパフォーマンス向上 | [▶](http://localhost:54321/preview-20260215-112528.html) |
+| フェードイン（旧版） | スクロール連動で下から上にfadeIn。jQuery + scroll event | [▶](http://localhost:54321/preview-20260215-111256.html) |
+| 後ろに引き込まれる | スクロールで画面内に入った瞬間、scale()で縮小しながら奥へ吸い込まれる | — |
+| スクロールで画像を拡大 | PC: 画像拡大 / SP: 縮小。ウィンドウ幅900px基準で切替 | — |
+
+### スライダー・スライドショー
+
+| アニメーション | 概要 | プレビュー |
+|---|---|---|
+| Swiper 基本 | フェード切替・オートプレイ | [▶](http://localhost:54321/preview-20260216-001945.html) |
+| Swiper サムネイル連動 | サムネイルクリックでメイン切替 | [▶](http://localhost:54321/preview-20260216-002046.html) |
+| Swiper 自動再生+プログレスバー | 残り時間をバーで表示 | [▶](http://localhost:54321/preview-20260216-002406.html) |
+| Swiper 多機能版 | 上記全機能の組み合わせ | [▶](http://localhost:54321/preview-20260216-002459.html) |
+| 無限スクロール（すき間あり） | Slick.jsで3枚同時表示。padding+centerPaddingでチラ見せ | — |
+| 無限スクロール（すき間なし） | CSSの@keyframesだけで左から右へ無限スクロール。ライブラリ不要 | — |
+| スライドショー（同じ場所で切替） | 3枚をposition: absoluteで重ねて、animation-delayでタイミングずらし | — |
+
+### テキスト・文字系
+
+| アニメーション | 概要 | プレビュー |
+|---|---|---|
+| clip-path 文字リビール | clip-path inset()で上から下へ文字が現れる。縦書きに最適 | — |
+| ShuffleText 文字シャッフル | 文字がランダムに変化→最終テキストへ収束。ハッカー風UI | — |
+| 縦書きメニュー 順次表示 | clip-path + writing-mode: vertical-rl。右から左へ順次リビール | — |
+
+### インタラクション（メニュー・開閉）
+
+| アニメーション | 概要 | プレビュー |
+|---|---|---|
+| アコーディオン（flex対応） | slideToggle()使用。display: blockをflex上書きするコールバック必須 | — |
+| アコーディオン ＋－切替 | 開閉に＋/－を同時切替。.text()とtoggleClass()の組み合わせ | — |
+| ハンバーガー 左スライドメニュー | 左からナビがスライドイン。pointer-events: noneでオーバーレイ透過 | — |
+
+### 画像・レイアウト
+
+| アニメーション | 概要 | プレビュー |
+|---|---|---|
+| 画像ギャラリー（小→大切替） | サムネクリックで大画像切替。attr("src")で画像パス変更 | — |
+| 画像を階段式に２列配置 | nth-child(odd/even)で左右交互。text-align制御 | — |
+| 動画を画面に配置 | videoタグのautoplay/muted/playsinline属性。object-fitでアスペクト比維持 | — |
+| パララックス | data-speed属性でスクロール速度を要素ごとに制御。背景固定+手前スクロール | [▶](./その他/00_サンプルソース/★パララックス.html) |
+
+### 視覚効果
+
+| アニメーション | 概要 | プレビュー |
+|---|---|---|
+| シャボン玉アニメーション | background-positionをアニメーションで移動。GIFが画面内を落下する演出 | — |
+| 吹き出し・会話バルーン | ::beforeで三角形。IntersectionObserverでscale(0.1)→scale(1)の膨張アニメ | [▶](http://localhost:54321/preview-20260215-120351.html) |
+| ぼかし・立体など各種 | box-shadow: insetで内側ぼかし。border-bottomで立体感など | — |
+
+---
+
 ## 📌 スキル: `/mockup` - スクショからSVG設計図を生成する
 
 【結論】
@@ -3259,6 +3318,15 @@ content-visibility: auto;    /* 見えない部分の描画をスキップ */
 .hamburger_menu.open + .side_nav_overlay {
   display: block;
 }
+
+
+```css 補足
+/* + : 直後の1つのみ */
+.hamburger_menu.open + .side_nav_overlay { display: block; }
+
+/* ~ : 以降の全兄弟 */
+.hamburger_menu.open ~ .side_nav_overlay { display: block; }
+```
 
 
 
