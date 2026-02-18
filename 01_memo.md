@@ -5500,3 +5500,63 @@ if (scroll > target - windowHeight + 200) {
 - CSS/JS/クラス追加の手書きコードが全部不要になる
 - PC・モバイル両方で自動で動く（レスポンシブ対応済み）
 - 詳細は「AOS 使い方」でググればOK（暗記不要）
+---
+
+## 📌 CSS absoluteは何階層でもネストできる（スライドショー+文字重ねの実装パターン）
+
+【結論】
+position: absoluteは何階層でも重ねられる。ポイントは「一番近いrelative（またはabsolute）の親」を基準にすること。
+
+- absoluteの中にabsoluteはOK（制限なし）
+- z-indexで前後を制御（大きい方が前）
+- 兄弟要素同士を重ねるには、親をrelativeにしてそれぞれabsolute/relativeで配置
+
+【具体例：スライドショー + 文字重ね】
+```html
+<header class="header_area">        <!-- relative：基準 -->
+  <div class="bg_image">            <!-- absolute：背景（奥） -->
+    <div class="slide slide1"></div> <!-- absolute：スライド画像 -->
+    <div class="slide slide2"></div>
+    <div class="slide slide3"></div>
+  </div>
+  <div class="header_inner">        <!-- relative + z-index:1：前面 -->
+    <div class="header_logo">...</div>  <!-- absolute -->
+    <h1 class="header_title">...</h1>   <!-- absolute -->
+  </div>
+</header>
+```
+
+```css
+/* 親：基準 */
+.header_area {
+  position: relative;
+  height: 100svh;
+}
+
+/* 背景スライド：裏に敷く */
+.bg_image {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+}
+
+/* 各スライド：bg_imageの中で重ねる */
+.slide {
+  position: absolute;
+  width: 100%; height: 100%;
+}
+
+/* 文字エリア：前面に配置 */
+.header_inner {
+  position: relative;  /* absoluteではなくrelative */
+  z-index: 1;          /* bg_imageより前 */
+  height: 100%;
+}
+```
+
+【補足】
+- absoluteは「一番近いposition指定済みの親」を基準にする
+- relativeの親でもabsoluteの親でもOK（fixedでもOK）
+- 兄弟を重ねるパターン：片方absolute（奥）、片方relative+z-index（前）
+- background-imageを使わずdivスライドにする理由＝アニメーション制御が自由
