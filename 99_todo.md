@@ -46,6 +46,10 @@ https://animista.net/play/exits/bounce-out
 
 CSS JUMP
 
+▢  アニメーションを探せる仕組みをつくることが大事かも
+動画をとってAIに理解させる。
+
+
 
 
 
