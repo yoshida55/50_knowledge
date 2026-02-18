@@ -1,3 +1,121 @@
+## 📌 HTML ハンバーガーメニューは `<button>` タグを使う
+
+【結論】
+クリックして何かを「実行する」要素は `<button>`。`<div>` でも動くが `<button>` にする理由がある。
+
+【具体例】
+```html
+<!-- ❌ よくある間違い -->
+<div id="hamburger_btn" class="hamburger_menu">
+  <span class="bar"></span>
+</div>
+
+<!-- ✅ 正しい -->
+<button type="button" id="hamburger_btn" class="hamburger_menu" aria-label="メニューを開く">
+  <span class="bar"></span>
+</button>
+```
+
+```css
+/* button のデフォルトスタイルをリセット */
+.hamburger_menu {
+  padding: 0;
+  font: inherit;
+  background-color: transparent;
+  border: none; /* 不要なら */
+  cursor: pointer;
+}
+```
+
+【補足】
+- `<a>` → 遷移するもの（リンク）
+- `<button>` → クリックして何かを実行するもの（ハンバーガー・送信など）
+- `<div>` でも `cursor: pointer` は付けられるが、キーボード操作・スクリーンリーダー対応ができない
+- `type="button"` を付けないと `form` の中でsubmitとして動くことがあるので明示する
+
+---
+
+## 📌 CSS 親に transform（アニメーション含む）があると position: fixed が壊れる　HTML
+
+【結論】
+`position: fixed` の要素は、祖先に `transform` が適用されている要素があると、viewportではなくその要素を基準に配置される。
+アニメーションで `transform` を使い `forwards` で状態を保持している場合も同様。
+
+【具体例】
+```css
+/* ❌ 壊れるパターン */
+.header_nav {
+  animation: dropDown 1.5s forwards; /* transform: translateY() を使用 */
+}
+.hamburger_menu {
+  position: fixed; /* ← header_nav が基準になってしまう */
+}
+```
+
+```css
+/* ✅ 正しいパターン：transformのない親の直下に置く */
+.header_inner {
+  position: relative; /* transformなし */
+}
+.hamburger_menu {
+  position: fixed; /* ← viewportが基準になる ✅ */
+  animation: dropDown 1.5s forwards; /* 個別にアニメを付与 */
+}
+```
+
+```html
+<!-- ✅ 構造 -->
+<div class="header_inner">
+  <nav class="header_nav">         <!-- transformアニメあり -->
+    <div class="header_nav_list">...</div>
+  </nav>
+  <!-- fixedにしたい要素はnavの外に出す -->
+  <div class="hamburger_menu">...</div>
+</div>
+```
+
+【補足】
+- `transform` を持つ祖先要素は「containing block」になる（viewportの代わり）
+- `animation: ... forwards` で終了後もtransformが残り続けるので注意
+- `transform: translateY(0)` のゼロ移動でも同様に壊れる
+- 解決策：固定したい要素をtransformのない祖先の直下に移動し、個別にアニメを付与する
+
+---
+
+## 📌 CSS Flexbox で要素内を中央配置する鉄板パターン html
+
+【結論】
+要素の中身を縦横中央に配置したいときは、以下3つを親要素に書けばOK。
+
+- `display: flex` → 自分をflex containerにする
+- `align-items: center` → 子を縦中央に
+- `justify-content: center` → 子を横中央に
+
+書く場所は**親**、効果が出るのは**子**（テキストノードも含む）。
+
+【具体例】
+```css
+.inquiry_link {
+  display: flex;
+  align-items: center;    /* 縦中央 */
+  justify-content: center;/* 横中央 */
+  height: 50px;           /* ← 高さがないと縦中央の効果が見えない */
+}
+```
+
+```html
+<a class="inquiry_link" href="#">
+  お問い合わせ  ← これが「子」として中央配置される
+</a>
+```
+
+【補足】
+- ボタン・カード・ヘッダーロゴ・モーダルなど幅広く使える
+- `height` or `min-height` がないと縦中央が効いてるか見えない
+- 1つの要素が「外から見てblock」「内から見てflex container」の2役を同時に持てる
+
+---
+
 ## テスト問題  html
 
 これはテストです
@@ -496,12 +614,6 @@ html {
 ## ▢ 拡張ツールの見方　暗記
 紫・・・その紫色の部分は、justify-content: center; によって生じている Flexbox の余白（整列スペース） です。
 
-## ▢ 　マージンとパディングの違い
-暗記
-親要素から見れば、子要素はパッディングで設定する。子要素同士から見れば、マージンで他の距離を取る。
-
-つまり。おやで最初にパディングを
-とるのがわかりやすい。
 
 ▢ 　 📝 縦書きレイアウトの失敗メモ　暗記
 `Flexbox` を組み合わせる際の落とし穴」**についての非常に重要なメモです。
@@ -4486,6 +4598,12 @@ $(function () {
 - スクショやURLを渡す → 大セクション名を日本語で一括提案
 - HTMLコメント + CSS特徴付きコメントを生成
 - `/class-auto` と連携可能（セクション確定後 → クラス名付与）
+
+### 6. `/review-css` - HTML/CSSコードレビュー ✅ 2026-02-19追加
+- HTML + CSS を読み込んで改善点を観点ごとに一覧で出す（修正はしない）
+- 観点: ①不要ルール ②重複の共通化 ③変数化 ④CSSプロパティ順 ⑤コメント不整合 ⑥セマンティック ⑦構造の重複 ⑧仮クラス名 ⑨アクセシビリティ ⑩AIっぽいコメント
+- 優先度付きで出力 → 全部直さなくていい、順番に対処
+- 観点は `C:\Users\sensh\.claude\skills\review-css\skill.md` に追記して拡張可能
 
 【補足】
 - スキル保存先: `C:\Users\sensh\.claude\skills\[スキル名]\`
