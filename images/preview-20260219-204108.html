@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>カーテンめくれ デモ</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: sans-serif;
+      color: white;
+      gap: 40px;
+    }
+
+    h1 { font-size: 20px; text-align: center; color: #ccc; }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 280px);
+      gap: 30px;
+    }
+
+    .demo-box {
+      text-align: center;
+    }
+
+    .demo-box p {
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    .img-wrap {
+      width: 280px;
+      height: 180px;
+      overflow: hidden;
+      position: relative;
+      background: #333;
+    }
+
+    .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* =============================
+       アニメーション定義
+    ============================= */
+
+    /* ① 左→右 スライド（よくある普通のやつ） */
+    @keyframes slideRight {
+      from { clip-path: inset(0 100% 0 0); }
+      to   { clip-path: inset(0 0% 0 0); }
+    }
+
+    /* ② 対角線 左上→右下（カーテンめくれ） */
+    @keyframes curtainPeel {
+      0%   { clip-path: polygon(0 0, 0 0, 0 0, 0 0); }
+      100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    }
+
+    /* ③ 斜め強め（対角を通過する） */
+    @keyframes curtainDiagonal {
+      0%   { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+      50%  { clip-path: polygon(0 0, 100% 0, 50% 100%, 0 100%); }
+      100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    }
+
+    /* クラスで切り替え */
+    .anim-slide    { animation: slideRight      1.2s ease-out both; }
+    .anim-peel     { animation: curtainPeel     1.2s ease-out both; }
+    .anim-diagonal { animation: curtainDiagonal 1.2s ease-out both; }
+
+    /* ボタン */
+    .btn-wrap {
+      display: flex;
+      gap: 16px;
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 15px;
+      background: #5a5247;
+      color: white;
+      border: 1px solid #888;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { background: #7a6a5a; }
+  </style>
+</head>
+<body>
+
+  <h1>カーテンめくれ アニメーション 比較デモ</h1>
+
+  <div class="demo-grid">
+
+    <!-- ① 普通の左→右スライド -->
+    <div class="demo-box">
+      <p>① 左→右（普通）</p>
+      <div class="img-wrap">
+        <img class="anim-slide" src="img/concept/concept01.jpg"
+             onerror="this.src='https://picsum.photos/280/180?random=1'" alt="" />
+      </div>
+    </div>
+
+    <!-- ② 対角カーテン（左上から展開） -->
+    <div class="demo-box">
+      <p>② 対角カーテン ★おすすめ</p>
+      <div class="img-wrap">
+        <img class="anim-peel" src="img/concept/concept02.jpg"
+             onerror="this.src='https://picsum.photos/280/180?random=2'" alt="" />
+      </div>
+    </div>
+
+    <!-- ③ 斜め強め -->
+    <div class="demo-box">
+      <p>③ 斜めシャープ</p>
+      <div class="img-wrap">
+        <img class="anim-diagonal" src="img/concept/concept03.jpg"
+             onerror="this.src='https://picsum.photos/280/180?random=3'" alt="" />
+      </div>
+    </div>
+
+  </div>
+
+  <div class="btn-wrap">
+    <button onclick="replayAll()">▶ もう一度再生</button>
+  </div>
+
+  <p style="font-size:13px; color:#666;">
+    ※ ②が「左上からカーテンがめくれる」イメージに近いです
+  </p>
+
+  <script>
+    function replayAll() {
+      const imgs = document.querySelectorAll('.img-wrap img');
+      imgs.forEach(img => {
+        // アニメーションをリセットして再生
+        img.style.animation = 'none';
+        // 一瞬待ってから再適用
+        img.getBoundingClientRect(); // reflow強制
+        img.style.animation = '';
+      });
+    }
+  </script>
+
+</body>
+</html>

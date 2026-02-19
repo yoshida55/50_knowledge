@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>カーテンめくれ デモ</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: sans-serif;
+      color: white;
+      gap: 40px;
+      padding: 40px;
+    }
+
+    h1 { font-size: 20px; text-align: center; color: #ccc; }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 280px);
+      gap: 40px;
+    }
+
+    .demo-box {
+      text-align: center;
+    }
+
+    .demo-box p {
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    /* ===================================
+       ラッパー：はみ出しを隠すのが重要！
+    =================================== */
+    .img-wrap {
+      width: 280px;
+      height: 180px;
+      position: relative;
+      overflow: hidden; /* ← カーテンがはみ出しても見えないようにする */
+    }
+
+    .img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ===================================
+       カーテン役のオーバーレイ
+       ::before 疑似要素でラッパーを覆う
+    =================================== */
+    .img-wrap::before {
+      content: '';
+      position: absolute;
+      top: -20%;          /* 斜めになっても隙間ができないよう大きめに */
+      left: -20%;
+      width: 160%;        /* 大きめにしてはみ出させる */
+      height: 160%;
+      background: #3a3530; /* カーテンの色（背景色に合わせる） */
+      z-index: 1;         /* 画像の上に重ねる */
+      transform-origin: top left;
+
+      /* 斜め具合（skewX でカーテンの端を斜めにする） */
+      transform: skewX(-15deg) translateX(0%);
+      animation: curtainSlide 1s cubic-bezier(0.77, 0, 0.18, 1) both;
+    }
+
+    /* カーテンが右方向へスライドして消える */
+    @keyframes curtainSlide {
+      from {
+        transform: skewX(-15deg) translateX(0%);   /* 画像を完全に覆っている */
+      }
+      to {
+        transform: skewX(-15deg) translateX(120%); /* 右へ消える */
+      }
+    }
+
+    /* ===================================
+       3パターンの違い（速度・スキュー比較）
+    =================================== */
+
+    /* ① ゆっくり */
+    .slow::before {
+      animation-duration: 1.8s;
+    }
+
+    /* ② 標準 ★おすすめ */
+    .normal::before {
+      animation-duration: 1.0s;
+    }
+
+    /* ③ スキュー強め（より急斜め） */
+    .sharp::before {
+      transform: skewX(-30deg) translateX(0%);
+      animation: curtainSlideSharp 1.0s cubic-bezier(0.77, 0, 0.18, 1) both;
+    }
+
+    @keyframes curtainSlideSharp {
+      from { transform: skewX(-30deg) translateX(0%); }
+      to   { transform: skewX(-30deg) translateX(120%); }
+    }
+
+    /* ボタン */
+    button {
+      padding: 12px 32px;
+      font-size: 15px;
+      background: #5a5247;
+      color: white;
+      border: 1px solid #888;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { background: #7a6a5a; }
+  </style>
+</head>
+<body>
+
+  <h1>カーテンめくれ アニメーション 比較デモ</h1>
+
+  <div class="demo-grid">
+
+    <!-- ① ゆっくり -->
+    <div class="demo-box">
+      <p>① ゆっくり（1.8s）</p>
+      <div class="img-wrap slow">
+        <img src="img/concept/concept01.jpg"
+             onerror="this.src='https://picsum.photos/280/180?random=11'" alt="concept01" />
+      </div>
+    </div>
+
+    <!-- ② 標準 -->
+    <div class="demo-box">
+      <p>② 標準（1.0s）★おすすめ</p>
+      <div class="img-wrap normal">
+        <img src="img/concept/concept02.jpg"
+             onerror="this.src='https://picsum.photos/280/180?random=22'" alt="concept02" />
+      </div>
+    </div>
+
+    <!-- ③ スキュー強め -->
+    <div class="demo-box">
+      <p>③ 斜め急（skewX -30deg）</p>
+      <div class="img-wrap sharp">
+        <img src="img/concept/concept03.jpg"
+             onerror="this.src='https://picsum.photos/280/180?random=33'" alt="concept03" />
+      </div>
+    </div>
+
+  </div>
+
+  <button onclick="replayAll()">▶ もう一度再生</button>
+
+  <p style="font-size:13px; color:#555; text-align:center;">
+    ポイント：img-wrap に overflow:hidden があるので<br>
+    カーテン（::before）がはみ出しても見えない → フチなしでなめらか
+  </p>
+
+  <script>
+    function replayAll() {
+      // すべての img-wrap の ::before をリセットして再アニメーション
+      const wraps = document.querySelectorAll('.img-wrap');
+      wraps.forEach(wrap => {
+        // クラスを一瞬外して付け直す → アニメーションリセット
+        const cls = wrap.className;
+        wrap.className = 'img-wrap';
+        wrap.getBoundingClientRect(); // reflow を強制
+        wrap.className = cls;
+      });
+    }
+  </script>
+
+</body>
+</html>
