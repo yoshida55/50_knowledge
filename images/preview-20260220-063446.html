@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>流れるようにふわっと表示（修正版）</title>
+    <style>
+        /* 背景設定 */
+        body {
+            background-color: #5d534a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* 画像のコンテナ */
+        .image-container {
+            width: 600px;
+            max-width: 90%;
+        }
+
+        /* 画像自体のスタイルとアニメーション設定 */
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+
+            /* === ここが修正の肝（ベンダープレフィックスの追加） === */
+            /* black(表示)からtransparent(非表示)へのグラデーションをマスクにする */
+            -webkit-mask-image: linear-gradient(135deg, black 40%, transparent 60%);
+            mask-image: linear-gradient(135deg, black 40%, transparent 60%);
+            
+            /* マスクのサイズを元の画像の3倍にして移動距離を作る */
+            -webkit-mask-size: 300% 300%;
+            mask-size: 300% 300%;
+            
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+
+            /* アニメーションを4秒でループ */
+            animation: flowReveal 4s ease-in-out infinite;
+        }
+
+        /* --- マスクが左上から右下へ「流れる」アニメーション --- */
+        @keyframes flowReveal {
+            /* 0%〜20%: 動画の開始時（表示されている状態） */
+            0%, 20% {
+                /* マスクの「black」部分が画像を覆っている状態 */
+                -webkit-mask-position: 0% 0%;
+                mask-position: 0% 0%;
+                opacity: 1;
+            }
+            
+            /* 25%〜50%: パッと消えて、そのまま待機 */
+            25%, 50% {
+                /* マスクの「transparent」部分を画像に合わせる（隠す） */
+                -webkit-mask-position: 100% 100%;
+                mask-position: 100% 100%;
+                /* 完全に消すためにopacityも0にする */
+                opacity: 0; 
+            }
+
+            /* 51%: 再び現れる直前 */
+            51% {
+                /* 位置は隠れたまま、opacityだけ元に戻す */
+                -webkit-mask-position: 100% 100%;
+                mask-position: 100% 100%;
+                opacity: 1;
+            }
+
+            /* 100%: 左上から右下へ流れるように表示完了 */
+            100% {
+                /* 再びマスクの「black」部分を左上から引っ張ってくる */
+                -webkit-mask-position: 0% 0%;
+                mask-position: 0% 0%;
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="https://images.unsplash.com/photo-1597481499750-3e6b22637e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="ティーグラスとピッチャー">
+    </div>
+</body>
+</html>

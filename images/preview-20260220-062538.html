@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像フェード＆ブラー アニメーション</title>
+    <style>
+        /* 背景色を動画のようなブラウン系に設定 */
+        body {
+            background-color: #5d534a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* 画像のコンテナ */
+        .image-container {
+            width: 600px;
+            max-width: 90%;
+            /* 4秒周期でアニメーションをループ */
+            animation: fadeAndBlur 4s ease-in-out infinite;
+        }
+
+        /* 画像本体のスタイル */
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* 動画のコマに合わせたキーフレーム（不透明度とぼかしの調整） */
+        @keyframes fadeAndBlur {
+            0% {
+                /* 00:00 - くっきり表示 */
+                opacity: 1;
+                filter: blur(0px);
+                transform: scale(1);
+            }
+            20% {
+                /* 00:01手前までキープ */
+                opacity: 1;
+                filter: blur(0px);
+                transform: scale(1);
+            }
+            25% {
+                /* 00:01 - 一瞬で消える */
+                opacity: 0;
+                transform: scale(0.95); /* 少しだけ引く動きを入れると自然です */
+            }
+            45% {
+                /* 00:02手前 - 消えた状態をキープ */
+                opacity: 0;
+                filter: blur(10px); /* 次に現れる準備としてぼかしを入れておく */
+                transform: scale(0.95);
+            }
+            60% {
+                /* 00:02 - ぼんやりと現れ始める */
+                opacity: 0.5;
+                filter: blur(5px);
+                transform: scale(0.98);
+            }
+            80% {
+                /* 00:03 - 完全にくっきり元通り */
+                opacity: 1;
+                filter: blur(0px);
+                transform: scale(1);
+            }
+            100% {
+                /* 00:04までキープしてループ */
+                opacity: 1;
+                filter: blur(0px);
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="https://images.unsplash.com/photo-1597481499750-3e6b22637e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="ティーグラスとピッチャー">
+    </div>
+</body>
+</html>

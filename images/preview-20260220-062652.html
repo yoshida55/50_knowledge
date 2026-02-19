@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>左上から右下へカーテン表示</title>
+    <style>
+        /* 背景設定 */
+        body {
+            background-color: #5d534a; /* 動画の雰囲気に合わせた背景色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* 画像のコンテナ */
+        .image-container {
+            width: 600px;
+            max-width: 90%;
+            position: relative;
+            /* 動画の時間に合わせて4秒でループ設定 */
+            animation: curtainReveal 4s linear infinite;
+        }
+
+        /* 画像自体のスタイル */
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* --- ここが重要なアニメーション設定 --- */
+        @keyframes curtainReveal {
+            /* 0%〜20%: 最初は普通に表示されている状態 (動画の00:00付近) */
+            0%, 20% {
+                opacity: 1;
+                /* clip-path: inset(上 右 下 左) - すべて0なら全表示 */
+                clip-path: inset(0 0 0 0); 
+            }
+            /* 25%: パッと消える (動画の00:01付近) */
+            25% {
+                opacity: 0;
+                 /* 消えている間もclip-pathは全表示のまま待機 */
+                clip-path: inset(0 0 0 0);
+            }
+            /* 50%: 消えたまま待機 (動画の00:02直前) */
+            50% {
+                opacity: 0;
+                clip-path: inset(0 0 0 0);
+            }
+            /* 51%: 現れる直前。不透明度を戻すが、clip-pathで隠す */
+            51% {
+                opacity: 1;
+                /* 右と下を100%インセット＝左上の角に押し込められて見えない状態にする */
+                clip-path: inset(0 100% 100% 0);
+            }
+            /* 100%: 左上から右下に向かってカーテンが開いた状態 (動画の00:04) */
+            100% {
+                opacity: 1;
+                /* すべて0に戻ることで、左上から右下へ向かって表示領域が広がる */
+                clip-path: inset(0 0 0 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="https://images.unsplash.com/photo-1597481499750-3e6b22637e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="ティーグラスとピッチャー">
+    </div>
+</body>
+</html>

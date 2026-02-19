@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>流れるようにふわっと表示</title>
+    <style>
+        /* 背景設定 */
+        body {
+            background-color: #5d534a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* 画像のコンテナ */
+        .image-container {
+            width: 600px;
+            max-width: 90%;
+            /* 4秒ループのアニメーション設定 */
+            /* 動きを分かりやすくするため、一旦「消えた状態から現れる」動きだけに絞ります */
+            animation: flowReveal 4s linear infinite;
+            
+            /* === 流れるマスクの設定 === */
+            /* 左上から右下へのグラデーション。ぼかし足（30%〜70%の間）を広めに設定 */
+            mask-image: linear-gradient(135deg, white 30%, transparent 70%);
+            
+            /* マスクを非常に大きくし、移動距離を稼ぐ */
+            mask-size: 400% 400%;
+            
+            /* 繰り返さない */
+            mask-repeat: no-repeat;
+        }
+
+        /* 画像自体のスタイル */
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+            /* 初期状態は透明にしておく */
+            opacity: 0;
+        }
+
+        /* --- マスクが「流れる」アニメーション --- */
+        @keyframes flowReveal {
+            /* 0%〜50%: 待機時間（消えたまま） */
+            0%, 50% {
+                opacity: 0;
+                /* マスクの透明な部分が画像に重なる位置（右下のはるか外側） */
+                mask-position: 100% 100%;
+            }
+
+            /* 51%: 現れる開始直前 */
+            51% {
+                opacity: 1; /* 不透明度をオンにするが、まだマスクで隠れている */
+                mask-position: 100% 100%; 
+            }
+
+            /* 100%: 完了時点 */
+            100% {
+                opacity: 1;
+                /* マスクの白い部分が画像全体を覆う位置（左上のはるか外側）まで移動 */
+                /* 巨大なマスクが画像の対角線上を完全に通り過ぎる */
+                mask-position: 0% 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="https://images.unsplash.com/photo-1597481499750-3e6b22637e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="ティーグラスとピッチャー">
+    </div>
+</body>
+</html>
