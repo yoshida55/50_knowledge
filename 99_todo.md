@@ -22,22 +22,12 @@ git pull origin main
 ▢サイト
 https://animista.net/
 
-溝田建設
-https://mizota-ks.com/
+
 
 
 
 ▢
 会社に持っていくもの：
-
-
-
-6. pull パスを変更
-
-
-4. アニメーションのURL
-https://animista.net/play/exits/bounce-out
-
 
 
 ## 拡張機能
@@ -46,10 +36,6 @@ https://animista.net/play/exits/bounce-out
 `自宅でやること`
 ▢　バグ　ドラッグしながらCTRLVすると、「どのような修正がしたいですか」とメッセージがでる　
 
-CSS JUMP
-
-▢  アニメーションを探せる仕組みをつくることが大事かも
-動画をとってAIに理解させる。
 
 
 
