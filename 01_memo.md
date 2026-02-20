@@ -1,3 +1,89 @@
+## 📌 JSでアロー関数の`this`はwindowになる（e.targetを使え）
+
+【結論】
+アロー関数 `() => {}` の中で `this` を使うと、イベント対象の要素ではなく**windowオブジェクト**を指す。
+イベント対象の要素を取得するには `e.target` を使う。
+
+【具体例：ホバーでアンダーライン】
+```js
+// ❌ ダメな例（thisがwindowになる）
+elem.addEventListener("mouseover", (e) => {
+  this.style.textDecoration = "underline";  // エラー！
+});
+
+// ✅ 正しい例（e.targetで対象要素を取得）
+elem.addEventListener("mouseover", (e) => {
+  e.target.style.textDecoration = "underline";
+});
+```
+
+【補足】
+- `function() {}` なら `this` はイベント対象要素を指す
+- アロー関数は親スコープの `this` を引き継ぐ（＝大抵window）
+- 迷ったら `e.target` を使えば安全
+
+---
+
+## 📌 querySelectorAllで複数要素にイベントをつける（forEachが必要）
+
+【結論】
+`querySelectorAll` で取得した複数要素にイベントをつけるには `.forEach()` でループが必要。
+`querySelector`（単数）だと1つ目しか取れない。
+
+【具体例：全カードにホバーイベント】
+```js
+// ❌ 1つしか取れない
+const desc = document.querySelector(".case_description");
+desc.addEventListener("mouseover", ...);  // 最初の1つだけ
+
+// ✅ 全部に適用
+document.querySelectorAll(".case_description").forEach((desc) => {
+  desc.addEventListener("mouseover", (e) => {
+    e.target.style.textDecoration = "underline";
+  });
+});
+```
+
+【補足】
+- `querySelector` → 1つ目だけ返す
+- `querySelectorAll` → 全部返す（NodeList）
+- NodeListには `.forEach()` が使える
+
+---
+
+## 📌 flex-shrink: 0 はスライダーに必須（カードが縮まないようにする）
+
+【結論】
+`flex-shrink: 0` は「親が狭くても縮めるな」という指定。スライダーでカード枚数を制御するには必須。
+
+- デフォルト `flex-shrink: 1` → 親に収まるよう自動で縮む → カードが5枚6枚全部見えちゃう
+- `flex-shrink: 0` → 指定幅を維持 → overflow:hidden で4枚だけ表示される
+
+【具体例：4枚カードスライダー】
+```css
+.case_list {
+  overflow: hidden;          /* はみ出た分を隠す */
+}
+
+.case_track {
+  display: flex;
+  gap: 2rem;
+  transition: transform 0.5s ease-out;  /* JSでスライド */
+}
+
+.case_item {
+  width: calc((100% - 6rem) / 4);  /* gap2rem×3を引いて4分割 */
+  flex-shrink: 0;                   /* ← これがないと全部縮んで表示される */
+}
+```
+
+【補足】
+- `overflow: hidden` + `flex-shrink: 0` はスライダーのセット
+- JSで `translateX` を使ってスライドさせる仕組みと組み合わせる
+- `width: calc()` でgap分を引いて計算するのがポイント
+
+---
+
 ## ★ アニメーション一覧
 
 ### スクロール・フェードイン

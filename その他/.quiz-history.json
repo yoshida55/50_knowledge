@@ -56,26 +56,20 @@
   "💡 重要ポイント": {
     "title": "💡 重要ポイント",
     "line": 192,
-    "lastReviewed": 1771532047024,
-    "reviewCount": 0,
-    "questionText": "`flex: 1`と`width`を両方指定した場合、どちらの命令が優先される？"
+    "lastReviewed": 1770450538385,
+    "reviewCount": -1
   },
   "具体例": {
     "title": "具体例",
     "line": 1799,
-    "lastReviewed": 1771532252444,
-    "reviewCount": 0,
-    "questionText": "JSで要素のwidth変更時に、CSSで自動的にアニメーション効果を付与する設定は何？",
-    "evaluations": [
-      1
-    ]
+    "lastReviewed": 1770450543901,
+    "reviewCount": -1
   },
   "HTMLの構造": {
     "title": "HTMLの構造",
     "line": 1416,
-    "lastReviewed": 1771532312809,
-    "reviewCount": 0,
-    "questionText": "HTMLでロゴの箇所に、SEO対策として推奨される見出しタグはどれですか？"
+    "lastReviewed": 1770450560764,
+    "reviewCount": -1
   },
   "文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）": {
     "title": "文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）",
