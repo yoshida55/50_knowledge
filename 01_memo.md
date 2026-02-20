@@ -5901,3 +5901,31 @@ html {
 - `nth-of-type` は**タグの種類**で数える（クラスではない）
 - `<p>`の1番目 = `.label` なので `nth-of-type(1)` も期待通りにならない
 - 隣接セレクタ `+` が最も確実で読みやすい
+
+---
+
+## 📌 CSS white-space: nowrap でテキストの改行を防ぐ
+
+【結論】
+`white-space: nowrap` を指定すると、テキストが折り返さず1行で表示される。
+ボタンやラベルなど、改行させたくない要素に使う。
+
+【具体例】
+```css
+/* 改行させたくないボタン */
+.office_label {
+  white-space: nowrap;
+}
+```
+
+```
+/* white-space の値一覧 */
+normal   → 通常（自動改行する）
+nowrap   → 改行しない（1行で表示）
+pre      → 改行・スペースをそのまま表示（<pre>と同じ）
+pre-wrap → preと同じだが、はみ出したら折り返す
+```
+
+【補足】
+- `nowrap` だけだとはみ出す場合がある → `overflow: hidden` + `text-overflow: ellipsis` で「...」表示も可能
+- flexの子要素が縮まって改行される場合にも有効
