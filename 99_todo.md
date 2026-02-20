@@ -1,7 +1,11 @@
 
-▢　HTMLプレビューの入り方
+▢　会社でグローバル　claude.mdを登録する
+cd C:\Users\guest04\.claude
+git init
+git remote add origin https://github.com/yoshida55/claude_claude.md.git
+git pull origin main
 
-・会社PC	start-hidden.bat のショートカット → スタートアップ
+・さらにスクリプトに該当フォルダを追加。
 
 
 
