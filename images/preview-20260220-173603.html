@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>overflow: hidden の実演デモ</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Meiryo, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.demo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.explanation {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.explanation h2 {
+  color: #667eea;
+  margin-bottom: 1rem;
+}
+
+.explanation ul {
+  margin-left: 1.5rem;
+  line-height: 1.8;
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.demo-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  transform: perspective(1000px) rotateX(2deg);
+  transition: transform 0.3s ease;
+}
+
+.demo-card:hover {
+  transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+}
+
+.demo-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.badge-success {
+  background: #10b981;
+  color: white;
+}
+
+.badge-error {
+  background: #ef4444;
+  color: white;
+}
+
+.right_container {
+  position: relative;
+  border: 3px solid #667eea;
+  background: #f0f4ff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow: inset 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+.container-label {
+  position: absolute;
+  top: -12px;
+  left: 10px;
+  background: #667eea;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.size-label {
+  position: absolute;
+  top: -12px;
+  right: 10px;
+  background: #f59e0b;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.child-content {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+  animation: contentPulse 2s ease-in-out infinite;
+}
+
+@keyframes contentPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+/* デモ1: height指定なし */
+.demo1 .right_container {
+  overflow: hidden;
+  /* height指定なし */
+}
+
+.demo1 .child-content {
+  height: 300px;
+}
+
+/* デモ2: height指定あり */
+.demo2 .right_container {
+  overflow: hidden;
+  height: 150px;
+}
+
+.demo2 .child-content {
+  height: 300px;
+}
+
+/* デモ3: calc()使用 */
+.demo3 .right_container {
+  overflow: hidden;
+  height: calc(100% - 5rem);
+  min-height: 120px;
+}
+
+.demo3 .child-content {
+  height: 300px;
+}
+
+.overflow-indicator {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ef4444;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  animation: bounce 1s ease-in-out infinite;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+.hidden-indicator {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #10b981;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.code-block {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+  overflow-x: auto;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.code-block .keyword {
+  color: #c678dd;
+}
+
+.code-block .property {
+  color: #61afef;
+}
+
+.code-block .value {
+  color: #98c379;
+}
+
+.code-block .comment {
+  color: #5c6370;
+}
+
+.use-cases {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.use-cases h2 {
+  color: #667eea;
+  margin-bottom: 1rem;
+}
+
+.use-case-item {
+  background: #f0f4ff;
+  padding: 1rem;
+  border-left: 4px solid #667eea;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.use-case-item strong {
+  color: #667eea;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.interactive-toggle {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.toggle-btn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+}
+
+.demo-wrapper {
+  position: relative;
+  padding-bottom: 2.5rem;
+}
+</style>
+</head>
+<body>
+
+<div class="demo-container">
+  <h1>📦 overflow: hidden の仕組みと使い方</h1>
+
+  <div class="explanation">
+    <h2>💡 overflow: hidden とは？</h2>
+    <ul>
+      <li><strong>親要素からはみ出た子要素を隠す</strong>CSSプロパティ</li>
+      <li><strong>重要：</strong> 親要素に <code>height</code> または <code>width</code> の指定が必須</li>
+      <li>サイズ指定がないと、親は子に合わせて自動的に伸びるため効果なし</li>
+    </ul>
+  </div>
+
+  <div class="demo-grid">
+    <!-- デモ1: height指定なし -->
+    <div class="demo-card demo1">
+      <div class="demo-title">
+        <span class="badge badge-error">❌ 効かない</span>
+        <span>height指定なし</span>
+      </div>
+      <div class="demo-wrapper">
+        <div class="right_container">
+          <div class="container-label">.right_container</div>
+          <div class="size-label">height: auto</div>
+          <div class="child-content">
+            子要素（300px）<br>
+            親が自動で伸びる<br>
+            overflow: hidden が無効
+          </div>
+          <div class="overflow-indicator">⚠️ 全て表示される</div>
+        </div>
+      </div>
+      <div class="code-block">
+<span class="property">.right_container</span> {
+  <span class="property">overflow</span>: <span class="value">hidden</span>;
+  <span class="comment">/* height指定なし → 効かない */</span>
+}
+      </div>
+    </div>
+
+    <!-- デモ2: height指定あり -->
+    <div class="demo-card demo2">
+      <div class="demo-title">
+        <span class="badge badge-success">✅ 効く</span>
+        <span>height: 150px</span>
+      </div>
+      <div class="demo-wrapper">
+        <div class="right_container">
+          <div class="container-label">.right_container</div>
+          <div class="size-label">height: 150px</div>
+          <div class="child-content">
+            子要素（300px）<br>
+            はみ出た部分が隠れる！<br>
+            overflow: hidden が有効
+          </div>
+          <div class="hidden-indicator">✂️ はみ出し部分を切り取り</div>
+        </div>
+      </div>
+      <div class="code-block">
+<span class="property">.right_container</span> {
+  <span class="property">overflow</span>: <span class="value">hidden</span>;
+  <span class="property">height</span>: <span class="value">150px</span>; <span class="comment">/* ✅ 効く！ */</span>
+}
+      </div>
+    </div>
+
+    <!-- デモ3: calc()使用 -->
+    <div class="demo-card demo3">
+      <div class="demo-title">
+        <span class="badge badge-success">✅ 効く</span>
+        <span>calc()で計算</span>
+      </div>
+      <div class="demo-wrapper">
+        <div class="right_container">
+          <div class="container-label">.right_container</div>
+          <div class="size-label">calc(100% - 5rem)</div>
+          <div class="child-content">
+            子要素（300px）<br>
+            calc()で高さ調整<br>
+            柔軟なレイアウト可能
+          </div>
+          <div class="hidden-indicator">✂️ 計算された高さで切り取り</div>
+        </div>
+      </div>
+      <div class="code-block">
+<span class="property">.right_container</span> {
+  <span class="property">overflow</span>: <span class="value">hidden</span>;
+  <span class="property">height</span>: <span class="keyword">calc</span>(<span class="value">100% - 5rem</span>);
+  <span class="comment">/* 演算子前後にスペース必須 */</span>
+}
+      </div>
+    </div>
+  </div>
+
+  <div class="use-cases">
+    <h2>🎯 overflow: hidden の具体的な使用例</h2>
+    
+    <div class="use-case-item">
+      <strong>1. 画像のトリミング・クロップ</strong>
+      画像の一部だけを表示したい時。親要素で表示範囲を制限し、はみ出た部分を隠す。
+    </div>
+
+    <div class="use-case-item">
+      <strong>2. カードコンポーネントのデザイン</strong>
+      角丸のカードに画像を配置する際、画像の角も丸くするために使用。
+    </div>
+
+    <div class="use-case-item">
+      <strong>3. スライダー・カルーセル</strong>
+      スライドする要素のうち、表示範囲外のものを隠して見せないようにする。
+    </div>
+
+    <div class="use-case-item">
+      <strong>4. フロート解除（clearfix）</strong>
+      float要素を含む親要素の高さを確保する古典的テクニック（現在はFlexboxが主流）。
+    </div>
+
+    <div class="use-case-item">
+      <strong>5. テキストの1行表示</strong>
+      <code>white-space: nowrap</code> と組み合わせて、長いテキストを1行で切り取る。
+    </div>
+
+    <div class="use-case-item">
+      <strong>6. アニメーション範囲の制限</strong>
+      要素が動くアニメーションで、親要��の外に出た部分を見せないようにする。
+    </div>
+
+    <div class="use-case-item">
+      <strong>7. レイアウト崩れの防止</strong>
+      想定外に大きなコンテンツがレイアウトを破壊するのを防ぐ。
+    </div>
+  </div>
+
+</div>
+
+<script>
+// インタラクティブな演出
+document.querySelectorAll('.demo-card').forEach(card => {
+  card.addEventListener('mouseenter', function() {
+    const container = this.querySelector('.right_container');
+    container.style.transform = 'scale(1.02)';
+    container.style.transition = 'transform 0.3s ease';
+  });
+  
+  card.addEventListener('mouseleave', function() {
+    const container = this.querySelector('.right_container');
+    container.style.transform = 'scale(1)';
+  });
+});
+
+// 子要素の高さを動的に変更するデモ
+let isExpanded = false;
+setInterval(() => {
+  const children = document.querySelectorAll('.child-content');
+  children.forEach(child => {
+    const currentHeight = parseInt(getComputedStyle(child).height);
+    if (currentHeight > 250) {
+      child.style.opacity = '0.95';
+    } else {
+      child.style.opacity = '1';
+    }
+  });
+}, 1000);
+</script>
+
+</body>
+</html>

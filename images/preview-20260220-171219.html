@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Dynamic SVG Demo</title>
+<style>
+  body {
+    background-color: #111; /* 背景を黒にして光を強調 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  /* SVG全体のコンテナ */
+  .cyber-core-container {
+    width: 300px;
+    height: 300px;
+    cursor: pointer; /* マウスカーソルを指マークに */
+  }
+
+  /* --- アニメーション定義 --- */
+  
+  /* 中心のコアの鼓動 */
+  @keyframes pulseCore {
+    0% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 10px cyan; }
+    50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 30px cyan; }
+    100% { transform: scale(1); opacity: 0.8; box-shadow: 0 0 10px cyan; }
+  }
+
+  /* 外側のリングの回転 */
+  @keyframes rotateRing {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes rotateRingReverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+  }
+
+  /* --- 各パーツのスタイルと初期状態 --- */
+
+  .core-center {
+    fill: cyan;
+    /* 初期状態はゆっくり鼓動 */
+    animation: pulseCore 2s infinite ease-in-out;
+    transform-origin: center;
+    transition: all 0.3s ease;
+  }
+
+  /* 隠れているリングやデータポイント */
+  .hidden-ring {
+    opacity: 0;
+    transform: scale(0.1) rotate(0deg);
+    transform-origin: center;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* バウンドするような動き */
+  }
+  
+  .ring-outer { stroke: magenta; stroke-width: 2; fill: none; stroke-dasharray: 10 5; }
+  .ring-inner { stroke: cyan; stroke-width: 2; fill: none; stroke-dasharray: 5 5; }
+  .data-point { fill: white; }
+
+  /* --- ホバー時の動作（びっくりポイント） --- */
+
+  /* コンテナにマウスが乗ったら発動 */
+  .cyber-core-container:hover .core-center {
+    fill: white;
+    animation: none; /* 鼓動を止めて光らせる */
+    filter: drop-shadow(0 0 20px cyan);
+    transform: scale(1.5);
+  }
+
+  /* リングを一気に展開して回転開始 */
+  .cyber-core-container:hover .ring-outer {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    animation: rotateRing 10s linear infinite; /* 展開後に回転 */
+  }
+
+  .cyber-core-container:hover .ring-inner {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    animation: rotateRingReverse 7s linear infinite; /* 逆回転 */
+    transition-delay: 0.1s; /* 少し遅れて展開 */
+  }
+
+  /* データポイントを飛ばす */
+  .cyber-core-container:hover .data-point-1 { opacity: 1; transform: translate(-80px, -80px) scale(1); transition-delay: 0.2s;}
+  .cyber-core-container:hover .data-point-2 { opacity: 1; transform: translate(80px, -80px) scale(1); transition-delay: 0.3s;}
+  .cyber-core-container:hover .data-point-3 { opacity: 1; transform: translate(-80px, 80px) scale(1); transition-delay: 0.4s;}
+  .cyber-core-container:hover .data-point-4 { opacity: 1; transform: translate(80px, 80px) scale(1); transition-delay: 0.5s;}
+
+</style>
+</head>
+<body>
+
+  <svg class="cyber-core-container" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(100, 100)">
+      
+      <circle class="hidden-ring ring-outer" r="90" />
+      <circle class="hidden-ring ring-inner" r="60" />
+
+      <circle class="hidden-ring data-point data-point-1" r="5" cx="0" cy="0" />
+      <circle class="hidden-ring data-point data-point-2" r="5" cx="0" cy="0" />
+      <circle class="hidden-ring data-point data-point-3" r="5" cx="0" cy="0" />
+      <circle class="hidden-ring data-point data-point-4" r="5" cx="0" cy="0" />
+
+      <circle class="core-center" r="20" />
+      
+    </g>
+  </svg>
+
+</body>
+</html>

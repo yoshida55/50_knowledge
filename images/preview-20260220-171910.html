@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>モダンなカードデザイン</title>
+  <style>
+    /* 全体の配置を整えるスタイル */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f3f4f6;
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    /* 最新のCSSネスティングを活用したカードのスタイル */
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 300px;
+
+      /* ホバー時の動き */
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+      }
+
+      h2 {
+        margin-top: 0;
+        color: #1f2937;
+      }
+
+      p {
+        color: #4b5563;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+
+      button {
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 100%;
+        font-weight: bold;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #2563eb;
+        }
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>プロフィール</h2>
+    <p>HTMLとCSSだけで作られたカードです。マウスを重ねるとフワッと浮き上がります。</p>
+    <button>詳細を見る</button>
+  </div>
+</body>
+</html>
