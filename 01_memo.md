@@ -59,6 +59,12 @@ document.querySelectorAll(".case_description").forEach((desc) => {
 - デフォルト `flex-shrink: 1` → 親に収まるよう自動で縮む → カードが5枚6枚全部見えちゃう
 - `flex-shrink: 0` → 指定幅を維持 → overflow:hidden で4枚だけ表示される
 
+★つまり、widthが５００だとして、width: calc((100% - 6rem) / 4);を正確に計算しても、flex space-betweenすると自動で500oxに縮める仕様なので、あえて`flex-shrink: 0` は「親が狭くても縮めるな」とい指示で、指定した枚数を画面にいあてはめる。
+
+※以下は実は５枚カードがあるが、４枚だけだすようにしている。
+![](images/2026-02-21-05-31-04.png)
+
+
 【具体例：4枚カードスライダー】
 ```css
 .case_list {
@@ -76,6 +82,8 @@ document.querySelectorAll(".case_description").forEach((desc) => {
   flex-shrink: 0;                   /* ← これがないと全部縮んで表示される */
 }
 ```
+
+
 
 【補足】
 - `overflow: hidden` + `flex-shrink: 0` はスライダーのセット
@@ -5929,3 +5937,88 @@ pre-wrap → preと同じだが、はみ出したら折り返す
 【補足】
 - `nowrap` だけだとはみ出す場合がある → `overflow: hidden` + `text-overflow: ellipsis` で「...」表示も可能
 - flexの子要素が縮まって改行される場合にも有効
+
+## 📌 overflow: hidden は「親」に付ける（子の拡大を切り取るのは親の仕事）
+
+【結論】
+`transform: scale()` で子要素を拡大したとき、はみ出しを隠したいなら `overflow: hidden` は**拡大する要素自身ではなく親要素**に付ける。
+
+- `overflow: hidden` = 「自分の中の子がはみ出したら隠す」
+- 自分自身に付けても、自分の拡大は隠せない
+
+【具体例：カード画像のホバーズーム】
+```html
+<div class="case_img_wrap">  <!-- ← ここにoverflow: hidden -->
+  <img class="case_img" />   <!-- ← ここがscaleで拡大 -->
+</div>
+```
+
+```css
+.case_img_wrap {
+  height: 23rem;
+  overflow: hidden;  /* 子の拡大がここで切り取られる */
+}
+
+.case_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-out;
+}
+
+.case_img_wrap:hover .case_img {
+  transform: scale(1.05);  /* 枠内でズームイン */
+}
+```
+
+【補足】
+- `transform: scale()` はレイアウト（サイズ計算）に影響しない。視覚的に拡大するだけ
+- `object-fit: cover` で画像が枠いっぱいに広がり、ズーム時に自然なトリミングになる
+- ラッパーなしで親カードに `overflow: hidden` を付けても効く場合があるが、確実なのは専用ラッパー
+
+## 📌 z-indexはposition: static（初期値）には効かない
+
+【結論】
+`z-index` を使うには、その要素に `position: relative / absolute / fixed / sticky` のいずれかが必要。`position` 未指定（= `static`）では `z-index` は無視される。
+
+【具体例：テキストを画像の上に表示】
+```css
+/* ❌ これだとz-indexが効かない */
+.concept_heading {
+  z-index: 2;  /* position未指定 → 無視される */
+}
+
+/* ✅ position: relative を追加 */
+.concept_heading {
+  position: relative;  /* レイアウトは変わらない */
+  z-index: 2;          /* これで効く！ */
+}
+```
+
+【補足】
+- `position: relative` は位置を変えずに `z-index` を有効にする定番テクニック
+- `z-index` が効かないときはまず `position` の値を確認する
+
+## 📌 ::afterで半透明オーバーレイをかける方法（画像の上に暗い膜）
+
+【結論】
+画像の上にテキストを重ねて読みにくいとき、`::after` 擬似要素で半透明の黒い膜をかぶせると文字が読みやすくなる。
+
+【具体例】
+```css
+.concept_img:nth-child(2)::after {
+  content: "";           /* 空要素を生成（必須） */
+  position: absolute;    /* 親に重ねる */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);  /* 黒の30%透明 */
+}
+```
+
+【補足】
+- `content: ""` がないと `::after` は表示されない
+- `rgba(0, 0, 0, 0.3)` の最後の数値で暗さ調整（0.2=薄い 〜 0.5=濃い）
+- 親が `position: absolute/relative/fixed` なら子の `::after` の基準になる
+- `::before`（カーテン演出等）とは別物なので共存可能
