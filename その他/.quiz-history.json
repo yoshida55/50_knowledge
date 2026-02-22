@@ -909,11 +909,12 @@
   "スライダーについて。３つの画面の一緒に画面に表示、": {
     "title": "スライダーについて。３つの画面の一緒に画面に表示、",
     "line": 2479,
-    "lastReviewed": 1771171070577,
-    "reviewCount": 1,
+    "lastReviewed": 1771763914570,
+    "reviewCount": 2,
     "evaluations": [
       2
-    ]
+    ],
+    "questionText": "JavaScriptでスライダーに常に3つの画像を表示するには、`slidesToShow`の値をいくつに設定しますか？"
   },
   "正確な説明": {
     "title": "正確な説明",
