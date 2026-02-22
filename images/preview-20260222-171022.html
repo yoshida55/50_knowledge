@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flexbox min-width デモ</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .container {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    max-width: 900px;
+    width: 100%;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+    font-size: 24px;
+  }
+  
+  .demo-section {
+    margin-bottom: 50px;
+    perspective: 1000px;
+  }
+  
+  .demo-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .status-badge {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: normal;
+  }
+  
+  .status-bad {
+    background: #ff4757;
+    color: white;
+  }
+  
+  .status-good {
+    background: #2ed573;
+    color: white;
+  }
+  
+  .a {
+    display: flex;
+    border: 3px dashed #667eea;
+    padding: 20px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    gap: 15px;
+    min-height: 150px;
+  }
+  
+  .a:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  }
+  
+  .a::before {
+    content: '.a { display: flex; }';
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    background: #667eea;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  
+  .b {
+    flex: 2;
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+    overflow: hidden;
+  }
+  
+  .b-label {
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 10px;
+    font-size: 18px;
+    z-index: 2;
+  }
+  
+  .b-content {
+    background: rgba(255,255,255,0.3);
+    padding: 15px;
+    border-radius: 8px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+    white-space: nowrap;
+    z-index: 2;
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  
+  .b::after {
+    content: 'flex: 2';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+  }
+  
+  .c {
+    flex: 1;
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+  }
+  
+  .c-label {
+    font-weight: bold;
+    color: #555;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+  }
+  
+  .c::after {
+    content: 'flex: 1';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+  }
+  
+  .problem .b {
+    min-width: auto;
+  }
+  
+  .solution .b {
+    min-width: 0;
+  }
+  
+  .code-label {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.9);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    color: #667eea;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-5px); }
+  }
+  
+  .arrow {
+    text-align: center;
+    font-size: 40px;
+    color: #2ed573;
+    margin: 30px 0;
+    animation: bounce 2s infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .explanation {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    margin-top: 30px;
+  }
+  
+  .explanation h3 {
+    color: #2d3436;
+    margin-bottom: 15px;
+    font-size: 18px;
+  }
+  
+  .explanation p {
+    color: #2d3436;
+    line-height: 1.8;
+    margin-bottom: 10px;
+  }
+  
+  .explanation code {
+    background: rgba(0,0,0,0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    color: #d63031;
+  }
+  
+  .resize-animation {
+    animation: shrinkExpand 4s ease-in-out infinite;
+  }
+  
+  @keyframes shrinkExpand {
+    0%, 100% { transform: scaleX(1); }
+    50% { transform: scaleX(0.7); }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Flexbox min-width 問題と解決方法</h1>
+    
+    <div class="demo-section problem">
+      <div class="demo-title">
+        ❌ 問題：min-width: auto（デフォルト）
+        <span class="status-badge status-bad">コンテンツが溢れる</span>
+      </div>
+      <div class="a">
+        <div class="b resize-animation">
+          <div class="b-label">.b 要素</div>
+          <div class="b-content">とても長いコンテンツテキストが入っています！！！</div>
+          <div class="code-label">min-width: auto</div>
+        </div>
+        <div class="c">
+          <div class="c-label">.c 要素</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="arrow">↓</div>
+    
+    <div class="demo-section solution">
+      <div class="demo-title">
+        ✅ 解決：min-width: 0 を指定
+        <span class="status-badge status-good">正しく縮小</span>
+      </div>
+      <div class="a">
+        <div class="b resize-animation" style="min-width: 0;">
+          <div class="b-label">.b 要素</div>
+          <div class="b-content" style="overflow: hidden; text-overflow: ellipsis;">とても長いコンテンツテキストが入っています！！！</div>
+          <div class="code-label">min-width: 0</div>
+        </div>
+        <div class="c">
+          <div class="c-label">.c 要素</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="explanation">
+      <h3>💡 解説</h3>
+      <p>
+        Flexboxの子要素はデフォルトで <code>min-width: auto</code> が適用されるため、コンテンツサイズより小さくなりません。
+      </p>
+      <p>
+        <code>min-width: 0</code> を指定するこ���で、flex要素を強制的に縮小可能にし、親要素内に収めることができます。
+      </p>
+      <p>
+        上の例では、.b要素が親要素のサイズに応じて正しく縮小されるようになります。
+      </p>
+    </div>
+  </div>
+</body>
+</html>

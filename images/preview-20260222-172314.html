@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox min-width問題デモ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .control-panel {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        .value-display {
+            min-width: 100px;
+            text-align: right;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .demo-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .demo-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .problem .demo-title {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .solution .demo-title {
+            background: #51cf66;
+            color: white;
+        }
+
+        .flex-container {
+            display: flex;
+            border: 3px solid #333;
+            border-radius: 10px;
+            padding: 10px;
+            gap: 10px;
+            background: white;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: width 0.3s ease;
+        }
+
+        .a {
+            display: flex;
+            gap: 10px;
+        }
+
+        .b {
+            flex: 2;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: visible;
+        }
+
+        .b-content {
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .problem .b {
+            min-width: auto;
+        }
+
+        .solution .b {
+            min-width: 0;
+        }
+
+        .other-item {
+            flex: 1;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            border-radius: 8px;
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-panel {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-panel .property {
+            font-family: 'Courier New', monospace;
+            background: #f1f3f5;
+            padding: 5px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 2px 0;
+            font-size: 13px;
+        }
+
+        .overflow-indicator {
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+
+        .problem .b .overflow-indicator.show {
+            display: block;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .explanation {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            border-radius: 15px;
+            border-left: 5px solid #00acc1;
+        }
+
+        .explanation h3 {
+            color: #00695c;
+            margin-bottom: 15px;
+        }
+
+        .explanation p {
+            color: #004d40;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .demo-area {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Flexbox min-width 問題デモ</h1>
+        
+        <div class="control-panel">
+            <div class="control-group">
+                <label>親コンテナの幅を調整: <span id="containerWidthLabel"></span></label>
+                <div class="slider-container">
+                    <input type="range" id="containerWidth" min="200" max="600" value="400" step="10">
+                    <div class="value-display" id="widthValue">400px</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-area">
+            <div class="demo-box problem">
+                <div class="demo-title">❌ 問題: min-width: auto（デフォルト）</div>
+                <div class="flex-container a" id="problemContainer">
+                    <div class="b" id="problemB">
+                        <div class="b-content">縮小されない長いテキストコンテンツ</div>
+                        <div class="overflow-indicator">はみ出し！</div>
+                    </div>
+                    <div class="other-item">flex: 1</div>
+                </div>
+                <div class="info-panel">
+                    <div><span class="property">min-width: auto</span></div>
+                    <div style="margin-top: 10px; color: #c92a2a; font-weight: bold;">
+                        実際の幅: <span id="problemActualWidth">-</span>
+                    </div>
+                    <div style="margin-top: 5px; color: #666; font-size: 13px;">
+                        ⚠️ コンテンツサイズより小さくならない
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-box solution">
+                <div class="demo-title">✅ 解決: min-width: 0</div>
+                <div class="flex-container a" id="solutionContainer">
+                    <div class="b" id="solutionB">
+                        <div class="b-content">縮小されない長いテキストコンテンツ</div>
+                    </div>
+                    <div class="other-item">flex: 1</div>
+                </div>
+                <div class="info-panel">
+                    <div><span class="property">min-width: 0</span></div>
+                    <div style="margin-top: 10px; color: #2b8a3e; font-weight: bold;">
+                        実際の幅: <span id="solutionActualWidth">-</span>
+                    </div>
+                    <div style="margin-top: 5px; color: #666; font-size: 13px;">
+                        ✓ 強制的に縮小可能になる
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h3>📝 解説</h3>
+            <p><strong>問題:</strong> Flexboxの子要素はデフォルトで <code>min-width: auto</code> が適用され、コンテンツの最小サイズより小さくなりません。そのため、親コンテナが狭くなってもコンテンツがはみ出してしまいます。</p>
+            <p><strong>解決:</strong> <code>min-width: 0</code> を指定することで、この制限を解除し、flex-shrinkによる縮小を正常に機能させることができます。</p>
+            <p><strong>操作:</strong> スライダーを動かして親コンテナの幅を変更し、左右の挙動の違いを確認してください。左側ははみ出し、右側は正しく縮小されます。</p>
+        </div>
+    </div>
+
+    <script>
+        const containerWidthSlider = document.getElementById('containerWidth');
+        const widthValue = document.getElementById('widthValue');
+        const problemContainer = document.getElementById('problemContainer');
+        const solutionContainer = document.getElementById('solutionContainer');
+        const problemB = document.getElementById('problemB');
+        const solutionB = document.getElementById('solutionB');
+        const problemActualWidth = document.getElementById('problemActualWidth');
+        const solutionActualWidth = document.getElementById('solutionActualWidth');
+
+        function updateContainers() {
+            const width = containerWidthSlider.value;
+            widthValue.textContent = `${width}px`;
+            
+            problemContainer.style.width = `${width}px`;
+            solutionContainer.style.width = `${width}px`;
+
+            // 実際の幅を測定して表示
+            setTimeout(() => {
+                const problemWidth = problemB.offsetWidth;
+                const solutionWidth = solutionB.offsetWidth;
+                
+                problemActualWidth.textContent = `${problemWidth}px`;
+                solutionActualWidth.textContent = `${solutionWidth}px`;
+
+                // はみ出しインジケーターの表示制御
+                const overflowIndicator = problemB.querySelector('.overflow-indicator');
+                const problemContentWidth = problemB.querySelector('.b-content').offsetWidth;
+                
+                if (problemWidth < problemContentWidth) {
+                    overflowIndicator.classList.add('show');
+                } else {
+                    overflowIndicator.classList.remove('show');
+                }
+            }, 50);
+        }
+
+        containerWidthSlider.addEventListener('input', updateContainers);
+        
+        // 初期化
+        updateContainers();
+
+        // ウィンドウリサイズ時も更新
+        window.addEventListener('resize', updateContainers);
+    </script>
+</body>
+</html>

@@ -9,6 +9,8 @@ git pull origin main
 
 
 
+
+
 ▢
 ## jQueryの拡張機能セットアップ
 
@@ -32,13 +34,8 @@ https://animista.net/
 
 ## 拡張機能
 
-
-`自宅でやること`
-▢　バグ　ドラッグしながらCTRLVすると、「どのような修正がしたいですか」とメッセージがでる　
-
-
-
-
+▢　CSS　JUMPの画面とvsCode拡張機能を再インストール
+▢　
 
 
 

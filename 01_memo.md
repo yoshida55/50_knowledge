@@ -1,3 +1,162 @@
+## 📌 `要素.style.transform` でJSからCSSを直接操作できる（CSSプロパティはキャメルケースに変換）
+
+【結論】
+JavaScriptから `要素.style.プロパティ名` で、CSSを直接書き換えられる。
+CSSのハイフン付きプロパティは、JSではキャメルケースに変換する。
+
+【具体例：ボタンを押すと箱が右に動く】
+```html
+<div id="box" style="width:100px; height:100px; background:red;"></div>
+<button onclick="move()">動かす</button>
+```
+
+```js
+function move() {
+  const box = document.getElementById("box");
+  box.style.transform = "translateX(200px)";  // ← 右に200px移動
+}
+```
+
+【CSSプロパティ → JSでの書き方 対応表】
+| CSS | JS（style.〇〇） |
+|---|---|
+| `transform` | `style.transform` |
+| `background-color` | `style.backgroundColor` |
+| `font-size` | `style.fontSize` |
+| `z-index` | `style.zIndex` |
+
+ルール：ハイフンを消して、次の文字を大文字にする
+
+【補足】
+- `style.transform` はインラインスタイルとして適用される（CSS詳細度より強い）
+- テンプレートリテラルで動的に値を入れられる：`` style.transform = `translateX(-${値}px)` ``
+- CSSクラスの付け外しで制御する方法もあるが、**細かい数値の制御**にはstyle直接操作が便利
+
+
+## 📌 CSSセレクタ `~` で兄弟選択 → スペースで子孫に降りる（jQueryの nextAll + find と同じ発想）
+
+【結論】
+`~`（兄弟セレクタ）で選んだ後、スペースで子孫要素に降りることができる。
+jQueryの `.nextAll().find()` と同じ考え方。
+
+【具体例】
+```css
+/* .open がついたら、後ろの兄弟 .nav の中の .link を全部表示 */
+.hamburger.open ~ .nav .link {
+  opacity: 1;
+}
+```
+
+```html
+<div class="hamburger open"></div>   ← 起点
+<div class="other"></div>            ← スキップ
+<nav class="nav">                    ← ~ で兄弟選択
+  <a class="link">リンク1</a>        ← スペースで子孫に降りる
+  <a class="link">リンク2</a>        ← これも対象
+</nav>
+```
+
+```js
+// jQuery で同じこと
+$('.hamburger.open').nextAll('.nav').find('.link')
+```
+
+【補足】
+- `~` = 後ろの兄弟**全部**（`+` は直後の1つだけ）
+- `~` の後にスペースを入れると子孫に降りられる
+- jQuery の `nextAll()` + `find()` と対応づけると覚えやすい
+
+
+## 📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）
+【どんな時に使う】
+flex子要素の中身が親の幅を突き破って出てくる時だけ
+min-width: 0 をつける。
+
+普通に収まっている時はつけなくてOK。
+
+つけないイメージ。
+![](images/2026-02-22-20-13-54.png)
+
+
+【結論】
+Flexboxの子要素はデフォルトで `min-width: auto` が適用されており、中身のテキストや画像の幅より小さくならない。
+`min-width: 0` を指定すると「縮んでいいよ」と許可を出せる。
+[プレビュー](http://localhost:54321/preview-20260222-172314.html)
+
+★`min-width: 0`を指定しない場合。
+![](images/2026-02-22-20-07-46.png)
+
+
+- 自分がはみ出すだけでなく、**隣の要素のスペースも奪う**のが本当の怖さ
+- テキストが潰れて汚くなるので `overflow: hidden` + `text-overflow: ellipsis` とセットで使う
+
+【具体例：長いテキストと画像の横並び】
+```css
+/* ❌ ダメな例：テキストが縮まず画像が押し潰される */
+.text { flex: 2; }              /* min-width: auto がデフォルト */
+.image { flex: 1; }             /* 残りスペースほぼ0になる */
+
+/* ✅ 正しい例 */
+.text {
+  flex: 2;
+  min-width: 0;              /* 縮小を許可 */
+  overflow: hidden;           /* はみ出しを隠す */
+  text-overflow: ellipsis;    /* 「…」で省略表示 */
+  white-space: nowrap;        /* 1行に保つ */
+}
+.image { flex: 1; }
+```
+
+【補足】
+- `min-width: auto` = 「中身より小さくならない！」→ はみ出す
+- `min-width: 0` = 「小さくなってOK！」→ ちゃんと縮む
+- `overflow: hidden` 系は `min-width: 0` とセットで使うのが実践的
+- 同じ問題は `flex-direction: column` のとき `min-height: 0` でも起きる
+
+
+## 📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）
+
+【結論】
+`mask` は要素の「見える・見えない」を制御するプロパティ。
+`background` と同じ4つのサブプロパティがあり、同じ感覚で使える。
+
+| mask | background | 役割 |
+|---|---|---|
+| `mask-image` | `background-image` | 形・模様 |
+| `mask-size` | `background-size` | 大きさ |
+| `mask-position` | `background-position` | 位置 |
+| `mask-repeat` | `background-repeat` | 繰り返し |
+
+- マスクの黒い部分 → 見える
+- マスクの透明な部分 → 見えない
+- Safari対応のため `-webkit-` 付きも併記する
+
+【具体例：左上から斜めにふわっと現れるマスク】
+```css
+.diagonal-reveal {
+  mask-image: linear-gradient(135deg, black 50%, rgba(0,0,0,0.3) 65%, transparent 80%);
+  mask-size: 0% 0%;        /* 最初は見えない */
+  mask-position: 0% 0%;    /* 左上から */
+  mask-repeat: no-repeat;
+}
+
+.diagonal-reveal.is-visible {
+  animation: diagonalReveal 3.3s forwards;
+}
+
+@keyframes diagonalReveal {
+  from { mask-size: 0% 0%; }
+  to   { mask-size: 300% 300%; }  /* マスクが広がる → 見えるようになる */
+}
+```
+
+【補足】
+- `linear-gradient` の角度・%の細かい数値は覚えなくてOK。使うときに調整する
+- `mask-size: 0%→300%` のアニメーションで「ふわっと現れる」表現ができる
+- JSの `IntersectionObserver` でスクロール時に `is-visible` を付けてアニメーション発火
+
+---
+
 ## 📌 JSでアロー関数の`this`はwindowになる（e.targetを使え）
 
 【結論】
@@ -59,7 +218,9 @@ document.querySelectorAll(".case_description").forEach((desc) => {
 - デフォルト `flex-shrink: 1` → 親に収まるよう自動で縮む → カードが5枚6枚全部見えちゃう
 - `flex-shrink: 0` → 指定幅を維持 → overflow:hidden で4枚だけ表示される
 
-★つまり、widthが５００だとして、width: calc((100% - 6rem) / 4);を正確に計算しても、flex space-betweenすると自動で500oxに縮める仕様なので、あえて`flex-shrink: 0` は「親が狭くても縮めるな」とい指示で、指定した枚数を画面にいあてはめる。
+★つまり、widthが５００だとして、width: calc((100% - 6rem) / 4);→「４枚のcardをだしたい」、を正確に計算しても、flex space-betweenする。そうするおと５枚ある場合、自動で500oxに縮める仕様なので、５枚で画面に表示される。
+
+`flex-shrink: 0` は「親が狭くても縮めるな」とい指示で、指定した枚数を画面にいあてはめる。
 
 ※以下は実は５枚カードがあるが、４枚だけだすようにしている。
 ![](images/2026-02-21-05-31-04.png)
@@ -1453,9 +1614,12 @@ background-size: 150%;
 
 # ヘッダータイトル　固定幅　画像指定
 
-とくにボックスに文字があてはまらない時など利用するとよい。また height は基本しようしないので、
-その理由からも多用するとよい。
+とくにボックスに文字があてはまらない時など利用するとよい。また 
 
+
+暗記ポイント
+width のみ指定 → 高さは中身（実際の画像・コンテンツ）の量で伸び縮みする
+アスペクト比で決まるのは aspect-ratio を使った時だけ
 
 
 # サイドバーに固定で表示するときの構文
@@ -2154,6 +2318,26 @@ $(window).on("scroll", function () {
   body {
     overflow-x: hidden;
   }
+
+
+## 📌 transitionの第1引数は「変化させたいCSSプロパティ名」（自由な名前ではない）
+
+【結論】
+`transition: ○○ 0.5s ease` の「○○」には、CSSに存在するプロパティ名を書く。
+自分で好きな名前を付けるのではなく、「このプロパティが変わったらアニメーションしてね」という指示。
+
+【具体例】
+```css
+transition: width 0.5s ease;            /* 幅の変化 */
+transition: transform 0.5s ease;        /* 移動・回転の変化 */
+transition: opacity 0.5s ease;          /* 透明度の変化 */
+transition: background-color 0.5s ease; /* 背景色の変化 */
+transition: all 0.5s ease;              /* 全プロパティまとめて */
+```
+
+【補足】
+- `all` を指定すると全部まとめてアニメーションするが、意図しない変化もアニメーションされるので注意
+- 複数指定したいときはカンマで区切る：`transition: width 0.5s, opacity 0.3s;`
 
 
 ## transition: width 0.5s ease　**CSSの`transition`プロパティ**について解説
@@ -3612,6 +3796,19 @@ triggers:
    (b) 1つは前面画像
 2. 1つ目の背景画像には、position: fixed で固定配置させる
 3. 2つ目の前面の方には、あえて position: relative を付けて、z-index で前面に持ってくるようにする
+
+暗記ポイント
+background-attachment: fixed = `画像`専用の簡単な方法
+position: fixed = 要素そのものを固定する汎用的な方法
+覚えなくていいこと：z-indexの具体的な数値（-1とか1とか）
+➡
+普通の背景固定 → background-attachment: fixed（こっちが基本）
+動く背景が必要な時だけ → position: fixed + z-index
+
+[プレビュー](http://localhost:54321/preview-20260216-225151.html)
+[プレビュー](http://localhost:54321/preview-20260215-035655.html)
+
+
 
 あとはJavaScript(`transform: translateY()` )で調整します。
 
@@ -6022,3 +6219,58 @@ pre-wrap → preと同じだが、はみ出したら折り返す
 - `rgba(0, 0, 0, 0.3)` の最後の数値で暗さ調整（0.2=薄い 〜 0.5=濃い）
 - 親が `position: absolute/relative/fixed` なら子の `::after` の基準になる
 - `::before`（カーテン演出等）とは別物なので共存可能
+
+## 📌 CSS maskアニメーション：初期状態をCSSで仕込み、JSでクラス付与してアニメ発動（diagonal-reveal パターン）
+
+【結論】
+CSSで「見えない初期状態」と「アニメーション定義」を仕込んでおき、JSが `.is-visible` を付けた瞬間にアニメーションが発動する。
+
+- `.diagonal-reveal` → 初期状態（mask-size: 0% = 非表示）
+- `@keyframes diagonalReveal` → アニメーション定義（0% → 250%）
+- `.diagonal-reveal.is-visible` → JSがクラス付与 → animation 発動
+
+流れ：
+1. 初期: `mask-size: 0%` で要素は見えない
+2. JSが `.is-visible` を付与（例: スクロールで画面内に入った時）
+3. `animation: diagonalReveal` が発動
+4. `mask-size` が `0%` → `250%` に変化し、斜め方向に画像が現れる
+
+【具体例】
+```css
+/* ① アニメーション定義（名前は自由） */
+@keyframes diagonalReveal {
+  from { mask-size: 0% 0%; }
+  to   { mask-size: 250% 250%; }
+}
+
+/* ② 初期状態（見えない） */
+.diagonal-reveal {
+  mask-image: linear-gradient(135deg, black 50%, rgba(0,0,0,0.3) 65%, transparent 80%);
+  mask-size: 0% 0%;        /* ← これで非表示 */
+  mask-position: 0% 0%;
+  mask-repeat: no-repeat;
+}
+
+/* ③ JSがis-visibleを付けたら発動 */
+.diagonal-reveal.is-visible {
+  animation: diagonalReveal 3.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+```
+
+```
+初期状態         → アニメ中        → 完了
+┌────────┐      ┌────────┐      ┌────────┐
+│        │      │▓▓░░    │      │▓▓▓▓▓▓▓▓│
+│ 非表示  │  →   │▓▓▓░░   │  →   │▓▓▓▓▓▓▓▓│
+│        │      │ ▓▓░░   │      │▓▓▓▓▓▓▓▓│
+└────────┘      └────────┘      └────────┘
+mask:0%         mask:途中        mask:250%
+```
+
+【補足】
+- `@keyframes` の名前（`diagonalReveal`）は任意。自分で自由に付けられる
+- `forwards` を付けないとアニメ終了後に初期状態（非表示）に戻ってしまう
+- `135deg` → 左上から右下へ斜めに表示。角度を変えれば方向も変わる
+- `250%` → 100%だと端まで届かない場合があるため大きめに設定
+- `-webkit-mask-*` はSafari対応用のプレフィックス。mask-* と両方書くのが安全
+- このパターンは mask 以外にも使える（opacity, transform などでも同じ「初期状態 + JS付与 + animation」の構造）

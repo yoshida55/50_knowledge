@@ -125,12 +125,13 @@
   "📌 パララックスのシンプルな作り方": {
     "title": "📌 パララックスのシンプルな作り方",
     "line": 3145,
-    "lastReviewed": 1771094432896,
-    "reviewCount": 1,
+    "lastReviewed": 1771745613715,
+    "reviewCount": 2,
     "evaluations": [
       2,
       1
-    ]
+    ],
+    "questionText": "視差効果を2層構造で実現するための「固定背景」と「スクロール前景」の基本的な作り方は？"
   },
   "Flex wrapや2つの列を構成する場合、以下のように作成すると良い。": {
     "title": "Flex wrapや2つの列を構成する場合、以下のように作成すると良い。",
@@ -190,11 +191,12 @@
   "javascriptスクロールをしても、文字が表示されない。": {
     "title": "javascriptスクロールをしても、文字が表示されない。",
     "line": 1819,
-    "lastReviewed": 1771092445527,
-    "reviewCount": 2,
+    "lastReviewed": 1771745439332,
+    "reviewCount": 3,
     "evaluations": [
       2
-    ]
+    ],
+    "questionText": "JavaScriptでスクロール時に特定の要素が表示されない場合、`scrollTop()`の値が100より小さい時の`#site_title .site_title_text`要素の状態を制御するクラス操作は何？"
   },
   "兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。": {
     "title": "兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。",
@@ -347,12 +349,14 @@
   "パララックス": {
     "title": "パララックス",
     "line": 1069,
-    "lastReviewed": 1771096833545,
-    "reviewCount": 0,
+    "lastReviewed": 1771746006118,
+    "reviewCount": 1,
     "evaluations": [
       1,
-      1
-    ]
+      1,
+      2
+    ],
+    "questionText": "`background-attachment: fixed;` が背景画像の固定以外にどのような効果を持つか？"
   },
   "相続するとき注意したいこと。": {
     "title": "相続するとき注意したいこと。",
@@ -412,12 +416,13 @@
   "📝 覚えておくこと": {
     "title": "📝 覚えておくこと",
     "line": 2212,
-    "lastReviewed": 1771097920883,
-    "reviewCount": 1,
+    "lastReviewed": 1771746141696,
+    "reviewCount": 2,
     "evaluations": [
       1,
       2
-    ]
+    ],
+    "questionText": "`position: fixed` と `z-index` の関係で、親要素の `z-index` がない場合に影響を受けるのは？"
   },
   "transition: width 0.5s ease　**CSSの`transition`プロパティ**について解説": {
     "title": "transition: width 0.5s ease　**CSSの`transition`プロパティ**について解説",
@@ -690,8 +695,12 @@
   "JavaScriptなど": {
     "title": "JavaScriptなど",
     "line": 4210,
-    "lastReviewed": 1771057073921,
-    "reviewCount": 1
+    "lastReviewed": 1771745043996,
+    "reviewCount": 2,
+    "questionText": "JavaScriptで要素にクラスを追加するために必要なクラスリストのメソッドは？",
+    "evaluations": [
+      2
+    ]
   },
   "▢ 拡張ツールの見方　暗記": {
     "title": "▢ 拡張ツールの見方　暗記",
@@ -723,26 +732,31 @@
   "使��道": {
     "title": "使��道",
     "line": 3176,
-    "lastReviewed": 1771057204612,
-    "reviewCount": 1
+    "lastReviewed": 1771745087561,
+    "reviewCount": 2,
+    "questionText": "Flexboxで親要素の幅が足りない時、子要素が元のサイズを保つ`flex-shrink`の値は？"
   },
   "JavaScriptとHTMLの関係性": {
     "title": "JavaScriptとHTMLの関係性",
     "line": 1738,
-    "lastReviewed": 1771097985781,
-    "reviewCount": 1,
+    "lastReviewed": 1771746693478,
+    "reviewCount": 4,
     "evaluations": [
-      2
-    ]
+      2,
+      3
+    ],
+    "questionText": "JavaScriptはHTML要素をどのように操作できますか？"
   },
   "📌 ホバーで画像拡大エフェクト": {
     "title": "📌 ホバーで画像拡大エフェクト",
     "line": 4184,
-    "lastReviewed": 1771118108845,
-    "reviewCount": 0,
+    "lastReviewed": 1771746731833,
+    "reviewCount": 1,
     "evaluations": [
-      1
-    ]
+      1,
+      2
+    ],
+    "questionText": "マウスオーバーで画像拡大するエフェクトは、CSSのどのプロパティで実装しますか？"
   },
   "CSSでの構文": {
     "title": "CSSでの構文",
@@ -765,11 +779,12 @@
   "width を指定して、height を auto にすると自然なかたちになる。": {
     "title": "width を指定して、height を auto にすると自然なかたちになる。",
     "line": 1196,
-    "lastReviewed": 1771118337984,
-    "reviewCount": 1,
+    "lastReviewed": 1771746882688,
+    "reviewCount": 2,
     "evaluations": [
       2
-    ]
+    ],
+    "questionText": "CSSで高さを自動にするために、widthを指定するとどのような形状になるか？"
   },
   "Flexboxを利用するときは、以下でも縦中央に持ってくることができるが、基本は親Flexboxで中央に指定してあげるのがベストプラクティス。": {
     "title": "Flexboxを利用するときは、以下でも縦中央に持ってくることができるが、基本は親Flexboxで中央に指定してあげるのがベストプラクティス。",
@@ -801,11 +816,12 @@
   "📌 particles.js の基本構成 ライブラリからスライドなどの実装をする場合（星座のような背景）": {
     "title": "📌 particles.js の基本構成 ライブラリからスライドなどの実装をする場合（星座のような背景）",
     "line": 3384,
-    "lastReviewed": 1771118500163,
-    "reviewCount": 1,
+    "lastReviewed": 1771747436549,
+    "reviewCount": 2,
     "evaluations": [
       2
-    ]
+    ],
+    "questionText": "particles.js を使った背景実装は、CDN読込・要素準備・particlesJS()初期化の何ステップで完了しますか？"
   },
   "display: inline-flex の場合": {
     "title": "display: inline-flex の場合",
@@ -843,29 +859,34 @@
   "JavaScript が正しく動作しません。新しいライブラリを追加したものの動作しないのはなぜでしょうか。": {
     "title": "JavaScript が正しく動作しません。新しいライブラリを追加したものの動作しないのはなぜでしょうか。",
     "line": 3243,
-    "lastReviewed": 1771118633618,
-    "reviewCount": 1,
+    "lastReviewed": 1771747593043,
+    "reviewCount": 2,
     "evaluations": [
       2
-    ]
+    ],
+    "questionText": "JavaScriptライブラリを機能させるためにscriptタグで囲むべきものは？"
   },
   "仕組み": {
     "title": "仕組み",
     "line": 1925,
-    "lastReviewed": 1771170855859,
-    "reviewCount": 1,
+    "lastReviewed": 1771747702669,
+    "reviewCount": 2,
     "evaluations": [
+      2,
       2
-    ]
+    ],
+    "questionText": "CSSで指定された横幅のアニメーションが完了するまでの時間は？"
   },
   "フレックスの子要素は画像などのもとサイズより小さくならない。例えば画像など大きいサイズをうめるときに、想定した配置にならないときは、": {
     "title": "フレックスの子要素は画像などのもとサイズより小さくならない。例えば画像など大きいサイズをうめるときに、想定した配置にならないときは、",
     "line": 2909,
-    "lastReviewed": 1771170912721,
-    "reviewCount": 0,
+    "lastReviewed": 1771747738645,
+    "reviewCount": 1,
     "evaluations": [
-      1
-    ]
+      1,
+      2
+    ],
+    "questionText": "Flexboxで子要素が親要素より小さくならない問題を解決するには？"
   },
   "videoなど画像を使う際は、 比率を保ってトリミングするために、heightとwidthを指定した上で、object-fit: cover;を利用する": {
     "title": "videoなど画像を使う際は、 比率を保ってトリミングするために、heightとwidthを指定した上で、object-fit: cover;を利用する",

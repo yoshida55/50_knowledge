@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox min-width: 0 デモ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .control-panel {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transition: transform 0.2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            border: none;
+        }
+
+        .value-display {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-left: 10px;
+            min-width: 100px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .toggle-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .toggle-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .toggle-btn:not(.active) {
+            background: white;
+            color: #667eea;
+        }
+
+        .demo-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .demo-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .problem {
+            color: #e74c3c;
+        }
+
+        .solution {
+            color: #27ae60;
+        }
+
+        .flex-container {
+            display: flex;
+            border: 3px solid #667eea;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            transition: width 0.3s ease;
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .a {
+            display: flex;
+        }
+
+        .b {
+            flex: 2;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-right: 2px solid white;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .b-with-fix {
+            min-width: 0;
+        }
+
+        .b .content {
+            white-space: nowrap;
+            font-size: 16px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .c {
+            flex: 1;
+            padding: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-panel {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .info-value {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #856404;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #155724;
+        }
+
+        @media (max-width: 768px) {
+            .demo-area {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Flexbox min-width: 0 問題デモ</h1>
+        
+        <div class="control-panel">
+            <div class="control-group">
+                <label>
+                    📏 親要素の幅を変更: 
+                    <span class="value-display" id="widthValue">600px</span>
+                </label>
+                <input type="range" id="widthSlider" min="200" max="800" value="600" step="10">
+            </div>
+
+            <div class="control-group">
+                <label>📝 .b 要素のコンテンツ長さ:</label>
+                <div class="toggle-buttons">
+                    <button class="toggle-btn active" onclick="setContent('short')">短い</button>
+                    <button class="toggle-btn" onclick="setContent('medium')">中くらい</button>
+                    <button class="toggle-btn" onclick="setContent('long')">長い</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-area">
+            <div class="demo-box">
+                <div class="demo-title problem">❌ 問題: min-width: auto (デフォルト)</div>
+                <div class="flex-container a" id="problemContainer">
+                    <div class="b" id="problemB">
+                        <div class="content" id="problemContent">長いコンテンツテキスト</div>
+                    </div>
+                    <div class="c">flex: 1</div>
+                </div>
+                <div class="info-panel">
+                    <div class="info-row">
+                        <span class="info-label">親要素の幅:</span>
+                        <span class="info-value" id="problemParentWidth">600px</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">.b の実際の幅:</span>
+                        <span class="info-value" id="problemBWidth">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">.b の min-width:</span>
+                        <span class="info-value">auto (コンテンツ幅)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">.c の実際の幅:</span>
+                        <span class="info-value" id="problemCWidth">-</span>
+                    </div>
+                    <div class="warning">
+                        ⚠️ <strong>問題:</strong> .b はコンテンツより小さくならないため、親要素を縮めても flex: 2 の比率が守られません。
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-box">
+                <div class="demo-title solution">✅ 解決: min-width: 0</div>
+                <div class="flex-container a" id="solutionContainer">
+                    <div class="b b-with-fix" id="solutionB">
+                        <div class="content" id="solutionContent">長いコンテンツテキスト</div>
+                    </div>
+                    <div class="c">flex: 1</div>
+                </div>
+                <div class="info-panel">
+                    <div class="info-row">
+                        <span class="info-label">親要素の幅:</span>
+                        <span class="info-value" id="solutionParentWidth">600px</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">.b の実際の幅:</span>
+                        <span class="info-value" id="solutionBWidth">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">.b の min-width:</span>
+                        <span class="info-value">0 (強制的に縮小可能)</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">.c の実際の幅:</span>
+                        <span class="info-value" id="solutionCWidth">-</span>
+                    </div>
+                    <div class="success">
+                        ✓ <strong>解決:</strong> min-width: 0 により、.b はコンテンツより小さくなれるため、flex: 2 と 1 の比率 (2:1) が正しく維持されます。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const widthSlider = document.getElementById('widthSlider');
+        const widthValue = document.getElementById('widthValue');
+        const problemContainer = document.getElementById('problemContainer');
+        const solutionContainer = document.getElementById('solutionContainer');
+        const problemB = document.getElementById('problemB');
+        const solutionB = document.getElementById('solutionB');
+        const problemContent = document.getElementById('problemContent');
+        const solutionContent = document.getElementById('solutionContent');
+
+        const contentTexts = {
+            short: '短文',
+            medium: '中くらいの長さのテキスト',
+            long: 'とても長いコンテンツテキストが入ります'
+        };
+
+        let currentContent = 'long';
+
+        function updateWidth() {
+            const width = widthSlider.value + 'px';
+            widthValue.textContent = width;
+            problemContainer.style.width = width;
+            solutionContainer.style.width = width;
+            updateInfo();
+        }
+
+        function updateInfo() {
+            const parentWidth = widthSlider.value;
+            
+            // 問題側の情報
+            const problemBRect = problemB.getBoundingClientRect();
+            const problemCRect = problemB.nextElementSibling.getBoundingClientRect();
+            document.getElementById('problemParentWidth').textContent = parentWidth + 'px';
+            document.getElementById('problemBWidth').textContent = Math.round(problemBRect.width) + 'px';
+            document.getElementById('problemCWidth').textContent = Math.round(problemCRect.width) + 'px';
+
+            // 解決側の情報
+            const solutionBRect = solutionB.getBoundingClientRect();
+            const solutionCRect = solutionB.nextElementSibling.getBoundingClientRect();
+            document.getElementById('solutionParentWidth').textContent = parentWidth + 'px';
+            document.getElementById('solutionBWidth').textContent = Math.round(solutionBRect.width) + 'px';
+            document.getElementById('solutionCWidth').textContent = Math.round(solutionCRect.width) + 'px';
+        }
+
+        function setContent(type) {
+            currentContent = type;
+            const text = contentTexts[type];
+            problemContent.textContent = text;
+            solutionContent.textContent = text;
+
+            // ボタンのアクティブ状態を更新
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // 情報を更新
+            setTimeout(updateInfo, 50);
+        }
+
+        widthSlider.addEventListener('input', updateWidth);
+
+        // 初期化
+        window.addEventListener('load', () => {
+            updateWidth();
+            setTimeout(updateInfo, 100);
+        });
+
+        // リサイズ時も更新
+        window.addEventListener('resize', () => {
+            setTimeout(updateInfo, 50);
+        });
+    </script>
+</body>
+</html>
