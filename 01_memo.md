@@ -3742,8 +3742,18 @@ CSSでは**隣接兄弟セレクタ（`+`）** を使うこと���、特定
 - 子に fixed を付けると親を無視して画面全体を基準に固定される
 - パララックスは transform: translateY() で実装
 
+【子のpositionによる違い】
+| 子の position | 基準 | 親のpositionを見る？ |
+|---|---|---|
+| `absolute` | 親（fixed/relative/absolute）を基準に配置 | ✅ 見る |
+| `relative` | **自分の元の位置**からずれるだけ | ❌ 見ない |
 
-## Claudecodeのスキルズへの追加方法 
+- 親が `fixed` → 子の `absolute` は親を基準に配置される（`relative` の代わりになる）
+- 親が `fixed` → 子の `relative` は自分の元の位置基準（ただし親ごと固定はされる）
+- `fixed` / `relative` / `absolute` どれでも子の `absolute` の基準になれる。`static`（デフォルト）だけがなれない
+
+
+## Claudecodeのスキルズへの追加方法
 
 ・～.claude\skills\memo-format\SKILL.md
 
@@ -6274,3 +6284,66 @@ mask:0%         mask:途中        mask:250%
 - `250%` → 100%だと端まで届かない場合があるため大きめに設定
 - `-webkit-mask-*` はSafari対応用のプレフィックス。mask-* と両方書くのが安全
 - このパターンは mask 以外にも使える（opacity, transform などでも同じ「初期状態 + JS付与 + animation」の構造）
+
+---
+
+## 📌 パララックス（固定背景 + セクションが上に重なる）の作り方 しかも透明で背景画像が少し見える　html
+
+【結論】
+セクション1を `position: fixed` で画面に固定し、セクション2が `position: relative` + `z-index` でその上に重なるようにする。（relativeはabsoluteのように親基準で配置されるわけではなく、z-indexを有効にするために付けている）
+
+
+セクション2には `margin-top: 100vh` で固定セクション分のスペースを確保する。
+
+⚠ よくある間違い:
+- `background-attachment: fixed` は**背景画像だけ**固定する。セクション全体（テキスト含む）を固定するには `position: fixed` が必要
+- `position: fixed` にすると通常フローから外れるので、次のセクションが最初から重なってしまう → `margin-top` で解決
+
+【具体例：クイズ形式 ― ???に入るものを答えよ】
+
+```css
+/* セクション1（固定する側） */
+.mainvisual {
+  ???: ???;     /* セクション全体を画面に固定する */
+  ???: 100%;    /* fixedは幅が消えるので明示する */
+  height: 100vh;
+  ???: 0;       /* 位置を左上に指定 */
+  ???: 0;
+  ???: 1;       /* 重なり順（下） */　★　整数である必要がる
+}
+
+/* セクション2（上に重なる側） */
+.features {
+  ???: ???;     /* z-indexを効かせるために必要 */
+  ???: 2;       /* 重なり順（上）→ mainvisualより大き値 */
+  ???: 100vh;   /* fixedの分のスペースを確保 */　★
+  background-color: rgba(160, 16, 16, 0.5); /* 透過で後ろが見える */
+}
+```
+
+【答え】
+
+```css
+.mainvisual {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.features {
+  position: relative;
+  z-index: 2;
+  margin-top: 100vh;
+  background-color: rgba(160, 16, 16, 0.5);
+}
+```
+
+【補足】
+- `position: fixed` → 必ず `width` / `top` / `left` もセットで指定する（fixedにすると幅・位置がリセットされるため）
+- `z-index` を効かせるには `position`（relative / absolute / fixed など）が必須
+- `background-attachment: fixed` ≠ `position: fixed`（背景画像の固定 vs セクション全体の固定、別物！）
+- `margin-top: 100vh` → fixedの要素は通常フローから消えるため、次の要素がその分ずれる。100vhで画面1枚分の空白を作る
+- 透過で後ろを見せたい場合は `rgba()` の4番目の値を小さくする（0.5 = 半透明、0.3 = かなり透ける）
