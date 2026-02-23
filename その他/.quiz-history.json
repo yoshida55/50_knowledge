@@ -56,36 +56,26 @@
   "💡 重要ポイント": {
     "title": "💡 重要ポイント",
     "line": 192,
-    "lastReviewed": 1771532047024,
-    "reviewCount": 0,
-    "questionText": "`flex: 1`と`width`を両方指定した場合、どちらの命令が優先される？"
+    "lastReviewed": 1770450538385,
+    "reviewCount": -1
   },
   "具体例": {
     "title": "具体例",
     "line": 1799,
-    "lastReviewed": 1771532252444,
-    "reviewCount": 0,
-    "questionText": "JSで要素のwidth変更時に、CSSで自動的にアニメーション効果を付与する設定は何？",
-    "evaluations": [
-      1
-    ]
+    "lastReviewed": 1770450543901,
+    "reviewCount": -1
   },
   "HTMLの構造": {
     "title": "HTMLの構造",
     "line": 1416,
-    "lastReviewed": 1771532312809,
-    "reviewCount": 0,
-    "questionText": "HTMLでロゴの箇所に、SEO対策として推奨される見出しタグはどれですか？"
+    "lastReviewed": 1770450560764,
+    "reviewCount": -1
   },
   "文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）": {
     "title": "文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）",
     "line": 1678,
-    "lastReviewed": 1771575587164,
-    "reviewCount": 2,
-    "questionText": "HTML要素のテキストを中央に配置するには、CSSのどのプロパティを設定すればよいか？",
-    "evaluations": [
-      3
-    ]
+    "lastReviewed": 1770450570329,
+    "reviewCount": -1
   },
   "▢ 　マージンとパディングの違い": {
     "title": "▢ 　マージンとパディングの違い",
@@ -96,12 +86,8 @@
   "🏗 HTML タグの設計図（使い分け）まとめ": {
     "title": "🏗 HTML タグの設計図（使い分け）まとめ",
     "line": 304,
-    "lastReviewed": 1771575628573,
-    "reviewCount": 2,
-    "questionText": "サイトロゴを画像で表現する際に、HTMLのどの見出しタグで囲むのが適切ですか？",
-    "evaluations": [
-      3
-    ]
+    "lastReviewed": 1770450650705,
+    "reviewCount": -1
   },
   "JavaScriptでイベントリスナーを実行したときに動かない。": {
     "title": "JavaScriptでイベントリスナーを実行したときに動かない。",
@@ -125,13 +111,12 @@
   "📌 パララックスのシンプルな作り方": {
     "title": "📌 パララックスのシンプルな作り方",
     "line": 3145,
-    "lastReviewed": 1771745613715,
-    "reviewCount": 2,
+    "lastReviewed": 1771094432896,
+    "reviewCount": 1,
     "evaluations": [
       2,
       1
-    ],
-    "questionText": "視差効果を2層構造で実現するための「固定背景」と「スクロール前景」の基本的な作り方は？"
+    ]
   },
   "Flex wrapや2つの列を構成する場合、以下のように作成すると良い。": {
     "title": "Flex wrapや2つの列を構成する場合、以下のように作成すると良い。",
@@ -172,12 +157,8 @@
   "命名ルール　規則": {
     "title": "命名ルール　規則",
     "line": 1300,
-    "lastReviewed": 1771575656412,
-    "reviewCount": 2,
-    "questionText": "コメントをしっかり書くと、何が自動的に表示されるか？",
-    "evaluations": [
-      3
-    ]
+    "lastReviewed": 1770567818069,
+    "reviewCount": -1
   },
   "javaScriptの基本(学習)": {
     "title": "javaScriptの基本(学習)",
@@ -191,12 +172,11 @@
   "javascriptスクロールをしても、文字が表示されない。": {
     "title": "javascriptスクロールをしても、文字が表示されない。",
     "line": 1819,
-    "lastReviewed": 1771745439332,
-    "reviewCount": 3,
+    "lastReviewed": 1771092445527,
+    "reviewCount": 2,
     "evaluations": [
       2
-    ],
-    "questionText": "JavaScriptでスクロール時に特定の要素が表示されない場合、`scrollTop()`の値が100より小さい時の`#site_title .site_title_text`要素の状態を制御するクラス操作は何？"
+    ]
   },
   "兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。": {
     "title": "兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。",
@@ -229,35 +209,29 @@
   "縦線を書きたい時、かつボックスのサイズなどとちがってボーダーライトでかけないとき。疑似要素で表示する　aaaa::after": {
     "title": "縦線を書きたい時、かつボックスのサイズなどとちがってボーダーライトでかけないとき。疑似要素で表示する　aaaa::after",
     "line": 2676,
-    "lastReviewed": 1771575685284,
-    "reviewCount": 4,
+    "lastReviewed": 1770977579192,
+    "reviewCount": 1,
     "evaluations": [
-      2,
-      3
-    ],
-    "questionText": "CSSの疑似要素 `::after` を使い、ボックスのサイズと異なる縦線を中央配置するには、どのようなプロパティと値の組み合わせが使われますか？"
+      2
+    ]
   },
   "モバイルにして、アニメーションなどで画面が広がってなおらない場合は、Windowsの横幅が、規定のサイズをこえて全体によこにそれたら、隠す処理をいれる": {
     "title": "モバイルにして、アニメーションなどで画面が広がってなおらない場合は、Windowsの横幅が、規定のサイズをこえて全体によこにそれたら、隠す処理をいれる",
     "line": 1806,
-    "lastReviewed": 1771575710174,
-    "reviewCount": 4,
+    "lastReviewed": 1770985851290,
+    "reviewCount": 1,
     "evaluations": [
-      2,
-      3
-    ],
-    "questionText": "画面の横幅が規定サイズを超えた場合の隠す処理に使うCSSプロパティは？"
+      2
+    ]
   },
   "📌 Flexboxの使い方で、片方はflex1、片方はflexなしの場合、どのような動きをするか。これは隠しメニューなどに使えるので、理解すること。とりあえず上を確保して、下に値があればその分増えていくけど、なければ上の枠で埋め尽くすというイメージ。": {
     "title": "📌 Flexboxの使い方で、片方はflex1、片方はflexなしの場合、どのような動きをするか。これは隠しメニューなどに使えるので、理解すること。とりあえず上を確保して、下に値があればその分増えていくけど、なければ上の枠で埋め尽くすというイメージ。",
     "line": 3524,
-    "lastReviewed": 1771575743184,
-    "reviewCount": 4,
+    "lastReviewed": 1770985904215,
+    "reviewCount": 1,
     "evaluations": [
-      2,
-      3
-    ],
-    "questionText": "Flexboxで`flex: 1`を持つ子要素は、親要素の余剰空間をどのように扱いますか？"
+      2
+    ]
   },
   "📌 要素取得方法の統一（querySelector推奨）": {
     "title": "📌 要素取得方法の統一（querySelector推奨）",
@@ -289,24 +263,20 @@
   "📌 overflow: hidden と height の関係 CSS": {
     "title": "📌 overflow: hidden と height の関係 CSS",
     "line": 3824,
-    "lastReviewed": 1771575790862,
-    "reviewCount": 2,
+    "lastReviewed": 1770987829515,
+    "reviewCount": 1,
     "evaluations": [
-      2,
       2
-    ],
-    "questionText": "`overflow: hidden`が親要素で効果を発揮するには、どのようなCSSプロパティの指定が必須ですか？"
+    ]
   },
   "専門用語": {
     "title": "専門用語",
     "line": 1632,
-    "lastReviewed": 1771575840933,
-    "reviewCount": 2,
+    "lastReviewed": 1770988009904,
+    "reviewCount": 1,
     "evaluations": [
-      2,
       2
-    ],
-    "questionText": "UIデザインで会話形式の表示を指す「吹き出し形式」や「チャットUI」と呼ぶものは？"
+    ]
   },
   "可変REMをつかうなら": {
     "title": "可変REMをつかうなら",
@@ -338,25 +308,21 @@
   "横スクロールアニメーション（無限ループ）": {
     "title": "横スクロールアニメーション（無限ループ）",
     "line": 2912,
-    "lastReviewed": 1771575889660,
-    "reviewCount": 2,
+    "lastReviewed": 1770988144548,
+    "reviewCount": 1,
     "evaluations": [
-      2,
       2
-    ],
-    "questionText": "CSSで要素のクリック操作を無効化するには、どのプロパティを使用しますか？"
+    ]
   },
   "パララックス": {
     "title": "パララックス",
     "line": 1069,
-    "lastReviewed": 1771746006118,
-    "reviewCount": 1,
+    "lastReviewed": 1771096833545,
+    "reviewCount": 0,
     "evaluations": [
       1,
-      1,
-      2
-    ],
-    "questionText": "`background-attachment: fixed;` が背景画像の固定以外にどのような効果を持つか？"
+      1
+    ]
   },
   "相続するとき注意したいこと。": {
     "title": "相続するとき注意したいこと。",
@@ -416,30 +382,27 @@
   "📝 覚えておくこと": {
     "title": "📝 覚えておくこと",
     "line": 2212,
-    "lastReviewed": 1771746141696,
-    "reviewCount": 2,
+    "lastReviewed": 1771097920883,
+    "reviewCount": 1,
     "evaluations": [
       1,
       2
-    ],
-    "questionText": "`position: fixed` と `z-index` の関係で、親要素の `z-index` がない場合に影響を受けるのは？"
+    ]
   },
   "transition: width 0.5s ease　**CSSの`transition`プロパティ**について解説": {
     "title": "transition: width 0.5s ease　**CSSの`transition`プロパティ**について解説",
     "line": 1926,
-    "lastReviewed": 1771575938594,
-    "reviewCount": 4,
+    "lastReviewed": 1771002924620,
+    "reviewCount": 1,
     "evaluations": [
-      2,
-      3
-    ],
-    "questionText": "CSSの`transition`プロパティは、どのような効果を実現するために使用されるか？"
+      2
+    ]
   },
   "▢ git ★github ルールに追加する必要なし": {
     "title": "▢ git ★github ルールに追加する必要なし",
     "line": 564,
-    "lastReviewed": 1771576003963,
-    "reviewCount": -1,
+    "lastReviewed": 1771010631233,
+    "reviewCount": 1,
     "evaluations": [
       2
     ]
@@ -447,13 +410,11 @@
   "📌 アニメーションライブラリ デモ管理（Swiper等）skillsの説明": {
     "title": "📌 アニメーションライブラリ デモ管理（Swiper等）skillsの説明",
     "line": 3586,
-    "lastReviewed": 1771576010344,
-    "reviewCount": 2,
+    "lastReviewed": 1771010715705,
+    "reviewCount": 1,
     "evaluations": [
-      2,
       2
-    ],
-    "questionText": "アニメーションライブラリのデモを生成するコマンドは？"
+    ]
   },
   "📌 セクション高さは固定しない（height → min-height）": {
     "title": "📌 セクション高さは固定しない（height → min-height）",
@@ -476,23 +437,17 @@
   "javaScriptのオブジェクトがはいっているかを調べるには": {
     "title": "javaScriptのオブジェクトがはいっているかを調べるには",
     "line": 3566,
-    "lastReviewed": 1771576056348,
-    "reviewCount": 4,
+    "lastReviewed": 1771011241460,
+    "reviewCount": 1,
     "evaluations": [
-      2,
-      3
-    ],
-    "questionText": "JavaScriptでオブジェクトが定義されているか確認する`typeof`演算子は、どのような値を返すか？"
+      2
+    ]
   },
   "Flex 2階層(階段式)で下揃えするテクニック。かつ、左右の高さをかえる。": {
     "title": "Flex 2階層(階段式)で下揃えするテクニック。かつ、左右の高さをかえる。",
     "line": 2585,
-    "lastReviewed": 1771576097390,
-    "reviewCount": 4,
-    "questionText": "Flexの2階層レイアウトで、子要素の高さが100%の場合に下揃えにならない原因は？",
-    "evaluations": [
-      3
-    ]
+    "lastReviewed": 1771011272795,
+    "reviewCount": 1
   },
   "親要素に relative をかける理由（画像へのテキスト重ね）": {
     "title": "親要素に relative をかける理由（画像へのテキスト重ね）",
@@ -542,13 +497,11 @@
   "▢ メディアクエリ": {
     "title": "▢ メディアクエリ",
     "line": 560,
-    "lastReviewed": 1771576272494,
-    "reviewCount": 4,
+    "lastReviewed": 1771011745752,
+    "reviewCount": 1,
     "evaluations": [
-      2,
-      3
-    ],
-    "questionText": "メディアクエリで画面幅が375px以下の条件を指定するCSSコードは？"
+      2
+    ]
   },
   "メニューが２列あって、同じ幅でフォーマットを構築する際の計算式": {
     "title": "メニューが２列あって、同じ幅でフォーマットを構築する際の計算式",
@@ -577,13 +530,11 @@
   "各値の意味": {
     "title": "各値の意味",
     "line": 3469,
-    "lastReviewed": 1771576365552,
-    "reviewCount": 4,
+    "lastReviewed": 1771011864361,
+    "reviewCount": 1,
     "evaluations": [
-      2,
-      3
-    ],
-    "questionText": "指定されたメモから、以下のクイズ問題を生成しました。\n\n画面幅に応じて可変するフォントサイズは、最小値と最大値の範囲でどのように決まりますか？"
+      2
+    ]
   },
   "display:inline_flexと　display:blockの違い。": {
     "title": "display:inline_flexと　display:blockの違い。",
@@ -640,12 +591,8 @@
   "ライブラリのファイルを読み込む時、CDNなどはかならずjsの上に記述する。": {
     "title": "ライブラリのファイルを読み込む時、CDNなどはかならずjsの上に記述する。",
     "line": 3451,
-    "lastReviewed": 1771576414001,
-    "reviewCount": 4,
-    "questionText": "ライブラリのファイルを読み込む際、CDNはどのタグの上に記述すべきですか？",
-    "evaluations": [
-      3
-    ]
+    "lastReviewed": 1771012176149,
+    "reviewCount": 1
   },
   "パディングとマージンの違い": {
     "title": "パディングとマージンの違い",
@@ -695,12 +642,8 @@
   "JavaScriptなど": {
     "title": "JavaScriptなど",
     "line": 4210,
-    "lastReviewed": 1771745043996,
-    "reviewCount": 2,
-    "questionText": "JavaScriptで要素にクラスを追加するために必要なクラスリストのメソッドは？",
-    "evaluations": [
-      2
-    ]
+    "lastReviewed": 1771057073921,
+    "reviewCount": 1
   },
   "▢ 拡張ツールの見方　暗記": {
     "title": "▢ 拡張ツールの見方　暗記",
@@ -732,31 +675,26 @@
   "使��道": {
     "title": "使��道",
     "line": 3176,
-    "lastReviewed": 1771745087561,
-    "reviewCount": 2,
-    "questionText": "Flexboxで親要素の幅が足りない時、子要素が元のサイズを保つ`flex-shrink`の値は？"
+    "lastReviewed": 1771057204612,
+    "reviewCount": 1
   },
   "JavaScriptとHTMLの関係性": {
     "title": "JavaScriptとHTMLの関係性",
     "line": 1738,
-    "lastReviewed": 1771746693478,
-    "reviewCount": 4,
+    "lastReviewed": 1771097985781,
+    "reviewCount": 1,
     "evaluations": [
-      2,
-      3
-    ],
-    "questionText": "JavaScriptはHTML要素をどのように操作できますか？"
+      2
+    ]
   },
   "📌 ホバーで画像拡大エフェクト": {
     "title": "📌 ホバーで画像拡大エフェクト",
     "line": 4184,
-    "lastReviewed": 1771746731833,
-    "reviewCount": 1,
+    "lastReviewed": 1771118108845,
+    "reviewCount": 0,
     "evaluations": [
-      1,
-      2
-    ],
-    "questionText": "マウスオーバーで画像拡大するエフェクトは、CSSのどのプロパティで実装しますか？"
+      1
+    ]
   },
   "CSSでの構文": {
     "title": "CSSでの構文",
@@ -779,12 +717,11 @@
   "width を指定して、height を auto にすると自然なかたちになる。": {
     "title": "width を指定して、height を auto にすると自然なかたちになる。",
     "line": 1196,
-    "lastReviewed": 1771746882688,
-    "reviewCount": 2,
+    "lastReviewed": 1771118337984,
+    "reviewCount": 1,
     "evaluations": [
       2
-    ],
-    "questionText": "CSSで高さを自動にするために、widthを指定するとどのような形状になるか？"
+    ]
   },
   "Flexboxを利用するときは、以下でも縦中央に持ってくることができるが、基本は親Flexboxで中央に指定してあげるのがベストプラクティス。": {
     "title": "Flexboxを利用するときは、以下でも縦中央に持ってくることができるが、基本は親Flexboxで中央に指定してあげるのがベストプラクティス。",
@@ -816,12 +753,11 @@
   "📌 particles.js の基本構成 ライブラリからスライドなどの実装をする場合（星座のような背景）": {
     "title": "📌 particles.js の基本構成 ライブラリからスライドなどの実装をする場合（星座のような背景）",
     "line": 3384,
-    "lastReviewed": 1771747436549,
-    "reviewCount": 2,
+    "lastReviewed": 1771118500163,
+    "reviewCount": 1,
     "evaluations": [
       2
-    ],
-    "questionText": "particles.js を使った背景実装は、CDN読込・要素準備・particlesJS()初期化の何ステップで完了しますか？"
+    ]
   },
   "display: inline-flex の場合": {
     "title": "display: inline-flex の場合",
@@ -859,34 +795,29 @@
   "JavaScript が正しく動作しません。新しいライブラリを追加したものの動作しないのはなぜでしょうか。": {
     "title": "JavaScript が正しく動作しません。新しいライブラリを追加したものの動作しないのはなぜでしょうか。",
     "line": 3243,
-    "lastReviewed": 1771747593043,
-    "reviewCount": 2,
+    "lastReviewed": 1771118633618,
+    "reviewCount": 1,
     "evaluations": [
       2
-    ],
-    "questionText": "JavaScriptライブラリを機能させるためにscriptタグで囲むべきものは？"
+    ]
   },
   "仕組み": {
     "title": "仕組み",
     "line": 1925,
-    "lastReviewed": 1771747702669,
-    "reviewCount": 2,
+    "lastReviewed": 1771170855859,
+    "reviewCount": 1,
     "evaluations": [
-      2,
       2
-    ],
-    "questionText": "CSSで指定された横幅のアニメーションが完了するまでの時間は？"
+    ]
   },
   "フレックスの子要素は画像などのもとサイズより小さくならない。例えば画像など大きいサイズをうめるときに、想定した配置にならないときは、": {
     "title": "フレックスの子要素は画像などのもとサイズより小さくならない。例えば画像など大きいサイズをうめるときに、想定した配置にならないときは、",
     "line": 2909,
-    "lastReviewed": 1771747738645,
-    "reviewCount": 1,
+    "lastReviewed": 1771170912721,
+    "reviewCount": 0,
     "evaluations": [
-      1,
-      2
-    ],
-    "questionText": "Flexboxで子要素が親要素より小さくならない問題を解決するには？"
+      1
+    ]
   },
   "videoなど画像を使う際は、 比率を保ってトリミングするために、heightとwidthを指定した上で、object-fit: cover;を利用する": {
     "title": "videoなど画像を使う際は、 比率を保ってトリミングするために、heightとwidthを指定した上で、object-fit: cover;を利用する",
@@ -909,12 +840,11 @@
   "スライダーについて。３つの画面の一緒に画面に表示、": {
     "title": "スライダーについて。３つの画面の一緒に画面に表示、",
     "line": 2479,
-    "lastReviewed": 1771763914570,
-    "reviewCount": 2,
+    "lastReviewed": 1771171070577,
+    "reviewCount": 1,
     "evaluations": [
       2
-    ],
-    "questionText": "JavaScriptでスライダーに常に3つの画像を表示するには、`slidesToShow`の値をいくつに設定しますか？"
+    ]
   },
   "正確な説明": {
     "title": "正確な説明",

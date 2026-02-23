@@ -6347,3 +6347,122 @@ mask:0%         mask:途中        mask:250%
 - `background-attachment: fixed` ≠ `position: fixed`（背景画像の固定 vs セクション全体の固定、別物！）
 - `margin-top: 100vh` → fixedの要素は通常フローから消えるため、次の要素がその分ずれる。100vhで画面1枚分の空白を作る
 - 透過で後ろを見せたい場合は `rgba()` の4番目の値を小さくする（0.5 = 半透明、0.3 = かなり透ける）
+
+---
+
+## 📌 flex/gridで列幅やgapがバラバラな場合の使い分け css
+
+【結論】
+列幅もgapも全部バラバラなら `flex` + 個別 `width` + 個別 `margin`。
+gapが均等でよいなら `space-between` が楽。
+
+| 状況 | 方法 |
+|------|------|
+| 列幅バラバラ + gapは均等 | `flex` + `space-between` + 各子に `width` |
+| 列幅もgapもバラバラ | `flex` + 各子に `width` + `margin` |
+| 列幅バラバラ + gapは均等 | `grid` + `grid-template-columns: 3fr 7fr` でもOK |
+
+【具体例：space-between（gapが均等でOKな場合）】
+```css
+.parent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.child_a { width: 50%; }
+.child_b { width: 20%; }
+.child_c { width: 20%; }
+/* 残り10%が子の間に均等配分される */
+```
+
+【具体例：margin個別指定（gapもバラバラな場合）】
+```css
+.parent {
+  display: flex;
+}
+
+.child_a { width: 50%; }
+.child_b { width: 25%; margin-left: 3rem; }
+.child_c { width: 25%; margin-left: 1rem; }
+```
+
+【補足】
+- `grid` の `gap` は全列共通で1つしか指定できない → gapがバラバラならflexを使う
+- `fr` 単位は比率指定（`3fr 7fr` = 3:7）で、gapを含めて自動計算してくれる
+- `space-between` は子の幅が決まっていれば残りスペースを均等に配分する
+
+---
+
+## 📌 共通クラスを別セクションで使い回すと意図しないスタイルが当たる css
+
+【結論】
+共通クラス（例: `.arrow_link`）を別セクションで再利用すると、元のセクション用のスタイル（`margin-left: auto` 等）がそのまま当たってしまう。
+**セクション専用のクラス名を作るのが安全。**
+
+【具体例：失敗パターン】
+```css
+/* お知らせセクション用に作ったクラス */
+.arrow_link {
+  margin-left: auto;   /* 右寄せ */
+  margin-top: 4rem;
+}
+```
+```html
+<!-- お問い合わせセクションでも同じクラスを使った -->
+<a class="arrow_link">モデルハウス一覧</a>
+<!-- ❌ margin-left: auto が当たって右に寄ってしまう！ -->
+```
+
+【具体例：解決パターン】
+```html
+<!-- セクション専用のクラス名にする -->
+<a class="inquiry_arrow_link">モデルハウス一覧</a>
+<!-- ✅ 共通クラスの影響を受けない -->
+```
+
+【補足】
+- flexの `justify-content` が効かない時 → 子の `margin` が上書きしていないか確認
+- 親の flex 設定が正しくても、**子の margin-left: auto は flex より強い**
+- 対策は2つ：① セクション専用クラスを作る ② 親セレクタで限定（`.inquiry_links .arrow_link { margin-left: 0; }`）
+
+---
+
+## 📌 ::after / ::before で装飾を作れるケースとダメなケース css
+
+★以下は問題ない
+![](images/2026-02-23-13-53-37.png)
+
+★以下は別途、aタグなり必要
+![](images/2026-02-23-13-54-36.png)
+
+【結論】
+`::after` `::before` はCSSで生成する**装飾用の擬似要素**。
+ボタン内の矢印アイコンなど、**1つの要素の中の装飾ならOK**。
+ただし擬似要素は**独立したリンクにはできない**。
+
+【具体例：OKパターン（ボタン内の矢印）】
+```css
+/* ボタン全体が1つのリンク → ::after で矢印OK */
+.inquiry_button {
+  position: relative;
+}
+
+.inquiry_button::after {
+  content: "→";
+  position: absolute;
+  right: 2rem;
+  /* 丸囲みスタイル等 */
+}
+```
+
+【具体例：NGパターン（矢印だけ別リンク）】
+```html
+<!-- テキストと矢印が別のリンク先 → ::after では無理 -->
+<span>お問い合わせ</span>
+<a href="/contact">→</a>  <!-- これはHTMLで書くしかない -->
+```
+
+【補足】
+- `::after` はクリック領域を持たない（親要素のクリック領域に含まれるだけ）
+- 「見た目の装飾」→ `::after` OK / 「独立した操作」→ HTMLで書く
+- `content: ""` が必須（これがないと擬似要素は表示されない）
