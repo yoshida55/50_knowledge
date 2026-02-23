@@ -5103,7 +5103,7 @@ $(document).ready(checkNewsAnimation);
 ---
 
 ▢
-メモ：clip-path リビールアニメーション_上から下へ文字表示
+メモ：clip-path リビールアニメーション_上から下へ文字表示 特に矢印や文字に使う
 テキストライティング効果
 
 
@@ -5111,6 +5111,7 @@ $(document).ready(checkNewsAnimation);
 ★`clip-path: inset()` でマスク効果を作れる
 ★`inset(上 右 下 左)` の引数順序（時計回り）
 ★リビール（Reveal）アニメーションという手法名を知った
+
 
 【ポイント】
 

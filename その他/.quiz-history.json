@@ -951,32 +951,5 @@
     "evaluations": [
       2
     ]
-  },
-  "📌 overflow: hidden は「親」に付ける（子の拡大を切り取るのは親の仕事）": {
-    "title": "📌 overflow: hidden は「親」に付ける（子の拡大を切り取るのは親の仕事）",
-    "line": 6148,
-    "lastReviewed": 1771862487471,
-    "reviewCount": 3,
-    "questionText": "`transform: scale()` で子要素の拡大を隠したい場合、`overflow: hidden` はどの要素に適用すべきか？",
-    "evaluations": [
-      3
-    ]
-  },
-  "📌 CSS white-space: nowrap でテキストの改行を防ぐ": {
-    "title": "📌 CSS white-space: nowrap でテキストの改行を防ぐ",
-    "line": 6122,
-    "lastReviewed": 1771862515842,
-    "reviewCount": 1,
-    "questionText": "CSSでテキストの改行を防ぐプロパティは何ですか？",
-    "evaluations": [
-      2
-    ]
-  },
-  "📌 querySelectorAllで複数要素にイベントをつける（forEachが必要）": {
-    "title": "📌 querySelectorAllで複数要素にイベントをつける（forEachが必要）",
-    "line": 186,
-    "lastReviewed": 1771862552597,
-    "reviewCount": 1,
-    "questionText": "`querySelectorAll`で取得した複数要素にイベントを付与するには何が必要？"
   }
 }
