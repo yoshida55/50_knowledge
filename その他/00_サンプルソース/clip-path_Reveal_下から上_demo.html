@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>clip-path Reveal（下から上）デモ</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        background: #f5f0e8;
+        gap: 2rem;
+        font-family: sans-serif;
+      }
+
+      p {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      /* ===== footer_arrow ===== */
+      .footer_arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 4rem;
+        height: 5rem;
+
+        font-size: 1.5rem;
+
+        border: 0.1rem solid #8b6914;
+        border-radius: 45%;
+        color: #da6d00;
+
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      /* アイコンのReveal（@keyframes） */
+      .footer_arrow_icon {
+        display: block;
+      }
+
+      .footer_arrow:hover .footer_arrow_icon {
+        animation: arrow-reveal 0.5s ease forwards;
+      }
+
+      @keyframes arrow-reveal {
+        0% {
+          clip-path: inset(0 0 0 0);
+        }
+        1% {
+          clip-path: inset(100% 0 0 0);
+        }
+        100% {
+          clip-path: inset(0 0 0 0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p>↓ ホバーしてみてください</p>
+
+    <a class="footer_arrow">
+      <span class="footer_arrow_icon">↑</span>
+    </a>
+
+    <p style="font-size: 0.8rem; color: #999">アイコン：@keyframes で一瞬消えて下から上にReveal</p>
+  </body>
+</html>

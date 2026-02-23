@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>clip-path Reveal エフェクト - インタラクティブデモ</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #fff;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #ffd700;
+  margin-bottom: 40px;
+}
+
+.demo-section {
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+}
+
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: #ffd700;
+  border-bottom: 2px solid #ffd700;
+  padding-bottom: 10px;
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.demo-item {
+  background: rgba(255,255,255,0.08);
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.demo-item h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.footer_arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 5rem;
+  font-size: 1.5rem;
+  border: 0.1rem solid #8b6914;
+  border-radius: 45%;
+  color: #da6d00;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  margin: 20px auto;
+  cursor: pointer;
+  background: #fff;
+}
+
+.footer_arrow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #da6d00;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.5s ease;
+  z-index: -1;
+}
+
+.footer_arrow:hover::before {
+  clip-path: inset(0 0 0 0);
+}
+
+.footer_arrow_icon {
+  display: block;
+}
+
+.footer_arrow:hover .footer_arrow_icon {
+  animation: arrow-reveal 0.5s ease forwards;
+}
+
+@keyframes arrow-reveal {
+  0%   { clip-path: inset(0 0 0 0); }
+  1%   { clip-path: inset(100% 0 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+/* 制御可能なデモ用 */
+.controlled-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 5rem;
+  font-size: 1.5rem;
+  border: 0.1rem solid #8b6914;
+  border-radius: 45%;
+  color: #da6d00;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  margin: 20px auto;
+  background: #fff;
+}
+
+.controlled-arrow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #da6d00;
+  z-index: -1;
+}
+
+.controlled-arrow_icon {
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.controls {
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 25px;
+  margin-top: 30px;
+}
+
+.control-group {
+  margin-bottom: 25px;
+}
+
+.control-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #ffd700;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+input[type="range"] {
+  flex: 1;
+  height: 8px;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.2);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffd700;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffd700;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.value-display {
+  min-width: 80px;
+  background: rgba(0,0,0,0.3);
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.status-display {
+  background: rgba(0,0,0,0.3);
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.status-title {
+  color: #ffd700;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.info-box {
+  background: rgba(218, 109, 0, 0.2);
+  border-left: 4px solid #da6d00;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.info-box p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.code-display {
+  background: rgba(0,0,0,0.5);
+  padding: 15px;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  margin-top: 15px;
+  overflow-x: auto;
+}
+
+.direction-demo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.direction-item {
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.direction-item h4 {
+  margin-bottom: 15px;
+  color: #ffd700;
+}
+
+.animated {
+  animation: arrow-reveal 0.5s ease forwards;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🎯 clip-path Reveal エフェクト</h1>
+  <p class="subtitle">下から上へ「めくれ上がる」ように表示する高度なアニメーション</p>
+
+  <!-- オリジナルのホバーデモ -->
+  <div class="demo-section">
+    <h2 class="section-title">1. オリジナル実装（ホバーで動作）</h2>
+    <div class="demo-grid">
+      <div class="demo-item">
+        <h3>実際の動作</h3>
+        <p style="margin-bottom: 20px; color: #aaa;">マウスをホバーしてください</p>
+        <div class="footer_arrow">
+          <span class="footer_arrow_icon">›</span>
+        </div>
+        <div class="info-box">
+          <p><strong>動作フロー：</strong></p>
+          <p>1. 背景が transition で下から上���展開</p>
+          <p>2. アイコンが一瞬消えて再Reveal</p>
+          <p>3. 両方が同時に「めくれ上がる」</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- インタラクティブ制御デモ -->
+  <div class="demo-section">
+    <h2 class="section-title">2. インタラクティブ制御デモ</h2>
+    
+    <div class="demo-grid">
+      <div class="demo-item">
+        <h3>背景のclip-path（::before）</h3>
+        <div class="controlled-arrow" id="bgDemo">
+          <span class="controlled-arrow_icon">›</span>
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label class="control-label">inset Top値（上から削る量）</label>
+            <div class="slider-container">
+              <input type="range" id="bgSlider" min="0" max="100" value="100">
+              <span class="value-display" id="bgValue">100%</span>
+            </div>
+          </div>
+          <div class="button-group">
+            <button onclick="animateBg()">アニメーション再生</button>
+            <button onclick="resetBg()">リセット</button>
+          </div>
+          <div class="status-display">
+            <div class="status-title">現在の状態：</div>
+            <div id="bgStatus">clip-path: inset(100% 0 0 0)</div>
+          </div>
+        </div>
+        <div class="code-display">
+clip-path: inset(<span id="bgCode">100%</span> 0 0 0);
+        </div>
+      </div>
+
+      <div class="demo-item">
+        <h3>アイコンのclip-path（span）</h3>
+        <div class="controlled-arrow" style="background: white;">
+          <span class="controlled-arrow_icon" id="iconDemo">›</span>
+        </div>
+        <div class="controls">
+          <div class="control-group">
+            <label class="control-label">アニメーション進行度</label>
+            <div class="slider-container">
+              <input type="range" id="iconSlider" min="0" max="100" value="0">
+              <span class="value-display" id="iconValue">0%</span>
+            </div>
+          </div>
+          <div class="button-group">
+            <button onclick="animateIcon()">2ステップアニメーション再生</button>
+            <button onclick="resetIcon()">リセット</button>
+          </div>
+          <div class="status-display">
+            <div class="status-title">現在のキーフレーム：</div>
+            <div id="iconStatus">0%: 表示状態</div>
+          </div>
+        </div>
+        <div class="info-box">
+          <p><strong>⚠️ 重要���</strong></p>
+          <p>transition では「消えて→再表示」の2ステップは不可能</p>
+          <p>@keyframes で 0% → 1% → 100% の3段階を定義</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 方向バリエーション -->
+  <div class="demo-section">
+    <h2 class="section-title">3. 方向バリエーション</h2>
+    <div class="direction-demo">
+      <div class="direction-item">
+        <h4>下から上</h4>
+        <div class="controlled-arrow" id="dir1">
+          <span class="controlled-arrow_icon">›</span>
+        </div>
+        <div class="code-display" style="font-size: 0.8rem;">
+inset(100% 0 0 0)
+↓
+inset(0 0 0 0)
+        </div>
+        <button onclick="animateDirection('dir1', '100% 0 0 0', '0 0 0 0')" style="margin-top: 15px; padding: 8px 20px; font-size: 0.9rem;">再生</button>
+      </div>
+
+      <div class="direction-item">
+        <h4>上から下</h4>
+        <div class="controlled-arrow" id="dir2">
+          <span class="controlled-arrow_icon">›</span>
+        </div>
+        <div class="code-display" style="font-size: 0.8rem;">
+inset(0 0 100% 0)
+↓
+inset(0 0 0 0)
+        </div>
+        <button onclick="animateDirection('dir2', '0 0 100% 0', '0 0 0 0')" style="margin-top: 15px; padding: 8px 20px; font-size: 0.9rem;">再生</button>
+      </div>
+
+      <div class="direction-item">
+        <h4>右から左</h4>
+        <div class="controlled-arrow" id="dir3">
+          <span class="controlled-arrow_icon">›</span>
+        </div>
+        <div class="code-display" style="font-size: 0.8rem;">
+inset(0 100% 0 0)
+↓
+inset(0 0 0 0)
+        </div>
+        <button onclick="animateDirection('dir3', '0 100% 0 0', '0 0 0 0')" style="margin-top: 15px; padding: 8px 20px; font-size: 0.9rem;">再生</button>
+      </div>
+
+      <div class="direction-item">
+        <h4>左から右</h4>
+        <div class="controlled-arrow" id="dir4">
+          <span class="controlled-arrow_icon">›</span>
+        </div>
+        <div class="code-display" style="font-size: 0.8rem;">
+inset(0 0 0 100%)
+↓
+inset(0 0 0 0)
+        </div>
+        <button onclick="animateDirection('dir4', '0 0 0 100%', '0 0 0 0')" style="margin-top: 15px; padding: 8px 20px; font-size: 0.9rem;">再生</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 重要ポイント解説 -->
+  <div class="demo-section">
+    <h2 class="section-title">4. 重要ポイント解説</h2>
+    <div class="info-box" style="background: rgba(218, 109, 0, 0.3);">
+      <h3 style="color: #ffd700; margin-bottom: 15px;">★ inset()の方向は直感と逆</h3>
+      <p><code>inset(top right bottom left)</code></p>
+      <p><strong>inset(100% 0 0 0)</strong> = 「上から100%削る」→ 下から見え始める</p>
+      <p style="margin-top: 15px;">理由：topが100%の場合、要素の上端から100%の位置まで削除される = 全体が削除される。そこから0%に戻すと、上から順に復元される = 下から上に表示されるように見える。</p>
+    </div>
+
+    <div class="info-box" style="background: rgba(102, 126, 234, 0.3); border-left-color: #667eea; margin-top: 20px;">
+      <h3 style="color: #ffd700; margin-bottom: 15px;">★ transition vs @keyframes</h3>
+      <p><strong>transition：</strong> A → B の1方向のみ。シンプルな変化に最適。</p>
+      <p><strong>@keyframes：</strong> 複数ステップ可能。「消えて→再表示」のような複雑な動きに必須。</p>
+      <p style="margin-top: 15px;">今回のアイコンアニメーション：0% 表示 → 1% 消去 → 100% 再表示 の3段階が必要なため、@keyframesを使用。</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// 背景のclip-path制御
+const bgSlider = document.getElementById('bgSlider');
+const bgValue = document.getElementById('bgValue');
+const bgStatus = document.getElementById('bgStatus');
+const bgCode = document.getElementById('bgCode');
+const bgDemo = document.getElementById('bgDemo');
+
+bgSlider.addEventListener('input', (e) => {
+  const value = e.target.value;
+  bgValue.textContent = value + '%';
+  bgCode.textContent = value + '%';
+  bgDemo.style.setProperty('--bg-clip', `inset(${value}% 0 0 0)`);
+  bgDemo.querySelector('::before') || updateBgBefore();
+  bgStatus.textContent = `clip-path: inset(${value}% 0 0 0)\n下から${100-value}%見えている状態`;
+});
+
+function updateBgBefore() {
+  const value = bgSlider.value;
+  const beforeStyle = document.createElement('style');
+  beforeStyle.id = 'bgBeforeStyle';
+  const existingStyle = document.getElementById('bgBeforeStyle');
+  if (existingStyle) existingStyle.remove();
+  
+  beforeStyle.textContent = `
+    #bgDemo::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: #da6d00;
+      clip-path: inset(${value}% 0 0 0);
+      z-index: -1;
+    }
+  `;
+  document.head.appendChild(beforeStyle);
+}
+
+function animateBg() {
+  let progress = 100;
+  bgSlider.value = progress;
+  updateBgBefore();
+  
+  const interval = setInterval(() => {
+    progress -= 2;
+    if (progress <= 0) {
+      progress = 0;
+      clearInterval(interval);
+    }
+    bgSlider.value = progress;
+    bgValue.textContent = progress + '%';
+    bgCode.textContent = progress + '%';
+    bgStatus.textContent = `clip-path: inset(${progress}% 0 0 0)\n下から${100-progress}%見えている状態`;
+    updateBgBefore();
+  }, 10);
+}
+
+function resetBg() {
+  bgSlider.value = 100;
+  bgValue.textContent = '100%';
+  bgCode.textContent = '100%';
+  bgStatus.textContent = 'clip-path: inset(100% 0 0 0)\n完全に非表示';
+  updateBgBefore();
+}
+
+// アイコンのclip-path制御
+const iconSlider = document.getElementById('iconSlider');
+const iconValue = document.getElementById('iconValue');
+const iconStatus = document.getElementById('iconStatus');
+const iconDemo = document.getElementById('iconDemo');
+
+iconSlider.addEventListener('input', (e) => {
+  const value = parseInt(e.target.value);
+  iconValue.textContent = value + '%';
+  
+  if (value <= 1) {
+    iconDemo.style.clipPath = 'inset(0 0 0 0)';
+    iconStatus.textContent = '0-1%: 表示状態\nclip-path: inset(0 0 0 0)';
+  } else {
+    const insetValue = 100 - value;
+    iconDemo.style.clipPath = `inset(${insetValue}% 0 0 0)`;
+    iconStatus.textContent = `${value}%: 下から上にReveal中\nclip-path: inset(${insetValue}% 0 0 0)`;
+  }
+});
+
+function animateIcon() {
+  let step = 0;
+  iconSlider.value = 0;
+  iconDemo.style.clipPath = 'inset(0 0 0 0)';
+  iconStatus.textContent = '0%: 表示状態';
+  
+  setTimeout(() => {
+    // Step 1: 瞬時���消去 (1%)
+    iconSlider.value = 1;
+    iconValue.textContent = '1%';
+    iconDemo.style.clipPath = 'inset(100% 0 0 0)';
+    iconStatus.textContent = '1%: 瞬時消去\nclip-path: inset(100% 0 0 0)';
+    
+    // Step 2: 下から上に再表示 (1% → 100%)
+    setTimeout(() => {
+      let progress = 1;
+      const revealInterval = setInterval(() => {
+        progress += 2;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(revealInterval);
+        }
+        iconSlider.value = progress;
+        iconValue.textContent = progress + '%';
+        const insetValue = 100 - progress;
+        iconDemo.style.clipPath = `inset(${insetValue}% 0 0 0)`;
+        iconStatus.textContent = `${progress}%: 下から上にReveal\nclip-path: inset(${insetValue}% 0 0 0)`;
+      }, 10);
+    }, 50);
+  }, 500);
+}
+
+function resetIcon() {
+  iconSlider.value = 0;
+  iconValue.textContent = '0%';
+  iconDemo.style.clipPath = 'inset(0 0 0 0)';
+  iconStatus.textContent = '0%: 表示状態\nclip-path: inset(0 0 0 0)';
+}
+
+// 方向バリエーション
+function animateDirection(id, start, end) {
+  const element = document.getElementById(id);
+  const beforeStyle = document.createElement('style');
+  beforeStyle.id = id + 'Style';
+  const existingStyle = document.getElementById(id + 'Style');
+  if (existingStyle) existingStyle.remove();
+  
+  beforeStyle.textContent = `
+    #${id}::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: #da6d00;
+      clip-path: inset(${start});
+      z-index: -1;
+      transition: clip-path 0.5s ease;
+    }
+  `;
+  document.head.appendChild(beforeStyle);
+  
+  setTimeout(() => {
+    beforeStyle.textContent = `
+      #${id}::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: #da6d00;
+        clip-path: inset(${end});
+        z-index: -1;
+        transition: clip-path 0.5s ease;
+      }
+    `;
+  }, 50);
+  
+  setTimeout(() => {
+    beforeStyle.textContent = `
+      #${id}::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: #da6d00;
+        clip-path: inset(${start});
+        z-index: -1;
+        transition: clip-path 0.5s ease;
+      }
+    `;
+  }, 1000);
+}
+
+// 初期化
+updateBgBefore();
+resetIcon();
+</script>
+
+</body>
+</html>

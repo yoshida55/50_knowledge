@@ -6430,4 +6430,172 @@ gapが均等でよいなら `space-between` が楽。
 
 ---
 
+## ★あまり参考にならない　clip-path Reveal（下から上） - ホバーで要素を下から上にめくれ上がるように表示
+ 
+
+【気づき】
+- `::before` に `background-color` がないと clip-path は機能しない（透明のまま）
+- `inset(100% 0 0 0)` = 上から100%削る = 下から見え始める（直感と逆）
+- アイコン自体もRevealさせるには `<span>` でラップして同じ clip-path を適用する
+
+【ポイント】
+
+★ポイント1: background-color 必須
+```css
+.footer_arrow::before {
+  background-color: #da6d00; /* ← ないと透明で何も見えない */
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.5s ease;
+  z-index: -1;
+}
+```
+
+★ポイント2: inset() の方向（直感と逆）
+```css
+/* 下から上 = 上を100%削ってスタート */
+clip-path: inset(100% 0 0 0); /* 開始：全部非表示 */
+clip-path: inset(0 0 0 0);    /* 終了：全部表示 */
+/* inset(top right bottom left) */
+```
+
+★ポイント3: アイコン自体もRevealさせる → span でラップ
+```html
+<div class="footer_arrow">
+  <span class="footer_arrow_icon">›</span>
+</div>
+```
+```css
+.footer_arrow_icon {
+  display: block;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.5s ease;
+}
+.footer_arrow:hover .footer_arrow_icon {
+  clip-path: inset(0 0 0 0);
+}
+```
+
+★コピペで動く最小コード（ファイル分離版）
+
+**HTML**
+```html
+<div class="footer_arrow">
+  <span class="footer_arrow_icon">›</span>
+</div>
+```
+
+**CSS（css/work.css）**
+```css
+.footer_arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 5rem;
+  font-size: 1.5rem;
+  border: 0.1rem solid #8b6914;
+  border-radius: 45%;
+  color: #da6d00;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.footer_arrow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #da6d00;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.5s ease;
+  z-index: -1;
+}
+.footer_arrow:hover::before {
+  clip-path: inset(0 0 0 0);
+}
+.footer_arrow_icon {
+  display: block;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.5s ease;
+}
+.footer_arrow:hover .footer_arrow_icon {
+  clip-path: inset(0 0 0 0);
+}
+```
+
+📋 [詳細ソース](./その他/00_サンプルソース/★clip-path_Reveal_下から上.md)
+
+---
+
+## clip-path Reveal（下から上）改 - 最初表示・ホバーで一瞬消えて下から上に再Reveal
+
+▶ [デモを見る](./その他/00_サンプルソース/clip-path_Reveal_下から上_demo.html)
+
+[プレビュー](http://localhost:54321/preview-20260224-073046.html)
+
+
+【気づき】
+- `transition` では「消えて→再表示」の2ステップは不可 → `@keyframes` 必須
+- `0% → 1%` の超短区間で「瞬時消去」を表現できる
+- 初期状態は `clip-path` なし（表示のまま）、hover で animation を使う
+
+【ポイント】
+
+★ポイント1: transition は2ステップ不可 → @keyframes
+```css
+/* ❌ transition は A→B の1方向のみ */
+
+/* ✅ @keyframes で複数ステップ */
+@keyframes arrow-reveal {
+  0%   { clip-path: inset(0 0 0 0); }
+  1%   { clip-path: inset(100% 0 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+```
+
+★ポイント2: 0%→1% 瞬時消去トリック
+- `0% → 1%` の1%区間は短すぎて目に見えない → パッと消えてRevealに見える
+
+★コピペで動く最小コード（ファイル分離版）
+
+**HTML**
+```html
+<div class="footer_arrow">
+  <span class="footer_arrow_icon">›</span>
+</div>
+```
+
+**CSS（css/work.css）**
+```css
+.footer_arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 5rem;
+  font-size: 1.5rem;
+  border: 0.1rem solid #8b6914;
+  border-radius: 45%;
+  color: #da6d00;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.footer_arrow_icon {
+  display: block;
+}
+.footer_arrow:hover .footer_arrow_icon {
+  animation: arrow-reveal 0.5s ease forwards;
+}
+@keyframes arrow-reveal {
+  0%   { clip-path: inset(0 0 0 0); }
+  1%   { clip-path: inset(100% 0 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+```
+
+
+📋 [詳細ソース](./その他/00_サンプルソース/★clip-path_Reveal_下から上.md)
+
+---
+
 
