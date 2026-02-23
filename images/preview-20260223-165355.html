@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>::after デモ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+
+    h2 { margin-top: 40px; }
+
+    /* ============================================
+       ✅ OKパターン
+       aタグ全体が1つのリンク → ::after は飾り
+    ============================================ */
+    .btn_ok {
+      display: inline-block;
+      padding: 14px 60px 14px 24px;
+      background: #2a7ae4;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      position: relative;  /* ← ::after を置く基準 */
+      font-size: 16px;
+    }
+
+    .btn_ok::after {
+      content: "→";        /* ← CSSで生成した飾り */
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+    }
+
+    /* ============================================
+       ❌ NGパターン（別リンクにしたい場合）
+       テキストと矢印を別のリンクにしたいとき
+       → ::after では無理。HTMLで<a>を2つ書くしかない
+    ============================================ */
+    .ng_wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #eee;
+      padding: 14px 24px;
+      border-radius: 6px;
+    }
+
+    .ng_wrap .text_link {
+      color: #333;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .ng_wrap .arrow_link {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      background: #e44;
+      color: white;
+      text-align: center;
+      line-height: 32px;
+      border-radius: 50%;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    /* 説明ラベル */
+    .label {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .ok  { background: #d4edda; color: #155724; }
+    .ng  { background: #f8d7da; color: #721c24; }
+
+    .note {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .box {
+      background: white;
+      padding: 24px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>::after / ::before って何ができる？</h1>
+
+  <!-- ✅ OKパターン -->
+  <div class="box">
+    <div class="label ok">✅ OKパターン：矢印は飾り（同じリンク）</div>
+    <br>
+    <a href="#" class="btn_ok">お問い合わせ</a>
+    <p class="note">
+      → の矢印は <code>::after</code> で生成。<br>
+      ボタン全体（テキスト＋矢印）が同じリンク先 → クリックできる ✅
+    </p>
+  </div>
+
+  <!-- ❌ NGパターン -->
+  <div class="box">
+    <div class="label ng">❌ NGパターン：テキストと矢印が別リンクに行きたい場合</div>
+    <br>
+    <div class="ng_wrap">
+      <a href="#text" class="text_link">お問い合わせ</a>
+      <a href="#arrow" class="arrow_link">→</a>
+    </div>
+    <p class="note">
+      テキストと矢印が<strong>別々のリンク先</strong>に行く場合。<br>
+      <code>::after</code> は親の<code>&lt;a&gt;</code>タグに乗っかるだけなので<br>
+      自分だけ別リンクには<strong>なれない</strong> → HTMLで<code>&lt;a&gt;</code>を2つ書くしかない ❌
+    </p>
+  </div>
+
+  <!-- まとめ -->
+  <div class="box">
+    <h2>💡 一言まとめ</h2>
+    <p>
+      <code>::after</code> は <strong>「親要素に貼るシール」</strong>。<br>
+      シールだから親と一緒にクリックされるけど、<br>
+      シール自身が別の場所に飛ぶリンクには<strong>なれない</strong>。
+    </p>
+  </div>
+
+</body>
+</html>
