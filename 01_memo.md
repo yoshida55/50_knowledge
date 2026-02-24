@@ -6207,29 +6207,67 @@ pre-wrap → preと同じだが、はみ出したら折り返す
 - `position: relative` は位置を変えずに `z-index` を有効にする定番テクニック
 - `z-index` が効かないときはまず `position` の値を確認する
 
-## 📌 ::afterで半透明オーバーレイをかける方法（画像の上に暗い膜）
+## 📌 画像の上に文字を読みやすく重ねる方法（brightness + z-index のセット技）
 
 【結論】
-画像の上にテキストを重ねて読みにくいとき、`::after` 擬似要素で半透明の黒い膜をかぶせると文字が読みやすくなる。
+画像の上にテキストを重ねて読みにくいとき、**2つをセットで使う**：
+1. **画像を暗くする** → `filter: brightness(0.7)`
+2. **文字を前に出す** → `position: relative` + `z-index: 1`
 
-【具体例】
-```css
-.concept_img:nth-child(2)::after {
-  content: "";           /* 空要素を生成（必須） */
-  position: absolute;    /* 親に重ねる */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);  /* 黒の30%透明 */
-}
+この2つは**どちらか片方ではなく、セットで使う**のが基本。
+
+【そのまま動くコード】
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  .area {
+    position: relative;
+    width: 400px;
+    height: 300px;
+  }
+  /* 画像を暗くする */
+  .photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .photo img {
+    width: 400px;
+    filter: brightness(0.7);  /* ← これで暗くする */
+  }
+  /* 文字を画像の前に出す */
+  .text {
+    position: relative;       /* ← z-indexに必要 */
+    z-index: 1;               /* ← これで前に出す */
+    color: white;
+    font-size: 2rem;
+    padding: 2rem;
+  }
+</style>
+</head>
+<body>
+  <div class="area">
+    <div class="photo">
+      <img src="https://picsum.photos/400/300" alt="写真" />
+    </div>
+    <p class="text">この文字が読みやすい！</p>
+  </div>
+</body>
+</html>
 ```
 
 【補足】
-- `content: ""` がないと `::after` は表示されない
-- `rgba(0, 0, 0, 0.3)` の最後の数値で暗さ調整（0.2=薄い 〜 0.5=濃い）
-- 親が `position: absolute/relative/fixed` なら子の `::after` の基準になる
-- `::before`（カーテン演出等）とは別物なので共存可能
+- `brightness()` の値: 0=真っ黒、0.7=やや暗い、1=そのまま
+- `z-index` は `position` が `static`（初期値）だと**効かない** → `relative` をつける
+- `::after` で暗くする方法もあるが、親にheightがないとハマる → `brightness` が確実
+
+【覚えるべきポイント】
+- 画像の上に文字を置くときは **「画像を暗く」+「文字を前に」のセット** がプロの定番
+- `filter: brightness(0.7)` が一番シンプル
+- `z-index` は `position: relative` 等がないと効かない（`static` ではダメ）
+- この2つはどちらか片方ではなく**必ずセットで使う**
 
 ## 📌 CSS maskアニメーション：初期状態をCSSで仕込み、JSでクラス付与してアニメ発動（diagonal-reveal パターン）
 
@@ -6598,4 +6636,33 @@ clip-path: inset(0 0 0 0);    /* 終了：全部表示 */
 
 ---
 
+## 📌 `<br class="sp-only">` でスマホだけ改行を入れる（display: block で改行できる）
+
+【結論】
+`<br>` に `display: none` をかけると改行が消える。`display: block` にすると改行が復活する。
+これを使って、PCでは改行なし・スマホでは改行ありを実現できる。
+
+【具体例】
+```html
+<p>テキスト<br class="sp-only">テキスト</p>
+```
+
+```css
+.sp-only {
+  display: none;       /* PCでは改行なし */
+}
+
+@media (max-width: 768px) {
+  .sp-only {
+    display: block;    /* スマホでは改行あり */
+  }
+}
+```
+
+【補足】
+- `display: none` → 要素が消える（改行しない）
+- `display: block` → 要素が現れる（改行する）
+- `<br>` にクラスをつける数少ない実用例
+
+---
 
