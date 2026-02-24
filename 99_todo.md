@@ -1,11 +1,10 @@
 
-▢　会社でグローバル　claude.mdを登録する
-cd C:\Users\guest04\.claude
-git init
-git remote add origin https://github.com/yoshida55/claude_claude.md.git
-git pull origin main
 
-・さらにスクリプトに該当フォルダを追加。
+▢
+会社PCで1回だけ：
+
+git clone https://github.com/yoshida55/animation_preview_tool.git "D:\01_AI\10_Python\00_Python_src\99_commit\68_画像生成\animation-catalog"
+以降は pull_all.ps1 で自動更新されます。
 
 
 困りごとを聞く人になる。売り込まない。
