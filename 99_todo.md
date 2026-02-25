@@ -10,6 +10,9 @@ git clone https://github.com/yoshida55/animation_preview_tool.git "D:\01_AI\10_P
 困りごとを聞く人になる。売り込まない。
 
 
+
+
+
 ▢
 ## jQueryの拡張機能セットアップ
 
@@ -41,6 +44,14 @@ https://animista.net/
 画面がvccodeに移動するが、そうすると、矢印がきかなくなる
 
 
+▢　prettierで3000文字とかあるので
+
+または settings.json に直接書く場合：
+
+Ctrl + Shift + P → Preferences: Open User Settings (JSON) → 以下を追加：
+
+
+"prettier.printWidth": 3000
 
 
 
