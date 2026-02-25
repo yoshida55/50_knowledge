@@ -1,10 +1,25 @@
 
 
-▢
-会社PCで1回だけ：
+▢以下の学習方式がよい
+```css
+/* セクション1（固定する側） */
+.mainvisual {
+  ???: ???;     /* セクション全体を画面に固定する */
+  ???: 100%;    /* fixedは幅が消えるので明示する */
+  height: 100vh;
+  ???: 0;       /* 位置を左上に指定 */
+  ???: 0;
+  ???: 1;       /* 重なり順（下） */　★　整数である必要がる
+}
 
-git clone https://github.com/yoshida55/animation_preview_tool.git "D:\01_AI\10_Python\00_Python_src\99_commit\68_画像生成\animation-catalog"
-以降は pull_all.ps1 で自動更新されます。
+/* セクション2（上に重なる側） */
+.features {
+  ???: ???;     /* z-indexを効かせるために必要 */
+  ???: 2;       /* 重なり順（上）→ mainvisualより大き値 */
+  ???: 100vh;   /* fixedの分のスペースを確保 */　★
+  background-color: rgba(160, 16, 16, 0.5); /* 透過で後ろが見える */
+}
+```
 
 
 困りごとを聞く人になる。売り込まない。
@@ -23,35 +38,16 @@ git clone https://github.com/yoshida55/animation_preview_tool.git "D:\01_AI\10_P
 { "typeAcquisition": { "include": ["jquery"] } }
 
 
-▢サイト
-https://animista.net/
+
 
 
 
 ▢ cleanをした時　★debugだけのこるか確認
 
 
-▢
-会社に持っていくもの：
 
 
 ## 拡張機能（自宅）
-
-▢　CSS　JUMPの画面とvsCode拡張機能を再インストール
-検証ツール実施中にWEBからVSCODEに飛べるようにしたい
-
-▢　今日修正した、WEB画面をダブルクリックすると、
-画面がvccodeに移動するが、そうすると、矢印がきかなくなる
-
-
-▢　prettierで3000文字とかあるので
-
-または settings.json に直接書く場合：
-
-Ctrl + Shift + P → Preferences: Open User Settings (JSON) → 以下を追加：
-
-
-"prettier.printWidth": 3000
 
 
 
