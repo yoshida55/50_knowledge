@@ -6408,8 +6408,11 @@ mask:0%         mask:途中        mask:250%
 
 ## 📌 flex/gridで列幅やgapがバラバラな場合の使い分け css
 
+【日付】2026-02-26
+
 【結論】
-列幅もgapも全部バラバラなら `flex` + 個別 `width` + 個別 `margin`。
+列幅もgapも全部バラバラなら `flex` + 個別 `width` + 個別 `margin`。→なにもつけない。justifyは、デフォルトでflexstartとなる。
+
 gapが均等でよいなら `space-between` が楽。
 
 | 状況 | 方法 |
@@ -6446,6 +6449,9 @@ gapが均等でよいなら `space-between` が楽。
 - `grid` の `gap` は全列共通で1つしか指定できない → gapがバラバラならflexを使う
 - `fr` 単位は比率指定（`3fr 7fr` = 3:7）で、gapを含めて自動計算してくれる
 - `space-between` は子の幅が決まっていれば残りスペースを均等に配分する
+- `gap` プロパティも均等のみ → バラバラな間隔には使えない
+- `space-between` は余り％を隙間の数で均等割りする → バラバラな間隔にしたいなら使わない
+- `margin` で間隔を作るとき `justify-content` は書かなくていい（省略 = flex-start = 左詰め）
 
 ---
 
@@ -6689,6 +6695,10 @@ clip-path: inset(0 0 0 0);    /* 終了：全部表示 */
 ---
 
 ## 📌 HTMLソースの改行は半角スペースになる（`<br>`を取るとスペースが出る問題）
+
+※改行のしかた　class = "sp_br"
+display:none;
+
 
 【結論】
 HTMLソース内の改行（Enter）は、ブラウザで**半角スペース1つ**に変換される。
