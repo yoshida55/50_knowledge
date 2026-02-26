@@ -7084,3 +7084,23 @@ align-items は行の中の縦位置だから行間には関係ない
 - `background-image` は alt なし → スクリーンリーダーに無視される
 - スライドショー背景・ヒーロー背景 → `background-image`
 - 社員写真・商品画像・ロゴ → `<img>`
+
+## 📌 CSS linear-gradient で背景をグラデーションにする
+
+【日付】2026-02-27
+【結論】
+`background: linear-gradient(方向, 色1 位置, 色2 位置)` で背景をグラデーションにできる。
+
+【具体例】
+```css
+/* 上から下へ 濃い青 → 明るい青 */
+.背景 {
+  background: linear-gradient(180deg, #0f467e 0%, #1e83c7 100%);
+}
+```
+
+【補足】
+- `180deg` = 上→下（0deg = 下→上、90deg = 左→右）
+- `0%` = グラデーションの開始位置、`100%` = 終了位置
+- `background-color` の代わりに `background` で書く（shorthand）
+- 3色以上も可: `linear-gradient(180deg, 色A 0%, 色B 50%, 色C 100%)`
