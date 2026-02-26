@@ -1,13 +1,14 @@
 {
   "folders": [
-	{
-		"path": "../../01_研修用/96_過去の成果物（最新）/sankou_omodakaya_neko"
-	},
-	{
-		"path": ".."
-	}
-],
+    {
+      "path": "../../01_研修用/96_過去の成果物（最新）/sankou_omodakaya_neko",
+    },
+    {
+      "path": "..",
+    },
+  ],
   "settings": {
-    "liveServer.settings.multiRootWorkspaceName": "sankou_omodakaya_neko"
-  }
+    "liveServer.settings.multiRootWorkspaceName": "sankou_omodakaya_neko",
+    "liveServer.settings.port": 5501,
+  },
 }
