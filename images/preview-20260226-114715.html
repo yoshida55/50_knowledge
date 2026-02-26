@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>作業_溝田建築設計株式会社</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/work.css" />
+  </head>
+  <body>
+    <!-- ===============================================
+     ヘッダー
+     =============================================== -->
+    <header class="header_area">
+      <!-- スライドショー -->
+      <div class="bg_image">
+        <div class="slide slide1"></div>
+        <div class="slide slide2"></div>
+        <div class="slide slide3"></div>
+      </div>
+
+      <div class="header_inner">
+        <div class="header_logo">
+          <a href="#" class="header_logo_link"><img src="img/common/logo.png" alt="溝田建築設計株式会社" class="header_logo_img" /></a>
+        </div>
+
+        <!-- グローバルナビゲーション -->
+        <nav class="header_nav">
+          <a href="#" class="header_nav_link">私たちについて</a>
+          <a href="#" class="header_nav_link">家づくりのこだわり</a>
+          <a href="#" class="header_nav_link">施工事例</a>
+          <a href="#" class="header_nav_link">モデルハウス</a>
+          <a href="#" class="header_nav_link">土地・分譲情報</a>
+          <a href="#" class="header_nav_link">会社概要</a>
+        </nav>
+
+        <!-- お問い合わせ -->
+        <a href="#" class="inquiry_link header_inquiry">お問い合わせ</a>
+
+        <!-- ハンバーガーメニュー -->
+        <button type="button" id="hamburger_btn" class="hamburger_menu" aria-label="メニューを開く">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+
+        <h1 class="header_title">わたしたちに<br />ちょうどいい家</h1>
+        <p class="header_description">数十年先も続く、<br class="sp-only" />家族にも環境にも心地いい住まい。</p>
+      </div>
+    </header>
+    <!-- ===============================================
+     ハンバーガーメニュー押下時の別メニュー画面
+     =============================================== -->
+
+    <!-- メニュー全体【flex 横2列: 画像 + コンテンツ】 -->
+    <div class="menu_area" class="open">
+      <!-- └ 画像（左） -->
+      <div alt="メニュー画像" class="menu_img"></div>
+
+      <!-- └ ナビ＋お問い合わせ【flex wrap: 左ナビ + 右ナビ + お問い合わせ】 -->
+      <div class="menu_nav">
+        <!-- 左ナビ【flex 縦】 -->
+        <div class="menu_nav_list">
+          <a class="menu_color" href="#">私たちについて</a>
+          <a class="menu_color" href="#">家づくりのこだわり</a>
+          <!-- サブメニュー【flex 縦】 -->
+          <div class="menu_nav_sub">
+            <a class="menu_color" href="#">超高気密＋超高断熱</a>
+            <a class="menu_color" href="#">パッシブ設計＋全館空調</a>
+            <a class="menu_color" href="#">高耐震＋耐久性</a>
+            <a class="menu_color" href="#">フルオーダーメイド</a>
+            <a class="menu_color" href="#">手の届く価格</a>
+          </div>
+        </div>
+        <!-- 右ナビ【flex 縦】 -->
+        <div class="menu_nav_list">
+          <a class="menu_color" href="#">施工事例</a>
+          <a class="menu_color" href="#">モデルハウス</a>
+          <a class="menu_color" href="#">土地・分譲情報</a>
+          <a class="menu_color" href="#">会社案内</a>
+          <a class="menu_color" href="#">お知らせ</a>
+          <a class="menu_color" href="#">ブログ</a>
+        </div>
+        <!-- お問い合わせ【flex 縦2行: WEB行 + 電話行】 -->
+        <div class="menu_inquiry">
+          <!-- 問い合わせ行【flex 横2列: ラベル + コンテンツ】 -->
+          <div class="menu_inquiry_row">
+            <!-- 問い合わせラベル -->
+            <p class="menu_inquiry_label">WEBからの<br class="no_br" />お問い合わせ</p>
+            <!-- WEBお問い合わせボタン -->
+            <button type="button" class="menu_inquiry_button">お問い合わせフォームはこちら</button>
+          </div>
+          <!-- 問い合わせ行【flex 横2列: ラベル + コンテンツ】 -->
+          <div class="menu_inquiry_row">
+            <!-- 問い合わせラベル -->
+            <p class="menu_inquiry_label">お電話からの<br class="no_br" />お問い合わせ</p>
+            <!-- 電話情報【flex 縦2行: 電話番号 + 受付時間】 -->
+            <div class="menu_inquiry_tel">
+              <!-- 電話番号 -->
+              <p class="menu_inquiry_number">0964-27-5457</p>
+              <!-- 受付時間 -->
+              <p class="menu_inquiry_time">受付時間：9:00〜17:30 | 定休日：水曜日</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ===============================================
+     コンセプト
+     =============================================== -->
+    <section class="concept_area">
+      <!-- 装飾写真: position: absolute -->
+      <div class="concept_common concept_img diagonal-reveal">
+        <img src="img/concept/concept01.jpg" alt="植物写真" />
+      </div>
+      <div class="concept_common concept_img diagonal-reveal">
+        <img src="img/concept/concept02.jpg" alt="花の写真" />
+      </div>
+      <div class="concept_common concept_img diagonal-reveal">
+        <img src="img/concept/concept03.jpg" alt="インテリア写真" />
+      </div>
+      <div class="concept_common concept_img diagonal-reveal">
+        <img src="img/concept/concept04.jpg" alt="玄関・植物写真" />
+      </div>
+      <div class="concept_common concept_img diagonal-reveal">
+        <img src="img/concept/concept05.jpg" alt="ティー写真" />
+      </div>
+
+      <!-- 中央テキスト: 通常フロー -->
+      <p class="concept_label layer">Concept</p>
+      <h2 class="concept_heading layer">時を越えて心地よさが続く家。<br />誰もがのぞむ性能を<br class="sp_only" />手の届く価格で。</h2>
+      <p class="concept_description layer">自分にとって快適な"ちょうどいい家"を、<br />手軽に手に入れて欲しいと、<br />溝田建築設計では考えています。</p>
+      <p class="concept_description layer">私たちは家の完成後50年経過した建物の状態を大切にしています。<br />最高レベルの断熱性能に、自然エネルギーを活かした設計で、<br />省エネなのに、冬は暖かく、夏は涼しい。<br />家族にも、環境にも心地のいい家です。</p>
+      <p class="concept_description layer">さらに、費用を抑える工夫も忘れません。<br />難しいご要望にも、それを上回る提案をすることが<br />私たちの信条です。</p>
+      <a href="#" class="concept_link layer">家づくりのこだわり</a>
+    </section>
+
+    <!-- ===============================================
+     施工事例
+     =============================================== -->
+    <section class="case_area">
+      <p class="section_label">Case</p>
+      <!-- 施工事例と左右への遷移ボタンのコンテナ【flex 2列】 -->
+      <div class="case_header">
+        <h2 class="section_title">施工事例</h2>
+        <div class="case_nav">
+          <a href="#" class="case_nav_button">＜</a>
+          <a href="#" class="case_nav_button">＞</a>
+        </div>
+      </div>
+      <!-- 4枚の画像が横に並ぶ。スクロールで次の４枚が表示される。【４列　flex】自動で動かないスライダー -->
+      <div class="case_list">
+        <!-- ４枚のアイテムを横に並べる【flex 横４】 -->
+        <div class="case_track">
+          <!-- 縦に画像と、NO、、説明、ボタンがならぶ【flex 縦４行】 -->
+          <div class="case_item">
+            <!-- 画像 -->
+            <div class="case_img_wrap">
+              <img src="img/works/IMG_9537.jpeg" alt="施工事例写真1" class="case_img" />
+            </div>
+            <!-- NO -->
+            <div class="case_number">NO.014</div>
+            <!-- 家の説明 -->
+            <div class="case_description">空へひらく本棚と暮らす家</div>
+            <!-- カードへのリンク  【flex 横　flex-wrap】-->
+            <div class="case_tag_list">
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+            </div>
+          </div>
+          <div class="case_item">
+            <!-- 画像 -->
+            <div class="case_img_wrap">
+              <img src="img/works/IMG_8104.jpeg" alt="施工事例写真1" class="case_img" />
+            </div>
+            <!-- NO -->
+            <div class="case_number">NO.015</div>
+            <!-- 家の説明 -->
+            <div class="case_description">空へひらく本棚と暮らす家</div>
+            <!-- カードへのリンク  【flex 横　flex-wrap】-->
+            <div class="case_tag_list">
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+            </div>
+          </div>
+          <div class="case_item">
+            <!-- 画像 -->
+            <div class="case_img_wrap">
+              <img src="img/works/IMG_8422.jpeg" alt="施工事例写真1" class="case_img" />
+            </div>
+            <!-- NO -->
+            <div class="case_number">NO.016</div>
+            <!-- 家の説明 -->
+            <div class="case_description">空へひらく本棚と暮らす家</div>
+            <!-- カードへのリンク  【flex 横　flex-wrap】-->
+            <div class="case_tag_list">
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+            </div>
+          </div>
+          <div class="case_item">
+            <!-- 画像 -->
+            <div class="case_img_wrap">
+              <img src="img/works/IMG_9070.jpeg" alt="施工事例写真1" class="case_img" />
+            </div>
+            <!-- NO -->
+            <div class="case_number">NO.017</div>
+            <!-- 家の説明 -->
+            <div class="case_description">空へひらく本棚と暮らす家</div>
+            <!-- カードへのリンク  【flex 横　flex-wrap】-->
+            <div class="case_tag_list">
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+            </div>
+          </div>
+          <div class="case_item">
+            <!-- 画像 -->
+            <div class="case_img_wrap">
+              <img src="https://picsum.photos/400/300?random=1" alt="施工事例写真5" class="case_img" />
+            </div>
+            <!-- NO -->
+            <div class="case_number">NO.018</div>
+            <!-- 家の説明 -->
+            <div class="case_description">ダミー画像追加分</div>
+            <!-- カードへのリンク  【flex 横　flex-wrap】-->
+            <div class="case_tag_list">
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+            </div>
+          </div>
+          <div class="case_item">
+            <!-- 画像 -->
+            <div class="case_img_wrap">
+              <img src="https://picsum.photos/400/300?random=1" alt="施工事例写真5" class="case_img" />
+            </div>
+            <!-- NO -->
+            <div class="case_number">NO.018</div>
+            <!-- 家の説明 -->
+            <div class="case_description">ダミー画像追加分</div>
+            <!-- カードへのリンク  【flex 横　flex-wrap】-->
+            <div class="case_tag_list">
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+              <a href="#" class="case_tag">2階建て</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 一覧を見る 　右端-->
+      <a href="#" class="arrow_link">一覧を見る</a>
+    </section>
+
+    <!-- ===============================================
+     お知らせ・ブログ
+     =============================================== -->
+    <!-- グリッドでお知らせ・ブログを左右分割【grid】 -->
+    <section class="news_blog_area">
+      <!-- お知らせエリア -->
+      <div class="news_column">
+        <p class="section_label">information</p>
+        <h2 class="section_title">お知らせ</h2>
+        <!-- 記事1ブロック【flex 横2列: サムネイルリンク + テキスト側】 -->
+        <article class="news_item">
+          <a href="#" class="news_link">
+            <img src="img/news/no-image.png" alt="溝田会社" class="news_img" />
+          </a>
+          <!-- └ テキスト側（右） -->
+          <div class="news_body">
+            <!-- └ └ カテゴリ+日付【flex 縦2行】 -->
+            <div class="news_meta">
+              <span class="news_category">お知らせ</span>
+              <time class="news_date" datetime="2025-11-11">2025.11.11</time>
+            </div>
+            <!-- └ └ 詳細文 -->
+            <p class="news_text">ブログ更新のお知らせ</p>
+          </div>
+        </article>
+
+        <article class="news_item">
+          <a href="#" class="news_link">
+            <img src="img/news/no-image.png" alt="溝田会社" class="news_img" />
+          </a>
+          <!-- └ テキスト側（右） -->
+          <div class="news_body">
+            <!-- └ └ カテゴリ+日付【flex 縦2行】 -->
+            <div class="news_meta">
+              <span class="news_category">お知らせ</span>
+              <time class="news_date" datetime="2025-10-23">2025.10.23</time>
+            </div>
+            <!-- └ └ 詳細文 -->
+            <p class="news_text">ホームページリニューアルのお知らせ</p>
+          </div>
+        </article>
+
+        <article class="news_item">
+          <a href="#" class="news_link">
+            <img src="img/news/thum-mashiki.jpg" alt="溝田会社" class="news_img" />
+          </a>
+          <!-- └ テキスト側（右） -->
+          <div class="news_body">
+            <!-- └ └ カテゴリ+日付【flex 縦2行】 -->
+            <div class="news_meta">
+              <span class="news_category">お知らせ</span>
+              <time class="news_date" datetime="2025-10-02">2025.10.02</time>
+            </div>
+            <!-- └ └ 詳細文 -->
+            <p class="news_text">【熊本・福岡】新モデルハウス、来年グランドオープン！</p>
+          </div>
+        </article>
+        <!-- 一覧をみる-->
+        <a href="#" class="arrow_link">一覧を見る</a>
+      </div>
+
+      <!-- ブログエリア -->
+      <div class="blog_column">
+        <p class="section_label">Blog</p>
+        <h2 class="section_title">ブログ</h2>
+        <!-- 記事1ブロック【flex 横2列: サムネイルリンク + テキスト側】 -->
+        <article class="blog_item">
+          <a href="#" class="blog_link">
+            <img src="img/news/thum-mashiki.jpg" alt="ブログ写真" class="blog_img" />
+          </a>
+          <!-- └ テキスト側（右） -->
+          <div class="blog_body">
+            <!-- └ └ カテゴリ+日付【flex 縦2行】 -->
+            <div class="blog_meta">
+              <span class="blog_category">地鎮祭</span>
+              <time class="blog_date" datetime="2026-02-14">2026.02.14</time>
+            </div>
+            <!-- └ └ 詳細文 -->
+            <p class="blog_text">【地鎮祭】IN様邸</p>
+          </div>
+        </article>
+
+        <article class="blog_item">
+          <a href="#" class="blog_link">
+            <img src="img/news/thum-mashiki.jpg" alt="ブログ写真" class="blog_img" />
+          </a>
+          <!-- └ テキスト側（右） -->
+          <div class="blog_body">
+            <!-- └ └ カテゴリ+日付【flex 縦2行】 -->
+            <div class="blog_meta">
+              <span class="blog_category">上棟</span>
+              <time class="blog_date" datetime="2026-02-11">2026.02.11</time>
+            </div>
+            <!-- └ └ 詳細文 -->
+            <p class="blog_text">【上棟式】久留米モデルハウス</p>
+          </div>
+        </article>
+
+        <article class="blog_item">
+          <a href="#" class="blog_link">
+            <img src="img/news/thum-mashiki.jpg" alt="ブログ写真" class="blog_img" />
+          </a>
+          <!-- └ テキスト側（右） -->
+          <div class="blog_body">
+            <!-- └ └ カテゴリ+日付【flex 縦2行】 -->
+            <div class="blog_meta">
+              <span class="blog_category">お引渡し</span>
+              <time class="blog_date" datetime="2026-02-10">2026.02.10</time>
+            </div>
+            <!-- └ └ 詳細文 -->
+            <p class="blog_text">【引き渡し】FK様邸</p>
+          </div>
+        </article>
+        <!-- 一覧をみる-->
+        <a href="#" class="arrow_link">一覧を見る</a>
+      </div>
+    </section>
+
+    <!-- ===============================================
+     私たちについて
+     =============================================== -->
+    <section class="office_area">
+      <!-- └ カード（左） -->
+      <a href="#" class="office_item">
+        <!-- └ └ カード画像 -->
+        <img src="img/link/link-about.jpg" alt="会社について" class="office_img" />
+        <!-- └ └ ラベル・タイトル・矢印（position: absolute） -->
+        <div class="office_body">
+          <p class="office_label">About us</p>
+          <h2 class="office_title">私たちについて</h2>
+          <span class="office_arrow">→</span>
+        </div>
+      </a>
+      <!-- └ カード（右） -->
+      <a href="#" class="office_item">
+        <!-- └ └ カード画像 -->
+        <img src="img/link/link-sale.jpg" alt="販売中の物件" class="office_img" />
+        <!-- └ └ ラベル・タイトル・矢印（position: absolute） -->
+        <div class="office_body">
+          <p class="office_label">For sale</p>
+          <h2 class="office_title">販売中の物件</h2>
+          <span class="office_arrow">→</span>
+        </div>
+      </a>
+    </section>
+    <!-- ===============================================
+    お問い合わせ
+    =============================================== -->
+    <!-- お問い合わせエリア【grid 2列】 -->
+    <section class="inquiry_area">
+      <!-- └ テキスト側（左） -->
+      <div class="inquiry_text">
+        <p class="section_label">Contact</p>
+        <h2 class="section_title">お問い合わせ</h2>
+        <!-- └ └ 説明文 -->
+        <p class="inquiry_description">問い合わせはフォーム、または、<br class="webform_br" />お電話より、お気軽にご連絡ください。</p>
+      </div>
+
+      <!-- └ フォーム側（右） -->
+      <div class="inquiry_form">
+        <!-- └ └ 問い合わせ行【flex 横2列: ラベル + 操作】 -->
+        <div class="inquiry_row">
+          <!-- 行ラベル -->
+          <p class="inquiry_row_label">WEBからの<br class="no_br" />お問い合わせ</p>
+          <!-- お問い合わせボタン -->
+          <button type="button" class="inquiry_button">お問い合わせフォームはこちら</button>
+        </div>
+        <!-- └ └ 問い合わせ行【flex 横2列: ラベル + 操作】 -->
+        <div class="inquiry_row">
+          <!-- 行ラベル -->
+          <p class="inquiry_row_label">お電話からの<br class="no_br" />お問い合わせ</p>
+          <!-- 電話情報 -->
+          <div class="inquiry_phone_info">
+            <!-- 電話番号 -->
+            <p class="inquiry_phone_number">0964-27-5457</p>
+            <!-- 受付時間 -->
+            <p class="inquiry_hours">受付時間：9:00〜17:30 | 定休日：水曜日</p>
+          </div>
+        </div>
+        <!-- リンク行 -->
+        <div class="inquiry_row_arrow">
+          <a href="#" class="inquiry_arrow_link">モデルハウス一覧</a>
+          <a href="#" class="inquiry_arrow_link2">土地・分譲情報</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================== -->
+    <!-- フッター -->
+    <!-- =============================================== -->
+    <!-- フッター全体【flex 横4列: 会社情報 + ナビ列1 + ナビ列2 + ナビ列3】 -->
+    <footer class="footer_area">
+      <!-- └ 会社情報（左） -->
+      <div class="footer_company column1">
+        <!-- └ └ ロゴリンク -->
+        <a href="#" class="footer_logo_link">
+          <!-- └ └ ロゴ画像 -->
+          <img src="img/common/logo.png" alt="会社のロゴ" class="footer_logo_img" />
+        </a>
+        <!-- └ └ 住所 -->
+        <address class="footer_address">住所：熊本県熊本市南区城南町碇201-6</address>
+        <!-- └ └ 電話番号 -->
+        <p class="footer_tel">TEL：0964-27-5457</p>
+        <!-- └ └ SNSリンク【flex 横2列: アイコン + 名前】 -->
+        <a href="#" class="footer_sns_link">
+          <img src="img/icons/logo-instagram.svg" alt="インスタグラムアイコン" class="footer_sns_img" />
+          <span class="footer_sns_name">Instagram</span>
+        </a>
+        <!-- └ └ バナーリンク -->
+        <a href="#" class="footer_banner_link">
+          <img src="img/icons/bn-jutakutenjijo-net.png" alt="住宅展示場ネット" class="footer_banner_img" />
+        </a>
+      </div>
+      <!-- └ ナビゲーション列1 -->
+      <div class="footer_nav_column column2">
+        <a href="#" class="footer_nav_link">私たちについて</a>
+        <a href="#" class="footer_nav_link">家づくりのこだわり</a>
+        <a href="#" class="footer_sub_link">超高気密 ＋ 超高断熱</a>
+        <a href="#" class="footer_sub_link">パッシブ設計 ＋ 全館空調</a>
+        <a href="#" class="footer_sub_link">高耐震 ＋ 耐久性</a>
+        <a href="#" class="footer_sub_link">フルオーダーメイド</a>
+        <a href="#" class="footer_sub_link">手の届く価格</a>
+      </div>
+      <!-- └ ナビゲーション列2 -->
+      <div class="footer_nav_column column3">
+        <a href="#" class="footer_nav_link">施工事例</a>
+        <a href="#" class="footer_nav_link">モデルハウス</a>
+        <a href="#" class="footer_nav_link">土地・分譲情報</a>
+      </div>
+      <!-- └ ナビゲーション列3（右） -->
+      <div class="footer_nav_column column4">
+        <a href="#" class="footer_nav_link">会社案内</a>
+        <a href="#" class="footer_nav_link">お知らせ</a>
+        <a href="#" class="footer_nav_link">ブログ</a>
+      </div>
+      <div class="footer_arrow column5">
+        <span class="footer_arrow_icon">↑</span>
+      </div>
+    </footer>
+
+    <div class="copyright">© Mizota Architectural Design Co., Ltd.</div>
+    <!-- <a href="#" class="btn-corner">Read More</a> -->
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
