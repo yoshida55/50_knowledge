@@ -3947,6 +3947,79 @@ font-size: clamp(10px, 0.78125vw, 14px);
 - それでも効かないときはCSSを1つずつ外して切り分ける
 
 
+## 📌 clamp() は font-size 以外にも使える（padding, gap, margin 等すべてのサイズ系プロパティ）
+
+【日付】2026-02-26
+【結論】
+clamp() は font-size 専用ではない。padding, gap, margin, width, height 等、サイズ系プロパティならどこでも使える。
+「画面幅に応じて変化させたいけど、大きくなりすぎ/小さくなりすぎを防ぎたい」ときに使う。
+
+- clamp() は **つけたプロパティにしか効かない**
+- rem を使う限り、html の font-size 変化の影響を受ける
+- 止めたいプロパティには **個別に** clamp() で制限が必要
+
+【具体例】
+```css
+/* html の font-size を clamp で制御 */
+html {
+  font-size: clamp(10px, calc(10 / 1280 * 100vw), 16px);
+}
+
+/* ❌ font-size だけ clamp → padding/gap は膨張し続ける */
+.menu_nav_list {
+  font-size: clamp(1rem, calc(16 / 1280 * 100vw), 16px); /* 止まる */
+  padding-top: 10rem;  /* 止まらない！ 10 × 16px = 160px まで膨張 */
+  row-gap: 12rem;      /* 止まらない！ 12 × 16px = 192px まで膨張 */
+}
+
+/* ✅ 全プロパティに clamp をつける → 全部制限できる */
+.menu_nav_list {
+  font-size: clamp(1rem, calc(16 / 1280 * 100vw), 16px);
+  padding-top: clamp(5rem, calc(80 / 1280 * 100vw), 10rem);
+  gap: clamp(4rem, calc(64 / 1280 * 100vw), 12rem);
+}
+```
+
+【補足】
+- DevTools の clamp() 内の取り消し線 → 現在の画面幅で使われていない値を示す（エラーではない）
+- 「計算済み」タブで実際の値を確認するのが確実
+- html の font-size が clamp で変わる環境では、子要素の clamp で `px` と `rem` を混在させても動く
+
+
+## 📌 rem 指定で大画面の膨張を防ぐ方法（4つの選択肢）
+
+【日付】2026-02-26
+【結論】
+rem を使いつつ大画面での膨張を防ぐ最適解は **clamp() の中で rem と px を混在させる** こと。
+`clamp(最小rem, 推奨rem, 最大px)` で rem ルールを守りつつ px で上限を決められる。
+
+| 方法 | メリット | デメリット |
+|------|---------|-----------|
+| ① rem の数値を小さくする | 簡単 | 小さい画面で足りなくなる可能性 |
+| ② px に変える | 確実に固定 | rem ルールに反する |
+| ③ メディアクエリを増やす | rem のまま対応可 | コード量が増える |
+| ④ padding/gap にも clamp() | rem のまま＋制限できる | 計算が少し面倒 |
+
+【具体例】
+```css
+/* ④ の書き方: rem と px を混在させてOK */
+.menu_nav {
+  padding-top: clamp(5rem, 10rem, 160px);   /* 160px で止まる */
+  row-gap: clamp(4rem, 12rem, 192px);       /* 192px で止まる */
+}
+
+/* font-size と同じ考え方 */
+.menu_nav_list {
+  font-size: clamp(1rem, calc(16 / 1280 * 100vw), 16px);  /* 16px で止まる */
+}
+```
+
+【補足】
+- font-size でやったことと同じことを padding/gap にもやるだけ
+- clamp() の3つの値は単位がバラバラでもOK（rem, vw, px 混在可）
+- ④が最適解: 会社ルール（rem）を守りつつ、大画面の膨張を防げる
+
+
 ## 検証画面のCSS画面への遷移の仕方、計算済みタブ(Computed)画面からギャップなどをクリックする。 html
 
 ソースが表示されるのでクリック
