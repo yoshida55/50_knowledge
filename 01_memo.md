@@ -456,6 +456,70 @@ document.querySelectorAll(".case_description").forEach((desc) => {
 
 ---
 
+## 📌 jQuery の `$(function(){})` - HTMLが読み込まれた後に実行されるルール  jquery
+
+【結論】
+jQueryでは `$(function() { ... })` の中にコードを書く。
+これは「HTMLの読み込みが終わったら実行して」という**お約束のルール**。
+
+- `function` = 命令をまとめた箱（呼ばれたら動く。定義しただけでは動かない）
+- `$(function(){})` = HTMLの構造が読み込まれた後、中の命令を自動で実行する
+
+【具体例：ボタンを押したらアラートを出す】
+```html
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+```
+```js
+$(function() {
+  // ← ここに書いた命令は、HTMLが読み込まれた後に実行される
+
+  $("#btn").on("click", function() {
+    alert("ボタンが押されました");
+  });
+});
+```
+
+【タイミングの比較】
+| 書き方 | 実行タイミング |
+|---|---|
+| `$(function(){})` | HTMLの構造（DOM）が読み込まれたら実行（画像より速い） |
+| `window.onload` | 画像・CSS含む**全リソース**が読み込まれたら実行（遅い） |
+| `<body>`閉じタグ直前にscriptを書く | HTMLの最後に書けばjQuery不要で同等 |
+
+【補足】
+
+- HTMLより先にJSが動くと「要素がまだ存在しない」のでエラー → だから `$(function(){})` で包む
+- jQuery の `$` はjQuery本体の別名（エイリアス）。`jQuery(function(){})` と書いても同じ
+
+---
+
+## 📌 jQuery の `.on("click", function(){})` はイベントリスナー  jquery
+
+【結論】
+「この要素がクリックされたら、この命令を実行して」と**事前に登録しておく**仕組み。
+登録するだけで、クリックされるまで実行されない。
+
+【具体例】
+```js
+$(".gallery_img").on("click", function() {
+  // クリックされたときだけ実行される
+  const imgSrc = $(this).attr("src");   // $(this) = クリックされた要素自身
+  $(".gallery_main").attr("src", imgSrc);
+});
+```
+
+【jQueryとJSの対応】
+| jQuery | 素のJS | 意味 |
+|---|---|---|
+| `$(".gallery_img")` | `querySelectorAll(".gallery_img")` | 要素を選ぶ |
+| `.on("click", ...)` | `.addEventListener("click", ...)` | クリック時の処理を登録 |
+| `$(this)` | `e.target` | クリックされた要素自身 |
+
+【補足】
+- jQueryは `querySelectorAll` + `forEach` + `addEventListener` を1行で書ける短縮版
+- `"click"` の部分を変えると他のイベントにも使える（`"mouseover"` `"change"` など）
+- `$(this)` は `function(){}` の中でのみ使える（アロー関数 `()=>{}` では使えない）
+
 ---
 
 
