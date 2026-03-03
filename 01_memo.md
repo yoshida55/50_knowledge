@@ -7168,3 +7168,166 @@ align-items は行の中の縦位置だから行間には関係ない
 - `0%` = グラデーションの開始位置、`100%` = 終了位置
 - `background-color` の代わりに `background` で書く（shorthand）
 - 3色以上も可: `linear-gradient(180deg, 色A 0%, 色B 50%, 色C 100%)`
+
+▢
+メモ：jQuery fadeOut/fadeIn - コールバック関数で画像をフェード切り替え（fadeOut完了後にsrc変更＋fadeIn）
+
+【気づき】
+★fadeOutの第2引数（コールバック関数）の中でsrc変更＋fadeInする → 順番が保証される
+★メソッドチェーン `.attr("src", imgSrc).fadeIn(300)` で1行にまとめられる
+
+【ポイント】
+
+★ポイント1: fadeOutのコールバックで順番制御
+```javascript
+// fadeOut(速度, コールバック関数)
+$(".gallery_main").fadeOut(1000, 
+ () {
+  $(this).attr("src", imgSrc).fadeIn(300);
+});
+```
+コールバックを使わないとフェードアウト中に画像が変わってしまう
+
+★ポイント2: メソッドチェーンで属性変更→フェードイン
+```javascript
+$(this).attr("src", imgSrc).fadeIn(300);
+// ↑ src変更        ↑ フェードイン
+```
+$(this)はコールバック内ではfadeOutした要素自身を指す
+
+★コピペで動く最小コード（ファイル分離版）
+```
+
+
+**HTML**
+```html
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>画像切り替え</title>
+    <link rel="stylesheet" href="css/画像の切替セクション.css" />
+  </head>
+  <body>
+    <section class="gallery_area">
+      <img alt="大きな画像" class="gallery_main" />
+      <div class="gallery_thumbnails">
+        <img src="img/image1.png" alt="画像1" class="gallery_img" />
+        <img src="img/image2.png" alt="画像2" class="gallery_img" />
+        <img src="img/image3.png" alt="画像3" class="gallery_img" />
+      </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/画像切り替え.js"></script>
+  </body>
+</html>
+```
+
+**CSS（css/画像の切替セクション.css）**
+```css
+.gallery_area { width: 80%; margin: 0 auto; padding-top: 50px; }
+.gallery_main { display: block; width: 100%; height: 400px; margin-bottom: 20px; background-color: #eee; object-fit: contain; }
+.gallery_thumbnails { display: flex; justify-content: space-between; gap: 10px; }
+.gallery_img { width: calc((100% - (10px * 2)) / 3); height: 200px; cursor: pointer; object-fit: cover; }
+```
+
+**JavaScript（js/画像切り替え.js）**
+```javascript
+$(function () {
+  $(".gallery_img").on("click", function () {
+    const imgSrc = $(this).attr("src");
+    $(".gallery_main").fadeOut(1000, function () {
+      $(this).attr("src", imgSrc).fadeIn(300);
+    });
+  });
+});
+```
+
+📋 [詳細ソース](./その他/00_サンプルソース/★jQuery_fadeOut_fadeIn_画像切り替え.md)
+
+---
+
+## 📌 PHP 変数の基本（宣言不要・スネークケース・ドット結合・配列操作）
+
+【日付】2026-03-03
+【結論】
+PHPの変数はJavaScriptと違い、型宣言が不要。命名はスネークケースが基本。
+
+### 変数の宣言
+- `$` をつけるだけ。`let` `const` などの宣言キーワードは不要
+```php
+$user_name = "田中";
+$age = 25;
+```
+
+### 命名規則
+- スネークケース（`_` で区切る）が基本
+```php
+$first_name = "太郎";
+$total_price = 1000;
+```
+
+### 文字列の結合
+- JavaScriptは `+` だが、PHPは `.`（ドット）
+```php
+$first = "Hello";
+$second = "World";
+echo $first . " " . $second;  // Hello World
+```
+
+### 配列の宣言と末尾追加
+```php
+// 宣言
+$sports = ["野球", "テニス"];
+
+// 末尾に追加（[] を使う）
+$sports[] = "サッカー";
+// → ["野球", "テニス", "サッカー"]
+```
+
+### 配列の要素を削除
+```php
+// unset で指定した要素を削除
+unset($sports[1]);
+// → "テニス" が削除される
+```
+
+【補足】
+- `$` を忘れるとエラーになる
+- `.` と `+` を混同しないよう注意
+- `unset` は指定インデックスを削除（詰め直しはされない）
+
+### 連想配列の宣言
+```php
+$user = [
+  "name" => "田中",
+  "age" => 25,
+  "city" => "東京"
+];
+
+echo $user["name"];  // 田中
+```
+
+---
+
+## 📌 WordPress テーマの画像管理（imgフォルダの中にimgフォルダ）
+
+【日付】2026-03-03
+【結論】
+WordPressはテーマごとにフォルダが分かれるため、画像がどのテーマのものか分かりにくくなる。テーマフォルダ内に `img` フォルダを置いて管理する。
+
+【具体例】
+```
+wp-content/
+  themes/
+    my-theme/
+      img/          ← テーマ専用の画像フォルダ
+        logo.png
+        hero.jpg
+      style.css
+      index.php
+```
+
+【補足】
+- テーマごとに画像を分けることで、どの画像がどのテーマか明確になる
