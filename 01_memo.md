@@ -7499,3 +7499,57 @@ Localを使ってWordPressのローカル環境をセットアップする手順
 - `screen` = 黒(#000)が完全に透明になる。白は白のまま残る
 - 炎・煙・光など「黒背景の素材」に使うと自然に合成できる
 - `multiply`（乗算）は逆：白が透明になる → 白背景の素材に使う
+
+---
+
+## 📌 ホバーでテキストが下から上にスライド → ::afterで文字を下に隠し、hover時にtranslateY(-100%)で元テキストごと上に押し出す
+
+【日付】2026-03-04
+【結論】
+疑似要素（`::after`）で同じ文字を下に隠しておき、ホバー時に両方を上に動かすことで「文字が入れ替わるように見える」アニメーション。
+
+- 画面上には常に2つの文字列が存在している（1つは見える、1つは下に隠れている）
+- `overflow: hidden` で枠外を隠すのがカギ
+
+【具体例】
+```css
+/*
+  <a .header_nav_item>        ← overflow: hidden（枠の外は見えない）
+    <span .header_text>       ← 通常時に見える文字
+      ::after                 ← 下に隠れている同じ文字（data-textから取得）
+*/
+
+.header_nav_item {
+  overflow: hidden; /* 枠からはみ出たら見えない */
+}
+
+.header_text {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* 同じ文字を下に待機させる */
+.header_text::after {
+  content: attr(data-text); /* HTMLのdata-text属性の値を表示 */
+  position: absolute;
+  transform: translateY(100%); /* 自分の高さ分だけ下に隠れている */
+  left: 0;
+}
+
+/* ホバーで全体を上に押し出す → 元の文字が消えて、下の文字が現れる */
+.header_text:hover {
+  transform: translateY(-100%);
+}
+```
+
+```html
+<a class="header_nav_item" href="#">
+  <span class="header_text" data-text="会社概要">会社概要</span>
+</a>
+```
+
+【補足】
+- `attr(data-text)` = HTML属性の値をCSSで読み込む
+- `translateY(100%)` = 自分の高さ分だけ下へ（隠れる位置）
+- `translateY(-100%)` = 自分の高さ分だけ上へ（入れ替わる）
+- `::after` に `transition` は不要（親の `.header_text` に設定してあれば動く）
