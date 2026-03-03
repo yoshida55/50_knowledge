@@ -6694,6 +6694,8 @@ clip-path: inset(0 0 0 0);    /* 終了：全部表示 */
 [プレビュー](http://localhost:54321/preview-20260224-073046.html)
 
 
+translate(-50%)→　translate(0のように)
+
 【気づき】
 - `transition` では「消えて→再表示」の2ステップは不可 → `@keyframes` 必須
 - `0% → 1%` の超短区間で「瞬時消去」を表現できる

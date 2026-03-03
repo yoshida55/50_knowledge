@@ -1041,5 +1041,15 @@
     "evaluations": [
       2
     ]
+  },
+  "clip-path Reveal（下から上）改 - 最初表示・ホバーで一瞬消えて下から上に再Reveal　例えばまるの背景のなかに矢印があったばあい、ホバーしたときなど": {
+    "title": "clip-path Reveal（下から上）改 - 最初表示・ホバーで一瞬消えて下から上に再Reveal　例えばまるの背景のなかに矢印があったばあい、ホバーしたときなど",
+    "line": 6690,
+    "lastReviewed": 1772581511380,
+    "reviewCount": 1,
+    "questionText": "clip-path Revealで「瞬時消去」を表現するには@keyframesを使う理由は何？",
+    "evaluations": [
+      2
+    ]
   }
 }
