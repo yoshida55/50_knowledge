@@ -7358,6 +7358,11 @@ OO_theme/
 - ファイル名はデザイナーがデザイン時点で指定するので、基本その名前に従う
   - 問い合わせ → `page-contact.php`
   - プライバシーポリシー → `page-privacypolicy.php`
+- 画像・リンクのパスは直書き禁止。PHPの関数で動的に生成する
+  - 画像: `<?php echo get_template_directory_uri(); ?>/img/logo.png`
+  - リンク: `<?php echo home_url('/about/'); ?>`
+  - 理由: サーバーの場所によってURLが変わるため
+- `header.php` には `</body>` `</html>` は不要。閉じタグは `footer.php` に書く（分割管理のため）
 
 ### WordPressのページは2種類ある
 
