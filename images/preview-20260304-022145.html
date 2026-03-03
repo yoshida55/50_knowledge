@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>clip-path: inset() リビール方向の制御</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 28px;
+}
+
+.description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.control-panel {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 30px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.control-group {
+  margin-bottom: 25px;
+}
+
+.control-group:last-child {
+  margin-bottom: 0;
+}
+
+.control-group label {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+input[type="range"] {
+  flex: 1;
+  height: 8px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #667eea;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.5);
+  transition: transform 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #667eea;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.5);
+}
+
+.value-display {
+  min-width: 80px;
+  background: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #667eea;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+button {
+  flex: 1;
+  min-width: 150px;
+  padding: 15px 25px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.demo-box {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.demo-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.demo-area {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  background: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 3px solid #dee2e6;
+}
+
+.reveal-box {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.clip-info {
+  margin-top: 15px;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #333;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+  word-break: break-all;
+}
+
+.explanation {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  padding: 25px;
+  border-radius: 15px;
+  margin-top: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.explanation h2 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.explanation p {
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+.explanation strong {
+  color: #d63031;
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.legend-item {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.legend-label {
+  font-weight: bold;
+  color: #667eea;
+  margin-bottom: 5px;
+}
+
+.legend-value {
+  color: #666;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📐 clip-path: inset() リビール方向の制御</h1>
+  <div class="description">
+    <strong>重要ポイント：</strong>リビールさせたい方向の<strong>反対側の辺</strong>を100%にする<br>
+    例：左→右にリビールなら<strong>右を100%</strong>、上→下にリビールなら<strong>下を100%</strong>にしてから0%にする
+  </div>
+
+  <div class="control-panel">
+    <div class="control-group">
+      <label>🎯 クリップ量を調整（0% = 完全表示、100% = 完全非表示）</label>
+      <div class="slider-container">
+        <input type="range" id="clipSlider" min="0" max="100" value="100">
+        <div class="value-display" id="clipValue">100%</div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>🎬 プリセットアニメーション</label>
+      <div class="button-group">
+        <button onclick="animateReveal('leftToRight')">左→右リビール</button>
+        <button onclick="animateReveal('rightToLeft')">右→左リビール</button>
+        <button onclick="animateReveal('topToBottom')">上→下リビール</button>
+        <button onclick="animateReveal('bottomToTop')">下→上リビール</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-grid">
+    <div class="demo-box">
+      <div class="demo-title">左→右リビール</div>
+      <div class="demo-area">
+        <div class="reveal-box" id="leftToRight">左→右</div>
+      </div>
+      <div class="clip-info" id="leftToRightInfo">clip-path: inset(0 100% 0 0);</div>
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">右→左リビール</div>
+      <div class="demo-area">
+        <div class="reveal-box" id="rightToLeft">右→左</div>
+      </div>
+      <div class="clip-info" id="rightToLeftInfo">clip-path: inset(0 0 0 100%);</div>
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">上→下リビール</div>
+      <div class="demo-area">
+        <div class="reveal-box" id="topToBottom">上→下</div>
+      </div>
+      <div class="clip-info" id="topToBottomInfo">clip-path: inset(0 0 100% 0);</div>
+    </div>
+
+    <div class="demo-box">
+      <div class="demo-title">下→上リビール</div>
+      <div class="demo-area">
+        <div class="reveal-box" id="bottomToTop">下→上</div>
+      </div>
+      <div class="clip-info" id="bottomToTopInfo">clip-path: inset(100% 0 0 0);</div>
+    </div>
+  </div>
+
+  <div class="explanation">
+    <h2>💡 inset()の値の順序と仕組み</h2>
+    <p><code>inset(top right bottom left)</code> の順序で、各辺から<strong>どれだけ内側に切り取るか</strong>を指定します。</p>
+    <p><strong>リビール方向の法則：</strong></p>
+    <p>✅ <strong>左→右にリビール</strong>：<code>inset(0 100% 0 0)</code> → <code>inset(0 0 0 0)</code>（右辺を100%→0%）</p>
+    <p>✅ <strong>右→左にリビール</strong>：<code>inset(0 0 0 100%)</code> → <code>inset(0 0 0 0)</code>（左辺を100%→0%）</p>
+    <p>✅ <strong>上→下にリビール</strong>：<code>inset(0 0 100% 0)</code> → <code>inset(0 0 0 0)</code>（下辺を100%→0%）</p>
+    <p>✅ <strong>下→上にリビー���</strong>：<code>inset(100% 0 0 0)</code> → <code>inset(0 0 0 0)</code>（上辺を100%→0%）</p>
+    
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-label">第1引数（top）</div>
+        <div class="legend-value">上辺からの切り取り量</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-label">第2引数（right）</div>
+        <div class="legend-value">右辺からの切り取り量</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-label">第3引数（bottom）</div>
+        <div class="legend-value">下辺からの切り取り量</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-label">第4引数（left）</div>
+        <div class="legend-value">左辺からの切り取り量</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const slider = document.getElementById('clipSlider');
+const clipValue = document.getElementById('clipValue');
+
+const elements = {
+  leftToRight: document.getElementById('leftToRight'),
+  rightToLeft: document.getElementById('rightToLeft'),
+  topToBottom: document.getElementById('topToBottom'),
+  bottomToTop: document.getElementById('bottomToTop')
+};
+
+const infoElements = {
+  leftToRight: document.getElementById('leftToRightInfo'),
+  rightToLeft: document.getElementById('rightToLeftInfo'),
+  topToBottom: document.getElementById('topToBottomInfo'),
+  bottomToTop: document.getElementById('bottomToTopInfo')
+};
+
+function updateClipPath() {
+  const value = slider.value;
+  clipValue.textContent = value + '%';
+  
+  // 左→右リビール：右辺を調整
+  const leftToRightClip = `inset(0 ${value}% 0 0)`;
+  elements.leftToRight.style.clipPath = leftToRightClip;
+  infoElements.leftToRight.textContent = `clip-path: ${leftToRightClip};`;
+  
+  // 右→左リビール：左辺を調整
+  const rightToLeftClip = `inset(0 0 0 ${value}%)`;
+  elements.rightToLeft.style.clipPath = rightToLeftClip;
+  infoElements.rightToLeft.textContent = `clip-path: ${rightToLeftClip};`;
+  
+  // 上→下リビール：下辺を調整
+  const topToBottomClip = `inset(0 0 ${value}% 0)`;
+  elements.topToBottom.style.clipPath = topToBottomClip;
+  infoElements.topToBottom.textContent = `clip-path: ${topToBottomClip};`;
+  
+  // 下→上リビール：上辺を調整
+  const bottomToTopClip = `inset(${value}% 0 0 0)`;
+  elements.bottomToTop.style.clipPath = bottomToTopClip;
+  infoElements.bottomToTop.textContent = `clip-path: ${bottomToTopClip};`;
+}
+
+slider.addEventListener('input', updateClipPath);
+
+let animationFrameId = null;
+
+function animateReveal(direction) {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+  }
+  
+  let progress = 100;
+  const duration = 2000; // 2秒
+  const startTime = Date.now();
+  
+  function animate() {
+    const elapsed = Date.now() - startTime;
+    progress = Math.max(0, 100 - (elapsed / duration) * 100);
+    
+    slider.value = progress;
+    updateClipPath();
+    
+    if (progress > 0) {
+      animationFrameId = requestAnimationFrame(animate);
+    } else {
+      // アニメーション終了後、逆方向にアニメーション
+      setTimeout(() => {
+        let reverseProgress = 0;
+        const reverseStartTime = Date.now();
+        
+        function reverseAnimate() {
+          const elapsed = Date.now() - reverseStartTime;
+          reverseProgress = Math.min(100, (elapsed / duration) * 100);
+          
+          slider.value = reverseProgress;
+          updateClipPath();
+          
+          if (reverseProgress < 100) {
+            animationFrameId = requestAnimationFrame(reverseAnimate);
+          }
+        }
+        reverseAnimate();
+      }, 500);
+    }
+  }
+  
+  animate();
+}
+
+// 初期化
+updateClipPath();
+</script>
+
+</body>
+</html>
