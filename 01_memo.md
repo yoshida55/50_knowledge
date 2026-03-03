@@ -7335,7 +7335,7 @@ OO_theme/
     single.css
   js/                ← JavaScript
   style.css          ← 共通CSS（ここ必須！動かせない）
-  index.php          ← 必須
+  index.php          ← 必須「ただし基本はなにもさわらない」
   front-page.php
   header.php
   footer.php
@@ -7375,7 +7375,7 @@ OO_theme/
 |------|-----------|-----------|
 | たとえ | 看板・メニュー表 | チラシ・お知らせ |
 | 更新頻度 | ほぼ変わらない | どんどん増える |
-| テンプレ | `page-〇〇.php` | `single.php` |
+| テンプレ | `page-〇〇.php`（一覧） | `single.php`（詳細） |
 | 一覧 | なし | `archive.php` で一覧表示 |
 
 ### archive.php と single.php の関係
@@ -7398,3 +7398,23 @@ archive.php（一覧） → 記事をクリック → single.php（詳細）
 - たとえ：テーマの「コントロールパネル」。裏側の設定を全部ここで管理する
 - 多数の関数が書かれており、テーマは最適な状態で設定されている
 - ⚠ 触ると正常に動かなくなることがある → **変更時は必ず他の人に報告・確認する**
+
+---
+
+## 📌 Local（ローカル環境）からWordPressを始める手順
+
+【日付】2026-03-03
+【結論】
+Localを使ってWordPressのローカル環境をセットアップする手順。
+
+### 手順
+1. **Localの設定で日本語にする**
+2. **インストールフォルダを確認する**
+3. **Local側に戻って「Site Folder」を押す** → WordPressのフォルダが開く
+4. **テーマを入れる**
+   - 場所：`wp-content/themes/` にテーマフォルダを置く
+   - 例：`C:\Users\guest04\Local Sites\local-test\app\public\wp-content\themes`
+5. **テーマを有効化する**
+   - WordPress管理画面 → 外観 → テーマを選んで「有効化」
+6. **サイトを表示する**
+   - 管理画面左上の「W」の右にある家マーク → 右クリック → 新しいタブで開く
