@@ -1,3 +1,51 @@
+## 📌 `transition` vs `animation` ― CSSアニメーションの使い分け
+
+【結論】
+- `transition`：A→B の**直線的な変化**を滑らかにする「演出方法」の設定
+- `animation`：A→B→C など**複数ステップ**の変化シナリオを定義
+
+【transition の役割】
+変化をどう見せるか（速度・時間・タイミング）を設定するだけ。変化自体は作らない。
+
+```css
+transition: background 0.3s ease;
+/* backgroundが変わったとき、0.3秒かけて滑らかに変化させる */
+```
+
+【できること・できないこと】
+
+| | できる例 | できない例 |
+|---|---|---|
+| **transition** | `opacity: 0→1` | `opacity: 1→0→1`（消えて再表示） |
+| **animation** | `opacity: 0→1` | ← これも可能 |
+
+【比較表】
+
+| | transition | animation |
+|---|---|---|
+| **きっかけ** | `:hover` などの状態変化が必要 | 自動再生可能 |
+| **経路** | A→B の直線のみ | A→B→C→A など複数ステップOK |
+| **役割** | 変化の「演出方法」 | 変化の「シナリオ」 |
+
+【@keyframes で複数ステップを定義する例】
+```css
+@keyframes blink {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; } /* 途中で消える */
+  100% { opacity: 1; } /* 再表示 */
+}
+.element {
+  animation: blink 1s;
+}
+```
+
+【覚えるべきポイント】
+- `transition` = 変化に「なめらかさ」を加える設定（直線のみ）
+- `animation` + `@keyframes` = 複数ステップの変化シナリオを書ける
+- 0%→1% の超短区間で「瞬時消去」も表現可能
+
+---
+
 ## 📌 `要素.style.transform` でJSからCSSを直接操作できる（CSSプロパティはキャメルケースに変換）
 
 【結論】
@@ -1833,6 +1881,8 @@ left: -300px; /_ 効く！ _/
 ## 三角形の図形の作り方
 
 [プレビュー](http://localhost:54321/preview-20260304-200644.html)
+
+
 ```css
 すでにある要素に対して、疑似要素で、三角を追加する。なお:afterでもbeforeでも同じ。
   contact_card::after {
