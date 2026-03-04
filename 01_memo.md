@@ -8054,3 +8054,33 @@ wp_enqueue_script('my-script', get_template_directory_uri() . '/js/main.js', arr
 - 会社でjQuery多用 → 覚える必要あり（素のJSでも同じことはできるが、既存コードがjQueryなら合わせる）
 【関連】→ 「wp_enqueue_script」で検索（JS読み込みの書き方・引数の意味）
 【関連】→ 「wp_footer」で検索（footer.phpでJSを出力するトリガー）jQueryをワードプレスでつかいたい
+## 📌 CSS Grid で display: grid を使うと grid-template-columns で横列を定義でき、縦行は grid-template-rows で制御できる（Flexと違い縦横同時に制御可能）
+
+【日付】2026-03-05
+【結論】
+- `grid-template-columns` = 横（列）の幅を定義
+- `grid-template-rows` = 縦（行）の高さを定義（省略すると自動）
+- Flexは1方向のみ。Gridは縦と横を同時に設定できる
+- `repeat(3, 1fr)` は `1fr 1fr 1fr` の省略形（同じ値を繰り返すだけ）
+
+【具体例】
+```css
+/*
+  構造:
+  <div .container>       ← display: grid
+    <div .item> 内容     ← 自動的に3列に並ぶ
+*/
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 横3列（均等）= 1fr 1fr 1fr と同じ */
+  grid-template-rows: 200px 100px;       /* 縦: 1行目200px, 2行目100px */
+  gap: 16px;                             /* 縦横の余白 */
+}
+```
+
+【補足】
+- `fr` = fraction（余白を均等分割する単位）
+- `repeat(列数, 幅)` → 同じ幅を指定回数並べるだけ
+- `grid-template-rows` は省略OKで、省略すると中身に合わせて自動伸縮
+- 普段は `columns` だけ書けば十分
+【関連】→ 「flex/gridで列幅やgap」で検索（Gridとflexの使い分け）
