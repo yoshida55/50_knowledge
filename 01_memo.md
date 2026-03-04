@@ -7536,22 +7536,31 @@ Localを使ってWordPressのローカル環境をセットアップする手順
 
 【具体例】
 ```php
-// functions.php
+// functions.php ※ 2行セットで書く
+
+// ① 定義（何を読み込むか）← 関数名は自分で自由に決める
 function enqueue_style(){
     wp_enqueue_style('reset', get_template_directory_uri() . '/css/reset.css');
 }
 //                    ↑第1引数: ID名    ↑第2引数: パス（. で文字列結合して1つにしている）
+
+// ② 登録（いつ実行するか → WordPressに「このタイミングで①を呼んで」と伝える）
+add_action('wp_enqueue_scripts', 'enqueue_style');
+//          ↑決まり文句（丸暗記）    ↑①で作った関数名を文字列で渡す（名前が一致しないと動かない）
 ```
 
 | 引数 | 内容 | 例 |
 |------|------|-----|
-| 第1引数 | スタイルの識別名（自分でつける） | `'reset'` |
-| 第2引数 | CSSファイルのパス | `get_template_directory_uri() . '/css/reset.css'` |
-| 第3〜5 | 省略可（今は覚えなくてOK） | - |
+| wp_enqueue_style 第1引数 | スタイルの識別名（自分でつける） | `'reset'` |
+| wp_enqueue_style 第2引数 | CSSファイルのパス | `get_template_directory_uri() . '/css/reset.css'` |
+| wp_enqueue_style 第3〜5 | 省略可（今は覚えなくてOK） | - |
+| add_action 第1引数 | フックの名前（決まり文句） | `'wp_enqueue_scripts'` |
+| add_action 第2引数 | 実行したい関数名（①と同じ名前） | `'enqueue_style'` |
 
 【補足】
-- 第3〜5引数は省略可（今は覚えなくてOK）
-- この関数を書いただけでは読み込まれない → `add_action` で WordPress に登録する必要がある（次のステップ）
+- ①だけ書いても動かない（定義しただけで誰も呼ばない）
+- ②だけ書いても動かない（呼ぼうとしても関数が存在しない）
+- **必ず①定義 + ②登録の2行セット**で覚える
 
 ---
 

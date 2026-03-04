@@ -2,7 +2,7 @@
 
 
 
-▢　WordPress
+■　WordPress
 のテーマファイルをもってくる。
 
 
