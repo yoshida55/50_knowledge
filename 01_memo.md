@@ -7325,6 +7325,72 @@ echo $user["name"];  // 田中
 
 ---
 
+## 📌 WordPress テーマ作成の全体フロー（どこに何を書くかの早見表）
+
+### ① テーマフォルダを作る
+場所: `wp-content/themes/〇〇_theme/`
+
+### ② 必須ファイルを作成
+| ファイル | 役割 | 必須のコード |
+|---------|------|-------------|
+| `style.css` | 共通CSS（テーマ認識に必須） | - |
+| `index.php` | テンプレートの基本（必須だが基本触らない） | - |
+| `functions.php` | CSS/JS読み込み・機能追加を全部ここに書く | `wp_enqueue_style()` / `wp_enqueue_script()` |
+| `header.php` | `<head>`〜`<header>` | `<?php wp_head(); ?>` → CSSを出力 |
+| `footer.php` | `<footer>`〜`</body>` | `<?php wp_footer(); ?>` → JSを出力 |
+
+### ③ ページテンプレートを作成
+| ファイル | 用途 |
+|---------|------|
+| `front-page.php` | トップページ |
+| `page-〇〇.php` | 固定ページ（〇〇 = スラッグ名） |
+| `single.php` | 投稿詳細ページ |
+
+### ④ functions.php に CSS/JS を登録
+```php
+function enqueue_styles() {
+    // CSS読み込み
+    wp_enqueue_style('ID名', get_template_directory_uri() . '/css/ファイル.css');
+    // JS読み込み（第3引数=依存、第5引数=true→footer読み込み）
+    wp_enqueue_script('ID名', get_template_directory_uri() . '/js/ファイル.js', array(), false, true);
+    // jQuery使う場合（WordPress同梱・パス不要）
+    wp_enqueue_script('jquery');
+}
+add_action('wp_enqueue_scripts', 'enqueue_styles');
+```
+
+### ⑤ 読み込みの流れ（しくみ）
+```
+functions.php で登録 → add_action() でフックに追加
+  ↓
+header.php の wp_head()  → 登録されたCSSを <head> 内に出力
+footer.php の wp_footer() → 登録されたJSを </body> 直前に出力
+```
+
+### ⑥ WordPress管理画面での操作
+| 操作 | 場所 |
+|------|------|
+| テーマ有効化 | 外観 → テーマ |
+| 固定ページ作成 | 固定ページ → 新規追加（スラッグ = page-〇〇.phpの〇〇） |
+| トップページ設定 | 設定 → 表示設定 → 固定ページを選択 |
+| サイト確認 | 管理画面左上「W」右の家マーク → 右クリック → 新しいタブで開く |
+
+### ⑦ テンプレート内でよく使うPHP
+| コード | 意味 |
+|--------|------|
+| `<?php get_header(); ?>` | header.phpを読み込む |
+| `<?php get_footer(); ?>` | footer.phpを読み込む |
+| `<?php echo esc_url(home_url('/')); ?>` | リンクURL（安全に出力） |
+| `<?php echo get_template_directory_uri(); ?>/img/〇〇.png` | 画像パス（PHPファイル内） |
+| CSSから: `url(../img/〇〇.png)` | 画像パス（CSSファイル内は相対パスでOK） |
+
+### ⑧ jQuery注意点（WordPress固有）
+- `$` は使えない → `jQuery` で書く
+- `jQuery(function($){ ... })` で囲めば中は `$` OK
+- `array('jquery')` = 自分のJSがjQueryに依存していることを宣言（読み込み順を保証）
+
+---
+
 ## 📌 WordPress テーマのフォルダ構造（img・css・jsの役割）
 
 【日付】2026-03-03
@@ -7534,6 +7600,11 @@ Localを使ってWordPressのローカル環境をセットアップする手順
 - パスは `get_template_directory_uri() . '/css/〇〇.css'` で作る
 - `.`（ドット）はPHPの文字列結合（JSの `+` と同じ）、`,`（カンマ）が引数の区切り
 
+【全体のながれ】
+
+★「CSS読み込みの全体の流れ: ① functions.php で `wp_enqueue_style()` → ② `add_action()` で登録 → ③ header.php の `wp_head()` で実行・出力」
+
+
 【具体例】
 ```php
 // functions.php ※ 2行セットで書く
@@ -7543,6 +7614,8 @@ function enqueue_style(){
     wp_enqueue_style('reset', get_template_directory_uri() . '/css/reset.css');
 }
 //                    ↑第1引数: ID名    ↑第2引数: パス（. で文字列結合して1つにしている）
+
+※日本語約「wp_enqueue_style」・・・「WordPressのCSS読み込みリストに順番に並ばせる」
 
 // ② 登録（いつ実行するか → WordPressに「このタイミングで①を呼んで」と伝える）
 add_action('wp_enqueue_scripts', 'enqueue_style');
@@ -7561,6 +7634,195 @@ add_action('wp_enqueue_scripts', 'enqueue_style');
 - ①だけ書いても動かない（定義しただけで誰も呼ばない）
 - ②だけ書いても動かない（呼ぼうとしても関数が存在しない）
 - **必ず①定義 + ②登録の2行セット**で覚える
+- `enqueue`（エンキュー）= 「キュー（順番待ちの列）に追加する」→ だから読み込み順を制御できる
+- `functions.php` は全ページ共通で動く設定ファイル → ここに書いたCSS読み込みは全ページに適用される
+- `wp_head()` = header.php の `</head>` 直前に必ず書く。これが登録されたCSSを全部出力するトリガー
+「CSS読み込みの全体の流れ: ① functions.php で `wp_enqueue_style()` → ② `add_action()` で登録 → ③ header.php の `wp_head()` で実行・出力」
+- 1つの関数内に `wp_enqueue_style()` を複数書けば、全部順番に読み込まれる
+- 同じID名（第1引数）を2回書いても、2回目は自動で無視される（重複読み込み防止）
+- `wp_head()` は自分が定義したCSS以外に**WordPressのデフォルトCSS**も読み込む → header.php に `wp_head()` を忘れずに書く
+- デフォルトCSS = WordPress本体が持っている管理バー・Gutenbergエディタ等のスタイル。自分では書いていないが裏で自動適用される
+- CSSファイルを追加するときは `wp_enqueue_style()` を1行ずつ増やすだけでOK:
+
+```php
+★基本すべての必要なCSSを追記する
+function enqueue_style(){
+    wp_enqueue_style('reset', get_template_directory_uri() . '/css/reset.css');
+    wp_enqueue_style('header', get_template_directory_uri() . '/css/header.css');
+    wp_enqueue_style('footer', get_template_directory_uri() . '/css/footer.css');
+    wp_enqueue_style('about', get_template_directory_uri() . '/css/about.css');
+    wp_enqueue_style('front-page', get_template_directory_uri() . '/css/front-page.css');
+    // ↑ 追加のCSSはここに1行ずつ追加していく
+}
+add_action('wp_enqueue_scripts', 'enqueue_style');
+```
+【関連】→ 「wp_enqueue_script」で検索（JS読み込みの書き方・引数の意味）
+【関連】→ 「wp_footer」で検索（footer.phpでJSを出力するトリガー）
+
+<!-- 📝 WordPress関数読み込みの仕組み（図解） -->
+
+```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+body { font-family: sans-serif; padding: 20px; background: #f5f5f5; }
+.container { max-width: 800px; margin: 0 auto; }
+.step { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.step-title { font-size: 20px; font-weight: bold; color: #2271b1; margin-bottom: 15px; }
+.code-box { background: #282c34; color: #abb2bf; padding: 15px; border-radius: 4px; font-family: monospace; margin: 10px 0; }
+.arrow { text-align: center; font-size: 40px; color: #2271b1; margin: 10px 0; }
+.highlight { background: #ffd700; padding: 2px 5px; border-radius: 3px; }
+.flow { display: flex; align-items: center; justify-content: space-around; margin: 20px 0; }
+.box { background: #e7f3ff; border: 2px solid #2271b1; padding: 15px; border-radius: 8px; text-align: center; min-width: 150px; }
+.ng { background: #ffe7e7; border-color: #d63638; }
+.ok { background: #e7ffe7; border-color: #00a32a; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📘 WordPress CSS読み込みの仕組み</h1>
+
+  <!-- ステップ1 -->
+  <div class="step">
+    <div class="step-title">① 定義（レシピを書く）</div>
+    <div class="code-box">
+function enqueue_style() {<br>
+&nbsp;&nbsp;wp_enqueue_style('reset', get_template_directory_uri() . '/css/reset.css');<br>
+}
+    </div>
+    <p>📝 <strong>やること:</strong> 「reset.cssを読み込む」という<span class="highlight">レシピを作成</span></p>
+    <p>⚠️ これだけでは<strong>実行されない</strong>（料理本に書いただけ）</p>
+  </div>
+
+  <div class="arrow">⬇️</div>
+
+  <!-- ステップ2 -->
+  <div class="step">
+    <div class="step-title">② 登録（いつ作るか予約する）</div>
+    <div class="code-box">
+add_action('wp_enqueue_scripts', 'enqueue_style');
+    </div>
+    <p>📌 <strong>やること:</strong> WordPressに「<span class="highlight">wp_enqueue_scriptsのタイミング</span>で①を実行して！」と予約</p>
+    <p>🎯 WordPressが自動でレシピ通り実行してくれる</p>
+  </div>
+
+  <div class="arrow">⬇️</div>
+
+  <!-- 実行タイミング -->
+  <div class="step">
+    <div class="step-title">🚀 実際の動き</div>
+    <svg width="100%" height="200" style="margin: 20px 0;">
+      <rect x="50" y="20" width="150" height="60" fill="#2271b1" rx="5"/>
+      <text x="125" y="55" text-anchor="middle" fill="white" font-size="14" font-weight="bold">WordPress起動</text>
+      
+      <path d="M 200 50 L 270 50" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+      <text x="235" y="40" text-anchor="middle" font-size="12" fill="#d63638">「wp_enqueue_scripts」</text>
+      <text x="235" y="70" text-anchor="middle" font-size="12" fill="#d63638">のタイミング！</text>
+      
+      <rect x="270" y="20" width="150" height="60" fill="#00a32a" rx="5"/>
+      <text x="345" y="50" text-anchor="middle" fill="white" font-size="12" font-weight="bold">enqueue_style()</text>
+      <text x="345" y="65" text-anchor="middle" fill="white" font-size="11">関数を実行</text>
+      
+      <path d="M 345 80 L 345 120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+      
+      <rect x="270" y="120" width="150" height="60" fill="#ffd700" rx="5"/>
+      <text x="345" y="145" text-anchor="middle" font-size="12" font-weight="bold">reset.css</text>
+      <text x="345" y="165" text-anchor="middle" font-size="11">読み込み完了✅</text>
+      
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L9,3 z" fill="#333"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="step">
+    <div class="step-title">⚠️ よくある間違い</div>
+    
+    <div class="flow">
+      <div class="box ng">
+        <strong>❌ ①だけ</strong><br>
+        定義したけど<br>誰も呼ばない<br>
+        → <strong>動かない</strong>
+      </div>
+      
+      <div class="box ng">
+        <strong>❌ ②だけ</strong><br>
+        呼ぼうとしたけど<br>関数がない<br>
+        → <strong>エラー</strong>
+      </div>
+      
+      <div class="box ok">
+        <strong>✅ ①+②セット</strong><br>
+        定義して<br>登録もした<br>
+        → <strong>正常動作</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+    <div class="step-title">💡 覚え方</div>
+    <p style="font-size: 18px; margin: 10px 0;">
+      <strong>①定義</strong> = 料理のレシピを書く 📖<br>
+      <strong>②登録</strong> = 「夕食時に作って」と予約 ⏰<br>
+      <strong>両方必要</strong> = レシピだけあっても作らないと食べられない 🍳
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>
+```
+
+**ポイント:**
+- ①は「設計図」②は「実行指示」
+- 必ず2行セットで書く
+- add_actionが「フック（引っ掛ける場所）」に関数を登録している
+
+---
+
+## 📌 WordPressのJS読み込みもCSS同様に functions.php で wp_enqueue_script() を使う → CSSとの違いは引数が多い（依存・バージョン・読み込み位置を指定する）
+
+【日付】2026-03-04
+【結論】
+- CSS読み込み（`wp_enqueue_style`）と同じ仕組み。`<script>` タグを直書きしない
+- 第5引数の `true` が重要 → `</body>` 前に読み込まれる（`false` だと `<head>` 内）
+
+【具体例】
+```php
+// functions.php ※ CSS読み込みと同じく2行セット
+
+// ① 定義
+function enqueue_script(){
+    wp_enqueue_script('main', get_template_directory_uri() . '/js/main.js', array(), '1.0.0', true);
+    //                 ↑ID名   ↑パス                                        ↑依存なし ↑バージョン ↑body末尾に読み込む
+}
+
+// ② 登録（add_actionは同じ）
+add_action('wp_enqueue_scripts', 'enqueue_script');
+```
+
+| 引数 | 内容 | 例 |
+|------|------|-----|
+| 第1（$handle） | スクリプトの識別名 | `'main'` |
+| 第2（$src） | JSファイルのパス | `get_template_directory_uri() . '/js/main.js'` |
+| 第3（$deps） | 依存スクリプト（なければ `array()`） | `array()` |
+| 第4（$ver） | バージョン | `'1.0.0'` |
+| 第5（$in_footer） | 読み込み位置 | `true` = body末尾 / `false` = head内 |
+
+【補足】
+- CSSは `wp_enqueue_style`、JSは `wp_enqueue_script` → **style か script かの違いだけ**
+- `add_action` のフック名はどちらも `'wp_enqueue_scripts'`（同じ）
+- JSは基本 `true`（body末尾）にする → ページの読み込みが速くなる
+- 実際の `functions.php` では CSS読み込みとJS読み込みを**同じファイルに続けて書く**（別ファイルではない）
+- 「ID名（第1引数）は任意」（自分で自由に決める）。ただし他のスクリプトが依存する場合、そのID名を `$deps`（第3引数）で指定する
+【関連】→ 「wp_enqueue_style」で検索（CSS読み込みの書き方・functions.phpの構成）
+【関連】→ 「wp_footer」で検索（footer.phpでJSを出力するトリガー）
 
 ---
 
@@ -7686,4 +7948,73 @@ add_action('wp_enqueue_scripts', 'enqueue_style');
 - `attr(data-text)` = HTML属性の値をCSSで読み込む
 - `translateY(100%)` = 自分の高さ分だけ下へ（隠れる位置）
 - `translateY(-100%)` = 自分の高さ分だけ上へ（入れ替わる）
-- `::after` に `transition` は不要（親の `.header_text` に設定してあれば動く）
+
+---
+
+## 📌 WordPress footer.php に wp_footer() を書く → JSが `</body>` 直前で読み込まれる（wp_head()のJS版・書かないとJSが動かない）
+
+【日付】2026-03-04
+【結論】
+`wp_footer()` は `wp_head()` のJS版。footer.phpの `</body>` 直前に書く。
+`wp_enqueue_script()` の第5引数を `true` にしたJSは、`wp_footer()` の位置で出力される。
+
+- `wp_head()` → CSSを `<head>` 内に出力
+- `wp_footer()` → JSを `</body>` 直前に出力
+- 両方書かないとfunctions.phpの登録が反映されない
+
+【具体例】
+```php
+<!-- footer.php -->
+<footer class="footer">
+    <small>&copy; Test株式会社 All Rights Reserved.</small>
+</footer>
+
+<?php wp_footer(); ?>   ← ★ここ！</body>の直前
+</body>
+</html>
+```
+
+【補足】
+- JSは基本 `</body>` 直前で読み込む → ページ描画を邪魔しない（表示が速くなる）
+- `wp_enqueue_script()` の第5引数 `true` = footer読み込み（`wp_footer()`から出力）
+- `wp_enqueue_script()` の第5引数 `false`（デフォルト） = head読み込み（`wp_head()`から出力）
+- `wp_footer()` を書き忘れると、`true` 指定したJSが一切読み込まれない
+【関連】→ 「wp_enqueue_script」で検索（JS読み込みの書き方・引数の意味）
+【関連】→ 「wp_enqueue_style」で検索（CSS読み込みの書き方・functions.phpの構成）
+【関連】→ 「wp_head」で検索（header.phpでCSS/JSを出力するトリガー）
+
+---
+
+## 📌 WordPress にはjQueryが最初から入っている → wp_enqueue_script('jquery') だけで使える（CDN読み込み不要）
+
+【日付】2026-03-04
+【結論】
+WordPressにはjQueryが同梱されている。`wp_enqueue_script('jquery')` と書くだけで有効化される。
+CDNやファイルのパス指定は不要（第2引数なし）。
+
+【具体例】
+```php
+// functions.php
+function enqueue_script(){
+    wp_enqueue_script('jquery'); // WordPressに同梱されているjQueryを読み込む
+}
+add_action('wp_enqueue_scripts', 'enqueue_script');
+```
+
+【補足】
+- `'jquery'` はWordPressが予約しているID名 → パス不要で読み込める
+- 自分のJSでjQueryを使う場合、`$deps` に `array('jquery')` を指定すると読み込み順が保証される：
+```php
+wp_enqueue_script('my-script', get_template_directory_uri() . '/js/main.js', array('jquery'), false, true);
+```
+- WordPressのjQueryは `$` ではなく `jQuery` で書く（`$` は他ライブラリと競合防止のため無効）
+- `jQuery(function($){ ... })` で囲めば中では `$` が使える（実務ではこの書き方が多い）
+- jQueryとJavaScriptは別物ではない。**jQueryはJavaScriptで作られた道具箱（ショートカット集）**
+- `array('jquery')` = 「このJSファイルはjQueryを使うから**先に読み込んでね**」という順番指定
+```
+読み込み順: ① jquery（道具箱） → ② main.js（道具箱を使う自分のコード）
+```
+- 先にjQueryが読み込まれていないと `jQuery is not defined` エラーになる
+- 会社でjQuery多用 → 覚える必要あり（素のJSでも同じことはできるが、既存コードがjQueryなら合わせる）
+【関連】→ 「wp_enqueue_script」で検索（JS読み込みの書き方・引数の意味）
+【関連】→ 「wp_footer」で検索（footer.phpでJSを出力するトリガー）
