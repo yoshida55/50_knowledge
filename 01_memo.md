@@ -7367,6 +7367,13 @@ OO_theme/
   - プライバシーポリシー → `page-privacypolicy.php`
 - 画像・リンクのパスは直書き禁止。PHPの関数で動的に生成する
   - 画像: `<?php echo get_template_directory_uri(); ?>/img/logo.png`
+  ★SRCの指定は、
+  ・?phpで開始！
+  ・""の文字列
+  ・最後は;でわらせる。ＰＨＰの終わりは; ?>
+  覚え方は？ＰＨＰなの？　？＞そうみたい
+
+  のなかで設定して、
   - リンク: `<?php echo home_url('/about/'); ?>`
   - 理由: サーバーの場所によってURLが変わるため
 - `header.php` には `</body>` `</html>` は不要。閉じタグは `footer.php` に書く（分割管理のため）
@@ -7429,6 +7436,60 @@ Localを使ってWordPressのローカル環境をセットアップする手順
 5. **テーマを有効化する**
    - WordPress管理画面 → 外観 → テーマを選んで「有効化」
 6. **サイトを表示する**
+
+---
+
+## 📌 WordPressで画像の相対パスは使えない → get_template_directory_uri() でテーマフォルダのURLを取得する
+
+【日付】2026-03-04
+【結論】
+- WordPressでは `<img src="img/fv.jpg">` のような相対パスでは画像が表示されない
+- テーマフォルダのURLを取得する関数 `get_template_directory_uri()` を使う
+
+【具体例】
+```php
+<!-- ❌ 相対パス → 表示されない -->
+<img src="img/fv.jpg" alt="">
+
+<!-- ✅ PHP関数でテーマフォルダのURLを取得 → 表示される -->
+<img src="<?php echo get_template_directory_uri(); ?>/img/fv.jpg" alt="">
+```
+
+【補足】
+- WordPressのURLは `/wp-content/themes/テーマ名/` のように深い階層になるため、相対パスだと正しい場所を指せない
+- `get_template_directory_uri()` はテーマフォルダまでのフルURLを返してくれる
+- ただし **CSSから呼ぶ場合は相対パスでOK**（CSSファイル自体がテーマフォルダ内にあるため、相対パスで正しく辿れる）
+
+---
+
+## 📌 WordPressのリンクURLは esc_url(home_url('/')) で安全に出力する（関数の中に関数がある形）
+
+【日付】2026-03-04
+【結論】
+- リンク先のURLは `esc_url(home_url('/'))` で出力する
+- `home_url('/')` → サイトのトップURLを取得する関数
+- `esc_url()` → URLを安全にする関数（不正なURLを無害化する）
+- **ポイント: 関数の中に関数が入っている**（内側から先に実行される）
+
+【具体例】
+```php
+<!-- ✅ リンクの書き方 -->
+<a href="<?php echo esc_url(home_url('/')); ?>">トップへ</a>
+
+<!--
+  実行順序:
+  ① home_url('/')         → "http://local-test.local/" を取得
+  ② esc_url(①の結果)      → 安全なURLに変換
+  ③ echo ②の結果          → HTMLに出力
+-->
+```
+
+【補足】
+- `esc_url` = escape URL の略。URLに危険な文字が入っていないか確認して安全にする
+- `home_url('/about/')` のようにパスを変えれば別ページへのリンクも作れる
+- 画像パスは `get_template_directory_uri()`、リンクURLは `esc_url(home_url())` → 用途が違う
+- `echo` = 「出力して」という命令。関数だけ書いても画面には出ない、`echo` がないと表示されない
+- `<?php echo 〇〇; ?>` はWordPressでよく使うセットで覚える
 
 ---
 
