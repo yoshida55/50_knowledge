@@ -1,14 +1,13 @@
 {
-  "folders": [
-	{
-		"path": "../../02_作業/00_リンクワーク/HTML自動化/過去の課題/51_ASUTOMO"
-	},
-	{
-		"path": ".."
+	"folders": [
+		{
+			"path": "../../02_作業/00_リンクワーク/HTML自動化/過去の課題/51_ASUTOMO"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.port": 5758
 	}
-],
-  "settings": {
-    "liveServer.settings.port": 5758,
-    "liveServer.settings.multiRootWorkspaceName": "51_ASUTOMO"
-  }
 }
