@@ -7439,12 +7439,12 @@ Localを使ってWordPressのローカル環境をセットアップする手順
 
 ---
 
-## 📌 WordPressで画像の相対パスは使えない → get_template_directory_uri() でテーマフォルダのURLを取得する
+## 📌 WordPressの画像パスは相対パス（img/fv.jpg）だと表示されない → <?php echo get_template_directory_uri(); ?>/img/〇〇 でテーマフォルダのフルURLを取得して書く（URLが深い階層だから相対パスでは届かない）
 
 【日付】2026-03-04
 【結論】
-- WordPressでは `<img src="img/fv.jpg">` のような相対パスでは画像が表示されない
-- テーマフォルダのURLを取得する関数 `get_template_directory_uri()` を使う
+- `get_template_directory_uri()` はテーマフォルダまでのフルURLを返す関数
+- `echo` をつけないと画面に出力されない → `<?php echo get_template_directory_uri(); ?>` がセット
 
 【具体例】
 ```php
@@ -7462,14 +7462,13 @@ Localを使ってWordPressのローカル環境をセットアップする手順
 
 ---
 
-## 📌 WordPressのリンクURLは esc_url(home_url('/')) で安全に出力する（関数の中に関数がある形）
+## 📌 WordPressのリンクURLは <?php echo esc_url(home_url('/')); ?> で書く → home_url()でURL取得 + esc_url()で安全化する二重構造（関数の中に関数がある・内側から実行される）
 
 【日付】2026-03-04
 【結論】
-- リンク先のURLは `esc_url(home_url('/'))` で出力する
-- `home_url('/')` → サイトのトップURLを取得する関数
-- `esc_url()` → URLを安全にする関数（不正なURLを無害化する）
-- **ポイント: 関数の中に関数が入っている**（内側から先に実行される）
+- `esc_url` = escape URL の略。危険な文字を無害化する
+- `home_url('/about/')` のようにパスを変えれば別ページへのリンクも作れる
+- 画像パスは `get_template_directory_uri()`、リンクURLは `esc_url(home_url())` → 用途が違う
 
 【具体例】
 ```php
@@ -7485,11 +7484,74 @@ Localを使ってWordPressのローカル環境をセットアップする手順
 ```
 
 【補足】
-- `esc_url` = escape URL の略。URLに危険な文字が入っていないか確認して安全にする
-- `home_url('/about/')` のようにパスを変えれば別ページへのリンクも作れる
-- 画像パスは `get_template_directory_uri()`、リンクURLは `esc_url(home_url())` → 用途が違う
 - `echo` = 「出力して」という命令。関数だけ書いても画面には出ない、`echo` がないと表示されない
 - `<?php echo 〇〇; ?>` はWordPressでよく使うセットで覚える
+
+---
+
+## 📌 WordPress固定ページは管理画面で作成 → タイトルを入力してスラッグにURLを設定する → スラッグ「about」と書くと page-about.php が自動で使われる
+★おそらくwordPressの飛び先を設定する。　これは固定ページ
+
+★設定画面のイメージ
+![](images/2026-03-04-11-07-10.png)
+
+【日付】2026-03-04
+【結論】
+- スラッグ = URLの末尾になる文字列（例: `about` → `/about/`）
+- テンプレートファイル名 `page-〇〇.php` の「〇〇」とスラッグが一致すると自動で使われる
+
+【具体例】
+```
+■ 固定ページ作成手順
+1. 管理画面 → 固定ページ → 「新規固定ページを追加」
+2. タイトルを入力（例：「会社概要」）
+3. スラッグにURLを設定（例：about）
+4. 公開する
+
+■ スラッグとテンプレートの対応
+  スラッグ: about    → テンプレ: page-about.php
+  スラッグ: contact  → テンプレ: page-contact.php
+```
+
+| 固定ページ | スラッグ | テンプレートファイル |
+|-----------|---------|-------------------|
+| 会社概要 | about | `page-about.php` |
+| お問い合わせ | contact | `page-contact.php` |
+
+【補足】
+- URLが `/about/` になる固定ページを作ると、「`page-about.php`」 が自動で使われる
+★ ヘッダーのリンクから `/about/` に遷移すると、`page-about.php` の内容が表示される
+-
+ 同じ手順でお問い合わせ（contact）なども作れる
+
+---
+
+## 📌 WordPressのCSS読み込みは <head>に直書きNG → functions.php に wp_enqueue_style('識別名', パス) で書く（WordPress本体のCSSと競合するから）
+
+【日付】2026-03-04
+【結論】
+- 第1引数 = 自分でつけるID名（WordPress内部で重複管理に使う）、第2引数 = CSSファイルのパス
+- パスは `get_template_directory_uri() . '/css/〇〇.css'` で作る
+- `.`（ドット）はPHPの文字列結合（JSの `+` と同じ）、`,`（カンマ）が引数の区切り
+
+【具体例】
+```php
+// functions.php
+function enqueue_style(){
+    wp_enqueue_style('reset', get_template_directory_uri() . '/css/reset.css');
+}
+//                    ↑第1引数: ID名    ↑第2引数: パス（. で文字列結合して1つにしている）
+```
+
+| 引数 | 内容 | 例 |
+|------|------|-----|
+| 第1引数 | スタイルの識別名（自分でつける） | `'reset'` |
+| 第2引数 | CSSファイルのパス | `get_template_directory_uri() . '/css/reset.css'` |
+| 第3〜5 | 省略可（今は覚えなくてOK） | - |
+
+【補足】
+- 第3〜5引数は省略可（今は覚えなくてOK）
+- この関数を書いただけでは読み込まれない → `add_action` で WordPress に登録する必要がある（次のステップ）
 
 ---
 
