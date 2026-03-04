@@ -7721,123 +7721,7 @@ add_action('wp_enqueue_scripts', 'enqueue_style');
 
 <!-- 📝 WordPress関数読み込みの仕組み（図解） -->
 
-```html
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<style>
-body { font-family: sans-serif; padding: 20px; background: #f5f5f5; }
-.container { max-width: 800px; margin: 0 auto; }
-.step { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-.step-title { font-size: 20px; font-weight: bold; color: #2271b1; margin-bottom: 15px; }
-.code-box { background: #282c34; color: #abb2bf; padding: 15px; border-radius: 4px; font-family: monospace; margin: 10px 0; }
-.arrow { text-align: center; font-size: 40px; color: #2271b1; margin: 10px 0; }
-.highlight { background: #ffd700; padding: 2px 5px; border-radius: 3px; }
-.flow { display: flex; align-items: center; justify-content: space-around; margin: 20px 0; }
-.box { background: #e7f3ff; border: 2px solid #2271b1; padding: 15px; border-radius: 8px; text-align: center; min-width: 150px; }
-.ng { background: #ffe7e7; border-color: #d63638; }
-.ok { background: #e7ffe7; border-color: #00a32a; }
-</style>
-</head>
-<body>
-
-<div class="container">
-  <h1>📘 WordPress CSS読み込みの仕組み</h1>
-
-  <!-- ステップ1 -->
-  <div class="step">
-    <div class="step-title">① 定義（レシピを書く）</div>
-    <div class="code-box">
-function enqueue_style() {<br>
-&nbsp;&nbsp;wp_enqueue_style('reset', get_template_directory_uri() . '/css/reset.css');<br>
-}
-    </div>
-    <p>📝 <strong>やること:</strong> 「reset.cssを読み込む」という<span class="highlight">レシピを作成</span></p>
-    <p>⚠️ これだけでは<strong>実行されない</strong>（料理本に書いただけ）</p>
-  </div>
-
-  <div class="arrow">⬇️</div>
-
-  <!-- ステップ2 -->
-  <div class="step">
-    <div class="step-title">② 登録（いつ作るか予約する）</div>
-    <div class="code-box">
-add_action('wp_enqueue_scripts', 'enqueue_style');
-    </div>
-    <p>📌 <strong>やること:</strong> WordPressに「<span class="highlight">wp_enqueue_scriptsのタイミング</span>で①を実行して！」と予約</p>
-    <p>🎯 WordPressが自動でレシピ通り実行してくれる</p>
-  </div>
-
-  <div class="arrow">⬇️</div>
-
-  <!-- 実行タイミング -->
-  <div class="step">
-    <div class="step-title">🚀 実際の動き</div>
-    <svg width="100%" height="200" style="margin: 20px 0;">
-      <rect x="50" y="20" width="150" height="60" fill="#2271b1" rx="5"/>
-      <text x="125" y="55" text-anchor="middle" fill="white" font-size="14" font-weight="bold">WordPress起動</text>
-      
-      <path d="M 200 50 L 270 50" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-      <text x="235" y="40" text-anchor="middle" font-size="12" fill="#d63638">「wp_enqueue_scripts」</text>
-      <text x="235" y="70" text-anchor="middle" font-size="12" fill="#d63638">のタイミング！</text>
-      
-      <rect x="270" y="20" width="150" height="60" fill="#00a32a" rx="5"/>
-      <text x="345" y="50" text-anchor="middle" fill="white" font-size="12" font-weight="bold">enqueue_style()</text>
-      <text x="345" y="65" text-anchor="middle" fill="white" font-size="11">関数を実行</text>
-      
-      <path d="M 345 80 L 345 120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-      
-      <rect x="270" y="120" width="150" height="60" fill="#ffd700" rx="5"/>
-      <text x="345" y="145" text-anchor="middle" font-size="12" font-weight="bold">reset.css</text>
-      <text x="345" y="165" text-anchor="middle" font-size="11">読み込み完了✅</text>
-      
-      <defs>
-        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-          <path d="M0,0 L0,6 L9,3 z" fill="#333"/>
-        </marker>
-      </defs>
-    </svg>
-  </div>
-
-  <div class="step">
-    <div class="step-title">⚠️ よくある間違い</div>
-    
-    <div class="flow">
-      <div class="box ng">
-        <strong>❌ ①だけ</strong><br>
-        定義したけど<br>誰も呼ばない<br>
-        → <strong>動かない</strong>
-      </div>
-      
-      <div class="box ng">
-        <strong>❌ ②だけ</strong><br>
-        呼ぼうとしたけど<br>関数がない<br>
-        → <strong>エラー</strong>
-      </div>
-      
-      <div class="box ok">
-        <strong>✅ ①+②セット</strong><br>
-        定義して<br>登録もした<br>
-        → <strong>正常動作</strong>
-      </div>
-    </div>
-  </div>
-
-  <div class="step" style="background: #fff3cd; border-left: 4px solid #ffc107;">
-    <div class="step-title">💡 覚え方</div>
-    <p style="font-size: 18px; margin: 10px 0;">
-      <strong>①定義</strong> = 料理のレシピを書く 📖<br>
-      <strong>②登録</strong> = 「夕食時に作って」と予約 ⏰<br>
-      <strong>両方必要</strong> = レシピだけあっても作らないと食べられない 🍳
-    </p>
-  </div>
-
-</div>
-
-</body>
-</html>
-```
+[プレビュー](http://localhost:54321/preview-20260304-172501.html)
 
 **ポイント:**
 - ①は「設計図」②は「実行指示」
@@ -7860,7 +7744,7 @@ add_action('wp_enqueue_scripts', 'enqueue_style');
 // ① 定義
 function enqueue_script(){
     wp_enqueue_script('main', get_template_directory_uri() . '/js/main.js', array(), '1.0.0', true);
-    //                 ↑ID名   ↑パス                                        ↑依存なし ↑バージョン ↑body末尾に読み込む
+    //                ↑ID名(任意)   ↑パス                                        ↑依存なし ↑バージョン ↑body末尾に読み込む
 }
 
 // ② 登録（add_actionは同じ）
@@ -7880,7 +7764,7 @@ add_action('wp_enqueue_scripts', 'enqueue_script');
 - `add_action` のフック名はどちらも `'wp_enqueue_scripts'`（同じ）
 - JSは基本 `true`（body末尾）にする → ページの読み込みが速くなる
 - 実際の `functions.php` では CSS読み込みとJS読み込みを**同じファイルに続けて書く**（別ファイルではない）
-- 「ID名（第1引数）は任意」（自分で自由に決める）。ただし他のスクリプトが依存する場合、そのID名を `$deps`（第3引数）で指定する
+- 「ID名（第1引数）は任意」`（自分で自由に決める）`。ただし他のスクリプトが依存する場合、そのID名を `$deps`（第3引数）で指定する
 【関連】→ 「wp_enqueue_style」で検索（CSS読み込みの書き方・functions.phpの構成）
 【関連】→ 「wp_footer」で検索（footer.phpでJSを出力するトリガー）
 

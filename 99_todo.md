@@ -6,6 +6,11 @@
 のテーマファイルをもってくる。
 
 
+▢　
+・CSS　JUMPの　VSIXをインストール
+・HTMLプレビューをおく。
+・🏢 会社PC	$directFolders の直接パスを削除 → 
+$parentFolders に themes/ を追加（会社で自分でやる）
 
 
 
@@ -32,12 +37,6 @@
 ## 拡張機能（自宅）
 
 【自宅】
-▢　HTMLプレビュー？？
-HTMLオートプレビューが＜/html＞までコピーしなくても表示される。
-
-▢　CSS
-jump　　MDファイルに行数　参照でタイトルがあったらリンクにする
-【関連】→ 「wp_enqueue_script」で検索
 
 
 【自宅】

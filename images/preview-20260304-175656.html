@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Git管理の仕組み</title>
+<style>
+  body { font-family: 'Meiryo', sans-serif; background: #1a1a2e; color: #eee; padding: 30px; }
+  h1 { text-align: center; color: #e94560; }
+  .section { margin: 30px auto; max-width: 800px; }
+  h2 { color: #0f3460; background: #e94560; padding: 8px 16px; border-radius: 6px; }
+
+  /* フォルダツリー */
+  .tree { background: #16213e; border-radius: 10px; padding: 20px 30px; font-family: monospace; font-size: 15px; line-height: 2; }
+  .folder { color: #ffd700; }
+  .git-yes { color: #4fffb0; font-weight: bold; }
+  .git-no { color: #888; }
+  .tag { font-size: 12px; padding: 2px 8px; border-radius: 4px; margin-left: 10px; vertical-align: middle; }
+  .tag-commit { background: #4fffb0; color: #000; }
+  .tag-skip { background: #555; color: #ccc; }
+
+  /* 矢印フロー */
+  .flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: center; margin: 20px 0; }
+  .box { background: #0f3460; border: 2px solid #e94560; border-radius: 10px; padding: 14px 20px; text-align: center; min-width: 140px; }
+  .box.green { border-color: #4fffb0; background: #0d2b1e; }
+  .box.gray { border-color: #555; background: #222; color: #888; }
+  .arrow { font-size: 28px; color: #e94560; padding: 0 10px; }
+  .arrow.gray { color: #555; }
+
+  /* 比較表 */
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #e94560; padding: 10px; }
+  td { padding: 10px; border: 1px solid #333; background: #16213e; }
+  td.good { color: #4fffb0; }
+
+  .note { background: #0f3460; border-left: 4px solid #e94560; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<h1>🎯 Git管理の仕組み</h1>
+
+<!-- SECTION 1 -->
+<div class="section">
+  <h2>① 今のフォルダ構造</h2>
+  <div class="tree">
+    <div><span class="folder">📁 themes/</span> <span style="color:#888">← ただのフォルダ（Gitなし）</span></div>
+    <div>&nbsp;&nbsp;┣ <span class="folder">📁 60_PHP_STUDY_WordPress_theme/</span> <span class="git-yes">✅ .git あり</span></div>
+    <div>&nbsp;&nbsp;┣ <span class="folder">📁 twentytwentyfive/</span> <span class="git-no">❌ .git なし</span></div>
+    <div>&nbsp;&nbsp;┣ <span class="folder">📁 twentytwentyfour/</span> <span class="git-no">❌ .git なし</span></div>
+    <div>&nbsp;&nbsp;┗ <span class="folder">📁 test_theme/</span> <span class="git-no">❌ .git なし</span></div>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section">
+  <h2>② スクリプトが何をするか（親フォルダ指定の場合）</h2>
+  <div class="flow">
+    <div class="box">themes/ を<br>スキャン開始</div>
+    <div class="arrow">→</div>
+    <div class="box">中のフォルダを<br>1個ずつ確認</div>
+    <div class="arrow">→</div>
+    <div class="box">.git が<br>ある？</div>
+  </div>
+  <div class="flow" style="margin-top:10px;">
+    <div class="box green">YES<br><small>60_PHP_STUDY...</small><br>✅ コミット！</div>
+    <div style="width:80px;text-align:center;color:#888">↕</div>
+    <div class="box gray">NO<br><small>twentytwentyfive等</small><br>⏭ スキップ</div>
+  </div>
+  <div class="note">⚠ themes/ 自体に新しいGitは作りません。<br>あくまで「中を探す入れ物」として使うだけです。</div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section">
+  <h2>③ 2つの指定方法の違い</h2>
+  <table>
+    <tr>
+      <th>方式</th>
+      <th>何を書くか</th>
+      <th>動作</th>
+      <th>メリット</th>
+    </tr>
+    <tr>
+      <td>📂 親フォルダ<br><small>$parentFolders</small></td>
+      <td><small>themes/</small></td>
+      <td>中を全部スキャン</td>
+      <td class="good">テーマ増えても<br>自動対応</td>
+    </tr>
+    <tr>
+      <td>📌 直接指定<br><small>$directFolders</small></td>
+      <td><small>themes/60_PHP_.../</small></td>
+      <td>そこだけ実行</td>
+      <td class="good">ピンポイント管理</td>
+    </tr>
+  </table>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section">
+  <h2>④ 会社 ↔ 家の同期フロー</h2>
+  <div class="flow">
+    <div class="box" style="border-color:#ffd700">🏢 会社PC<br><small>themes/60_PHP_.../</small></div>
+    <div class="arrow">→</div>
+    <div class="box" style="border-color:#e94560;background:#2a0a1a">☁ GitHub<br><small>60_PHP_STUDY_<br>WordPress_theme</small></div>
+    <div class="arrow">→</div>
+    <div class="box" style="border-color:#4fffb0">🏠 家PC<br><small>themes/60_PHP_.../</small></div>
+  </div>
+  <div class="note">
+    ✅ 会社でコミット → GitHubに上がる<br>
+    ✅ 家でpull → 最新が降りてくる<br>
+    ✅ 家でコミット → GitHubに上がる → 会社でpull
+  </div>
+</div>
+
+</body>
+</html>
