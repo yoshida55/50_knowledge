@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>疑似要素で三角形を作る - インタラクティブデモ</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  .description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .controls {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .control-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .control-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .control-group label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+
+  .control-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  input[type="range"] {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    background: #ddd;
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border: none;
+  }
+
+  .value-display {
+    min-width: 120px;
+    padding: 0.5rem 1rem;
+    background: white;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #667eea;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .color-input {
+    width: 60px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .select-wrapper {
+    position: relative;
+    flex: 1;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    background: white;
+  }
+
+  .demo-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .demo-section {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .demo-section h3 {
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+  .card-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+  }
+
+  .contact_card {
+    position: relative;
+    width: 250px;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+
+  .contact_card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact_card p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+
+  .contact_card.with-triangle::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 2.5rem;
+    height: 2.5rem;
+    bottom: 0.3rem;
+    right: 0.3rem;
+    background: linear-gradient(to top left, #000000 50%, transparent 50%);
+    z-index: 2;
+  }
+
+  .code-display {
+    margin-top: 1rem;
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    overflow-x: auto;
+  }
+
+  .code-display .property {
+    color: #81e6d9;
+  }
+
+  .code-display .value {
+    color: #fbd38d;
+  }
+
+  .gradient-preview {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+  }
+
+  .gradient-preview-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.9rem;
+  }
+
+  .gradient-box {
+    width: 100%;
+    height: 100px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  @media (max-width: 768px) {
+    .demo-area {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🔺 疑似要素::afterで三角形を作る</h1>
+  <p class="description">
+    linear-gradientを使って、疑似要素内に直角三角形を作成する技術のデモです。<br>
+    各パラメータを調整して、三角形の位置・サイズ・色・方向がどう変わるか確認できます。
+  </p>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>三角形のサイズ</label>
+      <div class="control-row">
+        <input type="range" id="sizeSlider" min="10" max="100" value="40" step="1">
+        <div class="value-display" id="sizeValue">2.5rem (40px)</div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>bottom（下からの距離）</label>
+      <div class="control-row">
+        <input type="range" id="bottomSlider" min="0" max="50" value="5" step="1">
+        <div class="value-display" id="bottomValue">0.3rem (5px)</div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>right（右からの距離）</label>
+      <div class="control-row">
+        <input type="range" id="rightSlider" min="0" max="50" value="5" step="1">
+        <div class="value-display" id="rightValue">0.3rem (5px)</div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>三角形の色</label>
+      <div class="control-row">
+        <input type="color" id="colorPicker" value="#000000" class="color-input">
+        <div class="value-display" id="colorValue">#000000</div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>グラデーション方向（三角形の向き）</label>
+      <div class="control-row">
+        <div class="select-wrapper">
+          <select id="directionSelect">
+            <option value="to top left">to top left（右下の三角）</option>
+            <option value="to top right">to top right（左下の三角）</option>
+            <option value="to bottom left">to bottom left（右上の三角）</option>
+            <option value="to bottom right">to bottom right（左上の三角）</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-area">
+    <div class="demo-section">
+      <h3>❌ 三角形なし（疑似要素未使用）</h3>
+      <div class="card-wrapper">
+        <div class="contact_card">
+          <h4>お問い合わせ</h4>
+          <p>ご質問・ご相談は<br>こちらからどうぞ</p>
+        </div>
+      </div>
+      <div class="code-display">
+.contact_card {
+  <span class="property">position</span>: <span class="value">relative</span>;
+  <span class="comment">/* 疑似要素なし */</span>
+}
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>✅ 三角形あり（::after使用）</h3>
+      <div class="card-wrapper">
+        <div class="contact_card with-triangle" id="demoCard">
+          <h4>お問い合わせ</h4>
+          <p>ご質問・ご相談は<br>こちらからどうぞ</p>
+        </div>
+      </div>
+      <div class="code-display" id="codeDisplay">
+.contact_card::after {
+  <span class="property">content</span>: <span class="value">""</span>;
+  <span class="property">display</span>: <span class="value">block</span>;
+  <span class="property">position</span>: <span class="value">absolute</span>;
+  <span class="property">width</span>: <span class="value">2.5rem</span>;
+  <span class="property">height</span>: <span class="value">2.5rem</span>;
+  <span class="property">bottom</span>: <span class="value">0.3rem</span>;
+  <span class="property">right</span>: <span class="value">0.3rem</span>;
+  <span class="property">background</span>: <span class="value">linear-gradient(to top left, #000000 50%, transparent 50%)</span>;
+  <span class="property">z-index</span>: <span class="value">2</span>;
+}
+      </div>
+    </div>
+  </div>
+
+  <div class="gradient-preview">
+    <div class="gradient-preview-title">📊 グラデーションの仕組み（実際の背景を拡大表示）</div>
+    <div class="gradient-box" id="gradientBox"></div>
+  </div>
+</div>
+
+<script>
+  const demoCard = document.getElementById('demoCard');
+  const sizeSlider = document.getElementById('sizeSlider');
+  const bottomSlider = document.getElementById('bottomSlider');
+  const rightSlider = document.getElementById('rightSlider');
+  const colorPicker = document.getElementById('colorPicker');
+  const directionSelect = document.getElementById('directionSelect');
+  
+  const sizeValue = document.getElementById('sizeValue');
+  const bottomValue = document.getElementById('bottomValue');
+  const rightValue = document.getElementById('rightValue');
+  const colorValue = document.getElementById('colorValue');
+  const codeDisplay = document.getElementById('codeDisplay');
+  const gradientBox = document.getElementById('gradientBox');
+
+  function updateTriangle() {
+    const size = sizeSlider.value;
+    const bottom = bottomSlider.value;
+    const right = rightSlider.value;
+    const color = colorPicker.value;
+    const direction = directionSelect.value;
+
+    // remに変換（16pxベース）
+    const sizeRem = (size / 16).toFixed(2);
+    const bottomRem = (bottom / 16).toFixed(2);
+    const rightRem = (right / 16).toFixed(2);
+
+    // 値表示の更新
+    sizeValue.textContent = `${sizeRem}rem (${size}px)`;
+    bottomValue.textContent = `${bottomRem}rem (${bottom}px)`;
+    rightValue.textContent = `${rightRem}rem (${right}px)`;
+    colorValue.textContent = color;
+
+    // CSSカスタムプロパティで疑似要素を制御
+    demoCard.style.setProperty('--triangle-size', `${size}px`);
+    demoCard.style.setProperty('--triangle-bottom', `${bottom}px`);
+    demoCard.style.setProperty('--triangle-right', `${right}px`);
+    demoCard.style.setProperty('--triangle-color', color);
+    demoCard.style.setProperty('--triangle-direction', direction);
+
+    // コード表示の更新
+    codeDisplay.innerHTML = `
+.contact_card::after {
+  <span class="property">content</span>: <span class="value">""</span>;
+  <span class="property">display</span>: <span class="value">block</span>;
+  <span class="property">position</span>: <span class="value">absolute</span>;
+  <span class="property">width</span>: <span class="value">${sizeRem}rem</span>;
+  <span class="property">height</span>: <span class="value">${sizeRem}rem</span>;
+  <span class="property">bottom</span>: <span class="value">${bottomRem}rem</span>;
+  <span class="property">right</span>: <span class="value">${rightRem}rem</span>;
+  <span class="property">background</span>: <span class="value">linear-gradient(${direction}, ${color} 50%, transparent 50%)</span>;
+  <span class="property">z-index</span>: <span class="value">2</span>;
+}
+    `;
+
+    // グラデーションプレビューの更新
+    gradientBox.style.background = `linear-gradient(${direction}, ${color} 50%, transparent 50%)`;
+  }
+
+  // CSSカスタムプロパティを使った疑似要素の制御
+  const style = document.createElement('style');
+  style.textContent = `
+    .contact_card.with-triangle::after {
+      width: var(--triangle-size, 40px) !important;
+      height: var(--triangle-size, 40px) !important;
+      bottom: var(--triangle-bottom, 5px) !important;
+      right: var(--triangle-right, 5px) !important;
+      background: linear-gradient(var(--triangle-direction, to top left), var(--triangle-color, #000000) 50%, transparent 50%) !important;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // イベントリスナー
+  sizeSlider.addEventListener('input', updateTriangle);
+  bottomSlider.addEventListener('input', updateTriangle);
+  rightSlider.addEventListener('input', updateTriangle);
+  colorPicker.addEventListener('input', updateTriangle);
+  directionSelect.addEventListener('change', updateTriangle);
+
+  // 初期化
+  updateTriangle();
+</script>
+
+</body>
+</html>

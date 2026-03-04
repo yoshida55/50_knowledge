@@ -155,17 +155,18 @@
   "▢ 　以下のようにして　左右に画像と、その中にテキストを浮かびあがらせるこができる": {
     "title": "▢ 　以下のようにして　左右に画像と、その中にテキストを浮かびあがらせるこができる",
     "line": 598,
-    "lastReviewed": 1770567687455,
-    "reviewCount": 3,
+    "lastReviewed": 1772620498182,
+    "reviewCount": 6,
     "evaluations": [
+      3,
       3
     ]
   },
   "背景画像（background-image）": {
     "title": "背景画像（background-image）",
     "line": 807,
-    "lastReviewed": 1770567737151,
-    "reviewCount": 3,
+    "lastReviewed": 1772620621697,
+    "reviewCount": -1,
     "evaluations": [
       3
     ]
@@ -1051,5 +1052,62 @@
     "evaluations": [
       2
     ]
+  },
+  "📌 WordPressのCSS読み込みは <head>に直書きNG → functions.php に wp_enqueue_style('識別名', パス) で書く（WordPress本体のCSSと競合するから）": {
+    "title": "📌 WordPressのCSS読み込みは <head>に直書きNG → functions.php に wp_enqueue_style('識別名', パス) で書く（WordPress本体のCSSと競合するから）",
+    "line": 7655,
+    "lastReviewed": 1772620575177,
+    "reviewCount": 1,
+    "questionText": "WordPressでCSSファイルを読み込む際に`functions.php`で`wp_enqueue_style()`関数を使用する理由は何ですか？",
+    "evaluations": [
+      2
+    ]
+  },
+  "grid（flexも同様）でレイアウトすると、３列などサイズがきまっている。その場合、画像で固定サイズ指定する（固い箱のようなもの,rem通りにうまく動作しない）と、３列の幅いにあわずくずれることがある。そのため画像は％で指定するとよい。％なら、問題なく動作する。": {
+    "title": "grid（flexも同様）でレイアウトすると、３列などサイズがきまっている。その場合、画像で固定サイズ指定する（固い箱のようなもの,rem通りにうまく動作しない）と、３列の幅いにあわずくずれることがある。そのため画像は％で指定するとよい。％なら、問題なく動作する。",
+    "line": 2951,
+    "lastReviewed": 1772620629252,
+    "reviewCount": 1,
+    "questionText": "Grid/Flexレイアウトで画像が変形するのを防ぐために、画像のwidthプロパティに指定すべき値は？",
+    "evaluations": [
+      2
+    ]
+  },
+  "📌 `要素.style.transform` でJSからCSSを直接操作できる（CSSプロパティはキャメルケースに変換）": {
+    "title": "📌 `要素.style.transform` でJSからCSSを直接操作できる（CSSプロパティはキャメルケースに変換）",
+    "line": 1,
+    "lastReviewed": 1772621905706,
+    "reviewCount": 1,
+    "questionText": "JavaScriptでCSSのハイフン付きプロパティを操作する際、どのように変換されるか？",
+    "evaluations": [
+      2
+    ]
+  },
+  "🛠 問題と解決方法": {
+    "title": "🛠 問題と解決方法",
+    "line": 1894,
+    "lastReviewed": 1772622088603,
+    "reviewCount": 1,
+    "questionText": "ブラウザ幅を狭めてもハンバーガーメニューが表示されない原因は何ですか？",
+    "evaluations": [
+      2
+    ]
+  },
+  "📌 CSS background-image と HTML img の使い分け": {
+    "title": "📌 CSS background-image と HTML img の使い分け",
+    "line": 7256,
+    "lastReviewed": 1772622178247,
+    "reviewCount": 1,
+    "questionText": "コンテンツとして必須な画像はHTMLのどの要素で指定する？",
+    "evaluations": [
+      2
+    ]
+  },
+  "三角形の図形の作り方": {
+    "title": "三角形の図形の作り方",
+    "line": 1831,
+    "lastReviewed": 1772622230110,
+    "reviewCount": 1,
+    "questionText": "CSSで要素の疑似要素を使って三角形を作成するには、どのようなプロパティを使用しますか？"
   }
 }

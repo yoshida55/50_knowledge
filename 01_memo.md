@@ -730,6 +730,8 @@ h1（ロゴ）の隣に nav（メニュー）が自動的に並びます。
 header
 h1
 nav
+
+
 ▢ 　クラスを直接指定する方法タグ名で省略せず　ネストされたクラス名もかならずかく
 a タグにもクラス名をかっく
 <div class="online_absolute">
@@ -1830,6 +1832,7 @@ left: -300px; /_ 効く！ _/
 
 ## 三角形の図形の作り方
 
+[プレビュー](http://localhost:54321/preview-20260304-200644.html)
 ```css
 すでにある要素に対して、疑似要素で、三角を追加する。なお:afterでもbeforeでも同じ。
   contact_card::after {
@@ -1897,7 +1900,7 @@ Ctrl+Shift+l: セクションリスと表示
 
 - **原因:**
   - 通常のブラウザウィンドウのサイズ変更では、ビューポート幅が正しく認識されない場合がある。
-- **解決方法:** -　画面のズームの幅をかえる。
+- **解決方法:** -　画面のズームの幅をかえる。（間違い）
 
 
 ## 左右　に枠やマージンやパディングがあって、中央のボックス（width）のサイズをセットしたいとき。
@@ -2952,6 +2955,40 @@ https://jshint.com/
 
 `画像は％で指定するとよい（width: 100%）。 その際、高さは必ず height: auto にする。`（そうしないと画像がビヨーンと縦に伸びて変形してしまうから）
 
+## 📌 画像に width: 20rem; height: 30rem; と両方固定すると変形する → aspect-ratio + object-fit: cover で解決
+
+【結論】
+- `height: auto` = 画像ファイル自体の縦横比をそのまま使う（画像によってバラバラになる）
+- `width + height` 両方 rem 固定 = 画像の比率を無視して枠に引き伸ばすので変形する
+- `aspect-ratio` + `object-fit: cover` = CSS側で比率を上書きするので、どんな画像でも揃う
+
+【具体例】
+```css
+/*
+  構造:
+  <div .card>          ← Grid/Flexの枠
+    <img .card_image>  ← 画像
+*/
+
+/* ❌ 変形する */
+.card_image {
+  width: 20rem;
+  height: 30rem;  /* 画像の元比率を無視 → 引き伸びる or 潰れる */
+}
+
+/* ✅ 正しい */
+.card_image {
+  width: 100%;           /* 親の幅に合わせる */
+  aspect-ratio: 2 / 3;  /* CSS側で比率だけ指定（height の代わり） */
+  object-fit: cover;     /* はみ出た分はトリミング */
+}
+```
+
+【補足】
+- `height` を固定すると、画像の元比率がCSS比率と違う場合に変形する
+- `aspect-ratio` は「枠の縦横比」を決めるだけで、画像を引き伸ばさない
+- `object-fit: cover` とセットで使うのが定番
+
 質者・画像サイズがデザインカンプととこなる。
 
 例）
@@ -2970,6 +3007,33 @@ https://jshint.com/
 ```
 
 ![](images/2026-01-29-10-12-48.png)
+
+## 📌 ★画像をデザインカンプ通りのサイズにしたい → width: Xrem; height: Xrem; + object-fit: cover　→もし特にしていなく、バラン重視なら、width XXX height auto ratioできめる（aspect-ratioは不要）
+
+【日付】2026-03-04
+【結論】
+- カンプの px 値を 16 で割って rem に変換して両方指定する
+- `object-fit: cover` を必ずセットにする（ないと画像が変形する）
+- `aspect-ratio` は不要（rem で縦横比が決まるから）
+
+【具体例】
+```css
+/*
+  構造:
+  <div .card>        ← Grid/Flexの枠
+    <img .card_img>  ← カンプ通りのサイズに固定したい画像
+*/
+.card_img {
+  width: 15rem;      /* カンプ 240px ÷ 16 = 15rem */
+  height: 10rem;     /* カンプ 160px ÷ 16 = 10rem */
+  object-fit: cover; /* 変形防止・はみ出た分をトリミング */
+}
+```
+
+【補足】
+- `object-fit: cover` を忘れると → 画像が引き伸びて変形する
+- カンプのサイズに合わせたい場合のみ rem 両方固定。様々な画像を並べる場合は `aspect-ratio` 方式を使う
+- 【関連】→「aspect-ratio + object-fit」で検索（様々な画像を統一感よく並べる方法）
 
 
 ## 可変REMをつかうなら
