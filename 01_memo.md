@@ -8134,3 +8134,12 @@ wp_enqueue_script('my-script', get_template_directory_uri() . '/js/main.js', arr
 - `grid-template-rows` は省略OKで、省略すると中身に合わせて自動伸縮
 - 普段は `columns` だけ書けば十分
 【関連】→ 「flex/gridで列幅やgap」で検索（Gridとflexの使い分け）
+
+
+##　各プロジェクトで作業に時間がかったところ
+
+・アストモガス（青い背景・丸みを多用）
+⇁　親要素に背景幅対して、子要素が丸みをおべるためだけの要素を利用しており、どこまでが
+範囲かわからなかった。⇁結果　【HTMLで表示】、親要素のなかで子要素はそれをこえることはないとの前提を意識していなかった。
+
+[プレビュー](http://localhost:54321/preview-20260305-063250.html)

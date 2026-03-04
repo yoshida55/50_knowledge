@@ -2,8 +2,7 @@
 
 
 
-■　WordPress
-のテーマファイルをもってくる。
+
 
 
 ▢　
@@ -15,10 +14,12 @@ $parentFolders に themes/ を追加（会社で自分でやる）
 
 
 
+
 ▢
 ## jQueryの拡張機能セットアップ
 
 ひな形が欲しい → 拡張機能「jQuery Code Snippets」（donjayamanne.jquerysnippets など）を入れる
+
 
 ちゃんと補完したい → プロジェクト直下に jsconfig.json を作って
 
@@ -37,7 +38,11 @@ $parentFolders に themes/ を追加（会社で自分でやる）
 ## 拡張機能（自宅）
 
 【自宅】
+・HTML CSS jump　
+HTML構造改革のコントロールアイデア。不要なネストを削除するような階層をできるだけ浅くするとか、短くするようなアドバイスも欲しい。
 
+メモ検索・自動入力でサジェスト機能がほしい
+back →　background,backgroundColor
 
 【自宅】
 ワーキングメモリにダブルクリックで検索要約モードを追加する

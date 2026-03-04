@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90remと70remの高さ関係 インタラクティブデモ</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.demo-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.controls {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.control-group {
+  margin-bottom: 1.5rem;
+}
+
+.control-group label {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+input[type="range"] {
+  flex: 1;
+  height: 8px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #667eea;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.5);
+  transition: transform 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.value-display {
+  min-width: 120px;
+  padding: 0.5rem 1rem;
+  background: white;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  color: #667eea;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.visual-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.visual-box {
+  background: #f9f9f9;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.visual-box h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* 実際のデモ構造 */
+.message_area {
+  position: relative;
+  width: 100%;
+  background: rgb(220, 211, 211);
+  overflow: hidden;
+  border: 0.5rem solid red;
+  margin: 0 auto;
+}
+
+.message_white_color {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.message_background {
+  width: 100%;
+  background: linear-gradient(180deg, blue 0%, #1e83c7 100%);
+  clip-path: ellipse(80% 100% at 70% 0%);
+  border: 0.5rem solid rgb(0, 255, 221);
+  position: relative;
+}
+
+/* 測定線のスタイル */
+.measurement-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.measurement-line {
+  position: absolute;
+  right: -40px;
+  top: 0;
+  width: 30px;
+  border-left: 3px solid #ff6b6b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.measurement-line::before,
+.measurement-line::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 3px;
+  background: #ff6b6b;
+  left: -1px;
+}
+
+.measurement-line::before {
+  top: 0;
+}
+
+.measurement-line::after {
+  bottom: 0;
+}
+
+.measurement-label {
+  position: absolute;
+  right: -90px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ff6b6b;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.diagram-container {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  margin-top: 2rem;
+}
+
+.diagram-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.diagram-visual {
+  position: relative;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.diagram-outer {
+  position: relative;
+  background: rgb(220, 211, 211);
+  border: 0.5rem solid red;
+  margin: 0 100px;
+}
+
+.diagram-inner {
+  background: linear-gradient(180deg, blue 0%, #1e83c7 100%);
+  border: 0.5rem solid rgb(0, 255, 221);
+  clip-path: ellipse(80% 100% at 70% 0%);
+}
+
+.info-panel {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.info-panel h4 {
+  color: #2d3436;
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.info-panel ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.info-panel li {
+  color: #2d3436;
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.info-panel li::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  color: #d63031;
+}
+
+@media (max-width: 768px) {
+  .visual-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .diagram-outer {
+    margin: 0 50px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="demo-container">
+  <h1>📏 90rem と 70rem の高さ関係 - インタラクティブデモ</h1>
+  <div class="description">
+    <strong>message_area（外側・赤枠）</strong> と <strong>message_background（内側・シアン枠）</strong> の高さの差（20rem）を視覚化します。<br>
+    スライダーで高さを変更して、2つの要素の関係を確認できます。
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>🔴 message_area の高さ（外側コンテナ）</label>
+      <div class="slider-container">
+        <input type="range" id="outerHeight" min="30" max="150" value="90" step="5">
+        <div class="value-display" id="outerValue">90rem</div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>🔵 message_background の高さ（内側要素）</label>
+      <div class="slider-container">
+        <input type="range" id="innerHeight" min="20" max="140" value="70" step="5">
+        <div class="value-display" id="innerValue">70rem</div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>📐 高さの差（余白スペース）</label>
+      <div class="value-display" id="diffValue" style="width: 100%; background: #ff6b6b; color: white;">20rem</div>
+    </div>
+  </div>
+
+  <div class="visual-container">
+    <div class="visual-box">
+      <h3>🎨 実際の表示（スケール縮小版）</h3>
+      <div class="measurement-container">
+        <div class="message_area" id="demo1">
+          <div class="message_white_color">
+            <div class="message_background" id="demo1Inner"></div>
+          </div>
+        </div>
+        <div class="measurement-line" id="measure1">
+          <span class="measurement-label" id="label1">90rem</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="visual-box">
+      <h3>🔍 構造の可視化</h3>
+      <div class="measurement-container">
+        <div class="message_area" id="demo2" style="background: rgba(220, 211, 211, 0.5);">
+          <div class="message_white_color" style="background: rgba(255, 255, 255, 0.7);">
+            <div class="message_background" id="demo2Inner" style="opacity: 0.9;"></div>
+          </div>
+        </div>
+        <div class="measurement-line" id="measure2">
+          <span class="measurement-label" id="label2">90rem</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="diagram-container">
+    <h2 class="diagram-title">📊 高さ関係の図解</h2>
+    <div class="diagram-visual">
+      <div class="diagram-outer" id="diagramOuter">
+        <div class="diagram-inner" id="diagramInner"></div>
+        <div class="measurement-line" id="measure3" style="right: -60px;">
+          <span class="measurement-label" id="label3" style="right: -110px;">90rem</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="info-panel">
+      <h4>🎯 重要ポイント</h4>
+      <ul>
+        <li><strong>赤い枠（message_area）：</strong> 高さ <span id="infoOuter">90rem</span> のコンテナ</li>
+        <li><strong>シアン枠（message_background）：</strong> 高さ <span id="infoInner">70rem</span> の背景要素</li>
+        <li><strong>差分：</strong> <span id="infoDiff">20rem</span> が下部の余白スペースとして機能</li>
+        <li><strong>clip-path: ellipse(80% 100% at 70% 0%)</strong> で楕円形に切り抜かれています</li>
+        <li>overflow: hidden により、はみ出し部分は非表示になります</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+const outerSlider = document.getElementById('outerHeight');
+const innerSlider = document.getElementById('innerHeight');
+const outerValueDisplay = document.getElementById('outerValue');
+const innerValueDisplay = document.getElementById('innerValue');
+const diffValueDisplay = document.getElementById('diffValue');
+
+const demo1 = document.getElementById('demo1');
+const demo1Inner = document.getElementById('demo1Inner');
+const demo2 = document.getElementById('demo2');
+const demo2Inner = document.getElementById('demo2Inner');
+const diagramOuter = document.getElementById('diagramOuter');
+const diagramInner = document.getElementById('diagramInner');
+
+const measure1 = document.getElementById('measure1');
+const measure2 = document.getElementById('measure2');
+const measure3 = document.getElementById('measure3');
+const label1 = document.getElementById('label1');
+const label2 = document.getElementById('label2');
+const label3 = document.getElementById('label3');
+
+const infoOuter = document.getElementById('infoOuter');
+const infoInner = document.getElementById('infoInner');
+const infoDiff = document.getElementById('infoDiff');
+
+function updateDemo() {
+  const outerHeight = parseInt(outerSlider.value);
+  const innerHeight = parseInt(innerSlider.value);
+  const diff = outerHeight - innerHeight;
+  
+  // スケール調整（1rem = 2pxで表示）
+  const scale = 2;
+  const outerPx = outerHeight * scale;
+  const innerPx = innerHeight * scale;
+  
+  // 値の表示更新
+  outerValueDisplay.textContent = `${outerHeight}rem`;
+  innerValueDisplay.textContent = `${innerHeight}rem`;
+  diffValueDisplay.textContent = `${diff}rem (${diff > 0 ? '下部に余白あり' : diff < 0 ? '⚠️ 内側がはみ出します！' : 'ぴったり'}`;
+  diffValueDisplay.style.background = diff >= 0 ? '#ff6b6b' : '#d63031';
+  
+  // デモ1の更新
+  demo1.style.height = `${outerPx}px`;
+  demo1Inner.style.height = `${innerPx}px`;
+  measure1.style.height = `${outerPx}px`;
+  label1.textContent = `${outerHeight}rem`;
+  
+  // デモ2の更新
+  demo2.style.height = `${outerPx}px`;
+  demo2Inner.style.height = `${innerPx}px`;
+  measure2.style.height = `${outerPx}px`;
+  label2.textContent = `${outerHeight}rem`;
+  
+  // 図解の更新（少し大きめに表示）
+  const diagramScale = 3;
+  const diagramOuterPx = outerHeight * diagramScale;
+  const diagramInnerPx = innerHeight * diagramScale;
+  diagramOuter.style.height = `${diagramOuterPx}px`;
+  diagramInner.style.height = `${diagramInnerPx}px`;
+  measure3.style.height = `${diagramOuterPx}px`;
+  label3.textContent = `${outerHeight}rem`;
+  
+  // 情報パネルの更新
+  infoOuter.textContent = `${outerHeight}rem`;
+  infoInner.textContent = `${innerHeight}rem`;
+  infoDiff.textContent = `${diff}rem`;
+  
+  // はみ出し警告
+  if (diff < 0) {
+    demo1.style.boxShadow = '0 0 20px 5px rgba(255, 0, 0, 0.5)';
+    demo2.style.boxShadow = '0 0 20px 5px rgba(255, 0, 0, 0.5)';
+    diagramOuter.style.boxShadow = '0 0 20px 5px rgba(255, 0, 0, 0.5)';
+  } else {
+    demo1.style.boxShadow = 'none';
+    demo2.style.boxShadow = 'none';
+    diagramOuter.style.boxShadow = 'none';
+  }
+}
+
+outerSlider.addEventListener('input', updateDemo);
+innerSlider.addEventListener('input', updateDemo);
+
+// 初期化
+updateDemo();
+</script>
+
+</body>
+</html>
