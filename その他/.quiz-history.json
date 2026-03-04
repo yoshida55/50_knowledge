@@ -184,8 +184,8 @@
   "javaScriptの基本(学習)": {
     "title": "javaScriptの基本(学習)",
     "line": 1639,
-    "lastReviewed": 1770567841225,
-    "reviewCount": 3,
+    "lastReviewed": 1772634537796,
+    "reviewCount": -1,
     "evaluations": [
       3
     ]
@@ -203,9 +203,10 @@
   "兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。": {
     "title": "兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。",
     "line": 3492,
-    "lastReviewed": 1770825727458,
-    "reviewCount": 3,
+    "lastReviewed": 1772634543824,
+    "reviewCount": 6,
     "evaluations": [
+      3,
       3
     ]
   },
@@ -1109,5 +1110,15 @@
     "lastReviewed": 1772622230110,
     "reviewCount": 1,
     "questionText": "CSSで要素の疑似要素を使って三角形を作成するには、どのようなプロパティを使用しますか？"
+  },
+  "1. **`background-attachment: fixed;` を使う場合**": {
+    "title": "1. **`background-attachment: fixed;` を使う場合**",
+    "line": 1608,
+    "lastReviewed": 1772634605317,
+    "reviewCount": 0,
+    "questionText": "`background-attachment: fixed;` で背景画像をセクションで固定するには、何が必要ですか？",
+    "evaluations": [
+      1
+    ]
   }
 }
