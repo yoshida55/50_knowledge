@@ -6,11 +6,9 @@
 
 
 ▢　
-・CSS　JUMPの　VSIXをインストール
-・HTMLプレビューをおく。
-・🏢 会社PC	$directFolders の直接パスを削除 → 
-$parentFolders に themes/ を追加（会社で自分でやる）
 
+・HTMLプレビューをおく。
+→
 
 
 
@@ -42,8 +40,8 @@ $parentFolders に themes/ を追加（会社で自分でやる）
 ・HTML CSS jump　
 HTML構造改革のコントロールアイデア。不要なネストを削除するような階層をできるだけ浅くするとか、短くするようなアドバイスも欲しい。
 
-メモ検索・自動入力でサジェスト機能がほしい
-back →　background,backgroundColor
+・かなりmemo.mdの検索に時間がかかっているけど、ちゃんとソースが修正されているか
+
 
 【自宅】
 ワーキングメモリにダブルクリックで検索要約モードを追加する

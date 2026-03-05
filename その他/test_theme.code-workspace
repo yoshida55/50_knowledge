@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../../../../Local Sites/local-test/app/public/wp-content/themes/test_theme"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {}
+}

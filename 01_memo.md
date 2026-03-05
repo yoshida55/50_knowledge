@@ -1,4 +1,4 @@
-## 📌 `transition` vs `animation` ― CSSアニメーションの使い分け
+こ# 📌 `transition` vs `animation` ― CSSアニメーションの使い分け
 
 【結論】
 - `transition`：A→B の**直線的な変化**を滑らかにする「演出方法」の設定
@@ -7839,6 +7839,7 @@ Localを使ってWordPressのローカル環境をセットアップする手順
 // functions.php ※ 2行セットで書く
 
 // ① 定義（何を読み込むか）← 関数名は自分で自由に決める
+★　wp_enqueue_style　これもきまり文句・メソッド
 function enqueue_style(){
     wp_enqueue_style('reset', get_template_directory_uri() . '/css/reset.css');
 }
@@ -7847,6 +7848,7 @@ function enqueue_style(){
 ※日本語約「wp_enqueue_style」・・・「WordPressのCSS読み込みリストに順番に並ばせる」
 
 // ② 登録（いつ実行するか → WordPressに「このタイミングで①を呼んで」と伝える）
+★なをこれは「enqueue_style」とは目的がちがうのでメソッド外に記載する
 add_action('wp_enqueue_scripts', 'enqueue_style');
 //          ↑決まり文句（丸暗記）    ↑①で作った関数名を文字列で渡す（名前が一致しないと動かない）
 ```
@@ -8170,3 +8172,121 @@ wp_enqueue_script('my-script', get_template_directory_uri() . '/js/main.js', arr
 範囲かわからなかった。⇁結果　【HTMLで表示】、親要素のなかで子要素はそれをこえることはないとの前提を意識していなかった。
 
 [プレビュー](http://localhost:54321/preview-20260305-063250.html)
+
+## 📌 VSCodeでPHPファイルを自動フォーマットするには → 拡張機能インストール + settings.jsonにデフォルトフォーマッター指定が必要（拡張機能だけでは動かない）
+
+【日付】2026-03-05
+【結論】
+PrettierはPHP非対応。PHP用の拡張機能を別途入れて、settings.jsonで「PHPのデフォルトフォーマッター」を指定する必要がある。拡張機能を入れただけでは機能しない。
+
+【具体例】
+```json
+// settings.json に追加
+"[php]": {
+  "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+}
+```
+
+【補足】
+- 拡張機能候補: PHP Intelephense（`bmewburn.vscode-intelephense-client`）/ PHP CS Fixer（`junstyle.php-cs-fixer`）
+- フォーマット実行: `Shift + Alt + F`
+
+## 📌 親に height: auto があると子の height: 100% が効かない → 親を固定値（400pxなど）にする
+
+【日付】2026-03-05
+【結論】
+- `height: auto` = 中身の高さに合わせる可変値 → 子が参照できる「確定した高さ」がない
+- `height: 100%` は親の高さが `数値（px / rem）` で確定していないと 0 になる
+- 解決策：親を `height: 400px` などの固定値に変える
+
+【具体例】
+```css
+/*
+  構造:
+  <section .summary_area>          ← カード全体（親）
+    <div .summary_left>            ← 左エリア
+      <img .summary_logo>          ← ロゴ画像
+*/
+
+/* ❌ NG：height: auto だと子の height: 100% が効かない */
+.summary_area {
+  height: auto; /* 可変 → 確定値なし → 子が参照できない */
+}
+.summary_logo {
+  height: 100%; /* → 0 になる（親の高さが不確定） */
+}
+
+/* ✅ OK：固定値にすれば子の height: 100% が機能する */
+.summary_area {
+  height: 400px; /* 固定値 → 子が参照できる */
+}
+.summary_logo {
+  height: 100%; /* → 400px になる */
+  width: 100%;
+  object-fit: contain; /* ロゴ・イラストは contain で全体表示 */
+  display: block;
+}
+```
+
+【補足】
+- `height: auto` は「中身次第で伸び縮み」→ 親になれない
+- `min-height` も同様に不確定値 → 子の `height: 100%` は効かない
+- 固定値が必要なのは `px` や `rem`（`%` でも親が確定していればOK）
+- `object-fit: cover` = 隙間なく埋める・はみ出しカット（背景画像向き）
+- `object-fit: contain` = 全体表示・余白あり（ロゴ・イラスト向き）
+【関連】→ 「flexbox子要素を親の高さ100%」で検索（min-heightでも同様の問題）
+
+## 📌 同じ width/height を指定しても画像の縦横比が違うと見た目がズレる → object-fit: cover で統一する
+
+【日付】2026-03-05
+【結論】
+- CSS で同じサイズを指定しても、画像ファイル自体の縦横比（アスペクト比）が違うと見た目の大きさが変わる
+- `object-fit` なし = 画像が引き伸ばされて変形する。**width / height の指定が意味をなさない**
+- `object-fit: cover` = 箱いっぱいに埋める（写真・背景向き）→ width/height が初めて「意味を持つ」
+- `object-fit: contain` = 画像全体を表示・余白あり（ロゴ・イラスト向き）
+- ➡ 画像に `width` + `height` を指定するなら **`object-fit` は必ずセット**
+
+【具体例】
+```css
+/*
+  構造:
+  <div .box>          ← 固定サイズの箱
+    <img .photo>      ← 画像（縦横比がバラバラ）
+*/
+
+/* ❌ NG：object-fit なし → 画像が変形する */
+.box {
+  width: 200px;
+  height: 200px;
+}
+.photo {
+  width: 100%;
+  height: 100%;
+  /* object-fit 未指定 → 縦横比無視で引き伸ばし */
+}
+
+/* ✅ 写真・背景画像：cover */
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* 箱いっぱいに埋める・はみ出しカット */
+  display: block;
+}
+
+/* ✅ ロゴ・イラスト：contain */
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 全体表示・余白あり */
+  display: block;
+}
+```
+
+【補足】
+- `cover` と `contain` の使い分けは「切れてもOKか？」で判断
+  - 切れてもOK（写真・背景）→ `cover`
+  - 全体を見せたい（ロゴ・アイコン）→ `contain`
+- `object-position` で表示位置も調整できる（例：`object-position: center top`）
+- `display: block` を忘れると img の下に謎の隙間ができる
+【関連】→ 「画像に width height 両方固定すると変形」で検索（aspect-ratio での解決方法）
+- Prettierは JS / CSS / HTML が対象。PHPは別途対応が必要

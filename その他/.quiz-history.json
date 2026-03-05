@@ -145,28 +145,26 @@
   "またそれを中間にもってきたいとき": {
     "title": "またそれを中間にもってきたいとき",
     "line": 1343,
-    "lastReviewed": 1772559331922,
-    "reviewCount": 0,
+    "lastReviewed": 1770567640082,
+    "reviewCount": 3,
     "evaluations": [
-      3,
-      1
+      3
     ]
   },
   "▢ 　以下のようにして　左右に画像と、その中にテキストを浮かびあがらせるこができる": {
     "title": "▢ 　以下のようにして　左右に画像と、その中にテキストを浮かびあがらせるこができる",
     "line": 598,
-    "lastReviewed": 1772620498182,
-    "reviewCount": 6,
+    "lastReviewed": 1770567687455,
+    "reviewCount": 3,
     "evaluations": [
-      3,
       3
     ]
   },
   "背景画像（background-image）": {
     "title": "背景画像（background-image）",
     "line": 807,
-    "lastReviewed": 1772620621697,
-    "reviewCount": -1,
+    "lastReviewed": 1770567737151,
+    "reviewCount": 3,
     "evaluations": [
       3
     ]
@@ -184,8 +182,8 @@
   "javaScriptの基本(学習)": {
     "title": "javaScriptの基本(学習)",
     "line": 1639,
-    "lastReviewed": 1772634537796,
-    "reviewCount": -1,
+    "lastReviewed": 1770567841225,
+    "reviewCount": 3,
     "evaluations": [
       3
     ]
@@ -203,10 +201,9 @@
   "兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。": {
     "title": "兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。",
     "line": 3492,
-    "lastReviewed": 1772634543824,
-    "reviewCount": 6,
+    "lastReviewed": 1770825727458,
+    "reviewCount": 3,
     "evaluations": [
-      3,
       3
     ]
   },
@@ -953,172 +950,6 @@
     "reviewCount": 1,
     "evaluations": [
       2
-    ]
-  },
-  "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）": {
-    "title": "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）",
-    "line": 70,
-    "lastReviewed": 1772558259814,
-    "reviewCount": -1
-  },
-  "📌 box-sizing: content-box vs border-box css": {
-    "title": "📌 box-sizing: content-box vs border-box css",
-    "line": 5834,
-    "lastReviewed": 1772558265630,
-    "reviewCount": 3,
-    "questionText": "CSSの`border-box`指定で、paddingとborderはwidth指定のどこに含まれるか？",
-    "evaluations": [
-      3
-    ]
-  },
-  "📌 ドロップダウンアニメーション（上から降りてくる）": {
-    "title": "📌 ドロップダウンアニメーション（上から降りてくる）",
-    "line": 5306,
-    "lastReviewed": 1772558310989,
-    "reviewCount": 0,
-    "questionText": "要素を上から下に動かすCSSアニメーションで、要素自体が実際に動くのは？",
-    "evaluations": [
-      1
-    ]
-  },
-  "📌 clip-path insetの方向（リビール方向の制御）": {
-    "title": "📌 clip-path insetの方向（リビール方向の制御）",
-    "line": 5363,
-    "lastReviewed": 1772558344476,
-    "reviewCount": 1,
-    "questionText": "`clip-path: inset()`でリビール方向を制御するために、100%にした辺から0%にするとは、どの辺を指しますか？"
-  },
-  "📌 CSS absoluteは何階層でもネストできる（スライドショー+文字重ねの実装パターン）": {
-    "title": "📌 CSS absoluteは何階層でもネストできる（スライドショー+文字重ねの実装パターン）",
-    "line": 6085,
-    "lastReviewed": 1772558641919,
-    "reviewCount": 3,
-    "questionText": "position: absoluteで要素を重ねる際、基準となる親要素はどれか？",
-    "evaluations": [
-      3
-    ]
-  },
-  "javaScriptの流れ　詳細なロジック：": {
-    "title": "javaScriptの流れ　詳細なロジック：",
-    "line": 5417,
-    "lastReviewed": 1772558663850,
-    "reviewCount": 3,
-    "questionText": "JavaScriptのコードで、HTMLの新しいロジックを短縮して表現するには何が使われますか？",
-    "evaluations": [
-      3
-    ]
-  },
-  "Claudecodeのスキルズへの追加方法": {
-    "title": "Claudecodeのスキルズへの追加方法",
-    "line": 3827,
-    "lastReviewed": 1772558895564,
-    "reviewCount": -1
-  },
-  "📌 jQuery イベントタイミング - $(function) vs $(window).on(\"load\")": {
-    "title": "📌 jQuery イベントタイミング - $(function) vs $(window).on(\"load\")",
-    "line": 5670,
-    "lastReviewed": 1772558917400,
-    "reviewCount": 1,
-    "questionText": "HTML読込完了と全リソースDL完了、どちらのタイミングでjQueryコードを実行したいですか？",
-    "evaluations": [
-      2
-    ]
-  },
-  "📌 CSS linear-gradient で背景をグラデーションにする": {
-    "title": "📌 CSS linear-gradient で背景をグラデーションにする",
-    "line": 7164,
-    "lastReviewed": 1772558960329,
-    "reviewCount": 0,
-    "questionText": "CSSで背景をグラデーションにする`linear-gradient`の基本的な構文は？",
-    "evaluations": [
-      1
-    ]
-  },
-  "意味": {
-    "title": "意味",
-    "line": 3730,
-    "lastReviewed": 1772558995310,
-    "reviewCount": 1,
-    "questionText": "要素のサイズが内容に合わせて縮小しないように指定するCSSの指定は？",
-    "evaluations": [
-      2
-    ]
-  },
-  "clip-path Reveal（下から上）改 - 最初表示・ホバーで一瞬消えて下から上に再Reveal　例えばまるの背景のなかに矢印があったばあい、ホバーしたときなど": {
-    "title": "clip-path Reveal（下から上）改 - 最初表示・ホバーで一瞬消えて下から上に再Reveal　例えばまるの背景のなかに矢印があったばあい、ホバーしたときなど",
-    "line": 6690,
-    "lastReviewed": 1772581511380,
-    "reviewCount": 1,
-    "questionText": "clip-path Revealで「瞬時消去」を表現するには@keyframesを使う理由は何？",
-    "evaluations": [
-      2
-    ]
-  },
-  "📌 WordPressのCSS読み込みは <head>に直書きNG → functions.php に wp_enqueue_style('識別名', パス) で書く（WordPress本体のCSSと競合するから）": {
-    "title": "📌 WordPressのCSS読み込みは <head>に直書きNG → functions.php に wp_enqueue_style('識別名', パス) で書く（WordPress本体のCSSと競合するから）",
-    "line": 7655,
-    "lastReviewed": 1772620575177,
-    "reviewCount": 1,
-    "questionText": "WordPressでCSSファイルを読み込む際に`functions.php`で`wp_enqueue_style()`関数を使用する理由は何ですか？",
-    "evaluations": [
-      2
-    ]
-  },
-  "grid（flexも同様）でレイアウトすると、３列などサイズがきまっている。その場合、画像で固定サイズ指定する（固い箱のようなもの,rem通りにうまく動作しない）と、３列の幅いにあわずくずれることがある。そのため画像は％で指定するとよい。％なら、問題なく動作する。": {
-    "title": "grid（flexも同様）でレイアウトすると、３列などサイズがきまっている。その場合、画像で固定サイズ指定する（固い箱のようなもの,rem通りにうまく動作しない）と、３列の幅いにあわずくずれることがある。そのため画像は％で指定するとよい。％なら、問題なく動作する。",
-    "line": 2951,
-    "lastReviewed": 1772620629252,
-    "reviewCount": 1,
-    "questionText": "Grid/Flexレイアウトで画像が変形するのを防ぐために、画像のwidthプロパティに指定すべき値は？",
-    "evaluations": [
-      2
-    ]
-  },
-  "📌 `要素.style.transform` でJSからCSSを直接操作できる（CSSプロパティはキャメルケースに変換）": {
-    "title": "📌 `要素.style.transform` でJSからCSSを直接操作できる（CSSプロパティはキャメルケースに変換）",
-    "line": 1,
-    "lastReviewed": 1772621905706,
-    "reviewCount": 1,
-    "questionText": "JavaScriptでCSSのハイフン付きプロパティを操作する際、どのように変換されるか？",
-    "evaluations": [
-      2
-    ]
-  },
-  "🛠 問題と解決方法": {
-    "title": "🛠 問題と解決方法",
-    "line": 1894,
-    "lastReviewed": 1772622088603,
-    "reviewCount": 1,
-    "questionText": "ブラウザ幅を狭めてもハンバーガーメニューが表示されない原因は何ですか？",
-    "evaluations": [
-      2
-    ]
-  },
-  "📌 CSS background-image と HTML img の使い分け": {
-    "title": "📌 CSS background-image と HTML img の使い分け",
-    "line": 7256,
-    "lastReviewed": 1772622178247,
-    "reviewCount": 1,
-    "questionText": "コンテンツとして必須な画像はHTMLのどの要素で指定する？",
-    "evaluations": [
-      2
-    ]
-  },
-  "三角形の図形の作り方": {
-    "title": "三角形の図形の作り方",
-    "line": 1831,
-    "lastReviewed": 1772622230110,
-    "reviewCount": 1,
-    "questionText": "CSSで要素の疑似要素を使って三角形を作成するには、どのようなプロパティを使用しますか？"
-  },
-  "1. **`background-attachment: fixed;` を使う場合**": {
-    "title": "1. **`background-attachment: fixed;` を使う場合**",
-    "line": 1608,
-    "lastReviewed": 1772634605317,
-    "reviewCount": 0,
-    "questionText": "`background-attachment: fixed;` で背景画像をセクションで固定するには、何が必要ですか？",
-    "evaluations": [
-      1
     ]
   }
 }
