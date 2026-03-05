@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>固定サイドバー + z-index重なり順のデモ</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+
+    .control-panel {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .description {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #2196f3;
+    }
+
+    .controls {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+
+    .control-group {
+      flex: 1;
+    }
+
+    .control-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: #ddd;
+      outline: none;
+    }
+
+    .value-display {
+      display: inline-block;
+      background: #4caf50;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    .demo-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      height: 600px;
+      position: relative;
+    }
+
+    .demo-viewport {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      position: relative;
+    }
+
+    /* 実際のCSS再現 */
+    #demo-header {
+      width: 300px;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 60px 40px;
+      background-color: #cf4444;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    }
+
+    .demo-site-title {
+      margin-bottom: 4rem;
+      width: 210px;
+      height: 60px;
+      border: 0.5rem solid rgb(43, 150, 78);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    #demo-navi {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #demo-navi a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 4px;
+    }
+
+    .demo-bg {
+      content: "";
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 300px;
+      width: calc(100% - 300px);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      pointer-events: none;
+    }
+
+    #demo-main {
+      position: relative;
+    }
+
+    .demo-mv-wrap {
+      margin-left: 300px;
+      height: calc(100vh - 160px);
+      border: 0.5rem solid red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    #demo-product-area {
+      position: fixed;
+      left: 300px;
+      bottom: 0;
+      width: calc(100% - 300px);
+      height: 320px;
+      background: #1a9916;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    #demo-work-list {
+      margin-top: 320px;
+      margin-left: 300px;
+      padding: 8.5rem 12rem;
+      background: linear-gradient(#bfe6154d, #000000cc);
+      color: #fff;
+      position: relative;
+      min-height: 800px;
+    }
+
+    #demo-work-list h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .z-index-label {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .scroll-hint {
+      text-align: center;
+      padding: 20px;
+      background: #fff3cd;
+      border-radius: 8px;
+      margin-top: 20px;
+      font-weight: bold;
+      color: #856404;
+    }
+  </style>
+</head>
+<body>
+  <div class="control-panel">
+    <h1>🎯 固定レイアウト + z-index の重なり順デモ</h1>
+    
+    <div class="description">
+      <strong>このレイアウトの仕組み:</strong><br>
+      ① 左サイドバー（赤）= position: fixed で固定<br>
+      ② 背景（紫グラデ）= body::before で固定 (z-index: 0)<br>
+      ③ 緑のバー = 画面下に固定 (z-index: 2)<br>
+      ④ スクロールコンテンツ（半透明黒）= z-index: 50 で一番上に重なる<br>
+      <br>
+      <strong>👇 スクロールして、各要素の重なり方を確認してください</strong>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label>
+          📐 サイドバーの幅
+          <span class="value-display" id="sidebar-width-val">300px</span>
+        </label>
+        <input type="range" id="sidebar-width" min="200" max="400" value="300">
+      </div>
+
+      <div class="control-group">
+        <label>
+          📏 緑バーの高さ
+          <span class="value-display" id="product-height-val">320px</span>
+        </label>
+        <input type="range" id="product-height" min="100" max="500" value="320">
+      </div>
+
+      <div class="control-group">
+        <label>
+          🎚️ スクロールコンテンツのz-index
+          <span class="value-display" id="work-z-val">50</span>
+        </label>
+        <input type="range" id="work-z" min="0" max="100" value="50">
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      ⬇️ 下のデモエリアをスクロールして、半透明の黒いエリアが緑バーの上に重なる様子を確認
+    </div>
+  </div>
+
+  <div class="demo-container">
+    <div class="demo-viewport" id="demo-viewport">
+      <div class="demo-bg" id="demo-bg">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 48px; font-weight: bold; text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">
+          固定背景
+        </div>
+      </div>
+
+      <header id="demo-header">
+        <div class="demo-site-title">LOGO</div>
+        <nav id="demo-navi">
+          <a href="#">menu</a>
+        </nav>
+        <div class="z-index-label">固定サイドバー</div>
+      </header>
+
+      <main id="demo-main">
+        <div class="demo-mv-wrap">
+          背景が見えるエリア（赤枠）
+        </div>
+
+        <section id="demo-product-area">
+          画面下に固定される緑バー (z-index: 2)
+          <div class="z-index-label" id="product-z-label">z-index: 2</div>
+        </section>
+
+        <section id="demo-work-list">
+          <div class="z-index-label" id="work-z-label">z-index: 50</div>
+          <h2>📜 スクロールコンテンツ</h2>
+          <p style="line-height: 1.8;">このエリアは z-index: 50 で最前面に配置されています。<br>
+          スクロールすると、固定された緑のバー（z-index: 2）の上に重なります。</p>
+          <p style="margin-top: 50px; line-height: 1.8;">背景の紫グラデーションは body::before で z-index: 0 に配置されているため、<br>
+          このコンテンツの下に表示されます。</p>
+          <p style="margin-top: 50px; line-height: 1.8;">左の赤いサイドバーは position: fixed で常に固定表示されます。</p>
+          <div style="height: 300px; background: rgba(255,255,255,0.1); margin-top: 50px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+            追加コンテンツエリア
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const sidebarWidthSlider = document.getElementById('sidebar-width');
+    const productHeightSlider = document.getElementById('product-height');
+    const workZSlider = document.getElementById('work-z');
+
+    const sidebarWidthVal = document.getElementById('sidebar-width-val');
+    const productHeightVal = document.getElementById('product-height-val');
+    const workZVal = document.getElementById('work-z-val');
+
+    const demoHeader = document.getElementById('demo-header');
+    const demoBg = document.getElementById('demo-bg');
+    const demoMvWrap = document.querySelector('.demo-mv-wrap');
+    const demoProductArea = document.getElementById('demo-product-area');
+    const demoWorkList = document.getElementById('demo-work-list');
+    const workZLabel = document.getElementById('work-z-label');
+
+    sidebarWidthSlider.addEventListener('input', (e) => {
+      const width = e.target.value;
+      sidebarWidthVal.textContent = width + 'px';
+      
+      demoHeader.style.width = width + 'px';
+      demoBg.style.left = width + 'px';
+      demoBg.style.width = `calc(100% - ${width}px)`;
+      demoMvWrap.style.marginLeft = width + 'px';
+      demoProductArea.style.left = width + 'px';
+      demoProductArea.style.width = `calc(100% - ${width}px)`;
+      demoWorkList.style.marginLeft = width + 'px';
+    });
+
+    productHeightSlider.addEventListener('input', (e) => {
+      const height = e.target.value;
+      productHeightVal.textContent = height + 'px';
+      
+      demoProductArea.style.height = height + 'px';
+      demoWorkList.style.marginTop = height + 'px';
+    });
+
+    workZSlider.addEventListener('input', (e) => {
+      const z = e.target.value;
+      workZVal.textContent = z;
+      
+      demoWorkList.style.zIndex = z;
+      workZLabel.textContent = `z-index: ${z}`;
+      
+      if (parseInt(z) <= 2) {
+        workZLabel.style.background = 'rgba(255,0,0,0.8)';
+      } else {
+        workZLabel.style.background = 'rgba(0,0,0,0.7)';
+      }
+    });
+  </script>
+</body>
+</html>

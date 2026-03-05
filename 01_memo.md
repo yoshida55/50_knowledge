@@ -1,4 +1,4 @@
-こ# 📌 `transition` vs `animation` ― CSSアニメーションの使い分け
+# 📌 `transition` vs `animation` ― CSSアニメーションの使い分け
 
 【結論】
 - `transition`：A→B の**直線的な変化**を滑らかにする「演出方法」の設定
@@ -8290,3 +8290,150 @@ PrettierはPHP非対応。PHP用の拡張機能を別途入れて、settings.jso
 - `display: block` を忘れると img の下に謎の隙間ができる
 【関連】→ 「画像に width height 両方固定すると変形」で検索（aspect-ratio での解決方法）
 - Prettierは JS / CSS / HTML が対象。PHPは別途対応が必要
+
+## 📌 ホバー時テキストをスライドで切り替え → overflow:hiddenの枠は動かさず疑似要素だけ動かす（::before上へ退場・::after下から登場）
+
+【日付】2026-03-06
+【結論】
+overflow: hidden の枠自体を transform:translate(-100%など)(動かす) すると枠ごと動いてクリップが機能しない。
+枠は固定のまま、::before（通常テキスト）と ::after（ホバーテキスト）だけを動かす。
+「親:hover 子::before」の書き方でホバートリガーと動作対象を分離できる。
+
+
+クリップ = 「はみ出した部分を切り取って見えなくする」こと
+
+【具体例】
+```html
+<!--
+  構造:
+  <div .summary_container>          ← ホバートリガー（親）
+    <a .view_more_btn>              ← ボタン枠
+      <span .view_more_text>        ← overflow:hiddenの枠（動かない）
+        ::before                    ← 通常表示テキスト（上へ退場）
+        ::after                     ← ホバー表示テキスト（下から登場）
+-->
+<div class="summary_container">
+  <a href="#" class="view_more_btn">
+    <span class="view_more_text" data-text="View More"></span>
+  </a>
+</div>
+```
+
+```css
+/*
+  構造:
+  <div .summary_container>      ← ホバートリガー
+    <span .view_more_text>      ← 枠（固定・overflow:hidden）
+      ::before                  ← 通常テキスト → hover で上へ退場
+      ::after                   ← 下で待機 → hover で登場
+*/
+
+/* --- 枠（固定・動かない） --- */
+.view_more_text {
+  display: block;
+  height: 2rem;            /* ★ 固定値必須（autoだとクリップ不可） */
+  line-height: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: transparent;      /* ★ 実テキスト非表示 */
+  overflow: hidden;        /* ★ はみ出し禁止の枠 */
+  position: relative;      /* ★ ::before/::after の基準点 */
+}
+
+/* --- 通常表示（::before） --- */
+.view_more_text::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  color: black;
+  transition: transform 0.3s ease;
+}
+
+/* --- ホバー表示（::after） --- */
+.view_more_text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  color: black;
+  transform: translateY(100%);  /* 下で待機 */
+  transition: transform 0.3s ease;
+}
+
+/* --- 親ホバーで疑似要素を動かす --- */
+.summary_container:hover .view_more_text::before {
+  transform: translateY(-100%);  /* 上へ退場 */
+}
+.summary_container:hover .view_more_text::after {
+  transform: translateY(0%);     /* 下から登場 */
+}
+```
+
+【関連】→ 「overflow hidden」で検索（はみ出し制御の基本）
+📋 [詳細ソース](./その他/00_サンプルソース/★ホバー時に文字列を下から上に切り替えスライド.md)
+
+## 📌 丸ボタンホバー → 中心から色が広がり矢印の色も変わる - scale(0→1) + radial-gradient + isolation:isolate
+
+【日付】2026-03-06
+【結論】
+`::before` に `scale(0)` → ホバーで `scale(1)` にすると中心から色が広がる。
+`z-index: -1` で矢印テキストの奥に配置するが、`isolation: isolate` がないと親の背景より奥に消える。
+矢印の色変更は `color` を変えるだけ。
+
+【具体例】
+```html
+<span class="arrow_icon">→</span>
+```
+
+```css
+/*
+  構造:
+  <span .arrow_icon>     ← 丸ボタン本体（黒背景）
+    ::before             ← 中心から広がる色（scale制御）
+    「→」テキスト        ← z-indexで前面
+*/
+
+/* 丸ボタン */
+.arrow_icon {
+  background: #111;
+  color: #fff;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;          /* ★ z-index:-1が消えない */
+  transition: color 0.3s ease;
+}
+
+/* 中心から広がる色 */
+.arrow_icon::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #fff 44%, #00b4f7 100%);
+  transform: scale(0);         /* ★ 通常は見えない 　「実際は存在している」ホバー時に大きくすることによって見えなくする*/　
+  transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  z-index: -1;                 /* ★ 矢印の奥 */
+}
+
+/* ホバー */
+.arrow_icon:hover::before {
+  transform: scale(1.02);      /* ★ 中心から広がる */
+}
+.arrow_icon:hover {
+  color: #111;                 /* ★ 矢印を白→黒 */
+}
+```
+
+⚠⚠⚠ **isolation: isolate は z-index: -1 とセットで覚える！**
+- `z-index: -1` → 親の背景より奥に消える問題が起きる
+- `isolation: isolate` を親に付ける → 「この箱の中だけで重なり順を計算してね」→ 消えない
+- **3点セット: `overflow: hidden` + `isolation: isolate` + `z-index: -1`**
+
+【関連】→ 「ホバー時テキストをスライドで切り替え」で検索（同じ疑似要素パターン）
+📋 [詳細ソース](./その他/00_サンプルソース/★丸ボタンホバー - 中心から色が広がり矢印の色も変わる - scale + radial-gradient.md)

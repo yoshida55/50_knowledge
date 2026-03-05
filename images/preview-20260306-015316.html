@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>固定ヘッダー・固定背景・スクロール重なりレイアウトのデモ</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    min-height: 100vh;
+  }
+
+  .demo-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+
+  .control-panel {
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+    color: white;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .control-panel h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .control-panel p {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 25px;
+    line-height: 1.6;
+  }
+
+  .controls {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .control-group {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  .control-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .control-group input[type="range"] {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.2);
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  .control-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #4fd1c5;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(79,209,197,0.5);
+  }
+
+  .control-group input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #4fd1c5;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px rgba(79,209,197,0.5);
+  }
+
+  .value-display {
+    display: inline-block;
+    background: rgba(79,209,197,0.2);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    color: #4fd1c5;
+    margin-top: 6px;
+    font-size: 13px;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  .btn-secondary {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+  }
+
+  .demo-area {
+    padding: 30px;
+    background: #f7fafc;
+  }
+
+  .viewport-container {
+    border: 3px solid #2d3748;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    background: white;
+    position: relative;
+  }
+
+  .info-box {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 12px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  /* 実際のレイアウト再現 */
+  .layout-wrapper {
+    position: relative;
+    height: 600px;
+    overflow: hidden;
+  }
+
+  .scroll-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  #header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 40px 30px;
+    background-color: #cf4444;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    box-shadow: 4px 0 12px rgba(0,0,0,0.2);
+    transition: width 0.3s, height 0.3s;
+  }
+
+  .site_title {
+    margin-bottom: 2rem;
+    width: 150px;
+    height: 50px;
+    border: 0.3rem solid rgb(43, 150, 78);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background: rgba(0,0,0,0.1);
+  }
+
+  #navi {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #navi a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .body-content {
+    position: relative;
+    min-height: 100%;
+  }
+
+  .body-content::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    z-index: 0;
+    pointer-events: none;
+    transition: left 0.3s, width 0.3s;
+  }
+
+  main {
+    position: relative;
+    z-index: 1;
+  }
+
+  .mv_wrap {
+    border: 0.3rem solid red;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    transition: margin-left 0.3s, height 0.3s;
+  }
+
+  #product_area {
+    position: fixed;
+    bottom: 0;
+    background: #1a9916;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.2);
+    transition: left 0.3s, width 0.3s, height 0.3s;
+  }
+
+  #work_list {
+    padding: 4rem 6rem;
+    background: linear-gradient(#bfe6154d, #000000cc);
+    color: #fff;
+    position: relative;
+    z-index: 50;
+    transition: margin-top 0.3s, margin-left 0.3s;
+  }
+
+  #work_list h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  #work_list p {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .legend {
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .legend h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #2d3748;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  .legend-color {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    margin-right: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    z-index: 100;
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-container">
+  <div class="control-panel">
+    <h1>📐 固定ヘッダー・固定背景・z-index重なりレイアウト</h1>
+    <p>
+      左の固定サイドバー、固定背景、画面下の固定エリア、スクロールで重なるコンテンツの実際の挙動を確認できます。<br>
+      <strong>スライダーで各要素のサイズを変更し、スクロールして重なりの順序（z-index）を実際に体験してください。</strong>
+    </p>
+    
+    <div class="controls">
+      <div class="control-group">
+        <label>ヘッダー幅（width）</label>
+        <input type="range" id="headerWidth" min="200" max="400" value="300" step="10">
+        <div class="value-display" id="headerWidthValue">300px</div>
+      </div>
+
+      <div class="control-group">
+        <label>ヘッダー高さ（height）</label>
+        <input type="range" id="headerHeight" min="400" max="800" value="600" step="20">
+        <div class="value-display" id="headerHeightValue">600px</div>
+      </div>
+
+      <div class="control-group">
+        <label>MV高さ（100vh - 固定エリア）</label>
+        <input type="range" id="mvHeight" min="200" max="500" value="440" step="20">
+        <div class="value-display" id="mvHeightValue">440px</div>
+      </div>
+
+      <div class="control-group">
+        <label>固定エリア高さ（#product_area）</label>
+        <input type="range" id="productHeight" min="160" max="400" value="160" step="20">
+        <div class="value-display" id="productHeightValue">160px</div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="btn-primary" onclick="resetValues()">🔄 初期値にリセット</button>
+      <button class="btn-secondary" onclick="scrollToWorkList()">📜 #work_listまでスクロール</button>
+    </div>
+  </div>
+
+  <div class="demo-area">
+    <div class="viewport-container">
+      <div class="info-box">
+        <div>スクロール位置: <span id="scrollPos">0px</span></div>
+        <div>z-index順: 背景(0) &lt; main(1) &lt; 固定エリア(2) &lt; work_list(50)</div>
+      </div>
+      <div class="scroll-indicator">👇 下にスクロールして重なりを確認</div>
+      
+      <div class="layout-wrapper">
+        <div class="scroll-container" id="scrollContainer">
+          <div class="body-content">
+            <div class="body-bg" id="bodyBg"></div>
+            
+            <header id="header">
+              <h1 class="site_title">LOGO</h1>
+              <nav id="navi">
+                <a href="#">menu</a>
+              </nav>
+            </header>
+
+            <main>
+              <div class="mv_wrap" id="mvWrap">
+                背景が見えるエリア<br>（最初の画面）
+              </div>
+
+              <div id="product_area">
+                画面下に固定される緑エリア<br>
+                （z-index: 2）
+              </div>
+
+              <section id="work_list">
+                <h2>スクロールで重なるセクション</h2>
+                <p>このエリアは z-index: 50 で最前面に表示されます。</p>
+                <p>スクロールすると、固定背景・固定エリアの上に重なります。</p>
+                <p style="margin-top: 20px;">◆ position: fixed の要素は画面に固定されたまま</p>
+                <p>◆ position: relative の要素は通常通りスクロール</p>
+                <p>◆ z-index で重なり順を制御</p>
+                <p style="margin-top: 40px; padding: 20px; background: rgba(255,255,255,0.2); border-radius: 8px;">
+                  さらにスクロールすると、この半透明のコンテンツが固定エリアの上を通過していくのが確認できます。
+                  実際のプロパティ（position, z-index）による本物の挙��です。
+                </p>
+                <div style="height: 300px; margin-top: 30px; background: rgba(0,0,0,0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                  追加コンテンツエリア<br>スクロール動作確認用
+                </div>
+              </section>
+            </main>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <h3>🎨 各要素の役割と CSS プロパティ</h3>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #cf4444;"></div>
+        <div><strong>#header（赤）:</strong> position: fixed, left: 0 - 画面左に固定されるサイドバー</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+        <div><strong>body::before（紫グラデ）:</strong> position: fixed, z-index: 0 - 固定背景画像の代わり</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: rgba(255,0,0,0.3); border: 3px solid red;"></div>
+        <div><strong>.mv_wrap（赤枠）:</strong> margin-left でヘッダー幅分ずらし、高さで最初の画面を確保</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: #1a9916;"></div>
+        <div><strong>#product_area（緑）:</strong> position: fixed, bottom: 0, z-index: 2 - 画面下に固定</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background: linear-gradient(#bfe6154d, #000000cc);"></div>
+        <div><strong>#work_list（黒グラデ）:</strong> margin-top で固定エリア分ずらし、z-index: 50 で最前面</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const headerWidthSlider = document.getElementById('headerWidth');
+  const headerHeightSlider = document.getElementById('headerHeight');
+  const mvHeightSlider = document.getElementById('mvHeight');
+  const productHeightSlider = document.getElementById('productHeight');
+  
+  const headerWidthValue = document.getElementById('headerWidthValue');
+  const headerHeightValue = document.getElementById('headerHeightValue');
+  const mvHeightValue = document.getElementById('mvHeightValue');
+  const productHeightValue = document.getElementById('productHeightValue');
+  
+  const header = document.getElementById('header');
+  const bodyBg = document.getElementById('bodyBg');
+  const mvWrap = document.getElementById('mvWrap');
+  const productArea = document.getElementById('product_area');
+  const workList = document.getElementById('work_list');
+  const scrollContainer = document.getElementById('scrollContainer');
+  const scrollPos = document.getElementById('scrollPos');
+
+  function updateLayout() {
+    const headerWidth = parseInt(headerWidthSlider.value);
+    const headerHeight = parseInt(headerHeightSlider.value);
+    const mvHeight = parseInt(mvHeightSlider.value);
+    const productHeight = parseInt(productHeightSlider.value);
+
+    // ヘッダー
+    header.style.width = headerWidth + 'px';
+    header.style.height = headerHeight + 'px';
+
+    // 背景
+    bodyBg.style.left = headerWidth + 'px';
+    bodyBg.style.width = 'calc(100% - ' + headerWidth + 'px)';
+
+    // MV
+    mvWrap.style.marginLeft = headerWidth + 'px';
+    mvWrap.style.height = mvHeight + 'px';
+
+    // 固定エリア
+    productArea.style.left = headerWidth + 'px';
+    productArea.style.width = 'calc(100% - ' + headerWidth + 'px)';
+    productArea.style.height = productHeight + 'px';
+
+    // work_list
+    workList.style.marginTop = productHeight + 'px';
+    workList.style.marginLeft = headerWidth + 'px';
+
+    // 値表示
+    headerWidthValue.textContent = headerWidth + 'px';
+    headerHeightValue.textContent = headerHeight + 'px';
+    mvHeightValue.textContent = mvHeight + 'px';
+    productHeightValue.textContent = productHeight + 'px';
+  }
+
+  headerWidthSlider.addEventListener('input', updateLayout);
+  headerHeightSlider.addEventListener('input', updateLayout);
+  mvHeightSlider.addEventListener('input', updateLayout);
+  productHeightSlider.addEventListener('input', updateLayout);
+
+  scrollContainer.addEventListener('scroll', () => {
+    scrollPos.textContent = Math.round(scrollContainer.scrollTop) + 'px';
+  });
+
+  function resetValues() {
+    headerWidthSlider.value = 300;
+    headerHeightSlider.value = 600;
+    mvHeightSlider.value = 440;
+    productHeightSlider.value = 160;
+    updateLayout();
+    scrollContainer.scrollTop = 0;
+  }
+
+  function scrollToWorkList() {
+    const mvHeight = parseInt(mvHeightSlider.value);
+    scrollContainer.scrollTo({
+      top: mvHeight + 100,
+      behavior: 'smooth'
+    });
+  }
+
+  // 初期化
+  updateLayout();
+
+  // 背景をbody::beforeの代わりに実装
+  const style = document.createElement('style');
+  style.textContent = `
+    .body-bg {
+      content: "";
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 300px;
+      width: calc(100% - 300px);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      z-index: 0;
+      pointer-events: none;
+      transition: left 0.3s, width 0.3s;
+    }
+  `;
+  document.head.appendChild(style);
+</script>
+
+</body>
+</html>

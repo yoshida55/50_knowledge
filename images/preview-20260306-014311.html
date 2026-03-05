@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>階段式ギャラリーレイアウト - インタラクティブデモ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .control-panel {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-group label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        .value-display {
+            min-width: 100px;
+            padding: 8px 15px;
+            background: white;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-area {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .demo-section {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        /* 元のギャラリースタイル */
+        .gallery_flex {
+            list-style: none;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .gallery_item {
+            margin-bottom: 6rem;
+            transition: all 0.3s ease;
+        }
+
+        .gallery_item:nth-child(odd) {
+            text-align: left;
+        }
+
+        .gallery_item:nth-child(even) {
+            text-align: right;
+        }
+
+        .gallery_img {
+            width: 48%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* デモ用のカラー画像代替 */
+        .gallery_img {
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gallery_item:nth-child(1) .gallery_img {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .gallery_item:nth-child(2) .gallery_img {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .gallery_item:nth-child(3) .gallery_img {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .explanation {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 5px;
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        .code-display {
+            margin-top: 15px;
+            padding: 15px;
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .code-display .property {
+            color: #66d9ef;
+        }
+
+        .code-display .value {
+            color: #a6e22e;
+        }
+
+        .highlight-box {
+            position: relative;
+            padding: 10px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+        }
+
+        .label-overlay {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ 階段式ギャラリーレイアウト</h1>
+        <p class="subtitle">text-align と nth-child を使った左右交互配置の仕組み</p>
+
+        <div class="control-panel">
+            <div class="control-group">
+                <label>📏 画像の幅（width）</label>
+                <div class="slider-container">
+                    <input type="range" id="widthSlider" min="20" max="80" value="48" step="1">
+                    <div class="value-display" id="widthValue">48%</div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>📐 下部の余白（margin-bottom）</label>
+                <div class="slider-container">
+                    <input type="range" id="marginSlider" min="0" max="10" value="6" step="0.5">
+                    <div class="value-display" id="marginValue">6rem</div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>🎯 配置方法</label>
+                <div class="slider-container">
+                    <select id="alignmentSelect" style="flex: 1; padding: 10px; border-radius: 8px; border: 2px solid #ddd; font-size: 1rem;">
+                        <option value="alternate">左右交互（odd: left, even: right）</option>
+                        <option value="all-left">すべて左揃え</option>
+                        <option value="all-right">すべて右揃え</option>
+                        <option value="all-center">すべて中央揃え</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-area">
+            <div class="demo-section">
+                <div class="demo-title">階段式ギャラリー - リアルタイムプレビュー</div>
+                
+                <ul class="gallery_flex" id="gallery">
+                    <li class="gallery_item">
+                        <div class="highlight-box">
+                            <span class="label-overlay" id="label1">奇数（1番目）</span>
+                            <img class="gallery_img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23f093fb' width='400' height='200'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='24' font-family='sans-serif'%3E花1%3C/text%3E%3C/svg%3E" alt="鮮やかな花1" />
+                        </div>
+                    </li>
+                    <li class="gallery_item">
+                        <div class="highlight-box">
+                            <span class="label-overlay" id="label2">偶数（2番目）</span>
+                            <img class="gallery_img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%234facfe' width='400' height='200'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='24' font-family='sans-serif'%3E花2%3C/text%3E%3C/svg%3E" alt="鮮やかな花2" />
+                        </div>
+                    </li>
+                    <li class="gallery_item">
+                        <div class="highlight-box">
+                            <span class="label-overlay" id="label3">奇数（3番目）</span>
+                            <img class="gallery_img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%2343e97b' width='400' height='200'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-size='24' font-family='sans-serif'%3E花3%3C/text%3E%3C/svg%3E" alt="鮮やかな花3" />
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="code-display" id="codeDisplay">
+                    <div><span class="property">.gallery_item</span> {</div>
+                    <div>  <span class="property">margin-bottom:</span> <span class="value" id="codeMargin">6rem</span>;</div>
+                    <div>}</div>
+                    <br>
+                    <div><span class="property">.gallery_item:nth-child(odd)</span> {</div>
+                    <div>  <span class="property">text-align:</span> <span class="value" id="codeOdd">left</span>;</div>
+                    <div>}</div>
+                    <br>
+                    <div><span class="property">.gallery_item:nth-child(even)</span> {</div>
+                    <div>  <span class="property">text-align:</span> <span class="value" id="codeEven">right</span>;</div>
+                    <div>}</div>
+                    <br>
+                    <div><span class="property">.gallery_img</span> {</div>
+                    <div>  <span class="property">width:</span> <span class="value" id="codeWidth">48%</span>;</div>
+                    <div>}</div>
+                </div>
+
+                <div class="explanation">
+                    <strong>💡 仕組みの解説：</strong><br>
+                    <span id="explanation">
+                        • <code>:nth-child(odd)</code>は奇数番目の要素（1,3,5...）を選択し、<code>text-align: left</code>で画像を左寄せ<br>
+                        • <code>:nth-child(even)</code>は偶数番目の要素（2,4,6...）を選択し、<code>text-align: right</code>で画像を右寄せ<br>
+                        • 画像のwidthを48%にすることで、左右に余白が生まれ階段状に見える<br>
+                        • <code>margin-bottom</code>で各画像間の縦方向の間隔を調整
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const widthSlider = document.getElementById('widthSlider');
+        const marginSlider = document.getElementById('marginSlider');
+        const alignmentSelect = document.getElementById('alignmentSelect');
+        const widthValue = document.getElementById('widthValue');
+        const marginValue = document.getElementById('marginValue');
+        const gallery = document.getElementById('gallery');
+        const galleryItems = document.querySelectorAll('.gallery_item');
+        const galleryImgs = document.querySelectorAll('.gallery_img');
+        const codeWidth = document.getElementById('codeWidth');
+        const codeMargin = document.getElementById('codeMargin');
+        const codeOdd = document.getElementById('codeOdd');
+        const codeEven = document.getElementById('codeEven');
+        const explanation = document.getElementById('explanation');
+
+        function updateGallery() {
+            const width = widthSlider.value;
+            const margin = marginSlider.value;
+            const alignment = alignmentSelect.value;
+
+            // 値の表示更新
+            widthValue.textContent = `${width}%`;
+            marginValue.textContent = `${margin}rem`;
+            codeWidth.textContent = `${width}%`;
+            codeMargin.textContent = `${margin}rem`;
+
+            // 画像の幅を更新
+            galleryImgs.forEach(img => {
+                img.style.width = `${width}%`;
+            });
+
+            // 余白を更新
+            galleryItems.forEach(item => {
+                item.style.marginBottom = `${margin}rem`;
+            });
+
+            // 配置方法を更新
+            galleryItems.forEach((item, index) => {
+                item.style.textAlign = '';
+            });
+
+            if (alignment === 'alternate') {
+                galleryItems.forEach((item, index) => {
+                    if ((index + 1) % 2 === 1) {
+                        item.style.textAlign = 'left';
+                    } else {
+                        item.style.textAlign = 'right';
+                    }
+                });
+                codeOdd.textContent = 'left';
+                codeEven.textContent = 'right';
+                explanation.innerHTML = `
+                    • <code>:nth-child(odd)</code>は奇数番目の要素（1,3,5...）を選択し、<code>text-align: left</code>で画像を左寄せ<br>
+                    • <code>:nth-child(even)</code>は偶数番目の要素（2,4,6...）を選択し、<code>text-align: right</code>で画像を右寄せ<br>
+                    • 画像のwidthを${width}%にすることで、左右に${100-width}%の余白が生まれ階段状に見える<br>
+                    • <code>margin-bottom</code>で各画像間の縦方向の間隔を${margin}rem調整
+                `;
+            } else if (alignment === 'all-left') {
+                galleryItems.forEach(item => {
+                    item.style.textAlign = 'left';
+                });
+                codeOdd.textContent = 'left';
+                codeEven.textContent = 'left';
+                explanation.innerHTML = `
+                    • すべての要素を<code>text-align: left</code>で左寄せ<br>
+                    • 階段状の効果は失われ、すべての画像が左に揃う<br>
+                    • 画像のwidthが${width}%なので、右側に${100-width}%の余白ができる
+                `;
+            } else if (alignment === 'all-right') {
+                galleryItems.forEach(item => {
+                    item.style.textAlign = 'right';
+                });
+                codeOdd.textContent = 'right';
+                codeEven.textContent = 'right';
+                explanation.innerHTML = `
+                    • すべての要素を<code>text-align: right</code>で右寄せ<br>
+                    • 階段状の効果は失われ、すべての画像が右に揃う<br>
+                    • 画像のwidthが${width}%なので、左側に${100-width}%の余白ができる
+                `;
+            } else if (alignment === 'all-center') {
+                galleryItems.forEach(item => {
+                    item.style.textAlign = 'center';
+                });
+                codeOdd.textContent = 'center';
+                codeEven.textContent = 'center';
+                explanation.innerHTML = `
+                    • すべての要素を<code>text-align: center</code>で中央寄せ<br>
+                    • 階段状の効果は失われ、すべての画像が中央に揃う<br>
+                    • 画像のwidthが${width}%なので、左右に${(100-width)/2}%ずつの余白ができる
+                `;
+            }
+        }
+
+        widthSlider.addEventListener('input', updateGallery);
+        marginSlider.addEventListener('input', updateGallery);
+        alignmentSelect.addEventListener('change', updateGallery);
+
+        // 初期表示
+        updateGallery();
+    </script>
+</body>
+</html>
