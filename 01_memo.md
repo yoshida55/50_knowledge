@@ -8437,3 +8437,197 @@ overflow: hidden の枠自体を transform:translate(-100%など)(動かす) す
 
 【関連】→ 「ホバー時テキストをスライドで切り替え」で検索（同じ疑似要素パターン）
 📋 [詳細ソース](./その他/00_サンプルソース/★丸ボタンホバー - 中心から色が広がり矢印の色も変わる - scale + radial-gradient.md)
+
+---
+
+## 📌 flexスライダーで4枚目を半分だけ見せたい → width を 3.5枚分で計算 + justify-content: flex-start（「続きがある」を視覚的に伝える）　画像が４つあった場合、３枚の画像を表示して、⇒クリックで違う画像に遷移する
+
+【日付】2026-03-06
+【結論】
+`justify-content: center` にすると全カードが中央に収まって全部見えてしまう。`flex-start` + カード幅を「3.5枚分」にすることで、4枚目が右端から半分だけはみ出す。
+
+- `justify-content: flex-start` にして左寄せにする
+- カード幅 = `calc((100% - 3rem) / 3.5)` で「3.5枚分」を表現
+- `flex-shrink: 0` で幅が縮まないように固定
+- `overflow: hidden` で親が右端を切る
+
+【具体例】
+```css
+/*
+  構造:
+  <div .スライダー親>              ← overflow: hidden でカットする
+    <div .カード>画像+テキスト    ← flex-shrink: 0 で幅を固定
+    <div .カード>
+    <div .カード>
+    <div .カード>（半分だけ見える）
+*/
+
+.slider_container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* center だと全部収まって見えてしまう */
+  gap: 1rem;
+  overflow: hidden;            /* 右端からはみ出た部分を切る */
+}
+
+.slider_item {
+  width: calc((100% - 3rem) / 3.5); /* 3.5枚分の幅 = 4枚目が半分だけ見える */
+  flex-shrink: 0;                    /* 縮まないようにする（必須） */
+  height: 100%;
+}
+```
+
+【補足】
+- `3.5` の意味: 3枚フル表示 + 0.5枚ちら見せ = 「続きがあるよ」を伝えるUI
+- gap の本数: 3.5枚のあいだには3つのgap → `3rem` を引く
+- `flex-shrink: 0` がないと親に合わせて縮んで全部見えてしまう（← 別メモに詳細あり）
+
+【関連】→ 「flex-shrink: 0 はスライダーに必須」で検索（カードが縮む仕組みの詳細）
+
+---
+
+▢
+メモ：slick.js 外部ボタンでスライド操作（jQuery→slick 読込順・$(function)の中に書く）
+
+【気づき】
+★ slick は jQuery より後に読み込む（逆だと `slick is not a function` エラー）
+★ クリックイベントは `$(function(){})` の中、slick初期化の後に書く
+★ slick の gap は CSS の `gap` が効かない → `.slick-slide { margin }` で代替
+
+【ポイント】
+
+★ポイント1: 読込順（jQuery → slick → 自分のJS）
+```html
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="js/work.js"></script>
+```
+
+★ポイント2: クリックイベントは $(function){} の中・初期化の後
+```javascript
+$(function () {
+  $(".slider").slick({ ... });  // ① 初期化
+
+  $(".my_btn").on("click", function () {  // ② その後
+    $(".slider").slick("slickNext");
+  });
+});
+```
+
+★ポイント3: slick の外部操作メソッド
+```javascript
+$('.slider').slick('slickNext'); // 次へ
+$('.slider').slick('slickPrev'); // 前へ
+```
+
+★ポイント4: gap の代替
+```css
+.slider .slick-slide {
+  margin: 0 0.5rem; /* gap は効かないので margin で代替 */
+}
+```
+
+★ポイント5: ボタンは `type="button"` が必須
+```html
+<!-- ❌ ダメ：デフォルトは type="submit" → クリックでページリロードされる -->
+<button class="my_btn">View More →</button>
+
+<!-- ✅ 正解 -->
+<button type="button" class="my_btn">View More →</button>
+```
+
+📋 [詳細ソース](./その他/00_サンプルソース/★スライダー画像複数画像が左から右に回り続ける（すき間あり）.md)
+
+---
+
+▢
+メモ：親に z-index: マイナス値 → 子要素のボタンをクリックできない（z-index を削除か正の値にする）
+
+【気づき】
+★ 親の z-index がマイナスだと、セクション全体が「通常フローより後ろ」に配置される
+★ 子ボタンに z-index: 15 を付けても、親ごと後ろにいるのでクリックが届かない
+★ 見た目は正常でもクリックが反応しない → 検証ツールで z-index を疑う
+
+【ポイント】
+
+★ポイント1: 親がマイナス z-index → 子ボタンが押せない
+```css
+/* ❌ ダメ：セクション全体が通常フローより後ろに */
+.human_area {
+  position: relative;
+  z-index: -1; /* ← これが原因 */
+}
+.human_view_btn {
+  z-index: 15; /* 親が-1なので意味なし。"地下1階の15番窓口"状態 */
+}
+
+/* ✅ 正解：z-index を削除するか正の値に */
+.human_area {
+  position: relative;
+  /* z-index: -1; を削除 */
+}
+```
+
+★ポイント2: clip-path は「見た目」と「クリック判定」を両方クリップする
+```css
+/* clip-path の外はクリックも受け付けない */
+.human_area {
+  clip-path: ellipse(140% 100% at 20% 0%);
+  /* ボタンが clip-path の外にあるとクリックできない */
+}
+```
+
+【補足】
+- z-index のマイナス値は clip-path の見た目調整に使われがちだが、クリック不可になる副作用あり
+- 「見た目は出ているのにクリックできない」→ 親の z-index を真っ先に疑う
+- `pointer-events: none` が当たっていないかも確認
+
+【関連】→ 「z-index 問題（統合版）」で検索（fixedの親子z-index・ハンバーガーメニュー等）
+
+---
+
+▢
+メモ：clip-path で波形セクションを重ねたとき → 下セクションのタイトルが上セクションに隠れる（子要素に z-index を付けて前面に出す・同クラスは親セレクタで絞る）
+
+【日付】2026-03-06
+【結論】
+セクションの z-index は「背景の重なり順」だけを制御する。テキストを前面に出すには「子要素だけに高い z-index」を付ける。同じクラスが複数セクションにある場合は親セレクタで絞る。
+
+【具体例】
+```css
+/*
+  構造:
+  <section .culture_area>   ← z-index: 2（上に重なる・曲線を見せる）
+  <section .recruit_area>   ← z-index: 1（背景は後ろ）
+    <h2 .company_title>     ← z-index: 3（テキストだけ前面）
+*/
+
+/* 上のセクション：背景の曲線を前に出す */
+.culture_area {
+  position: relative;
+  z-index: 2;
+  clip-path: ellipse(140% 100% at 70% 0%);
+}
+
+/* 下のセクション：背景は後ろ・重なりのため margin-top でずらす */
+.recruit_area {
+  position: relative;
+  z-index: 1;
+  margin-top: -5rem;
+  padding-top: 2rem;
+}
+
+/* タイトルだけ前面に出す（culture より前） */
+.recruit_area .company_title {
+  position: relative;
+  z-index: 3; /* culture(z:2) より大きい */
+}
+```
+
+【補足】
+- セクション自体の z-index → 背景・clip-path の重なり順を決める
+- 子要素の z-index → テキスト・ボタン等を前面に出す（セクションとは別に設定できる）
+- `.company_title` を複数セクションで使っている場合 → `.recruit_area .company_title` で絞る（他のセクションに影響しない）
+- `padding-top` でコンテンツを curve の下に押し出す + z-index で前面に出す → 組み合わせで調整
+
+【関連】→ 「親に z-index: マイナス値」で検索（マイナスz-indexがクリックをブロックする件）

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+</head>
+<body>
+
+  <div class="slider">
+    <img src="img/slide01.jpg" alt="" />
+    <img src="img/slide02.jpg" alt="" />
+    <img src="img/slide03.jpg" alt="" />
+    <img src="img/slide04.jpg" alt="" />
+  </div>
+
+  <button class="my_btn">Next →</button>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script src="js/work.js"></script>
+</body>
+</html>
+```
+
+**CSS（css/style.css）**
+```css
+.slider img {
+  width: 100%;
+  display: block;
+}
+
+.slider .slick-slide {
+  margin: 0 0.5rem; /* 画像間の隙間 */
+}
+```
+
+**JavaScript（js/work.js）**
+```javascript
+$(function () {
+  $(".slider").slick({
+    arrows: false,
+    autoplay: false,
+    slidesToShow: 3,
+    centerMode: true,
+    centerPadding: "0.3rem",
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          centerPadding: "5rem",
+        },
+      },
+    ],
+  });
+
+  $(".my_btn").on("click", function () {
+    $(".slider").slick("slickNext");
+  });
+});

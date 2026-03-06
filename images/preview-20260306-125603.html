@@ -1,0 +1,93 @@
+</head>
+<body>
+
+  <!-- スライダー本体 -->
+  <div class="slider">
+    <div class="slider_item"><img src="img/slide01.jpg" alt="" /></div>
+    <div class="slider_item"><img src="img/slide02.jpg" alt="" /></div>
+    <div class="slider_item"><img src="img/slide03.jpg" alt="" /></div>
+    <div class="slider_item"><img src="img/slide04.jpg" alt="" /></div>
+  </div>
+
+  <!-- 外部操作ボタン（button タグ推奨） -->
+  <button class="my_btn">View More →</button>
+
+  <!-- 読込順：jQuery → slick → 自分のJS（この順番厳守） -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script src="js/work.js"></script>
+</body>
+</html>
+```
+
+**CSS（css/style.css）**
+```css
+/* スライダー本体 */
+.slider {
+  width: 100%;
+  height: 100%;
+  display: flex;         /* カードを横並びにする */
+  align-items: center;
+  gap: 1rem;             /* ※slickには効かない。margin で代替する */
+  overflow: hidden;      /* はみ出たカードを隠す */
+}
+
+/* slickが自動生成するクラスに margin を指定（gap の代替） */
+.slider .slick-slide {
+  margin: 0 0.5rem;
+}
+
+/* 各カード */
+.slider_item {
+  width: calc((100% - 3rem) / 3.5); /* 3.5枚分表示（4枚目が半分チラ見え） */
+  height: 100%;
+  flex-shrink: 0;        /* 縮まないようにする（必須） */
+}
+
+/* カード内の画像 */
+.slider_item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+```
+
+**JavaScript（js/work.js）**
+```javascript
+$(function () {
+  // ① slick 初期化（必ず先に書く）
+  $(".slider").slick({
+    arrows: false,
+    autoplay: false,
+    slidesToShow: 3,
+    centerMode: true,
+    centerPadding: "0.3rem",
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          centerPadding: "5rem",
+        },
+      },
+    ],
+  });
+
+  // ② クリックイベント（初期化の後に書く）
+  $(".my_btn").on("click", function () {
+    $(".slider").slick("slickNext"); // 次へ
+    // $(".slider").slick("slickPrev"); // 前へ
+  });
+});
+```
+
+**a タグを使う場合は `e.preventDefault()` が必要**
+```javascript
+// <a href="#" class="my_btn"> の場合
+$(".my_btn").on("click", function (e) {
+  e.preventDefault(); // href="#" でページトップに飛ぶのを防ぐ
+  $(".slider").slick("slickNext");
+});
+```
+
+---
