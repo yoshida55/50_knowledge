@@ -1,7 +1,24 @@
 
 
+・拡張機能
+WordPress Snippets
+PHP Debug
+Path Intellisense
+Highlight Matching Tag
+
+HTML End Tag Labels
+その他拡張機能
 
 
+Ctrl + , で設定を開く。
+emmet.includeLanguages を検索。
+「項目の追加」で、項目に php、値に html と入力して保存。
+
+・設定
+settings json 
+  "intelephense.stubs": ["wordpress", "apache", "bcmath", "Core", "curl", "date", "dom", "fileinfo", "filter", "gd", "hash", "iconv", "imagick", "json", "mbstring", "mysqli", "openssl", "pcre", "pdo", "Phar", "readline", "redis", "Reflection", "session", "SimpleXML", "soap", "SPL", "standard", "tokenizer", "wordpress", "xml", "xmlreader", "xmlwriter", "zip", "zlib"],
+
+intelephense.stubsを検索して、phpにチェックをいれる
 
 
 

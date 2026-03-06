@@ -7877,6 +7877,32 @@ Localを使ってWordPressのローカル環境をセットアップする手順
 
 ---
 
+
+### WordPressの画像指定
+### WordPressでの画像指定方法
+
+- **HTML内で画像を表示する場合**
+  - WordPressの仕組み上、相対パス（`img/abc.jpg`）では画像が見つからない。
+  - `get_template_directory_uri()` という関数を使って、テーマフォルダまでの正しいURLを取得する必要がある。
+
+```php
+<!-- 正しい書き方 -->
+<img src="<?php echo get_template_directory_uri(); ?>/img/fv.jpg" alt="">
+```
+
+- **なぜこの書き方なのか**
+  - `get_template_directory_uri()` が、Web上の正確な場所（フルURL）を教えてくれるから。
+  - `echo` をつけることで、そのURLを画面に書き出すことができる。
+
+- **CSSから画像を指定する場合**
+  - CSSファイルはテーマフォルダの中にあるので、そのまま相対パスで指定してOK。
+
+```css
+/* CSSは相対パスでOK */
+.header {
+  background-image: url(../img/fv.jpg);
+}
+```
 ## 📌 WordPressのリンクURLは <?php echo esc_url(home_url('/')); ?> で書く → home_url()でURL取得 + esc_url()で安全化する二重構造（関数の中に関数がある・内側から実行される）
 
 【日付】2026-03-04
