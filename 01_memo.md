@@ -417,6 +417,34 @@ document.querySelectorAll(".case_description").forEach((desc) => {
 
 ---
 
+
+### buttonタグに遷移先設定できるの？
+いいえ、buttonタグ自体には遷移先を設定する属性（hrefなど）はありません。遷移させたい場合は、<a>タグを使用するか、JavaScriptでクリックイベントを検知して location.href を書き換える必要があります。
+
+/* ✨
+# buttonタグで遷移させる具体例
+
+## 1. aタグを使う方法��推奨）
+<a href="https://example.com">
+  <button type="button">ページへ移動</button>
+</a>
+
+## 2. JavaScriptを使う方法
+<button type="button" onclick="location.href='https://example.com'">
+  ページへ移動
+</button>
+
+## 3. formタグを使う方法
+<form action="https://example.com" method="get">
+  <button type="submit">ページへ移動</button>
+</form>
+
+**注意点:**
+- 単純なリンクなら`<a>`タグの方が適切
+- buttonは主にフォーム送信やJavaScript処理用
+*/
+
+
 ## 📌 CSS 親に transform（アニメーション含む）があると position: fixed が壊れる　HTML
 
 【結論】
@@ -1396,6 +1424,13 @@ text-align: center; /* これだけでOK */
 
 ---
 
+
+### Q: 要素の中の文字を左に配置する
+### OK：text-align: left
+
+```css
+text-align: left; /* これだけでOK */
+```
 ## ■ 覚えておくこと
 
 - 背景画像 = 自分で高さを作る
@@ -5313,6 +5348,25 @@ $(document).ready(checkNewsAnimation);
 
 `clip-path: inset()` は、要素に対して矩形のクリッピング（切り抜き）領域を設定するCSSプロパティです。
 
+
+### Q: クリップとは
+*   **クリップとは**：画像や図形を、好きな形に切り抜いて表示する機能のこと。
+*   **仕組み**：表示したい部分だけを残し、それ以外の部分を透明にする（見えなくする）ことで、形を変えて表示させる。
+*   **CSSでの役割**：`clip-path` を使うと、四角い画像でも、丸や星型など好きな形に切り取ってWebページに配置できる。
+*   **`inset`関数の場合**：要素の上下左右からどれくらい内側に切り込むかを指定して、長方形に切り抜く。
+
+```css
+/* 例：上下左右から20pxずつ内側に切り取る */
+.box {
+  clip-path: inset(20px);
+}
+
+```css
+/* 四角形の上下左右から20pxずつ内側を切り出す */
+.box {
+  clip-path: inset(20px);
+}
+```
 ## 基本的な動作
 
 要素の上下左右から指定した距離だけ内側にクリッピング領域を作成し、その領域外を非表示にします。これによりマスク効果を実現できます。
@@ -7237,6 +7291,30 @@ align-items は行の中の縦位置だから行間には関係ない
 
 ---
 
+
+### flex-wrap で２行にするときの　aligin-item
+### flex-wrap で2行にするときの `align-items`
+
+`align-items` は**「それぞれの行の中で、中身をどう縦に並べるか」**を決めるためのものです。行と行の間のスペース（行間）には影響しません。
+
+*   **役割**: 各行の中での「上・中央・下」の縦位置を決める。
+*   **特徴**: 
+    *   1行目の中での配置と、2行目の中での配置がそれぞれ個別に決まる。
+    *   たとえ行が複数あっても、行同士をくっつけたり離したりはしない。
+
+#### コード例
+```css
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  /* 各行の中で、中身を縦の中央に寄せる */
+  align-items: center; 
+}
+```
+
+#### 使い分けのポイント
+*   **行と行のスキマをどうにかしたい場合** → `align-content` または `row-gap` を使う。
+*   **行の中にあるアイテム（文字や画像など）の高さがバラバラで、それを揃えたい場合** → `align-items` を使う。
 ## 📌 子要素を「縦に積む」ときは、子それぞれにabsoluteを付けず、親をabsoluteにして子は普通の流れで並べる　または、div要素の兄弟関係になると縦につまれる。
 
 【日付】2026-02-26
@@ -7715,6 +7793,28 @@ archive.php（一覧） → 記事をクリック → single.php（詳細）
 
 ---
 
+
+### テンプレートファイルとは
+### テンプレートファイルとは
+WordPressでWebサイトを作るための「ページのひな形」のことです。HTMLファイルをパーツごとに切り分けたものと考えると分かりやすいです。
+
+**主な特徴**
+*   **役割分担ができる**: ヘッダー（頭）やフッター（足）を別々のファイルに分けることで、一度作るだけで全ページに使い回せます。
+*   **修正が楽**: 共通パーツを1カ所直すだけで、サイト全体の見た目が一気に変わります。
+*   **名前が決まっている**: `front-page.php`（トップページ用）や `page-contact.php`（問い合わせ用）など、ページの種類ごとに専用のファイル名を使うルールがあります。
+*   **PHPで動く**: 画像の場所やリンク先などを「サーバー環境に合わせて自動で読み込む」仕組みになっています。
+
+**コードの例：画像を表示させる時**
+直接 `src="img/logo.png"` と書かず、以下のように書くのがルールです。
+```php
+<img src="<?php echo get_template_directory_uri(); ?>/img/logo.png" alt="ロゴ">
+```
+
+**テンプレートファイルの例**
+*   `header.php`：サイト上部の共通パーツ
+*   `footer.php`：サイト下部の共通パーツ
+*   `front-page.php`：トップページ用のひな形
+*   `page-〇〇.php`：各固定ページ専用のひな形
 ## 📌 Local（ローカル環境）からWordPressを始める手順
 
 【日付】2026-03-03
@@ -7734,6 +7834,26 @@ Localを使ってWordPressのローカル環境をセットアップする手順
 
 ---
 
+
+### ワードプレスでテーマをいれるほうほうは？
+ワードプレスにテーマを入れる手順は以下の通りです。
+
+1. **フォルダを開く**
+   * 「Local」というソフトで、自分のサイトの「Site Folder」ボタンを押す。
+   * 開いたフォルダの中にある `app` → `public` → `wp-content` → `themes` の順に進む。
+
+2. **テーマを入れる**
+   * 準備したテーマ（フォルダ）を、先ほど開いた `themes` フォルダの中にコピーする。
+   * パスの例：
+     `C:\Users\ユーザー名\Local Sites\サイト名\app\public\wp-content\themes`
+
+3. **テーマを有効にする**
+   * ワードプレスの管理画面にログインする。
+   * 左側のメニューから「外観」→「テーマ」を選ぶ。
+   * 追加したテーマが表示されるので、「有効化」ボタン��押す。
+
+4. **確認する**
+   * サイトを表示して、見た目が変わったか確認する。
 ## 📌 WordPressの画像パスは相対パス（img/fv.jpg）だと表示されない → <?php echo get_template_directory_uri(); ?>/img/〇〇 でテーマフォルダのフルURLを取得して書く（URLが深い階層だから相対パスでは届かない）
 
 【日付】2026-03-04
@@ -8066,6 +8186,52 @@ add_action('wp_enqueue_scripts', 'enqueue_script');
 
 ---
 
+
+### アニメーションで文字をホバーした際に、したからぱっとでるように表示する。
+### 手順
+1. **HTMLで文字を設定する**：`data-text`属性を使って、表示したい文字をもう一つ持たせる。
+2. **枠を作る**：親要素に `overflow: hidden` を指定し、枠からはみ出した文字は見えないようにする。
+3. **文字を下に隠す**：`::after` で `data-text` の文字を作り、`translateY(100%)` で枠のすぐ下に隠す。
+4. **ホバーで動かす**：マウスを乗せた時に、親のテキストごと `translateY(-100%)` で上に押し上げる。
+
+### 実装コード
+
+**HTML**
+```html
+<a class="nav-item" href="#">
+  <!-- data-text属性に同じ文字を入れる -->
+  <span class="text" data-text="会社概要">会社概要</span>
+</a>
+```
+
+**CSS**
+```css
+.nav-item {
+  display: inline-block;
+  overflow: hidden; /* はみ出した文字を隠す */
+  height: 1.2em;    /* 文字1行分の高さに固定 */
+}
+
+.text {
+  display: block;
+  transition: transform 0.3s ease; /* スムーズに動かす */
+}
+
+.text::after {
+  content: attr(data-text); /* HTMLのdata-textの中身を表示 */
+  display: block;
+  transform: translateY(0); /* 通常時は枠のすぐ下に配置 */
+}
+
+.nav-item:hover .text {
+  transform: translateY(-100%); /* ホバーで上に押し上げる */
+}
+```
+
+### ポイント
+* `overflow: hidden` がないと、隠れているはずの文字が丸見えになってしまいます。
+* `height` を文字の高さに合わせることで、うまく隠れるようになります。
+* `transition` をつけると、パッと切り替わらずにスーッと動くようになります。
 ## 📌 WordPress footer.php に wp_footer() を書く → JSが `</body>` 直前で読み込まれる（wp_head()のJS版・書かないとJSが動かない）
 
 【日付】2026-03-04
@@ -8133,6 +8299,8 @@ wp_enqueue_script('my-script', get_template_directory_uri() . '/js/main.js', arr
 - 会社でjQuery多用 → 覚える必要あり（素のJSでも同じことはできるが、既存コードがjQueryなら合わせる）
 【関連】→ 「wp_enqueue_script」で検索（JS読み込みの書き方・引数の意味）
 【関連】→ 「wp_footer」で検索（footer.phpでJSを出力するトリガー）jQueryをワードプレスでつかいたい
+
+
 ## 📌 CSS Grid で display: grid を使うと grid-template-columns で横列を定義でき、縦行は grid-template-rows で制御できる（Flexと違い縦横同時に制御可能）
 
 【日付】2026-03-05
@@ -8587,47 +8755,234 @@ $('.slider').slick('slickPrev'); // 前へ
 ---
 
 ▢
-メモ：clip-path で波形セクションを重ねたとき → 下セクションのタイトルが上セクションに隠れる（子要素に z-index を付けて前面に出す・同クラスは親セレクタで絞る）
+## 📌 clip-path + z-index の親でスタッキングコンテキストが作られると子は親のz-indexを超えられない → ::before に背景を逃がして解決
 
 【日付】2026-03-06
 【結論】
-セクションの z-index は「背景の重なり順」だけを制御する。テキストを前面に出すには「子要素だけに高い z-index」を付ける。同じクラスが複数セクションにある場合は親セレクタで絞る。
+親に `z-index`（autoでない値）または `clip-path` があると「スタッキングコンテキスト（箱）」が作られる。
+子要素にどれだけ高い z-index を付けても、**親の箱ごと比較されるため親のz-indexを超えられない**。
+解決策：親から `z-index` と `clip-path` を外し、`::before` 擬似要素に背景・clip-path を移す。
+こうすると親は箱を作らず、子と `::before` が同じ土俵で比較できる。
+
+- スタッキングコンテキストを作る主な原因：`z-index`（auto以外）+ `position`、`clip-path`、`opacity < 1`、`transform`
+- 疑似要素（`::before` / `::after`）も形式上「子要素」として同じルールが適用される
 
 【具体例】
 ```css
 /*
   構造:
   <section .culture_area>   ← z-index: 2（上に重なる・曲線を見せる）
-  <section .recruit_area>   ← z-index: 1（背景は後ろ）
-    <h2 .company_title>     ← z-index: 3（テキストだけ前面）
+  <section .recruit_area>   ← 箱を作らない（z-index外す）
+    ::before                ← 青背景 + clip-path ここに移す（z-index: 1）
+    <h2 .company_title>     ← z-index: 3（cultureの前に食い込む）
 */
 
-/* 上のセクション：背景の曲線を前に出す */
+/* 上のセクション：変更なし */
 .culture_area {
   position: relative;
   z-index: 2;
   clip-path: ellipse(140% 100% at 70% 0%);
 }
 
-/* 下のセクション：背景は後ろ・重なりのため margin-top でずらす */
+/* 下のセクション：背景・clip-path・z-indexを外す → 箱を作らない */
 .recruit_area {
   position: relative;
-  z-index: 1;
+  /* z-index と clip-path を削除 */
+  background: transparent;
   margin-top: -5rem;
   padding-top: 2rem;
 }
 
-/* タイトルだけ前面に出す（culture より前） */
+/* ::before に青背景と clip-path を移す */
+.recruit_area::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: blue;
+  clip-path: ellipse(140% 100% at 20% 0%);
+  z-index: 1; /* culture(2) より低い → 背景は後ろ */
+}
+
+/* タイトルだけ culture の前に出す */
 .recruit_area .company_title {
   position: relative;
-  z-index: 3; /* culture(z:2) より大きい */
+  z-index: 3; /* culture(2) より高い → 前面に食い込む */
 }
 ```
 
 【補足】
-- セクション自体の z-index → 背景・clip-path の重なり順を決める
-- 子要素の z-index → テキスト・ボタン等を前面に出す（セクションとは別に設定できる）
-- `.company_title` を複数セクションで使っている場合 → `.recruit_area .company_title` で絞る（他のセクションに影響しない）
-- `padding-top` でコンテンツを curve の下に押し出す + z-index で前面に出す → 組み合わせで調整
+- ❌ 失敗パターン：親に `z-index: 1` + `clip-path` がある状態で子に `z-index: 3` を付けても超えられない
+- ✅ 成功パターン：親から箱を作る要因を除去 → 子と `::before` が同じ土俵に立つ
+- 同じクラスが複数セクションにある場合 → `.recruit_area .company_title` で絞る（他セクションに影響しない）
 
 【関連】→ 「親に z-index: マイナス値」で検索（マイナスz-indexがクリックをブロックする件）
+### zindex 強さの順番
+z-indexの強さや並び順は、以下のルールで決まります。
+
+### 1. 「スタッキングコンテキスト（箱）」が最優先
+*   親要素が「箱（スタッキングコンテキスト）」を作ると、その中の子要素は、どんなに大きな数字を付けても**親の箱から外に出ることはできません**。
+*   **箱を作る主な原因：**
+    *   `z-index` が `auto` 以外
+    *   `clip-path`
+    *   `opacity` が 1 未満
+    *   `transform`
+
+### 2. 同じ「箱」の中での比較
+*   同じ箱の中にいる要素同士は、`z-index` の数字が大きいほど手前（上）に来ます。
+*   数字がない場合は、HTMLに書かれた順番（後から書いたものほど手前）が優先されます。
+
+### 3. 親の壁を超えるための解決策
+子��素を親のさらに上（または下）に表示させたい場合は、以下の手順をとります。
+
+1.  **親から「箱を作る原因」を消す**
+    *   親に設定していた `z-index` や `clip-path` を削除する。
+2.  **背景や見た目を「擬似要素」に移動する**
+    *   `::before` や `::after` に背景色や `clip-path` を移し、そこで `z-index` を調整する。
+3.  **同じ土俵で戦わせる**
+    *   親が「箱」を作らなくなれば、中の子要素は他の要素と同じ基準で、`z-index` を使って自由に重ね順を決められるようになります。
+
+### まとめ：強さの優先順位
+1.  **親の「箱」の有無**（ここが一番重要。箱がある親同士の順番が優先）
+2.  **`z-index` の数値**（同じ箱の中なら大きい方が強い）
+3.  **HTMLの記述順**（`z-index` が同じなら、コードの最後にある方が手前）
+
+
+### 親セクションが下のセクションをおしさげないようにする方法は？
+### 親が下のセクションを押し下げない（重なりを調整する）方法
+
+親要素が「スタッキングコンテキスト（重なりのルールを決める箱）」を作ってしまうと、中身の子要素がどれだけ強く重なり順を指定しても、親の範囲から出られません。これを避ける手順は以下の通りです。
+
+*   **親から「箱を作る原因」を外す**
+    *   親要素に設定している `z-index`（auto以外）、`clip-path`、`opacity`（1未満）、`transform` を削除する。
+*   **背景と形を `::before` に移動する**
+    *   親に当てていた背景色や `clip-path` を、親の擬似要素 `::before` に移す。
+    *   `::before` に `z-index` を指定して、背景を適切な順位に置く。
+*   **子要素を前面に出す**
+    *   見せたい子要素（タイトルなど）に `position: relative` を付け、`z-index` を指定する。
+    *   こうすることで、親の制限を受けずに「下のセクションの背景」と「子要素」が同じ土俵で比較され、自由に重なり順を決められるようになる。
+
+#### 修正のイメージ
+```css
+/* 親：箱を作らない設定にする */
+.parent {
+  position: relative;
+  /* clip-pathやz-indexはここから消す */
+}
+
+/* 背景や形はここに移す */
+.parent::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: blue; /* 元の背景 */
+  clip-path: ...;    /* 元の形 */
+  z-index: 1;        /* 背景としての順位 */
+}
+
+/* 前に出したい子要素 */
+.child {
+  position: relative;
+  z-index: 2;        /* 親の箱に関係なく、前の要素より前に出る */
+}
+```
+
+※「箱を作る原因」は `display: flex` や `grid` でも発生する場合があるため、うまくいかない場合は親の表示設定も確認してください。
+## 📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる
+
+【日付】2026-03-06
+【結論】
+親セクションに `z-index` を付けると「スタッキングコンテキスト（箱）」が作られ、子要素の z-index はその箱の中だけで比較される（外に出られない）。
+親に `z-index` を付けなければ箱が作られず、子要素の z-index はページ全体で比較できる。
+これを利用して「背景は疑似要素（::after）に任せ、テキストだけ高い z-index で前面に出す」ことができる。
+
+【具体例】
+```css
+/*
+  構造:
+  <section .上セクション>   ← z-index: 5（前面に出したいセクション）
+  <section .下セクション>   ← z-indexなし（箱を作らない）
+    <h2 .タイトル>          ← z-index: 6（上セクションより前面）
+    ::after 疑似要素        ← z-index: -1（背景として後ろに）
+*/
+
+.上セクション {
+  position: relative;
+  z-index: 5;
+  clip-path: ellipse(140% 100% at 20% 0%); /* 楕円形に切り抜く */
+}
+
+.下セクション {
+  position: relative;
+  /* z-index を書かない！ → 箱が作られず子要素が外に出られる */
+  margin-top: -10rem; /* 上セクションに潜り込む */
+}
+
+/* 背景を疑似要素で実現 */
+.下セクション::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: beige;
+  clip-path: ellipse(...);
+  z-index: -1; /* ルートのスタッキングコンテキストで後ろへ */
+}
+
+/* テキストだけ前面へ */
+.下セクション .タイトル {
+  position: relative;
+  z-index: 6; /* 上セクション(5)より大きい → 前面に出る ✅ */
+  transform: translateY(-9rem); /* 上セクションの上に移動 */
+}
+```
+
+【補足】
+- `transform` を付けた要素は z-index なしでもスタッキングコンテキストを作る → 親の transform に注意
+- `clip-path` も同様にスタッキングコンテキストを作る
+- z-index 比較は**相対的な数値**なので、どこかを変えたら他も確認する
+- 「テキストが消えた」→ まず全セクションの z-index を書き出して比較する
+
+【関連】→「スタッキングコンテキスト」「箱の有無」で検索（z-indexの優先順位の仕組み）
+
+### 親要素のzindexを超える方法
+### 親要素のz-indexを超える方法
+
+親要素に `z-index` を指定すると、その中だけで順位が決まる「箱（スタッキングコンテキスト）」ができてしまい、外の要素より前に出せなくなります。これを避けて外に出す方法は以下の通りです。
+
+**1. 親要素に z-index を指定しない**
+*   親要素から `z-index` を外すと「箱」が作られなくなるため、子要素が自由になれます。
+
+**2. 背景は「疑似要素」に任せる**
+*   親要素の背景を `::after`（または `::before`）で作成します。
+*   疑似要素に `z-index: -1` を指定して後ろに配置すれば、親要素自体には `z-index` を指定しなくて済みます。
+
+**3. 子要素に高い z-index をつける**
+*   親が「箱」を作っていない状態で、子要素（テキストなど）に `z-index: 99` などの大きな値を指定すれば、ページ内の他の要素よりも確実に前面に出せます。
+
+**注意点（これらも「箱」を作るので注意）**
+以下のプロパティを親要素に使うと、`z-index` を書かなくても自動的に「箱」が作られ、子要素が外に出られなくなります。
+*   `transform` （移動や拡大縮小）
+*   `clip-path` （形を切り抜く）
+*   `opacity` （半透明にする：1以外）
+*   `filter` （ぼかしなど）
+*   `position: fixed` や `sticky`
+
+**解決策のコードイメージ**
+```css
+.親要素 {
+  position: relative;
+  /* z-indexは書かない */
+}
+
+.子要素 {
+  position: relative;
+  z-index: 100; /* これで親の外まで飛び出せる */
+}
+
+.親要素::after {
+  content: "";
+  position: absolute;
+  z-index: -1; /* 背景だけは一番後ろへ */
+  background: red;
+}
+```
