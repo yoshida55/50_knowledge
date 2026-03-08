@@ -8634,6 +8634,17 @@ function enqueue_script(){
 add_action('wp_enqueue_scripts', 'enqueue_script');
 ```
 
+```js
+// js/main.js
+jQuery(function($) {
+  $(".btn").on("click", function() {
+    $(this).text("クリックされた");
+  });
+});
+```
+
+`.btn` をクリックしたら文字が変わるだけの最小例。これで「WordPressでjQueryが使えているか」をすぐ確認できる。
+
 【補足】
 - `'jquery'` はWordPressが予約しているID名 → パス不要で読み込める
 - 自分のJSでjQueryを使う場合、`$deps` に `array('jquery')` を指定すると読み込み順が保証される：
@@ -8649,10 +8660,51 @@ wp_enqueue_script('my-script', get_template_directory_uri() . '/js/main.js', arr
 ```
 - 先にjQueryが読み込まれていないと `jQuery is not defined` エラーになる
 - 会社でjQuery多用 → 覚える必要あり（素のJSでも同じことはできるが、既存コードがjQueryなら合わせる）
+- `wp_enqueue_script('main', ..., array('jquery'), ...)` の第3引数は「main.js は jQuery に依存している」という宣言
+- つまり、読み込み順は `jquery → main.js` にしないといけない
+- `wp_deregister_script('jquery')` で標準jQueryを外すことはできるが、お問い合わせフォームなどのプラグインが標準jQuery前提で動いていることがあり、不具合の原因になりやすい
+- ⚠ WordPressでjQueryを使いたくないときでも、既存テーマやプラグイン依存を確認せずに外さない
+- 💡 つまり：WordPressでは「jQueryを使うなら依存指定」「使わないなら無効化の影響確認」がセット
 【関連】→ 「wp_enqueue_script」で検索（JS読み込みの書き方・引数の意味）
 【関連】→ 「wp_footer」で検索（footer.phpでJSを出力するトリガー）jQueryをワードプレスでつかいたい
 
 
+
+### wordprss でjQueryをつかう方法
+### WordPressでjQueryを使う手順
+【日付】2026-03-08
+
+*   **jQueryを読み込む**
+    `functions.php` に以下のコードを書きます。これでWordPressに標準で入っているjQueryが使えるようになります。
+
+    ```php
+    function my_enqueue_scripts() {
+        wp_enqueue_script('jquery');
+    }
+    add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
+    ```
+
+*   **自分のJavaScriptファイルで使う場合**
+    自分で書いたJSファイルでjQueryを使うときは、読み込み順が大切です。`wp_enqueue_script` の第3引数に `array('jquery')` を入れることで、「jQueryを先に読み込んでから、自分のJSを読み込む」という命令になります。
+
+    ```php
+    // 第3引数に array('jquery') を入れる
+    wp_enqueue_script('my-js', get_template_directory_uri() . '/js/main.js', array('jquery'), false, true);
+    ```
+
+*   **書き方のルール**
+    WordPressのjQueryでは `$` マークがそのまま使えない設定になっています。以下の囲み方をすることで、中身で `$` が使えるようになります。
+
+    ```javascript
+    jQuery(function($) {
+        // ここにコードを書く（$が使える）
+        $('.example').hide();
+    });
+    ```
+
+*   **ポイント**
+    *   `$` をそのまま使うと動かないので、必ず `jQuery(function($) { ... })` で囲むのがコツです。
+    *   CDNでの読み込みは不要です（WordPressがすでに入れているものを使うため）。
 ## 📌 CSS Grid で display: grid を使うと grid-template-columns で横列を定義でき、縦行は grid-template-rows で制御できる（Flexと違い縦横同時に制御可能）
 
 【日付】2026-03-05
@@ -9512,7 +9564,7 @@ add_action('wp_enqueue_scripts', 'enqueue_style');
 【関連】→ 「debug_print_backtrace」で検索（どこから呼ばれたか追跡する方法）
 
 ---
-
+ 
 ## 📌 WordPressでget_header()が何回呼ばれているか・どこから呼ばれたか調べたい → debug_print_backtrace() をheader.phpに書く
 
 【日付】2026-03-08
@@ -9562,3 +9614,151 @@ add_action('wp_enqueue_scripts', 'enqueue_style');
 ・the_posts_pagination()	archive.php（一覧ページ）	「1ページ目」「2ページ目」
 
         
+
+
+
+
+## 📌 WordPressで投稿のアーカイブページを作成する → functions.phpでURLを用意し、パーマリンク更新後に一覧テンプレートを確認する
+【日付】2026-03-08
+
+【結論】
+投稿のアーカイブページ作成は、「コードを書く」だけで終わりではないです。
+`functions.php` で一覧URLを設定し、WordPress 管理画面でパーマリンクを更新してから、`archive.php` 側で投稿一覧が出るか確認するところまでが1セットです。
+
+★ＷＥＢ上の表示は変更なし。ページの住所がかわるだけ。　つまりウェブ上の表示はかわらないが、飛び先が確定する。
+
+
+【具体例】
+```php
+/*
+  構造:
+  <functions.php>                          ← 投稿アーカイブのURL設定
+    <set_post_archive()>                   ← 通常投稿のアーカイブ設定を変更
+      <has_archive> news                   ← 一覧ページURL
+      <label> お知らせ                     ← 管理画面の表示名
+      <rewrite with_front=false>           ← URL前置きを付けない
+*/
+function set_post_archive($args, $post_type) {
+  if ('post' == $post_type) {
+    $args['rewrite'] = array('with_front' => false);
+    $args['has_archive'] = 'news';
+    $args['label'] = 'お知らせ';
+  }
+  return $args;
+}
+add_filter('register_post_type_args', 'set_post_archive', 10, 2);
+```
+
+```text
+フロー
+1. functions.php に has_archive を書く　★ルール★、function.phpで設定した、
+　　　　　　　　　　　　　　　　　　　　　　名前とheader.phpの飛び先の名前を一致させる
+　　　　　　　　　　
+2. 管理画面の「設定 → パーマリンク」で「変更を保存」を押す
+3. /news/ にアクセスして一覧ページが開くか確認する
+4. archive.php でタイトル・日付・カテゴリー・リンクを出す
+5. 必要なら the_posts_pagination() をつける
+
+※　画面のnewsへのリンクをクリックする。newにとぶ（archive.php）
+
+```
+
+【補足】
+- `has_archive = 'news'` は投稿一覧ページのURL名
+- `label = 'お知らせ'` は管理画面の表示名
+- `with_front = false` はURLの前に余計な共通文字を付けない設定
+- ⚠ `functions.php` を書き換えただけでは反映されないことがあるので、パーマリンク更新を忘れない
+- ⚠ URLが開かないときは、まず `/news/` と `archive.php` の両方を確認する
+- 💡 つまり：アーカイブページ作成は「設定を書く → パーマリンク更新 → 一覧テンプレート確認」の順で覚えると崩れにくい
+- `header.php` の `home_url('/news/')` と `functions.php` の `has_archive = 'news'` は同じ文字に合わせる必要がある
+- 片方だけ `news`、もう片方だけ別名だと、リンクは押せても正しい一覧ページに届かない
+- ⚠ `header.php` はリンク先を書く役目、`functions.php` はそのリンク先ページを成立させる役目
+- 【関連】→ 「has_archive」で検索（一覧ページURLの意味）
+- 【関連】→ 「the_posts_pagination」で検索（一覧のページ送り）
+
+## 📌 VS Codeハイライト連携のテスト → 追記後に該当行を目立たせられるか確認する
+【日付】2026-03-08
+
+【結論】
+メモ追記のあとにローカルAPIへ行番号を渡すと、VS Code側でその行をハイライトできる。
+
+【具体例】
+```text
+追記 → 見出しを再検索 → 行番号取得 → highlight-line に送信
+```
+
+【補足】
+- ⚠ 行番号は推定値ではなく、追記後の再検索結果を使う
+- 💡 つまり：保存したあとに見つけ直して飛ばすのが安全
+- 【関連】→ 「highlight-line」で検索（VS Code連携の仕組み）
+
+## TEST highlight 2026-03-08 2
+- これはハイライト連携の再テスト
+
+
+## 📌 archive.phpのthe_permalink() は single.php を直接呼ぶ関数ではない → 個別記事URLを出し、そのURLを開いたときに WordPress が single.php を選ぶ
+【日付】2026-03-08
+
+【結論】
+`the_permalink()` は `single.php` を直接実行する命令ではないです。
+役割は「その投稿の個別記事URLを出すこと」だけで、そのURLをクリックしたあとに WordPress 本体が「これは個別投稿ページ」と判断して `single.php` を使います。
+
+【具体例】
+```php
+<a href="<?php the_permalink(); ?>" class="news_item">
+```
+
+```text
+流れ
+1. archive.php で一覧ページを表示する
+2. the_permalink() が各記事のURLを出す
+3. そのURLをクリックする
+4. WordPressが個別記事ページだと判断する
+5. single.php を使って画面を表示する
+```
+
+【補足】
+- `the_permalink()` = 記事の住所を出す関数
+- `single.php` = その住所を開いたときに使われる個別記事テンプレート
+- `get_the_category()` はカテゴリー表示であって、`single.php` を呼ぶ処理ではない
+- ⚠ `include 'single.php'` のように直接書いていなくても、WordPress が裏でテンプレートを選ぶ
+- 💡 つまり：`the_permalink()` は入口、`single.php` は開いた先の画面
+- 【関連】→ 「get_the_category」で検索（カテゴリー表示の役割）
+- 【関連】→ 「archive.php」で検索（一覧ページの役割）
+
+## 📌 Codex skills の Git 運用は `.system` を触らず `memo` だけ repo と同期する → clone先は作業用、本番は `.codex\skills`
+【日付】2026-03-08
+
+【結論】
+Codex の skills は `.system` を巻き込むと危ないので、GitHub repo と `C:\Users\ユーザー名\.codex\skills` を直接同一視しないほうが安全です。
+運用は「repo は保管庫」「`.codex\skills` は本番」と分けて、今は `memo` だけをコピー上書きで同期します。
+
+【具体例】
+```text
+家PCで更新したとき
+1. C:\Users\sensh\.codex\skills\memo を修正
+2. memo フォルダを repo 側へコピー上書き
+3. repo 側で git add / commit / push
+
+
+
+
+会社PCで反映するとき
+1. 作業用フォルダにある codex-skills-repo で git pull
+2. codex-skills-repo\memo を C:\Users\guest04\.codex\skills\memo にコピー上書き
+3. Codex を再起動
+
+会社PCで更新したとき
+1. C:\Users\guest04\.codex\skills\memo を修正
+2. 修正した memo を codex-skills-repo 側へコピー上書き
+3. repo 側で git add / commit / push
+```
+
+【補足】
+- repo は保管庫、本番は `.codex\skills`
+- `.system` は Codex 標準なので Git 管理に入れない
+- ⚠ `C:\Users\...\.codex\skills` 全体をそのまま repo として扱うと、`.system` を巻き込む事故が起きやすい
+- ⚠ いまの運用では repo を pull しただけでは本番 skills は自動更新されない。`memo` フォルダのコピー上書きが必要
+- 💡 つまり：自作スキルだけ repo で管理して、本番フォルダへ必要なものだけ反映する
+- 【関連】→ 「.system」で検索（標準スキルを巻き込まない理由）
+- 【関連】→ 「highlight-line」で検索（VS Code連携の仕組み）
