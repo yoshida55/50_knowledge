@@ -3,7 +3,8 @@
     "title": "パララックス、レイヤーを重ねるときに必要なこと,",
     "line": 1544,
     "lastReviewed": 1771452970977,
-    "reviewCount": 0
+    "reviewCount": 0,
+    "aiCategory": "html"
   },
   "✅ 正しい修正方法": {
     "title": "✅ 正しい修正方法",
@@ -12,7 +13,8 @@
     "reviewCount": 0,
     "evaluations": [
       2
-    ]
+    ],
+    "aiCategory": "その他"
   },
   "隣接要素": {
     "title": "隣接要素",
@@ -21,7 +23,8 @@
     "reviewCount": 0,
     "evaluations": [
       1
-    ]
+    ],
+    "aiCategory": "html"
   },
   "fixed absolute で縦と横をやるときは、  transform: translate(-50%, -50%);　ひとつでまとめないといけない。": {
     "title": "fixed absolute で縦と横をやるときは、  transform: translate(-50%, -50%);　ひとつでまとめないといけない。",
@@ -36,7 +39,8 @@
     "reviewCount": 2,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "テスト": {
     "title": "テスト",
@@ -51,14 +55,16 @@
     "reviewCount": 0,
     "evaluations": [
       2
-    ]
+    ],
+    "aiCategory": "html"
   },
   "💡 重要ポイント": {
     "title": "💡 重要ポイント",
     "line": 192,
     "lastReviewed": 1771532047024,
     "reviewCount": 0,
-    "questionText": "`flex: 1`と`width`を両方指定した場合、どちらの命令が優先される？"
+    "questionText": "`flex: 1`と`width`を両方指定した場合、どちらの命令が優先される？",
+    "aiCategory": "その他"
   },
   "具体例": {
     "title": "具体例",
@@ -68,14 +74,16 @@
     "questionText": "JSで要素のwidth変更時に、CSSで自動的にアニメーション効果を付与する設定は何？",
     "evaluations": [
       1
-    ]
+    ],
+    "aiCategory": "その他"
   },
   "HTMLの構造": {
     "title": "HTMLの構造",
     "line": 1416,
     "lastReviewed": 1771532312809,
     "reviewCount": 0,
-    "questionText": "HTMLでロゴの箇所に、SEO対策として推奨される見出しタグはどれですか？"
+    "questionText": "HTMLでロゴの箇所に、SEO対策として推奨される見出しタグはどれですか？",
+    "aiCategory": "html"
   },
   "文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）": {
     "title": "文字を中央によせる。（ボックスを中央によせる。フォントサイズ自体をボックスにする）",
@@ -85,7 +93,8 @@
     "questionText": "HTML要素のテキストを中央に配置するには、CSSのどのプロパティを設定すればよいか？",
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "▢ 　マージンとパディングの違い": {
     "title": "▢ 　マージンとパディングの違い",
@@ -101,7 +110,8 @@
     "questionText": "サイトロゴを画像で表現する際に、HTMLのどの見出しタグで囲むのが適切ですか？",
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "JavaScriptでイベントリスナーを実行したときに動かない。": {
     "title": "JavaScriptでイベントリスナーを実行したときに動かない。",
@@ -110,7 +120,8 @@
     "reviewCount": 4,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "wordpress/php"
   },
   "親要素でFlexをかけたときに子要素の幅を指定することが可能": {
     "title": "親要素でFlexをかけたときに子要素の幅を指定することが可能",
@@ -120,7 +131,8 @@
     "evaluations": [
       2,
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "📌 パララックスのシンプルな作り方": {
     "title": "📌 パララックスのシンプルな作り方",
@@ -131,7 +143,8 @@
       2,
       1
     ],
-    "questionText": "視差効果を2層構造で実現するための「固定背景」と「スクロール前景」の基本的な作り方は？"
+    "questionText": "視差効果を2層構造で実現するための「固定背景」と「スクロール前景」の基本的な作り方は？",
+    "aiCategory": "html"
   },
   "Flex wrapや2つの列を構成する場合、以下のように作成すると良い。": {
     "title": "Flex wrapや2つの列を構成する場合、以下のように作成すると良い。",
@@ -140,7 +153,8 @@
     "reviewCount": 4,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "またそれを中間にもってきたいとき": {
     "title": "またそれを中間にもってきたいとき",
@@ -149,7 +163,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "その他"
   },
   "▢ 　以下のようにして　左右に画像と、その中にテキストを浮かびあがらせるこができる": {
     "title": "▢ 　以下のようにして　左右に画像と、その中にテキストを浮かびあがらせるこができる",
@@ -167,7 +182,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "命名ルール　規則": {
     "title": "命名ルール　規則",
@@ -186,7 +202,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "wordpress/php"
   },
   "javascriptスクロールをしても、文字が表示されない。": {
     "title": "javascriptスクロールをしても、文字が表示されない。",
@@ -196,7 +213,8 @@
     "evaluations": [
       2
     ],
-    "questionText": "JavaScriptでスクロール時に特定の要素が表示されない場合、`scrollTop()`の値が100より小さい時の`#site_title .site_title_text`要素の状態を制御するクラス操作は何？"
+    "questionText": "JavaScriptでスクロール時に特定の要素が表示されない場合、`scrollTop()`の値が100より小さい時の`#site_title .site_title_text`要素の状態を制御するクラス操作は何？",
+    "aiCategory": "wordpress/php"
   },
   "兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。": {
     "title": "兄弟要素の関係（セレクタの問題）: ~（一般兄弟結合子）は、同じ親要素を持つ兄弟間でのみ有効です。",
@@ -205,7 +223,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "分かった一番重要なこと　暗記": {
     "title": "分かった一番重要なこと　暗記",
@@ -224,7 +243,8 @@
     "evaluations": [
       2,
       1
-    ]
+    ],
+    "aiCategory": "その他"
   },
   "縦線を書きたい時、かつボックスのサイズなどとちがってボーダーライトでかけないとき。疑似要素で表示する　aaaa::after": {
     "title": "縦線を書きたい時、かつボックスのサイズなどとちがってボーダーライトでかけないとき。疑似要素で表示する　aaaa::after",
@@ -246,7 +266,8 @@
       2,
       3
     ],
-    "questionText": "画面の横幅が規定サイズを超えた場合の隠す処理に使うCSSプロパティは？"
+    "questionText": "画面の横幅が規定サイズを超えた場合の隠す処理に使うCSSプロパティは？",
+    "aiCategory": "html"
   },
   "📌 Flexboxの使い方で、片方はflex1、片方はflexなしの場合、どのような動きをするか。これは隠しメニューなどに使えるので、理解すること。とりあえず上を確保して、下に値があればその分増えていくけど、なければ上の枠で埋め尽くすというイメージ。": {
     "title": "📌 Flexboxの使い方で、片方はflex1、片方はflexなしの場合、どのような動きをするか。これは隠しメニューなどに使えるので、理解すること。とりあえず上を確保して、下に値があればその分増えていくけど、なければ上の枠で埋め尽くすというイメージ。",
@@ -257,7 +278,8 @@
       2,
       3
     ],
-    "questionText": "Flexboxで`flex: 1`を持つ子要素は、親要素の余剰空間をどのように扱いますか？"
+    "questionText": "Flexboxで`flex: 1`を持つ子要素は、親要素の余剰空間をどのように扱いますか？",
+    "aiCategory": "html"
   },
   "📌 要素取得方法の統一（querySelector推奨）": {
     "title": "📌 要素取得方法の統一（querySelector推奨）",
@@ -266,7 +288,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "📌 JavaScript関数化で重複コード削減": {
     "title": "📌 JavaScript関数化で重複コード削減",
@@ -275,7 +298,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "CSS JUMP ツール": {
     "title": "CSS JUMP ツール",
@@ -284,7 +308,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "📌 overflow: hidden と height の関係 CSS": {
     "title": "📌 overflow: hidden と height の関係 CSS",
@@ -295,7 +320,8 @@
       2,
       2
     ],
-    "questionText": "`overflow: hidden`が親要素で効果を発揮するには、どのようなCSSプロパティの指定が必須ですか？"
+    "questionText": "`overflow: hidden`が親要素で効果を発揮するには、どのようなCSSプロパティの指定が必須ですか？",
+    "aiCategory": "html"
   },
   "専門用語": {
     "title": "専門用語",
@@ -306,7 +332,8 @@
       2,
       2
     ],
-    "questionText": "UIデザインで会話形式の表示を指す「吹き出し形式」や「チャットUI」と呼ぶものは？"
+    "questionText": "UIデザインで会話形式の表示を指す「吹き出し形式」や「チャットUI」と呼ぶものは？",
+    "aiCategory": "その他"
   },
   "可変REMをつかうなら": {
     "title": "可変REMをつかうなら",
@@ -315,7 +342,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "要素を隠して特定のアクションで出力させたい場合、": {
     "title": "要素を隠して特定のアクションで出力させたい場合、",
@@ -324,7 +352,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "拡張機能": {
     "title": "拡張機能",
@@ -333,7 +362,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "��の他"
   },
   "横スクロールアニメーション（無限ループ）": {
     "title": "横スクロールアニメーション（無限ループ）",
@@ -344,7 +374,8 @@
       2,
       2
     ],
-    "questionText": "CSSで要素のクリック操作を無効化するには、どのプロパティを使用しますか？"
+    "questionText": "CSSで要素のクリック操作を無効化するには、どのプロパティを使用しますか？",
+    "aiCategory": "html"
   },
   "パララックス": {
     "title": "パララックス",
@@ -356,13 +387,15 @@
       1,
       2
     ],
-    "questionText": "`background-attachment: fixed;` が背景画像の固定以外にどのような効果を持つか？"
+    "questionText": "`background-attachment: fixed;` が背景画像の固定以外にどのような効果を持つか？",
+    "aiCategory": "html"
   },
   "相続するとき注意したいこと。": {
     "title": "相続するとき注意したいこと。",
     "line": 3192,
     "lastReviewed": 1770990085899,
-    "reviewCount": -1
+    "reviewCount": -1,
+    "aiCategory": "不動産"
   },
   "（行ごとにペアにする）": {
     "title": "（行ごとにペアにする）",
@@ -371,7 +404,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "**領域を保持したまま非表示** (`visibility: hidden`)": {
     "title": "**領域を保持したまま非表示** (`visibility: hidden`)",
@@ -381,7 +415,8 @@
     "evaluations": [
       1,
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "justify-content: space-between を使用した際は、子要素にサイズを指定できる。間のギャップは、自動！！": {
     "title": "justify-content: space-between を使用した際は、子要素にサイズを指定できる。間のギャップは、自動！！",
@@ -390,19 +425,22 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "居住用不動産の3000万円控除": {
     "title": "居住用不動産の3000万円控除",
     "line": 3206,
     "lastReviewed": 1770990363044,
-    "reviewCount": -1
+    "reviewCount": -1,
+    "aiCategory": "不動産"
   },
   "javaScript バブルソート法": {
     "title": "javaScript バブルソート法",
     "line": 2224,
     "lastReviewed": 1770990369657,
-    "reviewCount": -1
+    "reviewCount": -1,
+    "aiCategory": "wordpress/php"
   },
   "▢ ホバー時にレイアウトを崩さない「枠線」の使い分け（outline vs border）": {
     "title": "▢ ホバー時にレイアウトを崩さない「枠線」の使い分け（outline vs border）",
@@ -411,7 +449,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "📝 覚えておくこと": {
     "title": "📝 覚えておくこと",
@@ -422,7 +461,8 @@
       1,
       2
     ],
-    "questionText": "`position: fixed` と `z-index` の関係で、親要素の `z-index` がない場合に影響を受けるのは？"
+    "questionText": "`position: fixed` と `z-index` の関係で、親要素の `z-index` がない場合に影響を受けるのは？",
+    "aiCategory": "その他"
   },
   "transition: width 0.5s ease　**CSSの`transition`プロパティ**について解説": {
     "title": "transition: width 0.5s ease　**CSSの`transition`プロパティ**について解説",
@@ -442,7 +482,8 @@
     "reviewCount": -1,
     "evaluations": [
       2
-    ]
+    ],
+    "aiCategory": "その他"
   },
   "📌 アニメーションライブラリ デモ管理（Swiper等）skillsの説明": {
     "title": "📌 アニメーションライブラリ デモ管理（Swiper等）skillsの説明",
@@ -453,7 +494,8 @@
       2,
       2
     ],
-    "questionText": "アニメーションライブラリのデモを生成するコマンドは？"
+    "questionText": "アニメーションライブラリのデモを生成するコマンドは？",
+    "aiCategory": "html"
   },
   "📌 セクション高さは固定しない（height → min-height）": {
     "title": "📌 セクション高さは固定しない（height → min-height）",
@@ -462,7 +504,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "position: absolute で中央配置する方法": {
     "title": "position: absolute で中央配置する方法",
@@ -471,7 +514,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "javaScriptのオブジェクトがはいっているかを調べるには": {
     "title": "javaScriptのオブジェクトがはいっているかを調べるには",
@@ -482,7 +526,8 @@
       2,
       3
     ],
-    "questionText": "JavaScriptでオブジェクトが定義されているか確認する`typeof`演算子は、どのような値を返すか？"
+    "questionText": "JavaScriptでオブジェクトが定義されているか確認する`typeof`演算子は、どのような値を返すか？",
+    "aiCategory": "html"
   },
   "Flex 2階層(階段式)で下揃えするテクニック。かつ、左右の高さをかえる。": {
     "title": "Flex 2階層(階段式)で下揃えするテクニック。かつ、左右の高さをかえる。",
@@ -492,7 +537,8 @@
     "questionText": "Flexの2階層レイアウトで、子要素の高さが100%の場合に下揃えにならない原因は？",
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "親要素に relative をかける理由（画像へのテキスト重ね）": {
     "title": "親要素に relative をかける理由（画像へのテキスト重ね）",
@@ -501,7 +547,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "検証画面のCSS画面への遷移の仕方、計算済みタブ(Computed)画面からギャップなどをクリックする。": {
     "title": "検証画面のCSS画面への遷移の仕方、計算済みタブ(Computed)画面からギャップなどをクリックする。",
@@ -510,7 +557,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "背景コンテンツエリアの固定背景固定（パララックス風）の表示を記載したいとき前お物理エリアの背景画像分のサイズを確保したい場合、　シンプルなパララックス": {
     "title": "背景コンテンツエリアの固定背景固定（パララックス風）の表示を記載したいとき前お物理エリアの背景画像分のサイズを確保したい場合、　シンプルなパララックス",
@@ -528,7 +576,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "▢ 　 writing-mode: vertical-rl": {
     "title": "▢ 　 writing-mode: vertical-rl",
@@ -548,7 +597,8 @@
       2,
       3
     ],
-    "questionText": "メディアクエリで画面幅が375px以下の条件を指定するCSSコードは？"
+    "questionText": "メディアクエリで画面幅が375px以下の条件を指定するCSSコードは？",
+    "aiCategory": "html"
   },
   "メニューが２列あって、同じ幅でフォーマットを構築する際の計算式": {
     "title": "メニューが２列あって、同じ幅でフォーマットを構築する際の計算式",
@@ -557,7 +607,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "特定のセクションの下に同じ位置に配置したい場合は、新たにセクションの下にdivをつけることも考える。": {
     "title": "特定のセクションの下に同じ位置に配置したい場合は、新たにセクションの下にdivをつけることも考える。",
@@ -566,13 +617,15 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "先生への質問": {
     "title": "先生への質問",
     "line": 3745,
     "lastReviewed": 1771011852166,
-    "reviewCount": -1
+    "reviewCount": -1,
+    "aiCategory": "その他"
   },
   "各値の意味": {
     "title": "各値の意味",
@@ -601,7 +654,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "動きの違い": {
     "title": "動きの違い",
@@ -611,7 +665,8 @@
     "evaluations": [
       1,
       3
-    ]
+    ],
+    "aiCategory": "その他"
   },
   "フレックスボックスにするか、アブソリュートにするかの切り分け": {
     "title": "フレックスボックスにするか、アブソリュートにするかの切り分け",
@@ -620,13 +675,15 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "基本の誤解を解消": {
     "title": "基本の誤解を解消",
     "line": 3203,
     "lastReviewed": 1771012099479,
-    "reviewCount": -1
+    "reviewCount": -1,
+    "aiCategory": "その他"
   },
   "🔧 デバッグ手順": {
     "title": "🔧 デバッグ手順",
@@ -635,7 +692,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "その他"
   },
   "ライブラリのファイルを読み込む時、CDNなどはかならずjsの上に記述する。": {
     "title": "ライブラリのファイルを読み込む時、CDNなどはかならずjsの上に記述する。",
@@ -645,7 +703,8 @@
     "questionText": "ライブラリのファイルを読み込む際、CDNはどのタグの上に記述すべきですか？",
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "パディングとマージンの違い": {
     "title": "パディングとマージンの違い",
@@ -654,7 +713,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "【前提】ヘッダーを固定して、その中でロゴとメニューを左右に並べたい」という場合、以下のルールになります。（つまりfixedとフレックスボックスを併用する際にきをつけること）": {
     "title": "【前提】ヘッダーを固定して、その中でロゴとメニューを左右に並べたい」という場合、以下のルールになります。（つまりfixedとフレックスボックスを併用する際にきをつけること）",
@@ -663,7 +723,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "aタグに▢で囲むとき、paddingではなくてwidthで横幅を指定する方法": {
     "title": "aタグに▢で囲むとき、paddingではなくてwidthで横幅を指定する方法",
@@ -672,7 +733,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "📌background-image: url(\"../img/logo_omodakaya-vrt.png\");で画像が取得できない": {
     "title": "📌background-image: url(\"../img/logo_omodakaya-vrt.png\");で画像が取得できない",
@@ -681,7 +743,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "様々な flex のパターン": {
     "title": "様々な flex のパターン",
@@ -690,7 +753,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "JavaScriptなど": {
     "title": "JavaScriptなど",
@@ -700,7 +764,8 @@
     "questionText": "JavaScriptで要素にクラスを追加するために必要なクラスリストのメソッドは？",
     "evaluations": [
       2
-    ]
+    ],
+    "aiCategory": "html"
   },
   "▢ 拡張ツールの見方　暗記": {
     "title": "▢ 拡張ツールの見方　暗記",
@@ -718,7 +783,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "ポイント": {
     "title": "ポイント",
@@ -727,14 +793,16 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "使��道": {
     "title": "使��道",
     "line": 3176,
     "lastReviewed": 1771745087561,
     "reviewCount": 2,
-    "questionText": "Flexboxで親要素の幅が足りない時、子要素が元のサイズを保つ`flex-shrink`の値は？"
+    "questionText": "Flexboxで親要素の幅が足りない時、子要素が元のサイズを保つ`flex-shrink`の値は？",
+    "aiCategory": "その他"
   },
   "JavaScriptとHTMLの関係性": {
     "title": "JavaScriptとHTMLの関係性",
@@ -745,7 +813,8 @@
       2,
       3
     ],
-    "questionText": "JavaScriptはHTML要素をどのように操作できますか？"
+    "questionText": "JavaScriptはHTML要素をどのように操作できますか？",
+    "aiCategory": "wordpress/php"
   },
   "📌 ホバーで画像拡大エフェクト": {
     "title": "📌 ホバーで画像拡大エフェクト",
@@ -756,7 +825,8 @@
       1,
       2
     ],
-    "questionText": "マウスオーバーで画像拡大するエフェクトは、CSSのどのプロパティで実装しますか？"
+    "questionText": "マウスオーバーで画像拡大するエフェクトは、CSSのどのプロパティで実装しますか？",
+    "aiCategory": "html"
   },
   "CSSでの構文": {
     "title": "CSSでの構文",
@@ -765,7 +835,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "radius で ◯（丸の形の形をつくる）": {
     "title": "radius で ◯（丸の形の形をつくる）",
@@ -774,7 +845,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "width を指定して、height を auto にすると自然なかたちになる。": {
     "title": "width を指定して、height を auto にすると自然なかたちになる。",
@@ -784,7 +856,8 @@
     "evaluations": [
       2
     ],
-    "questionText": "CSSで高さを自動にするために、widthを指定するとどのような形状になるか？"
+    "questionText": "CSSで高さを自動にするために、widthを指定するとどのような形状になるか？",
+    "aiCategory": "html"
   },
   "Flexboxを利用するときは、以下でも縦中央に持ってくることができるが、基本は親Flexboxで中央に指定してあげるのがベストプラクティス。": {
     "title": "Flexboxを利用するときは、以下でも縦中央に持ってくることができるが、基本は親Flexboxで中央に指定してあげるのがベストプラクティス。",
@@ -793,7 +866,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "📌 Claude Code スキル一覧": {
     "title": "📌 Claude Code スキル一覧",
@@ -802,7 +876,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "その他"
   },
   "実際の画面を模写する場合。": {
     "title": "実際の画面を模写する場合。",
@@ -811,7 +886,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "その他"
   },
   "📌 particles.js の基本構成 ライブラリからスライドなどの実装をする場合（星座のような背景）": {
     "title": "📌 particles.js の基本構成 ライブラリからスライドなどの実装をする場合（星座のような背景）",
@@ -821,7 +897,8 @@
     "evaluations": [
       2
     ],
-    "questionText": "particles.js を使った背景実装は、CDN読込・要素準備・particlesJS()初期化の何ステップで完了しますか？"
+    "questionText": "particles.js を使った背景実装は、CDN読込・要素準備・particlesJS()初期化の何ステップで完了しますか？",
+    "aiCategory": "html"
   },
   "display: inline-flex の場合": {
     "title": "display: inline-flex の場合",
@@ -830,7 +907,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "▢ 　うっかりミス": {
     "title": "▢ 　うっかりミス",
@@ -845,7 +923,8 @@
     "title": "軽減税率の特例不動産",
     "line": 3154,
     "lastReviewed": 1771118604572,
-    "reviewCount": -1
+    "reviewCount": -1,
+    "aiCategory": "不動産"
   },
   "すでにあるものを移動する": {
     "title": "すでにあるものを移動する",
@@ -854,7 +933,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "その他"
   },
   "JavaScript が正しく動作しません。新しいライブラリを追加したものの動作しないのはなぜでしょうか。": {
     "title": "JavaScript が正しく動作しません。新しいライブラリを追加したものの動作しないのはなぜでしょうか。",
@@ -864,7 +944,8 @@
     "evaluations": [
       2
     ],
-    "questionText": "JavaScriptライブラリを機能させるためにscriptタグで囲むべきものは？"
+    "questionText": "JavaScriptライブラリを機能させるためにscriptタグで囲むべきものは？",
+    "aiCategory": "html"
   },
   "仕組み": {
     "title": "仕組み",
@@ -875,7 +956,8 @@
       2,
       2
     ],
-    "questionText": "CSSで指定された横幅のアニメーションが完了するまでの時間は？"
+    "questionText": "CSSで指定された横幅のアニメーションが完了するまでの時間は？",
+    "aiCategory": "その他"
   },
   "フレックスの子要素は画像などのもとサイズより小さくならない。例えば画像など大きいサイズをうめるときに、想定した配置にならないときは、": {
     "title": "フレックスの子要素は画像などのもとサイズより小さくならない。例えば画像など大きいサイズをうめるときに、想定した配置にならないときは、",
@@ -886,7 +968,8 @@
       1,
       2
     ],
-    "questionText": "Flexboxで子要素が親要素より小さくならない問題を解決するには？"
+    "questionText": "Flexboxで子要素が親要素より小さくならない問題を解決するには？",
+    "aiCategory": "html"
   },
   "videoなど画像を使う際は、 比率を保ってトリミングするために、heightとwidthを指定した上で、object-fit: cover;を利用する": {
     "title": "videoなど画像を使う際は、 比率を保ってトリミングするために、heightとwidthを指定した上で、object-fit: cover;を利用する",
@@ -895,7 +978,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "幅がひろいwidthを文字は文字幅にあわせる": {
     "title": "幅がひろいwidthを文字は文字幅にあわせる",
@@ -904,7 +988,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "スライダーについて。３つの画面の一緒に画面に表示、": {
     "title": "スライダーについて。３つの画面の一緒に画面に表示、",
@@ -914,7 +999,8 @@
     "evaluations": [
       2
     ],
-    "questionText": "JavaScriptでスライダーに常に3つの画像を表示するには、`slidesToShow`の値をいくつに設定しますか？"
+    "questionText": "JavaScriptでスライダーに常に3つの画像を表示するには、`slidesToShow`の値をいくつに設定しますか？",
+    "aiCategory": "html"
   },
   "正確な説明": {
     "title": "正確な説明",
@@ -923,7 +1009,8 @@
     "reviewCount": 1,
     "evaluations": [
       2
-    ]
+    ],
+    "aiCategory": "その他"
   },
   "アニメーションの付け方　後ろに吸い込まれるような": {
     "title": "アニメーションの付け方　後ろに吸い込まれるような",
@@ -941,7 +1028,8 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "aiCategory": "html"
   },
   "このCSSコードは、**Flexboxコンテナの子要素を縦方向（交差軸方向）に引き伸ばして、コンテナの高さいっぱいに広げる**設定です。": {
     "title": "このCSSコードは、**Flexboxコンテナの子要素を縦方向（交差軸方向）に引き伸ばして、コンテナの高さいっぱいに広げる**設定です。",
@@ -950,7 +1038,8 @@
     "reviewCount": 1,
     "evaluations": [
       2
-    ]
+    ],
+    "aiCategory": "html"
   },
   "📌 WordPressの while(have_posts()) は「ループ」ではなく「the_post()を呼ぶための作法」（single.phpでも1回だけ回る）": {
     "title": "📌 WordPressの while(have_posts()) は「ループ」ではなく「the_post()を呼ぶための作法」（single.phpでも1回だけ回る）",
@@ -963,14 +1052,16 @@
       2,
       2,
       2
-    ]
+    ],
+    "aiCategory": "wordpress/php"
   },
   "the_titleってなに": {
     "title": "the_titleってなに",
     "line": 9329,
     "lastReviewed": 1772946155841,
     "reviewCount": 1,
-    "questionText": "WordPressのループ内で現在処理中の記事タイトルを表示する関数は？"
+    "questionText": "WordPressのループ内で現在処理中の記事タイトルを表示する関数は？",
+    "aiCategory": "wordpress/php"
   },
   "📌 WordPressでCSSファイルを作っても反映されない → functions.phpに wp_enqueue_style() を登録していないから": {
     "title": "📌 WordPressでCSSファイルを作っても反映されない → functions.phpに wp_enqueue_style() を登録していないから",
@@ -980,7 +1071,8 @@
     "questionText": "WordPressで作成したCSSファイルを正しく読み込むためにfunctions.phpへ記述する関数は何？",
     "evaluations": [
       2
-    ]
+    ],
+    "aiCategory": "wordpress/php"
   },
   "ページネーションとは　<?php the_post_navigation(); ?>": {
     "title": "ページネーションとは　<?php the_post_navigation(); ?>",
@@ -1006,7 +1098,8 @@
     "questionText": "PHPで関数がどこから呼び出されたかを表示するデバッグ関数は？",
     "evaluations": [
       1
-    ]
+    ],
+    "aiCategory": "wordpress/php"
   },
   "📌 WordPressで今どのPHPファイルが動いているか確認したい → basename(__FILE__) をechoする（デバッグログの基本）": {
     "title": "📌 WordPressで今どのPHPファイルが動いているか確認したい → basename(__FILE__) をechoする（デバッグログの基本）",
@@ -1016,12 +1109,2348 @@
     "questionText": "PHPで現在実行中のファイル名のみを取得し出力する際に使用する関数と定数の組み合わせは？",
     "evaluations": [
       2
+    ],
+    "aiCategory": "wordpress/php"
+  },
+  "WordPressのページは2種類ある": {
+    "title": "WordPressのページは2種類ある",
+    "line": 7903,
+    "lastReviewed": 1772986211523,
+    "reviewCount": 1,
+    "questionText": "WordPressにおいて、会社概要などの変わらない情報を掲載するページの種類は何？",
+    "evaluations": [
+      2
+    ],
+    "aiCategory": "wordpress/php"
+  },
+  "なぜ 100vh で画面いっぱいなのに min-height 100vh があるか。": {
+    "title": "なぜ 100vh で画面いっぱいなのに min-height 100vh があるか。",
+    "line": 1512,
+    "lastReviewed": 1772986752733,
+    "reviewCount": 1,
+    "questionText": "画面サイズに合わせて背景を途切れさせず高さを可変させるCSSプロパティは？",
+    "evaluations": [
+      2
+    ],
+    "aiCategory": "html"
+  },
+  "📌 `要素.style.transform` でJSからCSSを直接操作できる（CSSプロパティはキャメルケースに変換）": {
+    "title": "📌 `要素.style.transform` でJSからCSSを直接操作できる（CSSプロパティはキャメルケースに変換）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 CSSセレクタ `~` で兄弟選択 → スペースで子孫に降りる（jQueryの nextAll + find と同じ発想）": {
+    "title": "📌 CSSセレクタ `~` で兄弟選択 → スペースで子孫に降りる（jQueryの nextAll + find と同じ発想）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）": {
+    "title": "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）": {
+    "title": "📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 JSでアロー関数の`this`はwindowになる（e.targetを使え）": {
+    "title": "📌 JSでアロー関数の`this`はwindowになる（e.targetを使え）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 querySelectorAllで複数要素にイベントをつける（forEachが必要）": {
+    "title": "📌 querySelectorAllで複数要素にイベントをつける（forEachが必要）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 flex-shrink: 0 はスライダーに必須（カードが縮まないようにする）": {
+    "title": "📌 flex-shrink: 0 はスライダーに必須（カードが縮まないようにする）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "★ アニメーション一覧": {
+    "title": "★ アニメーション一覧",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "スクロール・フェードイン": {
+    "title": "スクロール・フェードイン",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "スライダー・スライドショー": {
+    "title": "スライダー・スライドショー",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "テキスト・文字系": {
+    "title": "テキスト・文字系",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "インタラクション（メニュー・開閉）": {
+    "title": "インタラクション（メニュー・開閉）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "画像・レイアウト": {
+    "title": "画像・レイアウト",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "視覚効果": {
+    "title": "視覚効果",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 スキル: `/mockup` - スクショからSVG設計図を生成する": {
+    "title": "📌 スキル: `/mockup` - スクショからSVG設計図を生成する",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "📌 HTML ハンバーガーメニューは `<button>` タグを使う": {
+    "title": "📌 HTML ハンバーガーメニューは `<button>` タグを使う",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "buttonタグに遷移先設定できるの？": {
+    "title": "buttonタグに遷移先設定できるの？",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "1. aタグを使う方法��推奨）": {
+    "title": "1. aタグを使う方法��推奨）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "2. JavaScriptを使う方法": {
+    "title": "2. JavaScriptを使う方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "3. formタグを使う方法": {
+    "title": "3. formタグを使う方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 CSS 親に transform（アニメーション含む）があると position: fixed が壊れる": {
+    "title": "📌 CSS 親に transform（アニメーション含む）があると position: fixed が壊れる",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 CSS Flexbox で要素内を中央配置する鉄板パターン": {
+    "title": "📌 CSS Flexbox で要素内を中央配置する鉄板パターン",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "テスト問題": {
+    "title": "テスト問題",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "📌 jQuery の `$(function(){})` - HTMLが読み込まれた後に実行されるルール jquery": {
+    "title": "📌 jQuery の `$(function(){})` - HTMLが読み込まれた後に実行されるルール jquery",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 jQuery の `.on(\"click\", function(){})` はイベントリスナー jquery": {
+    "title": "📌 jQuery の `.on(\"click\", function(){})` はイベントリスナー jquery",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "ul li メニューの作り方": {
+    "title": "ul li メニューの作り方",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "1. ロゴと見出し": {
+    "title": "1. ロゴと見出し",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "2. 日付とお知らせ / メニュー (dl, dt, dd)": {
+    "title": "2. 日付とお知らせ / メニュー (dl, dt, dd)",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "3. 見出しと詳細説明 (h2 + p)": {
+    "title": "3. 見出しと詳細説明 (h2 + p)",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "4. ナビゲーション (nav)": {
+    "title": "4. ナビゲーション (nav)",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "分かった一番重要なこと 暗記": {
+    "title": "分かった一番重要なこと 暗記",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "▢ 拡張ツールの見方 暗記": {
+    "title": "▢ 拡張ツールの見方 暗記",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "▢ 手書きの図形の書き方": {
+    "title": "▢ 手書きの図形の書き方",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "▢ パディング のかけかた": {
+    "title": "▢ パディング のかけかた",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "▢ writing-mode: vertical-rl": {
+    "title": "▢ writing-mode: vertical-rl",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "▢ うっかりミス": {
+    "title": "▢ うっかりミス",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "▢ 以下のようにして 左右に画像と、その中にテキストを浮かびあがらせるこができる": {
+    "title": "▢ 以下のようにして 左右に画像と、その中にテキストを浮かびあがらせるこができる",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "Flexbox で両端揃え + 隙間を作る space between ですき間をつくることができる": {
+    "title": "Flexbox で両端揃え + 隙間を作る space between ですき間をつくることができる",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "問題点 width が指定されたボックスが中央寄せされていなかった（inline 要素も中央寄せされない）": {
+    "title": "問題点 width が指定されたボックスが中央寄せされていなかった（inline 要素も中央寄せされない）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "原因": {
+    "title": "原因",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "解決策": {
+    "title": "解決策",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "height の使い分け": {
+    "title": "height の使い分け",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "普通の画像（<img>タグ）": {
+    "title": "普通の画像（<img>タグ）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "■ Fashion セクション(画像を背景に、なかにテキストを重ね書きする)の作り方": {
+    "title": "■ Fashion セクション(画像を背景に、なかにテキストを重ね書きする)の作り方",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "NG：<img>タグで画像を入れる": {
+    "title": "NG：<img>タグで画像を入れる",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "OK：CSS で背景画像にする": {
+    "title": "OK：CSS で背景画像にする",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "NG：Flexbox で均等配置": {
+    "title": "NG：Flexbox で均等配置",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "OK：text-align: center": {
+    "title": "OK：text-align: center",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "Q: 要素の中の文字を左に配置する": {
+    "title": "Q: 要素の中の文字を左に配置する",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "OK：text-align: left": {
+    "title": "OK：text-align: left",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "■ 覚えておくこと": {
+    "title": "■ 覚えておくこと",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "シンプルに背景を画像にして、なかに文字をれいれる方法": {
+    "title": "シンプルに背景を画像にして、なかに文字をれいれる方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "absolute で画面の中央にもってくる translateY relative リラティブ アブソリュート": {
+    "title": "absolute で画面の中央にもってくる translateY relative リラティブ アブソリュート",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "h2 の使い方": {
+    "title": "h2 の使い方",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "本体自体を動かすときは、これをすれば、margin bottom や padding": {
+    "title": "本体自体を動かすときは、これをすれば、margin bottom や padding",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "テキストなどの幅をサイズに丁度にボックスを調整する": {
+    "title": "テキストなどの幅をサイズに丁度にボックスを調整する",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "どういうこと？": {
+    "title": "どういうこと？",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "具体的な動き": {
+    "title": "具体的な動き",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "どんな時に使う？": {
+    "title": "どんな時に使う？",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "1. **パララックス効果**": {
+    "title": "1. **パララックス効果**",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "2. **ヘッダー画像の演出**": {
+    "title": "2. **ヘッダー画像の演出**",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "3. **セクション区切り**": {
+    "title": "3. **セクション区切り**",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "★もし画面の途中で固定をいれたい場合 パララックス": {
+    "title": "★もし画面の途中で固定をいれたい場合 パララックス",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "1. **`background-attachment: fixed;` を使う場合**": {
+    "title": "1. **`background-attachment: fixed;` を使う場合**",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "2. **JavaScriptでスクロール連動させる**": {
+    "title": "2. **JavaScriptでスクロール連動させる**",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "パララックス効果（視差効果）を実装する際に、背景画像をわざと大きく表示（ズームアップ）させている設定です。": {
+    "title": "パララックス効果（視差効果）を実装する際に、背景画像をわざと大きく表示（ズームアップ）させている設定です。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "「文字の上下にある『見えない余白』を限界まで削る」": {
+    "title": "「文字の上下にある『見えない余白』を限界まで削る」",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "AI に確認する際の注意事項": {
+    "title": "AI に確認する際の注意事項",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "サイドメニューーから header メニューに変更する": {
+    "title": "サイドメニューーから header メニューに変更する",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "固定サイドバーをけす。": {
+    "title": "固定サイドバーをけす。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "三角形の図形の作り方": {
+    "title": "三角形の図形の作り方",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "三角形を表示する方法": {
+    "title": "三角形を表示する方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "トップの画面を固定にして、その下のセクションをスクロールするときに、裏の画面をのこして、重ねて表示させる。 詳細は ./その他/疑問・ソーステストあり md を参照": {
+    "title": "トップの画面を固定にして、その下のセクションをスクロールするときに、裏の画面をのこして、重ねて表示させる。 詳細は ./その他/疑問・ソーステストあり md を参照",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "命名ルール 規則": {
+    "title": "命名ルール 規則",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "ショートカットキー ホットキー": {
+    "title": "ショートカットキー ホットキー",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "🛠 問題と解決方法": {
+    "title": "🛠 問題と解決方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "問題 2: ブラウザ幅を狭めてもハンバーガーメニューが表示されない": {
+    "title": "問題 2: ブラウザ幅を狭めてもハンバーガーメニューが表示されない",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "左右 に枠やマージンやパディングがあって、中央のボックス（width）のサイズをセットしたいとき。": {
+    "title": "左右 に枠やマージンやパディングがあって、中央のボックス（width）のサイズをセットしたいとき。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "背景コンテンツエリアの固定背景固定（パララックス風）の表示を記載したいとき前お物理エリアの背景画像分のサイズを確保したい場合、 シンプルなパララックス": {
+    "title": "背景コンテンツエリアの固定背景固定（パララックス風）の表示を記載したいとき前お物理エリアの背景画像分のサイズを確保したい場合、 シンプルなパララックス",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "position: fixed はrelativeも兼ねる。つまり、子で Absoluteが指定できる。": {
+    "title": "position: fixed はrelativeも兼ねる。つまり、子で Absoluteが指定できる。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📊 fixed vs absolute の違い": {
+    "title": "📊 fixed vs absolute の違い",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "💡 使い分け": {
+    "title": "💡 使い分け",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "サイドバーのメニューの文字列が文字幅だけじゃなくて、文字幅＋残りの余白ありでクリックできてしまう場合": {
+    "title": "サイドバーのメニューの文字列が文字幅だけじゃなくて、文字幅＋残りの余白ありでクリックできてしまう場合",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "`align-items: flex-start`（現在の設定）": {
+    "title": "`align-items: flex-start`（現在の設定）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "`align-items: stretch`（デフォルト値）": {
+    "title": "`align-items: stretch`（デフォルト値）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "オーバーレイ、黒いマスクのつけ方": {
+    "title": "オーバーレイ、黒いマスクのつけ方",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "住所は<address>タグで囲む": {
+    "title": "住所は<address>タグで囲む",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "どこを今作業しているか迷うことがあるので、その時には画面、「CSS・画面・HTML!」でリンクを辿ることにする。": {
+    "title": "どこを今作業しているか迷うことがあるので、その時には画面、「CSS・画面・HTML!」でリンクを辿ることにする。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "CSSにクラスを書くときは補完(サジェスト)を利用する。クラス名をコピーして、エンターを押して、上のクラス名にまたカーソルを戻す。": {
+    "title": "CSSにクラスを書くときは補完(サジェスト)を利用する。クラス名をコピーして、エンターを押して、上のクラス名にまたカーソルを戻す。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "📌 transitionの第1引数は「変化させたいCSSプロパティ名」（自由な名前ではない）": {
+    "title": "📌 transitionの第1引数は「変化させたいCSSプロパティ名」（自由な名前ではない）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "transition: width 0.5s ease **CSSの`transition`プロパティ**について解説": {
+    "title": "transition: width 0.5s ease **CSSの`transition`プロパティ**について解説",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 よくある症状": {
+    "title": "📌 よくある症状",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "🔍 原因パターン": {
+    "title": "🔍 原因パターン",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "パターン1：親にz-indexがない": {
+    "title": "パターン1：親にz-indexがない",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "パターン2：fixedの親子関係": {
+    "title": "パターン2：fixedの親子関係",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "パターン3：位置が画面外": {
+    "title": "パターン3：位置が画面外",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "1. 親にz-indexを追加": {
+    "title": "1. 親にz-indexを追加",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "2. z-index値の目安": {
+    "title": "2. z-index値の目安",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "3. pointer-eventsも併用（推奨）": {
+    "title": "3. pointer-eventsも併用（推奨）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "1. DevToolsで確認": {
+    "title": "1. DevToolsで確認",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "2. チェックリスト": {
+    "title": "2. チェックリスト",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "実務（コーディング）着手前の準備・手順": {
+    "title": "実務（コーディング）着手前の準備・手順",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "1. 【現状分析】デザインカンプの把握": {
+    "title": "1. 【現状分析】デザインカンプの把握",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "2. 【タスク管理】仕様のチェックリスト化": {
+    "title": "2. 【タスク管理】仕様のチェックリスト化",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "3. 【AI・効率化】ツールの活用": {
+    "title": "3. 【AI・効率化】ツールの活用",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "5. 【設計ルール】レイアウト設計": {
+    "title": "5. 【設計ルール】レイアウト設計",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "構文 プロパティ ロジック": {
+    "title": "構文 プロパティ ロジック",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "grid（flexも同様）でレイアウトすると、３列などサイズがきまっている。その場合、画像で固定サイズ指定する（固い箱のようなもの,rem通りにうまく動作しない）と、３列の幅いにあわずくずれることがある。そのため画像は％で指定するとよい。％なら、問題なく動作する。": {
+    "title": "grid（flexも同様）でレイアウトすると、３列などサイズがきまっている。その場合、画像で固定サイズ指定する（固い箱のようなもの,rem通りにうまく動作しない）と、３列の幅いにあわずくずれることがある。そのため画像は％で指定するとよい。％なら、問題なく動作する。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 画像に width: 20rem; height: 30rem; と両方固定すると変形する → aspect-ratio + object-fit: cover で解決": {
+    "title": "📌 画像に width: 20rem; height: 30rem; と両方固定すると変形する → aspect-ratio + object-fit: cover で解決",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 ★画像をデザインカンプ通りのサイズにしたい → width: Xrem; height: Xrem; + object-fit: cover →もし特にしていなく、バラン重視なら、width XXX height auto ratioできめる（aspect-ratioは不要）": {
+    "title": "📌 ★画像をデザインカンプ通りのサイズにしたい → width: Xrem; height: Xrem; + object-fit: cover →もし特にしていなく、バラン重視なら、width XXX height auto ratioできめる（aspect-ratioは不要）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "fixed absolute で縦と横をやるときは、 transform: translate(-50%, -50%); ひとつでまとめないといけない。": {
+    "title": "fixed absolute で縦と横をやるときは、 transform: translate(-50%, -50%); ひとつでまとめないといけない。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "<span>は「文の中の一部分だけ色を変えたい」みたいな時に使うものだよ。": {
+    "title": "<span>は「文の中の一部分だけ色を変えたい」みたいな時に使うものだよ。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "<section class=\"about_area container_section\">": {
+    "title": "<section class=\"about_area container_section\">",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "アニメーションの付け方 後ろに吸い込まれるような": {
+    "title": "アニメーションの付け方 後ろに吸い込まれるような",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "要素の中の文字の高さを調整する": {
+    "title": "要素の中の文字の高さを調整する",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "検証ツールの味方": {
+    "title": "検証ツールの味方",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "なぜなにもないところでパディングをするか。親にパディングをすることで全体にかかるので一元管理できるのと、グリッドやカード系のレイアウトでは親にパディングするのはほぼ定番パターンです。": {
+    "title": "なぜなにもないところでパディングをするか。親にパディングをすることで全体にかかるので一元管理できるのと、グリッドやカード系のレイアウトでは親にパディングするのはほぼ定番パターンです。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "画像がない場合は、WEBをひらいて、「新しいtabで画像を開く」でやるとURLでわかる。「https://omodakaya.jp/wp/wp-content/uploads/2026/02/%E3%81%82_%E8%83%8C%E6%99%AF%E3%81%AA%E3%81%97.png」このように wp-contentなどあればワードプレスの画像": {
+    "title": "画像がない場合は、WEBをひらいて、「新しいtabで画像を開く」でやるとURLでわかる。「https://omodakaya.jp/wp/wp-content/uploads/2026/02/%E3%81%82_%E8%83%8C%E6%99%AF%E3%81%AA%E3%81%97.png」このように wp-contentなどあればワードプレスの画像",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "縦線を書きたい時、かつボックスのサイズなどとちがってボーダーライトでかけないとき。疑似要素で表示する aaaa::after": {
+    "title": "縦線を書きたい時、かつボックスのサイズなどとちがってボーダーライトでかけないとき。疑似要素で表示する aaaa::after",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "display:inline_flexと display:blockの違い。": {
+    "title": "display:inline_flexと display:blockの違い。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "display: block の場合": {
+    "title": "display: block の場合",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "flexboxとabsoluteの使い分け": {
+    "title": "flexboxとabsoluteの使い分け",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "要素のなかの矢印などを縦中央、横中央にもってくる 子要素がなくても大丈夫。": {
+    "title": "要素のなかの矢印などを縦中央、横中央にもってくる 子要素がなくても大丈夫。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "インライン要素をインライン要素やテーブルセルの垂直方向の配置を指定するCSSプロパティ": {
+    "title": "インライン要素をインライン要素やテーブルセルの垂直方向の配置を指定するCSSプロパティ",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "AIへのコメントの指示：CSSにコメントを書いてもらうとき": {
+    "title": "AIへのコメントの指示：CSSにコメントを書いてもらうとき",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "3000万円控除": {
+    "title": "3000万円控除",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "不動産"
+  },
+  "相続税不動産": {
+    "title": "相続税不動産",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "不動産"
+  },
+  "誰が相続すべきか": {
+    "title": "誰が相続すべきか",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "不動産"
+  },
+  "結論": {
+    "title": "結論",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "flex-shrink: 0;の説明": {
+    "title": "flex-shrink: 0;の説明",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "意味": {
+    "title": "意味",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "📌 パララックス position: fixed と子要素の関係": {
+    "title": "📌 パララックス position: fixed と子要素の関係",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "Claudecodeのスキルズへの追加方法": {
+    "title": "Claudecodeのスキルズへの追加方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "パララックスで背景の画像の上のレイヤーがかさならないようにするする方法？初期表示": {
+    "title": "パララックスで背景の画像の上のレイヤーがかさならないようにするする方法？初期表示",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "コード例": {
+    "title": "コード例",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "📌 javaScriptでボタンを追加した際に、ループでそれぞれのボタンを追加した際に、アドイベントリスナーをつけても、該当のボタンがおせない。イベントが発火しない。": {
+    "title": "📌 javaScriptでボタンを追加した際に、ループでそれぞれのボタンを追加した際に、アドイベントリスナーをつけても、該当のボタンがおせない。イベントが発火しない。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 clamp() が効かないときのデバッグ手順（2026-02-26）": {
+    "title": "📌 clamp() が効かないときのデバッグ手順（2026-02-26）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 clamp() は font-size 以外にも使える（padding, gap, margin 等すべてのサイズ系プロパティ）": {
+    "title": "📌 clamp() は font-size 以外にも使える（padding, gap, margin 等すべてのサイズ系プロパティ）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 rem 指定で大画面の膨張を防ぐ方法（4つの選択肢）": {
+    "title": "📌 rem 指定で大画面の膨張を防ぐ方法（4つの選択肢）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "JavaScriptなどでオープンメニューなどのクラスを追加した際に他のクラスを操作する。": {
+    "title": "JavaScriptなどでオープンメニューなどのクラスを追加した際に他のクラスを操作する。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "正しい点": {
+    "title": "正しい点",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "不正確な点": {
+    "title": "不正確な点",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "「~で一回親を経由する」は**誤り**": {
+    "title": "「~で一回親を経由する」は**誤り**",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 ハンバーガーメニュー 兄弟セレクタ（~）でサブメニュー画面表示": {
+    "title": "📌 ハンバーガーメニュー 兄弟セレクタ（~）でサブメニュー画面表示",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "動画の入れかた": {
+    "title": "動画の入れかた",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 検証ツールのフレックスボックスの見方、要素、スタイルなどを駆使してフレックスボックスを理解 特に、親spacebetweenで子がflex1の場合": {
+    "title": "📌 検証ツールのフレックスボックスの見方、要素、スタイルなどを駆使してフレックスボックスを理解 特に、親spacebetweenで子がflex1の場合",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "表示と非表示にはいくつか種類があって、HTMLやCSSには以下のようなプロパティがある": {
+    "title": "表示と非表示にはいくつか種類があって、HTMLやCSSには以下のようなプロパティがある",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "**レイアウトから削除** (`display: none`)": {
+    "title": "**レイアウトから削除** (`display: none`)",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "視覚的なイメージ": {
+    "title": "視覚的なイメージ",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "📌 CSS変数で繰り返し計算を共通化": {
+    "title": "📌 CSS変数で繰り返し計算を共通化",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "メディアクエリ内で当たり前のように設定しているのに、うまくいかない場合、おおもとのPCを崩している可能性があるのでチェックすること": {
+    "title": "メディアクエリ内で当たり前のように設定しているのに、うまくいかない場合、おおもとのPCを崩している可能性があるのでチェックすること",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "PCのＣＳＳを、left 50rem などを取り消して メディアクエリでright 1remとかに修正したい場合、left:autoに設定する": {
+    "title": "PCのＣＳＳを、left 50rem などを取り消して メディアクエリでright 1remとかに修正したい場合、left:autoに設定する",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 CSS変数とメディアクエリでレスポンシブ余白管理": {
+    "title": "📌 CSS変数とメディアクエリでレスポンシブ余白管理",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "🎯 スクロールアニメーション ()": {
+    "title": "🎯 スクロールアニメーション ()",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📊 の意味": {
+    "title": "📊 の意味",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "🔍 値の変化": {
+    "title": "🔍 値の変化",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "✅ 判定条件": {
+    "title": "✅ 判定条件",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "📌 重要な値": {
+    "title": "📌 重要な値",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "🎬 動作イメージ": {
+    "title": "🎬 動作イメージ",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "💡 デモファイル": {
+    "title": "💡 デモファイル",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "📌 メディアクエリで margin を消す方法": {
+    "title": "📌 メディアクエリで margin を消す方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "画面幅一杯にひろげたいときwidth100％でもできないとき": {
+    "title": "画面幅一杯にひろげたいときwidth100％でもできないとき",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 list-style: none が効かない": {
+    "title": "📌 list-style: none が効かない",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  ".共通クラス:nth-child(2) {display: none;}ここを消すと2つのリンクが消えるんだけど、なぜだろう？ 共通クラスを複数に作成するとdisplay none ネストで対応する 配列ではなく": {
+    "title": ".共通クラス:nth-child(2) {display: none;}ここを消すと2つのリンクが消えるんだけど、なぜだろう？ 共通クラスを複数に作成するとdisplay none ネストで対応する 配列ではなく",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 同じクラスが複数ある場合の対処法 CSS": {
+    "title": "📌 同じクラスが複数ある場合の対処法 CSS",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "jQueryの拡張機能セットアップ": {
+    "title": "jQueryの拡張機能セットアップ",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "jQuery 構文": {
+    "title": "jQuery 構文",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "アコーディオンメニューの作り方": {
+    "title": "アコーディオンメニューの作り方",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "1. `/snippet` - コードスニペット保存（memo.md連携版）": {
+    "title": "1. `/snippet` - コードスニペット保存（memo.md連携版）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "2. `/memo-format` - 学習メモ作成": {
+    "title": "2. `/memo-format` - 学習メモ作成",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "3. `/animation-library-snippet` - アニメーションライブラリ デモ生成": {
+    "title": "3. `/animation-library-snippet` - アニメーションライブラリ デモ生成",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "4. `/class-auto` - クラス名自動付与": {
+    "title": "4. `/class-auto` - クラス名自動付与",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "5. `/section-auto` - セクション名自動提案": {
+    "title": "5. `/section-auto` - セクション名自動提案",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "6. `/review-css` - HTML/CSSコードレビュー ✅ 2026-02-19追加": {
+    "title": "6. `/review-css` - HTML/CSSコードレビュー ✅ 2026-02-19追加",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "7. `/auto-skeleton` - CSSスケルトン自動生成 ✅ 2026-02-20追加": {
+    "title": "7. `/auto-skeleton` - CSSスケルトン自動生成 ✅ 2026-02-20追加",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "8. `/auto-clean` - 提出前クリーンアップ ✅ 2026-02-20追加": {
+    "title": "8. `/auto-clean` - 提出前クリーンアップ ✅ 2026-02-20追加",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "メモ：jQuery画像切り替えギャラリー実装のポイント・イメージ・下に４つの小さな画像があって、クリックすると上の大きな画像に切り替える": {
+    "title": "メモ：jQuery画像切り替えギャラリー実装のポイント・イメージ・下に４つの小さな画像があって、クリックすると上の大きな画像に切り替える",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "フィードインする。下から上に、画面スクロールで該当の要素にきたら": {
+    "title": "フィードインする。下から上に、画面スクロールで該当の要素にきたら",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "文字が上から下に徐々に現れてくるアニメーション": {
+    "title": "文字が上から下に徐々に現れてくるアニメーション",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "clip-pathプロパティのinset関数について": {
+    "title": "clip-pathプロパティのinset関数について",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "Q: クリップとは": {
+    "title": "Q: クリップとは",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "基本的な動作": {
+    "title": "基本的な動作",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "構文例": {
+    "title": "構文例",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "具体的な使用例": {
+    "title": "具体的な使用例",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "追加機能": {
+    "title": "追加機能",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "利点": {
+    "title": "利点",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "clip-pathプロパティのinset()関数について": {
+    "title": "clip-pathプロパティのinset()関数について",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "inset()の値の指定方法": {
+    "title": "inset()の値の指定方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "値の省略パターン": {
+    "title": "値の省略パターン",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "round キーワード": {
+    "title": "round キーワード",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "用途": {
+    "title": "用途",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 セマンティックHTML：ヘッダー構造の改善": {
+    "title": "📌 セマンティックHTML：ヘッダー構造の改善",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 100svh vs 100vh（ビューポート高さの単位）": {
+    "title": "📌 100svh vs 100vh（ビューポート高さの単位）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 ドロップダウンアニメーション（上から降りてくる）": {
+    "title": "📌 ドロップダウンアニメーション（上から降りてくる）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "例え": {
+    "title": "例え",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "なぜ分ける？": {
+    "title": "なぜ分ける？",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "📌 animation-delayで時間差アニメーション": {
+    "title": "📌 animation-delayで時間差アニメーション",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 clip-path insetの方向（リビール方向の制御）": {
+    "title": "📌 clip-path insetの方向（リビール方向の制御）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 VS Code Tab Moves Focus問題": {
+    "title": "📌 VS Code Tab Moves Focus問題",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "作成したツール一覧": {
+    "title": "作成したツール一覧",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "# background-imageとimg srcの違い": {
+    "title": "# background-imageとimg srcの違い",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "javaScriptの流れ 詳細なロジック：": {
+    "title": "javaScriptの流れ 詳細なロジック：",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "：jQueryアコーディオン＋/ー切替の失敗ポイントtext,find,next": {
+    "title": "：jQueryアコーディオン＋/ー切替の失敗ポイントtext,find,next",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 lastScrollTop でスクロール方向を判定する js jQuer スクロールで下に移動したか上に移動したか": {
+    "title": "📌 lastScrollTop でスクロール方向を判定する js jQuer スクロールで下に移動したか上に移動したか",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "transform": {
+    "title": "transform",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "AOSの実装手順": {
+    "title": "AOSの実装手順",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 jQuery イベントタイミング - $(function) vs $(window).on(\"load\")": {
+    "title": "📌 jQuery イベントタイミング - $(function) vs $(window).on(\"load\")",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 jQuery .css() メソッドの3つの使い方 カラーの比較、設定、オブジェクトの設定方法、": {
+    "title": "📌 jQuery .css() メソッドの3つの使い方 カラーの比較、設定、オブジェクトの設定方法、",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 jQuery セレクター - カンマは\"\"の中に入れる（複数クラスを一度に選択する方法）": {
+    "title": "📌 jQuery セレクター - カンマは\"\"の中に入れる（複数クラスを一度に選択する方法）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "htmlの基本となるfont-size style.cssでも利用。 画面幅によって、サイズを変更する。": {
+    "title": "htmlの基本となるfont-size style.cssでも利用。 画面幅によって、サイズを変更する。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 vw vs % とスクロールバーのズレ問題 css": {
+    "title": "📌 vw vs % とスクロールバーのズレ問題 css",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 box-sizing: content-box vs border-box css": {
+    "title": "📌 box-sizing: content-box vs border-box css",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 margin vs padding の使い分け css": {
+    "title": "📌 margin vs padding の使い分け css",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 width: 100% + margin-left がある時の注意 css": {
+    "title": "📌 width: 100% + margin-left がある時の注意 css",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 transition-delay（トランジション遅延）でアニメーションの開始タイミングをずらす css": {
+    "title": "📌 transition-delay（トランジション遅延）でアニメーションの開始タイミングをずらす css",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 スクロールアニメーションの判定式 `scroll > target - windowHeight + 200` の意味 js jQuery": {
+    "title": "📌 スクロールアニメーションの判定式 `scroll > target - windowHeight + 200` の意味 js jQuery",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 AOS（Animate On Scroll）ライブラリ - スクロールアニメーションを1行で実装": {
+    "title": "📌 AOS（Animate On Scroll）ライブラリ - スクロールアニメーションを1行で実装",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 CSS absoluteは何階層でもネストできる（スライドショー+文字重ねの実装パターン）": {
+    "title": "📌 CSS absoluteは何階層でもネストできる（スライドショー+文字重ねの実装パターン）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 `<a>`タグはcolorを親から継承しない（ブラウザデフォルトが継承より強い）": {
+    "title": "📌 `<a>`タグはcolorを親から継承しない（ブラウザデフォルトが継承より強い）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 `nth-child`は親の全子要素で数える（クラス名は関係ない）": {
+    "title": "📌 `nth-child`は親の全子要素で数える（クラス名は関係ない）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 CSS white-space: nowrap でテキストの改行を防ぐ": {
+    "title": "📌 CSS white-space: nowrap でテキストの改行を防ぐ",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 overflow: hidden は「親」に付ける（子の拡大を切り取るのは親の仕事）": {
+    "title": "📌 overflow: hidden は「親」に付ける（子の拡大を切り取るのは親の仕事）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 z-indexはposition: static（初期値）には効かない": {
+    "title": "📌 z-indexはposition: static（初期値）には効かない",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 画像の上に文字を読みやすく重ねる方法（brightness + z-index のセット技）": {
+    "title": "📌 画像の上に文字を読みやすく重ねる方法（brightness + z-index のセット技）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 CSS maskアニメーション：初期状態をCSSで仕込み、JSでクラス付与してアニメ発動（diagonal-reveal パターン）": {
+    "title": "📌 CSS maskアニメーション：初期状態をCSSで仕込み、JSでクラス付与してアニメ発動（diagonal-reveal パターン）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 パララックス（固定背景 + セクションが上に重なる）の作り方 しかも透明で背景画像が少し見える": {
+    "title": "📌 パララックス（固定背景 + セクションが上に重なる）の作り方 しかも透明で背景画像が少し見える",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 flex/gridで列幅やgapがバラバラな場合の使い分け css": {
+    "title": "📌 flex/gridで列幅やgapがバラバラな場合の使い分け css",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 共通クラスを別セクションで使い回すと意図しないスタイルが当たる css": {
+    "title": "📌 共通クラスを別セクションで使い回すと意図しないスタイルが当たる css",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "★あまり参考にならない clip-path Reveal（下から上） - ホバーで要素を下から上にめくれ上がるように表示": {
+    "title": "★あまり参考にならない clip-path Reveal（下から上） - ホバーで要素を下から上にめくれ上がるように表示",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "clip-path Reveal（下から上）改 - 最初表示・ホバーで一瞬消えて下から上に再Reveal 例えばまるの背景のなかに矢印があったばあい、ホバーしたときなど": {
+    "title": "clip-path Reveal（下から上）改 - 最初表示・ホバーで一瞬消えて下から上に再Reveal 例えばまるの背景のなかに矢印があったばあい、ホバーしたときなど",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 `<br class=\"sp-only\">` でスマホだけ改行を入れる（display: block で改行できる）": {
+    "title": "📌 `<br class=\"sp-only\">` でスマホだけ改行を入れる（display: block で改行できる）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 HTMLソースの改行は半角スペースになる（`<br>`を取るとスペースが出る問題）": {
+    "title": "📌 HTMLソースの改行は半角スペースになる（`<br>`を取るとスペースが出る問題）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 似たUI（ハンバーガーメニューとフッター等）を共通化すべきかの判断基準": {
+    "title": "📌 似たUI（ハンバーガーメニューとフッター等）を共通化すべきかの判断基準",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 flex-wrap: wrap で「上2列・下1列」レイアウトができる（width指定で列数をコントロール）": {
+    "title": "📌 flex-wrap: wrap で「上2列・下1列」レイアウトができる（width指定で列数をコントロール）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 div背景画像の3点セット（imgタグとの使い分け）": {
+    "title": "📌 div背景画像の3点セット（imgタグとの使い分け）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 position: fixed の5点セット（必ず揃える）": {
+    "title": "📌 position: fixed の5点セット（必ず揃える）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 align-items と align-content の違い（flex-wrap のときに重要）": {
+    "title": "📌 align-items と align-content の違い（flex-wrap のときに重要）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "flex-wrap で２行にするときの aligin-item": {
+    "title": "flex-wrap で２行にするときの aligin-item",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "flex-wrap で2行にするときの `align-items`": {
+    "title": "flex-wrap で2行にするときの `align-items`",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 子要素を「縦に積む」ときは、子それぞれにabsoluteを付けず、親をabsoluteにして子は普通の流れで並べる または、div要素の兄弟関係になると縦につまれる。": {
+    "title": "📌 子要素を「縦に積む」ときは、子それぞれにabsoluteを付けず、親をabsoluteにして子は普通の流れで並べる または、div要素の兄弟関係になると縦につまれる。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 position: relative は「装飾しない素のキャンバス」に置く（背景divを基準にすると位置がズレる）": {
+    "title": "📌 position: relative は「装飾しない素のキャンバス」に置く（背景divを基準にすると位置がズレる）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 CSS clip-path: ellipse() で波形・カーブ背景を作る マルを生成する": {
+    "title": "📌 CSS clip-path: ellipse() で波形・カーブ背景を作る マルを生成する",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "HTMLでセクションの下を楕円で表示したいばあい": {
+    "title": "HTMLでセクションの下を楕円で表示したいばあい",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "やり方": {
+    "title": "やり方",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "CSSコード": {
+    "title": "CSSコード",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "数値の調整ポイント": {
+    "title": "数値の調整ポイント",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "注意点": {
+    "title": "注意点",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 CSS background-image と HTML img の使い分け": {
+    "title": "📌 CSS background-image と HTML img の使い分け",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 CSS linear-gradient で背景をグラデーションにする": {
+    "title": "📌 CSS linear-gradient で背景をグラデーションにする",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 PHP 変数の基本（宣言不要・スネークケース・ドット結合・配列操作）": {
+    "title": "📌 PHP 変数の基本（宣言不要・スネークケース・ドット結合・配列操作）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "変数の宣言": {
+    "title": "変数の宣言",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "命名規則": {
+    "title": "命名規則",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "文字列の結合": {
+    "title": "文字列の結合",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "配列の宣言と末尾追加": {
+    "title": "配列の宣言と末尾追加",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "配列の要素を削除": {
+    "title": "配列の要素を削除",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "連想配列の宣言": {
+    "title": "連想配列の宣言",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 WordPress テーマ作成の全体フロー（どこに何を書くかの早見表）": {
+    "title": "📌 WordPress テーマ作成の全体フロー（どこに何を書くかの早見表）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "① テーマフォルダを作る": {
+    "title": "① テーマフォルダを作る",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "② 必須ファイルを作成": {
+    "title": "② 必須ファイルを作成",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "③ ページテンプレートを作成": {
+    "title": "③ ページテンプレートを作成",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "④ functions.php に CSS/JS を登録": {
+    "title": "④ functions.php に CSS/JS を登録",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "⑤ 読み込みの流れ（しくみ）": {
+    "title": "⑤ 読み込みの流れ（しくみ）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "⑥ WordPress管理画面での操作": {
+    "title": "⑥ WordPress管理画面での操作",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "⑦ テンプレート内でよく使うPHP": {
+    "title": "⑦ テンプレート内でよく使うPHP",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "⑧ jQuery注意点（WordPress固有）": {
+    "title": "⑧ jQuery注意点（WordPress固有）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "page-about.php とは": {
+    "title": "page-about.php とは",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "functions.php（テーマの中枢）": {
+    "title": "functions.php（テーマの中枢）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "functions.php とは": {
+    "title": "functions.php とは",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "CSSやJSを読み込む手順": {
+    "title": "CSSやJSを読み込む手順",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "基本コードの例": {
+    "title": "基本コードの例",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "重要なポイント": {
+    "title": "重要なポイント",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 WordPress テーマのフォルダ構造（img・css・jsの役割）": {
+    "title": "📌 WordPress テーマのフォルダ構造（img・css・jsの役割）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "archive.php と single.php の関係": {
+    "title": "archive.php と single.php の関係",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "archive-〇〇.php / single-〇〇.php（カスタム投稿）": {
+    "title": "archive-〇〇.php / single-〇〇.php（カスタム投稿）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "テンプレートファイルとは": {
+    "title": "テンプレートファイルとは",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 Local（ローカル環境）からWordPressを始める手順": {
+    "title": "📌 Local（ローカル環境）からWordPressを始める手順",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "手順": {
+    "title": "手順",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "ワードプレスでテーマをいれるほうほうは？": {
+    "title": "ワードプレスでテーマをいれるほうほうは？",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 WordPressの画像パスは相対パス（img/fv.jpg）だと表示されない → <?php echo get_template_directory_uri(); ?>/img/〇〇 でテーマフォルダのフルURLを取得して書く（URLが深い階層だから相対パスでは届かない）": {
+    "title": "📌 WordPressの画像パスは相対パス（img/fv.jpg）だと表示されない → <?php echo get_template_directory_uri(); ?>/img/〇〇 でテーマフォルダのフルURLを取得して書く（URLが深い階層だから相対パスでは届かない）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "`home_url`と`get_template_directory_uri`の主な違いは、**「何を参照するか」**です。": {
+    "title": "`home_url`と`get_template_directory_uri`の主な違いは、**「何を参照するか」**です。",
+    "line": 0,
+    "lastReviewed": 1772986957956,
+    "reviewCount": 1,
+    "aiCategory": "wordpress/php"
+  },
+  "WordPressでの画像指定方法": {
+    "title": "WordPressでの画像指定方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "画像をｐｈｐで表示させたときどうすればいいか？": {
+    "title": "画像をｐｈｐで表示させたときどうすればいいか？",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "HTMLでの書き方": {
+    "title": "HTMLでの書き方",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "なぜこれが必要か": {
+    "title": "なぜこれが必要か",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 WordPressのリンクURLは <?php echo esc_url(home_url('/')); ?> で書く → home_url()でURL取得 + esc_url()で安全化する二重構造（関数の中に関数がある・内側から実行される）": {
+    "title": "📌 WordPressのリンクURLは <?php echo esc_url(home_url('/')); ?> で書く → home_url()でURL取得 + esc_url()で安全化する二重構造（関数の中に関数がある・内側から実行される）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 WordPress固定ページは管理画面で作成 → タイトルを入力してスラッグにURLを設定する → スラッグ「about」と書くと page-about.php が自動で使われる": {
+    "title": "📌 WordPress固定ページは管理画面で作成 → タイトルを入力してスラッグにURLを設定する → スラッグ「about」と書くと page-about.php が自動で使われる",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "パーマリンク（Permalink）の要点まとめ": {
+    "title": "パーマリンク（Permalink）の要点まとめ",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "コードでのイメージ": {
+    "title": "コードでのイメージ",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 WordPressのCSS読み込みは <head>に直書きNG → functions.php に wp_enqueue_style('識別名', パス) で書く（WordPress本体のCSSと競合するから） 「CSS読み込みの全体の流れ: ① functions.php で `wp_enqueue_style()` → ② `add_action()` で登録 → ③ header.php の `wp_head()` で実行・出力」": {
+    "title": "📌 WordPressのCSS読み込みは <head>に直書きNG → functions.php に wp_enqueue_style('識別名', パス) で書く（WordPress本体のCSSと競合するから） 「CSS読み込みの全体の流れ: ① functions.php で `wp_enqueue_style()` → ② `add_action()` で登録 → ③ header.php の `wp_head()` で実行・出力」",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "WordPrescss登録": {
+    "title": "WordPrescss登録",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "WordPressでのCSS読み込み手順": {
+    "title": "WordPressでのCSS読み込み手順",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 WordPressのJS読み込みもCSS同様に functions.php で wp_enqueue_script() を使う → CSSとの違いは引数が多い（依存・バージョン・読み込み位置を指定する）": {
+    "title": "📌 WordPressのJS読み込みもCSS同様に functions.php で wp_enqueue_script() を使う → CSSとの違いは引数が多い（依存・バージョン・読み込み位置を指定する）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 position: absoluteの場合、縦100vhで縦サイズを指定していた場合、bottomから指定したらやrem指定すると で場合ずれる。": {
+    "title": "📌 position: absoluteの場合、縦100vhで縦サイズを指定していた場合、bottomから指定したらやrem指定すると で場合ずれる。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 mix-blend-mode: screen で動画の黒い部分を透過させる": {
+    "title": "📌 mix-blend-mode: screen で動画の黒い部分を透過させる",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 ホバーでテキストが下から上にスライド → ::afterで文字を下に隠し、hover時にtranslateY(-100%)で元テキストごと上に押し出す": {
+    "title": "📌 ホバーでテキストが下から上にスライド → ::afterで文字を下に隠し、hover時にtranslateY(-100%)で元テキストごと上に押し出す",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "アニメーションで文字をホバーした際に、したからぱっとでるように表示する。": {
+    "title": "アニメーションで文字をホバーした際に、したからぱっとでるように表示する。",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "実装コード": {
+    "title": "実装コード",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 WordPress footer.php に wp_footer() を書く → JSが `</body>` 直前で読み込まれる（wp_head()のJS版・書かないとJSが動かない） ※ wp_head()はcssの読み込み": {
+    "title": "📌 WordPress footer.php に wp_footer() を書く → JSが `</body>` 直前で読み込まれる（wp_head()のJS版・書かないとJSが動かない） ※ wp_head()はcssの読み込み",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 WordPress にはjQueryが最初から入っている → wp_enqueue_script('jquery') だけで使える（CDN読み込み不要）": {
+    "title": "📌 WordPress にはjQueryが最初から入っている → wp_enqueue_script('jquery') だけで使える（CDN読み込み不要）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "wordprss でjQueryをつかう方法": {
+    "title": "wordprss でjQueryをつかう方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "WordPressでjQueryを使う手順": {
+    "title": "WordPressでjQueryを使う手順",
+    "line": 0,
+    "lastReviewed": 1772986914820,
+    "reviewCount": 1,
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      2
     ]
+  },
+  "📌 CSS Grid で display: grid を使うと grid-template-columns で横列を定義でき、縦行は grid-template-rows で制御できる（Flexと違い縦横同時に制御可能）": {
+    "title": "📌 CSS Grid で display: grid を使うと grid-template-columns で横列を定義でき、縦行は grid-template-rows で制御できる（Flexと違い縦横同時に制御可能）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "各プロジェクトで作業に時間がかったところ": {
+    "title": "各プロジェクトで作業に時間がかったところ",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "📌 VSCodeでPHPファイルを自動フォーマットするには → 拡張機能インストール + settings.jsonにデフォルトフォーマッター指定が必要（拡張機能だけでは動かない）": {
+    "title": "📌 VSCodeでPHPファイルを自動フォーマットするには → 拡張機能インストール + settings.jsonにデフォルトフォーマッター指定が必要（拡張機能だけでは動かない）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 親に height: auto があると子の height: 100% が効かない → 親を固定値（400pxなど）にする": {
+    "title": "📌 親に height: auto があると子の height: 100% が効かない → 親を固定値（400pxなど）にする",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 同じ width/height を指定しても画像の縦横比が違うと見た目がズレる → object-fit: cover で統一する": {
+    "title": "📌 同じ width/height を指定しても画像の縦横比が違うと見た目がズレる → object-fit: cover で統一する",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 ホバー時テキストをスライドで切り替え → overflow:hiddenの枠は動かさず疑似要素だけ動かす（::before上へ退場・::after下から登場）": {
+    "title": "📌 ホバー時テキストをスライドで切り替え → overflow:hiddenの枠は動かさず疑似要素だけ動かす（::before上へ退場・::after下から登場）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 丸ボタンホバー → 中心から色が広がり矢印の色も変わる - scale(0→1) + radial-gradient + isolation:isolate": {
+    "title": "📌 丸ボタンホバー → 中心から色が広がり矢印の色も変わる - scale(0→1) + radial-gradient + isolation:isolate",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 flexスライダーで4枚目を半分だけ見せたい → width を 3.5枚分で計算 + justify-content: flex-start（「続きがある」を視覚的に伝える） 画像が４つあった場合、３枚の画像を表示して、⇒クリックで違う画像に遷移する": {
+    "title": "📌 flexスライダーで4枚目を半分だけ見せたい → width を 3.5枚分で計算 + justify-content: flex-start（「続きがある」を視覚的に伝える） 画像が４つあった場合、３枚の画像を表示して、⇒クリックで違う画像に遷移する",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "親に z-index: マイナス値 → 子要素のボタンをクリックできない（z-index を削除か正の値にする）": {
+    "title": "親に z-index: マイナス値 → 子要素のボタンをクリックできない（z-index を削除か正の値にする）",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 clip-path + z-index の親でスタッキングコンテキストが作られると子は親のz-indexを超えられない → ::before に背景を逃がして解決": {
+    "title": "📌 clip-path + z-index の親でスタッキングコンテキストが作られると子は親のz-indexを超えられない → ::before に背景を逃がして解決",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "zindex 強さの順番": {
+    "title": "zindex 強さの順番",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "1. 「スタッキングコンテキスト（箱）」が最優先": {
+    "title": "1. 「スタッキングコンテキスト（箱）」が最優先",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "2. 同じ「箱」の中での比較": {
+    "title": "2. 同じ「箱」の中での比較",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "3. 親の壁を超えるための解決策": {
+    "title": "3. 親の壁を超えるための解決策",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "まとめ：強さの優先順位": {
+    "title": "まとめ：強さの優先順位",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "親セクションが下のセクションをおしさげないようにする方法は？": {
+    "title": "親セクションが下のセクションをおしさげないようにする方法は？",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "親が下のセクションを押し下げない（重なりを調整する）方法": {
+    "title": "親が下のセクションを押し下げない（重なりを調整する）方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる": {
+    "title": "📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "親要素のzindexを超える方法": {
+    "title": "親要素のzindexを超える方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "親要素のz-indexを超える方法": {
+    "title": "親要素のz-indexを超える方法",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "html"
+  },
+  "the_permalink ほかにも theってあったよね？": {
+    "title": "the_permalink ほかにも theってあったよね？",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "ページネーションとは <?php the_post_navigation(); ?>": {
+    "title": "ページネーションとは <?php the_post_navigation(); ?>",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 WordPressで投稿のアーカイブページを作成する → functions.phpでURLを用意し、パーマリンク更新後に一覧テンプレートを確認する": {
+    "title": "📌 WordPressで投稿のアーカイブページを作成する → functions.phpでURLを用意し、パーマリンク更新後に一覧テンプレートを確認する",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 VS Codeハイライト連携のテスト → 追記後に該当行を目立たせられるか確認する": {
+    "title": "📌 VS Codeハイライト連携のテスト → 追記後に該当行を目立たせられるか確認する",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "TEST highlight 2026-03-08 2": {
+    "title": "TEST highlight 2026-03-08 2",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "📌 archive.phpのthe_permalink() は single.php を直接呼ぶ関数ではない → 個別記事URLを出し、そのURLを開いたときに WordPress が single.php を選ぶ": {
+    "title": "📌 archive.phpのthe_permalink() は single.php を直接呼ぶ関数ではない → 個別記事URLを出し、そのURLを開いたときに WordPress が single.php を選ぶ",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "archive.phpないのパーマリンクはどこをさしている？": {
+    "title": "archive.phpないのパーマリンクはどこをさしている？",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
+  },
+  "📌 Codex skills の Git 運用は `.system` を触らず `memo` だけ repo と同期する → clone先は作業用、本番は `.codex\\skills`": {
+    "title": "📌 Codex skills の Git 運用は `.system` を触らず `memo` だけ repo と同期する → clone先は作業用、本番は `.codex\\skills`",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "その他"
+  },
+  "📌 archive.phpのループで表示される「いろいろな記事」の正体 → 管理画面で投稿した記事がデータベースに保存されており、WordPressが自動で取得してループに渡す": {
+    "title": "📌 archive.phpのループで表示される「いろいろな記事」の正体 → 管理画面で投稿した記事がデータベースに保存されており、WordPressが自動で取得してループに渡す",
+    "line": 0,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "aiCategory": "wordpress/php"
   },
   "_meta": {
     "lastFilter": {
-      "date": "今日",
-      "category": "全カテゴリ"
+      "date": "昨日",
+      "category": "wordpress/php"
     }
   }
 }
