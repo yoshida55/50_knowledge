@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>the_post_navigation() 解説</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(90, 143, 196, 0.1);
+}
+
+h1 {
+  color: #5A8FC4;
+  font-size: 28px;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #5A8FC4;
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: #5A8FC4;
+  font-size: 20px;
+  margin: 30px 0 15px;
+}
+
+.code-block {
+  position: relative;
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+.code-block code {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #5A8FC4;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.copy-btn:hover {
+  background: #4a7fb4;
+}
+
+.svg-container {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.post-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #f9f9f9;
+  border: 2px solid #5A8FC4;
+  border-radius: 6px;
+  margin: 20px 0;
+}
+
+.nav-previous {
+  animation: slideFromLeft 1.5s ease-in-out infinite;
+}
+
+.nav-next {
+  animation: slideFromRight 1.5s ease-in-out infinite;
+}
+
+@keyframes slideFromLeft {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(-10px); opacity: 0.7; }
+}
+
+@keyframes slideFromRight {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(10px); opacity: 0.7; }
+}
+
+.nav-arrow {
+  display: inline-block;
+  font-size: 20px;
+  color: #5A8FC4;
+  font-weight: bold;
+}
+
+.description {
+  background: #f5f9fc;
+  padding: 15px;
+  border-left: 4px solid #5A8FC4;
+  margin: 20px 0;
+}
+
+ul {
+  margin: 15px 0 15px 25px;
+}
+
+li {
+  margin: 8px 0;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>the_post_navigation()</h1>
+  
+  <div class="description">
+    WordPressの単一投稿ページで、前の記事と次の記事へのナビゲーションリンクを表示する関数
+  </div>
+
+  <h2>基本的な使い方</h2>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    <code>&lt;?php the_post_navigation(); ?&gt;</code>
+  </div>
+
+  <h2>生成されるHTML構造</h2>
+  <div class="svg-container">
+    <svg width="100%" height="180" viewBox="0 0 800 180">
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+          <polygon points="0 0, 10 3, 0 6" fill="#5A8FC4" />
+        </marker>
+      </defs>
+      
+      <!-- 全体構造 -->
+      <rect x="50" y="20" width="700" height="140" fill="#5A8FC4" opacity="0.1" stroke="#5A8FC4" stroke-width="2" rx="5"/>
+      <text x="400" y="45" text-anchor="middle" fill="#5A8FC4" font-size="14" font-weight="bold">nav.post-navigation</text>
+      
+      <!-- 左側: nav-previous -->
+      <rect x="80" y="70" width="300" height="70" fill="#fff" stroke="#5A8FC4" stroke-width="2" rx="4"/>
+      <text x="230" y="95" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">.nav-previous</text>
+      <text x="100" y="115" fill="#5A8FC4" font-size="20">←</text>
+      <text x="130" y="118" fill="#666" font-size="12">前の投稿タイトル</text>
+      
+      <!-- 右側: nav-next -->
+      <rect x="420" y="70" width="300" height="70" fill="#fff" stroke="#5A8FC4" stroke-width="2" rx="4"/>
+      <text x="570" y="95" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">.nav-next</text>
+      <text x="650" y="118" text-anchor="end" fill="#666" font-size="12">次の投稿タイトル</text>
+      <text x="690" y="115" fill="#5A8FC4" font-size="20">→</text>
+    </svg>
+  </div>
+
+  <h2>実際の表示イメージ</h2>
+  <div class="post-navigation">
+    <div class="nav-previous">
+      <span class="nav-arrow">←</span> 前の投稿
+    </div>
+    <div class="nav-next">
+      次の投稿 <span class="nav-arrow">→</span>
+    </div>
+  </div>
+
+  <h2>パラメータ付き使用例</h2>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    <code>&lt;?php
+the_post_navigation( array(
+    'prev_text' =&gt; '← %title',
+    'next_text' =&gt; '%title →',
+    'screen_reader_text' =&gt; '投稿ナビゲーション'
+) );
+?&gt;</code>
+  </div>
+
+  <h2>主な特徴</h2>
+  <ul>
+    <li><strong>単一投稿専用:</strong> single.phpで使用</li>
+    <li><strong>自動生成:</strong> HTMLマークアップを自動で出力</li>
+    <li><strong>前後の記事:</strong> 公開日順に前後の投稿へリンク</li>
+    <li><strong>CSSクラス:</strong> <code>.post-navigation</code>, <code>.nav-previous</code>, <code>.nav-next</code></li>
+  </ul>
+
+</div>
+
+<script>
+function copyCode(button) {
+  const code = button.nextElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    button.textContent = 'コピー完了！';
+    setTimeout(() => {
+      button.textContent = 'コピー';
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

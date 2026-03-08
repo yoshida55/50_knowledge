@@ -951,5 +951,77 @@
     "evaluations": [
       2
     ]
+  },
+  "📌 WordPressの while(have_posts()) は「ループ」ではなく「the_post()を呼ぶための作法」（single.phpでも1回だけ回る）": {
+    "title": "📌 WordPressの while(have_posts()) は「ループ」ではなく「the_post()を呼ぶための作法」（single.phpでも1回だけ回る）",
+    "line": 9284,
+    "lastReviewed": 1772945977992,
+    "reviewCount": 3,
+    "questionText": "WordPressのsingle.phpにおいてwhile(have_posts())を使用する主な目的は？",
+    "evaluations": [
+      1,
+      2,
+      2,
+      2
+    ]
+  },
+  "the_titleってなに": {
+    "title": "the_titleってなに",
+    "line": 9329,
+    "lastReviewed": 1772946155841,
+    "reviewCount": 1,
+    "questionText": "WordPressのループ内で現在処理中の記事タイトルを表示する関数は？"
+  },
+  "📌 WordPressでCSSファイルを作っても反映されない → functions.phpに wp_enqueue_style() を登録していないから": {
+    "title": "📌 WordPressでCSSファイルを作っても反映されない → functions.phpに wp_enqueue_style() を登録していないから",
+    "line": 9374,
+    "lastReviewed": 1772946513987,
+    "reviewCount": 1,
+    "questionText": "WordPressで作成したCSSファイルを正しく読み込むためにfunctions.phpへ記述する関数は何？",
+    "evaluations": [
+      2
+    ]
+  },
+  "ページネーションとは　<?php the_post_navigation(); ?>": {
+    "title": "ページネーションとは　<?php the_post_navigation(); ?>",
+    "line": 9461,
+    "lastReviewed": 1772946554445,
+    "reviewCount": 1,
+    "questionText": "WordPressの個別記事ページで「前の記事」「次の記事」へのリンクを表示する関数は？",
+    "evaluations": [
+      2
+    ]
+  },
+  "the_permalink　ほかにも theってあったよね？": {
+    "title": "the_permalink　ほかにも theってあったよね？",
+    "line": 9324,
+    "lastReviewed": 1772946585316,
+    "reviewCount": -1
+  },
+  "📌 WordPressでget_header()が何回呼ばれているか・どこから呼ばれたか調べたい → debug_print_backtrace() をheader.phpに書く": {
+    "title": "📌 WordPressでget_header()が何回呼ばれているか・どこから呼ばれたか調べたい → debug_print_backtrace() をheader.phpに書く",
+    "line": 9432,
+    "lastReviewed": 1772946784638,
+    "reviewCount": 0,
+    "questionText": "PHPで関数がどこから呼び出されたかを表示するデバッグ関数は？",
+    "evaluations": [
+      1
+    ]
+  },
+  "📌 WordPressで今どのPHPファイルが動いているか確認したい → basename(__FILE__) をechoする（デバッグログの基本）": {
+    "title": "📌 WordPressで今どのPHPファイルが動いているか確認したい → basename(__FILE__) をechoする（デバッグログの基本）",
+    "line": 9407,
+    "lastReviewed": 1772946857591,
+    "reviewCount": 1,
+    "questionText": "PHPで現在実行中のファイル名のみを取得し出力する際に使用する関数と定数の組み合わせは？",
+    "evaluations": [
+      2
+    ]
+  },
+  "_meta": {
+    "lastFilter": {
+      "date": "今日",
+      "category": "全カテゴリ"
+    }
   }
 }

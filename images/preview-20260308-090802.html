@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WordPress the_タグ解説</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Yu Gothic", YuGothic, sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(90, 143, 196, 0.15);
+  overflow: hidden;
+}
+
+.header {
+  background: linear-gradient(135deg, #5A8FC4 0%, #4A7FB4 100%);
+  color: #fff;
+  padding: 40px;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.header p {
+  opacity: 0.95;
+  font-size: 0.95rem;
+}
+
+.content {
+  padding: 40px;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.section h2 {
+  color: #5A8FC4;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #5A8FC4;
+}
+
+.tag-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.tag-item {
+  background: #f8fafc;
+  border-left: 4px solid #5A8FC4;
+  padding: 15px;
+  border-radius: 6px;
+  transition: transform 0.2s;
+}
+
+.tag-item:hover {
+  transform: translateX(5px);
+}
+
+.tag-item code {
+  color: #5A8FC4;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.svg-diagram {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 30px;
+  margin: 30px 0;
+}
+
+.info-box {
+  background: #EBF1F6;
+  border-left: 4px solid #5A8FC4;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 20px 0;
+}
+
+.info-box strong {
+  color: #5A8FC4;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.rules-list {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.rules-list li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 10px;
+}
+
+.rules-list li::before {
+  content: "▶";
+  color: #5A8FC4;
+  position: absolute;
+  left: -15px;
+}
+
+.code-block {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+.code-block pre {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #5A8FC4;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background 0.3s;
+}
+
+.copy-btn:hover {
+  background: #4A7FB4;
+}
+
+.copy-btn:active {
+  background: #3A6FA4;
+}
+
+.highlight {
+  background: linear-gradient(transparent 60%, rgba(90, 143, 196, 0.3) 60%);
+  font-weight: bold;
+}
+
+@keyframes flow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.flow-arrow {
+  animation: flow 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.loop-indicator {
+  animation: pulse 2s ease-in-out infinite;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header class="header">
+    <h1>WordPress <code>the_</code> タグ解説</h1>
+    <p>記事データを表示するテンプレートタグの基本</p>
+  </header>
+
+  <main class="content">
+    
+    <section class="section">
+      <h2>主な <code>the_</code> 系タグ</h2>
+      <div class="tag-list">
+        <div class="tag-item">
+          <code>the_permalink()</code>
+          <p>記事URLを取得</p>
+        </div>
+        <div class="tag-item">
+          <code>the_title()</code>
+          <p>記事タイトルを表示</p>
+        </div>
+        <div class="tag-item">
+          <code>the_content()</code>
+          <p>記事本文を表示</p>
+        </div>
+        <div class="tag-item">
+          <code>the_excerpt()</code>
+          <p>記事の抜粋を表示</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2><code>the_title()</code> とは</h2>
+      
+      <div class="info-box">
+        <strong>💡 なにができるもの？</strong>
+        <p>今表示している記事の「タイトル」を、画面にそのまま表示する命令</p>
+      </div>
+
+      <div class="info-box">
+        <strong>🔧 なぜ必要なの？</strong>
+        <p>WordPressの仕組み上、<code>the_post()</code> という準備が終わった後にこれを使うことで、データベースから正しい記事のタイトルを引っ張ってこられるから</p>
+      </div>
+
+      <div class="svg-diagram">
+        <svg viewBox="0 0 800 300" style="width: 100%; height: auto;">
+          <!-- Database -->
+          <rect x="50" y="50" width="120" height="80" fill="#5A8FC4" rx="8"/>
+          <text x="110" y="95" text-anchor="middle" fill="white" font-size="14" font-weight="bold">データベース</text>
+          <text x="110" y="115" text-anchor="middle" fill="white" font-size="11">記事データ</text>
+          
+          <!-- Arrow 1 -->
+          <g class="flow-arrow">
+            <path d="M 170 90 L 240 90" stroke="#5A8FC4" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+            <text x="205" y="80" text-anchor="middle" fill="#5A8FC4" font-size="12">the_post()</text>
+          </g>
+          
+          <!-- While Loop -->
+          <rect x="240" y="40" width="140" height="100" fill="none" stroke="#5A8FC4" stroke-width="3" stroke-dasharray="8,4" rx="8" class="loop-indicator"/>
+          <text x="310" y="65" text-anchor="middle" fill="#5A8FC4" font-size="14" font-weight="bold">while ループ</text>
+          <text x="310" y="90" text-anchor="middle" fill="#333" font-size="12">今の記事</text>
+          <text x="310" y="110" text-anchor="middle" fill="#333" font-size="12">データセット</text>
+          
+          <!-- Arrow 2 -->
+          <g class="flow-arrow" style="animation-delay: 0.5s;">
+            <path d="M 380 90 L 450 90" stroke="#5A8FC4" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+            <text x="415" y="80" text-anchor="middle" fill="#5A8FC4" font-size="12">the_title()</text>
+          </g>
+          
+          <!-- Output -->
+          <rect x="450" y="50" width="120" height="80" fill="#4A7FB4" rx="8"/>
+          <text x="510" y="85" text-anchor="middle" fill="white" font-size="14" font-weight="bold">画面表示</text>
+          <text x="510" y="105" text-anchor="middle" fill="white" font-size="11">タイトル出力</text>
+          
+          <!-- Note -->
+          <rect x="240" y="170" width="330" height="80" fill="#EBF1F6" rx="8"/>
+          <text x="405" y="195" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">✨「今表示している記事」とは？</text>
+          <text x="405" y="218" text-anchor="middle" fill="#555" font-size="11">ループ内で現在処理中の1記事</text>
+          <text x="405" y="236" text-anchor="middle" fill="#555" font-size="11">（一覧なら各記事、個別ページならその1件）</text>
+          
+          <defs>
+            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+              <polygon points="0 0, 10 3, 0 6" fill="#5A8FC4"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="info-box">
+        <strong>📋 書き方のルール</strong>
+        <ul class="rules-list">
+          <li>必ず <span class="highlight">while ループの中</span>で使うこと</li>
+          <li>外で使うとデータがセットされていないため表示されません</li>
+          <li>HTMLの中に直接書くことができます</li>
+        </ul>
+      </div>
+
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+        <pre>&lt;?php while ( have_posts() ) : the_post(); ?&gt;
+  &lt;h2&gt;&lt;?php the_title(); ?&gt;&lt;/h2&gt;
+  &lt;div&gt;&lt;?php the_content(); ?&gt;&lt;/div&gt;
+&lt;?php endwhile; ?&gt;</pre>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<script>
+function copyCode(btn) {
+  const codeBlock = btn.nextElementSibling;
+  const text = codeBlock.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'コピー完了!';
+    setTimeout(() => {
+      btn.textContent = 'コピー';
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
