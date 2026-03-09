@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home_url() vs the_permalink() - WordPress関数の違い</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+            background: #EBF1F6;
+            color: #333;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(90, 143, 196, 0.15);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #5A8FC4, #4a7fb4);
+            color: #fff;
+            padding: 32px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 26px;
+            font-weight: 600;
+        }
+        .content {
+            padding: 40px;
+        }
+        .conclusion {
+            background: #f8fbfd;
+            border-left: 4px solid #5A8FC4;
+            padding: 20px 24px;
+            margin-bottom: 36px;
+            border-radius: 4px;
+        }
+        .function-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 32px 0;
+        }
+        .function-card {
+            background: #f8fbfd;
+            border: 2px solid #5A8FC4;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .function-card:hover {
+            transform: translateY(-4px);
+        }
+        .function-card h3 {
+            color: #5A8FC4;
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-family: monospace;
+        }
+        .function-card p {
+            font-size: 14px;
+            color: #555;
+        }
+        .svg-diagram {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+            margin: 16px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #5A8FC4;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: #4a7fb4;
+        }
+        .use-case {
+            margin-top: 32px;
+        }
+        .use-case h3 {
+            color: #5A8FC4;
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+        .use-case-item {
+            background: #f8fbfd;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #5A8FC4;
+        }
+        @keyframes flow {
+            0%, 100% { transform: translateX(0); opacity: 1; }
+            50% { transform: translateX(10px); opacity: 0.6; }
+        }
+        .arrow-flow {
+            animation: flow 2s ease-in-out infinite;
+        }
+        @media (max-width: 768px) {
+            .function-comparison {
+                grid-template-columns: 1fr;
+            }
+            .content {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>home_url() vs the_permalink()</h1>
+        </header>
+        
+        <main class="content">
+            <div class="conclusion">
+                <strong>結論:</strong> <strong>「サイトのトップページ」か「個別の記事ページ」か</strong>という違いです。
+            </div>
+
+            <div class="function-comparison">
+                <div class="function-card">
+                    <h3>home_url()</h3>
+                    <p>サイトの<strong>トップページ（ホーム）</strong>のURLを出力</p>
+                </div>
+                <div class="function-card">
+                    <h3>the_permalink()</h3>
+                    <p>その時表示している<strong>個別の投稿記事</strong>のURLを出力</p>
+                </div>
+            </div>
+
+            <div class="svg-diagram">
+                <svg width="100%" height="240" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg">
+                    <!-- home_url() フロー -->
+                    <rect x="50" y="30" width="140" height="60" fill="#5A8FC4" rx="8"/>
+                    <text x="120" y="65" fill="#fff" text-anchor="middle" font-size="16" font-weight="bold">home_url()</text>
+                    
+                    <g class="arrow-flow">
+                        <line x1="190" y1="60" x2="260" y2="60" stroke="#5A8FC4" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    </g>
+                    
+                    <rect x="260" y="30" width="180" height="60" fill="#EBF1F6" stroke="#5A8FC4" stroke-width="2" rx="8"/>
+                    <text x="350" y="55" fill="#333" text-anchor="middle" font-size="14">🏠 トップページ</text>
+                    <text x="350" y="75" fill="#666" text-anchor="middle" font-size="12">https://example.com/</text>
+
+                    <!-- the_permalink() フロー -->
+                    <rect x="50" y="150" width="140" height="60" fill="#5A8FC4" rx="8"/>
+                    <text x="120" y="175" fill="#fff" text-anchor="middle" font-size="14" font-weight="bold">the_permalink()</text>
+                    
+                    <g class="arrow-flow">
+                        <line x1="190" y1="180" x2="260" y2="180" stroke="#5A8FC4" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    </g>
+                    
+                    <rect x="260" y="150" width="220" height="60" fill="#EBF1F6" stroke="#5A8FC4" stroke-width="2" rx="8"/>
+                    <text x="370" y="175" fill="#333" text-anchor="middle" font-size="14">📄 個別記事ページ</text>
+                    <text x="370" y="195" fill="#666" text-anchor="middle" font-size="11">https://example.com/post-123/</text>
+
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#5A8FC4"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <section class="use-case">
+                <h3>使い分けの例</h3>
+                
+                <div class="use-case-item">
+                    <strong>ロゴ画像にリンクを貼る場合:</strong>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+                        <code>&lt;a href="&lt;?php echo home_url(); ?&gt;"&gt;
+    &lt;img src="logo.png" alt="ロゴ"&gt;
+&lt;/a&gt;</code>
+                    </div>
+                </div>
+
+                <div class="use-case-item">
+                    <strong>記事一覧で「続きを読む」ボタンを作る場合:</strong>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+                        <code>&lt;a href="&lt;?php the_permalink(); ?&gt;"&gt;
+    続き��読む
+&lt;/a&gt;</code>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const text = codeBlock.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'コピー完了!';
+                setTimeout(() => {
+                    button.textContent = 'コピー';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

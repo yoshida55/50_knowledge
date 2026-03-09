@@ -953,9 +953,26 @@
       2
     ]
   },
+  "archive.phpないのパーマリンクはどこをさしている？": {
+    "title": "archive.phpないのパーマリンクはどこをさしている？",
+    "line": 9830,
+    "lastReviewed": 1773088074523,
+    "reviewCount": 1,
+    "questionText": "WordPressのテンプレートファイルで記事固有のURLを出力する関数は？"
+  },
+  "1. 「スタッキングコンテキスト（箱）」が最優先": {
+    "title": "1. 「スタッキングコンテキスト（箱）」が最優先",
+    "line": 9316,
+    "lastReviewed": 1773091913031,
+    "reviewCount": 1,
+    "questionText": "スタッキングコンテキストが生成されるCSSプロパティの例を1つ挙げよ？",
+    "evaluations": [
+      2
+    ]
+  },
   "_meta": {
     "lastFilter": {
-      "date": "全期間",
+      "date": "昨日",
       "category": "全カテゴリ"
     }
   }
