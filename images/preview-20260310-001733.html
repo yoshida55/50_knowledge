@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<title>配列とオブジェクト</title>
+<style>
+  body {
+    font-family: sans-serif;
+    background: #f5f7fb;
+    padding: 24px;
+    line-height: 1.6;
+  }
+  .row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .box {
+    border: 2px solid #2b6cb0;
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 16px;
+    min-width: 180px;
+  }
+  .box h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: #2b6cb0;
+  }
+  .item {
+    padding: 6px 8px;
+    margin-top: 8px;
+    background: #edf2f7;
+    border-radius: 8px;
+  }
+  .arrow {
+    font-size: 28px;
+    padding-top: 42px;
+  }
+  .note {
+    background: #fffbea;
+    border: 2px solid #d69e2e;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-top: 16px;
+  }
+  code {
+    background: #edf2f7;
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+</style>
+</head>
+<body>
+
+<h1><code>$categories[0]->name</code> の意味</h1>
+
+<div class="row">
+  <div class="box">
+    <h2>$categories</h2>
+    <div class="item">[0] =&gt; WP_Term オブジェクト</div>
+    <div class="item">[1] =&gt; WP_Term オブジェクト</div>
+  </div>
+
+  <div class="arrow">→</div>
+
+  <div class="box">
+    <h2>$categories[0]</h2>
+    <div class="item">name =&gt; イベント</div>
+    <div class="item">slug =&gt; event</div>
+    <div class="item">term_id =&gt; 5</div>
+  </div>
+
+  <div class="arrow">→</div>
+
+  <div class="box">
+    <h2>$categories[0]->name</h2>
+    <div class="item">イベント</div>
+  </div>
+</div>
+
+<div class="note">
+  <strong>見分け方</strong><br>
+  <code>[0]</code> は配列の番号を取る<br>
+  <code>->name</code> はオブジェクトの中の <code>name</code> を取る
+</div>
+
+<div class="note">
+  <strong>比較</strong><br>
+  連想配列なら <code>$data['name']</code><br>
+  オブジェクトなら <code>$data->name</code>
+</div>
+
+<div class="note">
+  <strong>今回の整理</strong><br>
+  <code>$categories</code> は配列<br>
+  <code>$categories[0]</code> はオブジェクト<br>
+  <code>$categories[0]->name</code> はオブジェクトの <code>name</code> プロパティの値を取る
+</div>
+
+<div class="note">
+  <strong>今回のポイント</strong><br>
+  今回は連想配列はほぼ関係ない。<br>
+  やっていることは <strong>配列の中にあるオブジェクトを取り出して、その中身を見る</strong> こと。<br><br>
+  連想配列なら <code>$data['name']</code><br>
+  今回は <code>$categories[0]->name</code>
+</div>
+
+</body>
+</html>

@@ -10355,3 +10355,61 @@ get_category_link() で取得できる（自分で書かなくてよい）
 - 💡 つまり：カテゴリー名は `cat_name`、URLは `get_category_link()` の2つを組み合わせる
 - esc_url() と esc_html() は「外部からきたデータを安全にするラッパー」として使う → 書き方の丸暗記は不要。「外から来たデータには esc_ をつける」という概念だけ覚える
 【関連】→ 「the_posts_pagination」で検索（WordPressが自動生成するHTML）
+
+---
+
+## 📌 archive.php の get_the_category() で Uncategorized を除外したい → foreach だけだと条件に合うカテゴリを全部出す（最初の1件で break する）
+
+【日付】2026-03-10
+
+【結論】
+`get_the_category()` は「配列の中にカテゴリオブジェクトが入った形」で返る。
+そのため、配列の1件目を見るなら `$categories[0]`、その中の名前を見るなら `$categories[0]->name` と書く。
+`Uncategorized` を除外するときの比較は普通 `!=` を使い、条件に合う最初の1件だけ出したいときは `break;` で `foreach` を止める。
+
+【具体例】
+```php
+<ul class="news_category">
+  <?php
+  $categories = get_the_category();
+  $found = false;
+
+  foreach ( $categories as $category ) {
+      if ( $category->name != 'Uncategorized' ) {
+          echo '<li class="news_test">' . esc_html( $category->name ) . '</li>';
+          $found = true;
+          break;
+      }
+  }
+
+  if ( ! $found ) {
+      echo '<li class="news_test">カテゴリなし</li>';
+  }
+  ?>
+</ul>
+```
+
+【補足】
+- ⚠ `->name` は連想配列のキーではなくオブジェクトのプロパティ。連想配列なら `['name']` を使う
+- ⚠ `<>` でも「等しくない」は書けるが、今は `!=` にそろえた方が読みやすい
+- 💡 つまり：カテゴリ配列を `foreach` で回し、`Uncategorized` 以外が見つかった瞬間に1件出して `break;` すればよい
+【関連】→ 「get_the_category() で記事のカテゴリー名を取得」で検索（カテゴリ取得の基本）
+
+
+## 📌PHPの配列とオブジェクトの関係
+【日付】2026-03-10
+
+【結論】
+`$categories` は配列
+`$categories[0]` はオブジェクト
+`$categories[0]->name` はオブジェクトの `name` プロパティの値を取る
+
+【補足】
+- 今回は連想配列はほぼ関係ない
+- やっていることは「配列の中にあるオブジェクトを取り出して、その中身を見る」
+- 連想配列なら `$data['name']`
+- 今回は `$categories[0]->name`
+
+
+
+[プレビュー](http://localhost:54321/preview-20260310-001733.html)
