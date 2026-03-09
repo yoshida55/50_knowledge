@@ -9998,6 +9998,286 @@ the_post_thumbnail() で画像を表示できる
 
 【補足】
 - ⚠ functions.php に書かないと `the_post_thumbnail()` を使っても何も表示されない
+- `else` の中の `img/news.jpg` = アイキャッチが**未設定の記事でも空白にならない保険**。好きな画像を置けばデフォルト画像を変えられる
+- 記事ごとに別の画像にしたい → 管理画面で記事を開き「アイキャッチ画像を設定」するだけ（コード変更不要）
 - 💡 つまり：機能のON/OFFを functions.php でコントロールしている
 - 【関連】→ 「has_post_thumbnail」で検索（アイキャッチの有無で条件分岐する方法）
 - 【関連】→ 「wp_enqueue_style」で検索（functions.phpの他の設定）
+
+### サムネイルを表示　function
+### アイキャッチを表示する手順
+
+1. **機能を有効にする**
+   `functions.php` に以下を記述する。これがないと設定欄が表示されない。
+   ```php
+   add_theme_support('post-thumbnails');
+   ```
+
+2. **画像を表示する（テンプレートファイル内）**
+   `single.php` や `archive.php` など、表示したい場所に以下を書く。
+
+   *   **基本の表示方法**
+       ```php
+       <?php the_post_thumbnail(); ?>
+       ```
+
+   *   **画像があるか確認して、なければ代わりの画像を表示する方法**
+       ```php
+       <?php if (has_post_thumbnail()): ?>
+           <?php the_post_thumbnail('medium'); // サイズ指定可能 ?>
+       <?php else: ?>
+           <img src="デフォルト画像���のパス" alt="画像なし">
+       <?php endif; ?>
+       ```
+
+### 覚えておきたいポイント
+*   **管理画面での操作**: `functions.php` に書いた後、投稿画面の右側のサイドバーに「アイキャッチ画像」という項目が出るので、そこから画像を設定する。
+*   **サイズの指定**: `the_post_thumbnail('thumbnail')` のように中身を変えると、画像の大きさを選べる（'thumbnail', 'medium', 'large', 'full' など）。
+*   **表示されない時**: `functions.php` への記述忘れか、記事自体に画像が設定されていない可能性が高い。
+
+### サムネイルを表示　function.php　書き方
+### 1. 機能の有効化（functions.php）
+テーマの `functions.php` に以下を記述すると、管理画面でアイキャッチ画像が設定できるようになります。
+
+```php
+<?php
+add_theme_support('post-thumbnails');
+```
+
+### 2. 記事に画像を表示する（表示したいテンプレートファイル）
+記事を表示したい場所（`single.php` や `archive.php` など）に以下のコードを書きます。
+
+```php
+<?php if (has_post_thumbnail()) : ?>
+    <!-- アイキャッチがある場合：画像を表示 -->
+    <?php the_post_thumbnail('medium'); ?>
+<?php else : ?>
+    <!-- アイキャッチがない場合：代わりに別の画像を表示 -->
+    <img src="<?php echo get_template_directory_uri(); ?>/images/no-image.png" alt="画像なし">
+<?php endif; ?>
+```
+
+### 補足
+*   **`has_post_thumbnail()`**: アイキャッチ画像が設定されているか確認する機能。
+*   **`the_post_thumbnail('サイズ')`**: 画像を表示する機能。`'thumbnail'`, `'medium'`, `'large'` などで大きさを選べます。
+*   **注意点**: `functions.php` にコードを書き忘れると、管理画面に設定欄が出ず、画像も表示されません。
+
+---
+
+## 📌 PHPの `endwhile()` に `()` をつけるとエラー → `endwhile` はキーワードなので `()` なしで書く
+
+【日付】2026-03-09
+
+【結論】
+`endwhile` は関数ではなく「キーワード」なので `()` をつけてはいけない。
+`endwhile()` と書くと「そんな関数はない」とPHPがエラーを出す。
+
+【具体例】
+```php
+// ❌ エラーになる
+<?php endwhile(); ?>
+
+// ✅ 正しい
+<?php endwhile; ?>
+
+// end〇〇 系はすべて同じルール
+<?php endif; ?>
+<?php endforeach; ?>
+```
+
+【補足】
+- ⚠ `the_post()` など関数は `()` が必要。`endwhile` は関数じゃないので不要
+- エラー行が `endwhile` 付近でも、本当の原因は手前の `if { } else { }` の閉じ忘れの場合もある
+- 💡 つまり：`end〇〇` 系は全部 `()` なし、と覚えればOK
+【関連】→ 「while have_posts」で検索（WordPressのループ構造）
+
+---
+
+## 📌 PHPとHTMLが混在したコードを複数行コメントにしたい → `/* */` は `<?php ?>` をまたげないので `if(false):` で囲む
+
+【日付】2026-03-09
+
+【結論】
+`/* */` は1つの `<?php ?>` タグの中でしか効かない。`?>` が来た時点でPHPブロックが閉じるので、次の `<?php` からは別ブロックになりコメントが途切れる。
+PHP+HTMLが混在する複数行を無効にするには `if(false):` で囲むのが正解。
+
+【具体例】
+```php
+// ❌ これはダメ（?> でコメントが途切れる）
+<?php /* if (has_post_thumbnail()){ ?>
+    <?php the_post_thumbnail(); ?>
+<?php } */ ?>
+
+// ✅ これが正解
+<?php if(false): ?>
+    <?php if (has_post_thumbnail()){ ?>
+        <?php the_post_thumbnail('thumbnail', array('class'=> 'news_img')); ?>
+    <?php } else { ?>
+        <img src="..." alt="" class="news_img">
+    <?php } ?>
+<?php endif; ?>
+```
+
+```
+図解:
+/* コメント開始
+   ↓
+?> ← PHPタグが閉じる → コメントも途切れる！
+
+if(false): で囲む
+   ↓
+絶対にtrueにならない条件 → 中身は実行されない
+```
+
+【補足】
+- ⚠ `<!-- -->` はHTMLコメントなので中のPHPは動いてしまう（表示はされないがサーバーで実行される）
+- `Ctrl + /` をPHPファイルのHTML部分で押すと `<!-- -->` になる（PHPは止まらない）
+- 💡 つまり：PHP+HTML混在コードを一時的に無効にしたいときは `if(false):` 一択
+【関連】→ 「endwhile」で検索（PHPキーワードの書き方）
+
+---
+
+## 📌 the_posts_pagination() を使うとWordPressが自動でクラスつきHTMLを出力する → 自分でクラスを書かずCSSで `.page-numbers` を指定するだけでいい
+
+【日付】2026-03-09
+
+【結論】
+`the_posts_pagination()` は1行書くだけでページネーションのHTMLを丸ごと自動生成してくれる。
+自分でHTMLを書く必要はなく、出力されたHTMLのクラスに対してCSSを書くだけ。
+
+【具体例】
+```php
+/* archive.php */
+<?php the_posts_pagination(); ?>
+```
+
+```
+自動で出力されるHTML:
+<nav class="navigation pagination">
+  <div class="nav-links">
+    <span class="page-numbers current">1</span>  ← 今のページ
+    <a class="page-numbers" href="...">2</a>
+    <a class="next page-numbers" href="...">次へ</a>
+  </div>
+</nav>
+```
+
+```css
+/*
+  <nav .pagination>               ← 全体
+    <div .nav-links>              ← リンクまとめ
+      <span .page-numbers.current> ← 今のページ（黒丸）
+      <a .page-numbers>            ← 他のページ（白丸）
+*/
+
+/* 各番号を丸くする */
+.pagination .page-numbers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  text-decoration: none;
+  color: #333;
+}
+
+/* 今のページだけ黒く塗る */
+.pagination .page-numbers.current {
+  background-color: #333;
+  color: #fff;
+}
+```
+
+【補足】
+- ⚠ `the_posts_pagination()` 自体にクラスをつける必要はない（自動でHTMLにクラスがつく）
+- 今のページの番号は `.page-numbers.current` で指定（クラスが2つついている要素）
+- `nav-links` `pagination` `page-numbers` などはPHPファイルに書いていない → WordPressが自動で出力する「隠れクラス」。これはWordPressの仕様
+- クラス名を知るには**ブラウザの検証ツール**で確認するのが正しいやり方（暗記不要）
+- 💡 つまり：WordPress関数はHTML+クラスをセットで出してくれるので、CSSを書くだけでOK
+【関連】→ 「the_posts_pagination」で検索（ページネーション関数の基本）
+
+---
+
+## 📌 WordPressで記事にカテゴリーを付与したい → 管理画面の記事編集画面の右サイドバー「カテゴリー」からチェックするだけ
+
+【日付】2026-03-09
+
+【結論】
+コードは不要。WordPress管理画面の操作だけで記事にカテゴリーを付けられる。
+
+【具体例】
+```
+手順:
+管理画面（/wp-admin）にアクセス
+   ↓
+左メニュー「お知らせ」をクリック
+   ↓
+カテゴリーを付けたい記事タイトルをクリック
+   ↓
+記事編集画面が開く
+   ↓
+右サイドバーを下にスクロール
+   ↓
+「カテゴリー」ブロック → □ イベント □ グルメ が表示される
+   ↓
+チェックして「更新」ボタンを押す
+```
+
+【補足】
+- ⚠ カテゴリーは先に管理画面「お知らせ」→「カテゴリー」から作成しておく必要がある
+- 💡 つまり：記事へのカテゴリー付与はコードではなく管理画面の操作で行う
+【関連】→ 「カテゴリー 作成」で検索（カテゴリーの作り方）
+
+---
+
+## 📌 get_the_category() で記事のカテゴリー名を取得 → $category->cat_name で名前のみ、リンクは get_category_link() で別途つける
+
+【日付】2026-03-09
+
+【結論】
+`get_the_category()` はカテゴリー情報を配列で返すだけ（表示はしない）。
+名前を表示するには `$category->cat_name`、リンクをつけるには `get_category_link()` が必要。
+カテゴリーページのURLはWordPressが**スラッグから自動生成**するので自分で書かなくてよい。
+
+【具体例】
+```php
+/*
+  <ul .news_category>   ← カテゴリーのリスト
+    <li>                 ← 各カテゴリー（複数ある場合もforeachで全部出る）
+*/
+
+<!-- 名前のみ（リンクなし） -->
+<ul class="news_category">
+  <?php $categories = get_the_category();
+  foreach($categories as $category){
+      echo '<li>' . $category->cat_name . '</li>';
+  } ?>
+</ul>
+
+<!-- リンクあり（クリックでカテゴリーページへ） -->
+<ul class="news_category">
+  <?php $categories = get_the_category();
+  foreach($categories as $category){
+      echo '<li><a href="' . get_category_link($category->term_id) . '">' . $category->cat_name . '</a></li>';
+  } ?>
+</ul>
+```
+
+```
+カテゴリーページURLの仕組み:
+管理画面でスラッグを「event」に設定
+   ↓
+WordPressが自動で URL を生成
+   例: /category/event/
+   ↓
+get_category_link() で取得できる（自分で書かなくてよい）
+```
+
+【補足】
+- ⚠ `$category->cat_name` と `$category->name` はどちらも同じ（どちらでも動く）
+- ⚠ `</ul class="...">` は無効なHTML → 閉じタグにclassはつけられない
+- 💡 つまり：カテゴリー名は `cat_name`、URLは `get_category_link()` の2つを組み合わせる
+- esc_url() と esc_html() は「外部からきたデータを安全にするラッパー」として使う → 書き方の丸暗記は不要。「外から来たデータには esc_ をつける」という概念だけ覚える
+【関連】→ 「the_posts_pagination」で検索（WordPressが自動生成するHTML）
