@@ -1,32 +1,12 @@
 
 
-・拡張機能
-WordPress Snippets
-PHP Debug
-Path Intellisense
-Highlight Matching Tag
 
-HTML End Tag Labels
-その他拡張機能
-
-
-Ctrl + , で設定を開く。
-emmet.includeLanguages を検索。
-「項目の追加」で、項目に php、値に html と入力して保存。
-
-・設定
-settings json 
-  "intelephense.stubs": ["wordpress", "apache", "bcmath", "Core", "curl", "date", "dom", "fileinfo", "filter", "gd", "hash", "iconv", "imagick", "json", "mbstring", "mysqli", "openssl", "pcre", "pdo", "Phar", "readline", "redis", "Reflection", "session", "SimpleXML", "soap", "SPL", "standard", "tokenizer", "wordpress", "xml", "xmlreader", "xmlwriter", "zip", "zlib"],
-
-intelephense.stubsを検索して、phpにチェックをいれる
 
 
 
 ▢　
 
-・CSS　JUMP　インストール
 
-・日付入力.ahk をスタートアップに登録
 
 
 
@@ -54,8 +34,9 @@ intelephense.stubsを検索して、phpにチェックをいれる
 ## 拡張機能（自宅）
 
 【自宅】
-・HTML CSS jump　
-HTML構造改革のコントロールアイデア。不要なネストを削除するような階層をできるだけ浅くするとか、短くするようなアドバイスも欲しい。
+・問題の　jsonに追加するために、php/wordpressの正式な名前を登録する
+・家にかえって、勉強用のTHEMEをgitに登録する
+
 
 
 
@@ -148,7 +129,25 @@ cssを。ないはずなのに。
 
 
 
+・拡張機能
+WordPress Snippets
+PHP Debug
+Path Intellisense
+Highlight Matching Tag
 
+その他拡張機能
+
+
+▢　【PHPの設定】
+Ctrl + , で設定を開く。
+emmet.includeLanguages を検索。
+「項目の追加」で、項目に php、値に html と入力して保存。
+
+・設定
+settings json 
+  "intelephense.stubs": ["wordpress", "apache", "bcmath", "Core", "curl", "date", "dom", "fileinfo", "filter", "gd", "hash", "iconv", "imagick", "json", "mbstring", "mysqli", "openssl", "pcre", "pdo", "Phar", "readline", "redis", "Reflection", "session", "SimpleXML", "soap", "SPL", "standard", "tokenizer", "wordpress", "xml", "xmlreader", "xmlwriter", "zip", "zlib"],
+
+intelephense.stubsを検索して、phpにチェックをいれる
 
 
 
