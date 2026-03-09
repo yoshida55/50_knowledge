@@ -3097,9 +3097,12 @@
   "WordPressでの画像指定方法": {
     "title": "WordPressでの画像指定方法",
     "line": 0,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "aiCategory": "wordpress/php"
+    "lastReviewed": 1773004680481,
+    "reviewCount": 3,
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      3
+    ]
   },
   "画像をｐｈｐで表示させたときどうすればいいか？": {
     "title": "画像をｐｈｐで表示させたときどうすればいいか？",
@@ -3111,9 +3114,12 @@
   "HTMLでの書き方": {
     "title": "HTMLでの書き方",
     "line": 0,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "aiCategory": "wordpress/php"
+    "lastReviewed": 1773004711067,
+    "reviewCount": 3,
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      3
+    ]
   },
   "なぜこれが必要か": {
     "title": "なぜこれが必要か",
@@ -3132,16 +3138,22 @@
   "📌 WordPress固定ページは管理画面で作成 → タイトルを入力してスラッグにURLを設定する → スラッグ「about」と書くと page-about.php が自動で使われる": {
     "title": "📌 WordPress固定ページは管理画面で作成 → タイトルを入力してスラッグにURLを設定する → スラッグ「about」と書くと page-about.php が自動で使われる",
     "line": 0,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "aiCategory": "wordpress/php"
+    "lastReviewed": 1773004754958,
+    "reviewCount": 1,
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      2
+    ]
   },
   "パーマリンク（Permalink）の要点まとめ": {
     "title": "パーマリンク（Permalink）の要点まとめ",
     "line": 0,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "aiCategory": "wordpress/php"
+    "lastReviewed": 1773004664599,
+    "reviewCount": 1,
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      2
+    ]
   },
   "コードでのイメージ": {
     "title": "コードでのイメージ",
@@ -3401,8 +3413,8 @@
   "📌 WordPressで投稿のアーカイブページを作成する → functions.phpでURLを用意し、パーマリンク更新後に一覧テンプレートを確認する": {
     "title": "📌 WordPressで投稿のアーカイブページを作成する → functions.phpでURLを用意し、パーマリンク更新後に一覧テンプレートを確認する",
     "line": 0,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1773005415957,
+    "reviewCount": 1,
     "aiCategory": "wordpress/php"
   },
   "📌 VS Codeハイライト連携のテスト → 追記後に該当行を目立たせられるか確認する": {
@@ -3422,8 +3434,8 @@
   "📌 archive.phpのthe_permalink() は single.php を直接呼ぶ関数ではない → 個別記事URLを出し、そのURLを開いたときに WordPress が single.php を選ぶ": {
     "title": "📌 archive.phpのthe_permalink() は single.php を直接呼ぶ関数ではない → 個別記事URLを出し、そのURLを開いたときに WordPress が single.php を選ぶ",
     "line": 0,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1773004811744,
+    "reviewCount": 1,
     "aiCategory": "wordpress/php"
   },
   "archive.phpないのパーマリンクはどこをさしている？": {
