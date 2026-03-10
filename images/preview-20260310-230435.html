@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スクロールアニメーション デモ</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+    }
+
+    /* 固定ヘッダー：現在の値を表示 */
+    .debug-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      color: #00ff00;
+      padding: 10px;
+      font-size: 14px;
+      z-index: 9999;
+      font-family: monospace;
+    }
+
+    .debug-panel div {
+      margin: 5px 0;
+    }
+
+    /* 画面の高さを可視化 */
+    .viewport-marker {
+      position: fixed;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: red;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .viewport-marker.top {
+      top: 0;
+    }
+
+    .viewport-marker.bottom {
+      bottom: 0;
+    }
+
+    .viewport-label {
+      position: fixed;
+      right: 10px;
+      background: red;
+      color: white;
+      padding: 5px 10px;
+      font-size: 12px;
+      z-index: 1001;
+    }
+
+    .viewport-label.top {
+      top: 10px;
+    }
+
+    .viewport-label.bottom {
+      bottom: 10px;
+    }
+
+    /* スクロールエリア */
+    .scroll-area {
+      padding: 150px 20px;
+      min-height: 200vh;
+    }
+
+    /* アニメーション対象の要素 */
+    .box {
+      width: 300px;
+      height: 200px;
+      margin: 100px auto;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      opacity: 0.3;
+      transform: scale(0.8);
+      transition: all 0.5s ease;
+      position: relative;
+    }
+
+    /* アニメーションクラスが付いたら */
+    .box.animate {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 要素の位置を表示 */
+    .box::before {
+      content: 'rect.top = ' attr(data-top) 'px';
+      position: absolute;
+      top: -30px;
+      left: 0;
+      font-size: 14px;
+      background: #333;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .spacer {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <!-- デバッグパネル -->
+  <div class="debug-panel">
+    <div>📊 <strong>window.innerHeight</strong> = <span id="windowHeight">0</span>px (画面の高さ 固定)</div>
+    <div>📜 <strong>window.scrollY</strong> = <span id="scrollY">0</span>px (スクロール量)</div>
+    <div>📦 <strong>rect.top</strong> = <span id="rectTop">0</span>px (要素の上端位置)</div>
+    <div>✅ <strong>条件</strong>: rect.top (<span id="rectTopVal">0</span>) <= windowHeight (<span id="windowHeightVal">0</span>) = <span id="condition">false</span></div>
+  </div>
+
+  <!-- 画面の境界線 -->
+  <div class="viewport-marker top"></div>
+  <div class="viewport-marker bottom"></div>
+  <div class="viewport-label top">画面の上端 (0px)</div>
+  <div class="viewport-label bottom">画面の下端</div>
+
+  <div class="scroll-area">
+    <div class="spacer">⬇️ 下にスクロールしてください ⬇️</div>
+
+    <div class="box" id="targetBox" data-top="0">
+      📦 対象の要素
+    </div>
+
+    <div class="spacer">⬇️ さらにスクロール ⬇️</div>
+
+    <div class="box" id="targetBox2" data-top="0">
+      📦 2つ目の要素
+    </div>
+
+    <div class="spacer">🎉 終わり</div>
+  </div>
+
+  <script>
+    const targetBox = document.getElementById('targetBox');
+    const targetBox2 = document.getElementById('targetBox2');
+
+    function updateDebugInfo() {
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+      const rect = targetBox.getBoundingClientRect();
+      const rectTop = Math.round(rect.top);
+
+      // デバッグ情報を更新
+      document.getElementById('windowHeight').textContent = windowHeight;
+      document.getElementById('scrollY').textContent = Math.round(scrollY);
+      document.getElementById('rectTop').textContent = rectTop;
+      document.getElementById('rectTopVal').textContent = rectTop;
+      document.getElementById('windowHeightVal').textContent = windowHeight;
+
+      // 条件判定
+      const condition = rectTop <= windowHeight;
+      document.getElementById('condition').textContent = condition ? '✅ true (アニメーション発動!)' : '❌ false';
+      document.getElementById('condition').style.color = condition ? '#00ff00' : '#ff0000';
+
+      // data属性を更新
+      targetBox.setAttribute('data-top', rectTop);
+
+      // アニメーション追加
+      addAnimateOnScroll(targetBox);
+      addAnimateOnScroll(targetBox2);
+    }
+
+    function addAnimateOnScroll(element) {
+      const rect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      if (rect.top <= windowHeight) {
+        element.classList.add('animate');
+        console.log('animate added to', element);
+      }
+    }
+
+    // スクロールイベント
+    window.addEventListener('scroll', updateDebugInfo);
+
+    // 初回実行
+    updateDebugInfo();
+  </script>
+</body>
+</html>

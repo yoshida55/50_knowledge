@@ -1881,6 +1881,23 @@ outline は標準では「箱の外側」に線がつきますが、outline-offs
 outline-offset: -3px; ：線の厚み分だけ内側に食い込ませる（デザインカンプ通りに作りやすい）。
 outline-offset: 2px; ：箱から 2px 浮かせて線をつける。
 
+
+### ホバーした要素にアンダーラインをつける
+```css
+a { text-decoration: none; position: relative; } 
+
+a::after { 
+  content: ''; 
+  position: absolute; 
+  left: 0; bottom: 0; 
+  width: 0; height: 2px; 
+  background: #000; 
+  transition: width 0.3s; 
+  } 
+
+a:hover::after { width: 100%; }
+```
+
 ## サイドメニューーから header メニューに変更する
 
 ## 固定サイドバーをけす。
@@ -4349,7 +4366,8 @@ body（お母さん）
 ### 「~で一回親を経由する」は**誤り**
 - `~` は**親を経由しない**
 - **同じ親を持つ後続の兄弟要素**を直接選択する
-- `#side_area.open ~ #mainVisual_area` は「openクラスがついたside_areaの**後に続く兄弟**のmainVisual_area」という意味
+- `#side_area.open ~ #mainVisual_area` は「openクラスがついたside_areaの**
+「後に続く兄弟**のmainVisual_area」という意味
 
 ## 正確な説明
 #side_area.open ~ #mainVisual_area .page_container
@@ -4899,7 +4917,8 @@ if (rect.top <= windowHeight) {
 ```
 
 ### 💡 デモファイル
-- [scroll-demo.html](../02_作業/00_リンクワーク/HTML自動化/過去の課題/67_猫サイト/scroll-demo.html)
+[プレビュー](http://localhost:54321/preview-20260310-230532.html)
+
 - リアルタイムで値を確認可能
 
 
@@ -7718,6 +7737,20 @@ $total_price = 1000;
 | キャメルケース | `userName` | JavaScript変数・関数 |
 | パスカルケース | `UserName` | クラス名（PHP・JS） |
 | ケバブケース | `user-name` | CSSクラス名・HTMLのid |
+
+
+/* ✨
+アンダースコア（`_`）で単語をつなぐ形が、ヘビが這っている様子や、ヘビの体節のように見えることに由来しています。
+*/
+
+
+/* ✨
+「キャメルケース（CamelCase）」という名前の由来は、単語の区切りを大文字にすることでできる**「こぶ（hump）」が、ラクダの背中のこぶに似ているから**です。
+
+2つ目の単語から大文字にする書き方（例：`camelCase`）が、ラクダの背中のシルエットを連想させるため、そう呼ばれるようになりました。
+*/
+
+
 
 - ⚠ 間違えやすいこと：CSSは `-`（ハイフン）区切りで、PHPは `_`（アンダースコア）区切り。混ぜないように！
 - 💡 つまり：言語によって「単語のつなぎ方のルール」が違う。PHPは `_` でつなぐ＝スネークケース
@@ -10664,6 +10697,26 @@ echo $staff_obj2->name; // bob
 ### いつどれを使う？
 【日付】2026-03-10
 
+★★要するに、いろんなところで使い回したいときはオブジェクト、その場限りで終わりのときは配列
+
+★★結局何を覚えておけばいいの？
+
+連想配列とか配列とかオブジェクトとかあるけど、HTML、JavaScript、PHP、WordPressでは何を覚えればいいの？
+
+$data = ['name' => '田中', 'age' => 25];
+$obj = (object)$data;
+
+echo $obj->name; // 田中
+
+
+
+
+### 結局どうすればいい？
+1.  **まずは「連想配列（JavaScriptならオブジェクト）」**を使って、データをまとめる練習をしてください。これが一番汎用性が高いです。
+2.  「コードが長くて読みづらい」「同じような処理を何度も書いている」と感じたら、その時に初めて**「クラス」**を調べてください。
+
+
+
 | 使う場面 | おすすめ |
 |---------|---------|
 | シンプルなデータをまとめる | 連想配列 |
@@ -10674,6 +10727,41 @@ echo $staff_obj2->name; // bob
 - ⚠ 間違えやすいこと：連想配列は `['key']`、オブジェクトは `->key`。記号を混ぜると即エラー
 - 💡 つまり：`[]` で取るか `->` で取るかを見れば、配列かオブジェクトか一瞬でわかる
 - 【関連】→ 「`$categories[0]->name`」で検索（WordPressのオブジェクト配列の取り出し方）
+
+/* ✨
+PHPにおけるオブジェクトの書き方は、主に以下の3つのパターンがあります。
+
+### 1. 標準クラス（stdClass）を使う
+最も手軽な方法です。配列から変換したり、空のオブジェクトに値を代入したりします。
+$obj = new stdClass();
+$obj->name = '田中';
+$obj->age = 25;
+
+### 2. 連想配列からキャストする
+配列をオブジェクトに変換する最も簡単な書き方です。
+$data = ['name' => '田中', 'age' => 25];
+$obj = (object)$data;
+
+echo $obj->name; // 田中
+
+### 3. クラスを定義する（推奨）
+構造が明確になり、メソッドも持たせられるため、最も堅牢な書き方です。
+class User {
+    public $name;
+    public $age;
+}
+
+$obj = new User();
+$obj->name = '田中';
+
+**まとめ：**
+- 一時的にデータをまとめたいだけなら **`(object)$array`**
+- 決まった構造を使い回すなら **`class`定義**
+を使うのが一般的です。
+*/
+
+
+
 
 ---
 
@@ -10739,3 +10827,58 @@ wp_enqueue_style('mytheme-about', get_template_directory_uri() . '/css/about.css
 - ⚠ 間違えやすいこと：ハンドル名が衝突してもエラーが出ないため、CSSが効かない原因に気づきにくい
 - 💡 つまり：ハンドル名 = WordPress内のID。同じIDが2つあると後から書いた方が無視される
 - 【関連】→ 「wp_enqueue_style」で検索（CSS読み込みの基本的な書き方・引数の意味）
+
+
+**Q: get_the_category関数で取得したカテゴリから特定のカテゴリを除外して最初の1件だけ表示するには？**
+【日付】2026-03-10
+
+`get_the_category()` で取得した配列を `foreach` で回し、`Uncategorized` 以外（`!=`）が見つかった瞬間に1件出して `break;` する。
+
+カテゴリオブジェクトの配列が返るので、`$category->name` でプロパティにアクセスし、条件に合う最初の1件だけ表示して `break;` でループを止める。
+
+例：
+```php
+<ul class="news_category">
+  <?php
+  $categories = get_the_category();
+  $found = false;
+  foreach ( $categories as $category ) {
+      if ( $category->name != 'Uncategorized' ) {
+          echo '<li class="news_test">' . esc_html( $category->name ) . '</li>';
+
+          $found = true;
+          break;
+      }
+  }
+  if ( ! $found ) {
+      echo '<li class="news_test">カテゴリなし</li>';
+  }
+  ?>
+</ul>
+/* ✨
+いいえ、違います。
+
+`$category->name` に入っているのは、管理画面で設定した**カテゴリの「名前（文字列）」**です。URLではありません。
+*/
+/* ✨
+`esc_html`を使う理由は、**「カテゴリ名にHTMLタグが含まれていた場合に、それを無効化して安全に表示するため」**です。
+
+もし管理画面のカテゴリ名に悪意のあるスクリプト（`<script>alert(1)</script>`など）が入力されていた場合、そのまま出力するとブラウザで実行されてしまいます。`esc_html`を通すことで、タグを単なる文字列として表示し、セキュリティリスクを防いでいます。
+*/
+
+
+```
+
+/*
+🔍 esc_html
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+📌 何をする  HTMLエスケープ処理を行い、安全な文字列を生成します。
+📥 引数      string → エスケープ処理を行う文字列
+📤 戻り値    string → エスケープ処理された文字列（例: "&lt;p&gt;Hello&lt;/p&gt;"）
+            └ 取得後: HTML要素の属性値やテキストノードに安全に挿入できる。
+💡 使い方    echo '<p>' . esc_html( $user_input ) . '</p>';
+            └ 取得後: ブラウザに安全に表示される。
+⚠️  注意      XSS対策に必須
+            └ 属性値にはesc_attr()も検討。
+━━━━━━━━━━━━━━━━━━━━━━━━━━
+*/
