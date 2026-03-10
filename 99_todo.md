@@ -4,12 +4,7 @@
 
 
 
-▢　
-・問題の　jsonに追加するために、php/wordpressの正式な名前を登録する
-"cssToHtmlJumper.quizCategories": ["その他", "wordpress/php", "html", "不動産", "プライベート"],
 
-
-・VSIXのインストール
 
 
 

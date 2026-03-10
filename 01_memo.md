@@ -7709,6 +7709,19 @@ $first_name = "太郎";
 $total_price = 1000;
 ```
 
+### 命名スタイルの種類（覚えておく）
+【日付】2026-03-10
+
+| 名前 | 書き方 | 主な用途 |
+|------|--------|---------|
+| スネークケース | `user_name` | PHP変数・関数・WordPress |
+| キャメルケース | `userName` | JavaScript変数・関数 |
+| パスカルケース | `UserName` | クラス名（PHP・JS） |
+| ケバブケース | `user-name` | CSSクラス名・HTMLのid |
+
+- ⚠ 間違えやすいこと：CSSは `-`（ハイフン）区切りで、PHPは `_`（アンダースコア）区切り。混ぜないように！
+- 💡 つまり：言語によって「単語のつなぎ方のルール」が違う。PHPは `_` でつなぐ＝スネークケース
+
 ### 文字列の結合
 - JavaScriptは `+` だが、PHPは `.`（ドット）
 ```php
@@ -8734,6 +8747,27 @@ wp_enqueue_script('my-script', get_template_directory_uri() . '/js/main.js', arr
 - 💡 つまり：WordPressでは「jQueryを使うなら依存指定」「使わないなら無効化の影響確認」がセット
 【関連】→ 「wp_enqueue_script」で検索（JS読み込みの書き方・引数の意味）
 【関連】→ 「wp_footer」で検索（footer.phpでJSを出力するトリガー）jQueryをワードプレスでつかいたい
+
+### jQuery よくある書き間違い3つ
+【日付】2026-03-10
+
+```js
+// ❌ よくある間違い3パターン
+jquery(function){      // ① j が小文字 ② ($) がない ③ }); でなく } だけ
+$(".sec_title").css("color", "red");
+}
+
+// ✅ 正しい書き方
+jQuery(function($) {   // ① J は大文字 ② ($) 必須 ③ }); で閉じる
+  $(".sec_title").css("color", "red");
+});
+```
+
+| 間違い | 症状 |
+|--------|------|
+| `jquery`（小文字） | `jquery is not a function` エラー |
+| `function)` → `($)` なし | `$` が使えない（`$ is not defined`） |
+| `}` だけ（`);` なし） | 構文エラー |
 
 
 
@@ -10544,3 +10578,164 @@ get_category_link() で取得できる（自分で書かなくてよい）
 
 
 [プレビュー](http://localhost:54321/preview-20260310-001733.html)
+
+## 📌 WordPressで画像URL取得 → get_theme_file_uri() と get_theme_directory_uri() はどちらも使えるが file_uri 推奨（子テーマ対応のため）
+
+【日付】2026-03-10
+【結論】
+どちらでも画像URLは取得できる。ただし `get_theme_file_uri()` の方が新しく、子テーマがある場合に子テーマ側のファイルを優先してくれる。基本的に `get_theme_file_uri()` を使えばOK。
+
+【具体例】
+```php
+// ❌ 古い書き方（子テーマ非対応）
+<?php echo get_theme_directory_uri(); ?>/img/news.jpg
+
+// ✅ 新しい書き方（子テーマ対応）
+<?php echo get_theme_file_uri('/img/fv.jpg'); ?>
+```
+
+どちらも出力されるURLは同じ形式：
+```
+https://example.com/wp-content/themes/テーマ名/img/news.jpg
+```
+
+【補足】
+- `get_theme_directory_uri()` = テーマフォルダ自体のURLを返す（末尾にスラッシュなし）
+- `get_theme_file_uri('/img/fv.jpg')` = ファイルのフルURLを返す（引数にファイルパスを渡す）
+- どちらも同じ画像を取得できるが、書き方が違う
+- ⚠ 間違えやすいこと：`directory_uri` は文字列なのでスラッシュ + ファイル名を自分でつなげる必要がある
+- 💡 つまり：`get_theme_file_uri()` は引数にパスを渡すだけでURLが完成するので楽で安全
+
+---
+
+## 📌 PHPのデータまとめ方3種 → 連想配列・オブジェクト・無名クラス（「箱の呼び出し方」で覚える）
+
+【日付】2026-03-10
+【結論】
+データをまとめる方法は3つある。どれも「名前付きの箱に値を入れる」イメージは同じ。違いは「呼び出し方の記号」と「クラスを使うかどうか」。
+
+### 比較表
+【日付】2026-03-10
+
+| 種類 | 書き方 | 呼び出し |
+|------|--------|---------|
+| 連想配列 | `['key' => 'value']` | `$data['key']` |
+| オブジェクト（stdClass） | `$obj->key = 'value'` | `$obj->key` |
+| 無名クラス（new class） | `new class { public $key = 'value'; }` | `$obj->key` |
+
+【具体例】
+```php
+// ① 連想配列
+$staff_arr = [
+    'name'     => 'bob',
+    'age'      => 25,
+    'position' => '課長',
+];
+echo $staff_arr['name']; // bob
+
+// ② stdClass（簡易オブジェクト）
+$staff_obj = new stdClass();
+$staff_obj->name     = 'bob';
+$staff_obj->age      = 25;
+$staff_obj->position = '課長';
+echo $staff_obj->name; // bob
+
+// ③ 無名クラス（new class）
+$staff_obj2 = new class {
+    public $name     = 'bob';
+    public $age      = 25;
+    public $position = '課長';
+};
+echo $staff_obj2->name; // bob
+```
+
+### 覚え方（記号で区別する）
+【日付】2026-03-10
+
+```
+配列は「肺（=>）が痛い」→ で刺される
+
+オブジェクトは「=（イコール）で静かに代入
+```
+
+- `[]` = 連想配列
+- `->` = オブジェクト（stdClass・new class どちらも同じ）
+
+### いつどれを使う？
+【日付】2026-03-10
+
+| 使う場面 | おすすめ |
+|---------|---------|
+| シンプルなデータをまとめる | 連想配列 |
+| WordPressの返り値（WP_Post等） | オブジェクト（→ を使う） |
+| メソッド（関数）も持たせたい | 無名クラス or 通常クラス |
+
+【補足】
+- ⚠ 間違えやすいこと：連想配列は `['key']`、オブジェクトは `->key`。記号を混ぜると即エラー
+- 💡 つまり：`[]` で取るか `->` で取るかを見れば、配列かオブジェクトか一瞬でわかる
+- 【関連】→ 「`$categories[0]->name`」で検索（WordPressのオブジェクト配列の取り出し方）
+
+---
+
+## 📌 PHPのforeachは `}` の後にセミコロン不要 → 代入文は必要・制御構造は不要（「命令か？ブロックか？」で判断）
+
+【日付】2026-03-10
+【結論】
+セミコロン `;` は「1つの命令の終わり」を示す記号。`foreach` は命令ではなく「ブロック（塊）」なので不要。代入文は1つの命令なので必要。
+
+【具体例】
+```php
+// ✅ 正しい書き方
+$test_arr = [        // 代入文 → 命令なので ; 必要
+    'name' => 'bob',
+    'age'  => 25,
+];                   // ← ; あり
+
+foreach ($test_arr as $key => $value) {
+    echo $value . '<br>';
+}                    // ← ; なし（ブロックの閉じ括弧）
+
+// ❌ よくある間違い
+foreach ($test_arr as $key => $value) {
+    echo $value . '<br>';
+};  // ← } の後に ; は不要（エラーにはならないが慣習としてNG）
+```
+
+【覚え方】
+```
+; が必要  →「=（イコール）で代入するやつ」
+; が不要  →「{ } （波かっこ）で囲むやつ」
+```
+
+つまり `{` で始まるブロックは `;` なし、`=` で終わる代入は `;` あり！
+
+【補足】
+- ⚠ 間違えやすいこと：`}` の後に `;` を付けてもエラーにならないケースがあるため、間違いに気づきにくい
+- 💡 つまり：`foreach / if / for / while` は全部ブロック → セミコロン不要。変数への代入は全部 `;` 必要
+
+---
+
+## 📌 wp_enqueue_style の第1引数に `'about'` を使うとCSSが当たらない → WordPressの予約済み名と衝突するため（`'about-php'` など別名にする）
+
+【日付】2026-03-10
+【結論】
+`wp_enqueue_style('about', ...)` のように短い一般的な名前を使うと、WordPressやプラグインがすでに同じ名前を使っていて上書きされ、CSSが読み込まれない。ハンドル名はかぶらない名前にする。
+
+【具体例】
+```php
+// ❌ 'about' はWordPressが内部で使っている可能性がある
+wp_enqueue_style('about', get_template_directory_uri() . '/css/about.css');
+
+// ✅ 別名にすればOK
+wp_enqueue_style('about-php', get_template_directory_uri() . '/css/about.css');
+// または テーマ名をプレフィックスにする（より安全）
+wp_enqueue_style('mytheme-about', get_template_directory_uri() . '/css/about.css');
+```
+
+【覚え方】
+「短い英単語（about, page, post, style など）は危険ゾーン。テーマ名や `-php` を後ろにつけて他と差別化」
+
+【補足】
+- ⚠ 間違えやすいこと：ハンドル名が衝突してもエラーが出ないため、CSSが効かない原因に気づきにくい
+- 💡 つまり：ハンドル名 = WordPress内のID。同じIDが2つあると後から書いた方が無視される
+- 【関連】→ 「wp_enqueue_style」で検索（CSS読み込みの基本的な書き方・引数の意味）
