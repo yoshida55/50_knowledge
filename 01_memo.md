@@ -10882,3 +10882,64 @@ wp_enqueue_style('mytheme-about', get_template_directory_uri() . '/css/about.css
             └ 属性値にはesc_attr()も検討。
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 */
+---
+
+## 学習進捗
+
+
+### 勉強中
+- PHP / WordPress テーマ開発（独自テーマ: 60_PHP_STUDY_WordPress_theme）
+
+### ✅ 完了
+- `archive.php` → `have_posts()` / `the_post()` でループ実装
+- `single.php` → 個別記事ページの表示確認
+- `page-contact.php` → 固定ページ（contactスラッグ）のテンプレート作成・表示確認
+- WordPress テンプレート階層の理解（single / page / page-{slug} / index の優先順位）
+- `template-parts/contact-form.php` → フォーム部分を切り出し
+- `front-page.php` → `get_template_part()` でフォームをフッター前に表示
+
+### ➡ 次にやること
+- （未定）
+
+### 📅 最終更新
+- 2026-03-11
+
+## 📌 フォームなど共通パーツを複数ページで使いたい → template-parts/ に切り出して get_template_part() で呼ぶ
+
+【日付】2026-03-11
+【結論】
+page-contact.php を丸ごと呼ぶとヘッダー・フッターが二重に入る。
+フォーム部分だけ template-parts/ に切り出すと、どのページからでも再利用できる。
+
+【具体例】
+```
+template-parts/
+  contact-form.php  ← フォームのHTMLだけ入れる
+```
+
+```php
+// front-page.php のフッター前
+<?php get_template_part('template-parts/contact-form'); ?>
+<?php get_footer(); ?>
+```
+
+`get_template_part()` は指定したパスにファイルが存在すれば読み込む仕組みなので、`my-form.php` や `contact-parts.php` など、分かりやすい名前を付けて問題ありません。
+
+図解:
+page-contact.php（ページ全体）
+  ↓ フォーム部分だけ切り出す
+template-parts/contact-form.php
+  ↓ get_template_part() で呼び出す
+front-page.php / 他のページでも使い回せる
+
+【補足】
+- ⚠ get_template_part() の引数に .php は書かない
+- ⚠ page-contact.php を include すると header/footer が二重になる
+- 💡 つまり：再利用したいHTMLは template-parts/ に入れるのが WordPress の慣習
+- 【関連】→ 「テンプレート階層」で検索（どのファイルが呼ばれるかの優先順位）
+/* ✨
+結論から言うと、**決まりではありません。自由な名前でOKです。**
+
+
+
+
