@@ -1,9 +1,26 @@
 
 
 
+▢　.claude/setting.json
+{
+  "permissions": {
+    "allow": [
+      "Write",
+      "Edit"
+    ]
+  }
+}
 
 
+"allowedTools": [
+  "Read",
+  "Edit",
+  "Write",   ← これを追加
+  "Bash",
+  "Continue"
+]
 
+？？？
 
 
 
