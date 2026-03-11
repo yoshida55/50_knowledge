@@ -11216,10 +11216,11 @@ archive.php を作った・functions.php を変えた
 
 【結論】
 ★★「イチロー（一覧）は画像も持てる。一人でやるから、functions にも追加！」★★
-
+（サムネイルを表示できる）
 - アイキャッチ画像を使うには **2か所** にコードが必要
   - `functions.php` → テーマ全体でアイキャッチを有効化
   - `archive.php` → 一覧ページで実際に表示する
+
 
 【具体例】
 
@@ -11268,6 +11269,39 @@ add_theme_support( 'post-thumbnails' );
 - ⚠ `the_post_thumbnail()` だけ書いて終わりにしがち → `has_post_thumbnail()` のセットを忘れずに
 - 💡 つまり：「あるかチェック → あれば表示」の2ステップが安全
 
+
+### アーカイブにサムネイルを表示
+アーカイブページでサムネイルを表示するには、以下の2ステップが必要です。
+
+### 1. テーマ全体で機能を有効化（functions.php）
+テーマがアイキャッチを使えるように、このコードを追記します。
+
+```php
+// functions.php
+add_theme_support( 'post-thumbnails' );
+```
+
+### 2. アーカイブで表示（archive.php）
+画像があるときだけ表示するように、必ず「チェック」と「表示」をセットで書きます。
+
+```php
+// archive.php
+<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+
+  <?php if ( has_post_thumbnail() ) : ?>
+    <?php the_post_thumbnail(); ?>
+  <?php endif; ?>
+
+  <h2><?php the_title(); ?></h2>
+
+<?php endwhile; endif; ?>
+```
+
+- **なぜ2つ必要なの？**
+  - `functions.php` は「アイキャッチ機能を使います！」という宣言。
+  - `archive.php` は「ここ（一覧）に画像を出して！」という命令だからです。
+- **注意点**
+  - 画像が設定されていない投稿もあるため、必ず `has_post_thumbnail()`（あるか確認）で囲んでください。これがないと、画像がない場所でレイアウトが崩れる原因になります。
 ## 📌 the_post_thumbnail() はクラス指定が必要 + has_post_thumbnail() でif分岐しないとデフォルト画像と切り替えができない
 
 【日付】2026-03-11
@@ -11283,7 +11317,7 @@ add_theme_support( 'post-thumbnails' );
 
 ```php
 <?php if ( has_post_thumbnail() ) : ?>
-    <?php the_post_thumbnail( 'thumbnail', ['class' => 'news_img'] ); ?>
+    <?php the_post_thumbnail( 'thumbnail', ['class' => 'news_img'] ); ?>→★このように記述することで、imgタグにクラスがつきます
 <?php else : ?>
     <img src="<?php echo get_theme_file_uri('/img/news.jpg'); ?>" alt="" class="news_img">
 <?php endif; ?>
@@ -11327,4 +11361,144 @@ add_action( 'the_post', 'same_date' );
 - ⚠ `the_date()` のままだと同日2件目以降が出ない → archive.phpでは使わない方が無難
 - ⚠ `get_the_date()` は取得するだけなので `echo` を忘れずに（`the_date()` は echo不要）
 - 💡 つまり：一覧ページの日付は `get_the_date()` が安全
+
+## 📌 the_post_thumbnail() の第2引数は連想配列 → キー名がそのままHTMLの属性名になる
+
+【日付】2026-03-11
+
+【結論】
+★★「キー（class）の人は、任意（news_img）の席に座る」★★
+- `class` = キー → 固定（HTMLの属性名なので変えられない「決まった人」）
+- `news_img` = 値 → 任意（自分でつけるクラス名＝好きな「席」に座っていい）
+
+`['class' => 'news_img']` はPHPの連想配列。`=>` の左がキー（属性名）、右が値（属性の内容）。
+`the_post_thumbnail()` がこれを受け取って `<img class="news_img">` に変換してくれる。
+この配列は「データ保存」ではなく**「設定を渡す指示」**として使っている。
+
+【具体例】
+
+```php
+the_post_thumbnail('thumbnail', ['class' => 'news_img']);
+//                               ↑キー     ↑値
+// → <img class="news_img"> として出力される
+```
+
+```php
+// 複数の属性も指定できる
+the_post_thumbnail('thumbnail', [
+    'class' => 'news_img',   // クラス名
+    'alt'   => '記事画像',   // alt属性
+    'id'    => 'main-img',   // id属性
+]);
+```
+
+【補足】
+- ⚠ 連想配列のキー名 = HTMLの属性名そのまま（覚えやすい）
+- ⚠ 第2引数を省略するとimgにクラスがつかず、CSSでサイズ制御できない
+- 💡 つまり：`=>` は「キー → 値」のペアを表す記号
+
+## 📌 詳細ページのURLの形式 → 管理画面「設定 > パーマリンク」から変更できる（スラッグ個別変更は投稿編集画面）
+
+【日付】2026-03-11
+
+【結論】
+★★「詳細ページの子ども（URL）は管理（画面）されている。特に形（パーマリンクの形式）」★★
+
+語呂の対応：
+- 「詳細ページ」 → single.php（詳細ページのこと）
+- 「子ども」     → URL（詳細ページが持っているURL）
+- 「管理されている」→ 管理画面から変更できる
+- 「特に形」     → URLの**形式（パーマリンク構造）**のこと → 設定 > パーマリンクで変える
+
+- 設定 > パーマリンク → URLの**形式（構造）**を変える
+- 投稿の編集画面 → 個別記事の**スラッグ**を変える
+
+【具体例】
+
+```
+設定 > パーマリンクで選べる形式：
+  基本         → /?p=123
+  日付と投稿名 → /2025/05/16/sample-post/
+  投稿名       → /sample-post/  ← 初期設定
+  数字ベース   → /archives/123
+```
+
+```php
+// archive.php でクリックしたときのURL取得
+<a href="<?php the_permalink(); ?>" class="news_item">
+//         ↑ パーマリンクの形式に従ったURLが出る
+```
+
+【補足】
+- ⚠ 「スラッグ変更」と「パーマリンク形式変更」は別物。混同しやすい
+- ⚠ パーマリンクの形式を変えたあとは「設定を保存」を忘れずに
+- 💡 つまり：形式（全体のルール）は設定画面 / 個別スラッグは編集画面
+- 【関連】→ 「パーマリンク更新が必要かどうか」で検索（更新タイミングの判断基準）
+
+## 📌 the_content() だけクラスを中のタグに設定できない → 外のdivを囲んでCSSを当てる
+
+【日付】2026-03-11
+
+【結論】
+★★「コンテントはコンテストに出るから、クラスには入れない」★★
+
+語呂の対応：
+- 「コンテント」       → `the_content()` のこと
+- 「コンテストに出る」 → 管理画面のエディタで書いた完成品のHTMLがそのまま出てくる
+- 「クラスには入れない」→ 中の `<p>` `<h2>` `<img>` に直接クラスをつけられない
+
+他の関数（`the_title()` など）はテキストだけ出るので自分でタグを書いてクラスをつけられる。
+`the_content()` だけは `<p>` や `<h2>` ごと出てくるので例外。
+
+【具体例】
+
+```php
+// ✅ 普通の関数 → テキストだけ出る → 自分でタグを書ける
+<h1 class="news_title"><?php the_title(); ?></h1>
+
+// ✅ the_content() → 外を囲むのはOK
+<div class="news_content">
+    <?php the_content(); ?>
+</div>
+
+// ❌ the_content() の中のタグには触れない
+// <p> や <h2> に直接クラスをつけることはできない
+```
+
+```css
+/* 外のラッパー経由でCSSを当てる */
+.news_content p  { line-height: 1.8; }
+.news_content h2 { font-size: 24px; }
+```
+
+【補足】
+- ⚠ `the_content()` 以外はすべて自分でタグを書いてクラスをつけてOK
+- 💡 つまり：コンテントだけ例外。それ以外は普通にクラスをつける
+
+▢
+メモ：WordPress ページネーション - paginate_links() に type=array を渡すと配列で返る（currentクラス付き）
+
+【気づき】
+- `type => 'array'` がないと HTML がそのまま出力されてカスタマイズ不可
+- `strpos` は PHP標準関数（WordPressではない）
+- 投稿数が少ないとページネーションが表示されない
+
+【ポイント】
+
+★ type => 'array' で配列化
+```php
+$args = array('mid_size' => 1, 'type' => 'array');
+$pagination = paginate_links($args);
+```
+
+★ strpos で current 判定 → クラスをつける
+```php
+if (strpos($page, 'current') !== false) {
+    echo '<li class="current">' . $page . '</li>';
+} else {
+    echo '<li>' . $page . '</li>';
+}
+```
+
+📋 [詳細ソース](./その他/00_サンプルソース/★WordPress_ページネーション_paginate_links配列型_currentクラス付き.md)
 
