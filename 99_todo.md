@@ -3,6 +3,9 @@
 
 ▢　かならず語呂合わせつきで記録する。
 
+以下で確認がなくなる★
+ただし、
+"defaultMode": "bypassPermissions"
 
 
 

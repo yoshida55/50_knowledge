@@ -11245,7 +11245,7 @@ add_theme_support( 'post-thumbnails' );
 
 
 
-### アイキャッチがない投稿でも壊（表示がされない「つまりするため。）れないようにする → has_post_thumbnail() で存在確認してから表示
+### アイキャッチがない投稿でも壊れないようにする → has_post_thumbnail() で存在確認してから表示
 【日付】2026-03-11
 
 ★★「イチローはつよい。だからファン（function）にポスト（post_thumbnail）手紙をかく！」★★
@@ -11307,6 +11307,8 @@ add_theme_support( 'post-thumbnails' );
 【日付】2026-03-11
 
 【結論】
+💡 サム = **サムネイル（thumbnail）の略**。安室奈美恵の旦那「SAM」で覚える！
+
 ★★「サムの画像（img）が大事」★★
 → `the_post_thumbnail()` だけではimgにクラスがつかない → 引数で `['class' => 'クラス名']` を渡す
 
@@ -11502,3 +11504,171 @@ if (strpos($page, 'current') !== false) {
 
 📋 [詳細ソース](./その他/00_サンプルソース/★WordPress_ページネーション_paginate_links配列型_currentクラス付き.md)
 
+
+## 📌 Claude Code の settings.json で defaultMode: autoApprove → ツール実行の確認ダイアログが全てスキップされる
+
+【日付】2026-03-11
+
+【結論】
+`defaultMode` の値によって、Claude Code がツールを実行するときの確認動作が変わる。
+
+| 値 | 動作 |
+|---|---|
+| `"default"` | 毎回確認ダイアログが出る |
+| `"acceptEdits"` | ファイル編集（Read/Edit/Write）だけ自動承認 |
+| `"autoApprove"` | **全ての操作**を確認なしで自動承認 |
+
+【具体例】
+```json
+// C:\Users\sensh\.claude\settings.json
+{
+  "permissions": {
+    "defaultMode": "autoApprove"
+  }
+}
+```
+
+【補足】
+- ⚠ `autoApprove` はBashコマンド実行も確認なしになるので注意
+- ⚠ テキストで「〇〇しますか？」と聞く行動はClaude自身の判断なので、settings.jsonでは制御できない → CLAUDE.mdに書く必要がある
+- 💡 つまり：ダイアログのスキップは settings.json、Claudeの口頭確認をスキップさせるには CLAUDE.md
+- 【関連】→「CLAUDE.md 確認なし」で検索（Claudeの質問をスキップする指示の書き方）
+
+## コンテナの幅指定は width:100% + max-width + margin:0 auto がベスト（小さい画面で縮み、大きい画面で止まる）
+
+【日付】2026-03-11
+
+【結論】
+`body` には指定しない。専用の `.container` クラスを作って使う。
+背景色はフルwidthのまま、中身だけ幅を制限できるのがポイント。
+
+★★「MAXが躍る。100%で、中央」★★
+
+語呂の対応：
+- 「MAX（歌手）」 → `max-width` のこと（上限を決める）
+- 「躍る」        → 柔軟に動く → 画面幅に合わせて縮む
+- 「100%」        → `width: 100%` のこと
+- 「中央」        → `margin: 0 auto`（左右中央に置く）
+
+【具体例】
+```css
+/*
+  構造:
+  <body>
+    <div .container>  ← 幅を制限する入れ物
+      <section>内容   ← 中身はここに入る
+*/
+.container {
+  width: 100%;        /* 小さい画面では画面幅に合わせて縮む */
+  max-width: 1200px;  /* 大きい画面ではここで止まる */
+  margin: 0 auto;     /* 左右中央に置く */
+}
+```
+
+画面幅ごとの動き：
+300px幅  → width:100% が効く → 300px
+800px幅  → width:100% が効く → 800px
+1200px幅 → ちょうど max-width に一致 → 1200px
+1920px幅 → max-width が効く → 1200px でストップ
+
+【補足】
+- ⚠ `<container>` というHTMLタグは存在しない → `<div class="container">` と書く
+- ⚠ `width: 1200px` だけだと小さい画面ではみ出す → `max-width` を使う
+- 💡 つまり：max-width は「上限を決めるだけ」でそれ以下は自由に縮む
+
+## height:100% は親チェーン全部に height が必要・width:100% は親がなくても効く（おれとよっぱらいの違い）
+
+【日付】2026-03-11
+
+【結論】
+`height: 100%` は親→子→孫と全部 height が定義されていないと効かない。
+`width: 100%` はブロック要素が自然に広がる性質があるので親の定義不要。
+
+★★「おれ（height）は親なしではパーマ（%）もかけられない。よっぱらい（width）は自由に動ける」★★
+
+語呂の対応：
+- 「おれ」              → `height` のこと
+- 「親」                → 親要素（parent element）に height の定義が必要
+- 「パーマをかける」    → `%` を効かせること
+- 「よっぱらい」        → `width` のこと
+- 「自由に動ける」      → 親に height がなくても % が効く
+
+【具体例】
+```css
+/*
+  構造:
+  <div .container>   height: 10rem  ← 定義あり
+    <section .test>  height: 100%   ← OK（親が10rem）
+      <div .test1>   height 未定義  ← ❌ ここで途切れる
+        <p .left>    height: 100%   ← 効かない！
+*/
+.container { height: 10rem; }
+.test      { height: 100%; }
+.test1     { /* height なし → 途切れる */ }
+.left_txt  { height: 100%; } /* 効かない！ */
+
+/* 直し方：test1 にも繋げる */
+.test1     { height: 100%; } /* 追加 */
+.left_txt  { height: 100%; } /* これで効く */
+```
+
+| プロパティ | 親の定義が必要？ |
+|---|---|
+| `height: 100%` | ✅ 必要（全親チェーンが必要） |
+| `width: 100%`  | ❌ 不要（自然に広がる） |
+
+【補足】
+- ⚠ 途中1つでも height 未定義があると、そこで止まって効かなくなる
+- 💡 つまり：`height: 100%` は親から子への「バトンリレー」、1人でも落としたらアウト
+- 例外：`height: 100vh`（画面基準）や `position: absolute + top:0; bottom:0` は親不要
+
+## flex内の<img>はmin-width:0がないと枠からはみ出す（overflow:hiddenがあれば不要）
+
+【日付】2026-03-11
+
+【結論】
+`<img>` タグは元画像の幅を「最小幅」として主張するため、`flex: 1` だけでは縮まずにコンテナからはみ出す。
+`min-width: 0` を追加すると縮むことを許可できる。
+ただし `overflow: hidden` がある場合は自動で `min-width` が 0 になるので不要。
+
+★★「フランケン（flex）主体の画像は、小さいな（min）よっぱらい（width）ゼロを見ると小さくなる」★★
+
+語呂の対応：
+- 「フランケン」           → `flex` コンテナのこと
+- 「主体の画像」           → `<img>` タグのこと（background-imageは該当しない）
+- 「小さいな（min）よっぱらい（width）ゼロ」 → `min-width: 0` のこと
+- 「小さくなる」           → 縮んでFlexの幅に収まる
+
+【具体例】
+```css
+/*
+  構造:
+  <div .flex-container>  display: flex
+    <img .photo>          ← 元画像サイズを主張して枠からはみ出す
+*/
+
+/* ❌ はみ出す */
+.photo {
+  flex: 1;
+  /* min-width: auto（デフォルト）= 元画像幅 → 縮まない */
+}
+
+/* ✅ 収まる */
+.photo {
+  flex: 1;
+  min-width: 0;   /* 縮むことを許可 */
+  width: 100%;    /* 親に合わせて縮む */
+}
+```
+
+| 場面 | min-width: 0 が必要？ |
+|---|---|
+| `<img>` タグ + flex | ✅ 必要 |
+| テキスト + `overflow: hidden` | ❌ 不要（自動で0になる） |
+| `background-image` | ❌ 不要（背景はコンテンツじゃない） |
+
+【補足】
+- ⚠ `background-image` は「背景」なのでコンテンツの最小幅に影響しない → 問題が起きない
+- ⚠ `overflow: hidden` があると CSS仕様で自動的に min-width が 0 になる
+- 💡 つまり：`<img>` を flex に入れて崩れたら `min-width: 0` を疑う
+- 【関連】→ 「Flexboxの子要素は min-width: 0」で検索（基本的なテキストはみ出しの話）
