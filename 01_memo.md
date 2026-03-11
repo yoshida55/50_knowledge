@@ -11295,3 +11295,36 @@ add_theme_support( 'post-thumbnails' );
 - 💡 つまり：サム（サムネイル）はクラスも分岐も両方セットで書く
 - 【関連】→ 「has_post_thumbnail 崩れない」で検索（画像なし投稿でレイアウトが崩れる原因）
 
+## 📌 archive.phpでthe_date()が同じ日の2件目から表示されない → get_the_date()に変えるかfunctions.phpに関数追加で解決
+
+【日付】2026-03-11
+
+【結論】
+`the_date()` は同じ日に複数投稿があると**最初の1件しか表示しない**仕様。
+archive.phpでは `get_the_date()` を使うか、functions.phpに回避コードを追加する。
+
+【具体例】
+
+```php
+// ✅ 方法① archive.php で get_the_date() を使う（推奨）
+<?php echo get_the_date('Y年m月d日'); ?>
+// → 全投稿に必ず日付が表示される（echoが必要）
+```
+
+```php
+// ✅ 方法② functions.php に追加（the_date()のまま使いたい場合）
+/*
+ * 投稿日が同じでも表示する
+ */
+function same_date() {
+    global $previousday;
+    $previousday = '';
+}
+add_action( 'the_post', 'same_date' );
+```
+
+【補足】
+- ⚠ `the_date()` のままだと同日2件目以降が出ない → archive.phpでは使わない方が無難
+- ⚠ `get_the_date()` は取得するだけなので `echo` を忘れずに（`the_date()` は echo不要）
+- 💡 つまり：一覧ページの日付は `get_the_date()` が安全
+
