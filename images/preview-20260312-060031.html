@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>縦書きリビールアニメーション解説</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+      background: #EBF1F6;
+      color: #333;
+      line-height: 1.8;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(90, 143, 196, 0.15);
+    }
+    h1 {
+      color: #5A8FC4;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      border-left: 6px solid #5A8FC4;
+      padding-left: 16px;
+    }
+    h2 {
+      color: #5A8FC4;
+      font-size: 1.4rem;
+      margin: 40px 0 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #5A8FC4;
+    }
+    .core-syntax {
+      background: #f0f7fc;
+      border-left: 4px solid #5A8FC4;
+      padding: 20px;
+      margin: 20px 0;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    .diagram {
+      background: white;
+      border: 2px solid #5A8FC4;
+      border-radius: 8px;
+      padding: 30px;
+      margin: 30px 0;
+    }
+    .animation-demo {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 40px;
+      margin: 30px 0;
+    }
+    .state-box {
+      text-align: center;
+      flex: 1;
+    }
+    .state-label {
+      font-weight: bold;
+      color: #5A8FC4;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+    .text-sample {
+      writing-mode: vertical-rl;
+      font-size: 2rem;
+      background: #f9f9f9;
+      padding: 20px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      min-height: 150px;
+      display: inline-block;
+    }
+    .state-start .text-sample {
+      animation: clipStart 3s ease-out infinite;
+    }
+    .state-end .text-sample {
+      animation: clipEnd 3s ease-out infinite;
+    }
+    @keyframes clipStart {
+      0%, 40% { clip-path: inset(0 0 100% 0); }
+      60%, 100% { clip-path: inset(0 0 0 0); }
+    }
+    @keyframes clipEnd {
+      0%, 40% { clip-path: inset(0 0 0 0); }
+      60%, 100% { clip-path: inset(0 0 100% 0); }
+    }
+    .arrow {
+      font-size: 2rem;
+      color: #5A8FC4;
+    }
+    code {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: "Consolas", "Monaco", monospace;
+      font-size: 0.9em;
+    }
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      position: relative;
+      overflow-x: auto;
+    }
+    .code-block pre {
+      margin: 0;
+      font-family: "Consolas", "Monaco", monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #5A8FC4;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.3s;
+    }
+    .copy-btn:hover {
+      background: #4a7fb4;
+    }
+    .demo-section {
+      background: #f0f7fc;
+      padding: 30px;
+      border-radius: 8px;
+      margin: 30px 0;
+    }
+    .vertical-text {
+      writing-mode: vertical-rl;
+      font-size: 3rem;
+      margin: 30px auto;
+      text-align: center;
+    }
+    .news_title {
+      animation: revealRightToLeft 2s ease-out infinite;
+      font-weight: bold;
+      color: #5A8FC4;
+    }
+    .news_msg {
+      opacity: 0.7;
+      font-size: 2rem;
+    }
+    @keyframes revealRightToLeft {
+      0%, 30% {
+        clip-path: inset(0 0 100% 0);
+      }
+      60%, 100% {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+    ul {
+      margin: 15px 0 15px 25px;
+    }
+    li {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📜 縦書きリビール（Reveal）アニメーション</h1>
+    
+    <div class="core-syntax">
+      ⭐ 核心の構文<br>
+      <code>clip-path: inset(上 右 下 左);</code><br>
+      <small style="color: #666;">※ 下を100%→0%にすることで、上から下へマスクが外れる</small>
+    </div>
+
+    <h2>🔍 clip-path inset の仕組み</h2>
+    
+    <svg viewBox="0 0 800 300" style="width: 100%; max-width: 700px; display: block; margin: 30px auto;">
+      <defs>
+        <clipPath id="clip1">
+          <rect x="50" y="50" width="200" height="0">
+            <animate attributeName="height" values="0;200;0" dur="3s" repeatCount="indefinite"/>
+          </rect>
+        </clipPath>
+      </defs>
+      
+      <!-- 背景グリッド -->
+      <rect x="50" y="50" width="200" height="200" fill="none" stroke="#ddd" stroke-width="2" stroke-dasharray="5,5"/>
+      
+      <!-- テキスト（クリップされる） -->
+      <text x="150" y="80" font-size="40" fill="#5A8FC4" text-anchor="middle" writing-mode="tb" clip-path="url(#clip1)">お知らせ</text>
+      
+      <!-- 枠線 -->
+      <rect x="50" y="50" width="200" height="200" fill="none" stroke="#5A8FC4" stroke-width="3"/>
+      
+      <!-- ラベル -->
+      <text x="150" y="30" font-size="16" fill="#333" text-anchor="middle" font-weight="bold">アニメーション動作</text>
+      
+      <!-- 右側：コード説明 -->
+      <rect x="320" y="60" width="450" height="80" fill="#f0f7fc" stroke="#5A8FC4" stroke-width="2" rx="5"/>
+      <text x="340" y="90" font-size="16" fill="#333" font-family="monospace">開始: clip-path: inset(0 0 100% 0);</text>
+      <text x="340" y="115" font-size="14" fill="#666">→ 下を100%隠す（上だけ見える）</text>
+      
+      <rect x="320" y="160" width="450" height="80" fill="#f0f7fc" stroke="#5A8FC4" stroke-width="2" rx="5"/>
+      <text x="340" y="190" font-size="16" fill="#333" font-family="monospace">終了: clip-path: inset(0 0 0 0);</text>
+      <text x="340" y="215" font-size="14" fill="#666">→ 全て表示（下まで進む）</text>
+    </svg>
+
+    <h2>⚙️ アニメーション設定</h2>
+    
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+      <pre>@keyframes revealRightToLeft {
+  from {
+    clip-path: inset(0 0 100% 0);
+    /* 上0, 右0, 下100%, 左0 = 下から100%カット */
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    /* 全��表示 */
+  }
+}</pre>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+      <pre>.news_title {
+  animation: revealRightToLeft 1.5s ease-out forwards;
+}</pre>
+    </div>
+
+    <h2>🎬 実際の動作デモ</h2>
+    
+    <div class="demo-section">
+      <div class="vertical-text">
+        <p class="news_title">お知らせ</p>
+        <p class="news_msg">最新情報をお届けします</p>
+      </div>
+      <p style="text-align: center; color: #666; margin-top: 20px;">
+        ※ 「お知らせ」が上から下へ繰り返しアニメーション
+      </p>
+    </div>
+
+    <h2>📌 アニメーション別名称</h2>
+    <ul>
+      <li><strong>リビール（Reveal）アニメーション</strong> ← 主要名称</li>
+      <li>ワイプ（Wipe）アニメーション</li>
+      <li>カーテン効果</li>
+      <li>テキストライティング効果（縦書きの場合）</li>
+    </ul>
+
+  </div>
+
+  <script>
+    function copyCode(button) {
+      const codeBlock = button.nextElementSibling;
+      const text = codeBlock.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        button.textContent = 'コピー完了!';
+        setTimeout(() => {
+          button.textContent = 'コピー';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
