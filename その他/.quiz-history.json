@@ -3741,10 +3741,67 @@
       2
     ]
   },
+  "📌 the_post_thumbnail() の第2引数は連想配列 → キー名がそのままHTMLの属性名になる": {
+    "title": "📌 the_post_thumbnail() の第2引数は連想配列 → キー名がそのままHTMLの属性名になる",
+    "line": 11367,
+    "lastReviewed": 1773236450954,
+    "reviewCount": 0,
+    "questionText": "WordPressのthe_post_thumbnail関数で、HTMLの属性を指定する際に渡すデータの形式は？",
+    "evaluations": [
+      1
+    ]
+  },
+  "コンテナの幅指定は width:100% + max-width + margin:0 auto がベスト（小さい画面で縮み、大きい画面で止まる）": {
+    "title": "コンテナの幅指定は width:100% + max-width + margin:0 auto がベスト（小さい画面で縮み、大きい画面で止まる）",
+    "line": 11537,
+    "lastReviewed": 1773236597484,
+    "reviewCount": 1,
+    "questionText": "画面サイズに応じて可変し、かつ最大幅を制限して中央配置にするコンテナのCSS設定は？",
+    "evaluations": [
+      2
+    ]
+  },
+  "📌 パーマリンク更新が必要かどうかの判断基準 → URLが変わる操作のみ必要、single.phpなどのテンプレート変更は不要": {
+    "title": "📌 パーマリンク更新が必要かどうかの判断基準 → URLが変わる操作のみ必要、single.phpなどのテンプレート変更は不要",
+    "line": 10048,
+    "lastReviewed": 1773236651375,
+    "reviewCount": 1,
+    "questionText": "WordPressでパーマリンク設定の更新が必要となる操作の判断基準は？",
+    "evaluations": [
+      2
+    ]
+  },
+  "📌 the_title() と get_the_title() の違い → 表示するか・変数に入れるかで使い分ける（ループで配列になる）": {
+    "title": "📌 the_title() と get_the_title() の違い → 表示するか・変数に入れるかで使い分ける（ループで配列になる）",
+    "line": 10099,
+    "lastReviewed": 1773237195101,
+    "reviewCount": 1,
+    "questionText": "WordPressにおいて、タイトルを直接出力せず変数に代入可能な関数はどれか？",
+    "evaluations": [
+      2
+    ]
+  },
+  "アイキャッチがない投稿でも壊れないようにする → has_post_thumbnail() で存在確認してから表示": {
+    "title": "アイキャッチがない投稿でも壊れないようにする → has_post_thumbnail() で存在確認してから表示",
+    "line": 11270,
+    "lastReviewed": 1773237244282,
+    "reviewCount": 1,
+    "questionText": "WordPressでアイキャッチ画像を表示する際、画像の有無を判定してレイアウト崩れを防ぐ条件分岐関数は？",
+    "evaluations": [
+      2
+    ]
+  },
+  "📌 アーカイブが表示されないとき → 設定のパーマリンク保存をクリックで直る": {
+    "title": "📌 アーカイブが表示されないとき → 設定のパーマリンク保存をクリックで直る",
+    "line": 11210,
+    "lastReviewed": 1773237383066,
+    "reviewCount": 1,
+    "questionText": "WordPressでアーカイブページが404エラーになる際、パーマリンク設定画面で行うべき操作は？"
+  },
   "_meta": {
     "lastFilter": {
-      "date": "全期間",
-      "category": "wordpress/php"
+      "date": "今日",
+      "category": "全カテゴリ"
     }
   }
 }
