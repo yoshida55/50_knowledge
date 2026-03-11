@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>対角線マスクアニメーション デモ</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 40px 20px;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.description {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.description h2 {
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.controls {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.control-group {
+  margin-bottom: 20px;
+}
+
+.control-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+input[type="range"] {
+  flex: 1;
+  height: 8px;
+  border-radius: 5px;
+  background: #e0e0e0;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #667eea;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #667eea;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+.value-display {
+  min-width: 80px;
+  padding: 8px 12px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  text-align: center;
+  color: #667eea;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+button {
+  flex: 1;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-secondary {
+  background: #f0f0f0;
+  color: #555;
+}
+
+.demo-area {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diagonal-reveal {
+  width: 600px;
+  height: 400px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23FF6B6B;stop-opacity:1" /><stop offset="50%" style="stop-color:%234ECDC4;stop-opacity:1" /><stop offset="100%" style="stop-color:%2345B7D1;stop-opacity:1" /></linearGradient></defs><rect width="600" height="400" fill="url(%23grad1)"/><text x="300" y="150" font-family="Arial" font-size="48" font-weight="bold" fill="white" text-anchor="middle">対角線マスク</text><text x="300" y="220" font-family="Arial" font-size="32" fill="white" text-anchor="middle">アニメーション</text><circle cx="150" cy="320" r="40" fill="white" opacity="0.8"/><circle cx="300" cy="320" r="40" fill="white" opacity="0.8"/><circle cx="450" cy="320" r="40" fill="white" opacity="0.8"/></svg>') center/cover;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  mask-image: linear-gradient(135deg, black 50%, rgba(0,0,0,0.3) 65%, transparent 80%);
+  mask-position: 0% 0%;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: linear-gradient(135deg, black 50%, rgba(0,0,0,0.3) 65%, transparent 80%);
+  -webkit-mask-position: 0% 0%;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.property-inspector {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  border-left: 4px solid #667eea;
+}
+
+.property-inspector h3 {
+  font-family: 'Segoe UI', sans-serif;
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.property-line {
+  margin: 5px 0;
+  color: #555;
+}
+
+.property-name {
+  color: #d73a49;
+  font-weight: bold;
+}
+
+.property-value {
+  color: #005cc5;
+}
+
+.info-box {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 4px;
+}
+
+.info-box strong {
+  color: #856404;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🎭 対角線マスクアニメーション</h1>
+  
+  <div class="description">
+    <h2>mask-size の動作原理</h2>
+    <p><code>mask-size</code> プロパティでグラデーションマスクのサイズを制御し、0%から300%へ拡大することで、左上から右下へ対角線状にコンテンツが徐々に表示されます。</p>
+    <p><strong>重要：</strong> 実際の <code>mask-size</code> プロパティ値をJavaScriptで動的に変更することで、ブラウザの実際の挙動を再現しています。</p>
+  </div>
+
+  <div class="controls">
+    <div class="control-group">
+      <label>mask-size (幅と高さ同時に変更)</label>
+      <div class="slider-container">
+        <input type="range" id="maskSize" min="0" max="300" value="0" step="1">
+        <div class="value-display" id="maskSizeValue">0%</div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>アニメーション速度</label>
+      <div class="slider-container">
+        <input type="range" id="animSpeed" min="1" max="5" value="3.3" step="0.1">
+        <div class="value-display" id="animSpeedValue">3.3秒</div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="btn-primary" id="animateBtn">▶ アニメーション再生</button>
+      <button class="btn-secondary" id="resetBtn">↺ リセット</button>
+    </div>
+
+    <div class="info-box">
+      <strong>💡 操作方法：</strong> スライダーを動かして mask-size の変化を確認するか、「アニメーション再生」ボタンで自動的に 0% → 300% へ変化させます。
+    </div>
+  </div>
+
+  <div class="demo-area">
+    <div class="diagonal-reveal" id="target"></div>
+  </div>
+
+  <div class="controls">
+    <div class="property-inspector">
+      <h3>📊 現在適用されているCSSプロパティ</h3>
+      <div class="property-line">
+        <span class="property-name">mask-image:</span> 
+        <span class="property-value">linear-gradient(135deg, black 50%, rgba(0,0,0,0.3) 65%, transparent 80%)</span>
+      </div>
+      <div class="property-line">
+        <span class="property-name">mask-size:</span> 
+        <span class="property-value" id="currentMaskSize">0% 0%</span>
+      </div>
+      <div class="property-line">
+        <span class="property-name">mask-position:</span> 
+        <span class="property-value">0% 0% (左上基準)</span>
+      </div>
+      <div class="property-line">
+        <span class="property-name">mask-repeat:</span> 
+        <span class="property-value">no-repeat</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const target = document.getElementById('target');
+const maskSizeSlider = document.getElementById('maskSize');
+const maskSizeValue = document.getElementById('maskSizeValue');
+const animSpeedSlider = document.getElementById('animSpeed');
+const animSpeedValue = document.getElementById('animSpeedValue');
+const animateBtn = document.getElementById('animateBtn');
+const resetBtn = document.getElementById('resetBtn');
+const currentMaskSize = document.getElementById('currentMaskSize');
+
+let animationId = null;
+
+// スライダーでmask-sizeを手動変更
+maskSizeSlider.addEventListener('input', (e) => {
+  const size = e.target.value;
+  updateMaskSize(size);
+});
+
+// アニメーション速度表示更新
+animSpeedSlider.addEventListener('input', (e) => {
+  animSpeedValue.textContent = e.target.value + '秒';
+});
+
+// mask-size更新関数（実際のCSSプロパティを変更）
+function updateMaskSize(size) {
+  target.style.maskSize = `${size}% ${size}%`;
+  target.style.webkitMaskSize = `${size}% ${size}%`;
+  maskSizeValue.textContent = `${size}%`;
+  currentMaskSize.textContent = `${size}% ${size}%`;
+  maskSizeSlider.value = size;
+}
+
+// アニメーション再生
+animateBtn.addEventListener('click', () => {
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+  }
+  
+  const duration = parseFloat(animSpeedSlider.value) * 1000; // 秒をミリ秒に
+  const startTime = performance.now();
+  const startSize = 0;
+  const endSize = 300;
+  
+  animateBtn.textContent = '⏸ 再生中...';
+  animateBtn.disabled = true;
+  
+  function animate(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    
+    // イージング関数（ease-out）
+    const easeProgress = 1 - Math.pow(1 - progress, 3);
+    const currentSize = startSize + (endSize - startSize) * easeProgress;
+    
+    updateMaskSize(Math.round(currentSize));
+    
+    if (progress < 1) {
+      animationId = requestAnimationFrame(animate);
+    } else {
+      animateBtn.textContent = '▶ アニメーション再生';
+      animateBtn.disabled = false;
+      animationId = null;
+    }
+  }
+  
+  animationId = requestAnimationFrame(animate);
+});
+
+// リセット
+resetBtn.addEventListener('click', () => {
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
+  }
+  updateMaskSize(0);
+  animateBtn.textContent = '▶ アニメーション再生';
+  animateBtn.disabled = false;
+});
+
+// 初期化
+updateMaskSize(0);
+</script>
+
+</body>
+</html>
