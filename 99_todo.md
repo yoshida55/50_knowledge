@@ -1,32 +1,13 @@
 
 
 
-▢　.claude/setting.json
-{
-  "permissions": {
-    "allow": [
-      "Write",
-      "Edit"
-    ]
-  }
-}
-
-
-"allowedTools": [
-  "Read",
-  "Edit",
-  "Write",   ← これを追加
-  "Bash",
-  "Continue"
-]
-
-？？？
-
+▢　かならず語呂合わせつきで記録する。
 
 
 
 
 ▢　タイトルをしっかり書くようにスキルズを修正する。
+
 
 
 ▢
