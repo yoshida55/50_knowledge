@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WordPressテーマ開発 全体フロー</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      line-height: 1.7;
+    }
+
+    /* ===== ナビ ===== */
+    .nav {
+      position: sticky;
+      top: 0;
+      background: #0f1117cc;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #1e2433;
+      padding: 12px 40px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      z-index: 100;
+    }
+    .nav a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.82rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid #2d3748;
+      transition: all 0.2s;
+    }
+    .nav a:hover { color: #fff; border-color: #6366f1; background: #1e2433; }
+
+    /* ===== 共通 ===== */
+    .page { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 28px;
+      padding-left: 14px;
+      border-left: 4px solid #6366f1;
+      color: #c7d2fe;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 2px 9px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge-once  { background: #1a3a2a; color: #34d399; border: 1px solid #065f46; }
+    .badge-every { background: #3a1a1a; color: #f87171; border: 1px solid #7f1d1d; }
+    .badge-admin { background: #1a2942; color: #93c5fd; border: 1px solid #1d4ed8; }
+    .badge-file  { background: #251a37; color: #c4b5fd; border: 1px solid #6d28d9; }
+
+    code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      background: #0f1117;
+      color: #a5f3fc;
+      padding: 2px 8px;
+      border-radius: 5px;
+    }
+
+    pre {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      background: #0a0d14;
+      color: #e2e8f0;
+      padding: 18px 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      border: 1px solid #1e2433;
+      line-height: 1.8;
+    }
+
+    pre .c  { color: #475569; }
+    pre .fn { color: #34d399; }
+    pre .kw { color: #c084fc; }
+    pre .st { color: #fbbf24; }
+    pre .tg { color: #60a5fa; }
+    pre .va { color: #f87171; }
+
+    /* ===== セクション区切り ===== */
+    .section-block {
+      padding: 70px 0 0;
+    }
+
+    /* ===== 俯瞰図 ===== */
+    #overview .birdseye {
+      background: #1e2433;
+      border-radius: 16px;
+      padding: 32px;
+    }
+
+    .be-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-bottom: 0;
+    }
+
+    .be-col {
+      flex: 1;
+      background: #151c28;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 6px;
+    }
+
+    .be-col-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #64748b;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .be-col-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #1e2433;
+    }
+
+    .be-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      font-size: 0.88rem;
+    }
+
+    .be-item-name { font-weight: 600; }
+
+    .be-admin { background: #1a2942; border-left: 3px solid #3b82f6; }
+    .be-php   { background: #1a2937; border-left: 3px solid #10b981; }
+    .be-func  { background: #251a37; border-left: 3px solid #8b5cf6; }
+
+    /* 矢印 */
+    .be-arrows {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin: 20px 0;
+      padding: 0 6px;
+    }
+
+    .be-arrow-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .be-arrow-label {
+      font-size: 0.72rem;
+      color: #475569;
+      text-align: center;
+    }
+
+    .be-arrow-line {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .be-arrow-line .line {
+      flex: 1;
+      height: 1px;
+      background: #2d3748;
+    }
+
+    .be-arrow-line .arrowhead {
+      color: #475569;
+      font-size: 1rem;
+      margin-left: -2px;
+    }
+
+    /* ===== ファイルツリー ===== */
+    .file-tree {
+      background: #0a0d14;
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid #1e2433;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+    }
+
+    .ft-root { color: #94a3b8; margin-bottom: 8px; }
+    .ft-line { padding: 3px 0; display: flex; align-items: center; gap: 10px; }
+    .ft-indent { padding-left: 20px; }
+    .ft-indent2 { padding-left: 40px; }
+    .ft-icon { font-size: 1rem; }
+    .ft-name { color: #a5f3fc; }
+    .ft-name-highlight { color: #34d399; font-weight: bold; }
+    .ft-name-func { color: #c084fc; font-weight: bold; }
+    .ft-note { color: #475569; font-size: 0.78rem; margin-left: 6px; }
+    .ft-badge {
+      font-size: 0.65rem;
+      padding: 1px 7px;
+      border-radius: 10px;
+      background: #1e3a2a;
+      color: #34d399;
+      border: 1px solid #065f46;
+    }
+
+    /* ===== 大きな流れ ===== */
+    .big-flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .bf-box {
+      background: #1e2433;
+      border-radius: 10px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+
+    .bf-icon { font-size: 1.5rem; margin-bottom: 6px; }
+    .bf-title { font-size: 0.82rem; font-weight: bold; color: #fff; }
+    .bf-sub { font-size: 0.72rem; color: #64748b; margin-top: 4px; }
+
+    .bf-arrow { text-align: center; color: #2d3748; font-size: 1.5rem; }
+
+    /* ===== 詳細カード ===== */
+    .detail-card {
+      background: #1e2433;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .detail-header {
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .detail-header .dh-icon { font-size: 1.6rem; }
+    .detail-header h2 { font-size: 1.2rem; color: #fff; }
+    .detail-header .dh-sub { font-size: 0.82rem; color: #94a3b8; margin-top: 2px; }
+    .detail-header .dh-tags { margin-left: auto; display: flex; gap: 6px; }
+    .dh-tag {
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .dc-archive .detail-header { background: linear-gradient(135deg, #1e3a5f 0%, #0f2040 100%); }
+    .dc-single  .detail-header { background: linear-gradient(135deg, #1a3a2a 0%, #0a2010 100%); }
+    .dc-page    .detail-header { background: linear-gradient(135deg, #3a2a1a 0%, #251508 100%); }
+    .dc-func    .detail-header { background: linear-gradient(135deg, #2a1a4a 0%, #180d30 100%); }
+
+    .dc-archive .dh-tag { background: #1d4ed8; color: #bfdbfe; }
+    .dc-single  .dh-tag { background: #065f46; color: #a7f3d0; }
+    .dc-page    .dh-tag { background: #78350f; color: #fde68a; }
+    .dc-func    .dh-tag { background: #4c1d95; color: #ddd6fe; }
+
+    .detail-body { padding: 28px; }
+
+    /* 2カラム */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 700px) {
+      .two-col { grid-template-columns: 1fr; }
+      .big-flow { grid-template-columns: 1fr; }
+      .bf-arrow { transform: rotate(90deg); }
+    }
+
+    .col-box {
+      background: #151c28;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .col-box h4 {
+      font-size: 0.82rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    /* フロー縦 */
+    .v-flow { }
+
+    .vf-step {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 4px;
+    }
+
+    .vf-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .vf-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .dc-archive .vf-num { background: #1d4ed8; color: #fff; }
+    .dc-single  .vf-num { background: #059669; color: #fff; }
+    .dc-page    .vf-num { background: #d97706; color: #fff; }
+    .dc-func    .vf-num { background: #7c3aed; color: #fff; }
+
+    .vf-line {
+      width: 2px;
+      flex: 1;
+      min-height: 20px;
+      background: #1e2433;
+      margin-top: 4px;
+    }
+
+    .vf-content {
+      padding-top: 3px;
+      padding-bottom: 16px;
+      flex: 1;
+    }
+
+    .vf-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
+    .vf-desc {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 3px;
+    }
+
+    .vf-where {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      background: #0f1117;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+    }
+
+    .where-admin { border-left: 3px solid #3b82f6; color: #93c5fd; }
+    .where-file  { border-left: 3px solid #8b5cf6; color: #c4b5fd; }
+    .where-both  { border-left: 3px solid #f59e0b; color: #fcd34d; }
+
+    /* 結果ボックス */
+    .result-box {
+      background: #0f1117;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dc-archive .result-box { border-left: 3px solid #3b82f6; }
+    .dc-single  .result-box { border-left: 3px solid #10b981; }
+    .dc-page    .result-box { border-left: 3px solid #f59e0b; }
+    .dc-func    .result-box { border-left: 3px solid #8b5cf6; }
+
+    /* コード説明リスト */
+    .code-explain {
+      list-style: none;
+      margin-top: 14px;
+    }
+
+    .code-explain li {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      padding: 5px 0;
+      border-bottom: 1px solid #1e2433;
+      display: flex;
+      gap: 10px;
+    }
+
+    .code-explain li:last-child { border-bottom: none; }
+    .code-explain li .ce-code { flex-shrink: 0; }
+    .code-explain li .ce-desc { color: #64748b; }
+
+    /* ===== 比較表 ===== */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid #1e2433;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.87rem;
+      min-width: 700px;
+    }
+
+    thead tr { background: #151c28; }
+
+    thead th {
+      padding: 14px 18px;
+      text-align: left;
+      color: #64748b;
+      font-size: 0.75rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    tbody tr { border-bottom: 1px solid #1e2433; }
+    tbody tr:hover { background: #161e2e; }
+
+    tbody td { padding: 14px 18px; }
+
+    .td-file { font-family: 'Courier New', monospace; color: #a5f3fc; font-weight: bold; }
+    .td-once  { color: #34d399; font-weight: bold; }
+    .td-every { color: #f87171; }
+    .td-yes   { color: #34d399; }
+    .td-no    { color: #f87171; }
+
+    /* ===== 優先順位 ===== */
+    .pri-list { background: #1e2433; border-radius: 12px; overflow: hidden; }
+
+    .pri-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      border-bottom: 1px solid #151c28;
+    }
+    .pri-item:last-child { border-bottom: none; }
+
+    .pri-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+    .p1 { background: #1d4ed8; color: #fff; }
+    .p2 { background: #059669; color: #fff; }
+    .p3 { background: #d97706; color: #fff; }
+    .p4 { background: #dc2626; color: #fff; }
+
+    .pri-file {
+      font-family: 'Courier New', monospace;
+      color: #a5f3fc;
+      width: 200px;
+      flex-shrink: 0;
+      font-size: 0.88rem;
+    }
+
+    .pri-desc { font-size: 0.84rem; color: #cbd5e1; }
+    .pri-note { margin-left: auto; font-size: 0.74rem; color: #475569; }
+
+    /* ===== ポイント ===== */
+    .points-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .point-card {
+      background: #1e2433;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .point-ok   { border-top: 3px solid #10b981; }
+    .point-warn { border-top: 3px solid #f59e0b; }
+    .point-info { border-top: 3px solid #3b82f6; }
+
+    .point-card .pi { font-size: 1.4rem; margin-bottom: 8px; }
+    .point-card h4 { font-size: 0.92rem; color: #fff; margin-bottom: 6px; }
+    .point-card p  { font-size: 0.8rem; color: #64748b; }
+
+    /* ===== ページトップ ===== */
+    h1.hero {
+      text-align: center;
+      font-size: 2rem;
+      color: #fff;
+      padding: 60px 24px 12px;
+    }
+    .hero-sub {
+      text-align: center;
+      color: #64748b;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #1e2433;
+      margin: 70px 0 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== ヘッダー ===== -->
+  <h1 class="hero">WordPress テーマ開発 全体フロー</h1>
+  <p class="hero-sub">管理画面 / PHPファイル / functions.php の関係を一気に把握する</p>
+
+  <!-- ===== ナビ ===== -->
+  <nav class="nav">
+    <a href="#overview">俯瞰図</a>
+    <a href="#files">ファイル構成</a>
+    <a href="#archive">archive.php</a>
+    <a href="#single">single.php</a>
+    <a href="#page">page.php</a>
+    <a href="#func">functions.php</a>
+    <a href="#table">比較表</a>
+    <a href="#priority">優先順位</a>
+    <a href="#points">覚えるポイント</a>
+  </nav>
+
+  <div class="page">
+
+    <!-- ===== 0. 俯瞰図 ===== -->
+    <section id="overview">
+      <div class="section-title">俯瞰図：WordPress の全体像</div>
+
+      <!-- 大きな流れ -->
+      <div class="big-flow" style="margin-bottom: 32px;">
+        <div class="bf-box">
+          <div class="bf-icon">🖥</div>
+          <div class="bf-title">管理画面</div>
+          <div class="bf-sub">記事・ページを追加</div>
+        </div>
+        <div class="bf-arrow">→</div>
+        <div class="bf-box">
+          <div class="bf-icon">⚙️</div>
+          <div class="bf-title">functions.php</div>
+          <div class="bf-sub">URL・機能の登録</div>
+        </div>
+        <div class="bf-arrow">→</div>
+        <div class="bf-box" style="border: 1px solid #6366f1;">
+          <div class="bf-icon">🌐</div>
+          <div class="bf-title">URLにアクセス</div>
+          <div class="bf-sub">/news/ など</div>
+        </div>
+        <div class="bf-arrow">→</div>
+        <div class="bf-box">
+          <div class="bf-icon">📄</div>
+          <div class="bf-title">テンプレート</div>
+          <div class="bf-sub">archive / single など</div>
+        </div>
+      </div>
+
+      <div class="birdseye">
+
+        <div class="be-row">
+          <!-- 管理画面 -->
+          <div class="be-col">
+            <div class="be-col-title">管理画面でやること（毎回）</div>
+            <div class="be-item be-admin">
+              <span class="be-item-name">投稿を追加・編集</span>
+              <span class="badge badge-every">毎回</span>
+            </div>
+            <div class="be-item be-admin">
+              <span class="be-item-name">固定ページを追加</span>
+              <span class="badge badge-every">毎回</span>
+            </div>
+            <div class="be-item be-admin">
+              <span class="be-item-name">パーマリンクを更新</span>
+              <span class="badge badge-every">設定変更時</span>
+            </div>
+          </div>
+
+          <!-- PHPファイル -->
+          <div class="be-col">
+            <div class="be-col-title">PHPファイルでやること（一回だけ）</div>
+            <div class="be-item be-func">
+              <span class="be-item-name">⚙️ functions.php</span>
+              <span class="badge badge-once">URLを登録</span>
+            </div>
+            <div class="be-item be-php">
+              <span class="be-item-name">📋 archive.php</span>
+              <span class="badge badge-once">一覧ページ</span>
+            </div>
+            <div class="be-item be-php">
+              <span class="be-item-name">📄 single.php</span>
+              <span class="badge badge-once">詳細ページ</span>
+            </div>
+            <div class="be-item be-php">
+              <span class="be-item-name">🗂 page.php</span>
+              <span class="badge badge-once">固定ページ</span>
+            </div>
+            <div class="be-item be-php">
+              <span class="be-item-name">🔧 header / footer.php</span>
+              <span class="badge badge-once">共通パーツ</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 矢印説明 -->
+        <div style="margin-top: 20px; background: #0f1117; border-radius: 10px; padding: 16px 20px; font-size: 0.82rem; color: #64748b; line-height: 2;">
+          <span style="color: #34d399; font-weight: bold;">PHPファイルは「型紙」</span>
+          &nbsp;→&nbsp; 一回作れば全記事に使い回せる。投稿が増えてもPHPを書き直す必要はない。<br>
+          <span style="color: #f87171; font-weight: bold;">管理画面は「素材を入れる場所」</span>
+          &nbsp;→&nbsp; 記事・画像・ページを追加するたびに使う。PHPファイルは触らない。
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== 1. ファイル構成 ===== -->
+    <hr class="divider">
+    <section id="files" class="section-block">
+      <div class="section-title">ファイル構成：テーマフォルダの中身</div>
+
+      <div class="two-col" style="margin-bottom: 0;">
+        <div>
+          <div class="file-tree">
+            <div class="ft-root">📁 wp-content/themes/</div>
+            <div class="ft-line ft-indent">
+              <span class="ft-icon">📁</span>
+              <span class="ft-name">your-theme/</span>
+              <span class="ft-note">← テーマフォルダ</span>
+            </div>
+            <div class="ft-line ft-indent2">
+              <span class="ft-icon">📄</span>
+              <span class="ft-name-func">functions.php</span>
+              <span class="ft-note">設定・登録</span>
+            </div>
+            <div class="ft-line ft-indent2">
+              <span class="ft-icon">📄</span>
+              <span class="ft-name-highlight">archive.php</span>
+              <span class="ft-note">一覧ページ</span>
+            </div>
+            <div class="ft-line ft-indent2">
+              <span class="ft-icon">📄</span>
+              <span class="ft-name-highlight">single.php</span>
+              <span class="ft-note">詳細ページ</span>
+            </div>
+            <div class="ft-line ft-indent2">
+              <span class="ft-icon">📄</span>
+              <span class="ft-name-highlight">page.php</span>
+              <span class="ft-note">固定ページ</span>
+            </div>
+            <div class="ft-line ft-indent2">
+              <span class="ft-icon">📄</span>
+              <span class="ft-name">header.php</span>
+              <span class="ft-note">共通ヘッダー</span>
+            </div>
+            <div class="ft-line ft-indent2">
+              <span class="ft-icon">📄</span>
+              <span class="ft-name">footer.php</span>
+              <span class="ft-note">共通フッター</span>
+            </div>
+            <div class="ft-line ft-indent2">
+              <span class="ft-icon">📄</span>
+              <span class="ft-name">index.php</span>
+              <span class="ft-note">最終フォールバック</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="col-box" style="margin-bottom: 14px;">
+            <h4>ファイルはどこで作る？</h4>
+            <div style="font-size: 0.86rem; color: #94a3b8; line-height: 2;">
+              <div style="padding: 8px 0; border-bottom: 1px solid #1e2433;">
+                <span style="color: #c084fc;">⚙️ functions.php</span>
+                &nbsp;→&nbsp; <span style="color: #64748b;">最初からある。追記するだけ</span>
+              </div>
+              <div style="padding: 8px 0; border-bottom: 1px solid #1e2433;">
+                <span style="color: #34d399;">📋 archive.php</span>
+                &nbsp;→&nbsp; <strong style="color: #f87171;">手動で新規作成</strong><br>
+                <span style="color: #475569; font-size: 0.78rem; padding-left: 16px;">VS Code でテーマフォルダ内に archive.php を作る</span>
+              </div>
+              <div style="padding: 8px 0; border-bottom: 1px solid #1e2433;">
+                <span style="color: #34d399;">📄 single.php</span>
+                &nbsp;→&nbsp; <strong style="color: #f87171;">手動で新規作成</strong><br>
+                <span style="color: #475569; font-size: 0.78rem; padding-left: 16px;">同じくテーマフォルダ内に single.php を作る</span>
+              </div>
+              <div style="padding: 8px 0;">
+                <span style="color: #fcd34d;">🗂 page.php</span>
+                &nbsp;→&nbsp; <strong style="color: #f87171;">手動で新規作成</strong>
+              </div>
+            </div>
+          </div>
+          <div style="background: #1a2030; border-radius: 10px; padding: 14px 16px; font-size: 0.8rem; color: #64748b; border-left: 3px solid #f59e0b;">
+            ⚠️ 管理画面からはPHPファイルを作れない。<br>
+            VS Code などのエディタでテーマフォルダを直接編集する。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 2. archive.php ===== -->
+    <hr class="divider">
+    <section id="archive" class="section-block">
+      <div class="section-title">archive.php — 一覧ページ</div>
+
+      <div class="detail-card dc-archive">
+        <div class="detail-header">
+          <span class="dh-icon">📋</span>
+          <div>
+            <h2>archive.php</h2>
+            <div class="dh-sub">/news/ にアクセスしたときに表示される一覧ページのテンプレート</div>
+          </div>
+          <div class="dh-tags">
+            <span class="dh-tag">一覧ページ</span>
+            <span class="dh-tag">手動で作成</span>
+          </div>
+        </div>
+        <div class="detail-body">
+
+          <div class="two-col">
+            <!-- 作業フロー -->
+            <div class="col-box">
+              <h4>作業フロー</h4>
+              <div class="v-flow">
+
+                <div class="vf-step">
+                  <div class="vf-left"><div class="vf-num">1</div><div class="vf-line"></div></div>
+                  <div class="vf-content">
+                    <div class="vf-title">functions.php にURLを登録</div>
+                    <div class="vf-desc">has_archive = 'news' を書く（一回だけ）</div>
+                    <div class="vf-where where-file">⚙️ functions.php を直接編集</div>
+                  </div>
+                </div>
+
+                <div class="vf-step">
+                  <div class="vf-left"><div class="vf-num">2</div><div class="vf-line"></div></div>
+                  <div class="vf-content">
+                    <div class="vf-title">archive.php をテーマフォルダに作成</div>
+                    <div class="vf-desc">VS Code でテーマフォルダに archive.php を新規作成</div>
+                    <div class="vf-where where-file">📁 テーマフォルダ内に新規ファイル作成</div>
+                  </div>
+                </div>
+
+                <div class="vf-step">
+                  <div class="vf-left"><div class="vf-num">3</div><div class="vf-line"></div></div>
+                  <div class="vf-content">
+                    <div class="vf-title">archive.php に表示処理を書く</div>
+                    <div class="vf-desc">ヘッダー読込・投稿を繰り返し取得・フッター読込</div>
+                    <div class="vf-where where-file">📄 archive.php を編集</div>
+                  </div>
+                </div>
+
+                <div class="vf-step">
+                  <div class="vf-left"><div class="vf-num">4</div></div>
+                  <div class="vf-content">
+                    <div class="vf-title">パーマリンクを更新</div>
+                    <div class="vf-desc">管理画面 → 設定 → パーマリンク → 保存</div>
+                    <div class="vf-where where-admin">🖥 管理画面で操作</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-box">
+                ✅ /news/ にアクセス → archive.php が自動で呼ばれる
+              </div>
+            </div>
+
+            <!-- コード例 -->
+            <div class="col-box">
+              <h4>archive.php の中身（最小構成）</h4>
+              <pre><span class="tg">&lt;?php</span> <span class="fn">get_header</span>(); <span class="tg">?&gt;</span>
+
+<span class="tg">&lt;main&gt;</span>
+  <span class="tg">&lt;h1&gt;</span>お知らせ一覧<span class="tg">&lt;/h1&gt;</span>
+
+  <span class="tg">&lt;?php</span> <span class="kw">if</span> ( <span class="fn">have_posts</span>() ) : <span class="tg">?&gt;</span>
+    <span class="tg">&lt;?php</span> <span class="kw">while</span> ( <span class="fn">have_posts</span>() ) : <span class="fn">the_post</span>(); <span class="tg">?&gt;</span>
+
+      <span class="tg">&lt;article&gt;</span>
+        <span class="tg">&lt;a</span> href=<span class="st">"&lt;?php the_permalink(); ?&gt;"</span><span class="tg">&gt;</span>
+          <span class="tg">&lt;?php</span> <span class="fn">the_title</span>(); <span class="tg">?&gt;</span>
+        <span class="tg">&lt;/a&gt;</span>
+        <span class="tg">&lt;?php</span> <span class="fn">the_date</span>(); <span class="tg">?&gt;</span>
+      <span class="tg">&lt;/article&gt;</span>
+
+    <span class="tg">&lt;?php</span> <span class="kw">endwhile</span>; <span class="tg">?&gt;</span>
+  <span class="tg">&lt;?php</span> <span class="kw">endif</span>; <span class="tg">?&gt;</span>
+
+<span class="tg">&lt;/main&gt;</span>
+
+<span class="tg">&lt;?php</span> <span class="fn">get_footer</span>(); <span class="tg">?&gt;</span></pre>
+
+              <ul class="code-explain">
+                <li><span class="ce-code"><code>get_header()</code></span><span class="ce-desc">header.php を読み込む</span></li>
+                <li><span class="ce-code"><code>have_posts()</code></span><span class="ce-desc">投稿があるか確認</span></li>
+                <li><span class="ce-code"><code>the_post()</code></span><span class="ce-desc">次の投稿を取り出す</span></li>
+                <li><span class="ce-code"><code>the_title()</code></span><span class="ce-desc">記事タイトルを表示</span></li>
+                <li><span class="ce-code"><code>the_permalink()</code></span><span class="ce-desc">記事のURLを取得</span></li>
+                <li><span class="ce-code"><code>get_footer()</code></span><span class="ce-desc">footer.php を読み込む</span></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. single.php ===== -->
+    <hr class="divider">
+    <section id="single" class="section-block">
+      <div class="section-title">single.php — 記事詳細ページ</div>
+
+      <div class="detail-card dc-single">
+        <div class="detail-header">
+          <span class="dh-icon">📄</span>
+          <div>
+            <h2>single.php</h2>
+            <div class="dh-sub">記事タイトルをクリックしたときに表示される1件詳細のテンプレート</div>
+          </div>
+          <div class="dh-tags">
+            <span class="dh-tag">詳細ページ</span>
+            <span class="dh-tag">手動で作成</span>
+          </div>
+        </div>
+        <div class="detail-body">
+
+          <div class="two-col">
+            <div class="col-box">
+              <h4>作業フロー</h4>
+              <div class="v-flow">
+
+                <div class="vf-step">
+                  <div class="vf-left"><div class="vf-num">1</div><div class="vf-line"></div></div>
+                  <div class="vf-content">
+                    <div class="vf-title">functions.php への追加は不要</div>
+                    <div class="vf-desc">WordPressが自動でURLを生成してくれる</div>
+                    <div class="vf-where where-file" style="border-left-color: #34d399; color: #34d399;">✅ 何もしなくてOK</div>
+                  </div>
+                </div>
+
+                <div class="vf-step">
+                  <div class="vf-left"><div class="vf-num">2</div><div class="vf-line"></div></div>
+                  <div class="vf-content">
+                    <div class="vf-title">single.php をテーマフォルダに作成</div>
+                    <div class="vf-desc">VS Code でテーマフォルダに single.php を新規作成</div>
+                    <div class="vf-where where-file">📁 テーマフォルダ内に新規ファイル作成</div>
+                  </div>
+                </div>
+
+                <div class="vf-step">
+                  <div class="vf-left"><div class="vf-num">3</div></div>
+                  <div class="vf-content">
+                    <div class="vf-title">single.php に表示処理を書く</div>
+                    <div class="vf-desc">タイトル・本文・日付などを表示</div>
+                    <div class="vf-where where-file">📄 single.php を編集</div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="result-box">
+                ✅ 記事URLにアクセス → single.php が自動で呼ばれる
+              </div>
+
+              <div style="margin-top: 16px; background: #0f1117; border-radius: 10px; padding: 14px 16px; font-size: 0.8rem; color: #64748b; border-left: 3px solid #10b981;">
+                💡 URLはWordPressが自動生成する<br>
+                <code style="font-size: 0.78rem;">/news/記事スラッグ/</code> のような形で自動でできる。
+              </div>
+            </div>
+
+            <div class="col-box">
+              <h4>single.php の中身（最小構成）</h4>
+              <pre><span class="tg">&lt;?php</span> <span class="fn">get_header</span>(); <span class="tg">?&gt;</span>
+
+<span class="tg">&lt;main&gt;</span>
+  <span class="tg">&lt;?php</span> <span class="kw">if</span> ( <span class="fn">have_posts</span>() ) : <span class="tg">?&gt;</span>
+    <span class="tg">&lt;?php</span> <span class="kw">while</span> ( <span class="fn">have_posts</span>() ) : <span class="fn">the_post</span>(); <span class="tg">?&gt;</span>
+
+      <span class="tg">&lt;article&gt;</span>
+        <span class="tg">&lt;h1&gt;&lt;?php</span> <span class="fn">the_title</span>(); <span class="tg">?&gt;&lt;/h1&gt;</span>
+        <span class="tg">&lt;time&gt;&lt;?php</span> <span class="fn">the_date</span>(); <span class="tg">?&gt;&lt;/time&gt;</span>
+        <span class="tg">&lt;div&gt;&lt;?php</span> <span class="fn">the_content</span>(); <span class="tg">?&gt;&lt;/div&gt;</span>
+      <span class="tg">&lt;/article&gt;</span>
+
+    <span class="tg">&lt;?php</span> <span class="kw">endwhile</span>; <span class="tg">?&gt;</span>
+  <span class="tg">&lt;?php</span> <span class="kw">endif</span>; <span class="tg">?&gt;</span>
+<span class="tg">&lt;/main&gt;</span>
+
+<span class="tg">&lt;?php</span> <span class="fn">get_footer</span>(); <span class="tg">?&gt;</span></pre>
+
+              <ul class="code-explain">
+                <li><span class="ce-code"><code>the_title()</code></span><span class="ce-desc">この記事のタイトルを表示</span></li>
+                <li><span class="ce-code"><code>the_date()</code></span><span class="ce-desc">投稿日を表示</span></li>
+                <li><span class="ce-code"><code>the_content()</code></span><span class="ce-desc">本文（エディタに書いた内容）を表示</span></li>
+              </ul>
+
+              <div style="margin-top: 14px; font-size: 0.8rem; color: #64748b;">
+                ⚡ archive.php との違い: <code>the_content()</code> が追加されている（一覧では本文は出さない）
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. page.php ===== -->
+    <hr class="divider">
+    <section id="page" class="section-block">
+      <div class="section-title">page.php — 固定ページ</div>
+
+      <div class="detail-card dc-page">
+        <div class="detail-header">
+          <span class="dh-icon">🗂</span>
+          <div>
+            <h2>page.php</h2>
+            <div class="dh-sub">「会社概要」「お問い合わせ」など管理画面で作る固定ページのテンプレート</div>
+          </div>
+          <div class="dh-tags">
+            <span class="dh-tag">固定ページ</span>
+            <span class="dh-tag">手動で作成</span>
+          </div>
+        </div>
+        <div class="detail-body">
+
+          <div class="two-col">
+            <div class="col-box">
+              <h4>作業フロー</h4>
+              <div class="v-flow">
+
+                <div class="vf-step">
+                  <div class="vf-left"><div class="vf-num">1</div><div class="vf-line"></div></div>
+                  <div class="vf-content">
+                    <div class="vf-title">functions.php への追加は不要</div>
+                    <div class="vf-desc">固定ページはWordPressの標準機能</div>
+                    <div class="vf-where where-file" style="border-left-color: #34d399; color: #34d399;">✅ 何もしなくてOK</div>
+                  </div>
+                </div>
+
+                <div class="vf-step">
+                  <div class="vf-left"><div class="vf-num">2</div><div class="vf-line"></div></div>
+                  <div class="vf-content">
+                    <div class="vf-title">page.php をテーマフォルダに作成</div>
+                    <div class="vf-desc">VS Code で新規作成</div>
+                    <div class="vf-where where-file">📁 テーマフォルダ内に新規ファイル作成</div>
+                  </div>
+                </div>
+
+                <div class="vf-step">
+                  <div class="vf-left"><div class="vf-num">3</div><div class="vf-line"></div></div>
+                  <div class="vf-content">
+                    <div class="vf-title">管理画面で固定ページを追加</div>
+                    <div class="vf-desc">「会社概要」「採用情報」など必要なたびに追加</div>
+                    <div class="vf-where where-admin">🖥 管理画面 → 固定ページ → 新規追加</div>
+                  </div>
+                </div>
+
+                <div class="vf-step">
+                  <div class="vf-left"><div class="vf-num">4</div></div>
+                  <div class="vf-content">
+                    <div class="vf-title">完了！あとは自動</div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="result-box">
+                ✅ 固定ページURL → page.php が自動で呼ばれる
+              </div>
+            </div>
+
+            <div class="col-box">
+              <h4>page.php の中身（最小構成）</h4>
+              <pre><span class="tg">&lt;?php</span> <span class="fn">get_header</span>(); <span class="tg">?&gt;</span>
+
+<span class="tg">&lt;main&gt;</span>
+  <span class="tg">&lt;?php</span> <span class="kw">if</span> ( <span class="fn">have_posts</span>() ) : <span class="tg">?&gt;</span>
+    <span class="tg">&lt;?php</span> <span class="kw">while</span> ( <span class="fn">have_posts</span>() ) : <span class="fn">the_post</span>(); <span class="tg">?&gt;</span>
+
+      <span class="tg">&lt;h1&gt;&lt;?php</span> <span class="fn">the_title</span>(); <span class="tg">?&gt;&lt;/h1&gt;</span>
+      <span class="tg">&lt;?php</span> <span class="fn">the_content</span>(); <span class="tg">?&gt;</span>
+
+    <span class="tg">&lt;?php</span> <span class="kw">endwhile</span>; <span class="tg">?&gt;</span>
+  <span class="tg">&lt;?php</span> <span class="kw">endif</span>; <span class="tg">?&gt;</span>
+<span class="tg">&lt;/main&gt;</span>
+
+<span class="tg">&lt;?php</span> <span class="fn">get_footer</span>(); <span class="tg">?&gt;</span></pre>
+
+              <div style="margin-top: 14px; background: #0f1117; border-radius: 8px; padding: 12px 14px; font-size: 0.8rem; color: #64748b;">
+                single.php とほぼ同じ構成。ループを使って本文を出すのが共通のパターン。
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. functions.php ===== -->
+    <hr class="divider">
+    <section id="func" class="section-block">
+      <div class="section-title">functions.php — 全体設定ファイル</div>
+
+      <div class="detail-card dc-func">
+        <div class="detail-header">
+          <span class="dh-icon">⚙️</span>
+          <div>
+            <h2>functions.php</h2>
+            <div class="dh-sub">テーマ起動時に必ず読まれる。URL登録・機能追加をここで行う</div>
+          </div>
+          <div class="dh-tags">
+            <span class="dh-tag">全体設定</span>
+            <span class="dh-tag">最初からある</span>
+          </div>
+        </div>
+        <div class="detail-body">
+
+          <div class="two-col">
+            <div class="col-box">
+              <h4>functions.php の役割</h4>
+              <div style="font-size: 0.85rem; color: #94a3b8; line-height: 2.2;">
+                <div style="padding: 8px 0; border-bottom: 1px solid #1e2433; display: flex; justify-content: space-between;">
+                  <span>新しいURLを生やす</span>
+                  <code>has_archive</code>
+                </div>
+                <div style="padding: 8px 0; border-bottom: 1px solid #1e2433; display: flex; justify-content: space-between;">
+                  <span>カスタム投稿タイプを作る</span>
+                  <code>register_post_type</code>
+                </div>
+                <div style="padding: 8px 0; border-bottom: 1px solid #1e2433; display: flex; justify-content: space-between;">
+                  <span>ナビメニューを使えるようにする</span>
+                  <code>register_nav_menus</code>
+                </div>
+                <div style="padding: 8px 0; border-bottom: 1px solid #1e2433; display: flex; justify-content: space-between;">
+                  <span>CSSやJSを読み込む</span>
+                  <code>wp_enqueue_style</code>
+                </div>
+                <div style="padding: 8px 0;">
+                  <span>WordPressの設定を変更する</span>
+                  <code>add_filter</code>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-box">
+              <h4>今回のコード（has_archive の場合）</h4>
+              <pre><span class="kw">function</span> <span class="fn">set_post_archive</span>(<span class="va">$args</span>, <span class="va">$post_type</span>) {
+  <span class="kw">if</span> ( <span class="st">'post'</span> == <span class="va">$post_type</span> ) {
+    <span class="va">$args</span>[<span class="st">'has_archive'</span>] = <span class="st">'news'</span>;
+    <span class="c">// ↑ /news/ というURLを生やす</span>
+    <span class="va">$args</span>[<span class="st">'label'</span>]       = <span class="st">'お知らせ'</span>;
+    <span class="c">// ↑ 管理画面での名前</span>
+  }
+  <span class="kw">return</span> <span class="va">$args</span>;
+}
+<span class="fn">add_filter</span>(
+  <span class="st">'register_post_type_args'</span>,
+  <span class="st">'set_post_archive'</span>, 10, 2
+);</pre>
+
+              <div style="margin-top: 14px; background: #1a1a2e; border-radius: 8px; padding: 12px 14px; font-size: 0.8rem; color: #64748b; border-left: 3px solid #f59e0b;">
+                ⚠️ 変更後は必ず<br>管理画面 → 設定 → パーマリンク → 保存
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. 比較表 ===== -->
+    <hr class="divider">
+    <section id="table" class="section-block">
+      <div class="section-title">まとめ比較表</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ファイル</th>
+              <th>役割</th>
+              <th>どこで作る？</th>
+              <th>functions.php 必要？</th>
+              <th>作業頻度</th>
+              <th>呼ばれるタイミング</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-file">archive.php</td>
+              <td>一覧ページの見た目</td>
+              <td>VS Code（手動作成）</td>
+              <td class="td-yes">必要（has_archive）</td>
+              <td class="td-once">一回だけ</td>
+              <td>/news/ にアクセス時</td>
+            </tr>
+            <tr>
+              <td class="td-file">single.php</td>
+              <td>記事詳細の見た目</td>
+              <td>VS Code（手動作成）</td>
+              <td class="td-no">不要</td>
+              <td class="td-once">一回だけ</td>
+              <td>記事URLにアクセス時</td>
+            </tr>
+            <tr>
+              <td class="td-file">page.php</td>
+              <td>固定ページの見た目</td>
+              <td>VS Code（手動作成）</td>
+              <td class="td-no">不要</td>
+              <td class="td-once">一回だけ</td>
+              <td>固定ページURLにアクセス時</td>
+            </tr>
+            <tr>
+              <td class="td-file">functions.php</td>
+              <td>URL・機能の登録</td>
+              <td>最初からある（追記）</td>
+              <td>—（本体）</td>
+              <td class="td-once">設定時のみ</td>
+              <td>全ページで常時読まれる</td>
+            </tr>
+            <tr>
+              <td class="td-file">header.php</td>
+              <td>共通ヘッダー</td>
+              <td>VS Code（手動作成）</td>
+              <td class="td-no">不要</td>
+              <td class="td-once">一回だけ</td>
+              <td>get_header() を呼んだとき</td>
+            </tr>
+            <tr>
+              <td class="td-file">footer.php</td>
+              <td>共通フッター</td>
+              <td>VS Code（手動作成）</td>
+              <td class="td-no">不要</td>
+              <td class="td-once">一回だけ</td>
+              <td>get_footer() を呼んだとき</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== 7. 優先順位 ===== -->
+    <hr class="divider">
+    <section id="priority" class="section-block">
+      <div class="section-title">WordPressがテンプレートを探す順番（一覧ページの例）</div>
+      <div class="pri-list">
+        <div class="pri-item">
+          <div class="pri-num p1">1位</div>
+          <div class="pri-file">archive-post.php</div>
+          <div class="pri-desc">「投稿」専用の一覧テンプレート（あれば優先）</div>
+          <div class="pri-note">最優先</div>
+        </div>
+        <div class="pri-item">
+          <div class="pri-num p2">2位</div>
+          <div class="pri-file">archive.php</div>
+          <div class="pri-desc">全一覧ページ共通テンプレート（よく使う）</div>
+          <div class="pri-note">通常はここ</div>
+        </div>
+        <div class="pri-item">
+          <div class="pri-num p3">3位</div>
+          <div class="pri-file">index.php</div>
+          <div class="pri-desc">何もなければ最終的にここが使われる</div>
+          <div class="pri-note">最終手段</div>
+        </div>
+        <div class="pri-item">
+          <div class="pri-num p4">404</div>
+          <div class="pri-file">404.php</div>
+          <div class="pri-desc">URLが存在しない（has_archive 未設定など）</div>
+          <div class="pri-note">エラー</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8. 覚えるポイント ===== -->
+    <hr class="divider">
+    <section id="points" class="section-block" style="padding-bottom: 80px;">
+      <div class="section-title">覚えるべきポイント</div>
+      <div class="points-grid">
+        <div class="point-card point-warn">
+          <div class="pi">⚠️</div>
+          <h4>PHPファイルは管理画面から作れない</h4>
+          <p>archive.php / single.php は VS Code などのエディタでテーマフォルダに直接作成する。</p>
+        </div>
+        <div class="point-card point-ok">
+          <div class="pi">✅</div>
+          <h4>PHPファイルは「型紙」</h4>
+          <p>一回作れば全記事に使い回せる。投稿を追加するたびにPHPを書き直す必要はない。</p>
+        </div>
+        <div class="point-card point-warn">
+          <div class="pi">⚠️</div>
+          <h4>archive.php だけではURLは存在しない</h4>
+          <p>functions.php で has_archive を設定して初めて /news/ というURLができる。両方セットで動く。</p>
+        </div>
+        <div class="point-card point-ok">
+          <div class="pi">✅</div>
+          <h4>single.php / page.php は登録不要</h4>
+          <p>WordPressの標準機能として最初から動く。functions.php への追記は不要。</p>
+        </div>
+        <div class="point-card point-info">
+          <div class="pi">🔄</div>
+          <h4>設定変更後はパーマリンク更新</h4>
+          <p>functions.php を変えたら必ず管理画面 → 設定 → パーマリンク → 保存を実行する。</p>
+        </div>
+        <div class="point-card point-info">
+          <div class="pi">📋</div>
+          <h4>共通の書き方パターンがある</h4>
+          <p>get_header() → ループ → get_footer() という構成はどのテンプレートも同じ。</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page -->
+
+</body>
+</html>
