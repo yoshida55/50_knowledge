@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"path": "../../02_作業/00_リンクワーク/HTML自動化/過去の課題/html_review_hukushu"
+	},
+	{
+		"path": ".."
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "html_review_hukushu"
+  }
+}
