@@ -3798,9 +3798,29 @@
     "reviewCount": 1,
     "questionText": "WordPressでアーカイブページが404エラーになる際、パーマリンク設定画面で行うべき操作は？"
   },
+  "📌 the_post_thumbnail() はクラス指定が必要 + has_post_thumbnail() でif分岐しないとデフォルト画像と切り替えができない": {
+    "title": "📌 the_post_thumbnail() はクラス指定が必要 + has_post_thumbnail() でif分岐しないとデフォルト画像と切り替えができない",
+    "line": 11685,
+    "lastReviewed": 1773287100824,
+    "reviewCount": 0,
+    "questionText": "WordPressで投稿にアイキャッチ画像を設定し、クラスを付与する関数は？",
+    "evaluations": [
+      1
+    ]
+  },
+  "📌 フォームなど共通パーツを複数ページで使いたい → template-parts/ に切り出して get_template_part() で呼ぶ": {
+    "title": "📌 フォームなど共通パーツを複数ページで使いたい → template-parts/ に切り出して get_template_part() で呼ぶ",
+    "line": 11439,
+    "lastReviewed": 1773287221891,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて共通パーツを別ファイルから読み込む関数は？",
+    "evaluations": [
+      1
+    ]
+  },
   "_meta": {
     "lastFilter": {
-      "date": "今日",
+      "date": "昨日",
       "category": "全カテゴリ"
     }
   }

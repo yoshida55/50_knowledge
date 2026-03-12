@@ -536,6 +536,71 @@ document.querySelectorAll(".case_description").forEach((desc) => {
   クリックしてね
 </button>
 ```
+
+### ハンバーガーメニューの作り方
+### ハンバーガーメニューの作り方
+
+#### 1. HTMLの作成
+クリックしてメニューを開閉する役割なので、必ず `<button>` タグを使います。
+
+```html
+<button type="button" id="hamburger_btn" aria-label="メニューを開く">
+  <span class="bar"></span>
+  <span class="bar"></span>
+  <span class="bar"></span>
+</button>
+
+<!-- 開いた時に表示されるメニュー -->
+<nav id="menu">
+  <ul>
+    <li><a href="#">メニュー1</a></li>
+    <li><a href="#">メニュー2</a></li>
+  </ul>
+</nav>
+```
+
+#### 2. CSSで見た目を整える
+`button` の標準デザイン（枠線など）をリセットし、メニューの動きを作ります。
+
+```css
+/* ボタンの初期設定を消す */
+#hamburger_btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* メニューの表示・非表示 */
+#menu {
+  display: none; /* 最初は隠す */
+}
+
+#menu.is-active {
+  display: block; /* クラスがついたら表示する */
+}
+```
+
+#### 3. JavaScriptで動きをつける
+ボタンを押した時に、メニューに「表示するクラス（is-active）」を付け外しします。
+
+```javascript
+const btn = document.getElementById('hamburger_btn');
+const menu = document.getElementById('menu');
+
+btn.addEventListener('click', () => {
+  // メニューの表示・非表示を切り替える
+  menu.classList.toggle('is-active');
+  
+  // ボタンの見た目（アクセシビリティ対応）を更新
+  const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', !isExpanded);
+});
+```
+
+#### なぜ `<button>` を使うのか
+* **キーボード操作に対応できる**: `Tab`キーで移動し、`Enter`キーでメニューを開閉できるようになります。
+* **機械に伝わる**: 目が見えない人向けの読み上げソフトなどが、「これはボタンである」と正しく認識してくれます。
+* **誤作動を防ぐ**: `type="button"`と書くことで、フォームの送信ボタンとして誤って動くのを防げます。
 # buttonタグで遷移させる具体例
 
 ## 1. aタグを使う方法��推奨）
@@ -8219,6 +8284,31 @@ single-product.php（詳細）← 自分で作る（手動！）
 - 💡 つまり：スラッグ（フラッグ）を立てたら archive-〇〇 と single-〇〇 のペアを自分で用意する
 - 【関連】→ 「archive-〇〇.php / single-〇〇.php」で検索（カスタム投稿タイプの基本）
 
+### single.php にスラッグ（はた）をつけると → single-〇〇.php が最優先で使われる（作らなければ single.php が使われる）
+【日付】2026-03-12
+【結論】
+single.php は基本の詳細テンプレート。スラッグ名（〇〇）を付けた single-〇〇.php を作れば、そちらが優先して使われる。
+
+★★「しぬときにはたをふれば、しぬときのはたをつけることが可能」★★
+
+語呂の対応：
+- 「しぬとき」                   → single.php のこと（基本の詳細ページ）
+- 「はたをふれば」               → スラッグ（はた＝フラッグ）を設定すれば
+- 「しぬときのはたをつけることが可能」 → single-〇〇.php（しぬ＋はた）が作れる・優先される
+
+【具体例】
+```
+スラッグ「product」の場合:
+
+1. single-product.php  ← あれば最優先
+2. single.php          ← なければこっち（フォールバック）
+```
+
+【補足】
+- ⚠ 間違えやすい：single-〇〇.php を作らなくてもエラーにはならない（single.php が代わりに動く）
+- 💡 つまり：デザインを変えたいときだけ single-〇〇.php を手動で作ればOK
+- 【関連】→ 「カスタム投稿タイプにスラッグを設定する」で検索（single-〇〇.phpの手動作成の流れ）
+
 ### functions.php（テーマの中枢）
 - CSS・JSファイルの読み込み設定、機能の拡張、デフォルト動作の変更を書くファイル
 - たとえ：テーマの「コントロールパネル」。裏側の設定を全部ここで管理する
@@ -12137,3 +12227,70 @@ WordPressで丸い形のページネーションを作る手順です。
 ### 注意点
 *   **`.page-numbers`について**: WordPressが自動で付与するクラスです。ここに`border`などを書くと、自作の丸と重なって二重に丸が表示されてしまうので注意してください。
 *   **`display: flex`**: このコードだけで横並びと中身の配置（中央寄せ）ができます。
+
+## ハンバーガーメニュー実装で踏んだ5つの失敗（getElementById・JSエラー停止・100vh競合・fixed子は親の高さゼロ・z-indexはスペースに無関係）
+
+【日付】2026-03-12
+
+【結論】
+- `getElementById` はid専用。classには反応しない → `querySelector(".クラス名")` に統一する
+- JSは1か所でもエラーがあるとそこで止まり、以降のコードが全部動かない → F12コンソールで確認する
+- `height: 100vh` を複数セクションに使うと縦に積み重なり、2画面目から始まる
+- `position: fixed / absolute` の子要素は親の高さに影響しない → 子が全部 fixed/absolute だと親は空の箱になる
+- `z-index` は前後（重なり順）だけを制御する。スペース（高さ）とは無関係
+
+【具体例】
+```javascript
+// ❌ 悪い例：getElementById でクラスを取得しようとする
+const btn = document.getElementById("hamburger_menu"); // id がないと null になる
+
+// ✅ 良い例：querySelector でクラスを取得
+const btn = document.querySelector(".hamburger_menu");
+```
+
+```
+// JSエラーの止まり方
+line1: const btn = document.querySelector(".btn"); // ✅ OK
+line2: mask.classList.toggle("open");              // ❌ mask が存在しない → ここで止まる
+line3: gNav.classList.toggle("open");              // ← 実行されない
+```
+
+```
+// height: 100vh を2つ使うと…
+header_area（height: 100vh） → 画面1枚分のスペースを占領
+main_area  （height: 100vh） → 2画面目から始まる ❌
+
+// fixed/absolute の子は親の高さに影響しない
+<header>
+  <button style="position: fixed">  ← 流れから外れる（親の高さに含まれない）
+  <div style="position: fixed">     ← 同上
+</header>
+← header の高さ = 0（空の箱）
+
+// z-index は前後だけ
+z-index: 1000 → 一番手前に見える
+z-index: 50   → その後ろに見える
+※ どちらも height のスペースは独立して占領する
+```
+
+【補足】
+- ⚠ `getElementById` と `querySelector` を混在させない。今回は querySelector に統一した
+- ⚠ `height: 100vh` は1ページに1セクションだけに使う（ファーストビューなど）
+- ⚠ ヘッダーを画像の上に浮かせたい場合は `position: fixed` を使い、`header_area` の高さは不要
+- ⚠ `height: 100vh` を header_area につけると「中身なし・高さあり」の空白スペースになり、次のセクションが押し下げられる
+- 💡 つまり：JSのエラーは連鎖停止、CSSの高さは独立占領、z-indexは見た目の前後だけ
+
+【なぜ高さ0になるか】
+```
+fixed/absolute の子しかいない親 → 高さ = 0（透明な空箱）
+
+高さ0のまま:               height: 100vh をつけると:
+┌──────────┐ ← 0px        ┌──────────┐ ↑
+│ 花の画像  │              │  空白     │ 100vh
+└──────────┘              └──────────┘ ↓
+                           ┌──────────┐
+                           │ 花の画像  │ ← 押し下げられる
+                           └──────────┘
+```
+
+【関連】→「getElementById と querySelector」で検索（id/class取得の使い分け）
