@@ -4307,105 +4307,107 @@ triggers:
 例）
 ----------------------------
 
-## 📌 パララックスのシンプルな作り方 html
+## 📌 背景を固定したいとき → セクションだけならsticky、下の全セクションを流すならfixed（親の範囲か画面全体かで選ぶ）
 
-
-実際の画像にちかい
-[プレビュー](http://localhost:54321/preview-20260216-225151.html)
-
-★なぜリラティブなのか！？
-[プレビュー](http://localhost:54321/preview-20260215-035655.html)
-
+【日付】2026-03-12
+【フロー】
+1. 途中の1セクションだけ、または2〜3セクションのまとまりだけ背景を止めたい → `sticky`
+2. トップの画像を固定して、その下のセクション全体を流したい → `fixed`
+3. 判断に迷ったら「親の中だけ効かせたいか、画面全体に効かせたいか」で決める
 
 【結論】
-固定背景 + スクロール前景の2層構造で視差効果を作る
+`sticky` は親要素の範囲内だけ固定され、親が終わると背景も終わります。
+`fixed` は画面そのものに固定されるので、セクションをまたいでも背景を残せます。
+つまり「セクションだけ止める = sticky」「トップ背景を固定して下を全部流す = fixed」です。
 
-1. 大きくDivセクションを2つ作る
-   (a) 1つは背景画像
-   (b) 1つは前面画像
-2. 1つ目の背景画像には、position: fixed で固定配置させる
-3. 2つ目の前面の方には、あえて position: relative を付けて、z-index で前面に持ってくるようにする
-
-暗記ポイント
-background-attachment: fixed = `画像`専用の簡単な方法
-position: fixed = 要素そのものを固定する汎用的な方法
-覚えなくていいこと：z-indexの具体的な数値（-1とか1とか）
-➡
-普通の背景固定 → background-attachment: fixed（こっちが基本）
-動く背景が必要な時だけ → position: fixed + z-index
-
-[プレビュー](http://localhost:54321/preview-20260216-225151.html)
-[プレビュー](http://localhost:54321/preview-20260215-035655.html)
-
-
-
-あとはJavaScript(`transform: translateY()` )で調整します。
-
-【具体例】
+【具体例1：セクションだけ止める（sticky）】
 ```html
-<!-- ➀背景画像（固定） -->
-<div class="particle-bg">
-  <div class="house-illustration"></div>
-</div>
-
-<!-- ➁前面画像（スクロール） -->
-<div class="parallax-container">
-  <section class="parallax-section">
-    <!-- コンテンツ -->
-  </section>
-</div>
+<section class="access_area">
+  <div class="bg"></div>
+  <div class="content">
+    <h2>ACCESS</h2>
+    <p>PARK SIDE HALL</p>
+  </div>
+</section>
 ```
 
-
-
 ```css
-/* ➀背景：画面に固定 */
-.particle-bg {
-  position: fixed;
-  z-index: -1;  /* 背景に配置 */
+/*
+  構造:
+  <section .access_area>   ← stickyが効く範囲を決める親
+    <div .bg>              ← 親の中だけ1画面固定される背景
+    <div .content>         ← 背景の上を通過する文字
+*/
+.access_area {
+  position: relative;
+  min-height: 200vh;
 }
 
-/* ➁前面：z-indexで前面に */
-.parallax-container {
-  position: relative;  /* z-indexを有効化 */
-  z-index: 1;          /* 前面に配置 */
-  padding-top: 100vh;  /* 最初は背景だけ表示 */
+.bg {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  background: url("../img/bg.jpg") center / cover no-repeat;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  min-height: 200vh;
+  margin: -100vh auto 0;
+  padding: 50vh 20px 30vh;
+  box-sizing: border-box;
+  color: #fff;
+  text-align: center;
 }
 ```
 
-----------------------------
+【具体例2：トップ背景を固定して下の全セクションを流す（fixed）】
+```html
+<div class="particle_bg"></div>
 
-
-### パララックスで背景の画像の上のレイヤーがかさならないようにするする方法？初期表示
-背景画像の上にレイヤー（前面のコンテンツ）が重ならないようにするには、CSSでレイアウトを「縦に並べる」設定にします。
-
-*   **考え方**: 前面コンテンツに「余白（マージン）」を作り、背景画像が見える場所を確保します。
-*   **方法**: 前面のブロック（`parallax-container`など）に `margin-top` を指定して、背景画像が隠れないよう下にずらします。
-
-### コード例
+<main class="parallax_container">
+  <section class="about_area">...</section>
+  <section class="news_area">...</section>
+  <section class="contact_area">...</section>
+</main>
+```
 
 ```css
-/* ➀背景：固定して一番後ろにする */
-.particle-bg {
+/*
+  構造:
+  <div .particle_bg>            ← 画面全体に固定する背景
+  <main .parallax_container>    ← 背景1画面分下から始まる全体コンテンツ
+    <section .about_area>       ← 背景の上を流れる各セクション
+    <section .news_area>
+    <section .contact_area>
+*/
+.particle_bg {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh; /* 画面いっぱいの高さ */
-  z-index: -1;
+  height: 100vh;
+  z-index: 0;
+  background: url("../img/bg.jpg") center / cover no-repeat;
 }
 
-/* ➁前面：背景の分だけ下にずらす */
-.parallax-container {
+.parallax_container {
   position: relative;
-  margin-top: 100vh; /* 画面1枚分下にずらして重ならないようにする */
-  background: white; /* 背景が透けないように色をつける */
+  z-index: 1;
+  margin-top: 100vh;
+  background: #fff;
 }
 ```
 
-### ポイント
-*   **`margin-top: 100vh;`**: 背景画像の高さ分（画面1枚分）の空きを作ることで、初期表示時に前面が重ならず、スクロールすると背景の上を流れるようになります。
-*   **背景色**: 前面のコンテンツに `background-color` を指定しないと、背景が透けて見えてしまうため注意してください。
+【補足】
+- `sticky` の `top: 0` は親から0ではなく、画面の上端から0。要素がそこまで来たら貼り付く
+- `sticky` は親要素の中だけ効くので、次のセクションを親の外に書くと背景は消える
+- 他のセクションも同じ背景の上を通したいなら、それらも同じ親に入れて `sticky` の範囲を大きくするか、最初から `fixed` にする
+- `fixed` は画面全体に固定されるので、トップ背景を固定して下の全セクションを流す形に向く
+- ⚠ `z-index` は `position: relative / absolute / fixed / sticky` のどれかが付いていないと効かない
+- 💡 つまり：範囲限定で止めるなら `sticky`、ページ全体の背景として残すなら `fixed`
+- 【関連】→ 「position: fixed の5点セット」で検索（fixed の基本指定を整理したメモ）
 ## 📌 particles.js の基本構成 ライブラリからスライドなどの実装をする場合（星座のような背景）　html
 
 【結論】
@@ -10481,6 +10483,38 @@ add_filter('register_post_type_args', 'set_post_archive', 10, 2);
 *   `archive.php` ：「アクセスしたときに何を表示するか」を決める
 
 この2つが揃って初めて、ちゃんとした一覧ページが完成します。
+
+### archive.phpにfunctionをかきこむ場合
+`archive.php` に書き込む内容は、投稿一覧を表示するためのループ処理です。
+
+### 基本のコード構成
+```php
+<?php if (have_posts()) : ?>
+  <?php while (have_posts()) : the_post(); ?>
+    
+    <!-- 記事ごとの表示内容 -->
+    <h2><?php the_title(); ?></h2> <!-- タイトル -->
+    <p><?php echo get_the_date(); ?></p> <!-- 日付 -->
+    <div><?php the_category(); ?></div> <!-- カテゴリー -->
+    <a href="<?php the_permalink(); ?>">詳しく見る</a> <!-- リンク -->
+
+  <?php endwhile; ?>
+
+  <!-- ページ送りの表示 -->
+  <?php the_posts_pagination(); ?>
+
+<?php else : ?>
+  <p>記事が見つかりませんでした。</p>
+<?php endif; ?>
+```
+
+### ポイント
+*   **`have_posts()`**: 記事があるかチェックする。
+*   **`the_post()`**: 次の記事情報を呼び出す。
+*   **`the_title()`**: 記事のタイトルを表示する。
+*   **`the_permalink()`**: 記事の個別ページへのURLを表示する。
+*   **`the_posts_pagination()`**: ページがたくさんあるときに「次へ」「前へ」ボタンを作る。
+*   **場所**: `archive.php` の中であれば、表示したい場所にこのコードをそのまま貼り付ける。
 ## 📌 the_title() と get_the_title() の違い → 表示するか・変数に入れるかで使い分ける（ループで配列になる）
 【日付】2026-03-11
 
@@ -12509,3 +12543,7 @@ flexの親要素に `display: flex` を指定し、子要素に `width: calc(100
 - width が 100% だと余白ゼロ → margin: auto が効かない（必ず 100%未満にする）
 - ⚠ 間違えやすいこと：`margin-left: auto` は「左を広げる」ではなく「右に押し出す」イメージ
 - 💡 つまり：「余白をどちらに寄せるか」で要素の位置が決まる
+
+
+
+
