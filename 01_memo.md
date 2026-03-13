@@ -3218,6 +3218,42 @@ z-index で重なり順を決めても、「透明なのにクリックを邪魔
 3. **検証ツールで押せるのに実画面で押せない → z-index か位置を疑う**
 4. **迷ったら z-index: 300 以上をうたがう**
 5. **fixedの親子関係では、子は `absolute` にする**
+6. **z-indexは:root変数で名前管理する（地獄を抜け出す方法）**
+
+### 4. :root 変数でz-index地獄を抜け出す
+【日付】2026-03-13
+
+【結論】
+z-indexを数字で直接書くと「なぜこの値？」が後でわからなくなる。`:root`で名前付き変数にまとめると、役割で管理できて衝突しなくなる。
+
+【具体例】
+```css
+/*
+  構造:
+  <header .header_area>          ← 固定ヘッダー全体
+    <button .hamburger_menu>     ← 常に最前面のボタン
+    <nav .global_menu>           ← クリック時に開くオーバーレイ
+*/
+
+:root {
+  --z-content:   1;    /* 通常コンテンツ */
+  --z-header:  100;    /* ヘッダー全体 */
+  --z-overlay: 200;    /* グローバルメニュー */
+  --z-button:  300;    /* ハンバーガーボタン（常に最前面） */
+}
+
+.header_area    { z-index: var(--z-header); }
+.global_menu    { z-index: var(--z-overlay); }
+.hamburger_menu { z-index: var(--z-button); }
+```
+
+【補足】
+- 変更は `:root` の1行だけで全体に反映される
+- 100刻みにすると間に挟みやすい（例: 150を後から追加できる）
+- ⚠ ハマりやすい：global_menuより hamburger_menuを大きくするのを忘れる → Xボタンが消える
+- 💡 つまり：数字ではなく「役割名」でz-indexを管理すると地獄にならない
+
+【関連】→ 「z-index 問題」で検索（親子のz-index基本ルール）
 
 ---
 トの使い方」セクション
@@ -6996,6 +7032,35 @@ if (scroll > target - windowHeight + 200) {
 - 詳細は「AOS 使い方」でググればOK（暗記不要）
 ---
 
+
+### 下から上に要素フェードイン
+「下から上にフェードイン」させるには、対象のタグに `data-aos="fade-up"` を追加する。
+
+**実装手順**
+
+1.  **準備**
+    HTMLの `<head>` にCSS、`<body>` の最後にJSと初期化コードを書く。
+    ```html
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    ```
+
+2.  **動きを付ける**
+    動かしたい要素に `data-aos="fade-up"` を書き込む。
+    ```html
+    <div data-aos="fade-up">
+      ふわっと下から現れる要素
+    </div>
+    ```
+
+3.  **調整（必要に応じて）**
+    以下の属性をタグに追加すると、速度やタイミングを変えられる。
+    *   `data-aos-duration="1000"`：1秒かけてゆっくり動かす
+    *   `data-aos-delay="300"`：0.3秒待ってから動き出す
 ## 📌 CSS absoluteは何階層でもネストできる（スライドショー+文字重ねの実装パターン）
 
 【結論】
@@ -13351,5 +13416,76 @@ window.addEventListener("scroll", () => {
   transform: translateY(-50%) rotate(45deg);
 }
 ```
+
+▢
+## メモ：ハンバーガーメニュー - ボタン押下でグローバルメニュー開閉（CSS ~ セレクタ + JSはtoggleのみ）
+【日付】2026-03-13
+
+【気づき】
+- JSはclassのtoggleだけ。表示切り替えはCSSの `~` セレクタに任せる
+- z-indexはボタン > メニューの順にしないと、×ボタンがメニューに隠れて閉じられなくなる
+
+【ポイント】
+
+★ `~` は「同じ親・後ろの兄弟」に効く
+```css
+/* ボタンに .open がついたら、後ろにある nav を表示 */
+.hamburger_menu.open ~ .global_menu {
+  display: flex;
+}
+```
+
+★ z-index はボタン > メニュー（逆にするとXが消える）
+```css
+.global_menu    { z-index: 400; }
+.hamburger_menu { z-index: 401; } /* 必ずメニューより大きく */
+```
+
+★コピペで動く最小コード（ファイル分離版）
+
+**HTML**
+```html
+<header class="header_area">
+  <button class="hamburger_menu">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+  <a class="main_logo">LOGO</a>
+  <!-- navはbuttonの後ろ・同じ親に置く（~ セレクタの条件） -->
+  <nav class="global_menu">
+    <a href="#" class="global_menu_link">トップ</a>
+    <a href="#" class="global_menu_link">会社概要</a>
+  </nav>
+</header>
+<script src="js/work.js"></script>
+```
+
+**CSS（css/style.css）**
+```css
+.hamburger_menu { position: fixed; top: 1.5rem; right: 2rem; width: 3rem; height: 3rem; cursor: pointer; background-color: black; overflow: hidden; z-index: 401; }
+.bar { position: absolute; display: block; transition: 0.3s; left: 0; height: 0.2rem; width: 3rem; background: white; }
+.bar:nth-child(1) { top: 0.6rem; }
+.bar:nth-child(2) { top: 1.4rem; }
+.bar:nth-child(3) { top: 2.2rem; }
+.hamburger_menu.open .bar:nth-child(1) { transform: rotate(45deg); top: 1.5rem; }
+.hamburger_menu.open .bar:nth-child(2) { opacity: 0; }
+.hamburger_menu.open .bar:nth-child(3) { transform: rotate(-45deg); top: 1.5rem; }
+.global_menu { position: fixed; top: 0; left: 0; width: 100%; height: 30rem; background-color: rgba(0,0,0,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 400; }
+.hamburger_menu.open ~ .global_menu { display: flex; }
+.global_menu_link { font-size: 3rem; margin-bottom: 2rem; color: white; text-decoration: none; }
+```
+
+**JavaScript（js/work.js）**
+```javascript
+const hamburgerBtn = document.querySelector(".hamburger_menu");
+hamburgerBtn.addEventListener("click", function () {
+  hamburgerBtn.classList.toggle("open");
+});
+```
+
+> 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★ハンバーガーメニュー - ボタン押下でグローバルメニュー開閉（CSS ~ セレクタ + JSはtoggleのみ）.md)
+
+【関連】→ 「z-index 問題」で検索（z-indexの親子ルール・:root変数管理）
 
 > 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★疑似要素で棒線の先に矢印をつくる - content文字はズレる（afterと beforeくの字）.md)
