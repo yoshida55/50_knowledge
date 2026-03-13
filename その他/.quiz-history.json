@@ -3818,6 +3818,13 @@
       1
     ]
   },
+  "カスタム投稿タイプにスラッグを設定する → archive-〇〇とsingle-〇〇がペアになる（single-〇〇.phpは手動で作る）": {
+    "title": "カスタム投稿タイプにスラッグを設定する → archive-〇〇とsingle-〇〇がペアになる（single-〇〇.phpは手動で作る）",
+    "line": 8649,
+    "lastReviewed": 1773361079895,
+    "reviewCount": 1,
+    "questionText": "カスタム投稿タイプで個別ページのテンプレートファイルが存在しない場合に表示されるファイルは？"
+  },
   "_meta": {
     "lastFilter": {
       "date": "昨日",

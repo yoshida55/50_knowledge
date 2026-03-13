@@ -3890,6 +3890,45 @@ window.addEventListener("scroll", function () {
 }
 ```
 
+
+### 線をひいて→をつける
+線をひいて、その先に矢印をつける方法は以下の通りです。
+
+### やり方
+1. `::after` で縦線を引く。
+2. 線の端に `background-image` で矢印の画像（またはSVG）を指定するか、もうひとつ疑似要素（`::before`）を使い `clip-path` で三角形を作る。
+
+### コード例（CSSのみで矢印を作る方法）
+
+```css
+/* 縦線 */
+.weekly_product::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 80%;
+  width: 2px;
+  background-color: gray;
+}
+
+/* 矢印（線の先につける） */
+.weekly_product::before {
+  content: "";
+  position: absolute;
+  right: -4px; /* 線の上にのるよう調整 */
+  top: 10%;   /* 線の端の位置 */
+  width: 10px;
+  height: 10px;
+  background-color: gray;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* 三角形を作る */
+}
+```
+
+### ポイント
+* **位置調整:** `right` や `top` を変えることで、矢印を線の好きな端っこに移動できます。
+* **形:** `clip-path` の数字を変えると、矢印の向きや形を自由に変えられます。
 ## 幅がひろいwidthを文字は文字幅にあわせる
 width: fit-content;
 
@@ -4008,6 +4047,21 @@ align-items: stretch;
 
 
 
+
+### a タグが　ひだりにいく
+aタグ（`.news_link`）を左に寄せたい場合は、親要素に以下のCSSを追加します。
+
+*   **親要素（`news_link_container`）に指定する**
+    ```css
+    .news_link_container {
+      display: flex;
+      justify-content: flex-start; /* これで左寄せになります */
+    }
+    ```
+
+*   **解説**
+    *   `justify-content: flex-start;` は、中の要素を「左（始まり）」に寄せる命令です。
+    *   もし親要素にすでに `display: flex;` が書かれているなら、その中にこの1行を追加するだけでOKです。
 ## フレックスの子要素は画像などのもとサイズより小さくならない。例えば画像など大きいサイズをうめるときに、想定した配置にならないときは、
 .a{
 display flex
@@ -8653,7 +8707,7 @@ archive.php（一覧）         →  タイトルをクリック  →  single.ph
 single-〇〇.phpはWordPressに最初から存在せず、自分で手動で作る必要がある。
 作らない場合は single.php が代わりに使われる（フォールバック）。
 
-★★「イチロー、しぬ。スラッグ（フラッグ）立てたら手動でしぬ」★★
+★★「イチロー、しぬ。スラッグ（フラッグ）立てたら（同じシングル・アーカイブの〇〇php）手動でしぬ」★★
 
 語呂の対応：
 - 「イチロー」         → 一覧・archive.php のこと
@@ -13227,5 +13281,75 @@ window.addEventListener("scroll", () => {
 ## パララックス・background attachment fixed と　背景を固定したアニメーションの違い
 【日付】2026-03-13
 
-background attachment fixed パララックスデモ
-[プレビュー](http://localhost:54321/preview-20260313-082129.html)
+
+## メモ：疑似要素で棒線の先に矢印をつくる - content文字はズレる（::after横線 + ::beforeくの字）
+【日付】2026-03-13
+
+【気づき】
+★ `→` などの文字を使うとフォント幅でズレる。図形（空要素）だけで作るとズレない。
+★ `::after` と `::before` の `right` 値を同じにすると先端がピッタリ合う。
+
+【ポイント】
+
+★ポイント1: content文字（→）を使うとズレる
+```css
+/* ❌ これはズレる */
+.link::after { content: "→"; }
+```
+
+★ポイント2: content:"" にして図形で作るとズレない
+```css
+/* ✅ 横線 */
+.link::after {
+  content: "";
+  height: 1px;
+  background-color: white;
+  width: 5rem;
+}
+/* ✅ くの字矢印 */
+.link::before {
+  content: "";
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+  transform: rotate(45deg);
+}
+```
+
+★コピペで動く最小コード（ファイル分離版）
+
+**HTML**
+```html
+<a href="#" class="contact_link">お問い合わせ</a>
+```
+
+**CSS（css/work.css）**
+```css
+.contact_link {
+  position: relative;
+}
+/* 横線 */
+.contact_link::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 2rem;
+  width: 5rem;
+  height: 1px;
+  background-color: white;
+  transform: translateY(-50%);
+}
+/* 矢印の先端 */
+.contact_link::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 2rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+  transform: translateY(-50%) rotate(45deg);
+}
+```
+
+> 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★疑似要素で棒線の先に矢印をつくる - content文字はズレる（afterと beforeくの字）.md)

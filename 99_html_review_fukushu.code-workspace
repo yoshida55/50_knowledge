@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "path": "../01_研修用/96_過去の成果物（最新）/99_html_review_fukushu",
+    },
+    {
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "99_html_review_fukushu",
+  },
+}
