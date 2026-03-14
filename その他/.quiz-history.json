@@ -797,7 +797,8 @@
     "evaluations": [
       3
     ],
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "Flexboxの子要素がはみ出す際に、強制的に縮小させるための設定とは何ですか？"
   },
   "使��道": {
     "title": "使��道",
@@ -1171,14 +1172,16 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "JavaScriptからCSSを直接操作する際、ハイフン付きのプロパティはどう変換して記述する？"
   },
   "📌 CSSセレクタ `~` で兄弟選択 → スペースで子孫に降りる（jQueryの nextAll + find と同じ発想）": {
     "title": "📌 CSSセレクタ `~` で兄弟選択 → スペースで子孫に降りる（jQueryの nextAll + find と同じ発想）",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSセレクタ「~」で兄弟要素を選択したあと、さらに子孫要素を指定するにはどうすればよいですか？"
   },
   "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）": {
     "title": "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）",
@@ -1223,7 +1226,8 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "スライダーを作成する際、カードが自動で縮まないようにするために必須のCSSプロパティは何ですか？"
   },
   "★ アニメーション一覧": {
     "title": "★ アニメーション一覧",
@@ -1237,91 +1241,104 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "Webサイトで画面を動かした際に要素をふわっと表示させる手法を何と呼ぶか？"
   },
   "スライダー・スライドショー": {
     "title": "スライダー・スライドショー",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "Webサイトで画像やコンテンツを切り替えて表示させる手法を何と呼ぶか？"
   },
   "テキスト・文字系": {
     "title": "テキスト・文字系",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "ウェブ制作におけるテキスト・文字系のアニメーション手法にはどのようなものがあるか？"
   },
   "インタラクション（メニュー・開閉）": {
     "title": "インタラクション（メニュー・開閉）",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "メニューの開閉やアコーディオンの実装などに関わる「インタラクション」とはどのような処理ですか？"
   },
   "画像・レイアウト": {
     "title": "画像・レイアウト",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "画像・レイアウトにおける実装方法やテクニックにはどのようなものがある？"
   },
   "視覚効果": {
     "title": "視覚効果",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "Webサイト制作において、CSS等を用いて画面に動きや演出を加える技術を一般的に何と言う？"
   },
   "📌 スキル: `/mockup` - スクショからSVG設計図を生成する": {
     "title": "📌 スキル: `/mockup` - スクショからSVG設計図を生成する",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "スクリーンショットからCSS配置情報をアノテーションしたSVG設計図を生成するスキルは何ですか？"
   },
   "📌 HTML ハンバーガーメニューは `<button>` タグを使う": {
     "title": "📌 HTML ハンバーガーメニューは `<button>` タグを使う",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "HTMLでハンバーガーメニューを実装する際、タグは何を使うべきですか？"
   },
   "buttonタグに遷移先設定できるの？": {
     "title": "buttonタグに遷移先設定できるの？",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "buttonタグに遷移先設定できるの？"
   },
   "1. aタグを使う方法��推奨）": {
     "title": "1. aタグを使う方法��推奨）",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "HTMLにおいて、aタグを使ってページ遷移を実装する方法は推奨されているでしょうか？"
   },
   "2. JavaScriptを使う方法": {
     "title": "2. JavaScriptを使う方法",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "questionText": "JavaScriptを使用して別のページへ移動する方法は？"
   },
   "3. formタグを使う方法": {
     "title": "3. formタグを使う方法",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "formタグを使ってページ移動を行う方法とは？"
   },
   "📌 CSS 親に transform（アニメーション含む）があると position: fixed が壊れる": {
     "title": "📌 CSS 親に transform（アニメーション含む）があると position: fixed が壊れる",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSで親要素にtransformが適用されている際、position: fixedはどのように挙動しますか？"
   },
   "📌 CSS Flexbox で要素内を中央配置する鉄板パターン": {
     "title": "📌 CSS Flexbox で要素内を中央配置する鉄板パターン",
@@ -1594,7 +1611,8 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "Flexboxの子要素が枠からはみ出すのは、どんな時に使う対策が必要？"
   },
   "1. **パララックス効果**": {
     "title": "1. **パララックス効果**",
@@ -3093,13 +3111,15 @@
   "WordPressで作業をして、設定の更新ボタンをおさないと反映されないものは？": {
     "title": "WordPressで作業をして、設定の更新ボタンをおさないと反映されないものは？",
     "line": 0,
-    "lastReviewed": 1773468027744,
-    "reviewCount": 4,
+    "lastReviewed": 1773470149320,
+    "reviewCount": 5,
     "aiCategory": "wordpress/php",
     "questionText": "WordPressにおいて変更内容を保存するために押す必要があるボタンの総称は？",
     "evaluations": [
-      3
-    ]
+      3,
+      2
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "📌 WordPress テーマのフォルダ構造（img・css・jsの役割）": {
     "title": "📌 WordPress テーマのフォルダ構造（img・css・jsの役割）",
@@ -3111,16 +3131,22 @@
   "WordPressのページは2種類ある": {
     "title": "WordPressのページは2種類ある",
     "line": 0,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "aiCategory": "wordpress/php"
+    "lastReviewed": 1773471560009,
+    "reviewCount": 4,
+    "aiCategory": "wordpress/php",
+    "questionText": "WordPressにおいて、会社概要やプライバシーポリシーなど内容が固定されるページの種類は？",
+    "evaluations": [
+      3
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "archive.php と single.php の関係": {
     "title": "archive.php と single.php の関係",
     "line": 0,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "aiCategory": "wordpress/php"
+    "lastReviewed": 1773471588522,
+    "reviewCount": 1,
+    "aiCategory": "wordpress/php",
+    "questionText": "WordPressのテーマ構造において、記事の詳細を表示するために使われるファイルはどれですか？"
   },
   "archive-〇〇.php / single-〇〇.php（カスタム投稿）": {
     "title": "archive-〇〇.php / single-〇〇.php（カスタム投稿）",
@@ -3894,10 +3920,12 @@
   "メモ：WordPress archive.php - カスタムフィールドでリンク先を別投稿タイプに切り替える": {
     "title": "メモ：WordPress archive.php - カスタムフィールドでリンク先を別投稿タイプに切り替える",
     "line": 13593,
-    "lastReviewed": 1773465516541,
-    "reviewCount": 2,
+    "lastReviewed": 1773483174520,
+    "reviewCount": 4,
     "questionText": "WordPressのアーカイブ一覧でリンク先を別の投稿タイプに変更するために使用するカスタムフィールドの役割は？",
     "evaluations": [
+      2,
+      2,
       2,
       2
     ],
@@ -3943,6 +3971,69 @@
     "lastReviewed": 1773467413289,
     "reviewCount": 1,
     "questionText": "特定の要素の後ろにある兄弟要素を選択するCSSの結合子はどれか？"
+  },
+  "single.php にスラッグ（はた）をつけると → single-〇〇.php が最優先で使われる（作らなければ single.php が使われる）": {
+    "title": "single.php にスラッグ（はた）をつけると → single-〇〇.php が最優先で使われる（作らなければ single.php が使われる）",
+    "line": 8814,
+    "lastReviewed": 1773482396806,
+    "reviewCount": 1,
+    "questionText": "single.phpにおいて、特定のスラッグを指定して優先的に読み込ませるテンプレートファイル名は？"
+  },
+  "min-width 0 の活用方法": {
+    "title": "min-width 0 の活用方法",
+    "line": 192,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "Flexboxの子要素がはみ出すのを防ぐための「min-width: 0」の活用方法とは？",
+    "aiCategory": "html"
+  },
+  "min-width: 0 とは": {
+    "title": "min-width: 0 とは",
+    "line": 193,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "Flexboxの子要素が親の枠からはみ出すのを防ぐために「min-width: 0」を設定するのはなぜ？",
+    "aiCategory": "html"
+  },
+  "具体的な書き方": {
+    "title": "具体的な書き方",
+    "line": 201,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "Flexboxの子要素がはみ出さないようにする、具体的なCSSの書き方は？",
+    "aiCategory": "html"
+  },
+  "min-height 0 の活用方法": {
+    "title": "min-height 0 の活用方法",
+    "line": 216,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "Flexboxで縦並びの際に要素のはみ出しを防ぐためのmin-height: 0の活用方法は？",
+    "aiCategory": "html"
+  },
+  "📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）　左上から右下にかけてカーテン上にアニメーション表示": {
+    "title": "📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）　左上から右下にかけてカーテン上にアニメーション表示",
+    "line": 256,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSのmaskプロパティは、どのCSSプロパティと同じサブプロパティ構造を持っていますか？",
+    "aiCategory": "html"
+  },
+  "button タグじゃないとできないこと？": {
+    "title": "button タグじゃないとできないこと？",
+    "line": 521,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "buttonタグを使うことで可能になる、キーボード操作やアクセシビリティ上のメリットとは？",
+    "aiCategory": "html"
+  },
+  "ハンバーガーメニューの作り方": {
+    "title": "ハンバーガーメニューの作り方",
+    "line": 540,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "ハンバーガーメニューを作成する際、クリックによる開閉操作のために推奨されるHTMLタグは何ですか？",
+    "aiCategory": "html"
   },
   "_meta": {
     "lastFilter": {
