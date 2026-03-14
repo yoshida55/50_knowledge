@@ -49,6 +49,7 @@ window.addEventListener("scroll", function () {
 });
 ```
 セレクタを深くするほど発火が遅れる。前のセクションで背景が出てしまうときはセレクタをより内側の要素に変更する。
+`画像を暗くするテクニック`
 
 【★ポイント3: 複数backgroundはカンマ必須】
 ```css
@@ -57,7 +58,7 @@ background: linear-gradient(...) url("../img/bg.jpg") center / cover no-repeat;
 
 /* OK: カンマあり */
 background:
-  linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+  linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),　★←このカンマ
   url("../img/bg.jpg") center / cover no-repeat;
 ```
 前に書いた方が上に重なる（グラデーション → 画像の順）。
@@ -68,8 +69,8 @@ background:
 ```html
 <!-- ACCESS セクション -->
 <section class="access_area">
-  <div class="bg"></div>
-  <div class="content">
+  <div class="bg"></div>　<!-- 背景画像 -->　
+  <div class="content">　　<!-- 通過する文字 -->
     <h2 class="access_title">ACCESS</h2>
     <p>PARK SIDE HALL</p>
     <p>〒000-0000 東京都...</p>
@@ -97,7 +98,8 @@ background:
   height: 100vh;
   background: url("../img/bg.jpg") center / cover no-repeat;
   z-index: -1;
-  opacity: 0;
+  /* 最初はかくしておく。javaScriptで目的の要素がみえたら画像を表示 */
+  opacity: 0; 
   transition: opacity 1s ease-in-out;
 }
 
@@ -109,7 +111,7 @@ background:
 /* テキストコンテンツ（背景の上に表示） */
 .content {
   position: relative;
-  z-index: 1;
+  z-index: 1;  /* 背景より高いレイヤーにする--*/
   padding: 10rem 20px;
   box-sizing: border-box;
   color: white;

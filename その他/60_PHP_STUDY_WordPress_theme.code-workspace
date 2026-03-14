@@ -1,11 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "../../../../Local Sites/60phpstudywordpresstheme/app/public/wp-content/themes/60_PHP_STUDY_WordPress_theme"
-		},
-		{
-			"path": ".."
-		}
-	],
-	"settings": {}
+  "folders": [
+	{
+		"path": "C:/Users/sensh/Local Sites/newtesthome/app/public/wp-content/themes/60_PHP_STUDY_WordPress_theme"
+	},
+	{
+		"path": ".."
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "50_knowledge"
+  }
 }

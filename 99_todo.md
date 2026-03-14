@@ -1,9 +1,21 @@
 
-メモ検索
 
 ▢「PHP Intelephense」 を入れているなら Shift + Alt + F でフォーマットできます。
 
+
+▢　VSCODEの拡張の設定で、claude codeを許可する
+![](images/2026-03-14-11-22-58.png)
+
+"claude.permissionMode": "bypassPermissions"
+Permission Mode を探して bypassPermissions に変更してみてください。
+
+
+
+
 ▢　複数検索対象候補があったら　見出しに★があるのを優先する。なお検索結果にも★をつける
+
+メモ検索
+
 
 ▢　CSS JUMP
 CSSも補完機能をつける

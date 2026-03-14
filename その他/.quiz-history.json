@@ -1183,10 +1183,11 @@
   "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）": {
     "title": "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）",
     "line": 0,
-    "lastReviewed": 1773391881302,
-    "reviewCount": 1,
+    "lastReviewed": 1773467835139,
+    "reviewCount": 2,
     "aiCategory": "html",
-    "questionText": "Flexboxの子要素が中身の幅によって親要素からはみ出してしまうのを防ぐプロパティは？"
+    "questionText": "Flexboxの子要素が中身の幅によって親要素からはみ出してしまうのを防ぐプロパティは？",
+    "hiddenFromList": true
   },
   "📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）": {
     "title": "📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）",
@@ -2942,10 +2943,14 @@
   "命名スタイルの種類（覚えておく）": {
     "title": "命名スタイルの種類（覚えておく）",
     "line": 0,
-    "lastReviewed": 1773151874699,
-    "reviewCount": 1,
+    "lastReviewed": 1773467923617,
+    "reviewCount": 2,
     "aiCategory": "wordpress/php",
-    "questionText": "PHPの変数名や関数名で一般的に使われる、アンダースコアで単語をつなぐ命名スタイルは何ですか？"
+    "questionText": "PHPの変数名や関数名で一般的に使われる、アンダースコアで単語をつなぐ命名スタイルは何ですか？",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "文字列の結合": {
     "title": "文字列の結合",
@@ -3088,8 +3093,8 @@
   "WordPressで作業をして、設定の更新ボタンをおさないと反映されないものは？": {
     "title": "WordPressで作業をして、設定の更新ボタンをおさないと反映されないものは？",
     "line": 0,
-    "lastReviewed": 1773152941530,
-    "reviewCount": 3,
+    "lastReviewed": 1773468027744,
+    "reviewCount": 4,
     "aiCategory": "wordpress/php",
     "questionText": "WordPressにおいて変更内容を保存するために押す必要があるボタンの総称は？",
     "evaluations": [
@@ -3795,43 +3800,59 @@
   "📌 アーカイブが表示されないとき → 設定のパーマリンク保存をクリックで直る": {
     "title": "📌 アーカイブが表示されないとき → 設定のパーマリンク保存をクリックで直る",
     "line": 11210,
-    "lastReviewed": 1773237383066,
-    "reviewCount": 1,
-    "questionText": "WordPressでアーカイブページが404エラーになる際、パーマリンク設定画面で行うべき操作は？"
+    "lastReviewed": 1773461658243,
+    "reviewCount": 4,
+    "questionText": "WordPressでアーカイブページが404エラーになる際、パーマリンク設定画面で行うべき操作は？",
+    "evaluations": [
+      3
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "📌 the_post_thumbnail() はクラス指定が必要 + has_post_thumbnail() でif分岐しないとデフォルト画像と切り替えができない": {
     "title": "📌 the_post_thumbnail() はクラス指定が必要 + has_post_thumbnail() でif分岐しないとデフォルト画像と切り替えができない",
     "line": 11685,
-    "lastReviewed": 1773287100824,
-    "reviewCount": 0,
+    "lastReviewed": 1773461583763,
+    "reviewCount": 1,
     "questionText": "WordPressで投稿にアイキャッチ画像を設定し、クラスを付与する関数は？",
     "evaluations": [
-      1
-    ]
+      1,
+      1,
+      2
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "📌 フォームなど共通パーツを複数ページで使いたい → template-parts/ に切り出して get_template_part() で呼ぶ": {
     "title": "📌 フォームなど共通パーツを複数ページで使いたい → template-parts/ に切り出して get_template_part() で呼ぶ",
     "line": 11439,
-    "lastReviewed": 1773287221891,
-    "reviewCount": 0,
+    "lastReviewed": 1773461097121,
+    "reviewCount": 3,
     "questionText": "WordPressにおいて共通パーツを別ファイルから読み込む関数は？",
     "evaluations": [
-      1
-    ]
+      1,
+      2,
+      2
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "カスタム投稿タイプにスラッグを設定する → archive-〇〇とsingle-〇〇がペアになる（single-〇〇.phpは手動で作る）": {
     "title": "カスタム投稿タイプにスラッグを設定する → archive-〇〇とsingle-〇〇がペアになる（single-〇〇.phpは手動で作る）",
     "line": 8649,
-    "lastReviewed": 1773361079895,
-    "reviewCount": 1,
-    "questionText": "カスタム投稿タイプで個別ページのテンプレートファイルが存在しない場合に表示されるファイルは？"
+    "lastReviewed": 1773461685019,
+    "reviewCount": 5,
+    "questionText": "カスタム投稿タイプで個別ページのテンプレートファイルが存在しない場合に表示されるファイルは？",
+    "evaluations": [
+      2,
+      3
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "📌 text-decoration: underline → 文字との距離は text-underline-offset で調整（疑似要素不要）": {
     "title": "📌 text-decoration: underline → 文字との距離は text-underline-offset で調整（疑似要素不要）",
     "line": 12976,
     "lastReviewed": 1773391793426,
     "reviewCount": 1,
-    "questionText": "CSSでアンダーラインと文字の距離を調整できるプロパティは？"
+    "questionText": "CSSでアンダーラインと文字の距離を調整できるプロパティは？",
+    "hiddenFromList": true
   },
   "flexで子要素を綺麗に3等分したいとき → 子に width: calc(100% / 3) を指定する": {
     "title": "flexで子要素を綺麗に3等分したいとき → 子に width: calc(100% / 3) を指定する",
@@ -3841,7 +3862,87 @@
     "questionText": "Flexboxにおいて子要素を正確に3等分するためのwidth指定方法は？",
     "evaluations": [
       3
-    ]
+    ],
+    "hiddenFromList": true
+  },
+  "4. :root 変数でz-index地獄を抜け出す": {
+    "title": "4. :root 変数でz-index地獄を抜け出す",
+    "line": 3223,
+    "lastReviewed": 1773465225569,
+    "reviewCount": 5,
+    "questionText": "z-indexの値を管理しやすくするために利用するCSSの機能は何ですか？",
+    "evaluations": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "lastAnsweredDate": "2026-03-14"
+  },
+  "★★★WordPress 開発テーマ開発の全体フロー　HTMLあり　それぞれのテンプレート事作成フロー★★★": {
+    "title": "★★★WordPress 開発テーマ開発の全体フロー　HTMLあり　それぞれのテンプレート事作成フロー★★★",
+    "line": 13078,
+    "lastReviewed": 1773463931928,
+    "reviewCount": 1,
+    "questionText": "WordPressにおいて、記事やページの内容を管理画面から入力・追加するための役割を果たす仕組みは？",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-14"
+  },
+  "メモ：WordPress archive.php - カスタムフィールドでリンク先を別投稿タイプに切り替える": {
+    "title": "メモ：WordPress archive.php - カスタムフィールドでリンク先を別投稿タイプに切り替える",
+    "line": 13593,
+    "lastReviewed": 1773465516541,
+    "reviewCount": 2,
+    "questionText": "WordPressのアーカイブ一覧でリンク先を別の投稿タイプに変更するために使用するカスタムフィールドの役割は？",
+    "evaluations": [
+      2,
+      2
+    ],
+    "lastAnsweredDate": "2026-03-14"
+  },
+  "メモ：疑似要素で棒線の先に矢印をつくる - content文字はズレる（::after横線 + ::beforeくの字）": {
+    "title": "メモ：疑似要素で棒線の先に矢印をつくる - content文字はズレる（::after横線 + ::beforeくの字）",
+    "line": 13449,
+    "lastReviewed": 1773467336161,
+    "reviewCount": 2,
+    "questionText": "疑似要素で矢印を作成する際、文字を使用せず図形だけで表現する理由は？",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-14"
+  },
+  "パララックスのようでちがう。背景固定でスクロールで背景フェードイン - position fixed + z-index -1⇁ でセクション切り変わり目のを目をなくす": {
+    "title": "パララックスのようでちがう。背景固定でスクロールで背景フェードイン - position fixed + z-index -1⇁ でセクション切り変わり目のを目をなくす",
+    "line": 13253,
+    "lastReviewed": 1773464947555,
+    "reviewCount": 1,
+    "questionText": "position: stickyで発生するセクション間の境目を消すためのCSS手法は？",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-14"
+  },
+  "パララックス・background attachment fixed と　背景を固定したアニメーションの違い": {
+    "title": "パララックス・background attachment fixed と　背景を固定したアニメーションの違い",
+    "line": 13335,
+    "lastReviewed": 1773465408731,
+    "reviewCount": 5,
+    "questionText": "背景を固定してスクロール時に視差効果を生むCSSプロパティは？",
+    "evaluations": [
+      3,
+      2
+    ],
+    "lastAnsweredDate": "2026-03-14"
+  },
+  "メモ：ハンバーガーメニュー - ボタン押下でグローバルメニュー開閉（CSS ~ セレクタ + JSはtoggleのみ）": {
+    "title": "メモ：ハンバーガーメニュー - ボタン押下でグローバルメニュー開閉（CSS ~ セレクタ + JSはtoggleのみ）",
+    "line": 13447,
+    "lastReviewed": 1773467413289,
+    "reviewCount": 1,
+    "questionText": "特定の要素の後ろにある兄弟要素を選択するCSSの結合子はどれか？"
   },
   "_meta": {
     "lastFilter": {

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スクロール連動背景表示デモ - position:fixed & opacity制御</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    padding: 20px;
+    color: #333;
+  }
+
+  .demo-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 2em;
+  }
+
+  .description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    font-size: 0.95em;
+  }
+
+  .control-panel {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  }
+
+  .control-group {
+    margin-bottom: 20px;
+  }
+
+  .control-group label {
+    display: block;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+  }
+
+  .slider-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  input[type="range"] {
+    flex: 1;
+    height: 8px;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.3);
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+
+  .value-display {
+    min-width: 100px;
+    padding: 8px 15px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+  }
+
+  .demo-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  .demo-box {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  }
+
+  .demo-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .title-problem {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    color: white;
+  }
+
+  .title-solution {
+    background: linear-gradient(135deg, #51cf66, #40c057);
+    color: white;
+  }
+
+  /* デモ用スクロールエリア */
+  .scroll-demo-area {
+    height: 500px;
+    overflow-y: scroll;
+    border: 3px solid #ddd;
+    border-radius: 10px;
+    position: relative;
+    background: #fff;
+  }
+
+  /* 前のセクション（問題再現用） */
+  .before-section {
+    min-height: 400px;
+    padding: 40px;
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #555;
+  }
+
+  /* ACCESSセクション */
+  .access_area {
+    position: relative;
+    min-height: 100vh;
+  }
+
+  /* 背景画像（固定・全画面・最背面） */
+  .bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .bg.visible {
+    opacity: 1;
+  }
+
+  /* 問題側：position: sticky */
+  .bg-problem {
+    position: sticky;
+    background: linear-gradient(45deg, #ff6b6b 0%, #ffd93d 100%);
+  }
+
+  /* 解決側：position: fixed */
+  .bg-solution {
+    position: fixed;
+    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+  }
+
+  /* テキストコンテンツ */
+  .content {
+    position: relative;
+    z-index: 1;
+    padding: 10rem 20px;
+    box-sizing: border-box;
+    color: white;
+    text-align: center;
+  }
+
+  .access_title {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .content p {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+
+  .access_map {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 40px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    text-decoration: none;
+    border: 2px solid white;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+
+  .access_map:hover {
+    background: white;
+    color: #667eea;
+  }
+
+  /* 状態表示 */
+  .status-display {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+
+  .status-item {
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .status-label {
+    font-weight: bold;
+  }
+
+  .status-value {
+    background: rgba(255,255,255,0.2);
+    padding: 5px 15px;
+    border-radius: 5px;
+  }
+
+  /* スクロール位置インジケーター */
+  .scroll-indicator {
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    z-index: 100;
+  }
+
+  .explanation-box {
+    background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border-left: 5px solid #e17055;
+  }
+
+  .explanation-box h3 {
+    color: #d63031;
+    margin-bottom: 10px;
+  }
+
+  .explanation-box p {
+    color: #2d3436;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .demo-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-container">
+  <h1>📜 スクロール連動背景表示デモ</h1>
+  <p class="description">
+    <strong>position: fixed</strong> と <strong>opacity</strong> を使った背景の表示制御を実際のスクロールで体験できます。<br>
+    ❌ 問題側（sticky）は親要素内に閉じ込められて前のセクションでも背景が見える<br>
+    ✅ 解決側（fixed）は画面全体に固定され、正しいタイミングで表示される
+  </p>
+
+  <div class="control-panel">
+    <div class="control-group">
+      <label>🎯 スクロール位置（getBoundingClientRect().top をシミュレート）</label>
+      <div class="slider-container">
+        <input type="range" id="scrollSlider" min="0" max="800" value="800" step="10">
+        <div class="value-display" id="scrollValue">800px</div>
+      </div>
+    </div>
+    <div class="control-group">
+      <label>📏 ウィンドウ高さ（window.innerHeight）</label>
+      <div class="slider-container">
+        <input type="range" id="windowHeightSlider" min="300" max="700" value="500" step="10">
+        <div class="value-display" id="windowHeightValue">500px</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-layout">
+    <!-- 問題側 -->
+    <div class="demo-box">
+      <div class="demo-title title-problem">❌ 問題：position: sticky</div>
+      <div class="scroll-demo-area" id="problemArea">
+        <div class="scroll-indicator">スクロール位置: <span id="problemScroll">0</span>px</div>
+        <div class="before-section">前のセクション</div>
+        <section class="access_area">
+          <div class="bg bg-problem" id="bgProblem"></div>
+          <div class="content">
+            <h2 class="access_title" id="titleProblem">ACCESS</h2>
+            <p>PARK SIDE HALL</p>
+            <p>〒000-0000 東京都...</p>
+            <a href="#" class="access_map">GOOGLE MAP</a>
+          </div>
+        </section>
+      </div>
+      <div class="status-display">
+        <div class="status-item">
+          <span class="status-label">CSS position:</span>
+          <span class="status-value">sticky</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">背景 opacity:</span>
+          <span class="status-value" id="opacityProblem">0</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">.access_title top:</span>
+          <span class="status-value" id="topProblem">--</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">visible判定:</span>
+          <span class="status-value" id="visibleProblem">false</span>
+        </div>
+      </div>
+      <div class="explanation-box">
+        <h3>⚠️ 問題点</h3>
+        <p>stickyは親要素内に閉じ込められるため、前のセクションをスクロール中でも背景が部分的に見えてしまう。画面全体を覆うことができない。</p>
+      </div>
+    </div>
+
+    <!-- 解決側 -->
+    <div class="demo-box">
+      <div class="demo-title title-solution">✅ 解決：position: fixed</div>
+      <div class="scroll-demo-area" id="solutionArea">
+        <div class="scroll-indicator">スクロール���置: <span id="solutionScroll">0</span>px</div>
+        <div class="before-section">前のセクション</div>
+        <section class="access_area">
+          <div class="bg bg-solution" id="bgSolution"></div>
+          <div class="content">
+            <h2 class="access_title" id="titleSolution">ACCESS</h2>
+            <p>PARK SIDE HALL</p>
+            <p>〒000-0000 東京都...</p>
+            <a href="#" class="access_map">GOOGLE MAP</a>
+          </div>
+        </section>
+      </div>
+      <div class="status-display">
+        <div class="status-item">
+          <span class="status-label">CSS position:</span>
+          <span class="status-value">fixed</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">背景 opacity:</span>
+          <span class="status-value" id="opacitySolution">0</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">.access_title top:</span>
+          <span class="status-value" id="topSolution">--</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">visible判定:</span>
+          <span class="status-value" id="visibleSolution">false</span>
+        </div>
+      </div>
+      <div class="explanation-box">
+        <h3>�� 解決策</h3>
+        <p>fixedはビューポート全体に対して固定されるため、ACCESSセクションに入った時だけ正確に背景を表示できる。前のセクションでは完全に非表示。</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const scrollSlider = document.getElementById('scrollSlider');
+  const scrollValue = document.getElementById('scrollValue');
+  const windowHeightSlider = document.getElementById('windowHeightSlider');
+  const windowHeightValue = document.getElementById('windowHeightValue');
+
+  const problemArea = document.getElementById('problemArea');
+  const solutionArea = document.getElementById('solutionArea');
+  
+  const bgProblem = document.getElementById('bgProblem');
+  const bgSolution = document.getElementById('bgSolution');
+  
+  const titleProblem = document.getElementById('titleProblem');
+  const titleSolution = document.getElementById('titleSolution');
+
+  const problemScroll = document.getElementById('problemScroll');
+  const solutionScroll = document.getElementById('solutionScroll');
+
+  const opacityProblem = document.getElementById('opacityProblem');
+  const opacitySolution = document.getElementById('opacitySolution');
+  
+  const topProblem = document.getElementById('topProblem');
+  const topSolution = document.getElementById('topSolution');
+  
+  const visibleProblem = document.getElementById('visibleProblem');
+  const visibleSolution = document.getElementById('visibleSolution');
+
+  let currentWindowHeight = 500;
+
+  // スクロールスライダー操作
+  scrollSlider.addEventListener('input', (e) => {
+    const scrollPos = parseInt(e.target.value);
+    scrollValue.textContent = scrollPos + 'px';
+    
+    // 両方のエリアを同じ位置にスクロール
+    problemArea.scrollTop = scrollPos;
+    solutionArea.scrollTop = scrollPos;
+  });
+
+  // ウィンドウ高さスライダー操作
+  windowHeightSlider.addEventListener('input', (e) => {
+    currentWindowHeight = parseInt(e.target.value);
+    windowHeightValue.textContent = currentWindowHeight + 'px';
+    
+    // 高さ変更を反映
+    problemArea.style.height = currentWindowHeight + 'px';
+    solutionArea.style.height = currentWindowHeight + 'px';
+    
+    updateDisplay();
+  });
+
+  // 実際のスクロールイベント
+  problemArea.addEventListener('scroll', () => {
+    problemScroll.textContent = Math.round(problemArea.scrollTop);
+    scrollSlider.value = problemArea.scrollTop;
+    scrollValue.textContent = Math.round(problemArea.scrollTop) + 'px';
+    updateDisplay();
+  });
+
+  solutionArea.addEventListener('scroll', () => {
+    solutionScroll.textContent = Math.round(solutionArea.scrollTop);
+    updateDisplay();
+  });
+
+  function updateDisplay() {
+    // 問題側の処理
+    const rectProblem = titleProblem.getBoundingClientRect();
+    const containerRectProblem = problemArea.getBoundingClientRect();
+    const relativeProblemTop = rectProblem.top - containerRectProblem.top;
+    
+    topProblem.textContent = Math.round(relativeProblemTop) + 'px';
+    
+    if (relativeProblemTop < currentWindowHeight) {
+      bgProblem.classList.add('visible');
+      visibleProblem.textContent = 'true';
+    } else {
+      bgProblem.classList.remove('visible');
+      visibleProblem.textContent = 'false';
+    }
+    
+    const computedOpacityProblem = window.getComputedStyle(bgProblem).opacity;
+    opacityProblem.textContent = parseFloat(computedOpacityProblem).toFixed(2);
+
+    // 解決側の処理
+    const rectSolution = titleSolution.getBoundingClientRect();
+    const containerRectSolution = solutionArea.getBoundingClientRect();
+    const relativeSolutionTop = rectSolution.top - containerRectSolution.top;
+    
+    topSolution.textContent = Math.round(relativeSolutionTop) + 'px';
+    
+    if (relativeSolutionTop < currentWindowHeight) {
+      bgSolution.classList.add('visible');
+      visibleSolution.textContent = 'true';
+    } else {
+      bgSolution.classList.remove('visible');
+      visibleSolution.textContent = 'false';
+    }
+    
+    const computedOpacitySolution = window.getComputedStyle(bgSolution).opacity;
+    opacitySolution.textContent = parseFloat(computedOpacitySolution).toFixed(2);
+  }
+
+  // 初期表示
+  problemArea.style.height = currentWindowHeight + 'px';
+  solutionArea.style.height = currentWindowHeight + 'px';
+  updateDisplay();
+</script>
+
+</body>
+</html>

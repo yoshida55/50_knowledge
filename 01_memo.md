@@ -8479,6 +8479,20 @@ echo $user["name"];  // 田中
 
 ---
 
+
+### phpの変数ってドラーでかこむ？
+- PHPの変数は、名前の**先頭**に「`$`（ドルマーク）」をつけます。
+- 「囲む」のではなく、**先頭に置くだけ**です。
+
+```php
+// 正しい例
+$user_name = "田中";
+
+// 間違いの例
+$user_name$ = "田中"; // 後ろにつけるのはNG
+```
+
+- JavaScriptの `let` や `const` のような宣言は不要で、`$` をつけるだけで変数が作れます。
 ## 📌 WordPress テーマ作成の全体フロー（どこに何を書くかの早見表）
 
 ### ① テーマフォルダを作る
@@ -12141,7 +12155,7 @@ wp_enqueue_style('mytheme-about', get_template_directory_uri() . '/css/about.css
 - `has_archive` のスラッグはコードのみ・管理画面では変更不可
 
 ### ➡ 次にやること
-- `single-test.php` の中身を作り込む
+- `single-test.php` の中身を作り込む（最優先）
 - `archive.php` にデザイン（クラス名・CSS）を加える
 
 ### 📅 最終更新
@@ -13250,21 +13264,21 @@ add_action('init', 'my_theme_setup');
 **4. 記事の作成・公開（管理画面での作業）**
 *   管理画面の「投稿」や「固定ページ」から、テキストや画像を入力・保存する。
 *   自動的に「型紙」に中身が流し込まれ、Webサイトとして表示される。
+
+
 ## パララックスのようでちがう。背景固定でスクロールで背景フェードイン - position fixed + z-index -1⇁ でセクション切り変わり目のを目をなくす
 【日付】2026-03-13
-
 【気づき】
-- `position: sticky` は親要素の中に閉じ込められる → セクションの上端で境目（横線）が出る
+- `position: sticky` でセクションの上端で境目（横線）が出ることがある → 背景色の設定や親要素との隙間が原因
 - `position: fixed; z-index: -1` にすると画面全体の背景になる → 境目が消える
 - JSのセレクタを「深い要素」にするほど発火タイミングが遅くなる（前のセクションで出てしまうとき使う）
 - 複数backgroundはカンマ必須（忘れると画像が無視される）
 
 【ポイント】
-
 ★ポイント1: sticky → fixed で境目が消える
 ```css
 .bg {
-  position: fixed;   /* sticky だと親要素の上端で境目が出る */
+  position: fixed;   /* sticky で境目が出る場合は背景色や隙間を確認 */
   top: 0;
   left: 0;
   width: 100%;
@@ -13281,7 +13295,6 @@ add_action('init', 'my_theme_setup');
 /* NG: .access_area → 早い（前のセクションで背景が出る） */
 /* OK: .access_title → ちょうどいい（タイトルが見えたら発火） */
 const accessSection = document.querySelector(".access_title");
-
 window.addEventListener("scroll", function () {
   const top = accessSection.getBoundingClientRect().top;
   if (top < window.innerHeight) {
@@ -13293,7 +13306,6 @@ window.addEventListener("scroll", function () {
 ```
 
 ★コピペで動く最小コード（ファイル分離版）
-
 **HTML**
 ```html
 <section class="access_area">
@@ -13305,7 +13317,6 @@ window.addEventListener("scroll", function () {
 <link rel="stylesheet" href="css/work.css">
 <script src="js/work.js"></script>
 ```
-
 **CSS（css/work.css）**
 ```css
 .bg {
@@ -13321,7 +13332,6 @@ window.addEventListener("scroll", function () {
 .access_area { position: relative; min-height: 100vh; }
 .content { position: relative; z-index: 1; padding: 10rem 20px; color: white; text-align: center; }
 ```
-
 **JavaScript（js/work.js）**
 ```javascript
 const accessSection = document.querySelector(".access_title");
@@ -13335,113 +13345,44 @@ window.addEventListener("scroll", function () {
   }
 });
 ```
+> 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★スクロ��ルで背景フェードイン%20-%20position%20fixed%20+%20z-index%20-1%20+%20JSセレクタで発火タイミング調整.md)
 
-> 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★スクロールで背景フェードイン%20-%20position%20fixed%20+%20z-index%20-1%20+%20JSセレクタで発火タイミング調整.md)
+### 背景を固定させて、その上のつぎのセクションがその背景の上を通過させるには？
+### 背景を固定して上のセクションを通過させる方法
 
+*   **背景を固定する（`position: fixed`）**
+    *   背景要素に `position: fixed` を指定し、画面全体に広げます。
+    *   `z-index: -1` を指定して、他のコンテンツよりも後ろ側に配置します。
+    *   これにより、ページをスクロールしても背景がその場から動かなくなります。
 
-### セクション切り替えのタイミングで背景を表示
-### 背景切り替えのポイント
-*   **配置の方法**: `position: fixed` と `z-index: -1` を使うことで、背景が常に画面の奥に固定され、セクションの境目が見えなくなる。
-*   **タイミング調整**: JavaScriptのターゲットを「セクション全体」ではなく、中の「タイトル」など深い場所にある要素に指定すると、背景が出るタイミングを遅らせることができる。
+*   **セクションを通過させる（`background-color`）**
+    *   背景の上を通過する各セクション（`.content` など）には、必ず `background-color` を指定してください。
+    *   背景色がないと「透明」になり、後ろの背景が透けて見えてしまうためです。色がついていれば、スクロールしたときに背景の上をコンテンツが流れていくように見えます。
 
-### 基本コード
+*   **HTML構造のポイント**
+    *   背景画像はページ全体で1つ用意し、固定するのが基本です。
+    *   各セクションは背景を含まず、中身（文字や画像）だけを並べるように書くと、スムーズに重なって見えます。
 
-**CSS（背景の設定）**
-```css
-.bg {
-  position: fixed;   /* 画面に固定 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: -1;       /* コンテンツの裏側へ */
-  opacity: 0;        /* 最初は透明 */
-  transition: opacity 1s; /* ふわっと表示 */
-}
+*   **コード例**
+    ```css
+    /* 背景を画面に貼り付ける */
+    .bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: -1;
+      background: url("画像パス") center/cover;
+    }
 
-/* JavaScriptで付与するクラス */
-.bg.visible {
-  opacity: 1;
-}
-```
-
-**JavaScript（切り替え処理）**
-```javascript
-const target = document.querySelector(".access_title"); // セクション内の特定の要素を指定
-const bg = document.querySelector(".bg");
-
-window.addEventListener("scroll", () => {
-  const rect = target.getBoundingClientRect();
-  
-  // 画面内に要素が入ったら表示
-  if (rect.top < window.innerHeight) {
-    bg.classList.add("visible");
-  } else {
-    bg.classList.remove("visible");
-  }
-});
-```
-
-### 覚えておくこと
-*   **`sticky`は使わない**: 親要素に縛られて境目に線が出てしまうため、画面全体を覆える `fixed` を使う。
-*   **セレクタ選び**: 背景が早めに出すぎてしまう場合は、より下の階層にある要素（見出しなど）をターゲットに選ぶと解決する。
-*   **背景画像**: もし複数の背景を指定する場合は、CSSでカンマ（`,`）を使ってつなぐことを忘れない。
-
-### つぎのセクションに貼ったタイミングで背景をふわっと表示、前面に文字がながれる
-### 仕組みの考え方
-- **背景:** `position: fixed` で画面に固定し、`z-index: -1` で文字の下に隠す。
-- **文字:** 普通にHTMLに書き、背景の上を流れるように配置する。
-- **動き:** JSで「特定の場所（タイトルなど）が画面に入ったか」を監視し、クラスを付け外しして`opacity`（透明度）を変える。
-
-### CSS（背景をふわっと表示）
-```css
-/* 固定された背景 */
-.bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: -1;
-  background-size: cover;
-  opacity: 0; /* 最初は消しておく */
-  transition: opacity 1s ease-in-out; /* ふわっとさせる */
-}
-
-/* JSで付与するクラス */
-.bg.visible {
-  opacity: 1;
-}
-
-/* 文字が流れるエリア（背景の上に乗る） */
-.content {
-  position: relative;
-  z-index: 1;
-}
-```
-
-### JS（タイミングの調整）
-```javascript
-const bg = document.querySelector(".bg");
-const trigger = document.querySelector(".access_title"); // ここが見えたら発火
-
-window.addEventListener("scroll", () => {
-  const rect = trigger.getBoundingClientRect();
-  
-  // 画面の半分くらいまでタイトルが来たら背景を表示
-  if (rect.top < window.innerHeight / 2) {
-    bg.classList.add("visible");
-  } else {
-    bg.classList.remove("visible");
-  }
-});
-```
-
-### 注意点
-- **背景が切り替わる場合:** `background-image` をセクションごとに別のクラスで指定し、`transition` を設定しておくと、画像もなめらかに切り替わります。
-- **発火タイミング:** `rect.top` の数字（現在は画面の半分 `window.innerHeight / 2`）を調整すると、背景が出る早さを細かく変えられます。
-
-
+    /* 通過するセクション */
+    section {
+      position: relative; /* 重なりの順番を確保 */
+      background-color: white; /* 背景を隠すために色を塗る */
+      z-index: 1;
+    }
+    ```
 ## パララックス・background attachment fixed と　背景を固定したアニメーションの違い
 【日付】2026-03-13
 
@@ -13590,6 +13531,24 @@ hamburgerBtn.addEventListener("click", function () {
 > 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★疑似要素で棒線の先に矢印をつくる - content文字はズレる（afterと beforeくの字）.md)
 
 ▢
+
+### ハンバーガーメニュー押下時にグローバルメニューをだす
+**JavaScript（js/work.js）**
+
+```javascript
+const btn = document.querySelector('.hamburger_menu');
+
+btn.addEventListener('click', () => {
+  btn.classList.toggle('open');
+});
+```
+
+**仕組みのポイント**
+
+*   **JSの役割**: ボタンをクリックするたびに、ボタンのタグに `open` という名前のクラスをつけたり外したりするだけ。
+*   **CSSの役割（`~` セレクタ）**: ボタンに `open` がついた時だけ、すぐ後ろにある `global_menu` を表示（`display: flex`）させる。
+*   **重なり順（z-index）**: ボタンをメニューより手前に配置することで、メニューが開いている時でもボタン（閉じるための×印）を確実に押せるようにする。
+*   **配置のルール**: `~` セレクタを動かすために、HTMLでは「ボタン」と「メニュー」を同じ親（`header`など）の中で、ボタンが先に来るように並べる。
 ## メモ：WordPress archive.php - カスタムフィールドでリンク先を別投稿タイプに切り替える
 【日付】2026-03-14
 
@@ -13610,3 +13569,14 @@ $url = $related_id ? get_permalink($related_id) : get_permalink();
 - 値がなければ → 自分自身のURL（通常通り）
 
 > 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★WordPress_archive.php - ループ基本構造とカスタムフィールドリンク切り替え.md)
+
+
+## 画像を暗くして、前面にある文字などを見やすくする方法
+
+background:
+  linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),　★←このカンマが必要
+  url("../img/bg.jpg") center / cover no-repeat;
+```
+前に書いた方が上に重なる（グラデーション → 画像の順）。
+
+---
