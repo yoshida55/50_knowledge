@@ -1183,9 +1183,10 @@
   "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）": {
     "title": "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）",
     "line": 0,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "aiCategory": "html"
+    "lastReviewed": 1773391881302,
+    "reviewCount": 1,
+    "aiCategory": "html",
+    "questionText": "Flexboxの子要素が中身の幅によって親要素からはみ出してしまうのを防ぐプロパティは？"
   },
   "📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）": {
     "title": "📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）",
@@ -3824,6 +3825,23 @@
     "lastReviewed": 1773361079895,
     "reviewCount": 1,
     "questionText": "カスタム投稿タイプで個別ページのテンプレートファイルが存在しない場合に表示されるファイルは？"
+  },
+  "📌 text-decoration: underline → 文字との距離は text-underline-offset で調整（疑似要素不要）": {
+    "title": "📌 text-decoration: underline → 文字との距離は text-underline-offset で調整（疑似要素不要）",
+    "line": 12976,
+    "lastReviewed": 1773391793426,
+    "reviewCount": 1,
+    "questionText": "CSSでアンダーラインと文字の距離を調整できるプロパティは？"
+  },
+  "flexで子要素を綺麗に3等分したいとき → 子に width: calc(100% / 3) を指定する": {
+    "title": "flexで子要素を綺麗に3等分したいとき → 子に width: calc(100% / 3) を指定する",
+    "line": 12940,
+    "lastReviewed": 1773391860390,
+    "reviewCount": 3,
+    "questionText": "Flexboxにおいて子要素を正確に3等分するためのwidth指定方法は？",
+    "evaluations": [
+      3
+    ]
   },
   "_meta": {
     "lastFilter": {

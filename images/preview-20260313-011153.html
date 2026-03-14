@@ -514,6 +514,91 @@
     .point-card h4 { font-size: 0.92rem; color: #fff; margin-bottom: 6px; }
     .point-card p  { font-size: 0.8rem; color: #64748b; }
 
+    /* ===== 新俯瞰図 ===== */
+    .ov-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .ov-box {
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .ov-vscode  { background: #1a2537; border: 2px solid #8b5cf6; }
+    .ov-admin   { background: #1a2537; border: 2px solid #3b82f6; }
+    .ov-browser { background: #1a2537; border: 2px solid #10b981; }
+
+    .ov-box-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      font-weight: bold;
+    }
+    .ov-vscode  .ov-box-title { color: #c084fc; }
+    .ov-admin   .ov-box-title { color: #60a5fa; }
+    .ov-browser .ov-box-title { color: #34d399; }
+
+    .ov-item {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      padding: 6px 0;
+      border-bottom: 1px solid #1e2433;
+      line-height: 1.6;
+    }
+    .ov-item:last-of-type { border-bottom: none; }
+
+    .ov-freq {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .ov-vscode  .ov-freq { background: #2a1a4a; color: #c4b5fd; }
+    .ov-admin   .ov-freq { background: #1a2942; color: #93c5fd; }
+    .ov-browser .ov-freq { background: #1a3a2a; color: #34d399; }
+
+    .ov-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 0 16px;
+      color: #475569;
+      font-size: 0.72rem;
+      text-align: center;
+    }
+    .ov-arrow-icon { font-size: 1.4rem; }
+
+    @media (max-width: 700px) {
+      .ov-grid { grid-template-columns: 1fr; }
+      .ov-arrow { transform: rotate(90deg); padding: 8px 0; }
+    }
+
+    /* ===== 戻るボタン ===== */
+    .back-to-top {
+      position: fixed;
+      left: 16px;
+      bottom: 40px;
+      width: 44px;
+      height: 44px;
+      background: #1e2433;
+      border: 1px solid #2d3748;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: all 0.2s;
+      z-index: 200;
+    }
+    .back-to-top:hover { background: #6366f1; border-color: #6366f1; color: #fff; }
+
     /* ===== ページトップ ===== */
     h1.hero {
       text-align: center;
@@ -560,30 +645,38 @@
     <section id="overview">
       <div class="section-title">俯瞰図：WordPress の全体像</div>
 
-      <!-- 大きな流れ -->
-      <div class="big-flow" style="margin-bottom: 32px;">
-        <div class="bf-box">
-          <div class="bf-icon">🖥</div>
-          <div class="bf-title">管理画面</div>
-          <div class="bf-sub">記事・ページを追加</div>
+      <!-- 大きな流れ（新俯瞰図） -->
+      <div class="ov-grid">
+        <!-- VS Code側 -->
+        <div class="ov-box ov-vscode">
+          <div class="ov-box-title">💻 VS Code（テーマフォルダ）</div>
+          <div class="ov-item">functions.php → URLの登録・機能設定</div>
+          <div class="ov-item">archive.php → 一覧ページの型紙</div>
+          <div class="ov-item">single.php → 詳細ページの型紙</div>
+          <div class="ov-item">page.php → 固定ページの型紙</div>
+          <span class="ov-freq">基本1回だけ作成・編集</span>
         </div>
-        <div class="bf-arrow">→</div>
-        <div class="bf-box">
-          <div class="bf-icon">⚙️</div>
-          <div class="bf-title">functions.php</div>
-          <div class="bf-sub">URL・機能の登録</div>
+        <div class="ov-arrow">
+          <div class="ov-arrow-icon">⇄</div>
+          <div>連携</div>
         </div>
-        <div class="bf-arrow">→</div>
-        <div class="bf-box" style="border: 1px solid #6366f1;">
-          <div class="bf-icon">🌐</div>
-          <div class="bf-title">URLにアクセス</div>
-          <div class="bf-sub">/news/ など</div>
+        <!-- 管理画面側 -->
+        <div class="ov-box ov-admin">
+          <div class="ov-box-title">🖥 管理画面</div>
+          <div class="ov-item">投稿・固定ページを追加<br><span style="color:#475569;font-size:0.76rem;">→ データベースに中身が保存される（PHPファイルは作られない）</span></div>
+          <div class="ov-item">パーマリンク更新<br><span style="color:#475569;font-size:0.76rem;">→ URLのルールをWordPressに反映させる</span></div>
+          <span class="ov-freq">記事追加のたびに使う</span>
         </div>
-        <div class="bf-arrow">→</div>
-        <div class="bf-box">
-          <div class="bf-icon">📄</div>
-          <div class="bf-title">テンプレート</div>
-          <div class="bf-sub">archive / single など</div>
+        <div class="ov-arrow">
+          <div class="ov-arrow-icon">↓</div>
+          <div>組み合わせて</div>
+        </div>
+        <!-- ブラウザ側 -->
+        <div class="ov-box ov-browser">
+          <div class="ov-box-title">🌐 ブラウザ（表示結果）</div>
+          <div class="ov-item">型紙（PHPファイル）<br><span style="color:#475569;font-size:0.76rem;">＋ データベースの中身</span></div>
+          <div class="ov-item" style="color:#34d399;">→ ページが表示される</div>
+          <span class="ov-freq">ユーザーが見る画面</span>
         </div>
       </div>
 
@@ -723,6 +816,11 @@
             ⚠️ 管理画面からはPHPファイルを作れない。<br>
             VS Code などのエディタでテーマフォルダを直接編集する。
           </div>
+          <div style="background: #1a2030; border-radius: 10px; padding: 14px 16px; font-size: 0.8rem; color: #64748b; border-left: 3px solid #475569; margin-top: 10px;">
+            💡 厳密には「管理画面 → 外観 → テーマエディター」からPHPを編集できる機能があるが、<br>
+            ミスをするとサイトが真っ白になって管理画面にもアクセスできなくなるため<strong style="color:#f87171;">絶対に使わない</strong>。<br>
+            VS Code でローカル環境を使うのが正しい方法。
+          </div>
         </div>
       </div>
     </section>
@@ -783,7 +881,7 @@
                   <div class="vf-left"><div class="vf-num">4</div></div>
                   <div class="vf-content">
                     <div class="vf-title">パーマリンクを更新</div>
-                    <div class="vf-desc">管理画面 → 設定 → パーマリンク → 保存</div>
+                    <div class="vf-desc">管理画面 → 設定 → パーマリンク → 保存<br><span style="color:#475569;font-size:0.76rem;">※ URLを「作る」のではなく、functions.phpで定義したルールをWordPressに「反映させる」操作</span></div>
                     <div class="vf-where where-admin">🖥 管理画面で操作</div>
                   </div>
                 </div>
@@ -890,9 +988,50 @@
                 ✅ 記事URLにアクセス → single.php が自動で呼ばれる
               </div>
 
+              <!-- URL自動生成の補足 -->
               <div style="margin-top: 16px; background: #0f1117; border-radius: 10px; padding: 14px 16px; font-size: 0.8rem; color: #64748b; border-left: 3px solid #10b981;">
-                💡 URLはWordPressが自動生成する<br>
-                <code style="font-size: 0.78rem;">/news/記事スラッグ/</code> のような形で自動でできる。
+                <div style="color: #10b981; font-weight: bold; margin-bottom: 8px;">💡 URLはWordPressが自動生成する</div>
+                <div style="color: #94a3b8; line-height: 1.7;">
+                  管理画面で記事を<strong style="color:#e2e8f0;">公開</strong>すると、WordPressが自動的にURLを作ってくれる。<br>
+                  自分でURLをどこかに書く必要はない。
+                </div>
+                <div style="margin-top: 10px; background: #1a1f2e; border-radius: 6px; padding: 10px 12px; color: #94a3b8; line-height: 1.9;">
+                  🖊 管理画面で「ニュース記事A」を公開<br>
+                  &nbsp;&nbsp;&nbsp;↓<br>
+                  🔗 <code style="color:#34d399;">/news/news-a/</code> というURLが自動でできる<br>
+                  &nbsp;&nbsp;&nbsp;↓<br>
+                  🌐 そのURLにアクセスすると <code style="color:#34d399;">single.php</code> が呼ばれる
+                </div>
+                <div style="margin-top: 8px; color: #475569; font-size: 0.75rem;">
+                  ※ スラッグ（URL末尾の文字列）は管理画面で自分で決めることもできる
+                </div>
+              </div>
+
+              <!-- single-○○.php の説明 -->
+              <div style="margin-top: 12px; background: #0f1117; border-radius: 10px; padding: 14px 16px; font-size: 0.8rem; color: #64748b; border-left: 3px solid #8b5cf6;">
+                <div style="color: #c4b5fd; font-weight: bold; margin-bottom: 8px;">💡 single-○○.php を使うと投稿タイプごとに見た目を変えられる</div>
+                <div style="color: #94a3b8; line-height: 1.7; margin-bottom: 10px;">
+                  <code style="font-size:0.78rem; color:#c4b5fd;">single-news.php</code> というファイルを<strong style="color:#e2e8f0;">開発者が手動で作ると</strong>、<br>
+                  「news（ニュース）」投稿タイプの詳細ページだけこちらが使われる。<br>
+                  それ以外の投稿は <code style="font-size:0.78rem; color:#c4b5fd;">single.php</code> が使われる。
+                </div>
+
+                <!-- 優先順位の図 -->
+                <div style="background: #1a1f2e; border-radius: 6px; padding: 10px 12px; color: #94a3b8; line-height: 1.9; font-size: 0.78rem;">
+                  <div style="color: #64748b; margin-bottom: 6px;">📋 テンプレートの優先順位（より具体的なファイルが優先される）</div>
+                  <div style="color: #10b981;">✅ 1位：single-news.php &nbsp;←&nbsp; newsタイプのときだけ使われる（あれば）</div>
+                  <div style="color: #94a3b8;">　　2位：single.php &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;←&nbsp; 1位がないとき、すべての投稿に使われる</div>
+                </div>
+
+                <div style="margin-top: 10px; background: #1a1f2e; border-radius: 6px; padding: 10px 12px; color: #94a3b8; line-height: 1.7; font-size: 0.78rem;">
+                  <div style="color: #64748b; margin-bottom: 6px;">📌 具体例</div>
+                  <div>🗞 newsタイプの記事 → <code style="color:#c4b5fd;">single-news.php</code> が使われる（作ってあれば）</div>
+                  <div>📝 通常の投稿 → <code style="color:#c4b5fd;">single.php</code> が使われる</div>
+                </div>
+
+                <div style="margin-top: 8px; color: #475569; font-size: 0.75rem;">
+                  ※ single-news.php は必須ではない。デザインを分けたいときだけ作ればOK。
+                </div>
               </div>
             </div>
 
@@ -1015,6 +1154,11 @@
 
               <div style="margin-top: 14px; background: #0f1117; border-radius: 8px; padding: 12px 14px; font-size: 0.8rem; color: #64748b;">
                 single.php とほぼ同じ構成。ループを使って本文を出すのが共通のパターン。
+              </div>
+              <div style="margin-top: 10px; background: #0f1117; border-radius: 8px; padding: 12px 14px; font-size: 0.8rem; color: #64748b; border-left: 3px solid #f59e0b;">
+                💡 管理画面で「会社概要」などのページを追加すると<strong style="color:#fcd34d;">データベースに保存される</strong>だけ。<br>
+                PHPファイルは自動では作られない。page.php という型紙が最初から存在していて、そこに流し込まれる。<br>
+                型紙1枚で「会社概要」「採用情報」「アクセス」など何ページでも使い回せる。
               </div>
             </div>
           </div>
@@ -1236,6 +1380,15 @@
     </section>
 
   </div><!-- /page -->
+
+  <a href="#top" class="back-to-top" title="トップに戻る">↑</a>
+
+  <script>
+    document.querySelector('.back-to-top').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 
 </body>
 </html>

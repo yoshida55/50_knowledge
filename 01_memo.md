@@ -12125,7 +12125,6 @@ wp_enqueue_style('mytheme-about', get_template_directory_uri() . '/css/about.css
 
 ## 学習進捗
 
-
 ### 勉強中
 - PHP / WordPress テーマ開発（独自テーマ: 60_PHP_STUDY_WordPress_theme）
 
@@ -12136,12 +12135,17 @@ wp_enqueue_style('mytheme-about', get_template_directory_uri() . '/css/about.css
 - WordPress テンプレート階層の理解（single / page / page-{slug} / index の優先順位）
 - `template-parts/contact-form.php` → フォーム部分を切り出し
 - `front-page.php` → `get_template_part()` でフォームをフッター前に表示
+- カスタム投稿タイプ（`register_post_type`）の登録・`single-{post-type}.php` の作成
+- カスタムフィールドで一覧リンク先を別投稿タイプに切り替え（`get_post_meta` + `get_permalink`）
+- `archive.php` を一から自作（ループ・リンク・ページネーション）
+- `has_archive` のスラッグはコードのみ・管理画面では変更不可
 
 ### ➡ 次にやること
-- （未定）
+- `single-test.php` の中身を作り込む
+- `archive.php` にデザイン（クラス名・CSS）を加える
 
 ### 📅 最終更新
-- 2026-03-11
+- 2026-03-14
 
 ## 📌 フォームなど共通パーツを複数ページで使いたい → template-parts/ に切り出して get_template_part() で呼ぶ
 
@@ -13071,7 +13075,7 @@ flexの親要素に `display: flex` を指定し、子要素に `width: calc(100
 
 ---
 
-## WordPress 開発テーマ開発の全体フロー　HTMLあり　それぞれのテンプレート事作成フロー
+## ★★★WordPress 開発テーマ開発の全体フロー　HTMLあり　それぞれのテンプレート事作成フロー★★★
 【日付】2026-03-13
 
 【詳細図解】
@@ -13151,6 +13155,101 @@ add_action('init', 'my_theme_setup');
 ### 開発のコツ
 - **PHPファイル**：VS Codeで作る「型紙」。中身は自動で変わる。
 - **管理画面**：文字や画像を入れる「素材置き場」。投稿するたびに使う。
+
+### WordPressの全体のフロー
+### WordPress開発の全体フロー
+
+1. **環境の準備**
+   - パソコンのVS Codeで、テーマ用フォルダ内に「型紙」となるPHPファイルを作成する。
+
+2. **機能の設定（functions.php）**
+   - 一覧ページ用（`archive.php`）を使うための設定を`functions.php`に書き込む。
+   - 設定後、管理画面の「パーマリンク設定」で必ず保存ボタンを押し、URLのルールを更新する。
+
+3. **見た目の作成（テンプレートPHP）**
+   - `single.php`、`page.php`、`archive.php`の中に、HTMLとWordPress専用のタグを書いて「型紙」を完成させる。
+
+4. **素材の入力（管理画面）**
+   - WordPressの管理画面から、記事や固定ページの文字・画像を入力する。
+   - 「型紙」に中身が自動で当てはまり、Webサイトとして表示される。
+
+---
+
+### ファイル作成の基本コード例
+各テンプレートファイル（例：`single.php`）は、以下のようにHTMLの中にPHPタグを埋め込んで作成します。
+
+```php
+<!-- ヘッダーを読み込む -->
+<?php get_header(); ?>
+
+<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+    <!-- 記事のタイトルを表示 -->
+    <h1><?php the_title(); ?></h1>
+    <!-- 記事の本文を表示 -->
+    <div><?php the_content(); ?></div>
+<?php endwhile; endif; ?>
+
+<!-- フッターを読み込む -->
+<?php get_footer(); ?>
+```
+
+### WordPress全体の作成手順フロー
+### WordPress全体の作成手順フロー
+
+1. **環境準備**
+   - 自分のパソコン内にWordPressをインストールする。
+   - テーマフォルダ（`wp-content/themes/自分のテーマ名/`）を作成する。
+
+2. **型紙（PHPファイル）の作成**
+   - VS Codeを開き、テーマフォルダの中に以下のファイルを新規作成する。
+     - `index.php`（基本の型紙）
+     - `single.php`（記事詳細用）
+     - `page.php`（固定ページ用）
+     - `archive.php`（一覧ページ用）
+     - `functions.php`（機能設定用）
+
+3. **機能の登録と更新**
+   - `functions.php` にカスタム投稿タイプや一覧表示の許可を追記する。
+   - 管理画面の「設定」＞「パーマリンク」から「変更を保存」ボタンを押し、設定を反映させる（これを行わないと新しいページが表示されない）。
+
+4. **HTMLとPHPタグの埋め込み**
+   - 既存のHTMLを各PHPファイルに貼り付ける。
+   - 以下の「WordPressループ」を使って、記事の中身が表示されるように書き換える。
+     ```php
+     <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+       <!-- ここにHTMLと表示用のタグを書く -->
+       <h1><?php the_title(); ?></h1>
+       <div><?php the_content(); ?></div>
+     <?php endwhile; endif; ?>
+     ```
+
+5. **コンテンツの入力**
+   - WordPressの管理画面にログインする。
+   - 「投稿」や「固定ページ」から文章や画像を入力して公開する。
+   - 入力した内容は、手順4で作った「型紙」に当てはまって自動で表示される。
+
+6. **完成・運用**
+   - 今後は記事を増やす際、VS Codeを触る必要はない。
+   - 管理画面から投稿を追加するだけで、サイトが自動的に更新される。
+
+### ★WordPressの作成フロー
+### WordPressの作成フロー
+
+**1. 準備（VS Codeでの作業）**
+*   WordPressのテーマフォルダ内に、必要なファイル（`single.php`, `page.php`, `archive.php`など）を新規作成する。
+*   `functions.php`を開き、必要な機能の設定を追記する。
+
+**2. 設定の反映（管理画面での作業）**
+*   `functions.php`を編集した後は、必ず「設定 ＞ パーマリンク ＞ 保存」を実行し、設定を更新する。
+
+**3. 型紙（テンプレート）の作成（VS Codeでの作業）**
+*   各PHPファイルにHTMLを書き込み、表示したい場所にWordPress用のPHPタグを埋め込む。
+    *   例：`<?php the_title(); ?>`（タイトルを表示）
+    *   例：`<?php the_content(); ?>`（本文を表示）
+
+**4. 記事の作成・公開（管理画面での作業）**
+*   管理画面の「投稿」や「固定ページ」から、テキストや画像を入力・保存する。
+*   自動的に「型紙」に中身が流し込まれ、Webサイトとして表示される。
 ## パララックスのようでちがう。背景固定でスクロールで背景フェードイン - position fixed + z-index -1⇁ でセクション切り変わり目のを目をなくす
 【日付】2026-03-13
 
@@ -13489,3 +13588,25 @@ hamburgerBtn.addEventListener("click", function () {
 【関連】→ 「z-index 問題」で検索（z-indexの親子ルール・:root変数管理）
 
 > 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★疑似要素で棒線の先に矢印をつくる - content文字はズレる（afterと beforeくの字）.md)
+
+▢
+## メモ：WordPress archive.php - カスタムフィールドでリンク先を別投稿タイプに切り替える
+【日付】2026-03-14
+
+【気づき】
+archive.phpの一覧リストで、クリック先を別の投稿タイプ（例: テスト投稿）に切り替えたいとき、カスタムフィールドにリンク先のポストIDを入れておくだけで対応できる
+
+【ポイント】
+
+★カスタムフィールド `related_test_id` にIDを入れてリンク先を切り替え
+```php
+<?php
+$related_id = get_post_meta(get_the_ID(), 'related_test_id', true);
+$url = $related_id ? get_permalink($related_id) : get_permalink();
+?>
+<a href="<?php echo $url; ?>" class="news_item">
+```
+- 値があれば → そのIDの投稿URL
+- 値がなければ → 自分自身のURL（通常通り）
+
+> 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★WordPress_archive.php - ループ基本構造とカスタムフィールドリンク切り替え.md)
