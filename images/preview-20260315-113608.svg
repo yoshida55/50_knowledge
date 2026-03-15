@@ -1,0 +1,30 @@
+<svg width="400" height="220" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="400" height="220" fill="#f8f9fa" rx="10"/>
+  
+  <!-- absolute / fixed の箱 -->
+  <rect x="20" y="30" width="160" height="100" fill="#ffeb3b" stroke="#fbc02d" stroke-width="2" rx="5"/>
+  <text x="100" y="65" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">absolute / fixed</text>
+  <text x="100" y="90" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#555">📌 場所を「固定」する</text>
+  <text x="100" y="110" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#d32f2f" font-weight="bold">→ top/left が必要！</text>
+
+  <!-- 矢印 -->
+  <path d="M 190 80 L 210 80" stroke="#ccc" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  
+  <!-- relative の箱 -->
+  <rect x="220" y="30" width="160" height="100" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" rx="5"/>
+  <text x="300" y="65" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">relative</text>
+  <text x="300" y="90" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#555">🏳️ 「目印」にする</text>
+  <text x="300" y="110" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#1976d2" font-weight="bold">→ 書かなくてOK！</text>
+
+  <!-- 補足の吹き出し -->
+  <rect x="50" y="150" width="300" height="50" fill="#fff" stroke="#eee" rx="25"/>
+  <text x="200" y="180" font-family="sans-serif" font-size="13" text-anchor="middle" fill="#666">書かない ＝ 「元の場所にお留まりください(auto)」</text>
+
+  <!-- 矢印の定義 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ccc" />
+    </marker>
+  </defs>
+</svg>

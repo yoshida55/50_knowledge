@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS clip-path: inset() 解説</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: #5A8FC4;
+  font-size: 28px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.section {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(90, 143, 196, 0.1);
+}
+
+h2 {
+  color: #5A8FC4;
+  font-size: 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #5A8FC4;
+  padding-left: 12px;
+}
+
+.demo-container {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, #5A8FC4, #7BA8D1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  position: relative;
+  animation: fadeIn 1s ease-in;
+}
+
+.box-normal {
+  /* クリップなし */
+}
+
+.box-clipped {
+  clip-path: inset(20px);
+}
+
+.box-label {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.svg-container {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.code-block {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 6px;
+  position: relative;
+  margin: 20px 0;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
+  overflow-x: auto;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #5A8FC4;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.copy-btn:hover {
+  background: #4a7fb4;
+}
+
+.copy-btn:active {
+  background: #3a6f9f;
+}
+
+.note {
+  background: #f0f7fc;
+  border-left: 4px solid #5A8FC4;
+  padding: 15px;
+  margin: 20px 0;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>CSS clip-path: inset() による切り取り</h1>
+
+  <div class="section">
+    <h2>inset() の動作</h2>
+    <p><code>inset()</code>は要素の上下左右から内側に切り取ります。</p>
+    
+    <div class="demo-container">
+      <div>
+        <div class="box box-normal">元の要素</div>
+        <div class="box-label">clip-path なし</div>
+      </div>
+      <div>
+        <div class="box box-clipped">切り取り後</div>
+        <div class="box-label">inset(20px)</div>
+      </div>
+    </div>
+
+    <div class="svg-container">
+      <svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- 元の領域 -->
+        <rect x="50" y="50" width="200" height="200" fill="#5A8FC4" opacity="0.3" stroke="#5A8FC4" stroke-width="2"/>
+        
+        <!-- 切り取り後の領域 -->
+        <rect x="70" y="70" width="160" height="160" fill="#5A8FC4" stroke="#5A8FC4" stroke-width="2">
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+        </rect>
+        
+        <!-- 20px表示（上） -->
+        <line x1="50" y1="60" x2="70" y2="60" stroke="#E74C3C" stroke-width="2" stroke-dasharray="3,3"/>
+        <text x="53" y="58" font-size="12" fill="#E74C3C">20px</text>
+        
+        <!-- 20px表示（左） -->
+        <line x1="60" y1="50" x2="60" y2="70" stroke="#E74C3C" stroke-width="2" stroke-dasharray="3,3"/>
+        <text x="35" y="63" font-size="12" fill="#E74C3C">20px</text>
+        
+        <!-- 20px表示（右） -->
+        <line x1="240" y1="230" x2="240" y2="250" stroke="#E74C3C" stroke-width="2" stroke-dasharray="3,3"/>
+        <text x="245" y="243" font-size="12" fill="#E74C3C">20px</text>
+        
+        <!-- 20px表示（下） -->
+        <line x1="230" y1="240" x2="250" y2="240" stroke="#E74C3C" stroke-width="2" stroke-dasharray="3,3"/>
+        <text x="215" y="255" font-size="12" fill="#E74C3C">20px</text>
+        
+        <!-- ラベル -->
+        <text x="150" y="35" font-size="14" fill="#333" text-anchor="middle" font-weight="bold">元の要素</text>
+        <text x="150" y="280" font-size="14" fill="#5A8FC4" text-anchor="middle" font-weight="bold">表示される領域</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>コード例</h2>
+    
+    <div class="code-block">
+      <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+<pre>.box {
+  clip-path: inset(20px);
+}</pre>
+    </div>
+
+    <div class="note">
+      <strong>💡 ポイント:</strong> <code>inset(20px)</code>は上下左右すべてから20pxずつ内側に切り取ります。個別指定も可能（例: <code>inset(10px 20px 30px 40px)</code>）
+    </div>
+  </div>
+</div>
+
+<script>
+function copyCode(btn) {
+  const code = btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'コピー完了!';
+    setTimeout(() => {
+      btn.textContent = 'コピー';
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

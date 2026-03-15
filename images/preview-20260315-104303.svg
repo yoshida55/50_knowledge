@@ -1,0 +1,16 @@
+<svg width='400' height='200' viewBox='0 0 400 200' xmlns='http://www.w3.org/2000/svg'>
+  <rect width='400' height='200' fill='#f9f9f9' rx='10'/>
+  
+  <!-- Default Approvals (止まる) -->
+  <g opacity='0.5'>
+    <rect x='30' y='50' width='140' height='40' rx='5' fill='#eee' stroke='#999'/>
+    <text x='50' y='75' font-family='sans-serif' font-size='12' fill='#666'>Default Approvals</text>
+    <text x='180' y='75' font-family='sans-serif' font-size='20' fill='#f44336'> 毎回「Allow」で止まる</text>
+  </g>
+
+  <!-- Bypass Approvals (パスポート) -->
+  <rect x='30' y='110' width='140' height='40' rx='5' fill='#e3f2fd' stroke='#2196f3' stroke-width='2'/>
+  <text x='50' y='135' font-family='sans-serif' font-size='12' fill='#0d47a1' font-weight='bold'> Bypass Approvals</text>
+  <path d='M180 130 L210 130 L200 120 M210 130 L200 140' fill='none' stroke='#4caf50' stroke-width='3'/>
+  <text x='230' y='135' font-family='sans-serif' font-size='20' fill='#4caf50' font-weight='bold'> 一気に完了！</text>
+</svg>

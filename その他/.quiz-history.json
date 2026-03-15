@@ -176,7 +176,8 @@
     "evaluations": [
       3
     ],
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "画像の上にテキストを浮かび上がらせるには、どのような構造でレイアウトしますか？"
   },
   "背景画像（background-image）": {
     "title": "背景画像（background-image）",
@@ -186,7 +187,8 @@
     "evaluations": [
       3
     ],
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSのbackground-imageを指定しても画像が表示されない場合、何を設定する必要がありますか？"
   },
   "命名ルール　規則": {
     "title": "命名ルール　規則",
@@ -236,7 +238,9 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "questionText": "学習や作業において、最も重要だと分かったことは何ですか？",
+    "aiCategory": "その他"
   },
   "何をしているか": {
     "title": "何をしているか",
@@ -366,7 +370,8 @@
     "evaluations": [
       3
     ],
-    "aiCategory": "��の他"
+    "aiCategory": "��の他",
+    "questionText": "VS Codeの拡張機能「Paste Image」で、画像を特定のフォルダに保存する設定方法は？"
   },
   "横スクロールアニメーション（無限ループ）": {
     "title": "横スクロールアニメーション（無限ループ）",
@@ -429,7 +434,8 @@
     "evaluations": [
       3
     ],
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "justify-content: space-betweenを指定した際、子要素のサイズ指定は可能ですか？"
   },
   "居住用不動産の3000万円控除": {
     "title": "居住用不動産の3000万円控除",
@@ -453,7 +459,8 @@
     "evaluations": [
       3
     ],
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "ホバー時にレイアウトを崩さないために、borderの代わりに使うプロパティは何ですか？"
   },
   "📝 覚えておくこと": {
     "title": "📝 覚えておくこと",
@@ -486,7 +493,8 @@
     "evaluations": [
       2
     ],
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "GitHubのリポジトリへ最初にプッシュする際、リモートリポジトリのルールに追加する必要がない操作は何ですか？"
   },
   "📌 アニメーションライブラリ デモ管理（Swiper等）skillsの説明": {
     "title": "📌 アニメーションライブラリ デモ管理（Swiper等）skillsの説明",
@@ -518,7 +526,8 @@
     "evaluations": [
       3
     ],
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSでposition: absoluteを指定した要素を中央配置するには、どのような設定が必要か？"
   },
   "javaScriptのオブジェクトがはいっているかを調べるには": {
     "title": "javaScriptのオブジェクトがはいっているかを調べるには",
@@ -551,7 +560,8 @@
     "evaluations": [
       3
     ],
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "画像の上にテキストを重ねる際、親要素にrelativeを指定する理由は何ですか？"
   },
   "検証画面のCSS画面への遷移の仕方、計算済みタブ(Computed)画面からギャップなどをクリックする。": {
     "title": "検証画面のCSS画面への遷移の仕方、計算済みタブ(Computed)画面からギャップなどをクリックする。",
@@ -589,7 +599,9 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "questionText": "CSSでテキストを縦書きにするために指定するプロパティは？",
+    "aiCategory": "その他"
   },
   "▢ メディアクエリ": {
     "title": "▢ メディアクエリ",
@@ -669,7 +681,8 @@
       1,
       3
     ],
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "スクロールしても背景が画面に張り付いたまま固定されるCSSのプロパティ値は何ですか？"
   },
   "フレックスボックスにするか、アブソリュートにするかの切り分け": {
     "title": "フレックスボックスにするか、アブソリュートにするかの切り分け",
@@ -757,7 +770,8 @@
     "evaluations": [
       3
     ],
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSで2カラムのメニュー表を作成する際に、要素の配置を柔軟にコントロールできる手法は何ですか？"
   },
   "JavaScriptなど": {
     "title": "JavaScriptなど",
@@ -787,7 +801,8 @@
     "evaluations": [
       3
     ],
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "ページ内のアンカーリンク先にIDが使われる理由は？"
   },
   "ポイント": {
     "title": "ポイント",
@@ -850,7 +865,8 @@
     "evaluations": [
       3
     ],
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSで丸い形を作るために、radiusプロパティを使用する際の指定は何ですか？"
   },
   "width を指定して、height を auto にすると自然なかたちになる。": {
     "title": "width を指定して、height を auto にすると自然なかたちになる。",
@@ -921,7 +937,9 @@
     "reviewCount": 3,
     "evaluations": [
       3
-    ]
+    ],
+    "questionText": "デザインカンプより横幅が狭く表示される「うっかりミス」の原因になりやすいCSS設定は何でしょう？",
+    "aiCategory": "その他"
   },
   "軽減税率の特例不動産": {
     "title": "軽減税率の特例不動産",
@@ -938,7 +956,8 @@
     "evaluations": [
       3
     ],
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "CSSでtopやleftを使って要素を移動させるために、必須となるプロパティは何でしょう？"
   },
   "JavaScript が正しく動作しません。新しいライブラリを追加したものの動作しないのはなぜでしょうか。": {
     "title": "JavaScript が正しく動作しません。新しいライブラリを追加したものの動作しないのはなぜでしょうか。",
@@ -1048,10 +1067,14 @@
   "archive.phpないのパーマリンクはどこをさしている？": {
     "title": "archive.phpないのパーマリンクはどこをさしている？",
     "line": 9830,
-    "lastReviewed": 1773088074523,
-    "reviewCount": 1,
+    "lastReviewed": 1773504661089,
+    "reviewCount": 4,
     "questionText": "WordPressのテンプレートファイルで記事固有のURLを出力する関数は？",
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      3
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "1. 「スタッキングコンテキスト（箱）」が最優先": {
     "title": "1. 「スタッキングコンテキスト（箱）」が最優先",
@@ -1067,10 +1090,14 @@
   "jQuery よくある書き間違い3つ": {
     "title": "jQuery よくある書き間違い3つ",
     "line": 8751,
-    "lastReviewed": 1773127982925,
-    "reviewCount": 1,
+    "lastReviewed": 1773506027437,
+    "reviewCount": 4,
     "questionText": "WordPressでjQueryを正しく実行するための関数の書き方は？",
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      3
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "📌 WordPressで画像URL取得 → get_theme_file_uri() と get_theme_directory_uri() はどちらも使えるが file_uri 推奨（子テーマ対応のため）": {
     "title": "📌 WordPressで画像URL取得 → get_theme_file_uri() と get_theme_directory_uri() はどちらも使えるが file_uri 推奨（子テーマ対応のため）",
@@ -1143,10 +1170,14 @@
   "📌 Codex skills の Git 運用は `.system` を触らず `memo` だけ repo と同期する → clone先は作業用、本番は `.codex\\skills`": {
     "title": "📌 Codex skills の Git 運用は `.system` を触らず `memo` だけ repo と同期する → clone先は作業用、本番は `.codex\\skills`",
     "line": 9961,
-    "lastReviewed": 1773150720069,
-    "reviewCount": 1,
+    "lastReviewed": 1773487135468,
+    "reviewCount": 4,
     "questionText": "Codexのskills運用においてGitHubリポジトリと同期すべきフォルダはどれか？",
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "evaluations": [
+      3
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "「~で一回親を経由する」は**誤り**": {
     "title": "「~で一回親を経由する」は**誤り**",
@@ -1202,8 +1233,8 @@
   "📌 JSでアロー関数の`this`はwindowになる（e.targetを使え）": {
     "title": "📌 JSでアロー関数の`this`はwindowになる（e.targetを使え）",
     "line": 0,
-    "lastReviewed": 1773157127441,
-    "reviewCount": 0,
+    "lastReviewed": 1773504688777,
+    "reviewCount": 1,
     "aiCategory": "wordpress/php",
     "questionText": "JavaScriptのアロー関数内でイベントが発生した要素を取得するために使うプロパティは？",
     "evaluations": [
@@ -1345,14 +1376,16 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSのFlexboxを使用して、要素内のコンテンツを縦横中央に配置するために親要素へ記述するプロパティの組み合わせは？"
   },
   "テスト問題": {
     "title": "テスト問題",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "テスト問題とはどのようなものですか？"
   },
   "📌 jQuery の `$(function(){})` - HTMLが読み込まれた後に実行されるルール jquery": {
     "title": "📌 jQuery の `$(function(){})` - HTMLが読み込まれた後に実行されるルール jquery",
@@ -1373,35 +1406,40 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "メニューやリストを作成する際、適切とされるHTMLのタグの組み合わせは何ですか？"
   },
   "1. ロゴと見出し": {
     "title": "1. ロゴと見出し",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "Webサイトのロゴをマークアップする際に使用すべき適切な見出しタグは何ですか？"
   },
   "2. 日付とお知らせ / メニュー (dl, dt, dd)": {
     "title": "2. 日付とお知らせ / メニュー (dl, dt, dd)",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "日付や項目名と、その値がセットになった情報のマークアップに適したHTMLタグの組み合わせは何？"
   },
   "3. 見出しと詳細説明 (h2 + p)": {
     "title": "3. 見出しと詳細説明 (h2 + p)",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "HTMLで見出しと詳細説明をセットでマークアップする際の正しいタグの組み合わせは何ですか？"
   },
   "4. ナビゲーション (nav)": {
     "title": "4. ナビゲーション (nav)",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "Webサイトにおいて、`<nav>`タグを使用すべき箇所はどこですか？"
   },
   "分かった一番重要なこと 暗記": {
     "title": "分かった一番重要なこと 暗記",
@@ -1464,35 +1502,40 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "widthが指定されたボックスやinline要素を中央寄せするためには、どのようなCSS設定が必要ですか？"
   },
   "原因": {
     "title": "原因",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "幅を指定したブロック要素を親要素内で中央配置するには、text-align: center以外に何が必要か？"
   },
   "解決策": {
     "title": "解決策",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "CSSでブロック要素を中央寄せにするためにmarginプロパティに指定する値は？"
   },
   "height の使い分け": {
     "title": "height の使い分け",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSにおいて、heightの適切な使い分けが求められる場面はどこか？"
   },
   "普通の画像（<img>タグ）": {
     "title": "普通の画像（<img>タグ）",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "普通の画像（<img>タグ）で、幅を100%にする際に指定すべきではないプロパティは何ですか？"
   },
   "■ Fashion セクション(画像を背景に、なかにテキストを重ね書きする)の作り方": {
     "title": "■ Fashion セクション(画像を背景に、なかにテキストを重ね書きする)の作り方",
@@ -1506,63 +1549,72 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "Fashionセクションで画像を背景にテキストを重ねる際、imgタグを使用するのはなぜNGなのですか？"
   },
   "OK：CSS で背景画像にする": {
     "title": "OK：CSS で背景画像にする",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSで要素の背景に画像を表示させたいとき、どのプロパティを使う？"
   },
   "NG：Flexbox で均等配置": {
     "title": "NG：Flexbox で均等配置",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "Flexboxで要素を均等配置にする際に、NGとされている設定は何ですか？"
   },
   "OK：text-align: center": {
     "title": "OK：text-align: center",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSでテキストを中央揃えにするために指定するプロパティと値は何ですか？"
   },
   "Q: 要素の中の文字を左に配置する": {
     "title": "Q: 要素の中の文字を左に配置する",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "要素の中の文字を左に配置するにはどのようなCSSを指定する？"
   },
   "OK：text-align: left": {
     "title": "OK：text-align: left",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSで左揃えにするためのプロパティと値の指定は？"
   },
   "■ 覚えておくこと": {
     "title": "■ 覚えておくこと",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "背景画像を使用する際に、自分で確保する必要があるものは何？"
   },
   "シンプルに背景を画像にして、なかに文字をれいれる方法": {
     "title": "シンプルに背景を画像にして、なかに文字をれいれる方法",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSで背景に画像を表示し、その上に文字を配置する最もシンプルな方法は何ですか？"
   },
   "なぜ 100vh で画面いっぱいなのに min-height 100vh があるか。": {
     "title": "なぜ 100vh で画面いっぱいなのに min-height 100vh があるか。",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "height: 100vhではなく、min-height: 100vhを使うべき理由は？"
   },
   "absolute で画面の中央にもってくる translateY relative リラティブ アブソリュート": {
     "title": "absolute で画面の中央にもってくる translateY relative リラティブ アブソリュート",
@@ -1583,28 +1635,32 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "marginやpaddingを使わずに、要素自体を動かして位置調整する方法は？"
   },
   "テキストなどの幅をサイズに丁度にボックスを調整する": {
     "title": "テキストなどの幅をサイズに丁度にボックスを調整する",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSで、テキストの幅に合わせてボックスサイズをぴったり調整する際に指定する値は何ですか？"
   },
   "どういうこと？": {
     "title": "どういうこと？",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "背景画像が画面に貼り付いて動かなくなるのは、どういうこと？"
   },
   "具体的な動き": {
     "title": "具体的な動き",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "ページをスクロールしても背景を画面の同じ位置に固定したい場合、CSSのbackground-attachmentに何を指定する？"
   },
   "どんな時に使う？": {
     "title": "どんな時に使う？",
@@ -1619,63 +1675,72 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "背景を固定し、手前のコンテンツだけを動かして奥行き感を演出する効果は何？"
   },
   "2. **ヘッダー画像の演出**": {
     "title": "2. **ヘッダー画像の演出**",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "サイトをスクロールしても背景画像が動かず、テキストだけが流れる演出は何と呼ばれますか？"
   },
   "3. **セクション区切り**": {
     "title": "3. **セクション区切り**",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "セクション間に固定背景を挟んでメリハリを出す演出は、一般的に何と呼ばれますか？"
   },
   "★もし画面の途中で固定をいれたい場合 パララックス": {
     "title": "★もし画面の途中で固定をいれたい場合 パララックス",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "画面の途中でスクロールを固定し、パララックス効果を出したい場合は何を使う？"
   },
   "1. **`background-attachment: fixed;` を使う場合**": {
     "title": "1. **`background-attachment: fixed;` を使う場合**",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSで背景画像をビューポートに対して固定したい場合、background-attachmentに何を指定するか？"
   },
   "2. **JavaScriptでスクロール連動させる**": {
     "title": "2. **JavaScriptでスクロール連動させる**",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "questionText": "Webサイトでより細かいスクロール連動制御を行いたい場合、何を使用しますか？"
   },
   "パララックス効果（視差効果）を実装する際に、背景画像をわざと大きく表示（ズームアップ）させている設定です。": {
     "title": "パララックス効果（視差効果）を実装する際に、背景画像をわざと大きく表示（ズームアップ）させている設定です。",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "パララックス効果を実装する際、背景画像をあえて拡大（ズームアップ）させる理由は何ですか？"
   },
   "「文字の上下にある『見えない余白』を限界まで削る」": {
     "title": "「文字の上下にある『見えない余白』を限界まで削る」",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSで文字の上下にある見えない余白を限界まで削るには、どのプロパティをどう設定する？"
   },
   "AI に確認する際の注意事項": {
     "title": "AI に確認する際の注意事項",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "AIに正確な回答を求める際、あわせて提示すべきものは何？"
   },
   "サイドメニューーから header メニューに変更する": {
     "title": "サイドメニューーから header メニューに変更する",
@@ -1696,14 +1761,16 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSで既存の要素に三角形の図形を追加するには、どの疑似要素を使用しますか？"
   },
   "三角形を表示する方法": {
     "title": "三角形を表示する方法",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "questionText": "CSSを使ってWebページ上に三角形を表示するにはどうすればよいですか？"
   },
   "トップの画面を固定にして、その下のセクションをスクロールするときに、裏の画面をのこして、重ねて表示させる。 詳細は ./その他/疑問・ソーステストあり md を参照": {
     "title": "トップの画面を固定にして、その下のセクションをスクロールするときに、裏の画面をのこして、重ねて表示させる。 詳細は ./その他/疑問・ソーステストあり md を参照",
@@ -2144,7 +2211,8 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "パララックス効果を実装するためのHTMLコード例は？"
   },
   "📌 javaScriptでボタンを追加した際に、ループでそれぞれのボタンを追加した際に、アドイベントリスナーをつけても、該当のボタンがおせない。イベントが発火しない。": {
     "title": "📌 javaScriptでボタンを追加した際に、ループでそれぞれのボタンを追加した際に、アドイベントリスナーをつけても、該当のボタンがおせない。イベントが発火しない。",
@@ -2961,12 +3029,13 @@
   "命名スタイルの種類（覚えておく）": {
     "title": "命名スタイルの種類（覚えておく）",
     "line": 0,
-    "lastReviewed": 1773467923617,
-    "reviewCount": 2,
+    "lastReviewed": 1773506075579,
+    "reviewCount": 5,
     "aiCategory": "wordpress/php",
     "questionText": "PHPの変数名や関数名で一般的に使われる、アンダースコアで単語をつなぐ命名スタイルは何ですか？",
     "evaluations": [
-      2
+      2,
+      3
     ],
     "lastAnsweredDate": "2026-03-14"
   },
@@ -3098,7 +3167,8 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "questionText": "背景と文字の色が似ていて読みづらい場合、視認性を高めるためにどのような工夫をすべきですか？"
   },
   "どうやってsingle.phpをWordPressのどこの画面で更新するんだっけ？": {
     "title": "どうやってsingle.phpをWordPressのどこの画面で更新するんだっけ？",
@@ -3111,8 +3181,8 @@
   "WordPressで作業をして、設定の更新ボタンをおさないと反映されないものは？": {
     "title": "WordPressで作業をして、設定の更新ボタンをおさないと反映されないものは？",
     "line": 0,
-    "lastReviewed": 1773470149320,
-    "reviewCount": 5,
+    "lastReviewed": 1773507687499,
+    "reviewCount": 6,
     "aiCategory": "wordpress/php",
     "questionText": "WordPressにおいて変更内容を保存するために押す必要があるボタンの総称は？",
     "evaluations": [
@@ -3143,10 +3213,14 @@
   "archive.php と single.php の関係": {
     "title": "archive.php と single.php の関係",
     "line": 0,
-    "lastReviewed": 1773471588522,
-    "reviewCount": 1,
+    "lastReviewed": 1773504923841,
+    "reviewCount": 4,
     "aiCategory": "wordpress/php",
-    "questionText": "WordPressのテーマ構造において、記事の詳細を表示するために使われるファイルはどれですか？"
+    "questionText": "WordPressのテーマ構造において、記事の詳細を表示するために使われるファイルはどれですか？",
+    "evaluations": [
+      3
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "archive-〇〇.php / single-〇〇.php（カスタム投稿）": {
     "title": "archive-〇〇.php / single-〇〇.php（カスタム投稿）",
@@ -3174,7 +3248,8 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "questionText": "パララックス表現を作るための手順は？"
   },
   "ワードプレスでテーマをいれるほうほうは？": {
     "title": "ワードプレスでテーマをいれるほうほうは？",
@@ -3863,11 +3938,12 @@
   "カスタム投稿タイプにスラッグを設定する → archive-〇〇とsingle-〇〇がペアになる（single-〇〇.phpは手動で作る）": {
     "title": "カスタム投稿タイプにスラッグを設定する → archive-〇〇とsingle-〇〇がペアになる（single-〇〇.phpは手動で作る）",
     "line": 8649,
-    "lastReviewed": 1773461685019,
-    "reviewCount": 5,
+    "lastReviewed": 1773506113660,
+    "reviewCount": 8,
     "questionText": "カスタム投稿タイプで個別ページのテンプレートファイルが存在しない場合に表示されるファイルは？",
     "evaluations": [
       2,
+      3,
       3
     ],
     "lastAnsweredDate": "2026-03-14"
@@ -3875,29 +3951,36 @@
   "📌 text-decoration: underline → 文字との距離は text-underline-offset で調整（疑似要素不要）": {
     "title": "📌 text-decoration: underline → 文字との距離は text-underline-offset で調整（疑似要素不要）",
     "line": 12976,
-    "lastReviewed": 1773391793426,
-    "reviewCount": 1,
+    "lastReviewed": 1773487168537,
+    "reviewCount": 2,
     "questionText": "CSSでアンダーラインと文字の距離を調整できるプロパティは？",
-    "hiddenFromList": true
+    "hiddenFromList": true,
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "flexで子要素を綺麗に3等分したいとき → 子に width: calc(100% / 3) を指定する": {
     "title": "flexで子要素を綺麗に3等分したいとき → 子に width: calc(100% / 3) を指定する",
     "line": 12940,
-    "lastReviewed": 1773391860390,
-    "reviewCount": 3,
+    "lastReviewed": 1773507600024,
+    "reviewCount": 6,
     "questionText": "Flexboxにおいて子要素を正確に3等分するためのwidth指定方法は？",
     "evaluations": [
+      3,
       3
     ],
-    "hiddenFromList": true
+    "hiddenFromList": true,
+    "lastAnsweredDate": "2026-03-14"
   },
   "4. :root 変数でz-index地獄を抜け出す": {
     "title": "4. :root 変数でz-index地獄を抜け出す",
     "line": 3223,
-    "lastReviewed": 1773465225569,
-    "reviewCount": 5,
+    "lastReviewed": 1773507725095,
+    "reviewCount": 7,
     "questionText": "z-indexの値を管理しやすくするために利用するCSSの機能は何ですか？",
     "evaluations": [
+      2,
       2,
       2,
       2,
@@ -3909,19 +3992,21 @@
   "★★★WordPress 開発テーマ開発の全体フロー　HTMLあり　それぞれのテンプレート事作成フロー★★★": {
     "title": "★★★WordPress 開発テーマ開発の全体フロー　HTMLあり　それぞれのテンプレート事作成フロー★★★",
     "line": 13078,
-    "lastReviewed": 1773463931928,
-    "reviewCount": 1,
+    "lastReviewed": 1773487329152,
+    "reviewCount": 5,
     "questionText": "WordPressにおいて、記事やページの内容を管理画面から入力・追加するための役割を果たす仕組みは？",
     "evaluations": [
-      2
+      2,
+      2,
+      3
     ],
     "lastAnsweredDate": "2026-03-14"
   },
   "メモ：WordPress archive.php - カスタムフィールドでリンク先を別投稿タイプに切り替える": {
     "title": "メモ：WordPress archive.php - カスタムフィールドでリンク先を別投稿タイプに切り替える",
     "line": 13593,
-    "lastReviewed": 1773483174520,
-    "reviewCount": 4,
+    "lastReviewed": 1773506215583,
+    "reviewCount": 5,
     "questionText": "WordPressのアーカイブ一覧でリンク先を別の投稿タイプに変更するために使用するカスタムフィールドの役割は？",
     "evaluations": [
       2,
@@ -3945,8 +4030,8 @@
   "パララックスのようでちがう。背景固定でスクロールで背景フェードイン - position fixed + z-index -1⇁ でセクション切り変わり目のを目をなくす": {
     "title": "パララックスのようでちがう。背景固定でスクロールで背景フェードイン - position fixed + z-index -1⇁ でセクション切り変わり目のを目をなくす",
     "line": 13253,
-    "lastReviewed": 1773464947555,
-    "reviewCount": 1,
+    "lastReviewed": 1773487392774,
+    "reviewCount": 2,
     "questionText": "position: stickyで発生するセクション間の境目を消すためのCSS手法は？",
     "evaluations": [
       2
@@ -3968,16 +4053,25 @@
   "メモ：ハンバーガーメニュー - ボタン押下でグローバルメニュー開閉（CSS ~ セレクタ + JSはtoggleのみ）": {
     "title": "メモ：ハンバーガーメニュー - ボタン押下でグローバルメニュー開閉（CSS ~ セレクタ + JSはtoggleのみ）",
     "line": 13447,
-    "lastReviewed": 1773467413289,
-    "reviewCount": 1,
-    "questionText": "特定の要素の後ろにある兄弟要素を選択するCSSの結合子はどれか？"
+    "lastReviewed": 1773486974583,
+    "reviewCount": 2,
+    "questionText": "特定の要素の後ろにある兄弟要素を選択するCSSの結合子はどれか？",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "single.php にスラッグ（はた）をつけると → single-〇〇.php が最優先で使われる（作らなければ single.php が使われる）": {
     "title": "single.php にスラッグ（はた）をつけると → single-〇〇.php が最優先で使われる（作らなければ single.php が使われる）",
     "line": 8814,
-    "lastReviewed": 1773482396806,
-    "reviewCount": 1,
-    "questionText": "single.phpにおいて、特定のスラッグを指定して優先的に読み込ませるテンプレートファイル名は？"
+    "lastReviewed": 1773507569227,
+    "reviewCount": 7,
+    "questionText": "single.phpにおいて、特定のスラッグを指定して優先的に読み込ませるテンプレートファイル名は？",
+    "evaluations": [
+      3,
+      3
+    ],
+    "lastAnsweredDate": "2026-03-14"
   },
   "min-width 0 の活用方法": {
     "title": "min-width 0 の活用方法",
@@ -4033,6 +4127,134 @@
     "lastReviewed": 0,
     "reviewCount": 0,
     "questionText": "ハンバーガーメニューを作成する際、クリックによる開閉操作のために推奨されるHTMLタグは何ですか？",
+    "aiCategory": "html"
+  },
+  "📌 jQuery の `$(function(){})` - HTMLが読み込まれた後に実行されるルール  jquery": {
+    "title": "📌 jQuery の `$(function(){})` - HTMLが読み込まれた後に実行されるルール  jquery",
+    "line": 714,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "jQueryでHTMLの読み込みが終わった後にコードを実行させるための記述ルールは何ですか？",
+    "aiCategory": "その他"
+  },
+  "📌 jQuery の `.on(\"click\", function(){})` はイベントリスナー  jquery": {
+    "title": "📌 jQuery の `.on(\"click\", function(){})` はイベントリスナー  jquery",
+    "line": 751,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "jQueryの.on(\"click\", function(){})は何を登録する仕組みですか？",
+    "aiCategory": "その他"
+  },
+  "Flexbox で両端揃え + 隙間を作る　 space between ですき間をつくることができる": {
+    "title": "Flexbox で両端揃え + 隙間を作る　 space between ですき間をつくることができる",
+    "line": 1410,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "Flexboxで両端揃えにしつつ要素間に隙間を作るために設定するプロパティ値は何？",
+    "aiCategory": "html"
+  },
+  "▢ 　手書きの図形の書き方": {
+    "title": "▢ 　手書きの図形の書き方",
+    "line": 1273,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "手書きの図形を描く際のルールは何ですか？",
+    "aiCategory": "その他"
+  },
+  "▢ 　パディング のかけかた": {
+    "title": "▢ 　パディング のかけかた",
+    "line": 1278,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "要素の内部に余白を作るために使用するCSSプロパティは何ですか？",
+    "aiCategory": "html"
+  },
+  "absolute で画面の中央にもってくる　 translateY 　 relative リラティブ　アブソリュート": {
+    "title": "absolute で画面の中央にもってくる　 translateY 　 relative リラティブ　アブソリュート",
+    "line": 1699,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSでabsoluteを指定した要素を、transformやmarginを使って画面の中央に配置するにはどうすればよいですか？",
+    "aiCategory": "html"
+  },
+  "背景の画像を固定にして前面に文字を通過させる": {
+    "title": "背景の画像を固定にして前面に文字を通過させる",
+    "line": 1825,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "背景の画像を固定したまま、前面の文字を通過させるエフェクトを何と呼ぶ？",
+    "aiCategory": "その他"
+  },
+  "背景画像を固定する手順": {
+    "title": "背景画像を固定する手順",
+    "line": 1826,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "Webサイトで背景画像を固定表示させるためにCSSで指定するプロパティは何ですか？",
+    "aiCategory": "html"
+  },
+  "パララックス（背景固定）の仕組み": {
+    "title": "パララックス（背景固定）の仕組み",
+    "line": 1872,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "背景画像を画面に張り付けたまま、手前のコンテンツだけを動かす手法を何と呼ぶ？",
+    "aiCategory": "その他"
+  },
+  "パララックス　背面に固定画像　前面にながれすスクロール": {
+    "title": "パララックス　背面に固定画像　前面にながれすスクロール",
+    "line": 1871,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "パララックスにおいて、背面に画像を固定し、前面をスクロールさせる手法は何と呼びますか？",
+    "aiCategory": "その他"
+  },
+  "パララックス　背面に固定画像　前面にながれすスクロール　作り方": {
+    "title": "パララックス　背面に固定画像　前面にながれすスクロール　作り方",
+    "line": 1921,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "背面に画像を固定し、前面に流れるスクロールを配置する「パララックス」の作り方は？",
+    "aiCategory": "その他"
+  },
+  "背景を固定にして文字を通過させる": {
+    "title": "背景を固定にして文字を通過させる",
+    "line": 1974,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "Webサイトで背景を固定したまま文字をスクロールで通過させる手法は何と呼ばれますか？",
+    "aiCategory": "その他"
+  },
+  "パララックス（背景固定）の作り方": {
+    "title": "パララックス（背景固定）の作り方",
+    "line": 1922,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "背景画像を画面に固定し、スクロール時に奥の景色が流れるような効果を出す手法を何と呼ぶ？",
+    "aiCategory": "html"
+  },
+  "背景固定で文字を通過させる手順": {
+    "title": "背景固定で文字を通過させる手順",
+    "line": 1975,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSで背景を固定したまま文字をスクロールさせる際に使用するプロパティは何ですか？",
+    "aiCategory": "html"
+  },
+  "トップの画面を固定にして、その下のセクションをスクロールするときに、裏の画面をのこして、重ねて表示させる。　詳細は　./その他/疑問・ソーステストあり md を参照": {
+    "title": "トップの画面を固定にして、その下のセクションをスクロールするときに、裏の画面をのこして、重ねて表示させる。　詳細は　./その他/疑問・ソーステストあり md を参照",
+    "line": 2366,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "トップ画面を固定したまま、下のセクションを重ねてスクロール表示させるCSSの手法は？",
+    "aiCategory": "その他"
+  },
+  "ホバーした要素にアンダーラインをつける": {
+    "title": "ホバーした要素にアンダーラインをつける",
+    "line": 2260,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSでホバーした要素にアンダーラインをつけるには、擬似要素をどのように設定しますか？",
     "aiCategory": "html"
   },
   "_meta": {

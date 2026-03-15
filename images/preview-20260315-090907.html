@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>clip-pathとz-indexの関係</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.header {
+  background: #5A8FC4;
+  color: white;
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.question-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.content-section {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.answer-box {
+  background: #f0f7ff;
+  border-left: 4px solid #5A8FC4;
+  padding: 20px;
+  margin: 20px 0;
+  font-weight: 600;
+  color: #5A8FC4;
+}
+
+.explanation {
+  margin: 20px 0;
+  font-size: 15px;
+}
+
+.demo-container {
+  margin: 30px 0;
+}
+
+.demo-title {
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #5A8FC4;
+}
+
+.svg-demo {
+  width: 100%;
+  max-width: 700px;
+  margin: 20px auto;
+  display: block;
+}
+
+.code-block {
+  position: relative;
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 6px;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+
+.code-block pre {
+  margin: 0;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.copy-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #5A8FC4;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.copy-button:hover {
+  background: #4a7fb4;
+}
+
+.copy-button:active {
+  background: #3a6f9f;
+}
+
+/* アニメーション */
+@keyframes stackingContext {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.stacking-highlight {
+  animation: stackingContext 2s ease-in-out infinite;
+}
+
+@keyframes isolate {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.isolated-group {
+  animation: isolate 2.5s ease-in-out infinite;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="question-tag">深掘り質問</div>
+    <h1>親要素に clip-path を使うと、なぜ子要素の z-index が効かなくなるのですか？</h1>
+  </div>
+
+  <div class="content-section">
+    <div class="answer-box">
+      答え：clip-path が新しい箱（スタッキングコンテキスト）を作るから
+    </div>
+
+    <div class="explanation">
+      <strong>説明：</strong><br>
+      <code>clip-path</code> を使うと、親要素が新しい「重なり順のグループ（スタッキングコンテキスト）」を形成します。子要素の重なり順は、そのグループの中でしか管理されないため、親要素の外にある他の要素との重なり順には影響を与えられません。
+    </div>
+
+    <div class="demo-container">
+      <div class="demo-title">■ 視覚的な仕組み</div>
+      
+      <svg class="svg-demo" viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg">
+        <!-- 背景グリッド -->
+        <defs>
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e0e0e0" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+        <rect width="700" height="400" fill="url(#grid)"/>
+        
+        <!-- グローバルスタッキングコンテキスト -->
+        <rect x="50" y="30" width="600" height="340" fill="none" stroke="#999" stroke-width="2" stroke-dasharray="5,5" rx="5"/>
+        <text x="60" y="55" font-size="14" fill="#666">グローバルスタッキングコンテキスト</text>
+        
+        <!-- clip-pathを持つ親要素 -->
+        <g class="isolated-group">
+          <rect x="100" y="100" width="250" height="220" fill="#5A8FC4" opacity="0.2" stroke="#5A8FC4" stroke-width="3" rx="5"/>
+          <text x="115" y="125" font-size="13" font-weight="bold" fill="#5A8FC4">親要素 (clip-path適用)</text>
+          <text x="115" y="145" font-size="11" fill="#5A8FC4">→ 新しいスタッキングコンテキスト生成</text>
+          
+          <!-- 子要素1 -->
+          <rect x="130" y="170" width="120" height="60" fill="#66BB6A" opacity="0.8" stroke="#333" stroke-width="2" rx="3"/>
+          <text x="150" y="195" font-size="12" fill="white">子要素A</text>
+          <text x="145" y="215" font-size="11" fill="white">z-index: 10</text>
+          
+          <!-- 子要素2 -->
+          <rect x="180" y="210" width="120" height="60" fill="#FFA726" opacity="0.8" stroke="#333" stroke-width="2" rx="3"/>
+          <text x="200" y="235" font-size="12" fill="white">子要素B</text>
+          <text x="195" y="255" font-size="11" fill="white">z-index: 100</text>
+          
+          <!-- 境界線 -->
+          <line x1="100" y1="330" x2="350" y2="330" stroke="#5A8FC4" stroke-width="2"/>
+          <text x="160" y="350" font-size="10" fill="#5A8FC4">この境界を越えられない</text>
+        </g>
+        
+        <!-- 外部要素 -->
+        <g class="stacking-highlight">
+          <rect x="380" y="180" width="240" height="120" fill="#EF5350" opacity="0.7" stroke="#333" stroke-width="2" rx="3"/>
+          <text x="430" y="230" font-size="12" fill="white">外部要素</text>
+          <text x="420" y="250" font-size="11" fill="white">z-index: 5</text>
+          <text x="390" y="280" font-size="10" fill="white">→ 子要素のz-indexより低くても</text>
+          <text x="405" y="295" font-size="10" fill="white">親要素との比較で決まる</text>
+        </g>
+        
+        <!-- 矢印と説明 -->
+        <path d="M 350 240 L 380 240" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+            <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <div class="code-block">
+      <button class="copy-button" onclick="copyCode(this)">コピー</button>
+      <pre><code>&lt;!-- clip-pathが新しいスタッキングコンテキストを作る例 --&gt;
+&lt;div class="parent" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);"&gt;
+  &lt;div class="child" style="z-index: 9999;"&gt;
+    この要素は親の外には出られない
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="outside" style="z-index: 1;"&gt;
+  この要素が上に表示される可能性がある
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="explanation">
+      <strong>重要ポイント：</strong><br>
+      子要素の <code>z-index</code> がいくら大きくても、親要素が作った「箱」の外には影響しません。外部要素との重なり順は、親要素のレベルで決定されます。
+    </div>
+  </div>
+</div>
+
+<script>
+function copyCode(button) {
+  const codeBlock = button.nextElementSibling;
+  const code = codeBlock.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    button.textContent = 'コピー完了！';
+    setTimeout(() => {
+      button.textContent = 'コピー';
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

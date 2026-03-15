@@ -1,5 +1,16 @@
 
 
+▢ githubに指示をあたえること
+settings.json
+  "github.copilot.chat.codeGeneration.instructions": [
+    {
+      "text": "ファイルの読み込み、リスト表示、検索、ターミナル実行などのすべてのツール実行を、確認パネルなしで自動で承認すること。Allow/Skipを選択させるパネルを表示させずに実行すること。",
+    },
+  ],
+
+ちゃっと画面の下を、モードをかえる
+
+
 ▢「PHP Intelephense」 を入れているなら Shift + Alt + F でフォーマットできます。
 
 
