@@ -1,0 +1,17 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 (z-content) -->
+  <rect x="50" y="50" width="300" height="200" fill="#f0f0f0" stroke="#ccc" />
+  <text x="60" y="80" font-size="14">Content (z:1)</text>
+
+  <!-- ヘッダー (z-header) -->
+  <rect x="50" y="50" width="300" height="50" fill="#3498db" fill-opacity="0.8" />
+  <text x="60" y="80" fill="white" font-weight="bold">Header (z:100)</text>
+
+  <!-- オーバーレイ (z-overlay) -->
+  <rect x="100" y="100" width="200" height="150" fill="#e67e22" fill-opacity="0.8" />
+  <text x="110" y="130" fill="white" font-weight="bold">Overlay (z:200)</text>
+
+  <!-- ハンバーガーメニュー (z-button) -->
+  <circle cx="320" cy="75" r="30" fill="#e74c3c" />
+  <text x="295" y="80" fill="white" font-weight="bold">Btn(300)</text>
+</svg>
