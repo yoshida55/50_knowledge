@@ -1,4 +1,4 @@
-# 📌 `transition` vs `animation` ― CSSアニメーションの使い分け
+﻿# 📌 `transition` vs `animation` ― CSSアニメーションの使い分け
 
 【結論】
 - `transition`：A→B の**直線的な変化**を滑らかにする「演出方法」の設定
@@ -13967,3 +13967,292 @@ elativeは「親の目印（基準点）」として使うのがメイン。
 ```
 
 ※指定しない場合、ブラウザは「元の場所（auto）」として扱います。
+
+---
+---
+## 📌 WordPress 条件分岐とヘッダーの読み込み
+
+【2026/03/15 記録】
+
+### 💡 結論
+- **header.php は全ページで自動的に読み込まれる**ため、functions.php で if 文による条件分岐（門番）を作る必要はない。
+- WordPressに is_header_page() という関数は存在しない。
+
+### 🛠️ 仕組みの図解
+全ページ ➡ [ header.php ] ➡ 自動で読み込み ＝ if文（門番）不要！
+
+### 🎯 具体的な知識
+1. **ページの種類で判断する場合**
+   - トップページなら is_front_page()
+   - 投稿詳細ページなら is_single()
+   - 固定ページなら is_page('slug')
+
+2. **ヘッダーの扱い**
+   - header.php はテンプレートの基本構造として全ページ共通で読み込まれる。
+   - wp_enqueue_style('header', ...) は if で囲まずに書くのが正解。
+
+### ⚠ 注意点
+- if (is_header_page) と書くと、PHPは未定義の「定数」として扱おうとしてエラーや警告の原因になる。必ず標準の条件分岐タグ（関数）を使うこと。
+---
+---
+## 📌 Loopと引取のタイミング
+
+【2026/03/15 記録】
+
+### 💡 結論
+- **情報の表示は必ず `the_post()` の後に書く。** 記事の「箱」を開ける前に中身（タイトルや画像）を取り出すことはできない。
+- **テンプレートには優先順位がある。** `archive.php` などの「専用の服」がある場合、`index.php`（予備の服）をいくら直しても画面は変わらない。
+
+### 🛠️ 仕組みの図解
+`1. have_posts()（あ、記事の箱がある！）`
+  ➡
+`2. while (have_posts())（全部出すまで回すぞ）`
+  ➡
+`3. the_post() （各記事を1つずつ順番に取り出す作業）`
+  ➡
+`4. the_title() / the_post_thumbnail()（取り出した記事の情報を表示！）`
+
+### 🎯 具体的な知識
+1. **なぜループの「外」では画像が出ないのか？**
+   - ループの外（1行目など）では「どの記事か」が決まっていないため、WordPressが情報を引っ張ってこれない。
+
+
+2. **テンプレート優先順位（テンプレート階層）**
+   - `archive.php` (一覧専用) ＞ `index.php` (予備・最後の砦)
+   - `single.php` (詳細専用) ＞ `index.php`
+
+### ⚠ 注意点
+- **if文のコロン `:` と `endif;`**
+  - WordPressテンプレートでは `{ }` の代わりに `:` を使う。これは「ドアを開ける」合図。最後は必ず `endif;`（または `endwhile;`）で閉めるべし。
+---
+
+## 📌 WordPress関数は動詞で役割が決まる → the_=表示、get_=取得(echo必要)、has_/is_=判定(ifで使う)、add_=登録　WordPress、php関数メソッドの黄金ルール
+
+【日付】2026-03-15
+【結論】
+- `the_` は「出す」 → そのまま画面に表示される（echoいらない）
+- `get_` は「取ってくる」だけ → 取得した値をechoしないと画面に出ない
+- `get_the_` は記事データを取得する `get_` の仲間 → echoが必要（「ざ」がつく例外）
+- `has_` は「持ってる？」→ ある/なしをtrue/falseで返す（if の条件に使う）
+- `is_` は「〇〇ページ？」→ ページ種別をtrue/falseで返す（if の条件に使う）
+- `add_` は「登録する」→ functions.phpでWordPressに機能を追加するときに使う
+
+【具体例】
+```php
+// the_ → そのまま表示される（echoいらない）
+<?php the_title(); ?>
+<?php the_date('Y.n.j'); ?>
+<?php the_content(); ?>
+<?php the_permalink(); ?>
+
+// get_the_ → 取得だけ。表示にはechoが必要
+<?php echo get_the_title(); ?>
+<?php echo get_the_date('Y.n.j'); ?>
+
+// get_ → 取得だけ。表示にはechoが必要
+<?php echo get_theme_file_uri('/img/news.jpg'); ?>
+<?php echo get_template_directory_uri(); ?>
+
+// has_ → ある？ない？ → if の条件に使う
+<?php if (has_post_thumbnail()): ?>
+
+// is_ → 〇〇ページ？ → if の条件に使う
+<?php if (is_single()): ?>
+<?php if (is_archive()): ?>
+
+// add_ → WordPressに機能を登録する（functions.phpで使う）
+add_action('wp_enqueue_scripts', 'enqueue_style');
+add_theme_support('post-thumbnails');
+```
+
+【補足】
+- ⚠ 間違えやすい：`the_` は表示まで自動、`get_` は取得だけ → echoを忘れやすい
+- 💡 つまり：動詞を見れば「echoが必要かどうか」がわかる
+- 【関連】→ 「get_template_directory_uri」で検索（画像パスの取得方法）
+---
+
+### WordPress関数ルール
+- **the_**：画面にそのまま出す。`echo`は書かない。
+- **get_** / **get_the_**：データを持ってくるだけ。画面に出すなら`echo`が必要。
+- **has_** / **is_**：あるか？どうか？を調べる。`if`文の条件で使う。
+- **add_**：WordPressに新しいルールや機能を追加する。主に`functions.php`で使う。
+
+```php
+// 表示する（the_）
+<?php the_title(); ?>
+
+// 取得して表示する（get_the_）
+<?php echo get_the_title(); ?>
+
+// 条件で分ける（has_ / is_）
+<?php if (has_post_thumbnail()): ?>
+  画像があるときの処理
+<?php endif; ?>
+
+<?php if (is_home()): ?>
+  トップページのときの処理
+<?php endif; ?>
+
+// 機能を追加する（add_）
+<?php add_theme_support('title-tag'); ?>
+```
+
+## CSS :not(:last-child) → 最後の要素だけマージンを消したいとき使う（最後以外に当てる）
+【日付】2026-03-15
+【結論】
+`:not()` は「〇〇以外」という条件を付けられる擬似クラス（CSS の仕組み）。
+リストなどで最後だけ `margin-bottom` をなくしたいときに1行で書ける。
+末尾に余計な余白が出るバグを防ぐのによく使う。
+
+【具体例】
+```css
+/*
+  構造:
+  <ul .リスト>
+    <li .アイテム> 内容  ← 兄弟が並ぶ
+    <li .アイテム> 内容
+    <li .アイテム> 内容  ← 最後だけmargin-bottom不要
+*/
+
+/* 最後以外にだけ margin-bottom を付ける */
+.アイテム:not(:last-child) {
+  margin-bottom: 3rem;
+}
+
+/* 応用：最初以外 */
+.アイテム:not(:first-child) { ... }
+
+/* 応用：特定クラスがない要素 */
+.btn:not(.disabled) { ... }
+
+/* 応用：最初と最後以外 */
+.アイテム:not(:first-child):not(:last-child) { ... }
+```
+
+【補足】
+- ⚠ `:last-child` は「最後の子要素」、`:first-child` は「最初の子要素」
+- `:not()` の中には擬似クラスだけでなくクラス名も入れられる
+- 💡 つまり：「最後だけスタイルを外したい」ときは `:not(:last-child)` が定番
+
+### :last-child と :last-of-type の違い（後ろに別タグがあるとき）
+【日付】2026-03-16
+- `:last-child` → 親の子要素**すべて**の中で最後 → 後ろに `<nav>` などがあると効かない
+- `:last-of-type` → **同じタグ種類**の中で最後 → 後ろに別タグがあっても正しく効く
+
+```css
+/* <a> の後ろに <nav> があっても最後の <a> だけ除外できる */
+.news_item:not(:last-of-type) {
+  margin-bottom: 3rem;
+}
+```
+
+構造：`.クラス名:not(:last-of-type)` ← コロン1つで擬似クラス、:not()の中にも擬似クラス
+
+### コロン1つ（:）と2つ（::）の違い＋nth-child比較
+【日付】2026-03-16
+
+| 種類 | 記号 | 例 | 意味 |
+|---|---|---|---|
+| 擬似クラス | `:` コロン1つ | `:last-child` | 状態・位置の条件 |
+| 擬似要素 | `::` コロン2つ | `::before` | HTMLにない要素を生成 |
+
+**よく使う擬似クラス（コロン1つ）**
+```css
+:last-child        /* 親の中で最後の子 */
+:last-of-type      /* 同じタグの中で最後 */
+:first-child       /* 親の中で最初の子 */
+:nth-child(2)      /* 親の中で2番目の子 */
+:nth-child(odd)    /* 奇数番目 */
+:nth-child(even)   /* 偶数番目 */
+:not(.disabled)    /* .disabledでない要素 */
+:hover             /* マウスが乗っているとき */
+```
+
+**よく使う擬似要素（コロン2つ）**
+```css
+::before           /* 要素の前にコンテンツを追加 */
+::after            /* 要素の後にコンテンツを追加 */
+::placeholder      /* inputのプレースホルダー */
+```
+
+
+
+### 最後だけマージンボトムをかけない
+### 「最後だけマージンボトムを消す」方法
+
+*   **考え方**：「最後以外の要素すべて」に `margin-bottom` を指定する。
+*   **使う命令**：`:not(:last-child)` （〜以外という意味）。
+
+#### コード例
+```css
+/* リストの中の「一番最後ではないもの」だけに余白をつける */
+li:not(:last-child) {
+  margin-bottom: 20px;
+}
+```
+
+#### なぜこれを使うのか？
+*   **余計な余白が消える**：普通に全部の要素に `margin-bottom` をつけると、一番下の要素の下にも無駄な隙間ができてしまいます。これを使うと、最後だけ自動的に隙間が消えます。
+*   **管理が楽**：あとからリストの数が増えたり減ったりしても、自動で最後を判断してくれるので修正がいりません。
+
+### 最後の要素以外、プロパティをあてる
+最後の要素以外にスタイルを当てる方法は、`.クラス名:not(:last-child)` を使います。
+
+### 基本の書き方
+リストなどで、最後以外の要素だけに余白（margin）をつけたい場合に使います。
+
+```css
+.item:not(:last-child) {
+  margin-bottom: 10px;
+}
+```
+
+### 要素の種類が混ざっている場合
+リストの中に違うタグが混ざっているときは、`:last-of-type` を使います。これを使うと「同じ種類のタグの中で最後以外」に適用できます。
+
+```css
+/* <a> タグが混ざっていても、<a> の中での最後以外に適用される */
+a:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+```
+
+### ポイント
+*   **`:not()`**：かっこ内を「除外する」という意味。
+*   **`:last-child`**：親要素の中にある、すべての要素の中で最後を指す。
+*   **`:last-of-type`**：同じ種類のタグの中で最後を指す。
+*   コロンは1つ（`:`）でOK。
+## CSS flex内でmargin: autoを使うと → 余白が自動で均等配分されて子要素が中央に寄る
+【日付】2026-03-16
+【結論】
+flex の子要素に `margin: auto` を書くと、**余った空間を左右（または上下）に均等に割り振る**。
+`justify-content: center` との違いは「1つの子要素だけ中央に寄せたい」ときに使いやすい点。
+
+【具体例】
+```css
+/*
+  構造:
+  <a .news_item>           ← display: flex の親
+    <img .news_img>        ← 左寄せのまま
+    <div .news_info>       ← ここだけ中央に寄せたい
+*/
+
+.news_item {
+  display: flex;
+  align-items: center;
+}
+
+.news_info {
+  margin: auto; /* 左右の余白を自動で均等に → 中央に寄る */
+}
+```
+
+図解:
+[ news_img ]  [  余白  ]  [ news_info ]  [  余白  ]
+                  ↑ margin: auto が余白を左右均等に確保
+
+【補足】
+- ⚠ `margin: auto` は上下左右すべてに効く。上下だけ不要なら `margin: 0 auto;` にする
+- ⚠ flex 外（通常のブロック要素）では上下 `margin: auto` は効かない
+- 💡 つまり：flex の中では `margin: auto` が「余白の分配器」として使える
+【関連】→ 「:not(:last-child)」で検索（最後以外にmarginをつける書き方）

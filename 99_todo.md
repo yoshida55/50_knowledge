@@ -1,3 +1,39 @@
+▢ 1. Copilot の補完をOFF
+右下の Copilot アイコンをクリック
+
+
+▢
+Inline Suggestions
+☑ All files   → チェックを外す
+☑ PHP         → チェックを外す
+2. グローバルスニペットを登録
+Ctrl + Shift + P → Configure User Snippets → New Global Snippets File
+
+ファイル名: wordpress
+
+以下をコピペ：
+
+
+{
+	"PHPタグ": {
+		"prefix": "ph",
+		"body": ["<?php ${1} ?>"],
+		"description": "PHPタグ"
+	},
+	"WP ifコロン分岐": {
+		"prefix": "pif",
+		"body": [
+			"<?php if (${1:条件}): ?>",
+			"\t${2}",
+			"<?php else: ?>",
+			"\t${3}",
+			"<?php endif; ?>"
+		],
+		"description": "WordPressのif分岐（コロン形式）"
+	}
+}
+以上2つだけです！
+
 
 
 ▢ githubに指示をあたえること
@@ -21,7 +57,8 @@ settings.json
 Permission Mode を探して bypassPermissions に変更してみてください。
 
 
-
+-----------------------------------------------------
+【自宅】
 
 ▢　複数検索対象候補があったら　見出しに★があるのを優先する。なお検索結果にも★をつける
 
