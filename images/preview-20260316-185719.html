@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordPress 固定ページの仕組み</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+            background: #EBF1F6;
+            color: #333;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(90, 143, 196, 0.15);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #5A8FC4 0%, #4a7fb4 100%);
+            color: #fff;
+            padding: 32px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section h2 {
+            color: #5A8FC4;
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #5A8FC4;
+        }
+        .flow-diagram {
+            margin: 30px 0;
+        }
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+            margin: 20px 0;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #5A8FC4;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        .copy-btn:hover {
+            background: #4a7fb4;
+        }
+        .point-list {
+            background: #f8fbfd;
+            border-left: 4px solid #5A8FC4;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .point-list li {
+            margin: 12px 0;
+            padding-left: 8px;
+        }
+        .point-list strong {
+            color: #5A8FC4;
+        }
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes flowStep {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        .flow-step {
+            animation: flowStep 3s ease-in-out infinite;
+        }
+        .flow-step:nth-child(2) {
+            animation-delay: 1s;
+        }
+        .flow-step:nth-child(3) {
+            animation-delay: 2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>WordPress 固定ページの仕組み</h1>
+        </div>
+        <div class="content">
+            <div class="section">
+                <h2>📊 データの流れ</h2>
+                <div class="flow-diagram">
+                    <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- 管理画面 -->
+                        <g class="flow-step">
+                            <rect x="50" y="30" width="180" height="80" rx="8" fill="#5A8FC4"/>
+                            <text x="140" y="60" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">管理画面</text>
+                            <text x="140" y="85" text-anchor="middle" fill="#fff" font-size="14">タイトル: About</text>
+                            <text x="140" y="105" text-anchor="middle" fill="#fff" font-size="14">本文: ...</text>
+                        </g>
+                        
+                        <!-- 矢印1 -->
+                        <path d="M 230 70 L 290 70" stroke="#5A8FC4" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                        <text x="260" y="60" text-anchor="middle" fill="#5A8FC4" font-size="13">保存</text>
+                        
+                        <!-- DB -->
+                        <g class="flow-step">
+                            <rect x="290" y="30" width="180" height="80" rx="8" fill="#4a7fb4"/>
+                            <circle cx="380" cy="50" r="8" fill="#fff"/>
+                            <circle cx="380" cy="70" r="8" fill="#fff"/>
+                            <circle cx="380" cy="90" r="8" fill="#fff"/>
+                            <text x="380" y="105" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">DB</text>
+                        </g>
+                        
+                        <!-- 矢印2 -->
+                        <path d="M 380 110 L 380 170" stroke="#5A8FC4" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                        <text x="410" y="145" fill="#5A8FC4" font-size="13">読み込み</text>
+                        
+                        <!-- PHPファイル -->
+                        <g class="flow-step">
+                            <rect x="290" y="170" width="180" height="100" rx="8" fill="#5A8FC4"/>
+                            <text x="380" y="195" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">page-about.php</text>
+                            <text x="380" y="220" text-anchor="middle" fill="#fff" font-size="13" font-family="monospace">&lt;?php the_title(); ?&gt;</text>
+                            <text x="380" y="240" text-anchor="middle" fill="#fff" font-size="13" font-family="monospace">&lt;?php the_content(); ?&gt;</text>
+                            <text x="380" y="260" text-anchor="middle" fill="#E8F4FF" font-size="11">※自分で作成</text>
+                        </g>
+                        
+                        <!-- 矢印3 -->
+                        <path d="M 470 220 L 530 220" stroke="#5A8FC4" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                        <text x="500" y="210" text-anchor="middle" fill="#5A8FC4" font-size="13">表示</text>
+                        
+                        <!-- URL -->
+                        <g>
+                            <rect x="530" y="180" width="220" height="80" rx="8" fill="#f8fbfd" stroke="#5A8FC4" stroke-width="2"/>
+                            <text x="640" y="210" text-anchor="middle" fill="#5A8FC4" font-size="15" font-weight="bold">アクセス: /about/</text>
+                            <text x="640" y="235" text-anchor="middle" fill="#666" font-size="13">→ page-about.php</text>
+                            <text x="640" y="255" text-anchor="middle" fill="#666" font-size="13">が自動で使われる</text>
+                        </g>
+                        
+                        <!-- 矢印定義 -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#5A8FC4"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📌 重要ポイント</h2>
+                <ul class="point-list">
+                    <li><strong>DBに保存される</strong> → PHPファイルは自動で作られない</li>
+                    <li><strong>テンプレートは自分で作る</strong> → <code>page-{スラッグ}.php</code> をテーマに配置</li>
+                    <li><strong>命名規則が重要</strong> → スラッグが <code>about</code> なら <code>page-about.php</code></li>
+                    <li><strong>自動マッチング</strong> → URL <code>/about/</code> と <code>page-about.php</code> が自動で紐づく</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>💻 実装例</h2>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+                    <pre>&lt;?php
+/**
+ * Template Name: About Page
+ * page-about.php
+ */
+get_header(); ?&gt;
+
+&lt;main class="page-content"&gt;
+    &lt;?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?&gt;
+        
+        &lt;h1&gt;&lt;?php the_title(); ?&gt;&lt;/h1&gt;
+        
+        &lt;div class="entry-content"&gt;
+            &lt;?php the_content(); ?&gt;
+        &lt;/div&gt;
+        
+    &lt;?php endwhile; endif; ?&gt;
+&lt;/main&gt;
+
+&lt;?php get_footer(); ?&gt;</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyCode(btn) {
+            const code = btn.nextElementSibling.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'コピー完了!';
+                setTimeout(() => {
+                    btn.textContent = 'コピー';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
