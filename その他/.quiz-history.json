@@ -1217,16 +1217,11 @@
   "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）": {
     "title": "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）",
     "line": 0,
-    "lastReviewed": 1773611904543,
-    "reviewCount": 8,
+    "lastReviewed": 1773467835139,
+    "reviewCount": 2,
     "aiCategory": "html",
     "questionText": "Flexboxの子要素が中身の幅によって親要素からはみ出してしまうのを防ぐプロパティは？",
-    "hiddenFromList": true,
-    "evaluations": [
-      3,
-      3
-    ],
-    "lastAnsweredDate": "2026-03-15"
+    "hiddenFromList": true
   },
   "📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）": {
     "title": "📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）",
@@ -1238,15 +1233,13 @@
   "📌 JSでアロー関数の`this`はwindowになる（e.targetを使え）": {
     "title": "📌 JSでアロー関数の`this`はwindowになる（e.targetを使え）",
     "line": 0,
-    "lastReviewed": 1773610042304,
-    "reviewCount": 4,
+    "lastReviewed": 1773504688777,
+    "reviewCount": 1,
     "aiCategory": "wordpress/php",
     "questionText": "JavaScriptのアロー関数内でイベントが発生した要素を取得するために使うプロパティは？",
     "evaluations": [
-      1,
-      3
-    ],
-    "lastAnsweredDate": "2026-03-15"
+      1
+    ]
   },
   "📌 querySelectorAllで複数要素にイベントをつける（forEachが必要）": {
     "title": "📌 querySelectorAllで複数要素にイベントをつける（forEachが必要）",
@@ -3188,16 +3181,15 @@
   "WordPressで作業をして、設定の更新ボタンをおさないと反映されないものは？": {
     "title": "WordPressで作業をして、設定の更新ボタンをおさないと反映されないものは？",
     "line": 0,
-    "lastReviewed": 1773611940463,
-    "reviewCount": 9,
+    "lastReviewed": 1773507687499,
+    "reviewCount": 6,
     "aiCategory": "wordpress/php",
     "questionText": "WordPressにおいて変更内容を保存するために押す必要があるボタンの総称は？",
     "evaluations": [
       3,
-      2,
-      3
+      2
     ],
-    "lastAnsweredDate": "2026-03-15"
+    "lastAnsweredDate": "2026-03-14"
   },
   "📌 WordPress テーマのフォルダ構造（img・css・jsの役割）": {
     "title": "📌 WordPress テーマのフォルダ構造（img・css・jsの役割）",
@@ -3235,8 +3227,7 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "WordPressでカスタム投稿タイプごとの一覧・詳細ページを作成する際、ファイル名はどう命名する？"
+    "aiCategory": "wordpress/php"
   },
   "テンプレートファイルとは": {
     "title": "テンプレートファイルとは",
@@ -3286,8 +3277,7 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "WordPressのHTML内で画像を表示する際、テーマフォルダまでの正しいURLを取得する関数は何？"
+    "aiCategory": "wordpress/php"
   },
   "画像をｐｈｐで表示させたときどうすればいいか？": {
     "title": "画像をｐｈｐで表示させたときどうすればいいか？",
@@ -3301,8 +3291,7 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "WordPressのテーマディレクトリ内にある画像を表示するためのHTMLの書き方は？"
+    "aiCategory": "wordpress/php"
   },
   "なぜこれが必要か": {
     "title": "なぜこれが必要か",
@@ -3323,16 +3312,14 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "WordPressでスラッグを「about」と設定した際、自動的に適用されるテンプレートファイル名は何ですか？"
+    "aiCategory": "wordpress/php"
   },
   "パーマリンク（Permalink）の要点まとめ": {
     "title": "パーマリンク（Permalink）の要点まとめ",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "Webサイトの各ページに割り当てられる、永続的で変わらないURLのことを何と呼ぶ？"
+    "aiCategory": "wordpress/php"
   },
   "コードでのイメージ": {
     "title": "コードでのイメージ",
@@ -3431,8 +3418,7 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "WordPressで標準のjQueryを利用するためにfunctions.phpへ記述すべき関数は何ですか？"
+    "aiCategory": "wordpress/php"
   },
   "📌 CSS Grid で display: grid を使うと grid-template-columns で横列を定義でき、縦行は grid-template-rows で制御できる（Flexと違い縦横同時に制御可能）": {
     "title": "📌 CSS Grid で display: grid を使うと grid-template-columns で横列を定義でき、縦行は grid-template-rows で制御できる（Flexと違い縦横同時に制御可能）",
@@ -3446,8 +3432,7 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他",
-    "questionText": "各プロジェクトで作業に時間がかかったところはどこですか？"
+    "aiCategory": "その他"
   },
   "📌 VSCodeでPHPファイルを自動フォーマットするには → 拡張機能インストール + settings.jsonにデフォルトフォーマッター指定が必要（拡張機能だけでは動かない）": {
     "title": "📌 VSCodeでPHPファイルを自動フォーマットするには → 拡張機能インストール + settings.jsonにデフォルトフォーマッター指定が必要（拡張機能だけでは動かない）",
@@ -3545,8 +3530,7 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "html",
-    "questionText": "親要素がスタッキングコンテキストを作っている時、子要素を親の重なり順から外に出すにはどうすればいい？"
+    "aiCategory": "html"
   },
   "スタッキングコンテキストで、ほかの箱を唯一超える方法は？": {
     "title": "スタッキングコンテキストで、ほかの箱を唯一超える方法は？",
@@ -3658,8 +3642,7 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "その他",
-    "questionText": "TEST highlightとはどのような機能ですか？"
+    "aiCategory": "その他"
   },
   "📌 archive.phpのthe_permalink() → 個別記事URLを出し、そのURLを開いたときに WordPress が single.php を選ぶ⇁「要するに」にarchive.phpにおいて、パーマリンクは詳細ページ記事のURLをだすということ": {
     "title": "📌 archive.phpのthe_permalink() → 個別記事URLを出し、そのURLを開いたときに WordPress が single.php を選ぶ⇁「要するに」にarchive.phpにおいて、パーマリンクは詳細ページ記事のURLをだすということ",
@@ -3673,24 +3656,21 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "WordPressのarchive.phpのループで表示される「いろいろな記事」は、どこから取得されたものですか？"
+    "aiCategory": "wordpress/php"
   },
   "📌 WordPressでCSSファイルをページごとに分けると同じクラス名が競合する → クラス名の頭にページ名を付けて区別する（news_title / single_title など）": {
     "title": "📌 WordPressでCSSファイルをページごとに分けると同じクラス名が競合する → クラス名の頭にページ名を付けて区別する（news_title / single_title など）",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "WordPressでCSSをページごとに分けてもクラス名が競合するのはなぜ？"
+    "aiCategory": "wordpress/php"
   },
   "📌 functions.phpに add_theme_support('post-thumbnails') を書くとアイキャッチ（サムネイル）が有効になる → 書かないと管理画面にアイキャッチ設定欄が出ない": {
     "title": "📌 functions.phpに add_theme_support('post-thumbnails') を書くとアイキャッチ（サムネイル）が有効になる → 書かないと管理画面にアイキャッチ設定欄が出ない",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "WordPressの管理画面にアイキャッチ画像の設定欄を表示させるには、functions.phpに何と記述しますか？"
+    "aiCategory": "wordpress/php"
   },
   "サムネイルを表示 function": {
     "title": "サムネイルを表示 function",
@@ -3746,24 +3726,21 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "PHPの構文で、endwhileに括弧（()）をつけるとエラーになるのはなぜですか？"
+    "aiCategory": "wordpress/php"
   },
   "📌 PHPとHTMLが混在したコードを複数行コメントにしたい → `/* */` は `<?php ?>` をまたげないので `if(false):` で囲む": {
     "title": "📌 PHPとHTMLが混在したコードを複数行コメントにしたい → `/* */` は `<?php ?>` をまたげないので `if(false):` で囲む",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "PHPとHTMLが混在したコードをコメントアウトする際、/* */を使わずに無効化する良い方法は？"
+    "aiCategory": "wordpress/php"
   },
   "📌 the_posts_pagination() を使うとWordPressが自動でクラスつきHTMLを出力する → 自分でクラスを書かずCSSで `.page-numbers` を指定するだけでいい": {
     "title": "📌 the_posts_pagination() を使うとWordPressが自動でクラスつきHTMLを出力する → 自分でクラスを書かずCSSで `.page-numbers` を指定するだけでいい",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "WordPressのthe_posts_pagination()が出力する要素をCSSで装飾する際、どのクラスを指定すればよい？"
+    "aiCategory": "wordpress/php"
   },
   "ページネーションメソッドから取得できるHTMLは？": {
     "title": "ページネーションメソッドから取得できるHTMLは？",
@@ -3777,16 +3754,14 @@
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "WordPressで記事にカテゴリーを付与するには、管理画面のどこで操作しますか？"
+    "aiCategory": "wordpress/php"
   },
   "📌 get_the_category() で記事のカテゴリー名を取得 → $category->cat_name で名前のみ、リンクは get_category_link() で別途つける": {
     "title": "📌 get_the_category() で記事のカテゴリー名を取得 → $category->cat_name で名前のみ、リンクは get_category_link() で別途つける",
     "line": 0,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "aiCategory": "wordpress/php",
-    "questionText": "get_the_category()で取得したカテゴリー名のみを表示し、個別にリンクを付与するにはどうすればよいですか？"
+    "aiCategory": "wordpress/php"
   },
   "返り値のイメージ": {
     "title": "返り値のイメージ",
@@ -3798,14 +3773,10 @@
   "📌 archive.php の get_the_category() で Uncategorized を除外したい → foreach だけだと条件に合うカテゴリを全部出す（最初の1件で break する）": {
     "title": "📌 archive.php の get_the_category() で Uncategorized を除外したい → foreach だけだと条件に合うカテゴリを全部出す（最初の1件で break する）",
     "line": 0,
-    "lastReviewed": 1773612225572,
-    "reviewCount": 2,
+    "lastReviewed": 1773152043996,
+    "reviewCount": 1,
     "aiCategory": "wordpress/php",
-    "questionText": "get_the_category関数で取得したカテゴリから特定のカテゴリを除外して最初の1件だけ表示するには？",
-    "evaluations": [
-      2
-    ],
-    "lastAnsweredDate": "2026-03-15"
+    "questionText": "get_the_category関数で取得したカテゴリから特定のカテゴリを除外して最初の1件だけ表示するには？"
   },
   "phpのforeachのかきかた": {
     "title": "phpのforeachのかきかた",
@@ -3900,14 +3871,12 @@
   "📌 パーマリンク更新が必要かどうかの判断基準 → URLが変わる操作のみ必要、single.phpなどのテンプレート変更は不要": {
     "title": "📌 パーマリンク更新が必要かどうかの判断基準 → URLが変わる操作のみ必要、single.phpなどのテンプレート変更は不要",
     "line": 10048,
-    "lastReviewed": 1773611961470,
-    "reviewCount": 5,
+    "lastReviewed": 1773236651375,
+    "reviewCount": 1,
     "questionText": "WordPressでパーマリンク設定の更新が必要となる操作の判断基準は？",
     "evaluations": [
-      2,
-      3
-    ],
-    "lastAnsweredDate": "2026-03-15"
+      2
+    ]
   },
   "📌 the_title() と get_the_title() の違い → 表示するか・変数に入れるかで使い分ける（ループで配列になる）": {
     "title": "📌 the_title() と get_the_title() の違い → 表示するか・変数に入れるかで使い分ける（ループで配列になる）",
@@ -4007,8 +3976,8 @@
   "4. :root 変数でz-index地獄を抜け出す": {
     "title": "4. :root 変数でz-index地獄を抜け出す",
     "line": 3223,
-    "lastReviewed": 1773611469743,
-    "reviewCount": 8,
+    "lastReviewed": 1773507725095,
+    "reviewCount": 7,
     "questionText": "z-indexの値を管理しやすくするために利用するCSSの機能は何ですか？",
     "evaluations": [
       2,
@@ -4016,10 +3985,9 @@
       2,
       2,
       2,
-      2,
       2
     ],
-    "lastAnsweredDate": "2026-03-15"
+    "lastAnsweredDate": "2026-03-14"
   },
   "★★★WordPress 開発テーマ開発の全体フロー　HTMLあり　それぞれのテンプレート事作成フロー★★★": {
     "title": "★★★WordPress 開発テーマ開発の全体フロー　HTMLあり　それぞれのテンプレート事作成フロー★★★",
@@ -4287,254 +4255,6 @@
     "lastReviewed": 0,
     "reviewCount": 0,
     "questionText": "CSSでホバーした要素にアンダーラインをつけるには、擬似要素をどのように設定しますか？",
-    "aiCategory": "html"
-  },
-  "コロン1つ（:）と2つ（::）の違い＋nth-child比較": {
-    "title": "コロン1つ（:）と2つ（::）の違い＋nth-child比較",
-    "line": 14151,
-    "lastReviewed": 1773609931257,
-    "reviewCount": 1,
-    "questionText": "CSSにおいて、コロン1つ（:）の擬似クラスとコロン2つ（::）の擬似要素の役割の違いは何ですか？",
-    "aiCategory": "html",
-    "evaluations": [
-      2
-    ],
-    "lastAnsweredDate": "2026-03-15"
-  },
-  ":last-child と :last-of-type の違い（後ろに別タグがあるとき）": {
-    "title": ":last-child と :last-of-type の違い（後ろに別タグがあるとき）",
-    "line": 14137,
-    "lastReviewed": 1773609873971,
-    "reviewCount": 1,
-    "questionText": "CSSで、後ろに別のタグがある場合でも、同じ種類のタグの最後だけを除外して指定できる疑似クラスは？",
-    "aiCategory": "html",
-    "evaluations": [
-      2
-    ],
-    "lastAnsweredDate": "2026-03-15"
-  },
-  "CSS flex内でmargin: autoを使うと → 余白が自動で均等配分されて子要素が中央に寄る": {
-    "title": "CSS flex内でmargin: autoを使うと → 余白が自動で均等配分されて子要素が中央に寄る",
-    "line": 14225,
-    "lastReviewed": 1773609946412,
-    "reviewCount": 1,
-    "questionText": "CSS flexの親要素の中で、子要素を中央に寄せるためにmargin: autoを使用するとどうなる？",
-    "aiCategory": "html",
-    "evaluations": [
-      2
-    ],
-    "lastAnsweredDate": "2026-03-15"
-  },
-  "[アロー関数のthisがwindowを指す理由：関数との違い]": {
-    "title": "[アロー関数のthisがwindowを指す理由：関数との違い]",
-    "line": 13750,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "アロー関数内でthisがwindowを指すのはなぜですか？",
-    "aiCategory": "その他"
-  },
-  "アロー関数内の`this`がwindowを指す理由：`this`の束縛の違い": {
-    "title": "アロー関数内の`this`がwindowを指す理由：`this`の束縛の違い",
-    "line": 13729,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "アロー関数内のthisがwindowを指すのは、通常の関数と何が異なるためですか？",
-    "aiCategory": "その他"
-  },
-  "カスタム投稿タイプ(枠) と カスタムフィールド(中身) の関係": {
-    "title": "カスタム投稿タイプ(枠) と カスタムフィールド(中身) の関係",
-    "line": 13855,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPressにおいて、専用メニューを作る機能である「カスタム投稿タイプ」とセットで使う、専用入力欄のことを何と呼ぶ？",
-    "aiCategory": "wordpress/php"
-  },
-  "clip-path適用親要素とz-index: 子要素のz-index無効化の原因": {
-    "title": "clip-path適用親要素とz-index: 子要素のz-index無効化の原因",
-    "line": 13801,
-    "lastReviewed": 1773612002666,
-    "reviewCount": 1,
-    "questionText": "clip-pathを適用した要素の子要素で、z-indexが無効化される原因は何ですか？",
-    "aiCategory": "html",
-    "evaluations": [
-      2
-    ],
-    "lastAnsweredDate": "2026-03-15"
-  },
-  "positionと位置指定(top/left)の要否 (2026/03/15)": {
-    "title": "positionと位置指定(top/left)の要否 (2026/03/15)",
-    "line": 13924,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "CSSでtopやleftなどの位置指定を機能させるために必要なプロパティは何ですか？",
-    "aiCategory": "html"
-  },
-  "[e.targetの活用：ホバー以外でのイベント対象要素取得]": {
-    "title": "[e.targetの活用：ホバー以外でのイベント対象要素取得]",
-    "line": 13739,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "JavaScriptにおいて、ホバー以外のイベントで操作された要素を特定する際に使われるプロパティは何ですか？",
-    "aiCategory": "その他"
-  },
-  "なぜ`:root`変数でz-index管理すると問題が起こりにくくなるのか？": {
-    "title": "なぜ`:root`変数でz-index管理すると問題が起こりにくくなるのか？",
-    "line": 13715,
-    "lastReviewed": 1773609993336,
-    "reviewCount": 3,
-    "questionText": "なぜCSSの:root変数でz-indexを管理すると問題が起こりにくくなるのか？",
-    "aiCategory": "html",
-    "evaluations": [
-      3
-    ],
-    "lastAnsweredDate": "2026-03-15"
-  },
-  "📌 nth-child で奇数・偶数を分けて margin-left/right: auto → ブロック要素が左右に交互に並ぶ階段状レイアウト　階段式": {
-    "title": "📌 nth-child で奇数・偶数を分けて margin-left/right: auto → ブロック要素が左右に交互に並ぶ階段状レイアウト　階段式",
-    "line": 13124,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "nth-childで奇数・偶数を分け、margin: autoを用いてブロック要素を階段状に並べる方法は？",
-    "aiCategory": "html"
-  },
-  "📌 WordPress関数は動詞で役割が決まる → the_=表示、get_=取得(echo必要)、has_/is_=判定(ifで使う)、add_=登録　WordPress、php関数メソッドの黄金ルール": {
-    "title": "📌 WordPress関数は動詞で役割が決まる → the_=表示、get_=取得(echo必要)、has_/is_=判定(ifで使う)、add_=登録　WordPress、php関数メソッドの黄金ルール",
-    "line": 14080,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPress関数において、値を画面に表示せず取得のみを行うためechoが必要な接頭辞は何ですか？",
-    "aiCategory": "wordpress/php"
-  },
-  "WordPress: カスタムフィールドの名前を変えたら、PHPコード内の名前も全部合わせて変える": {
-    "title": "WordPress: カスタムフィールドの名前を変えたら、PHPコード内の名前も全部合わせて変える",
-    "line": 13689,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPressでカスタムフィールドの名前を変更した際、PHPコード内で併せて行うべき作業は何ですか？",
-    "aiCategory": "wordpress/php"
-  },
-  "CSS :not(:last-child) → 最後の要素だけマージンを消したいとき使う（最後以外に当てる）": {
-    "title": "CSS :not(:last-child) → 最後の要素だけマージンを消したいとき使う（最後以外に当てる）",
-    "line": 14151,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "リストなどで最後の要素だけマージンを消したいとき、CSSのどの擬似クラスを使う？",
-    "aiCategory": "html"
-  },
-  "📅 最終更新": {
-    "title": "📅 最終更新",
-    "line": 12265,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "メモにおいて、いつ時点の情報を確認したいときに「最終更新」という項目を見ますか？",
-    "aiCategory": "その他"
-  },
-  "📌 背景を固定したいとき → セクションだけならsticky、下の全セクションを流すならfixed（親の範囲か画面全体かで選ぶ）背景に固定画像、前面にながれすスクロール　★★★": {
-    "title": "📌 背景を固定したいとき → セクションだけならsticky、下の全セクションを流すならfixed（親の範囲か画面全体かで選ぶ）背景に固定画像、前面にながれすスクロール　★★★",
-    "line": 4549,
-    "lastReviewed": 1773611238655,
-    "reviewCount": 0,
-    "questionText": "背景を固定したいとき、セクション内だけならsticky、画面全体に固定するなら何を使う？",
-    "aiCategory": "html",
-    "evaluations": [
-      1
-    ],
-    "lastAnsweredDate": "2026-03-15"
-  },
-  "★★★（main）WordPress ページネーション - paginate_links() 丸ボタン型（現在ページ黒塗り・spanタグ・CSS付き）ページネーションの作り方　〇　archive.phpに追加する　★★★": {
-    "title": "★★★（main）WordPress ページネーション - paginate_links() 丸ボタン型（現在ページ黒塗り・spanタグ・CSS付き）ページネーションの作り方　〇　archive.phpに追加する　★★★",
-    "line": 12885,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPressのarchive.phpで丸ボタン型のページネーションを作る際に使用する関数は何ですか？",
-    "aiCategory": "wordpress/php"
-  },
-  "📌 WordPressのページ作成方法の違い → 一覧ページだけ functions.php が必要（「イチローだけ自分でやる」）　ただし、！！！！！例外もあり　別途設定が必要他の項目を参照": {
-    "title": "📌 WordPressのページ作成方法の違い → 一覧ページだけ functions.php が必要（「イチローだけ自分でやる」）　ただし、！！！！！例外もあり　別途設定が必要他の項目を参照",
-    "line": 12305,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPressにおいて、管理画面以外にfunctions.phpへの記述が必要なページは何ですか？",
-    "aiCategory": "wordpress/php"
-  },
-  "ハンバーガーメニュー実装で踏んだ5つの失敗（getElementById・JSエラー停止・100vh競合・fixed子は親の高さゼロ・z-indexはスペースに無関係）": {
-    "title": "ハンバーガーメニュー実装で踏んだ5つの失敗（getElementById・JSエラー停止・100vh競合・fixed子は親の高さゼロ・z-indexはスペースに無関係）",
-    "line": 12995,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "ハンバーガーメニュー実装で起きがちな5つの失敗とは何ですか？",
-    "aiCategory": "その他"
-  },
-  "flex内の<img>はmin-width:0がないと枠からはみ出す（overflow:hiddenがあれば不要）": {
-    "title": "flex内の<img>はmin-width:0がないと枠からはみ出す（overflow:hiddenがあれば不要）",
-    "line": 12879,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "flexコンテナ内のimgタグが枠からはみ出してしまうのを防ぐために必要なプロパティは何？",
-    "aiCategory": "html"
-  },
-  "📌 Claude Code の settings.json で defaultMode: autoApprove → ツール実行の確認ダイアログが全てスキップされる": {
-    "title": "📌 Claude Code の settings.json で defaultMode: autoApprove → ツール実行の確認ダイアログが全てスキップされる",
-    "line": 12762,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "Claude Codeのsettings.jsonで、全てのツール実行を自動承認にする設定値は何？",
-    "aiCategory": "その他"
-  },
-  "📌 詳細ページのURLの形式 → 管理画面「設定 > パーマリンク」から変更できる（スラッグ個別変更は投稿編集画面）": {
-    "title": "📌 詳細ページのURLの形式 → 管理画面「設定 > パーマリンク」から変更できる（スラッグ個別変更は投稿編集画面）",
-    "line": 12656,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPressにおいて、詳細ページのURL形式（パーマリンク構造）を変更するには、管理画面のどこから設定しますか？",
-    "aiCategory": "wordpress/php"
-  },
-  ": WordPressでアーカイブページが404エラーになる際、パーマリンク設定画面で行うべき操作は？**": {
-    "title": ": WordPressでアーカイブページが404エラーになる際、パーマリンク設定画面で行うべき操作は？**",
-    "line": 12382,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPressでアーカイブページが404エラーになる際、パーマリンク設定画面で行うべき操作は？",
-    "aiCategory": "wordpress/php"
-  },
-  "📌 the_content() だけクラスを中のタグに設定できない → 外のdivを囲んでCSSを当てる": {
-    "title": "📌 the_content() だけクラスを中のタグに設定できない → 外のdivを囲んでCSSを当てる",
-    "line": 12694,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPressでthe_content()が出力するタグに直接クラスを設定できない際、どう対処しますか？",
-    "aiCategory": "wordpress/php"
-  },
-  "📌 archive.phpでthe_date()が同じ日の2件目から表示されない → get_the_date()に変えるかfunctions.phpに関数追加で解決": {
-    "title": "📌 archive.phpでthe_date()が同じ日の2件目から表示されない → get_the_date()に変えるかfunctions.phpに関数追加で解決",
-    "line": 12588,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "archive.phpで同じ日の投稿が2件目から表示されない時、どの関数に変更すべきですか？",
-    "aiCategory": "wordpress/php"
-  },
-  "height:100% は親チェーン全部に height が必要・width:100% は親がなくても効く（おれとよっぱらいの違い）": {
-    "title": "height:100% は親チェーン全部に height が必要・width:100% は親がなくても効く（おれとよっぱらいの違い）",
-    "line": 12833,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "CSSにおいて、親要素に高さの定義がないと指定したパーセントが効かないプロパティは何ですか？",
-    "aiCategory": "html"
-  },
-  "📌 アーカイブ（一覧）でアイキャッチ画像を表示したい → archive.php に書くだけではダメ（functions.phpにも追加が必要）": {
-    "title": "📌 アーカイブ（一覧）でアイキャッチ画像を表示したい → archive.php に書くだけではダメ（functions.phpにも追加が必要）",
-    "line": 12467,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPressのアーカイブページでアイキャッチ画像を表示するには、archive.phpの他にどのファイルに設定が必要ですか？",
-    "aiCategory": "wordpress/php"
-  },
-  "clip-path適用親要素とz-index: 子要素のz-index無効化の原因,⇁ただ親要素に、z-indexが付与されているだけ。": {
-    "title": "clip-path適用親要素とz-index: 子要素のz-index無効化の原因,⇁ただ親要素に、z-indexが付与されているだけ。",
-    "line": 13932,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "clip-pathを適用した要素で子要素のz-indexが無効化される原因は何ですか？",
     "aiCategory": "html"
   },
   "_meta": {
