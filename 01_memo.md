@@ -12196,6 +12196,30 @@ foreach($categories as $category) {
 ```
 
 ※メモ：`$category->term_id` は、そのカテゴリーが何番かを示す固有の番号です。これを使って、WordPressが自動で正しいURLを作ってくれます。
+
+### 画面で取得したカテゴリを取得
+### カテゴリーをリンク付きで取得する方法
+
+`get_category_link()` を使ってURLを取得し、`<a>` タグで囲みます。
+
+```php
+<ul class="news_category">
+  <?php 
+  $categories = get_the_category();
+  foreach($categories as $category): ?>
+    <li>
+      <a href="<?php echo get_category_link($category->term_id); ?>">
+        <?php echo $category->name; ?>
+      </a>
+    </li>
+  <?php endforeach; ?>
+</ul>
+```
+
+### ポイント
+*   **`get_category_link($category->term_id)`**: カテゴリーごとのIDを渡すだけで、WordPressが自動で正しいリンク先（URL）を作ってくれます。
+*   **`$category->name`**: カテゴリーの名前を表示し���す（`cat_name` よりも現在のWordPressで推奨されている書き方です）。
+*   **`foreach`**: 記事が複数のカテゴリーに登録されている場合でも、すべて順番に取り出して表示します。
 ## 📌 archive.php の get_the_category() で Uncategorized を除外したい → foreach だけだと条件に合うカテゴリを全部出す（最初の1件で break する）
 
 【日付】2026-03-10
@@ -15106,3 +15130,65 @@ foreach ( $categories as $category ) {
 - 💡 つまり：`(条件) ? 真 : 偽` の形をそのまま体で覚えればOK
 
 【関連】→ 「PHPとHTMLが混在」で検索（if(false): でブロックコメントにする方法）
+
+---
+
+## 📌 get_queried_object_id() → 今見ているページの対象IDを取得する（カテゴリー一覧なら選択中カテゴリーのID）
+
+【日付】2026-03-17
+【結論】
+- 今アクセスしているページのURLからWordPressが「どのカテゴリーのページか」を自動で判断して、そのIDを返す。
+- カテゴリー一覧ページなら → そのカテゴリーの term_id が返ってくる。
+- 「ユーザーが画面から選んだカテゴリーのID」という理解でほぼ正解。
+
+【具体例】
+```php
+// /category/news/ にアクセスしたとき
+$current_cat_id = get_queried_object_id();
+// → newsカテゴリーのterm_idが返る（例：3）
+
+// foreach でカテゴリー全部を回して、一致するものだけハイライト
+foreach ($categories as $categoryOne) {
+    $class = ($categoryOne->term_id == $current_cat_id) ? 'c_link' : '';
+    // 一致 → class="c_link"（CSS でハイライト）
+    // 不一致 → class=""（通常表示）
+}
+```
+
+```
+URL: /category/news/
+         ↓
+get_queried_object_id()
+         ↓
+  news カテゴリーの ID（例: 3）を返す
+```
+
+【補足】
+- ⚠ ページの種類によって返ってくるIDの意味が変わる（カテゴリーなら term_id、固定ページなら post_id）
+- ⚠ ループの外で使える（サイト全体の情報なので記事ループは不要）
+- 💡 「今どのカテゴリーを見ているか」を判定するときのセット：`get_queried_object_id()` + `foreach` + 三項演算子
+
+【関連】→ 「get_categories」で検索（全カテゴリーを取得する方法）
+【関連】→ 「三項演算子」で検索（条件によってクラス名を切り替える書き方）
+
+### 画面で取得したカテゴリを取得
+- `get_queried_object_id()` を使う。
+- WordPressが現在表示しているページの種類を自動判別し、カテゴリーページならそのカテゴリーのID（term_id）を返す。
+
+### 実装例
+```php
+// 今見ているカテゴリーのIDを取得
+$current_cat_id = get_queried_object_id();
+
+// すべてのカテゴリーを順番に取り出してチェック
+foreach ($categories as $categoryOne) {
+    // 今見ているIDと一致したら、ハイライト用のクラスを付ける
+    $class = ($categoryOne->term_id == $current_cat_id) ? 'c_link' : '';
+    
+    echo '<a href="' . get_category_link($categoryOne->term_id) . '" class="' . $class . '">' . $categoryOne->name . '</a>';
+}
+```
+
+### 注意点
+- この関数はページの種類によって中身が変わるため、カテゴリーページ以外で使うと別のID（記事のIDなど）が返ってくる。
+- ループの外でも使えるため、サイドバーなどの表示にも利用できる。
