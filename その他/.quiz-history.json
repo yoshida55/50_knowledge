@@ -4257,6 +4257,86 @@
     "questionText": "CSSでホバーした要素にアンダーラインをつけるには、擬似要素をどのように設定しますか？",
     "aiCategory": "html"
   },
+  "コロン1つ（:）と2つ（::）の違い＋nth-child比較": {
+    "title": "コロン1つ（:）と2つ（::）の違い＋nth-child比較",
+    "line": 14348,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSにおける擬似クラスのコロン1つ（:）と、擬似要素のコロン2つ（::）の違いは何ですか？",
+    "aiCategory": "html"
+  },
+  "[アロー関数のthisがwindowを指す理由：関数との違い]": {
+    "title": "[アロー関数のthisがwindowを指す理由：関数との違い]",
+    "line": 13943,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "アロー関数でthisがwindowを指すのはなぜか？",
+    "aiCategory": "その他"
+  },
+  ":last-child と :last-of-type の違い（後ろに別タグがあるとき）": {
+    "title": ":last-child と :last-of-type の違い（後ろに別タグがあるとき）",
+    "line": 14334,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSで、後ろに別のタグがある場合でも、特定のタグ種類の中で最後の要素を正しく指定できるセレクタは？",
+    "aiCategory": "html"
+  },
+  "アロー関数内の`this`がwindowを指す理由：`this`の束縛の違い": {
+    "title": "アロー関数内の`this`がwindowを指す理由：`this`の束縛の違い",
+    "line": 13922,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "アロー関数内のthisがwindowを指すのは、どのような束縛の違いがあるからですか？",
+    "aiCategory": "その他"
+  },
+  "📌 ul・ol・li タグ → リストを作るタグ。ul=順番なし・ol=順番あり・li=各項目（必ずセットで使う）": {
+    "title": "📌 ul・ol・li タグ → リストを作るタグ。ul=順番なし・ol=順番あり・li=各項目（必ずセットで使う）",
+    "line": 14457,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "ul・olタグの中に必ず入れなければならない、リストの各項目を構成するタグは何ですか？",
+    "aiCategory": "html"
+  },
+  "[e.targetの活用：ホバー以外でのイベント対象要素取得]": {
+    "title": "[e.targetの活用：ホバー以外でのイベント対象要素取得]",
+    "line": 13932,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "JavaScriptにおいて、イベントが発生した特定の要素を特定するために使用するプロパティは何ですか？",
+    "aiCategory": "その他"
+  },
+  "📌 PHP foreach でカテゴリー表示するときのつまずき3点 → { } と endforeach の混在・->name 忘れ・esc_url と esc_html の使い分け": {
+    "title": "📌 PHP foreach でカテゴリー表示するときのつまずき3点 → { } と endforeach の混在・->name 忘れ・esc_url と esc_html の使い分け",
+    "line": 14502,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "PHPのforeach文でエラーを起こさないための注意点として、構文の混在以外に何がある？",
+    "aiCategory": "wordpress/php"
+  },
+  "clip-path適用親要素とz-index: 子要素のz-index無効化の原因,⇁ただ親要素に、z-indexが付与されているだけ。": {
+    "title": "clip-path適用親要素とz-index: 子要素のz-index無効化の原因,⇁ただ親要素に、z-indexが付与されているだけ。",
+    "line": 13994,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSでclip-pathを適用した要素の配下で、子要素のz-indexが無効化される原因は何ですか？",
+    "aiCategory": "html"
+  },
+  "なぜ`:root`変数でz-index管理すると問題が起こりにくくなるのか？": {
+    "title": "なぜ`:root`変数でz-index管理すると問題が起こりにくくなるのか？",
+    "line": 13873,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSにおいて、:root変数でz-indexを管理することで得られるメリットとは何ですか？",
+    "aiCategory": "html"
+  },
+  "CSS flex内でmargin: autoを使うと → 余白が自動で均等配分されて子要素が中央に寄る": {
+    "title": "CSS flex内でmargin: autoを使うと → 余白が自動で均等配分されて子要素が中央に寄る",
+    "line": 14422,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSのflexコンテナ内で、子要素を中央に寄せるためにmarginプロパティに指定する値は何ですか？",
+    "aiCategory": "html"
+  },
   "_meta": {
     "lastFilter": {
       "date": "昨日",
