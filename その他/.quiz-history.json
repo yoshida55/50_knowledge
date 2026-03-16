@@ -4260,10 +4260,14 @@
   "コロン1つ（:）と2つ（::）の違い＋nth-child比較": {
     "title": "コロン1つ（:）と2つ（::）の違い＋nth-child比較",
     "line": 14348,
-    "lastReviewed": 0,
+    "lastReviewed": 1773679548873,
     "reviewCount": 0,
     "questionText": "CSSにおける擬似クラスのコロン1つ（:）と、擬似要素のコロン2つ（::）の違いは何ですか？",
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "evaluations": [
+      1
+    ],
+    "lastAnsweredDate": "2026-03-16"
   },
   "[アロー関数のthisがwindowを指す理由：関数との違い]": {
     "title": "[アロー関数のthisがwindowを指す理由：関数との違い]",
@@ -4276,10 +4280,14 @@
   ":last-child と :last-of-type の違い（後ろに別タグがあるとき）": {
     "title": ":last-child と :last-of-type の違い（後ろに別タグがあるとき）",
     "line": 14334,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1773679770900,
+    "reviewCount": 2,
     "questionText": "CSSで、後ろに別のタグがある場合でも、特定のタグ種類の中で最後の要素を正しく指定できるセレクタは？",
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-16"
   },
   "アロー関数内の`this`がwindowを指す理由：`this`の束縛の違い": {
     "title": "アロー関数内の`this`がwindowを指す理由：`this`の束縛の違い",
@@ -4308,10 +4316,14 @@
   "📌 PHP foreach でカテゴリー表示するときのつまずき3点 → { } と endforeach の混在・->name 忘れ・esc_url と esc_html の使い分け": {
     "title": "📌 PHP foreach でカテゴリー表示するときのつまずき3点 → { } と endforeach の混在・->name 忘れ・esc_url と esc_html の使い分け",
     "line": 14502,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1773679632081,
+    "reviewCount": 1,
     "questionText": "PHPのforeach文でエラーを起こさないための注意点として、構文の混在以外に何がある？",
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-16"
   },
   "clip-path適用親要素とz-index: 子要素のz-index無効化の原因,⇁ただ親要素に、z-indexが付与されているだけ。": {
     "title": "clip-path適用親要素とz-index: 子要素のz-index無効化の原因,⇁ただ親要素に、z-indexが付与されているだけ。",
@@ -4335,6 +4347,159 @@
     "lastReviewed": 0,
     "reviewCount": 0,
     "questionText": "CSSのflexコンテナ内で、子要素を中央に寄せるためにmarginプロパティに指定する値は何ですか？",
+    "aiCategory": "html"
+  },
+  "パーマリンクは「どのページにも1つ存在する」概念": {
+    "title": "パーマリンクは「どのページにも1つ存在する」概念",
+    "line": 9340,
+    "lastReviewed": 1773679711585,
+    "reviewCount": 0,
+    "questionText": "WordPressのすべてのページに1つずつ存在する、専用のURLを指す概念は何ですか？",
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      1,
+      1
+    ],
+    "lastAnsweredDate": "2026-03-16"
+  },
+  "PHP echo でシングルクォートとダブルクォートが混ざる理由（HTML属性とPHP文字列の共存）": {
+    "title": "PHP echo でシングルクォートとダブルクォートが混ざる理由（HTML属性とPHP文字列の共存）",
+    "line": 15030,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "PHPでHTMLを出力する際、シングルクォートとダブルクォートを使い分ける目的は何ですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "WordPress カテゴリのスラッグとメニュー追加の流れ（外観→カスタマイズ→メニュー）": {
+    "title": "WordPress カテゴリのスラッグとメニュー追加の流れ（外観→カスタマイズ→メニュー）",
+    "line": 14895,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、カテゴリ一覧ページへ移動するためのメニュー追加は、外観のどこから行いますか？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 PHP if文・三項演算子 → 条件によって変数の値を分岐させる構文": {
+    "title": "📌 PHP if文・三項演算子 → 条件によって変数の値を分岐させる構文",
+    "line": 15065,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "PHPにおいて、条件によって変数の値を分岐させるために使われるシンプルな構文は何？",
+    "aiCategory": "wordpress/php"
+  },
+  "get_category_link() の本質 → IDかオブジェクトを渡すだけでURLが返ってくる": {
+    "title": "get_category_link() の本質 → IDかオブジェクトを渡すだけでURLが返ってくる",
+    "line": 12104,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、IDやオブジェクトを渡すだけでカテゴリーのURLを取得できる関数は何でしょう？",
+    "aiCategory": "wordpress/php"
+  },
+  "WordPress カテゴリ関数4つの使い分け（the_ / get_ / wp_list_ / get_categories）": {
+    "title": "WordPress カテゴリ関数4つの使い分け（the_ / get_ / wp_list_ / get_categories）",
+    "line": 14931,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、カテゴリ関数4つを使い分ける際の基準は何ですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "`the_` がつくと記事限定 → ループの中でしか使えない": {
+    "title": "`the_` がつくと記事限定 → ループの中でしか使えない",
+    "line": 14581,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、関数名の先頭に「the_」がつく関数はどのような場所で使うべきですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "get_categories() の注意点3つ": {
+    "title": "get_categories() の注意点3つ",
+    "line": 14973,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressの関数get_categories()を使用する際の注意点を3つ挙げなさい？",
+    "aiCategory": "wordpress/php"
+  },
+  "PHP echo の途中にセミコロンを入れるとエラー（; はPHP文の終わりの合図）": {
+    "title": "PHP echo の途中にセミコロンを入れるとエラー（; はPHP文の終わりの合図）",
+    "line": 14999,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "PHPでechoの記述の途中にセミコロン（;）を入れると、なぜエラーになるのですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "inline-flex vs inline-block：中の文字を中央揃えしたいなら inline-flex（ページネーション実装で確認）": {
+    "title": "inline-flex vs inline-block：中の文字を中央揃えしたいなら inline-flex（ページネーション実装で確認）",
+    "line": 4037,
+    "lastReviewed": 1773679257817,
+    "reviewCount": 1,
+    "questionText": "中の文字を上下左右に中央揃えしたい場合、inline-blockの代わりに使用すべきプロパティ値は何ですか？",
+    "aiCategory": "html",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-16"
+  },
+  "positionと位置指定(top/left)の要否 (2026/03/15)": {
+    "title": "positionと位置指定(top/left)の要否 (2026/03/15)",
+    "line": 14424,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSでtopやleftなどの位置指定を有効にするために、設定すべきプロパティは何ですか？",
+    "aiCategory": "html"
+  },
+  "★★★（main）WordPress ページネーション - paginate_links() 丸ボタン型（現在ページ黒塗り・spanタグ・CSS付き）ページネーションの作り方　〇　archive.phpに追加する　★★★": {
+    "title": "★★★（main）WordPress ページネーション - paginate_links() 丸ボタン型（現在ページ黒塗り・spanタグ・CSS付き）ページネーションの作り方　〇　archive.phpに追加する　★★★",
+    "line": 13295,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressのarchive.phpで、丸ボタン型のページネーションを実装するために使う関数は何？",
+    "aiCategory": "wordpress/php"
+  },
+  "カスタム投稿タイプ(枠) と カスタムフィールド(中身) の関係": {
+    "title": "カスタム投稿タイプ(枠) と カスタムフィールド(中身) の関係",
+    "line": 14355,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressで専用のメニューと入力欄をセットで運用するために、カスタム投稿タイプと何を紐づけますか？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 WordPress関数は動詞で役割が決まる → the_=表示、get_=取得(echo必要)、has_/is_=判定(ifで使う)、add_=登録　WordPress、php関数メソッドの黄金ルール": {
+    "title": "📌 WordPress関数は動詞で役割が決まる → the_=表示、get_=取得(echo必要)、has_/is_=判定(ifで使う)、add_=登録　WordPress、php関数メソッドの黄金ルール",
+    "line": 14529,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPress関数において、値を画面に直接表示するプレフィックス（接頭辞）は何でしょう？",
+    "aiCategory": "wordpress/php"
+  },
+  "WordPress: カスタムフィールドの名前を変えたら、PHPコード内の名前も全部合わせて変える": {
+    "title": "WordPress: カスタムフィールドの名前を変えたら、PHPコード内の名前も全部合わせて変える",
+    "line": 14099,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressでカスタムフィールドの名前を変更した際、PHPコード内の記述はどうする必要がありますか？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 背景を固定したいとき → セクションだけならsticky、下の全セクションを流すならfixed（親の範囲か画面全体かで選ぶ）背景に固定画像、前面にながれすスクロール　★★★": {
+    "title": "📌 背景を固定したいとき → セクションだけならsticky、下の全セクションを流すならfixed（親の範囲か画面全体かで選ぶ）背景に固定画像、前面にながれすスクロール　★★★",
+    "line": 4645,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "背景固定において、セクション内だけに適用したい場合と、画面全体に適用したい場合のCSSプロパティは？",
+    "aiCategory": "html"
+  },
+  "📅 最終更新": {
+    "title": "📅 最終更新",
+    "line": 12636,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "メモにおいて、情報の更新日時を示すために使われている見出しは何ですか？",
+    "aiCategory": "その他"
+  },
+  "CSS :not(:last-child) → 最後の要素だけマージンを消したいとき使う（最後以外に当てる）": {
+    "title": "CSS :not(:last-child) → 最後の要素だけマージンを消したいとき使う（最後以外に当てる）",
+    "line": 14656,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSで、リストなどの最後の要素以外にマージンを適用したいときに使う擬似クラスは何？",
     "aiCategory": "html"
   },
   "_meta": {
