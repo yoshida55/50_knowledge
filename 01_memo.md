@@ -5,12 +5,18 @@
 - `animation`：A→B→C など**複数ステップ**の変化シナリオを定義
 
 【transition の役割】
-変化をどう見せるか（速度・時間・タイミング）を設定するだけ。変化自体は作らない。
+変化をどう見せるか（速
+度・時間・タイミング）を設定するだけ。変化自体は作らない。
 
 ```css
 transition: background 0.3s ease;
 /* backgroundが変わったとき、0.3秒かけて滑らかに変化させる */
 ```
+
+
+
+
+
 
 【できること・できないこと】
 
@@ -8786,6 +8792,33 @@ jQuery(function($) {
     $('.class').hide();
 });
 ```
+
+### function.phpに記載する、メソッドというか関数全部まとめてあるところさがして
+`functions.php`に書き込む機能や関数は、主に以下の場所にあります。
+
+* **テーマフォルダの中**
+  場所：`wp-content/themes/あなたのテーマ名/functions.php`
+
+このファイルの中に、以下のような形で関数をまとめて書いていきます。
+
+```php
+<?php
+// ここに関数（メソッド）を書いていく
+
+// 例：CSSやJSを読み込むための関数
+function my_theme_files() {
+    wp_enqueue_style('main-style', get_template_directory_uri() . '/style.css');
+}
+add_action('wp_enqueue_scripts', 'my_theme_files');
+
+// 他にも機能を追加したい場合はここにどんどん書き足す
+// 例：アイキャッチ画像を有効にする関数など
+add_theme_support('post-thumbnails');
+```
+
+**ポイント**
+* `functions.php` は、WordPressが動くときに最初に読み込まれる「何でも屋」のようなファイルです。
+* `function 名前() { ... }` で処理を囲み、`add_action` や `add_theme_support` を使ってWordPressに「この機能を使ってね」と命令する書き方が基本です。
 ## WordPressで作業をして、設定の更新ボタンをおさないと反映されないものは？
 【日付】2026-03-10
 WordPressで「設定」や「変更」をした後、画面にあるボタン（変更を保存、公開など）を押さないと反映されないものは以下の通りです。
@@ -9502,6 +9535,182 @@ add_action('wp_enqueue_scripts', 'my_styles');
 *   **「自動機能の喪失」**: WordPressの便利な準備運動（`wp_head()` が行うデフォルトCSSの読み込みなど）が正常に機能しなくなるリスクがあります。
 
 結論として、WordPressを使うなら `functions.php` を使ってルール通りに読み込むのが、最も早く、かつトラブルが起きない「プロの作法」です。
+
+### functions.phpにかく基本のすべての種類
+functions.phpでよく使われる基本的な設定の種類は以下の通りです。
+
+### 1. CSS・JavaScriptの読み込み
+ファイルをWordPressに登録し、正しい順番で読み込ませます。
+
+*   **CSSの読み込み**
+    ```php
+    function my_scripts() {
+        wp_enqueue_style('main-style', get_template_directory_uri() . '/style.css');
+    }
+    add_action('wp_enqueue_scripts', 'my_scripts');
+    ```
+*   **JavaScriptの読み込み**
+    ```php
+    function my_scripts() {
+        wp_enqueue_script('main-js', get_template_directory_uri() . '/js/main.js', array(), '1.0', true);
+    }
+    add_action('wp_enqueue_scripts', 'my_scripts');
+    ```
+
+### 2. アイキャッチ画像を使えるようにする
+投稿画面で画像を選択する欄を表示させます。
+```php
+add_theme_support('post-thumbnails');
+```
+
+### 3. タイトルタグを自動出力する
+ブラウザのタブにページタイトルを自動で表示させます（header.phpの`<title>`タグは削除してOKになります）。
+```php
+add_theme_support('title-tag');
+```
+
+### 4. カスタムメニューを使えるようにする
+管理画面でメニューを自由に作成・配置できるようにします。
+```php
+register_nav_menus(array(
+    'main-menu' => 'メインメニュー',
+));
+```
+
+### 5. コンテンツの幅を制限する
+画像のサイズなどをテーマに合わせる設定です。
+```php
+if (!isset($content_width)) {
+    $content_width = 1200;
+}
+```
+
+### 6. 抜粋の文字数を変える
+記事の「抜粋」で表示される文字数を調整します。
+```php
+function my_excerpt_length($length) {
+    return 50; // 50文字にする
+}
+add_filter('excerpt_length', 'my_excerpt_length');
+```
+
+### 覚えておくべき仕組み
+*   **add_action（アクションフック）**: 「特定のタイミングでこの関数を実行して」という命令。
+*   **add_filter（フィルターフック）**: 「WordPressのデータを書き換えて」という命令（文字数変更など）。
+*   **get_template_directory_uri()**: テーマフォルダまでのパスを取得する便利関数。
+
+### functions.phpにかく基本のすべての種類 は？
+functions.phpでよく使われる基本的な設定の種類は以下の通りです。
+
+### 1. スタイルシート（CSS）の読み込み
+`wp_enqueue_style` を使って、CSSファイルを順番待ちリスト（キュー）に入れます。
+
+```php
+function my_styles() {
+    // 第1引数：ID名、第2引数：ファイルの場所
+    wp_enqueue_style('main-style', get_template_directory_uri() . '/style.css');
+}
+add_action('wp_enqueue_scripts', 'my_styles');
+```
+
+### 2. JavaScript（JS）の読み込み
+CSSとほぼ同じ仕組みです。`wp_enqueue_script` を使います。
+
+```php
+function my_scripts() {
+    // 第1引数：ID名、第2引数：ファイルの場所、第3引数：依存関係(なしはarray())、第4引数：バージョン、第5引数：trueならフッターで読み込み
+    wp_enqueue_script('main-js', get_template_directory_uri() . '/js/main.js', array(), '1.0', true);
+}
+add_action('wp_enqueue_scripts', 'my_scripts');
+```
+
+### 3. テーマの基本機能の有効化
+`after_setup_theme` というフックを使い、アイキャッチ画像やタイトルタグなどの機能を有効にします。
+
+```php
+function my_theme_setup() {
+    // 投稿にアイキャッチ画像を表示できるようにする
+    add_theme_support('post-thumbnails');
+    // サイトのタイトルタグを自動生成する
+    add_theme_support('title-tag');
+}
+add_action('after_setup_theme', 'my_theme_setup');
+```
+
+### 4. ウィジェット（サイドバーなど）の有効化
+管理画面でブロックを配置できる場所を作ります。
+
+```php
+function my_widgets_init() {
+    register_sidebar(array(
+        'name' => 'サイドバー',
+        'id' => 'sidebar-1',
+    ));
+}
+add_action('widgets_init', 'my_widgets_init');
+```
+
+### 5. メニューの有効化
+管理画面でヘッダーメニューなどを編集できるようにします。
+
+```php
+function my_menu_setup() {
+    register_nav_menus(array(
+        'header-menu' => 'ヘッダーメニュー',
+    ));
+}
+add_action('after_setup_theme', 'my_menu_setup');
+```
+
+**ポイント:**
+* `add_action`：WordPressに「いつ、何を」���行するかを伝える合図。
+* `enqueue`系：ファイル読み込み用。
+* `add_theme_support` / `register_`系：テーマの機能を拡張する設定用。
+
+### functions.phpにかく基本のすべての種類 は？ ？？？
+functions.phpでよく使う「基本のすべて」は、以下の4つに分類されます。
+
+### 1. CSS・JSの読み込み（必須）
+CSSやJavaScriptをWordPressのルールに従って読み込みます。
+*   **CSSの読み込み**: `wp_enqueue_style()`
+*   **JSの読み込み**: `wp_enqueue_script()`
+
+```php
+function my_scripts() {
+    // CSS
+    wp_enqueue_style('main', get_template_directory_uri() . '/style.css');
+    // JS
+    wp_enqueue_script('main-js', get_template_directory_uri() . '/js/main.js');
+}
+add_action('wp_enqueue_scripts', 'my_scripts');
+```
+
+### 2. アイキャッチ画像の有効化（必須）
+投稿画面で「アイキャッチ画像」を設定できるようにします。
+```php
+add_theme_support('post-thumbnails');
+```
+
+### 3. タイトルタグの自動出力（SEO対策）
+ブラウザのタブに表示されるタイトルをWordPressに自動で管理させます。
+```php
+add_theme_support('title-tag');
+```
+
+### 4. メニュー機能の有効化
+管理画面でメニューを作れるようにします。
+```php
+register_nav_menus(array(
+    'main-menu' => 'メインメニュー',
+));
+```
+
+---
+
+### まとめ：書く時のルール
+*   **「機能の有効化」系**: `add_theme_support` などをそのまま書く。
+*   **「読み込み」系**: 関数を作って `add_action` で実行する（セットで書く）。
+*   **`functions.php` のお約束**: 必ず `<?php` から書き始めること。
 ## 📌 WordPressのJS読み込みもCSS同様に functions.php で wp_enqueue_script() を使う → CSSとの違いは引数が多い（依存・バージョン・読み込み位置を指定する）
 
 
@@ -11422,6 +11631,37 @@ $titles[] = get_the_title() をループで繰り返す
 `the_permalink()` は `single.php` を直接実行する命令ではないです。
 役割は「その投稿の個別記事URLを出すこと」だけで、そのURLをクリックしたあとに WordPress 本体が「これは個別投稿ページ」と判断して `single.php` を使います。
 
+## 📌 WordPressでリンクに飛ばすのは3種類
+
+【日付】2026-03-17
+
+【結論】
+リンクに飛ばすのは3種類。用途によって使い分ける。
+
+【具体例】
+```
+the_permalink()        → 記事・投稿のURL（individual post）
+get_category_link()    → カテゴリページのURL
+画像クリック → 記事へ → <a href="<?php the_permalink(); ?>"> で the_permalink() を使う
+```
+
+```php
+// 記事・投稿のURL
+<a href="<?php the_permalink(); ?>">記事タイトル</a>
+
+// カテゴリページのURL
+<a href="<?php echo get_category_link($cat->term_id); ?>"><?php echo $cat->name; ?></a>
+
+// 画像クリックで記事に飛ぶ
+<a href="<?php the_permalink(); ?>">
+  <?php the_post_thumbnail(); ?>
+</a>
+```
+
+【補足】
+- ⚠ 間違えやすいこと：画像クリックで記事に飛ばすときも `the_permalink()` を使う（特別な関数は不要）
+- 💡 つまり：「記事URL」は `the_permalink()`、「カテゴリURL」は `get_category_link()` で覚える
+
 
 
 /* ✨
@@ -11496,6 +11736,71 @@ $titles[] = get_the_title() をループで繰り返す
 ### 3. 注意点
 *   `the_permalink()` は「URLを出すだけ」の命令です。直接 `single.php` を読み込む命令ではないため、ファイル指定などのコードは不要です。
 *   必ず「WordPressのループ（`if (have_posts()) : while ...`）」の中で使用してください。ループの外では正しく動きません。
+
+### 詳細ページに飛ぶときパーリンクをつかうがそれ以外のときリンクにとばすのは？？
+### 記事一覧から詳細ページに飛ぶ仕組み
+
+*   `the_permalink()` は「その記事の住所（URL）」を教えてくれる関数。
+*   HTMLの `href` にこの関数を入れることで、クリックしたときにその記事の個別ページへ移動するようになる。
+*   WordPressはURLを見て自動的に `single.php` を読み込んでくれる。
+
+### ソースコード例
+
+```php
+<!-- archive.php（記事一覧）などのループ内 -->
+<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+
+    <!-- 記事全体をリンクにする場合 -->
+    <a href="<?php the_permalink(); ?>">
+        <h2><?php the_title(); ?></h2>
+        <p>続きを読む</p>
+    </a>
+
+<?php endwhile; endif; ?>
+```
+
+### 使い分けの考え方
+
+*   **詳細ページへのリンク**: `the_permalink()` を使う。
+    *   目的：その記事の「本当の場所」へ移動するため。
+*   **それ以外のリンク（トップなど）**: 別の関数を使う。
+    *   トップへ戻るリンク：`<?php echo home_url(); ?>`
+    *   カテゴリー一覧へ行くリンク：`<?php echo get_category_link($cat_id); ?>`
+    *   特定の固定ページへ行くリンク：`<?php echo get_permalink(投稿ID); ?>`
+
+**ポイント:** 「記事」に行くときは `the_permalink`、それ以外（サイトの機能や別の場所）に行くときは、その場所専用のURLを出す関数を使うのがルール。
+
+### 詳細ページに飛ぶときパーリンクをつかうがそれ以外のときリンクにとばすのは？？？
+「パーマリンク以外のリンク」を使う理由は、**「どこに移動させたいか」によって行く先が違うから**です。
+
+*   **`the_permalink()` を使う場合**
+    *   その記事の「詳しい中身」を読ませたいとき（記事一覧から記事本文へ移動）。
+*   **それ以外のリンク関数を使う場合**
+    *   記事以外の場所に行かせたいとき。
+
+**代表的な使い分けの例**
+
+| やりたいこと | 使う関数 | リンク先 |
+| :--- | :--- | :--- |
+| **記事の詳細を読む** | `the_permalink()` | 記事のページ |
+| **サイトのトップに戻る** | `home_url()` | ホーム画面 |
+| **同じカテゴリーの記事を探す** | `get_category_link()` | カテゴリー一覧 |
+
+**コードのイメージ**
+
+```php
+<!-- 記��の詳細に行かせたいとき -->
+<a href="<?php the_permalink(); ?>">記事を読む</a>
+
+<!-- ホーム画面に戻したいとき（ロゴなど） -->
+<a href="<?php echo home_url(); ?>">ホームへ戻る</a>
+
+<!-- 特定のカテゴリーページに行かせたいとき -->
+<a href="<?php echo get_category_link($id); ?>">カテゴリー一覧へ</a>
+```
+
+**結論：**
+「パーマリンク」は「記事の住所」です。記事以外の場所（トップページやカテゴリー一覧など）に行かせたいときは、その場所専用の関数を使います。
 ## archive.phpないのパーマリンクはどこをさしている？
 【日付】2026-03-09
 
@@ -11795,6 +12100,150 @@ add_theme_support('post-thumbnails');
 
 ---
 
+
+### サムネイルを有効にする
+### サムネイル（アイキャッチ）を有効にする手順
+
+*   **設定方法**
+    WordPressのテーマフォルダにある `functions.php` に、以下の1行を追加する。
+    ```php
+    add_theme_support('post-thumbnails');
+    ```
+
+*   **有効化した後の管理画面操作**
+    1. 投稿の編集画面を開く。
+    2. 右側のサイドバーにある「アイキャッチ画像」パネルから画像を設定する。
+
+*   **サイト上に表示する方法**
+    画像を表示したいファイル（`single.php` など）に以下のコードを書く。
+
+    ```php
+    <?php if( has_post_thumbnail() ): ?>
+      <?php the_post_thumbnail(); ?>
+    <?php else: ?>
+      <img src="画像ファイルの場所" alt="デフォルト画像">
+    <?php endif; ?>
+    ```
+
+*   **ポイント**
+    *   `functions.php` にコードを書かないと、管理画面に設定欄が現れず、画像を表示することもできない。
+    *   `has_post_thumbnail()` を使うと、画像が設定されていない時に別の画像（デフォルト画像）を代わりに表示できる。
+
+### サムネイルを画像を有効にするにはfunction.phpを修正するが、ほかにも必要な処理は？
+`functions.php`への追記以外に必要な処理は以下の通りです。
+
+### 1. テンプレートファイル（表示用コード）への記述
+`functions.php`を修正しただけでは画面には何も表示されません。記事を表示したい場所（`single.php`や`index.php`など）に、以下のコードを貼り付けます。
+
+```php
+<?php if (has_post_thumbnail()): ?>
+    <?php the_post_thumbnail('large'); // 引数でサイズ指定可能 ?>
+<?php else: ?>
+    <!-- アイキャッチがない時の代わり画像 -->
+    <img src="<?php echo get_template_directory_uri(); ?>/images/no-image.jpg" alt="画像なし">
+<?php endif; ?>
+```
+
+### 2. CSSでの見た目調整
+アイキャッチ画像が大きすぎたり、レ��アウトが崩れたりする場合、CSSで大きさを指定します。
+
+```css
+.wp-post-image {
+    max-width: 100%; /* 横幅を枠内に収める */
+    height: auto;    /* 比率を保って自動調整 */
+}
+```
+
+### 3. 管理画面での画像設定（必須）
+コードを書いても、記事ごとに画像を選ばないと何も表示されません。
+*   WordPressの投稿画面を開く。
+*   右側にある「アイキャッチ画像」パネルから画像を選択・設定する。
+
+### 補足：画像のサイズ設定（応用）
+もし「特定のサイズ（正方形など）で自動切り抜きしたい」場合は、`functions.php`にサイズ定義を追記します。
+
+```php
+// functions.php に追加（例：300x300に切り抜く設定）
+add_image_size('custom-thumb', 300, 300, true);
+```
+※これを設定した後は、表示用コードで `<?php the_post_thumbnail('custom-thumb'); ?>` と呼び出します。
+
+### functions.phpにかく基本の種類をおしえて、すべて
+`functions.php`に書く代表的な機能追加・設定は以下の通りです。
+
+### 1. デザインに関わる機能（add_theme_support）
+WordPressに「この機能を使いたい！」と教えるためのコードです。
+
+*   **アイキャッチ画像を有効にする**
+    ```php
+    add_theme_support('post-thumbnails');
+    ```
+*   **タイトルタグを自動生成する**（SEO対策で必須）
+    ```php
+    add_theme_support('title-tag');
+    ```
+*   **投稿のフォーマットを有効にする**（画像や動画など、投稿タイプを選べるようにする）
+    ```php
+    add_theme_support('post-formats', ['aside', 'gallery']);
+    ```
+
+### 2. サイドバー・ウィジェットの設定
+管理画面から部品（検索窓やカテゴリー一覧など）を配置できるよ��にします。
+
+*   **サイドバーエリアを登録する**
+    ```php
+    register_sidebar([
+        'name' => 'サイドバー',
+        'id' => 'sidebar-1',
+    ]);
+    ```
+
+### 3. メニュー機能の設定
+管理画面の「メニュー」からリンクを自由に並べ替えられるようにします。
+
+*   **ナビゲーションメニューを登録する**
+    ```php
+    register_nav_menus([
+        'header-menu' => 'ヘッダーメニュー',
+    ]);
+    ```
+
+### 4. 読み込み系の設定
+CSSやJavaScriptをサイトに正しく読み込ませるための命令です。
+
+*   **CSSやJSを読み込む**
+    ```php
+    function my_scripts() {
+        wp_enqueue_style('main-style', get_stylesheet_uri()); // CSS
+        wp_enqueue_script('main-script', get_template_directory_uri() . '/js/main.js'); // JS
+    }
+    add_action('wp_enqueue_scripts', 'my_scripts');
+    ```
+
+### 5. 記事の抜粋（文字数）を変える
+記事一覧で表示される文字数を調整します。
+
+*   **抜粋の長さを変える**
+    ```php
+    function my_excerpt_length($length) {
+        return 50; // 50文字にする
+    }
+    add_filter('excerpt_length', 'my_excerpt_length');
+    ```
+
+### 6. セキュリティ・管理関連
+WordPressのバージョン情報を隠したり、不要な機能をオフ��します。
+
+*   **WordPressのバージョンを隠す**（セキュリティ対策）
+    ```php
+    remove_action('wp_head', 'wp_generator');
+    ```
+
+---
+**💡 覚え方のコツ**
+*   `add_theme_support`：WordPressの便利機能を「ON」にする命令。
+*   `register_～`：新しい場所（メニューやサイドバー）を「作る」命令。
+*   `add_action` / `add_filter`：WordPressが動くタイミングで「割り込んで処理を追加する」命令。
 ## 📌 PHPの `endwhile()` に `()` をつけるとエラー → `endwhile` はキーワードなので `()` なしで書く
 
 【日付】2026-03-09
@@ -14677,6 +15126,43 @@ WordPress関数の命名規約（黄金ルール）は以下の通りです。
 
 **【重要ルール】**
 - 関数���に `the_` が入っていれば「そのまま表示」、`get_` が入っていれば「echoで出力」と覚えると間違いません。
+
+### functionPHPのメソッドをすべての種類をおしえて
+WordPress関数の主な種類（接頭辞）は以下の通りです。
+
+*   **`the_` （出す）**
+    *   情報をそのまま画面に表示します。`echo`は不要です。
+    *   例：`the_title();` （タイトルを表示）
+    *   注意：記事の中（ループ内）でしか使えません。
+
+*   **`get_` （取ってくる）**
+    *   情報をデータとして取得します。表示するには`echo`が必要です。
+    *   例：`echo get_theme_file_uri();` （ファイルの場所を取得して表示）
+
+*   **`get_the_` （記事の情報を取ってくる）**
+    *   `get_`の仲間で、記事固有の情報を取得します。`echo`が必要です。
+    *   例：`echo get_the_ID();` （記事のIDを取得して表示）
+    *   注意：記事の中（ループ内）でしか使��ません。
+
+*   **`has_` （持ってる？）**
+    *   あるかないかを「はい(true)」「いいえ(false)」で答えます。`if`文で使います。
+    *   例：`if (has_post_thumbnail()) { ... }` （サムネイル画像があるか確認）
+
+*   **`is_` （〇〇ページ？）**
+    *   今どこのページにいるかを「はい(true)」「いいえ(false)」で答えます。`if`文で使います。
+    *   例：`if (is_single()) { ... }` （個別記事ページかどうかを確認）
+
+*   **`add_` （登録する）**
+    *   WordPressに新しい機能や設定を追加します。主に`functions.php`で使います。
+    *   例：`add_theme_support('title-tag');` （タイトルタグの機能を有効化）
+
+*   **`setup_` （準備する）**
+    *   データを使うための準備をします。
+    *   例：`setup_postdata($post);` （ループ内で記事データを使えるように準備）
+
+*   **`wp_` （WordPress標準機能）**
+    *   WordPressが用意した便利な機能全般です。
+    *   例：`wp_head();` （ヘッダー情報を出力）
 ## CSS :not(:last-child) → 最後の要素だけマージンを消したいとき使う（最後以外に当てる）
 【日付】2026-03-15
 【結論】
@@ -15133,11 +15619,13 @@ foreach ( $categories as $category ) {
 
 ---
 
-## 📌 get_queried_object_id() → 今見ているページの対象IDを取得する（カテゴリー一覧なら選択中カテゴリーのID）
+## 📌 get_queried_object_id() → 今見ているページの対象IDを取得する（カテゴリー一覧なら選択中カテゴリーのID）（確認された）
 
 【日付】2026-03-17
 【結論】
-- 今アクセスしているページのURLからWordPressが「どのカテゴリーのページか」を自動で判断して、そのIDを返す。
+- 今アクセスしているページのURLからWordPressが「どのカテゴリーのページか」を自動で判断して、そのIDを返す。（投稿編集画面のサイドバーにある「カテゴリー」項目で、該当するカテゴリーにチェックを入れることで設定）
+
+
 - カテゴリー一覧ページなら → そのカテゴリーの term_id が返ってくる。
 - 「ユーザーが画面から選んだカテゴリーのID」という理解でほぼ正解。
 
@@ -15192,3 +15680,232 @@ foreach ($categories as $categoryOne) {
 ### 注意点
 - この関数はページの種類によって中身が変わるため、カテゴリーページ以外で使うと別のID（記事のIDなど）が返ってくる。
 - ループの外でも使えるため、サイドバーなどの表示にも利用できる。
+
+### 画面から取得されたカテゴリーを取得する方法
+### カテゴリーを取得する方法
+`get_queried_object_id()` という関数を使います。この関数は、今開いているページに合わせて「いま表示しているカテゴリーのID」を自動的に教えてくれます。
+
+### 実装のポイント
+*   **関数の役割**: 今見ているページがカテゴリーページであれば、そのカテゴリーのID（term_id）を返します。
+*   **使いどころ**: サイドバーなどで「今どのカテゴリーを見ているか」を目立たせたいときに使います。
+
+### コード例
+```php
+// 1. 今見ているカテゴリーのIDを取得する
+$current_cat_id = get_queried_object_id();
+
+// 2. 全カテゴリーを順番にチェックする
+foreach ($categories as $categoryOne) {
+    // 3. 今見ているIDと一致するか確認し、一致したら「c_link」というクラス名を入れる
+    $class = ($categoryOne->term_id == $current_cat_id) ? 'c_link' : '';
+    
+    // 4. リンクを表示する
+    echo '<a href="' . get_category_link($categoryOne->term_id) . '" class="' . $class . '">' . $categoryOne->name . '</a>';
+}
+```
+
+### 注意すること
+*   **場所による変化**: この関数は「今見ているページ」が何であるかを判断します。もしカテゴリーページ以外（例：個別の記事ページ）で使うと、カテゴリーIDではなくその記事のIDが返ってきてしまいます。
+
+## 📌 functions.php に書く設定一覧 — 何をどこで設定するか
+
+【日付】2026-03-17
+
+【結論】
+functions.php は「WordPressのテーマ設定をまとめる場所」。
+CSS・JS の読み込み、アーカイブURL、カスタム投稿タイプ、アイキャッチ有効化など、
+テーマ全体に関わる設定をここに書く。基本的に「1回書いたら触らない」ものが多い。
+
+【具体例】
+
+```
+
+
+
+┌─────────────────────────────────────────────────────┐
+│ 関数名                  │ 役割                        │
+├─────────────────────────────────────────────────────┤
+│ enqueue_style()         │ CSSファイルを読み込む       │
+│ enqueue_script()        │ JSファイルを読み込む        │
+│ set_post_archive()      │ 「投稿」アーカイブURLを設定 │
+│ register_post_type()    │ カスタム投稿タイプを新規作成│
+│ add_theme_support()     │ アイキャッチ画像を有効化    │
+└─────────────────────────────────────────────────────┘
+```
+
+```php
+// ✅ CSS読み込み（ページごとに条件分岐できる）
+function enqueue_style() {
+  wp_enqueue_style('style', get_template_directory_uri() . '/style.css');
+
+  if (is_front_page()) {
+    wp_enqueue_style('front-page', get_template_directory_uri() . '/css/front-page.css');
+  }
+}
+add_action('wp_enqueue_scripts', 'enqueue_style');
+
+// ✅ JS読み込み
+function enqueue_script() {
+  wp_enqueue_script('jquery');
+  wp_enqueue_script('main', get_template_directory_uri() . '/js/main.js', array('jquery'), '1.0.0', true);
+}
+add_action('wp_enqueue_scripts', 'enqueue_script');
+
+// ✅ 「投稿」のアーカイブURLを /news/ に変える（1回書いたら触らない）
+function set_post_archive($args, $post_type) {
+  if ('post' == $post_type) {
+    $args['has_archive'] = 'news';
+    $args['label'] = 'お知らせ';
+  }
+  return $args;
+}
+add_filter('register_post_type_args', 'set_post_archive', 10, 2);
+
+// ✅ カスタム投稿タイプを新規作成（追加するたびに書く）
+register_post_type('works', [
+  'label'       => '施工実績',
+  'public'      => true,   // 管理画面のメニューに表示される
+  'has_archive' => true,   // アーカイブページを有効にする
+]);
+
+// ✅ アイキャッチ画像を有効化（テーマ全体に1回だけ書く）
+add_theme_support('post-thumbnails');
+```
+
+【補足】
+- `set_post_archive()` はデフォルトの「投稿」専用。カスタム投稿タイプには使わない
+- `register_post_type()` は新しい投稿タイプを作るたびに追加する
+- `enqueue_style()` / `enqueue_script()` は `add_action` とセットで書く（これがないと読み込まれない）
+- ⚠ 間違えやすいこと：`add_action('wp_enqueue_scripts', ...)` はCSSもJSも同じフック名を使う（紛らわしい）
+- 💡 つまり：functions.php は「テーマの設定ファイル」。CSS・JS・投稿タイプ・機能の有効化をここにまとめる
+
+【関連】→「get_template_directory_uri」で検索（CSS・JSのパス取得に使う関数）
+*   **判定の工夫**: 正確に「カテゴリーページであるときだけ」動作させたい場合は、`is_category()` という関数を組み合わせて使うとより安全です。
+
+### 📌 functions.php に書く設定一覧 — 何をどこで設定するか
+### 📌 functions.php でよく使う設定一覧
+
+`functions.php` は、WordPressというサイトの「裏側のルールブック」です。よく使う設定は以下の通りです。
+
+#### 1. デザインを読み込む設定
+*   **CSSの読み込み (`wp_enqueue_style`)**: サイトの見た目を整えるファイルを読み込みます。
+*   **JSの読み込み (`wp_enqueue_script`)**: 動きをつけるプログラムファイルを読み込みます。
+
+#### 2. サイトの機能を増やす設定
+*   **アイキャッチ画像の有効化**: 記事一覧などで使う「表紙画像」を設定できるようにします。
+    ```php
+    add_theme_support('post-thumbnails');
+    ```
+*   **タイトルタグの自動生成**: ブラウザのタブに出るページタイトルを自動で設定します���
+    ```php
+    add_theme_support('title-tag');
+    ```
+*   **カスタムメニューの有効化**: 管理画面から自分でメニューを作成できるようにします。
+    ```php
+    add_theme_support('menus');
+    ```
+
+#### 3. 記事・ページを増やす設定
+*   **カスタム投稿タイプの作成 (`register_post_type`)**: 「施工実績」「製品紹介」など、ブログ記事とは別の新しい記事タイプを追加します。
+*   **アーカイブURLの設定 (`has_archive`)**: 投稿一覧ページのURLを「/news/」のように好きな名前に変更します。
+
+#### 4. 不要なものを消す設定（おまけ）
+*   **いらない機能の無効化**: セキュリティ対策や動作を軽くするために、WordPress標準の不要な読み込み（絵文字のJSなど）をオフにします。
+    ```php
+    remove_action('wp_head', 'print_emoji_detection_script');
+    ```
+
+---
+**💡 ポイント**
+*   これらは一度書けば、基本的にずっと有効です。
+*   `add_action` や `add_filter` という命令を使って、「いつ（どのタイミングで）」その設定を動かすかを指定するのがルールです。
+
+▢
+## メモ：スクロールで画像拡大 → 右寄りに広がる問題（justify-content: center + flex-shrink: 0 + overflow-x: hidden の3点セットで解決）
+【日付】2026-03-17
+
+【結論】
+3枚の画像をスクロールで拡大するとき、`width` を増やすと合計が100%を超える。
+そのとき **3つのCSSプロパティをセットで使わないと右寄りに広がる**。
+
+- `justify-content: center` → 中央揃えで並べる
+- `flex-shrink: 0` → 合計100%超えても縮まない
+- `overflow-x: hidden` → はみ出した左右を切り取る
+
+【具体例】
+```css
+/*
+  <div .wrapper>         ← flex親（center + overflow-x: hidden）
+    <img .img>           ← 画像（flex-shrink: 0）
+    <img .img>
+    <img .img>
+*/
+.wrapper {
+  display: flex;
+  justify-content: center;   /* ★ center にする */
+  overflow-x: hidden;        /* ★ はみ出し非表示 */
+}
+.img {
+  width: calc(100% / 3);     /* ★ 33ではなく100/3 */
+  flex-shrink: 0;            /* ★ 縮まない */
+  object-fit: cover;
+}
+```
+
+```javascript
+// vanilla JS版
+window.addEventListener("scroll", function () {
+  const scrollTop = window.scrollY;
+  const imgs = document.querySelectorAll(".img");
+  if (window.innerWidth > 900) {
+    imgs.forEach(function (img) {
+      img.style.width = 100 / 3 + scrollTop / 10 + "%";
+    });
+  }
+});
+```
+
+【補足】
+- ⚠ `justify-content: space-between` だと隙間ができて右寄りになる → `center` にする
+- ⚠ widthを `33` と書くと 33×3=99% で1%隙間 → `100/3` と書く
+- ⚠ セレクタを親要素にすると親ごと縮む → 子（画像）に指定する
+- 💡 つまり：center + flex-shrink:0 + overflow-x:hidden は「中央から均等に広がる」ためのセット技
+
+> 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★スクロールするごとに画像をを大きくする.md)
+
+【関連】→ 「flex-shrink: 0 はスライダーに必須」で検索（flex-shrinkの基本）
+
+▢
+## メモ：ホバーで疑似要素を動かす → `.parent:hover::after` の順番で書く（逆にすると効かない）
+【日付】2026-03-17
+
+【結論】
+疑似要素をホバーで動かすには、**本体に`:hover`をつけてから`::after`をつなげる**。
+
+- ✅ `.contact_link:hover::after` → 「親にマウスが乗ったとき、疑似要素を変える」
+- ❌ `.contact_link::after:hover` → 「疑似要素自体にホバー」の意味になる（効かない）
+
+【具体例】
+```css
+/* ① 通常時：疑似要素を作る + transition を書く */
+.contact_link::after {
+  content: "";
+  width: 50px;
+  height: 2px;
+  background: #fff;
+  transform: scaleX(0);        /* 最初は見えない */
+  transition: transform 0.3s;  /* ★ transition は通常時に書く */
+}
+
+/* ② ホバー時：疑似要素を変化させる */
+.contact_link:hover::after {
+  transform: scaleX(1);        /* ホバーで表示 */
+}
+```
+
+【補足】
+- ⚠ `transition` はホバー時ではなく**通常時（①）に書く**（戻るアニメーションも効くようにするため）
+- ⚠ `:hover::after` の順番を逆にすると効かない（よくあるミス）
+- 💡 つまり：「本体:hover::疑似要素」の順番。本体にマウスが乗ったら → 疑似要素が変わる
+
+【関連】→ 「ホバー時テキストをスライドで切り替え」で検索（同じ疑似要素パターン）

@@ -14,8 +14,6 @@ settings.json
 ちゃっと画面の下を、モードをかえる
 
 
-▢「PHP Intelephense」 を入れているなら Shift + Alt + F でフォーマットできます。
-
 
 ▢　VSCODEの拡張の設定で、claude codeを許可する
 ![](images/2026-03-14-11-22-58.png)
