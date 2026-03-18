@@ -15627,6 +15627,10 @@ WordPress関数の主な種類（接頭辞）は以下の通りです。
 
 構造：`.クラス名:not(:last-of-type)` ← コロン1つで擬似クラス、:not()の中にも擬似クラス
 
+- ⚠ **後ろの要素が同じ `div` タグの場合は `:last-of-type` も効かない！**
+  - 例：`.company_wrapper` の後ろに `.map`（同じ `div`）があると、`.map` が「最後の div」になる
+  - → どちらも効かないときは、対象要素に**別クラスをつける**のがシンプルな解決策
+
 ### コロン1つ（:）と2つ（::）の違い＋nth-child比較
 【日付】2026-03-16
 
@@ -16359,3 +16363,53 @@ window.addEventListener("scroll", function () {
 - 💡 つまり：「本体:hover::疑似要素」の順番。本体にマウスが乗ったら → 疑似要素が変わる
 
 【関連】→ 「ホバー時テキストをスライドで切り替え」で検索（同じ疑似要素パターン）
+
+## ラベル：内容の表は p タグ2カラムではなく dl/dt/dd を使う（テキスト量が違うとズレる）
+【日付】2026-03-18
+【結論】
+`div` を2列に並べて左に「ラベル」右に「内容」を入れる方法は、テキスト量が違うと高さがズレてぐちゃぐちゃになる。`dl/dt/dd` なら `dt` と `dd` が1セットで動くのでズレない。
+
+【具体例】
+```html
+<!-- ❌ NG：p タグ2カラム方式 → テキスト量が違うとズレる -->
+<div class="left">
+  <p>社名</p>
+  <p>住所</p>
+</div>
+<div class="right">
+  <p>株式会社〇〇</p>
+  <p>東京都港区〇〇（長い住所...）</p>
+</div>
+
+<!-- ✅ OK：dl/dt/dd 方式 → 1行ずつペアで動くのでズレない -->
+<dl>
+  <dt>社名</dt>
+  <dd>株式会社〇〇</dd>
+  <dt>住所</dt>
+  <dd>東京都港区〇〇</dd>
+</dl>
+```
+
+```css
+dl {
+  display: flex;
+  flex-wrap: wrap;   /* dt と dd を横に並べて折り返す */
+}
+dt {
+  width: 30%;
+  border-bottom: solid 1px #ddd;
+  padding: 20px 10px;
+}
+dd {
+  width: 70%;
+  border-bottom: solid 1px #ddd;  /* dt と両方に引くと1本線に見える */
+  padding: 20px 10px;
+}
+```
+
+【補足】
+- ⚠ `gap` をつけると下線がズレるので使わない。余白は `padding` で調整する
+- ⚠ 最後の行だけ下線なしにしたいとき → `dt:last-of-type` / `dd:last-of-type` に `border-bottom: none`
+- 💡 つまり：「ラベル：内容」のペアが並ぶ表は `dl/dt/dd` + `flex-wrap: wrap` が定番
+
+【関連】→ 「:last-child と :last-of-type」で検索（最後の要素にスタイルを当てる方法）
