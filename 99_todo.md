@@ -1,5 +1,19 @@
 
 
+▢セッティングJSONに追加
+{
+  "permissions": {
+    "allow": [
+      "Bash(go test:*)",
+      "Bash(go generate:*)",
+      "Bash(go vet:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)"
+    ]
+  }
+}
 
 
 

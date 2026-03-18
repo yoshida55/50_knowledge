@@ -4502,6 +4502,86 @@
     "questionText": "CSSで、リストなどの最後の要素以外にマージンを適用したいときに使う擬似クラスは何？",
     "aiCategory": "html"
   },
+  "📌 functions.php に書く設定一覧 — 何をどこで設定するか": {
+    "title": "📌 functions.php に書く設定一覧 — 何をどこで設定するか",
+    "line": 16127,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、テーマ全体に関わる設定や機能をまとめる役割を持つファイルは何ですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "HTMLからWordPressテーマを作るときの初期セットアップ手順（Local使用）": {
+    "title": "HTMLからWordPressテーマを作るときの初期セットアップ手順（Local使用）",
+    "line": 16417,
+    "lastReviewed": 1773827309106,
+    "reviewCount": 1,
+    "questionText": "HTMLからWordPressテーマを作成する際、まず最初に行うべき手順は何ですか？",
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-18"
+  },
+  "メモ：スクロールで画像拡大 → 右寄りに広がる問題（justify-content: center + flex-shrink: 0 + overflow-x: hidden の3点セットで解決）": {
+    "title": "メモ：スクロールで画像拡大 → 右寄りに広がる問題（justify-content: center + flex-shrink: 0 + overflow-x: hidden の3点セットで解決）",
+    "line": 16278,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "スクロールで画像を拡大した際、右寄りに広がる問題を解決するためのCSS 3点セットとは？",
+    "aiCategory": "html"
+  },
+  "📌 WordPressでリンクに飛ばすのは3種類": {
+    "title": "📌 WordPressでリンクに飛ばすのは3種類",
+    "line": 11832,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressでリンクを作成する際に使い分けるべき3種類のURL取得方法は？",
+    "aiCategory": "wordpress/php"
+  },
+  "::after の clip-path は子要素を切り抜けない → 画像も収めたいなら親本体に clip-path（ただしタイトルが箱に閉じ込められる）": {
+    "title": "::after の clip-path は子要素を切り抜けない → 画像も収めたいなら親本体に clip-path（ただしタイトルが箱に閉じ込められる）",
+    "line": 11087,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "::afterに指定したclip-pathで子要素が切り抜かれない際、画像も含めて収めるにはどうする？",
+    "aiCategory": "html"
+  },
+  "ラベル：内容の表は p タグ2カラムではなく dl/dt/dd を使う（テキスト量が違うとズレる）": {
+    "title": "ラベル：内容の表は p タグ2カラムではなく dl/dt/dd を使う（テキスト量が違うとズレる）",
+    "line": 16367,
+    "lastReviewed": 1773827281712,
+    "reviewCount": 1,
+    "questionText": "ラベルと内容の表を作る際、テキスト量の違いによるレイアウト崩れを防ぐために推奨されるタグは何ですか？",
+    "aiCategory": "html",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-18"
+  },
+  "メモ：ホバーで疑似要素を動かす → `.parent:hover::after` の順番で書く（逆にすると効かない）": {
+    "title": "メモ：ホバーで疑似要素を動かす → `.parent:hover::after` の順番で書く（逆にすると効かない）",
+    "line": 16333,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSで親要素のホバー時に疑似要素を動かす際、正しい記述順序は「.parent:hover::after」と「.parent::after:hover」のどちらですか？",
+    "aiCategory": "html"
+  },
+  "📌 get_queried_object_id() → 今見ているページの対象IDを取得する（カテゴリー一覧なら選択中カテゴリーのID）（確認された）": {
+    "title": "📌 get_queried_object_id() → 今見ているページの対象IDを取得する（カテゴリー一覧なら選択中カテゴリーのID）（確認された）",
+    "line": 16039,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、今見ているページの対象ID（カテゴリー一覧なら選択中のID）を取得する関数は何？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる　★分離することによって、他のセクションより下げることができつつも、afterでz-indexを作った要塞はスタキングコンテキストが作られない。それによって子要素が自由に動けるので、子要素のz-indexをあげれば、別な要素の上に付けることができる。つまり、3レイヤーを作ることができる。": {
+    "title": "📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる　★分離することによって、他のセクションより下げることができつつも、afterでz-indexを作った要塞はスタキングコンテキストが作られない。それによって子要素が自由に動けるので、子要素のz-indexをあげれば、別な要素の上に付けることができる。つまり、3レイヤーを作ることができる。",
+    "line": 11028,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "親要素にz-indexを付けずに背景を::after疑似要素に分離するメリットは何ですか？",
+    "aiCategory": "html"
+  },
   "_meta": {
     "lastFilter": {
       "date": "昨日",
