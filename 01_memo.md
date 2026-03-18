@@ -16413,3 +16413,42 @@ dd {
 - 💡 つまり：「ラベル：内容」のペアが並ぶ表は `dl/dt/dd` + `flex-wrap: wrap` が定番
 
 【関連】→ 「:last-child と :last-of-type」で検索（最後の要素にスタイルを当てる方法）
+
+## HTMLからWordPressテーマを作るときの初期セットアップ手順（Local使用）
+【日付】2026-03-18
+【結論】
+HTMLで全ページ作り切ってからWordPressに統合する。順番を守らないと画面確認しながら作業できない。
+
+【具体例】
+```
+① HTML/CSSで全ページ作る（index / view_more / detail / about / company）
+      ↓
+② Local でWordPressサイトを新規作成
+   Local を開く → 「＋」ボタン → サイト名入力 → Continue → Add Site
+      ↓
+③ テーマフォルダを作る
+   場所: C:\Users\guest04\Local Sites\サイト名\app\public\wp-content\themes\
+   → その中に「テーマ名フォルダ（例: fd）」を作成
+      ↓
+④ css / js / img フォルダをテーマフォルダにコピー
+      ↓
+⑤ style.css を作る（テーマ認識に必須）
+   themes\fd\style.css の1行目に以下を書く：
+   /*
+   Theme Name: fd
+   */
+      ↓
+⑥ WordPress管理画面でテーマを有効化
+   外観 → テーマ → 「fd」を有効化
+      ↓
+⑦ 画面を見ながらPHPファイルを作っていく
+   header.php → footer.php → index.php → category.php → single.php → page.php
+```
+
+【補足】
+- ⚠ `wp-content\fd\` ではなく `wp-content\themes\fd\` が正しい場所（themes を忘れずに）
+- ⚠ `style.css` の `Theme Name:` コメントがないとWordPressがテーマとして認識しない
+- ⚠ HTMLファイルはテーマフォルダに置いても使われない（参考用としてはOK）
+- 💡 つまり：Local でサイト作成 → themes フォルダにテーマ置く → style.css 作る → 有効化 → PHP変換
+
+【関連】→ 「WordPressの画像パス」で検索（テーマフォルダ内の画像URLの書き方）
