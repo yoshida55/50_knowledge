@@ -1,8 +1,13 @@
 {
-  "folders": [
-	{
-		"path": "C:/Users/sensh/Local Sites/codejumpgrid/app/public/wp-content/themes/fd"
+	"folders": [
+		{
+			"path": "C:/Users/sensh/Local Sites/codejumpgrid/app/public/wp-content/themes/fd"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.port": 5758
 	}
-],
-  "settings": {}
 }
