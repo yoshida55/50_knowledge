@@ -4616,10 +4616,14 @@
   "get_post_meta() でカスタムフィールドの値を取得する（DBの値はesc_htmlで安全に出力）": {
     "title": "get_post_meta() でカスタムフィールドの値を取得する（DBの値はesc_htmlで安全に出力）",
     "line": 16631,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1774043133233,
+    "reviewCount": 1,
     "questionText": "WordPressでカスタムフィールドの値を取得し、安全に出力するために使う関数と記述方法は？",
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-20"
   },
   "📌 `the_` 系関数はタグをイメージ → 出てくるものをイメージして囲むか決める": {
     "title": "📌 `the_` 系関数はタグをイメージ → 出てくるものをイメージして囲むか決める",
@@ -4643,6 +4647,30 @@
     "lastReviewed": 0,
     "reviewCount": 0,
     "questionText": "WordPressにおいて、get_系関数の値を出力する際、esc_系の関数とechoはどのような順番で記述すべきですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 `get_post_meta()` は改行しても `<p>` タグがつかない（`the_content()` との違い）": {
+    "title": "📌 `get_post_meta()` は改行しても `<p>` タグがつかない（`the_content()` との違い）",
+    "line": 16977,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressで、改行しても自動的に<p>タグが付与されない関数はどれですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 `esc_attr()` は属性値（alt・class など `\"\"` の中）に使う → 値は管理画面から入力": {
+    "title": "📌 `esc_attr()` は属性値（alt・class など `\"\"` の中）に使う → 値は管理画面から入力",
+    "line": 17007,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、altやclassなどの属性値の中に動的な値を出力する際、使用すべき関数は何ですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "`echo esc_html( get_post_meta( get_the_ID(), 'price', true ) )` を書く流れでのミス": {
+    "title": "`echo esc_html( get_post_meta( get_the_ID(), 'price', true ) )` を書く流れでのミス",
+    "line": 16953,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "echo と esc_html を組み合わせる際、よくやってしまう構文エラーとは？",
     "aiCategory": "wordpress/php"
   },
   "_meta": {
