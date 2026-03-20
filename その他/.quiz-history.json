@@ -4502,85 +4502,75 @@
     "questionText": "CSSで、リストなどの最後の要素以外にマージンを適用したいときに使う擬似クラスは何？",
     "aiCategory": "html"
   },
-  "📌 functions.php に書く設定一覧 — 何をどこで設定するか": {
-    "title": "📌 functions.php に書く設定一覧 — 何をどこで設定するか",
-    "line": 16127,
+  "WordPress の esc_ 関数3種（URLはesc_url・テキストはesc_html・属性はesc_attr）": {
+    "title": "WordPress の esc_ 関数3種（URLはesc_url・テキストはesc_html・属性はesc_attr）",
+    "line": 8738,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "questionText": "WordPressにおいて、テーマ全体に関わる設定や機能をまとめる役割を持つファイルは何ですか？",
+    "questionText": "WordPressにおいて、HTMLの属性値を出力する際に使用する関数は何ですか？",
     "aiCategory": "wordpress/php"
   },
-  "HTMLからWordPressテーマを作るときの初期セットアップ手順（Local使用）": {
-    "title": "HTMLからWordPressテーマを作るときの初期セットアップ手順（Local使用）",
-    "line": 16417,
-    "lastReviewed": 1773827309106,
-    "reviewCount": 1,
-    "questionText": "HTMLからWordPressテーマを作成する際、まず最初に行うべき手順は何ですか？",
-    "aiCategory": "wordpress/php",
+  "esc_url() は「URLを出力するとき反射的に付ける」習慣（安全より規約）": {
+    "title": "esc_url() は「URLを出力するとき反射的に付ける」習慣（安全より規約）",
+    "line": 8756,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressでURLを出力する際、安全性の有無に関わらずコーディング規約として反射的に付けるべき関数は何でしょう？",
+    "aiCategory": "wordpress/php"
+  },
+  "bloginfo('name') でサイト名を出力する（タイトルタグをWordPressで管理する）": {
+    "title": "bloginfo('name') でサイト名を出力する（タイトルタグをWordPressで管理する）",
+    "line": 16486,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressの管理画面から設定したサイト名を出力するために使用する関数は何？",
+    "aiCategory": "wordpress/php"
+  },
+  "アイキャッチ画像はfunctions.phpで有効化しないと管理画面に表示されない": {
+    "title": "アイキャッチ画像はfunctions.phpで有効化しないと管理画面に表示されない",
+    "line": 16571,
+    "lastReviewed": 1773974594973,
+    "reviewCount": 0,
+    "questionText": "WordPressの管理画面に「アイキャッチ画像」欄を表示させるためにfunctions.phpへ記述する関数は？",
     "evaluations": [
-      2
+      1
     ],
-    "lastAnsweredDate": "2026-03-18"
+    "lastAnsweredDate": "2026-03-20"
   },
-  "メモ：スクロールで画像拡大 → 右寄りに広がる問題（justify-content: center + flex-shrink: 0 + overflow-x: hidden の3点セットで解決）": {
-    "title": "メモ：スクロールで画像拡大 → 右寄りに広がる問題（justify-content: center + flex-shrink: 0 + overflow-x: hidden の3点セットで解決）",
-    "line": 16278,
-    "lastReviewed": 0,
+  "WordPress テーマ化で修正したポイント一覧（header.php / footer.php / functions.php）": {
+    "title": "WordPress テーマ化で修正したポイント一覧（header.php / footer.php / functions.php）",
+    "line": 16587,
+    "lastReviewed": 1773974611603,
     "reviewCount": 0,
-    "questionText": "スクロールで画像を拡大した際、右寄りに広がる問題を解決するためのCSS 3点セットとは？",
-    "aiCategory": "html"
-  },
-  "📌 WordPressでリンクに飛ばすのは3種類": {
-    "title": "📌 WordPressでリンクに飛ばすのは3種類",
-    "line": 11832,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPressでリンクを作成する際に使い分けるべき3種類のURL取得方法は？",
-    "aiCategory": "wordpress/php"
-  },
-  "::after の clip-path は子要素を切り抜けない → 画像も収めたいなら親本体に clip-path（ただしタイトルが箱に閉じ込められる）": {
-    "title": "::after の clip-path は子要素を切り抜けない → 画像も収めたいなら親本体に clip-path（ただしタイトルが箱に閉じ込められる）",
-    "line": 11087,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "::afterに指定したclip-pathで子要素が切り抜かれない際、画像も含めて収めるにはどうする？",
-    "aiCategory": "html"
-  },
-  "ラベル：内容の表は p タグ2カラムではなく dl/dt/dd を使う（テキスト量が違うとズレる）": {
-    "title": "ラベル：内容の表は p タグ2カラムではなく dl/dt/dd を使う（テキスト量が違うとズレる）",
-    "line": 16367,
-    "lastReviewed": 1773827281712,
-    "reviewCount": 1,
-    "questionText": "ラベルと内容の表を作る際、テキスト量の違いによるレイアウト崩れを防ぐために推奨されるタグは何ですか？",
-    "aiCategory": "html",
+    "questionText": "HTMLサイトをWordPressテーマ化する際、header.phpやfooter.phpなどで修正すべきポイントとは？",
     "evaluations": [
-      2
+      1
     ],
-    "lastAnsweredDate": "2026-03-18"
+    "lastAnsweredDate": "2026-03-20"
   },
-  "メモ：ホバーで疑似要素を動かす → `.parent:hover::after` の順番で書く（逆にすると効かない）": {
-    "title": "メモ：ホバーで疑似要素を動かす → `.parent:hover::after` の順番で書く（逆にすると効かない）",
-    "line": 16333,
+  "WordPress footer.php の作り方（wp_footer・bloginfo・SNSリンク）": {
+    "title": "WordPress footer.php の作り方（wp_footer・bloginfo・SNSリンク）",
+    "line": 16523,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "questionText": "CSSで親要素のホバー時に疑似要素を動かす際、正しい記述順序は「.parent:hover::after」と「.parent::after:hover」のどちらですか？",
-    "aiCategory": "html"
-  },
-  "📌 get_queried_object_id() → 今見ているページの対象IDを取得する（カテゴリー一覧なら選択中カテゴリーのID）（確認された）": {
-    "title": "📌 get_queried_object_id() → 今見ているページの対象IDを取得する（カテゴリー一覧なら選択中カテゴリーのID）（確認された）",
-    "line": 16039,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPressにおいて、今見ているページの対象ID（カテゴリー一覧なら選択中のID）を取得する関数は何？",
+    "questionText": "WordPressのfooter.phpにおいて、</body>直前に必ず記述すべき関数は何ですか？",
     "aiCategory": "wordpress/php"
   },
-  "📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる　★分離することによって、他のセクションより下げることができつつも、afterでz-indexを作った要塞はスタキングコンテキストが作られない。それによって子要素が自由に動けるので、子要素のz-indexをあげれば、別な要素の上に付けることができる。つまり、3レイヤーを作ることができる。": {
-    "title": "📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる　★分離することによって、他のセクションより下げることができつつも、afterでz-indexを作った要塞はスタキングコンテキストが作られない。それによって子要素が自由に動けるので、子要素のz-indexをあげれば、別な要素の上に付けることができる。つまり、3レイヤーを作ることができる。",
-    "line": 11028,
+  "WordPress の jQuery は wp_enqueue_script('jquery') 1行でOK（同梱済みのため）": {
+    "title": "WordPress の jQuery は wp_enqueue_script('jquery') 1行でOK（同梱済みのため）",
+    "line": 16553,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "questionText": "親要素にz-indexを付けずに背景を::after疑似要素に分離するメリットは何ですか？",
-    "aiCategory": "html"
+    "questionText": "WordPressでjQueryを読み込む際、CDNのURLを使わずに1行で記述する方法は？",
+    "aiCategory": "wordpress/php"
+  },
+  "bloginfo() は内部でエスケープ済みなので esc_html() 不要": {
+    "title": "bloginfo() は内部でエスケープ済みなので esc_html() 不要",
+    "line": 16508,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressのbloginfo()関数で出力する際、esc_html()によるエスケープ処理は必要ですか？",
+    "aiCategory": "wordpress/php"
   },
   "_meta": {
     "lastFilter": {
