@@ -4505,26 +4505,39 @@
   "WordPress の esc_ 関数3種（URLはesc_url・テキストはesc_html・属性はesc_attr）": {
     "title": "WordPress の esc_ 関数3種（URLはesc_url・テキストはesc_html・属性はesc_attr）",
     "line": 8738,
-    "lastReviewed": 0,
+    "lastReviewed": 1774001350734,
     "reviewCount": 0,
     "questionText": "WordPressにおいて、HTMLの属性値を出力する際に使用する関数は何ですか？",
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      1
+    ],
+    "lastAnsweredDate": "2026-03-20"
   },
   "esc_url() は「URLを出力するとき反射的に付ける」習慣（安全より規約）": {
     "title": "esc_url() は「URLを出力するとき反射的に付ける」習慣（安全より規約）",
     "line": 8756,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1774001772367,
+    "reviewCount": 3,
     "questionText": "WordPressでURLを出力する際、安全性の有無に関わらずコーディング規約として反射的に付けるべき関数は何でしょう？",
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      3
+    ],
+    "lastAnsweredDate": "2026-03-20"
   },
   "bloginfo('name') でサイト名を出力する（タイトルタグをWordPressで管理する）": {
     "title": "bloginfo('name') でサイト名を出力する（タイトルタグをWordPressで管理する）",
     "line": 16486,
-    "lastReviewed": 0,
+    "lastReviewed": 1774001834525,
     "reviewCount": 0,
     "questionText": "WordPressの管理画面から設定したサイト名を出力するために使用する関数は何？",
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      1,
+      1
+    ],
+    "lastAnsweredDate": "2026-03-20"
   },
   "アイキャッチ画像はfunctions.phpで有効化しないと管理画面に表示されない": {
     "title": "アイキャッチ画像はfunctions.phpで有効化しないと管理画面に表示されない",
@@ -4551,25 +4564,85 @@
   "WordPress footer.php の作り方（wp_footer・bloginfo・SNSリンク）": {
     "title": "WordPress footer.php の作り方（wp_footer・bloginfo・SNSリンク）",
     "line": 16523,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1774001861605,
+    "reviewCount": 1,
     "questionText": "WordPressのfooter.phpにおいて、</body>直前に必ず記述すべき関数は何ですか？",
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-20"
   },
   "WordPress の jQuery は wp_enqueue_script('jquery') 1行でOK（同梱済みのため）": {
     "title": "WordPress の jQuery は wp_enqueue_script('jquery') 1行でOK（同梱済みのため）",
     "line": 16553,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1774001874476,
+    "reviewCount": 3,
     "questionText": "WordPressでjQueryを読み込む際、CDNのURLを使わずに1行で記述する方法は？",
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      3
+    ],
+    "lastAnsweredDate": "2026-03-20"
   },
   "bloginfo() は内部でエスケープ済みなので esc_html() 不要": {
     "title": "bloginfo() は内部でエスケープ済みなので esc_html() 不要",
     "line": 16508,
-    "lastReviewed": 0,
+    "lastReviewed": 1774001802343,
     "reviewCount": 0,
     "questionText": "WordPressのbloginfo()関数で出力する際、esc_html()によるエスケープ処理は必要ですか？",
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      1
+    ],
+    "lastAnsweredDate": "2026-03-20"
+  },
+  "📌 WordPress でやりがちな3つのミス（セミコロン抜け・the_post_thumbnail の使い方）": {
+    "title": "📌 WordPress でやりがちな3つのミス（セミコロン抜け・the_post_thumbnail の使い方）",
+    "line": 16729,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressで画像を表示する際、the_post_thumbnail()をsrc属性の中に記述してはいけない理由は何ですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "WordPressループは2種類（have_posts標準ループ vs get_posts件数制限あり）": {
+    "title": "WordPressループは2種類（have_posts標準ループ vs get_posts件数制限あり）",
+    "line": 16695,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、全件表示に適した標準ループと、件数制限を行うループの使い分け方は？",
+    "aiCategory": "wordpress/php"
+  },
+  "get_post_meta() でカスタムフィールドの値を取得する（DBの値はesc_htmlで安全に出力）": {
+    "title": "get_post_meta() でカスタムフィールドの値を取得する（DBの値はesc_htmlで安全に出力）",
+    "line": 16631,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressでカスタムフィールドの値を取得し、安全に出力するために使う関数と記述方法は？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 `the_` 系関数はタグをイメージ → 出てくるものをイメージして囲むか決める": {
+    "title": "📌 `the_` 系関数はタグをイメージ → 出てくるものをイメージして囲むか決める",
+    "line": 16800,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressの「the_」系関数を使う際、タグで囲むかそのまま書くかは何を基準に判断すべきか？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 `the_post_` が付く関数は少ない（基本は `the_` だけ）": {
+    "title": "📌 `the_post_` が付く関数は少ない（基本は `the_` だけ）",
+    "line": 16776,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、アイキャッチ関係の関数によく付く接頭辞は「the_post_」ですが、それ以外で「the_」のみで始まる関数が圧倒的に多い理由を簡潔に説明できますか？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 `esc_` 系関数のミス一覧（get_ 系に付け忘れ・echo の順番）": {
+    "title": "📌 `esc_` 系関数のミス一覧（get_ 系に付け忘れ・echo の順番）",
+    "line": 16830,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、get_系関数の値を出力する際、esc_系の関数とechoはどのような順番で記述すべきですか？",
     "aiCategory": "wordpress/php"
   },
   "_meta": {
