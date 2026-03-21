@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WordPress基本テンプレートタグ解説</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(90, 143, 196, 0.1);
+}
+
+h1 {
+  color: #5A8FC4;
+  font-size: 28px;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #5A8FC4;
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: #5A8FC4;
+  font-size: 20px;
+  margin: 30px 0 15px;
+}
+
+.svg-container {
+  margin: 30px 0;
+  text-align: center;
+}
+
+svg text {
+  font-size: 14px;
+  font-family: "游ゴシック体", YuGothic, sans-serif;
+}
+
+.code-wrapper {
+  position: relative;
+  margin: 20px 0;
+}
+
+.code-block {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: "Consolas", "Monaco", monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #5A8FC4;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.copy-btn:hover {
+  background: #4a7fb4;
+}
+
+.tag-item {
+  background: #f8fafc;
+  border-left: 4px solid #5A8FC4;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.tag-name {
+  color: #5A8FC4;
+  font-weight: bold;
+  font-family: "Consolas", monospace;
+  font-size: 15px;
+}
+
+.tag-desc {
+  margin-top: 8px;
+  color: #555;
+}
+
+@keyframes flow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.flow-arrow {
+  animation: flow 2s ease-in-out infinite;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>WordPress基本テンプレートタグ</h1>
+  
+  <p>WordPressテーマ開発で使用する基本的なテンプレートタグの解説です。</p>
+
+  <div class="svg-container">
+    <svg viewBox="0 0 800 280" style="max-width: 100%; height: auto;">
+      <!-- WordPress Core -->
+      <rect x="300" y="20" width="200" height="60" fill="#5A8FC4" rx="5"/>
+      <text x="400" y="55" text-anchor="middle" fill="#fff" font-weight="bold">WordPress Core</text>
+      
+      <!-- Arrows -->
+      <line x1="400" y1="80" x2="400" y2="110" stroke="#5A8FC4" stroke-width="2" class="flow-arrow"/>
+      <polygon points="400,110 395,100 405,100" fill="#5A8FC4" class="flow-arrow"/>
+      
+      <!-- Template Tags -->
+      <rect x="50" y="130" width="180" height="50" fill="#7BA8D1" rx="5"/>
+      <text x="140" y="160" text-anchor="middle" fill="#fff" font-weight="bold">bloginfo('name')</text>
+      
+      <rect x="310" y="130" width="180" height="50" fill="#7BA8D1" rx="5"/>
+      <text x="400" y="160" text-anchor="middle" fill="#fff" font-weight="bold">home_url('/')</text>
+      
+      <rect x="570" y="130" width="180" height="50" fill="#7BA8D1" rx="5"/>
+      <text x="660" y="160" text-anchor="middle" fill="#fff" font-weight="bold">wp_head()</text>
+      
+      <!-- Output -->
+      <line x1="140" y1="180" x2="140" y2="210" stroke="#5A8FC4" stroke-width="2"/>
+      <line x="400" y1="180" x2="400" y2="210" stroke="#5A8FC4" stroke-width="2"/>
+      <line x1="660" y1="180" x2="660" y2="210" stroke="#5A8FC4" stroke-width="2"/>
+      
+      <rect x="50" y="220" width="180" height="40" fill="#EBF1F6" stroke="#5A8FC4" stroke-width="2" rx="5"/>
+      <text x="140" y="245" text-anchor="middle" fill="#333" font-size="13">サイト名出力</text>
+      
+      <rect x="310" y="220" width="180" height="40" fill="#EBF1F6" stroke="#5A8FC4" stroke-width="2" rx="5"/>
+      <text x="400" y="245" text-anchor="middle" fill="#333" font-size="13">ホームURL出力</text>
+      
+      <rect x="570" y="220" width="180" height="40" fill="#EBF1F6" stroke="#5A8FC4" stroke-width="2" rx="5"/>
+      <text x="660" y="245" text-anchor="middle" fill="#333" font-size="13">必須スクリプト出力</text>
+    </svg>
+  </div>
+
+  <h2>各タグの解説</h2>
+
+  <div class="tag-item">
+    <div class="tag-name">bloginfo('name')</div>
+    <div class="tag-desc">サイト名を出力します。管理画面の「設定 > 一般」で設定した内容が表示されます。</div>
+  </div>
+
+  <div class="tag-item">
+    <div class="tag-name">home_url('/')</div>
+    <div class="tag-desc">サイトのホームURLを取得します。esc_url()でエスケープ処理してから出力するのが推奨です。</div>
+  </div>
+
+  <div class="tag-item">
+    <div class="tag-name">wp_head()</div>
+    <div class="tag-desc">&lt;/head&gt;の直前に必須。プラグインやテーマがスタイル・スクリプトを���み込むために使用します。</div>
+  </div>
+
+  <div class="tag-item">
+    <div class="tag-name">wp_footer()</div>
+    <div class="tag-desc">&lt;/body&gt;の直前に必須。JavaScriptの読み込みやトラッキングコードの出力に使用されます。</div>
+  </div>
+
+  <h2>実装コード</h2>
+
+  <div class="code-wrapper">
+    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    <pre class="code-block"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;&lt;?php bloginfo('name'); ?&gt;&lt;/title&gt;
+  &lt;?php wp_head(); ?&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;a href="&lt;?php echo esc_url( home_url('/') ); ?&gt;"&gt;ホーム&lt;/a&gt;
+  
+  &lt;?php wp_footer(); ?&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const code = btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'コピー完了!';
+    setTimeout(() => {
+      btn.textContent = 'コピー';
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
