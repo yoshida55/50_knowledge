@@ -1,19 +1,8 @@
+CSS jump
+▢ CSSがあたっているのに、クラスがないと警告がでる。
+▢ 複数CSSがあたっていたら警告してほしい。
 
 
-▢セッティングJSONに追加
-{
-  "permissions": {
-    "allow": [
-      "Bash(go test:*)",
-      "Bash(go generate:*)",
-      "Bash(go vet:*)",
-      "Bash(mkdir:*)",
-      "Bash(touch:*)",
-      "Bash(ls:*)",
-      "Bash(grep:*)"
-    ]
-  }
-}
 
 
 
