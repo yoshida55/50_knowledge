@@ -12847,6 +12847,28 @@ WordPressの `the_posts_pagination()` を使うと、以下のクラスが自動
 **CSSでデザインする際のポイント：**
 - `.page-numbers`：すべてのボタンに共通のデザインを当てる。
 - `.page-numbers.current`：今いるページだけ色を変えるなど、特別なデザインを当てる。
+
+### ページネーションのもともとのHTML
+`the_posts_pagination()` が出力する基本的なHTML構造は以下の通りです。
+
+```html
+<nav class="navigation pagination" role="navigation">
+  <h2 class="screen-reader-text">投稿ナビゲーション</h2>
+  <div class="nav-links">
+    <span aria-current="page" class="page-numbers current">1</span>
+    <a class="page-numbers" href="https://example.com/page/2/">2</a>
+    <a class="next page-numbers" href="https://example.com/page/2/">次へ</a>
+  </div>
+</nav>
+```
+
+### ポイント
+*   `<nav>`：全体を囲むタグ。
+*   `<h2 class="screen-reader-text">`：画面を見えない人向けの案内文（アクセシ���リティ用）。
+*   `<div class="nav-links">`：ページ番号やボタンをまとめる箱。
+*   `<span class="page-numbers current">`：今いるページ。リンクではなくただの文字（span）。
+*   `<a class="page-numbers">`：他のページへのリンク。
+*   `aria-current="page"`：現在地を伝えるための属性。
 ## 📌 WordPressで記事にカテゴリーを付与したい → 管理画面の記事編集画面の右サイドバー「カテゴリー」からチェックするだけ
 
 【日付】2026-03-09
@@ -17471,3 +17493,31 @@ index.php
 - 固定ページ：page-スラッグ.php → page.php → singular.php → index.php
 - 「全ページ共通でいい」 → archive.php / page.php 1本でOK
 - 「このページだけ変えたい」 → 専用ファイルを作る（category.php / page-about.php など）
+
+### single.phpとsingle〇〇phpの違いは？
+### single.php と single-〇〇.php の違い
+
+**結論：投稿（ブログ記事など）のデザインを「すべて共通にするか」「特定の投稿だけ変えるか」の違い**
+
+* **`single.php`**
+    * すべての「投稿」を表示するための、一番基本となるテンプレートファイル。
+    * 作成しない場合、最終的に `index.php` が使われる。
+
+* **`single-〇〇.php`**
+    * 特定の「投稿タイプ」専用のデザインテンプレート。
+    * 「〇〇」には投稿タイプ名（スラッグ）が入る。（例：ニュース投稿なら `single-news.php`）
+    * 特定の投稿タイプだけ、見た目や表示項目をガラッと変えたいときに作る。
+
+### テンプレートの優先順位
+WordPressは以下の順番でファイルを探す。
+
+```
+single-〇〇.php（専用） → single.php（汎用） → singular.php → index.php
+```
+
+### 使い分けの目安
+
+* **全部同じデザインでいい場合**
+    * `single.php` だけ用意すればOK。
+* **特定の投稿タイプだけデザインを変えたい場合**
+    * 「お知らせ」と「商品紹介」で見た目を変えたいなら、`single-news.php` と `single-item.php` を作る。

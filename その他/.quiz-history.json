@@ -4260,15 +4260,14 @@
   "コロン1つ（:）と2つ（::）の違い＋nth-child比較": {
     "title": "コロン1つ（:）と2つ（::）の違い＋nth-child比較",
     "line": 14348,
-    "lastReviewed": 1774160217827,
-    "reviewCount": 3,
+    "lastReviewed": 1773679548873,
+    "reviewCount": 0,
     "questionText": "CSSにおける擬似クラスのコロン1つ（:）と、擬似要素のコロン2つ（::）の違いは何ですか？",
     "aiCategory": "html",
     "evaluations": [
-      1,
-      3
+      1
     ],
-    "lastAnsweredDate": "2026-03-22"
+    "lastAnsweredDate": "2026-03-16"
   },
   "[アロー関数のthisがwindowを指す理由：関数との違い]": {
     "title": "[アロー関数のthisがwindowを指す理由：関数との違い]",
@@ -4281,15 +4280,14 @@
   ":last-child と :last-of-type の違い（後ろに別タグがあるとき）": {
     "title": ":last-child と :last-of-type の違い（後ろに別タグがあるとき）",
     "line": 14334,
-    "lastReviewed": 1774160203715,
-    "reviewCount": 5,
+    "lastReviewed": 1773679770900,
+    "reviewCount": 2,
     "questionText": "CSSで、後ろに別のタグがある場合でも、特定のタグ種類の中で最後の要素を正しく指定できるセレクタは？",
     "aiCategory": "html",
     "evaluations": [
-      2,
-      3
+      2
     ],
-    "lastAnsweredDate": "2026-03-22"
+    "lastAnsweredDate": "2026-03-16"
   },
   "アロー関数内の`this`がwindowを指す理由：`this`の束縛の違い": {
     "title": "アロー関数内の`this`がwindowを指す理由：`this`の束縛の違い",
@@ -4302,14 +4300,10 @@
   "📌 ul・ol・li タグ → リストを作るタグ。ul=順番なし・ol=順番あり・li=各項目（必ずセットで使う）": {
     "title": "📌 ul・ol・li タグ → リストを作るタグ。ul=順番なし・ol=順番あり・li=各項目（必ずセットで使う）",
     "line": 14457,
-    "lastReviewed": 1774160273080,
-    "reviewCount": 3,
+    "lastReviewed": 0,
+    "reviewCount": 0,
     "questionText": "ul・olタグの中に必ず入れなければならない、リストの各項目を構成するタグは何ですか？",
-    "aiCategory": "html",
-    "evaluations": [
-      3
-    ],
-    "lastAnsweredDate": "2026-03-22"
+    "aiCategory": "html"
   },
   "[e.targetの活用：ホバー以外でのイベント対象要素取得]": {
     "title": "[e.targetの活用：ホバー以外でのイベント対象要素取得]",
@@ -4322,8 +4316,8 @@
   "📌 PHP foreach でカテゴリー表示するときのつまずき3点 → { } と endforeach の混在・->name 忘れ・esc_url と esc_html の使い分け": {
     "title": "📌 PHP foreach でカテゴリー表示するときのつまずき3点 → { } と endforeach の混在・->name 忘れ・esc_url と esc_html の使い分け",
     "line": 14502,
-    "lastReviewed": 1774160290298,
-    "reviewCount": 2,
+    "lastReviewed": 1773679632081,
+    "reviewCount": 1,
     "questionText": "PHPのforeach文でエラーを起こさないための注意点として、構文の混在以外に何がある？",
     "aiCategory": "wordpress/php",
     "evaluations": [
@@ -4350,28 +4344,23 @@
   "CSS flex内でmargin: autoを使うと → 余白が自動で均等配分されて子要素が中央に寄る": {
     "title": "CSS flex内でmargin: autoを使うと → 余白が自動で均等配分されて子要素が中央に寄る",
     "line": 14422,
-    "lastReviewed": 1774160259004,
-    "reviewCount": 3,
+    "lastReviewed": 0,
+    "reviewCount": 0,
     "questionText": "CSSのflexコンテナ内で、子要素を中央に寄せるためにmarginプロパティに指定する値は何ですか？",
-    "aiCategory": "html",
-    "evaluations": [
-      3
-    ],
-    "lastAnsweredDate": "2026-03-22"
+    "aiCategory": "html"
   },
   "パーマリンクは「どのページにも1つ存在する」概念": {
     "title": "パーマリンクは「どのページにも1つ存在する」概念",
     "line": 9340,
-    "lastReviewed": 1774160054028,
-    "reviewCount": 1,
+    "lastReviewed": 1773679711585,
+    "reviewCount": 0,
     "questionText": "WordPressのすべてのページに1つずつ存在する、専用のURLを指す概念は何ですか？",
     "aiCategory": "wordpress/php",
     "evaluations": [
       1,
-      1,
-      2
+      1
     ],
-    "lastAnsweredDate": "2026-03-22"
+    "lastAnsweredDate": "2026-03-16"
   },
   "PHP echo でシングルクォートとダブルクォートが混ざる理由（HTML属性とPHP文字列の共存）": {
     "title": "PHP echo でシングルクォートとダブルクォートが混ざる理由（HTML属性とPHP文字列の共存）",
@@ -4400,14 +4389,10 @@
   "get_category_link() の本質 → IDかオブジェクトを渡すだけでURLが返ってくる": {
     "title": "get_category_link() の本質 → IDかオブジェクトを渡すだけでURLが返ってくる",
     "line": 12104,
-    "lastReviewed": 1774160099887,
-    "reviewCount": 1,
+    "lastReviewed": 0,
+    "reviewCount": 0,
     "questionText": "WordPressにおいて、IDやオブジェクトを渡すだけでカテゴリーのURLを取得できる関数は何でしょう？",
-    "aiCategory": "wordpress/php",
-    "evaluations": [
-      2
-    ],
-    "lastAnsweredDate": "2026-03-22"
+    "aiCategory": "wordpress/php"
   },
   "WordPress カテゴリ関数4つの使い分け（the_ / get_ / wp_list_ / get_categories）": {
     "title": "WordPress カテゴリ関数4つの使い分け（the_ / get_ / wp_list_ / get_categories）",
@@ -4420,14 +4405,10 @@
   "`the_` がつくと記事限定 → ループの中でしか使えない": {
     "title": "`the_` がつくと記事限定 → ループの中でしか使えない",
     "line": 14581,
-    "lastReviewed": 1774160146501,
-    "reviewCount": 3,
+    "lastReviewed": 0,
+    "reviewCount": 0,
     "questionText": "WordPressにおいて、関数名の先頭に「the_」がつく関数はどのような場所で使うべきですか？",
-    "aiCategory": "wordpress/php",
-    "evaluations": [
-      3
-    ],
-    "lastAnsweredDate": "2026-03-22"
+    "aiCategory": "wordpress/php"
   },
   "get_categories() の注意点3つ": {
     "title": "get_categories() の注意点3つ",
@@ -4448,15 +4429,14 @@
   "inline-flex vs inline-block：中の文字を中央揃えしたいなら inline-flex（ページネーション実装で確認）": {
     "title": "inline-flex vs inline-block：中の文字を中央揃えしたいなら inline-flex（ページネーション実装で確認）",
     "line": 4037,
-    "lastReviewed": 1774159861192,
-    "reviewCount": 2,
+    "lastReviewed": 1773679257817,
+    "reviewCount": 1,
     "questionText": "中の文字を上下左右に中央揃えしたい場合、inline-blockの代わりに使用すべきプロパティ値は何ですか？",
     "aiCategory": "html",
     "evaluations": [
-      2,
       2
     ],
-    "lastAnsweredDate": "2026-03-22"
+    "lastAnsweredDate": "2026-03-16"
   },
   "positionと位置指定(top/left)の要否 (2026/03/15)": {
     "title": "positionと位置指定(top/left)の要否 (2026/03/15)",
@@ -4525,28 +4505,26 @@
   "WordPress の esc_ 関数3種（URLはesc_url・テキストはesc_html・属性はesc_attr）": {
     "title": "WordPress の esc_ 関数3種（URLはesc_url・テキストはesc_html・属性はesc_attr）",
     "line": 8738,
-    "lastReviewed": 1774159903528,
-    "reviewCount": 1,
+    "lastReviewed": 1774001350734,
+    "reviewCount": 0,
     "questionText": "WordPressにおいて、HTMLの属性値を出力する際に使用する関数は何ですか？",
     "aiCategory": "wordpress/php",
     "evaluations": [
-      1,
-      2
+      1
     ],
-    "lastAnsweredDate": "2026-03-22"
+    "lastAnsweredDate": "2026-03-20"
   },
   "esc_url() は「URLを出力するとき反射的に付ける」習慣（安全より規約）": {
     "title": "esc_url() は「URLを出力するとき反射的に付ける」習慣（安全より規約）",
     "line": 8756,
-    "lastReviewed": 1774160033795,
-    "reviewCount": 4,
+    "lastReviewed": 1774001772367,
+    "reviewCount": 3,
     "questionText": "WordPressでURLを出力する際、安全性の有無に関わらずコーディング規約として反射的に付けるべき関数は何でしょう？",
     "aiCategory": "wordpress/php",
     "evaluations": [
-      3,
-      2
+      3
     ],
-    "lastAnsweredDate": "2026-03-22"
+    "lastAnsweredDate": "2026-03-20"
   },
   "bloginfo('name') でサイト名を出力する（タイトルタグをWordPressで管理する）": {
     "title": "bloginfo('name') でサイト名を出力する（タイトルタグをWordPressで管理する）",
@@ -4693,58 +4671,6 @@
     "lastReviewed": 0,
     "reviewCount": 0,
     "questionText": "echo と esc_html を組み合わせる際、よくやってしまう構文エラーとは？",
-    "aiCategory": "wordpress/php"
-  },
-  "nuroひかりの申し込み詳細": {
-    "title": "nuroひかりの申し込み詳細",
-    "line": 17910,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "2026年3月22日に申し込みが完了した光回線サービスは何？",
-    "aiCategory": "プライベート"
-  },
-  "ソフトバンク光の解約手続き": {
-    "title": "ソフトバンク光の解約手続き",
-    "line": 17932,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "ソフトバンク光の解約手続きで、返却が必要なものは何ですか？",
-    "aiCategory": "その他"
-  },
-  "📌 the_post_thumbnail() は imgタグごと出力・第2引数の配列でクラス名を渡せる": {
-    "title": "📌 the_post_thumbnail() は imgタグごと出力・第2引数の配列でクラス名を渡せる",
-    "line": 17718,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPressでアイキャッチ画像をimgタグごと出力し、第2引数でクラス名を渡す関数は何？",
-    "aiCategory": "wordpress/php"
-  },
-  "📌 get_posts() で件数を絞るループの書き方（foreach + setup_postdata + wp_reset_postdata）": {
-    "title": "📌 get_posts() で件数を絞るループの書き方（foreach + setup_postdata + wp_reset_postdata）",
-    "line": 17683,
-    "lastReviewed": 1774160439293,
-    "reviewCount": 0,
-    "questionText": "WordPressにおいて、件数を指定して投稿を取得する際に使用すべきループの書き方は？",
-    "aiCategory": "wordpress/php",
-    "evaluations": [
-      1
-    ],
-    "lastAnsweredDate": "2026-03-22"
-  },
-  "📌 the_post_thumbnail のサイズ指定（thumbnail / medium / large / full）": {
-    "title": "📌 the_post_thumbnail のサイズ指定（thumbnail / medium / large / full）",
-    "line": 17746,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "WordPressで「the_post_thumbnail」を使用して画像のサイズを指定するには、第1引数に何を渡しますか？",
-    "aiCategory": "wordpress/php"
-  },
-  "📌 View Moreボタンは /category/スラッグ/ に飛ぶ → category.php が読み込まれる": {
-    "title": "📌 View Moreボタンは /category/スラッグ/ に飛ぶ → category.php が読み込まれる",
-    "line": 17769,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "questionText": "View Moreボタンで /category/スラッグ/ へ遷移した際、WordPressで自動的に読み込まれるファイルは何？",
     "aiCategory": "wordpress/php"
   },
   "_meta": {
