@@ -3038,6 +3038,9 @@ ease の種類と動き方：
   /* ↓ これがあると、JSの変更が「アニメーション」になります */
   /**
     transition: width 0.5s ease; 　★
+
+
+    
 ## 何をしているか
 
 JavaScriptで要素の`width`（横幅）を変更したとき、**瞬時に切り替わるのではなく、なめらかにアニメーションさせる**設定です。
@@ -17672,3 +17675,8 @@ window.addEventListener('scroll', () => {
 *   結果として、アニメーションしながらクリック操作を制御できる、より自然なUI/UXを実現できる。
 
 【関連】→ [📌 ふわっと表示させるには opacity: 0 + visibility: hidden + transition の3点セットが必要（opacityだけだとクリックが通ってしまう）](#-ふわっと表示させるには-opacity-0-visibility-hidden-transition-の3点セットが必要opacityだけだとクリックが通ってしまう)
+
+## 🧠 暗記リスト
+- 📌 WordPressテンプレートファイルまとめ（category.php / archive.php / page.php の使い分け）
+- 📌 WordPress関数の規則性まとめ（the_ / get_ / has_ / is_ / add_）
+- transition の最小構成は「対象 + 時間」の2点セット。all = クラス全体ではなく「すべてのプロパティの変化」

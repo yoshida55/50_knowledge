@@ -4505,14 +4505,15 @@
   "WordPress の esc_ 関数3種（URLはesc_url・テキストはesc_html・属性はesc_attr）": {
     "title": "WordPress の esc_ 関数3種（URLはesc_url・テキストはesc_html・属性はesc_attr）",
     "line": 8738,
-    "lastReviewed": 1774001350734,
+    "lastReviewed": 1774295815307,
     "reviewCount": 0,
     "questionText": "WordPressにおいて、HTMLの属性値を出力する際に使用する関数は何ですか？",
     "aiCategory": "wordpress/php",
     "evaluations": [
+      1,
       1
     ],
-    "lastAnsweredDate": "2026-03-20"
+    "lastAnsweredDate": "2026-03-23"
   },
   "esc_url() は「URLを出力するとき反射的に付ける」習慣（安全より規約）": {
     "title": "esc_url() は「URLを出力するとき反射的に付ける」習慣（安全より規約）",
@@ -4529,15 +4530,16 @@
   "bloginfo('name') でサイト名を出力する（タイトルタグをWordPressで管理する）": {
     "title": "bloginfo('name') でサイト名を出力する（タイトルタグをWordPressで管理する）",
     "line": 16486,
-    "lastReviewed": 1774001834525,
+    "lastReviewed": 1774295853928,
     "reviewCount": 0,
     "questionText": "WordPressの管理画面から設定したサイト名を出力するために使用する関数は何？",
     "aiCategory": "wordpress/php",
     "evaluations": [
       1,
+      1,
       1
     ],
-    "lastAnsweredDate": "2026-03-20"
+    "lastAnsweredDate": "2026-03-23"
   },
   "アイキャッチ画像はfunctions.phpで有効化しないと管理画面に表示されない": {
     "title": "アイキャッチ画像はfunctions.phpで有効化しないと管理画面に表示されない",
@@ -4600,10 +4602,14 @@
   "📌 WordPress でやりがちな3つのミス（セミコロン抜け・the_post_thumbnail の使い方）": {
     "title": "📌 WordPress でやりがちな3つのミス（セミコロン抜け・the_post_thumbnail の使い方）",
     "line": 16729,
-    "lastReviewed": 0,
+    "lastReviewed": 1774295898097,
     "reviewCount": 0,
     "questionText": "WordPressで画像を表示する際、the_post_thumbnail()をsrc属性の中に記述してはいけない理由は何ですか？",
-    "aiCategory": "wordpress/php"
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      1
+    ],
+    "lastAnsweredDate": "2026-03-23"
   },
   "WordPressループは2種類（have_posts標準ループ vs get_posts件数制限あり）": {
     "title": "WordPressループは2種類（have_posts標準ループ vs get_posts件数制限あり）",
@@ -4616,14 +4622,15 @@
   "get_post_meta() でカスタムフィールドの値を取得する（DBの値はesc_htmlで安全に出力）": {
     "title": "get_post_meta() でカスタムフィールドの値を取得する（DBの値はesc_htmlで安全に出力）",
     "line": 16631,
-    "lastReviewed": 1774043133233,
-    "reviewCount": 1,
+    "lastReviewed": 1774295939315,
+    "reviewCount": 0,
     "questionText": "WordPressでカスタムフィールドの値を取得し、安全に出力するために使う関数と記述方法は？",
     "aiCategory": "wordpress/php",
     "evaluations": [
-      2
+      2,
+      1
     ],
-    "lastAnsweredDate": "2026-03-20"
+    "lastAnsweredDate": "2026-03-23"
   },
   "📌 `the_` 系関数はタグをイメージ → 出てくるものをイメージして囲むか決める": {
     "title": "📌 `the_` 系関数はタグをイメージ → 出てくるものをイメージして囲むか決める",
@@ -4668,9 +4675,121 @@
   "`echo esc_html( get_post_meta( get_the_ID(), 'price', true ) )` を書く流れでのミス": {
     "title": "`echo esc_html( get_post_meta( get_the_ID(), 'price', true ) )` を書く流れでのミス",
     "line": 16953,
-    "lastReviewed": 0,
+    "lastReviewed": 1774295975585,
     "reviewCount": 0,
     "questionText": "echo と esc_html を組み合わせる際、よくやってしまう構文エラーとは？",
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      1
+    ],
+    "lastAnsweredDate": "2026-03-23"
+  },
+  "📌 WordPress関数の規則性まとめ（the_ / get_ / has_ / is_ / add_）": {
+    "title": "📌 WordPress関数の規則性まとめ（the_ / get_ / has_ / is_ / add_）",
+    "line": 17158,
+    "lastReviewed": 1774296048150,
+    "reviewCount": 2,
+    "questionText": "WordPressにおいて、関数名の頭文字（接頭辞）を見るだけで使い方がわかる規則性とはどのようなものですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "data-aos を複数要素に個別につけると「順番に動く」演出になる（親divにつけると全部同時）": {
+    "title": "data-aos を複数要素に個別につけると「順番に動く」演出になる（親divにつけると全部同時）",
+    "line": 7264,
+    "lastReviewed": 1774294708847,
+    "reviewCount": 1,
+    "questionText": "AOSライブラリで要素を順番に動かすには、data-aos属性をどこに付与すべきですか？",
+    "aiCategory": "html"
+  },
+  "transition の最小構成は「対象 + 時間」の2点セット。all = クラス全体ではなく「すべてのプロパティの変化」": {
+    "title": "transition の最小構成は「対象 + 時間」の2点セット。all = クラス全体ではなく「すべてのプロパティの変化」",
+    "line": 3005,
+    "lastReviewed": 1774307019329,
+    "reviewCount": 3,
+    "questionText": "CSSのtransitionにおいて、設定が必須となる最小構成の2点セットとは何と何でしょう？",
+    "aiCategory": "html"
+  },
+  "📌 WordPressカテゴリー関数まとめ（single_cat_title / get_the_category / get_categories / get_category_link / get_queried_object_id）": {
+    "title": "📌 WordPressカテゴリー関数まとめ（single_cat_title / get_the_category / get_categories / get_category_link / get_queried_object_id）",
+    "line": 17299,
+    "lastReviewed": 1774295640823,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、カテゴリー情報を取得・表示するための関数を5つ挙げてください？",
+    "aiCategory": "wordpress/php",
+    "evaluations": [
+      1
+    ],
+    "lastAnsweredDate": "2026-03-23"
+  },
+  "📌 WordPressテンプレートファイルまとめ（category.php / archive.php / page.php の使い分け）": {
+    "title": "📌 WordPressテンプレートファイルまとめ（category.php / archive.php / page.php の使い分け）",
+    "line": 17428,
+    "lastReviewed": 1774295668807,
+    "reviewCount": 1,
+    "questionText": "WordPressにおいて、投稿一覧ページや固定ページの見た目を出し分けるためのテンプレートファイルは何ですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 transform: rotate(180deg) + transition: all 0.5s → ホバーで要素をなめらかに180度回転させる（矢印反転などに使う）": {
+    "title": "📌 transform: rotate(180deg) + transition: all 0.5s → ホバーで要素をなめらかに180度回転させる（矢印反転などに使う）",
+    "line": 17582,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "ホバーで要素をなめらかに180度回転させるために、transform: rotate(180deg)と組み合わせるCSSプロパティは何ですか？",
+    "aiCategory": "html"
+  },
+  "opacity: 0 と visibility: hidden を併用するメリット：アニメーションとクリック制御": {
+    "title": "opacity: 0 と visibility: hidden を併用するメリット：アニメーションとクリック制御",
+    "line": 17666,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "アニメーションによるふわっとした表示とクリックの無効化を両立させるために併用すべきプロパティは何ですか？",
+    "aiCategory": "html"
+  },
+  "📌 ふわっと表示させるには opacity: 0 + visibility: hidden + transition の3点セットが必要（opacityだけだとクリックが通ってしまう）": {
+    "title": "📌 ふわっと表示させるには opacity: 0 + visibility: hidden + transition の3点セットが必要（opacityだけだとクリックが通ってしまう）",
+    "line": 17616,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "要素をふわっと表示させつつ、非表示時にクリックも無効化するために必要な3つのCSSプロパティは何？",
+    "aiCategory": "html"
+  },
+  "nuroひかりの申し込み詳細": {
+    "title": "nuroひかりの申し込み詳細",
+    "line": 17085,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "2026年3月22日時点での「nuroひかり」の申し込み状況はどのようになっていますか？",
+    "aiCategory": "プライベート"
+  },
+  "ソフトバンク光の解約手続き": {
+    "title": "ソフトバンク光の解約手続き",
+    "line": 17107,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "ソフトバンク光を解約する際、機器（白いルーター・電源ケーブル）の返却期限は利用停止日から何日以内？",
+    "aiCategory": "その他"
+  },
+  "楽天モバイル": {
+    "title": "楽天モバイル",
+    "line": 17135,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "2026年3月22日時点で、メモのトピックとなっている携帯キャリアはどこでしょうか？",
+    "aiCategory": "その他"
+  },
+  "📌 get_posts() で件数を絞るループの書き方（foreach + setup_postdata + wp_reset_postdata）": {
+    "title": "📌 get_posts() で件数を絞るループの書き方（foreach + setup_postdata + wp_reset_postdata）",
+    "line": 16860,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、投稿の取得件数を絞ってループ処理を行う際、get_posts()と組み合わせて使う制御構造は何ですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 the_post_thumbnail() は imgタグごと出力・第2引数の配列でクラス名を渡せる": {
+    "title": "📌 the_post_thumbnail() は imgタグごと出力・第2引数の配列でクラス名を渡せる",
+    "line": 16895,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressで、アイキャッチ画像をimgタグごと出力し、クラス名を指定できる関数は何？",
     "aiCategory": "wordpress/php"
   },
   "_meta": {
