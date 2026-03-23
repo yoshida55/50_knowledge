@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>transition プロパティ - インタラクティブデモ</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.description {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.description h2 {
+  color: #667eea;
+  margin-bottom: 0.5rem;
+}
+
+.description p {
+  color: #333;
+  line-height: 1.6;
+}
+
+.control-panel {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.control-group {
+  margin-bottom: 1.5rem;
+}
+
+.control-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+input[type="range"] {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: #ddd;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #667eea;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #667eea;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.value-display {
+  min-width: 80px;
+  font-weight: bold;
+  color: #667eea;
+  font-size: 1.1rem;
+}
+
+.demo-area {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.demo-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.demo-box h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.demo-box.without {
+  border: 3px solid #e74c3c;
+}
+
+.demo-box.with {
+  border: 3px solid #2ecc71;
+}
+
+.link-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.side_link {
+  background-color: black;
+  color: white;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  font-size: 1.4rem;
+  display: inline-block;
+  text-align: center;
+  min-width: 200px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.side_link.without {
+  transition: none;
+}
+
+.side_link.with {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.side_link:hover {
+  background-color: #667eea;
+  color: #fff;
+}
+
+.status-display {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.status-display div {
+  margin: 0.3rem 0;
+}
+
+.property-name {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.property-value {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.interaction-hint {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  font-weight: bold;
+  color: #2d3436;
+}
+
+@media (max-width: 768px) {
+  .demo-area {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🎨 transition プロパティ - インタラクティブデモ</h1>
+  
+  <div class="description">
+    <h2>📌 このデモについて</h2>
+    <p><strong>transition</strong> プロパティは、CSS プロパティの変化を滑らかにアニメーションさせます。元のコードでは <code>transition: background-color 0.3s, color 0.3s;</code> により、ホバー時の背景色とテキスト色の変化が0.3秒かけて滑らかに変わります。</p>
+  </div>
+
+  <div class="interaction-hint">
+    👆 下のリンクにマウスを乗せて、transition の有無による違いを体感してください
+  </div>
+
+  <div class="control-panel">
+    <h2 style="margin-bottom: 1rem; color: #667eea;">⚙️ transition 時間を調整</h2>
+    
+    <div class="control-group">
+      <label>transition-duration (アニメーション時間)</label>
+      <div class="slider-container">
+        <input type="range" id="duration" min="0" max="2000" step="50" value="300">
+        <span class="value-display" id="durationValue">0.3s</span>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>ホバー時の背景色</label>
+      <div class="slider-container">
+        <input type="color" id="hoverColor" value="#667eea" style="width: 100px; height: 40px; border: none; cursor: pointer;">
+        <span class="value-display" id="colorValue">#667eea</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-area">
+    <div class="demo-box without">
+      <h3>❌ transition なし</h3>
+      <div class="link-container">
+        <a class="side_link without" href="#" id="linkWithout1">for visitor</a>
+        <a class="side_link without" href="#" id="linkWithout2">for exhibitor</a>
+      </div>
+      <div class="status-display">
+        <div><span class="property-name">transition:</span> <span class="property-value" id="statusWithout">none</span></div>
+        <div><span class="property-name">background-color:</span> <span class="property-value" id="bgWithout">black</span></div>
+        <div style="margin-top: 0.5rem; color: #e74c3c;">⚠️ 色が瞬時に変わります（カクカク）</div>
+      </div>
+    </div>
+
+    <div class="demo-box with">
+      <h3>✅ transition あり</h3>
+      <div class="link-container">
+        <a class="side_link with" href="#" id="linkWith1">for visitor</a>
+        <a class="side_link with" href="#" id="linkWith2">for exhibitor</a>
+      </div>
+      <div class="status-display">
+        <div><span class="property-name">transition:</span> <span class="property-value" id="statusWith">background-color 0.3s, color 0.3s</span></div>
+        <div><span class="property-name">background-color:</span> <span class="property-value" id="bgWith">black</span></div>
+        <div style="margin-top: 0.5rem; color: #2ecc71;">✓ 色が滑らかに変わります</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const durationSlider = document.getElementById('duration');
+const durationValue = document.getElementById('durationValue');
+const hoverColorInput = document.getElementById('hoverColor');
+const colorValue = document.getElementById('colorValue');
+
+const linksWithTransition = document.querySelectorAll('.side_link.with');
+const statusWith = document.getElementById('statusWith');
+
+// スライダー変更時の処理
+durationSlider.addEventListener('input', (e) => {
+  const ms = parseInt(e.target.value);
+  const seconds = (ms / 1000).toFixed(2);
+  durationValue.textContent = `${seconds}s`;
+  
+  linksWithTransition.forEach(link => {
+    link.style.transition = `background-color ${seconds}s, color ${seconds}s`;
+  });
+  
+  statusWith.textContent = `background-color ${seconds}s, color ${seconds}s`;
+});
+
+// カラーピッカー変更時の処理
+hoverColorInput.addEventListener('input', (e) => {
+  const color = e.target.value;
+  colorValue.textContent = color;
+  
+  // 動的にホバースタイルを更新
+  const style = document.getElementById('dynamic-hover-style') || document.createElement('style');
+  style.id = 'dynamic-hover-style';
+  style.textContent = `
+    .side_link:hover {
+      background-color: ${color} !important;
+      color: #fff !important;
+    }
+  `;
+  if (!document.getElementById('dynamic-hover-style')) {
+    document.head.appendChild(style);
+  }
+});
+
+// ホバー時の背景色を監視して表示
+const allLinks = document.querySelectorAll('.side_link');
+const bgWithout = document.getElementById('bgWithout');
+const bgWith = document.getElementById('bgWith');
+
+allLinks.forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    const computedStyle = window.getComputedStyle(link);
+    const bgColor = computedStyle.backgroundColor;
+    
+    if (link.classList.contains('without')) {
+      bgWithout.textContent = bgColor;
+    } else {
+      bgWith.textContent = bgColor;
+    }
+  });
+  
+  link.addEventListener('mouseleave', () => {
+    if (link.classList.contains('without')) {
+      bgWithout.textContent = 'black';
+    } else {
+      bgWith.textContent = 'black';
+    }
+  });
+});
+
+// リンククリック無効化
+allLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+  });
+});
+</script>
+
+</body>
+</html>

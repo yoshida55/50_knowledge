@@ -3002,6 +3002,29 @@ transition: all 0.5s ease;              /* 全プロパティまとめて */
 - `all` を指定すると全部まとめてアニメーションするが、意図しない変化もアニメーションされるので注意
 - 複数指定したいときはカンマで区切る：`transition: width 0.5s, opacity 0.3s;`
 
+### transition の最小構成は「対象 + 時間」の2点セット。all = クラス全体ではなく「すべてのプロパティの変化」
+
+【日付】2026-03-23
+
+【結論】
+`transition` は `対象 時間` の2つが必須。3つ目（ease系）は省略するとデフォルトの `ease` になる。`all` はクラス全体ではなく「変化するすべてのCSSプロパティ」に対してアニメーションをかける。
+
+```
+transition: [対象]  [時間]   [動き方];
+              ↑       ↑        ↑
+            必須    必須    省略OK（省略 = ease）
+```
+
+ease の種類と動き方：
+- `ease`（デフォルト）: ゆっくり → 速 → ゆっくり
+- `ease-out`          : 速く始まり → だんだんゆっくり（自然な止まり方）
+- `ease-in`           : ゆっくり始まり → 速く終わる
+- `linear`            : 一定速度
+
+【補足】
+- ⚠ 間違えやすいこと：`transition: all` だけ（時間なし）は無効。時間は必須
+- 💡 つまり：`all` は「クラスの中の何かが変わったとき全部なめらかにする」ショートカット。秒数だけ微調整したいときに便利
+
 
 ## transition: width 0.5s ease　**CSSの`transition`プロパティ**について解説
 
@@ -7237,6 +7260,40 @@ if (scroll > target - windowHeight + 200) {
     以下の属性をタグに追加すると、速度やタイミングを変えられる。
     *   `data-aos-duration="1000"`：1秒かけてゆっくり動かす
     *   `data-aos-delay="300"`：0.3秒待ってから動き出す
+
+### data-aos を複数要素に個別につけると「順番に動く」演出になる（親divにつけると全部同時）
+
+【日付】2026-03-23
+
+【結論】
+`data-aos` は「そのタグが画面に入ったとき」にトリガーされる。親 `<div>` に1つだけつけると全要素が同時に動く。1枚ずつズラして動かすには、**各タグに個別に `data-aos` をつけ**、`data-aos-delay` の値を変える。
+
+【具体例】
+```html
+<!--
+  構造:
+  <div .gallery_items>           ← ただのコンテナ（data-aosなし）
+    <img .gallery_flower>        ← 1枚目（delay 0）
+    <img .gallery_flower>        ← 2枚目（delay 200）
+    <img .gallery_flower>        ← 3枚目（delay 400）
+-->
+<div class="gallery_items">
+  <img src="flower1.jpg" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="0" />
+  <img src="flower2.jpg" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200" />
+  <img src="flower3.jpg" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="400" />
+</div>
+```
+
+動きのイメージ：
+画面に入る → トリガー発火 → delay分待つ → アニメーション開始
+1枚目 ↑（即）
+2枚目   ↑（0.2秒後）
+3枚目     ↑（0.4秒後）
+
+【補足】
+- ⚠ 間違えやすいこと：親 `<div>` に `data-aos` を1つだけつけると、子要素が全部まとめて動く（個別にならない）
+- 💡 つまり：「波のように順番に動かす」には、各タグに直接 `data-aos` + `data-aos-delay` をつける
+
 ## 📌 CSS absoluteは何階層でもネストできる（スライドショー+文字重ねの実装パターン）
 
 【結論】
@@ -17521,3 +17578,97 @@ single-〇〇.php（専用） → single.php（汎用） → singular.php → in
     * `single.php` だけ用意すればOK。
 * **特定の投稿タイプだけデザインを変えたい場合**
     * 「お知らせ」と「商品紹介」で見た目を変えたいなら、`single-news.php` と `single-item.php` を作る。
+
+## 📌 transform: rotate(180deg) + transition: all 0.5s → ホバーで要素をなめらかに180度回転させる（矢印反転などに使う）
+
+【日付】2026-03-23
+
+【結論】
+`transform: rotate(180deg)` で要素を180度回転（ひっくり返す）できる。`transition: all 0.5s` と組み合わせると、0.5秒かけてなめらかに回転するアニメーションになる。矢印アイコンがドロップダウン開閉で上下を向く演出によく使う。
+
+【具体例】
+```css
+/*
+  構造:
+  <button .accordion>   ← クリックで開閉するボタン
+    <span .arrow>  ▼   ← 回転させる矢印アイコン
+*/
+.arrow {
+  display: inline-block;
+  transition: all 0.5s;   /* すべての変化を0.5秒でなめらかに */
+}
+
+.accordion.open .arrow {
+  transform: rotate(180deg);  /* 開いたとき ▼ → ▲ に反転 */
+}
+```
+
+動きのイメージ：
+閉じているとき: ▼
+開いているとき: ▲（180度回転でひっくり返る）
+
+【補足】
+- ⚠ 間違えやすいこと：`transition` は変化前の要素（通常状態）に書く。`:hover` や `.open` 側に書くと、戻るときにアニメーションしなくなる
+- 💡 つまり：`rotate(180deg)` = ひっくり返す、`transition: all` = 全部の変化をなめらかに、の組み合わせ
+
+【関連】→ 「transform rotate 45deg」で検索（ハンバーガーメニューの × への変形）
+
+## 📌 ふわっと表示させるには opacity: 0 + visibility: hidden + transition の3点セットが必要（opacityだけだとクリックが通ってしまう）
+
+【日付】2026-03-23
+
+【結論】
+`opacity: 0` だけでは見えないのにクリックが通ってしまう。`visibility: hidden` を一緒に使うことでクリックも無効にできる。さらに `transition` を加えるとふわっとアニメーションする。スクロールや JS でクラスを付け外しして表示切り替えをするときの定番パターン。
+
+【具体例】
+```css
+/*
+  構造:
+  <button .hamburger_menu>   ← スクロールでふわっと現れるボタン
+*/
+
+/* 通常：非表示 */
+.hamburger_menu {
+  opacity: 0;              /* 見えない */
+  visibility: hidden;      /* クリックも無効 */
+  transition:
+    opacity 1s ease-in-out,
+    visibility 1s;         /* なめらかに表示 */
+}
+
+/* .visible クラスが付いたとき：表示 */
+.hamburger_menu.visible {
+  opacity: 1;
+  visibility: visible;
+}
+```
+
+```js
+// JS側：スクロールで .visible を付け外し
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 300) {
+    menu.classList.add('visible');
+  } else {
+    menu.classList.remove('visible');
+  }
+});
+```
+
+動きの流れ：
+スクロール → JS が .visible を追加 → opacity と visibility が変わる → transition がなめらかにする
+
+【補足】
+- ⚠ 間違えやすいこと：`opacity: 0` だけでは見えないのにクリックが通る（バグになる）。`visibility: hidden` とセットで使う
+- 💡 つまり：「見えなくする（opacity）」と「触れなくする（visibility）」は別物。ふわっと消すには必ず2つセット
+
+【関連】→ 「visibility: hidden」で検索（display: none との違い・スペースが残るかどうか）
+
+## opacity: 0 と visibility: hidden を併用するメリット：アニメーションとクリック制御
+【日付】2026-03-23
+
+*   `visibility: hidden` だけだと、要素の表示/非表示が瞬間的に切り替わり、アニメーションできない。
+*   `opacity: 0` と `transition` を組み合わせることで、要素を徐々に透明にして表示/非表示のアニメーションが可能になる。
+*   `visibility: hidden` はアニメーション中はクリックを防ぎ、アニメーション終了後に完全に非表示にする役割を担う。（`opacity: 0`だけではクリックできてしまうため）
+*   結果として、アニメーションしながらクリック操作を制御できる、より自然なUI/UXを実現できる。
+
+【関連】→ [📌 ふわっと表示させるには opacity: 0 + visibility: hidden + transition の3点セットが必要（opacityだけだとクリックが通ってしまう）](#-ふわっと表示させるには-opacity-0-visibility-hidden-transition-の3点セットが必要opacityだけだとクリックが通ってしまう)
