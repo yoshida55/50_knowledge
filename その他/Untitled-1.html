@@ -1,0 +1,53 @@
+<!-- 問題:
+以下のHTMLには「button」クラスを持つボタンが配置されています。
+CSSを使用して、以下の動きを実現してください。
+
+1. ボタンにマウスホバー（:hover）したとき、以下の2つのプロパティを「0.3秒」で変化させてください。
+   - 背景色（background-color）：#3498db から #2980b9 に変化
+   - 横幅（width）：150px から 200px に変化
+2. ホバー時だけでなく、マウスが外れたときもスムーズに戻るように transition を設定してください。
+   - ヒント: transition は「変化する対象」に対して記述します。今回の場合は「background-color」と「width」の両方を指定しましょう。
+-->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Transition 実践問題</title>
+    <style>
+        .button {
+            /* 1. ここに transition を記述してください */
+            
+            
+            /* ベースのスタイル */
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            width: 150px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            /* 2. ホバー時の変化を記述してください */
+            
+            
+        }
+    </style>
+</head>
+<body>
+
+    <div class="button">ホバーしてください</div>
+
+</body>
+</html>
+
+<!-- ヒント: 
+transitionプロパティで「どのプロパティを、何秒で変化させるか」を指定します。
+複数指定する場合はカンマ(,)で区切りましょう。
+例: transition: プロパティA 秒数, プロパティB 秒数;
+あるいは、変化させるプロパティが複数あるため、全てを対象にする「all」というキーワードを使うことも可能です。
+-->

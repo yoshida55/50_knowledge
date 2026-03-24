@@ -4703,10 +4703,14 @@
   "transition の最小構成は「対象 + 時間」の2点セット。all = クラス全体ではなく「すべてのプロパティの変化」": {
     "title": "transition の最小構成は「対象 + 時間」の2点セット。all = クラス全体ではなく「すべてのプロパティの変化」",
     "line": 3005,
-    "lastReviewed": 1774307019329,
-    "reviewCount": 3,
+    "lastReviewed": 1774317579678,
+    "reviewCount": 7,
     "questionText": "CSSのtransitionにおいて、設定が必須となる最小構成の2点セットとは何と何でしょう？",
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-24"
   },
   "📌 WordPressカテゴリー関数まとめ（single_cat_title / get_the_category / get_categories / get_category_link / get_queried_object_id）": {
     "title": "📌 WordPressカテゴリー関数まとめ（single_cat_title / get_the_category / get_categories / get_category_link / get_queried_object_id）",
@@ -4791,6 +4795,78 @@
     "reviewCount": 0,
     "questionText": "WordPressで、アイキャッチ画像をimgタグごと出力し、クラス名を指定できる関数は何？",
     "aiCategory": "wordpress/php"
+  },
+  "📌 View Moreボタンは /category/スラッグ/ に飛ぶ → category.php が読み込まれる": {
+    "title": "📌 View Moreボタンは /category/スラッグ/ に飛ぶ → category.php が読み込まれる",
+    "line": 16947,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて「/category/スラッグ/」へ遷移した際に読み込まれるテンプレートファイルは何ですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 カスタムフィールドの「名前」はPHPコードに書いた名前と完全に一致させる（クラス名とは無関係）": {
+    "title": "📌 カスタムフィールドの「名前」はPHPコードに書いた名前と完全に一致させる（クラス名とは無関係）",
+    "line": 16977,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressのカスタムフィールドの「名前」は、PHPの何と一致させる必要がある？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 the_post_thumbnail のサイズ指定（thumbnail / medium / large / full）": {
+    "title": "📌 the_post_thumbnail のサイズ指定（thumbnail / medium / large / full）",
+    "line": 16924,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressのthe_post_thumbnailで画像のサイズを指定するにはどうすればよいですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "🧠 CSSが効かないとき → 別ファイルで上書きされていないか確認する": {
+    "title": "🧠 CSSが効かないとき → 別ファイルで上書きされていないか確認する",
+    "line": 17068,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSが効かないときに確認すべき、別ファイルの影響とは何ですか？",
+    "aiCategory": "html"
+  },
+  "📌 index.php WordPress化で間違えやすいミス一覧（よくやるスペルミス・構造ミス）": {
+    "title": "📌 index.php WordPress化で間違えやすいミス一覧（よくやるスペルミス・構造ミス）",
+    "line": 17005,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressのindex.php制作時、件数制限が効かない原因となる'posts_per_page'のスペルミスとは？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 category.php と archive.php はほぼ同じ（カテゴリーごとに見た目を変えたいときだけ category.php を作る）": {
+    "title": "📌 category.php と archive.php はほぼ同じ（カテゴリーごとに見た目を変えたいときだけ category.php を作る）",
+    "line": 16668,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "カテゴリーごとに見た目を変えたいときだけcategory.phpを作るのはなぜですか？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 `<a href=\"<?php the_permalink(); ?>\">` をつける理由（画像クリックで詳細ページへ飛ぶ）": {
+    "title": "📌 `<a href=\"<?php the_permalink(); ?>\">` をつける理由（画像クリックで詳細ページへ飛ぶ）",
+    "line": 16773,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "画像などをクリックして投稿の詳細ページへ移動させたいとき、aタグのhref属性に何を指定しますか？",
+    "aiCategory": "wordpress/php"
+  },
+  "`get_post_meta()`数値データに対する`esc_html()`の必要性": {
+    "title": "`get_post_meta()`数値データに対する`esc_html()`の必要性",
+    "line": 16807,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "get_post_meta()で取得した数値データに対して、esc_html()は必ず必要でしょうか？",
+    "aiCategory": "wordpress/php"
+  },
+  "ラベル：内容の表は p タグ2カラムではなく dl/dt/dd を使う（テキスト量が違うとズレる）": {
+    "title": "ラベル：内容の表は p タグ2カラムではなく dl/dt/dd を使う（テキスト量が違うとズレる）",
+    "line": 16056,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "ラベルと内容の表を作る際、テキスト量の違いによるレイアウト崩れを防ぐために推奨されるタグの組み合わせは何？",
+    "aiCategory": "html"
   },
   "_meta": {
     "lastFilter": {

@@ -14798,48 +14798,6 @@ window.addEventListener("scroll", function () {
 .hamburger_menu { z-index: 401; } /* 必ずメニューより大きく */
 ```
 
-★コピペで動く最小コード（ファイル分離版）
-
-**HTML**
-```html
-<header class="header_area">
-  <button class="hamburger_menu">
-    <span class="bar"></span>
-    <span class="bar"></span>
-    <span class="bar"></span>
-  </button>
-  <a class="main_logo">LOGO</a>
-  <!-- navはbuttonの後ろ・同じ親に置く（~ セレクタの条件） -->
-  <nav class="global_menu">
-    <a href="#" class="global_menu_link">トップ</a>
-    <a href="#" class="global_menu_link">会社概要</a>
-  </nav>
-</header>
-<script src="js/work.js"></script>
-```
-
-**CSS（css/style.css）**
-```css
-.hamburger_menu { position: fixed; top: 1.5rem; right: 2rem; width: 3rem; height: 3rem; cursor: pointer; background-color: black; overflow: hidden; z-index: 401; }
-.bar { position: absolute; display: block; transition: 0.3s; left: 0; height: 0.2rem; width: 3rem; background: white; }
-.bar:nth-child(1) { top: 0.6rem; }
-.bar:nth-child(2) { top: 1.4rem; }
-.bar:nth-child(3) { top: 2.2rem; }
-.hamburger_menu.open .bar:nth-child(1) { transform: rotate(45deg); top: 1.5rem; }
-.hamburger_menu.open .bar:nth-child(2) { opacity: 0; }
-.hamburger_menu.open .bar:nth-child(3) { transform: rotate(-45deg); top: 1.5rem; }
-.global_menu { position: fixed; top: 0; left: 0; width: 100%; height: 30rem; background-color: rgba(0,0,0,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 400; }
-.hamburger_menu.open ~ .global_menu { display: flex; }
-.global_menu_link { font-size: 3rem; margin-bottom: 2rem; color: white; text-decoration: none; }
-```
-
-**JavaScript（js/work.js）**
-```javascript
-const hamburgerBtn = document.querySelector(".hamburger_menu");
-hamburgerBtn.addEventListener("click", function () {
-  hamburgerBtn.classList.toggle("open");
-});
-```
 
 > 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★ハンバーガーメニュー - ボタン押下でグローバルメニュー開閉（CSS ~ セレクタ + JSはtoggleのみ）.md)
 
