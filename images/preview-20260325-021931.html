@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>スクロールの仕組みデモ</title>
+    <style>
+        body { margin: 0; font-family: sans-serif; height: 3000px; /* スクロール用に長く */ }
+        
+        /* 画面に固定するデバッグ用パネル */
+        .debug-panel {
+            position: fixed; top: 10px; left: 10px;
+            background: rgba(0,0,0,0.8); color: white;
+            padding: 15px; border-radius: 8px; font-size: 14px; z-index: 9999;
+        }
+
+        /* 画面の下端（windowHeight / 100vh）を示す線 */
+        .viewport-line {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            border-top: 3px dashed blue; pointer-events: none;
+        }
+
+        /* 調べたいターゲット要素 */
+        .target {
+            margin-top: 1000px; /* 1000px下に配置 */
+            width: 80%; height: 200px; background: pink;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; font-weight: bold; margin-left: auto; margin-right: auto;
+        }
+
+        .highlight { color: #00ff00; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="debug-panel">
+        <div>1. 画面の高さ (windowHeight): <span id="v-height"></span>px</div>
+        <div id="distance-box">2. 天井(0)からの距離 (.top): <span id="v-top"></span>px</div>
+        <hr>
+        <div id="judgement">判定 (top < windowHeight): ❌ まだ画面外</div>
+    </div>
+
+    <!-- 画面の下端（しきい値）を青い線で表示 -->
+    <div class="viewport-line"><span style="background: blue; color: white;">← 画面の下端 (100vh)</span></div>
+
+    <div style="padding: 20px;">
+        <h1>スクロールの仕組み</h1>
+        <p>ゆっくり下にスクロールして、ピンクのボックスが出てくるのを待ってください。</p>
+    </div>
+
+    <div class="target" id="target">★ここがターゲット要素</div>
+
+    <script>
+        const target = document.getElementById('target');
+        const vHeightSpan = document.getElementById('v-height');
+        const vTopSpan = document.getElementById('v-top');
+        const judgementDiv = document.getElementById('judgement');
+
+        window.addEventListener('scroll', () => {
+            const windowHeight = window.innerHeight; // 画面の高さ
+            const top = target.getBoundingClientRect().top; // 天井からの距離
+
+            // 数字を表示
+            vHeightSpan.textContent = Math.round(windowHeight);
+            vTopSpan.textContent = Math.round(top);
+
+            // 条件判定
+            if (top < windowHeight) {
+                judgementDiv.innerHTML = "判定 (top < windowHeight): <span class='highlight'>✅ 画面に入った！</span>";
+                judgementDiv.parentElement.style.borderColor = "#00ff00";
+                target.style.background = "lightgreen";
+            } else {
+                judgementDiv.innerHTML = "判定 (top < windowHeight): ❌ まだ画面外";
+                target.style.background = "pink";
+            }
+        });
+
+        // 初回表示用
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
