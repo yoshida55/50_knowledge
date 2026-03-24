@@ -4735,10 +4735,15 @@
   "📌 transform: rotate(180deg) + transition: all 0.5s → ホバーで要素をなめらかに180度回転させる（矢印反転などに使う）": {
     "title": "📌 transform: rotate(180deg) + transition: all 0.5s → ホバーで要素をなめらかに180度回転させる（矢印反転などに使う）",
     "line": 17582,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1774324081176,
+    "reviewCount": 1,
     "questionText": "ホバーで要素をなめらかに180度回転させるために、transform: rotate(180deg)と組み合わせるCSSプロパティは何ですか？",
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "geminiAnswer": "transitionプロパティです。\n\nすべての変化に時間を設定することで、回転アニメーションをなめらかにします。変化前の要素に記述するのがポイントです。\n\n例：\n```css\n.arrow {\n  display: inline-block;\n  transition: all 0.5s;\n}\n.accordion.open .arrow {\n  transform: rotate(180deg);\n}\n```",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-24"
   },
   "opacity: 0 と visibility: hidden を併用するメリット：アニメーションとクリック制御": {
     "title": "opacity: 0 と visibility: hidden を併用するメリット：アニメーションとクリック制御",
@@ -4867,6 +4872,22 @@
     "reviewCount": 0,
     "questionText": "ラベルと内容の表を作る際、テキスト量の違いによるレイアウト崩れを防ぐために推奨されるタグの組み合わせは何？",
     "aiCategory": "html"
+  },
+  "HTMLからWordPressテーマを作るときの初期セットアップ手順（Local使用）": {
+    "title": "HTMLからWordPressテーマを作るときの初期セットアップ手順（Local使用）",
+    "line": 16106,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "HTMLからWordPressテーマを作る際、最初に行うべき手順とは？",
+    "aiCategory": "wordpress/php"
+  },
+  "📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる　★分離することによって、他のセクションより下げることができつつも、afterでz-indexを作った要塞はスタキングコンテキストが作られない。それによって子要素が自由に動けるので、子要素のz-indexをあげれば、別な要素の上に付けることができる。つまり、3レイヤーを作ることができる。": {
+    "title": "📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる　★分離することによって、他のセクションより下げることができつつも、afterでz-indexを作った要塞はスタキングコンテキストが作られない。それによって子要素が自由に動けるので、子要素のz-indexをあげれば、別な要素の上に付けることができる。つまり、3レイヤーを作ることができる。",
+    "line": 11173,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "親要素にz-indexを使わず、背景を::after疑似要素に分離するメリットは何ですか？",
+    "aiCategory": "HTML"
   },
   "_meta": {
     "lastFilter": {
