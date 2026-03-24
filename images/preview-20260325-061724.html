@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>スクロール連動サイドメニュー表示制御</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  color: #5A8FC4;
+  font-size: 28px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  color: #5A8FC4;
+  font-size: 20px;
+  margin: 30px 0 15px;
+  border-left: 4px solid #5A8FC4;
+  padding-left: 12px;
+}
+
+.svg-container {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  margin: 25px 0;
+  box-shadow: 0 2px 8px rgba(90, 143, 196, 0.1);
+}
+
+.code-block {
+  background: #2d2d2d;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  position: relative;
+  overflow-x: auto;
+}
+
+.code-block code {
+  color: #f8f8f2;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  display: block;
+  white-space: pre;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #5A8FC4;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.copy-btn:hover {
+  background: #4a7fb4;
+}
+
+.demo-scroll {
+  position: relative;
+  height: 400px;
+  overflow-y: scroll;
+  border: 2px solid #5A8FC4;
+  border-radius: 8px;
+  background: white;
+  margin: 20px 0;
+}
+
+.demo-content {
+  position: relative;
+}
+
+.hero_area {
+  height: 500px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+}
+
+.gallery_area {
+  height: 600px;
+  background: #f0f4f8;
+  padding: 40px;
+  position: relative;
+}
+
+.gallery_area h3 {
+  color: #5A8FC4;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.access_area {
+  height: 500px;
+  background: #d0e0f0;
+  padding: 40px;
+}
+
+.access_area h3 {
+  color: #5A8FC4;
+  font-size: 28px;
+}
+
+.side_area {
+  position: fixed;
+  top: 50%;
+  right: -100px;
+  transform: translateY(-50%);
+  background: #5A8FC4;
+  color: white;
+  padding: 20px;
+  border-radius: 8px 0 0 8px;
+  transition: right 0.4s ease;
+  box-shadow: -2px 2px 10px rgba(0,0,0,0.2);
+}
+
+.side_area.open {
+  right: 0;
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from { right: -100px; }
+  to { right: 0; }
+}
+
+.side_area ul {
+  list-style: none;
+}
+
+.side_area li {
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.scroll-indicator {
+  position: absolute;
+  width: 60px;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 12px;
+  color: #5A8FC4;
+}
+
+.scroll-line {
+  width: 2px;
+  height: 100px;
+  background: #5A8FC4;
+  margin: 10px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-thumb {
+  width: 100%;
+  height: 30px;
+  background: #4a7fb4;
+  animation: scrollMove 2s ease-in-out infinite;
+}
+
+@keyframes scrollMove {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(70px); }
+}
+
+.keyword {
+  display: inline-block;
+  background: #5A8FC4;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  margin: 0 3px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>スクロール連動サイドメニュー表示制御</h1>
+
+  <h2>📌 動作概要</h2>
+  <p><span class="keyword">gallery_area</span>が画面半分に到達してから<span class="keyword">access_area</span>が表示されるまでの間、<span class="keyword">side_area</span>に<code>open</code>クラスを付与して表示します。</p>
+
+  <div class="svg-container">
+    <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+      <!-- 画面枠 -->
+      <rect x="50" y="50" width="300" height="300" fill="none" stroke="#5A8FC4" stroke-width="3" stroke-dasharray="5,5"/>
+      <text x="200" y="35" text-anchor="middle" fill="#5A8FC4" font-size="14" font-weight="bold">ビューポート（画面）</text>
+      
+      <!-- 画面中央線 -->
+      <line x1="50" y1="200" x2="350" y2="200" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="8,4"/>
+      <text x="360" y="205" fill="#ff6b6b" font-size="13">画面半分</text>
+      
+      <!-- コンテンツエリア -->
+      <g id="content">
+        <rect x="80" y="80" width="240" height="60" fill="#667eea" opacity="0.3"/>
+        <text x="200" y="115" text-anchor="middle" font-size="14">hero_area</text>
+        
+        <rect x="80" y="160" width="240" height="80" fill="#5A8FC4" opacity="0.4"/>
+        <text x="200" y="205" text-anchor="middle" font-size="14" font-weight="bold">gallery_area</text>
+        
+        <rect x="80" y="260" width="240" height="60" fill="#a8c5e0" opacity="0.3"/>
+        <text x="200" y="295" text-anchor="middle" font-size="14">access_area</text>
+      </g>
+      
+      <!-- サイドエリア -->
+      <rect x="450" y="150" width="80" height="100" fill="#5A8FC4" rx="5">
+        <animate attributeName="opacity" values="0;1;1;0" dur="4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="490" y="190" text-anchor="middle" fill="white" font-size="12">side_area</text>
+      <text x="490" y="210" text-anchor="middle" fill="white" font-size="11">.open</text>
+      
+      <!-- 矢印と条件 -->
+      <path d="M 200 240 Q 350 240 440 200" fill="none" stroke="#5A8FC4" stroke-width="2" marker-end="url(#arrowblue)"/>
+      
+      <rect x="550" y="50" width="220" height="140" fill="#f8f9fa" stroke="#5A8FC4" stroke-width="2" rx="5"/>
+      <text x="660" y="75" text-anchor="middle" font-size="13" font-weight="bold" fill="#5A8FC4">表示条件</text>
+      <text x="570" y="100" font-size="12">✓ galleryTop < 画面半分</text>
+      <text x="570" y="125" font-size="12">✓ accessTop > 画面下</text>
+      <text x="660" y="155" text-anchor="middle" font-size="11" fill="#666">両方満たすとき</text>
+      <text x="660" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#5A8FC4">classList.add("open")</text>
+      
+      <defs>
+        <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="#5A8FC4"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <h2>💻 コード</h2>
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    <code>const galleryArea = document.querySelector(".gallery_area");
+const sideArea = document.querySelector(".side_area");
+const accessArea = document.querySelector(".access_area");
+
+window.addEventListener("scroll", function () {
+  const galleryTop = galleryArea.getBoundingClientRect().top;
+  const accessTop = accessArea.getBoundingClientRect().top;
+  const windowHeight = window.innerHeight;
+
+  if (galleryTop < windowHeight / 2 && accessTop > windowHeight) {
+    sideArea.classList.add("open");
+  } else {
+    sideArea.classList.remove("open");
+  }
+});</code>
+  </div>
+
+  <h2>🎬 動作デモ</h2>
+  <p style="color:#666; font-size:14px; margin-bottom:10px;">↓ スクロールして動作を確認</p>
+  <div class="demo-scroll">
+    <div class="demo-content">
+      <div class="hero_area">HERO AREA</div>
+      <div class="gallery_area">
+        <h3>GALLERY AREA</h3>
+        <p>ここが画面半分に到達すると→</p>
+        <p>右側にside_areaが表示されます</p>
+        <div class="scroll-indicator">
+          <div>SCROLL</div>
+          <div class="scroll-line">
+            <div class="scroll-thumb"></div>
+          </div>
+        </div>
+      </div>
+      <div class="access_area">
+        <h3>ACCESS AREA</h3>
+        <p>ここが見えると→</p>
+        <p>side_areaが非表示になります</p>
+      </div>
+    </div>
+    
+    <div class="side_area" id="demoSide">
+      <ul>
+        <li>📍 Link 1</li>
+        <li>📍 Link 2</li>
+        <li>📍 Link 3</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const code = btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'コピー完了!';
+    setTimeout(() => btn.textContent = 'コピー', 2000);
+  });
+}
+
+// デモ用スクロール検知
+const demoScroll = document.querySelector('.demo-scroll');
+const demoSide = document.getElementById('demoSide');
+
+demoScroll.addEventListener('scroll', function() {
+  const gallery = document.querySelector('.gallery_area');
+  const access = document.querySelector('.access_area');
+  
+  const galleryRect = gallery.getBoundingClientRect();
+  const accessRect = access.getBoundingClientRect();
+  const demoRect = demoScroll.getBoundingClientRect();
+  
+  const relativeGalleryTop = galleryRect.top - demoRect.top;
+  const relativeAccessTop = accessRect.top - demoRect.top;
+  const demoHeight = demoScroll.clientHeight;
+  
+  if (relativeGalleryTop < demoHeight / 2 && relativeAccessTop > demoHeight) {
+    demoSide.classList.add('open');
+  } else {
+    demoSide.classList.remove('open');
+  }
+});
+</script>
+
+</body>
+</html>

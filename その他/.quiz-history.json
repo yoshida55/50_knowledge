@@ -4865,6 +4865,22 @@
     "questionText": "get_post_meta()で取得した数値データに対し、esc_html()は必ず適用すべきか？",
     "aiCategory": "wordpress/php"
   },
+  "ラベル：内容の表は p タグ2カラムではなく dl/dt/dd を使う（テキスト量が違うとズレる）": {
+    "title": "ラベル：内容の表は p タグ2カラムではなく dl/dt/dd を使う（テキスト量が違うとズレる）",
+    "line": 16075,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "ラベルと内容の表を作る際、テキスト量によるズレを防ぐためpタグの代わりに使うべき要素は何ですか？",
+    "aiCategory": "html"
+  },
+  "HTMLからWordPressテーマを作るときの初期セットアップ手順（Local使用）": {
+    "title": "HTMLからWordPressテーマを作るときの初期セットアップ手順（Local使用）",
+    "line": 16125,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "HTMLからWordPressテーマを制作する際、効率的な初期セットアップの手順は？",
+    "aiCategory": "wordpress/php"
+  },
   "_meta": {
     "lastFilter": {
       "date": "昨日",

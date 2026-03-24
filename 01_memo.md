@@ -17643,6 +17643,8 @@ window.addEventListener('scroll', () => {
 
 【関連】→ 「visibility: hidden」で検索（display: none との違い・スペースが残るかどうか）
 
+
+
 ## opacity: 0 と visibility: hidden を併用するメリット：アニメーションとクリック制御
 【日付】2026-03-23
 
@@ -17657,3 +17659,32 @@ window.addEventListener('scroll', () => {
 - 📌 WordPressテンプレートファイルまとめ（category.php / archive.php / page.php の使い分け）
 - 📌 WordPress関数の規則性まとめ（the_ / get_ / has_ / is_ / add_）
 - transition の最小構成は「対象 + 時間」の2点セット。all = クラス全体ではなく「すべてのプロパティの変化」
+
+
+
+## 特定（上）のエリアの半分まで入ったら表示し、次のエリアが見えた瞬間に消えるというアニメーションをJavaScriptで作成した場。下からも上からも制御したい場合に有用
+【日付】2026-03-25
+
+[プレビュー](http://localhost:54321/preview-20260325-061724.html)
+
+// GALLERYのタイトルが出現したタイミングで右のサイドリンクを表示
+```JavaScript
+const galleryArea = document.querySelector(".gallery_area"); // 対象の要素を取得
+const sideArea = document.querySelector(".side_area"); // クラスを付与する要素を取得
+const accessArea = document.querySelector(".access_area"); // 追加：アクセスエリアを取得
+
+
+window.addEventListener("scroll", function () {
+  const galleryTop = galleryArea.getBoundingClientRect().top;
+  const accessTop = accessArea.getBoundingClientRect().top;
+  const windowHeight = window.innerHeight;
+
+  // 「ギャラリーが画面半分より上」かつ「アクセスエリアがまだ画面下にある（入っていない）」間だけ表示
+  if (galleryTop < windowHeight / 2 && accessTop > windowHeight) {
+    sideArea.classList.add("open");
+  } else {
+    // それ以外（ギャラリー前、またはアクセス後）は非表示
+    sideArea.classList.remove("open");
+  }
+});
+```
