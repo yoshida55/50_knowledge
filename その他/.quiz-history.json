@@ -4881,6 +4881,30 @@
     "questionText": "HTMLからWordPressテーマを制作する際、効率的な初期セットアップの手順は？",
     "aiCategory": "wordpress/php"
   },
+  "aタグはデフォルトinline → paddingを効かせるにはinline-blockかblock、全幅にしたいときはblock + width:100%（横paddingは不要になる）": {
+    "title": "aタグはデフォルトinline → paddingを効かせるにはinline-blockかblock、全幅にしたいときはblock + width:100%（横paddingは不要になる）",
+    "line": 17691,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "aタグでpaddingを効かせたり、全幅ボタンを作成するために必要なCSSのプロパティは何ですか？",
+    "aiCategory": "html"
+  },
+  "特定（上）のエリアの半分まで入ったら表示し、次のエリアが見えた瞬間に消えるというアニメーションをJavaScriptで作成した場。下からも上からも制御したい場合に有用": {
+    "title": "特定（上）のエリアの半分まで入ったら表示し、次のエリアが見えた瞬間に消えるというアニメーションをJavaScriptで作成した場。下からも上からも制御したい場合に有用",
+    "line": 17665,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "スクロール時にエリアの半分で表示し、次のエリアが見えた瞬間に消えるアニメーションの実装方法は？",
+    "aiCategory": "その他"
+  },
+  "html に calc(10 / 1400 * 100vw) があると rem は固定値ではなくビューポートに追従して変わる（80rem = 800px固定ではない）": {
+    "title": "html に calc(10 / 1400 * 100vw) があると rem は固定値ではなくビューポートに追従して変わる（80rem = 800px固定ではない）",
+    "line": 17738,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "html要素にcalc(10 / 1400 * 100vw)を設定した際、rem指定した値はどうなりますか？",
+    "aiCategory": "html"
+  },
   "_meta": {
     "lastFilter": {
       "date": "昨日",

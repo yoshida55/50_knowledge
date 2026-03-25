@@ -1,6 +1,8 @@
 CSS jump
 ▢　タブがひらいてないときは、ＣＳＳのクラスをクリックしてもＨＴＭＬタブをひらかない。
-
+▢　クイズエラー: Cannot access 'stagedTitles' before initializat
+▢　縦幅check。
+▢　
 
 
 
