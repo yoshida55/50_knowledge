@@ -4886,7 +4886,7 @@
     "line": 17691,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "questionText": "aタグでpaddingを効かせたり、全幅ボタンを作成するために必要なCSSのプロパティは何ですか？",
+    "questionText": "aタグでpaddingを効かせたり、全幅にしたりするために必要なCSSプロパティは何ですか？",
     "aiCategory": "html"
   },
   "特定（上）のエリアの半分まで入ったら表示し、次のエリアが見えた瞬間に消えるというアニメーションをJavaScriptで作成した場。下からも上からも制御したい場合に有用": {
@@ -4894,7 +4894,7 @@
     "line": 17665,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "questionText": "スクロール時にエリアの半分で表示し、次のエリアが見えた瞬間に消えるアニメーションの実装方法は？",
+    "questionText": "スクロール時に特定エリアの半分で表示し、次エリアで見えなくなるアニメーションの制御方法は？",
     "aiCategory": "その他"
   },
   "html に calc(10 / 1400 * 100vw) があると rem は固定値ではなくビューポートに追従して変わる（80rem = 800px固定ではない）": {
@@ -4902,8 +4902,24 @@
     "line": 17738,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "questionText": "html要素にcalc(10 / 1400 * 100vw)を設定した際、rem指定した値はどうなりますか？",
+    "questionText": "html要素にcalc(10 / 1400 * 100vw)を設定すると、remはどう変化しますか？",
     "aiCategory": "html"
+  },
+  "::after の clip-path は子要素を切り抜けない → 画像も収めたいなら親本体に clip-path（ただしタイトルが箱に閉じ込められる）": {
+    "title": "::after の clip-path は子要素を切り抜けない → 画像も収めたいなら親本体に clip-path（ただしタイトルが箱に閉じ込められる）",
+    "line": 11251,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "::after疑似要素でclip-pathを適用した際、画像などの子要素が切り抜かれないのはなぜですか？",
+    "aiCategory": "HTML"
+  },
+  "📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる ★分離することによって、他のセクションより下げることができつつも、afterでz-indexを作った要塞はスタキングコンテキストが作られない。それによって子要素が自由に動けるので、子要素のz-indexをあげれば、別な要素の上に付けることができる。つまり、3レイヤーを作ることができる。": {
+    "title": "📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる ★分離することによって、他のセクションより下げることができつつも、afterでz-indexを作った要塞はスタキングコンテキストが作られない。それによって子要素が自由に動けるので、子要素のz-indexをあげれば、別な要素の上に付けることができる。つまり、3レイヤーを作ることができる。",
+    "line": 11192,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "親要素にz-indexをつけず、背景を::after疑似要素に分離するメリットは何ですか？",
+    "aiCategory": "HTML"
   },
   "_meta": {
     "lastFilter": {
