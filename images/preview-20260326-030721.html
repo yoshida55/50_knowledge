@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Travel Blog</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header class="header_area">
+    <h1 class="header_title wrapper">
+      <a class="header_logo_link" href="#">
+        <img class="header_logo" src="img/logo.svg" alt="Travel Blog" />
+      </a>
+    </h1>
+    <nav class="header_nav">
+      <ul class="wrapper">
+        <li class="header_nav_item"><a class="header_nav_link" href="#">NEW</a></li>
+        <!-- 他のメニュー項目... -->
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ピックアップ（3カラム） -->
+  <section class="pickup_section wrapper">
+    <div class="pickup_area">
+      <div class="pickup_item">
+        <img src="img/pickup1.jpg" alt="" />
+        <h2 class="pickup_title">タイトル</h2>
+        <a class="pickup_readmore" href="#">READ MORE</a>
+      </div>
+      <!-- あと2つ同じ構造... -->
+    </div>
+  </section>
+
+  <!-- コンテンツエリア（左右2カラム） -->
+  <div class="contents_area wrapper">
+
+    <!-- 左：記事一覧 -->
+    <section class="contents_main">
+      <article class="contents_article">
+        <h2 class="contents_article_title"><a href="#">タイトル</a></h2>
+        <ul class="contents_article_meta">
+          <li><a href="#">2020/01/01</a></li>
+          <li><a href="#">カテゴリ</a></li>
+        </ul>
+        <a href="#"><img src="img/main1.jpg" alt="" /></a>
+        <p class="contents_article_text">本文...</p>
+        <div class="contents_article_readmore"><a href="#">READ MORE</a></div>
+      </article>
+      <!-- あと2記事同じ構造... -->
+    </section>
+
+    <!-- 右：サイドバー -->
+    <aside class="contents_sidebar">
+      <section class="sidebar_author">
+        <img class="sidebar_author_img" src="img/author.jpg" alt="" />
+        <h3 class="sidebar_author_name">Name Name</h3>
+        <p class="sidebar_author_profile">プロフィール...</p>
+      </section>
+      <section class="sidebar_ranking">
+        <h3 class="sidebar_ranking_title">Ranking</h3>
+        <article class="sidebar_ranking_item">
+          <a href="#"><img src="img/ranking1.jpg" alt="" /></a>
+          <h4 class="sidebar_ranking_item_title">タイトル</h4>
+        </article>
+        <!-- あと2件... -->
+      </section>
+      <section class="sidebar_archive">
+        <h3 class="sidebar_archive_title">Archive</h3>
+        <ul class="sidebar_archive_list">
+          <li class="sidebar_archive_item"><a href="#">XXXX年XX月</a>(XX)</li>
+          <!-- 繰り返し... -->
+        </ul>
+      </section>
+    </aside>
+
+  </div>
+
+  <!-- フッター（3カラム） -->
+  <footer class="footer_area">
+    <section class="footer_item">
+      <h3 class="footer_item_title">About</h3>
+      <p>テキスト...</p>
+      <ul class="footer_about_list">
+        <li><a class="footer_about_link" href="#">プロフィール詳細</a></li>
+      </ul>
+    </section>
+    <section class="footer_item">
+      <h3 class="footer_item_title">Menu</h3>
+      <ul class="footer_menu_list">
+        <li><a class="footer_menu_link" href="#">NEW</a></li>
+        <!-- 他のメニュー... -->
+      </ul>
+    </section>
+    <section class="footer_item">
+      <h3 class="footer_item_title">Twitter</h3>
+    </section>
+    <p class="footer_copyright">&copy; Travel &amp; Blog</p>
+  </footer>
+
+</body>
+</html>

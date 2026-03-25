@@ -8830,6 +8830,16 @@ footer.php の wp_footer() → 登録されたJSを </body> 直前に出力
 - ⚠ `echo` と必ずセットで使う（`esc_` 系は出力しないので `echo` が必要）
 - 💡 つまり：「どこに出すか」で使う関数が変わる
 
+
+【実際取得するときのコード】
+```php
+// ① 管理画面から入力された値を「取得」する
+$alt = get_post_meta( get_the_ID(), 'my_alt_text', true );
+
+// ② 属性値として「安全に出力」する
+<img alt="<?php echo esc_attr( $alt ); ?>">
+
+
 ---
 
 ### esc_url() は「URLを出力するとき反射的に付ける」習慣（安全より規約） WordPress
@@ -17655,7 +17665,9 @@ window.addEventListener('scroll', () => {
 
 【関連】→ [📌 ふわっと表示させるには opacity: 0 + visibility: hidden + transition の3点セットが必要（opacityだけだとクリックが通ってしまう）](#-ふわっと表示させるには-opacity-0-visibility-hidden-transition-の3点セットが必要opacityだけだとクリックが通ってしまう)
 
-## 🧠 暗記リスト HTML
+## 🧠 暗記リスト
+- 📌 flex/gridで列幅やgapがバラバラな場合の使い分け
+- data-aos を複数要素に個別につけると「順番に動く」演出になる（親divにつけると全部同時） HTML
 - 特定（上）のエリアの半分まで入ったら表示し、次のエリアが見えた瞬間に消えるというアニメーションをJavaScriptで作成した場。下からも上からも制御したい場合に有用
 - 📌 WordPressテンプレートファイルまとめ（category.php / archive.php / page.php の使い分け）
 - 📌 WordPress関数の規則性まとめ（the_ / get_ / has_ / is_ / add_）
@@ -17765,3 +17777,41 @@ html {
 ⚠ 間違えやすいこと：style.cssに上記のcalcがあると気づかずに「rem = 固定」と勘違いしやすい
 💡 つまり：remの実際のpx値は、htmlのfont-sizeが何になっているかで決まる
 【関連】→「calc(10 / 1400 * 100vw)」で検索（calcの設定が既にある場合のmax-width対応）
+
+## 📌 HTMLセマンティックタグ：aside（サイドバー）・main（メインコンテンツ）・sectionの使い分け → flexで左右カラムに分ける HTML
+【日付】2026-03-26
+
+[プレビュー](http://localhost:54321/preview-20260326-031018.html)
+
+【結論】
+タグ名がそのまま役割を表している。`<aside>` はサイドバー、`<main>` はメインコンテンツ、`<section>` はひとかたまりのコンテンツ。flexは「並べるための箱」に使い、中身のタグには影響しない。
+
+【具体例】
+```
+/*
+  構造:
+  <div .contents_area>        ← flexで左右に分けるだけの箱
+    <main .contents_main>     ← 左カラム（記事一覧）
+    <aside .contents_sidebar> ← 右カラム（サイドバー）
+      <section .author>       ← 執筆者プロフィール
+      <section .ranking>      ← ランキング
+      <section .archive>      ← アーカイブ
+*/
+
+/* flexは親のdivにだけかける */
+.contents_area {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contents_main  { width: 65%; }
+.contents_sidebar { width: 33%; }
+```
+
+【補足】
+- `<div>` はレイアウト専用の箱。意味はない。flexをかけるためだけに使う
+- `<main>` `<aside>` `<section>` はタグ自体に意味がある（セマンティックタグ）
+- `<aside>` の中に `<section>` を縦に積む → flexなしでブロック要素が自然に縦並びになる
+- `<a>` の中に `<a>` は入れられない（HTMLルール違反）。記事全体をリンクにしたいときはCSSの `position: absolute + inset: 0` で対応する
+- ⚠ 間違えやすい：`<section>` と `<div>` を混同しがち。意味のあるかたまりは `<section>`、レイアウトだけなら `<div>`
+- 💡 つまり：flexは「箱の中身を横に並べる命令」。タグ自体はバラバラのまま

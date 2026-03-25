@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flexbox 2カラムレイアウト解説</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+  background: #EBF1F6;
+  color: #333;
+  line-height: 1.8;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(90, 143, 196, 0.1);
+}
+
+h1 {
+  color: #5A8FC4;
+  font-size: 28px;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #5A8FC4;
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: #5A8FC4;
+  font-size: 20px;
+  margin: 30px 0 15px;
+}
+
+p {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.diagram {
+  margin: 30px 0;
+  padding: 20px;
+  background: #f8fbfd;
+  border-radius: 6px;
+  border: 2px solid #5A8FC4;
+}
+
+.demo-container {
+  margin: 30px 0;
+  border: 2px solid #5A8FC4;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.contents_area {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: #fff;
+  animation: fadeIn 1s ease-in;
+}
+
+.contents_main {
+  width: 65%;
+  background: #EBF1F6;
+  padding: 15px;
+  border-radius: 4px;
+  animation: slideFromLeft 0.8s ease-out;
+}
+
+.contents_sidebar {
+  width: 33%;
+  background: #f8fbfd;
+  padding: 15px;
+  border-radius: 4px;
+  animation: slideFromRight 0.8s ease-out;
+}
+
+.contents_main h3,
+.contents_sidebar h3 {
+  font-size: 14px;
+  color: #5A8FC4;
+  margin-bottom: 10px;
+  border-left: 4px solid #5A8FC4;
+  padding-left: 8px;
+}
+
+.author, .ranking, .archive {
+  background: #fff;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 13px;
+  color: #666;
+}
+
+.code-block {
+  position: relative;
+  margin: 20px 0;
+}
+
+.code-block pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 20px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #5A8FC4;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.copy-btn:hover {
+  background: #4a7fb4;
+}
+
+.copy-btn:active {
+  background: #3a6f94;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideFromLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.note {
+  background: #f0f7fc;
+  border-left: 4px solid #5A8FC4;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Flexbox 2カラムレイアウト解説</h1>
+  
+  <p>親要素に<code>display: flex</code>を指定するだけで、左右2カラムのレイアウトを実現できます。</p>
+
+  <div class="diagram">
+    <svg width="100%" height="180" viewBox="0 0 800 180">
+      <!-- 親要素 -->
+      <rect x="50" y="20" width="700" height="140" fill="none" stroke="#5A8FC4" stroke-width="3"/>
+      <text x="400" y="15" fill="#5A8FC4" font-size="14" text-anchor="middle" font-weight="bold">
+        .contents_area (display: flex)
+      </text>
+      
+      <!-- 左カラム -->
+      <rect x="70" y="40" width="420" height="100" fill="#EBF1F6" stroke="#5A8FC4" stroke-width="2"/>
+      <text x="280" y="95" fill="#5A8FC4" font-size="16" text-anchor="middle" font-weight="bold">
+        .contents_main (65%)
+      </text>
+      
+      <!-- 右カラム -->
+      <rect x="520" y="40" width="210" height="100" fill="#f8fbfd" stroke="#5A8FC4" stroke-width="2"/>
+      <text x="625" y="95" fill="#5A8FC4" font-size="16" text-anchor="middle" font-weight="bold">
+        .contents_sidebar (33%)
+      </text>
+      
+      <!-- 矢印 -->
+      <path d="M 400 165 L 280 145" stroke="#5A8FC4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+      <path d="M 400 165 L 625 145" stroke="#5A8FC4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+      
+      <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto">
+          <polygon points="0 0, 10 3, 0 6" fill="#5A8FC4"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <h2>実際の動作デモ</h2>
+  
+  <div class="demo-container">
+    <div class="contents_area">
+      <main class="contents_main">
+        <h3>記事一覧（左カラム）</h3>
+        <p>メインコンテンツがここに表示されます</p>
+      </main>
+      <aside class="contents_sidebar">
+        <h3>サイドバー（右カラム）</h3>
+        <section class="author">執筆者プロフィール</section>
+        <section class="ranking">ランキング</section>
+        <section class="archive">アーカイブ</section>
+      </aside>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>ポイント:</strong> 親要素の<code>.contents_area</code>にのみflexを適用。子要素は自動的に横並びになります。
+  </div>
+
+  <h2>CSSコード</h2>
+  
+  <div class="code-block">
+    <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+    <pre><code>.contents_area {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contents_main  { width: 65%; }
+.contents_sidebar { width: 33%; }</code></pre>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const code = btn.nextElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'コピー完了!';
+    setTimeout(() => {
+      btn.textContent = 'コピー';
+    }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>

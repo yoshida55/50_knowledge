@@ -1132,15 +1132,16 @@
   "📌 ホバーでテキストが下から上にスライド → ::afterで文字を下に隠し、hover時にtranslateY(-100%)で元テキストごと上に押し出す": {
     "title": "📌 ホバーでテキストが下から上にスライド → ::afterで文字を下に隠し、hover時にtranslateY(-100%)で元テキストごと上に押し出す",
     "line": 8565,
-    "lastReviewed": 1774378483099,
-    "reviewCount": 1,
+    "lastReviewed": 1774470277860,
+    "reviewCount": 2,
     "questionText": "CSSでホバー時にテキストを上下にスライドさせて入れ替えるアニメーションを実現するには、どのプロパティで要素を移動させますか？",
     "evaluations": [
       1,
       2
     ],
     "aiCategory": "html",
-    "lastAnsweredDate": "2026-03-24"
+    "lastAnsweredDate": "2026-03-25",
+    "stagingLevel": 1
   },
   "親要素のz-indexを超える方法": {
     "title": "親要素のz-indexを超える方法",
@@ -2038,9 +2039,14 @@
   "📌 ★画像をデザインカンプ通りのサイズにしたい → width: Xrem; height: Xrem; + object-fit: cover →もし特にしていなく、バラン重視なら、width XXX height auto ratioできめる（aspect-ratioは不要）": {
     "title": "📌 ★画像をデザインカンプ通りのサイズにしたい → width: Xrem; height: Xrem; + object-fit: cover →もし特にしていなく、バラン重視なら、width XXX height auto ratioできめる（aspect-ratioは不要）",
     "line": 0,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "aiCategory": "html"
+    "lastReviewed": 1774462919598,
+    "reviewCount": 1,
+    "aiCategory": "html",
+    "questionText": "画像をデザインカンプ通りのサイズにしつつ、変形を防ぐために指定すべきCSSプロパティと値の組み合わせは？",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-25"
   },
   "fixed absolute で縦と横をやるときは、 transform: translate(-50%, -50%); ひとつでまとめないといけない。": {
     "title": "fixed absolute で縦と横をやるときは、 transform: translate(-50%, -50%); ひとつでまとめないといけない。",
@@ -4619,8 +4625,8 @@
   "WordPressループは2種類（have_posts標準ループ vs get_posts件数制限あり）": {
     "title": "WordPressループは2種類（have_posts標準ループ vs get_posts件数制限あり）",
     "line": 16695,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1774456419824,
+    "reviewCount": 1,
     "questionText": "WordPressにおいて、全件表示に適した標準ループと、件数制限を行うループの使い分け方は？",
     "aiCategory": "wordpress/php"
   },
@@ -4700,10 +4706,14 @@
   "data-aos を複数要素に個別につけると「順番に動く」演出になる（親divにつけると全部同時）": {
     "title": "data-aos を複数要素に個別につけると「順番に動く」演出になる（親divにつけると全部同時）",
     "line": 7264,
-    "lastReviewed": 1774294708847,
-    "reviewCount": 1,
+    "lastReviewed": 1774470211974,
+    "reviewCount": 2,
     "questionText": "AOSライブラリで要素を順番に動かすには、data-aos属性をどこに付与すべきですか？",
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-25"
   },
   "transition の最小構成は「対象 + 時間」の2点セット。all = クラス全体ではなく「すべてのプロパティの変化」": {
     "title": "transition の最小構成は「対象 + 時間」の2点セット。all = クラス全体ではなく「すべてのプロパティの変化」",
@@ -4740,10 +4750,14 @@
   "📌 transform: rotate(180deg) + transition: all 0.5s → ホバーで要素をなめらかに180度回転させる（矢印反転などに使う）": {
     "title": "📌 transform: rotate(180deg) + transition: all 0.5s → ホバーで要素をなめらかに180度回転させる（矢印反転などに使う）",
     "line": 17582,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1774463043851,
+    "reviewCount": 1,
     "questionText": "ホバーで要素をなめらかに180度回転させるために、transform: rotate(180deg)と組み合わせるCSSプロパティは何ですか？",
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-25"
   },
   "opacity: 0 と visibility: hidden を併用するメリット：アニメーションとクリック制御": {
     "title": "opacity: 0 と visibility: hidden を併用するメリット：アニメーションとクリック制御",
@@ -4772,10 +4786,14 @@
   "ソフトバンク光の解約手続き": {
     "title": "ソフトバンク光の解約手続き",
     "line": 17107,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1774455971939,
+    "reviewCount": 1,
     "questionText": "ソフトバンク光を解約する際、機器（白いルーター・電源ケーブル）の返却期限は利用停止日から何日以内？",
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-25"
   },
   "楽天モバイル": {
     "title": "楽天モバイル",
@@ -4836,10 +4854,14 @@
   "🧠 CSSが効かないとき → 別ファイルで上書きされていないか確認する": {
     "title": "🧠 CSSが効かないとき → 別ファイルで上書きされていないか確認する",
     "line": 17045,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1774462991867,
+    "reviewCount": 1,
     "questionText": "CSSが効かないとき、何を確認すべきですか？",
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-25"
   },
   "📌 category.php と archive.php はほぼ同じ（カテゴリーごとに見た目を変えたいときだけ category.php を作る）": {
     "title": "📌 category.php と archive.php はほぼ同じ（カテゴリーごとに見た目を変えたいときだけ category.php を作る）",
@@ -4884,42 +4906,128 @@
   "aタグはデフォルトinline → paddingを効かせるにはinline-blockかblock、全幅にしたいときはblock + width:100%（横paddingは不要になる）": {
     "title": "aタグはデフォルトinline → paddingを効かせるにはinline-blockかblock、全幅にしたいときはblock + width:100%（横paddingは不要になる）",
     "line": 17691,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1774455914112,
+    "reviewCount": 3,
     "questionText": "aタグでpaddingを効かせたり、全幅にしたりするために必要なCSSプロパティは何ですか？",
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "evaluations": [
+      3
+    ],
+    "lastAnsweredDate": "2026-03-25"
   },
   "特定（上）のエリアの半分まで入ったら表示し、次のエリアが見えた瞬間に消えるというアニメーションをJavaScriptで作成した場。下からも上からも制御したい場合に有用": {
     "title": "特定（上）のエリアの半分まで入ったら表示し、次のエリアが見えた瞬間に消えるというアニメーションをJavaScriptで作成した場。下からも上からも制御したい場合に有用",
     "line": 17665,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1774455851885,
+    "reviewCount": 1,
     "questionText": "スクロール時に特定エリアの半分で表示し、次エリアで見えなくなるアニメーションの制御方法は？",
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-25"
   },
   "html に calc(10 / 1400 * 100vw) があると rem は固定値ではなくビューポートに追従して変わる（80rem = 800px固定ではない）": {
     "title": "html に calc(10 / 1400 * 100vw) があると rem は固定値ではなくビューポートに追従して変わる（80rem = 800px固定ではない）",
     "line": 17738,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1774455940143,
+    "reviewCount": 1,
     "questionText": "html要素にcalc(10 / 1400 * 100vw)を設定すると、remはどう変化しますか？",
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-03-25"
   },
   "::after の clip-path は子要素を切り抜けない → 画像も収めたいなら親本体に clip-path（ただしタイトルが箱に閉じ込められる）": {
     "title": "::after の clip-path は子要素を切り抜けない → 画像も収めたいなら親本体に clip-path（ただしタイトルが箱に閉じ込められる）",
-    "line": 11251,
+    "line": 11261,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "questionText": "::after疑似要素でclip-pathを適用した際、画像などの子要素が切り抜かれないのはなぜですか？",
+    "questionText": "::after疑似要素のclip-pathが適用されない子要素まで含めて切り抜きたい場合、どこにclip-pathを適用すべき？",
     "aiCategory": "HTML"
   },
   "📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる ★分離することによって、他のセクションより下げることができつつも、afterでz-indexを作った要塞はスタキングコンテキストが作られない。それによって子要素が自由に動けるので、子要素のz-indexをあげれば、別な要素の上に付けることができる。つまり、3レイヤーを作ることができる。": {
     "title": "📌 背景を::after疑似要素に分離し親にz-indexなし → 子テキストだけ他セクション（z-index高い）の前面に出せる ★分離することによって、他のセクションより下げることができつつも、afterでz-indexを作った要塞はスタキングコンテキストが作られない。それによって子要素が自由に動けるので、子要素のz-indexをあげれば、別な要素の上に付けることができる。つまり、3レイヤーを作ることができる。",
-    "line": 11192,
+    "line": 11202,
     "lastReviewed": 0,
     "reviewCount": 0,
-    "questionText": "親要素にz-indexをつけず、背景を::after疑似要素に分離するメリットは何ですか？",
+    "questionText": "親要素にz-indexをつけずに背景を::after疑似要素に分離すると、どのようなレイアウト効果が得られる？",
     "aiCategory": "HTML"
+  },
+  "📌 WordPressでリンクに飛ばすのは3種類": {
+    "title": "📌 WordPressでリンクに飛ばすのは3種類",
+    "line": 12054,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressで記事やカテゴリなどのリンクを飛ばす際に使い分けられる手法は何種類ある？",
+    "aiCategory": "WordPress"
+  },
+  "📌 functions.php に書く設定一覧 — 何をどこで設定するか": {
+    "title": "📌 functions.php に書く設定一覧 — 何をどこで設定するか",
+    "line": 15817,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、テーマ全体に関わる設定をまとめて記述するファイルは何ですか？",
+    "aiCategory": "WordPress"
+  },
+  "メモ：スクロールで画像拡大 → 右寄りに広がる問題（justify-content: center + flex-shrink: 0 + overflow-x: hidden の3点セットで解決）": {
+    "title": "メモ：スクロールで画像拡大 → 右寄りに広がる問題（justify-content: center + flex-shrink: 0 + overflow-x: hidden の3点セットで解決）",
+    "line": 15996,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "スクロールで画像拡大時に右寄りに広がるのを防ぐCSSの3点セットとは何ですか？",
+    "aiCategory": "HTML"
+  },
+  "📌 HTMLセマンティックタグ：aside（サイドバー）・main（メインコンテンツ）・sectionの使い分け → flexで左右カラムに分ける": {
+    "title": "📌 HTMLセマンティックタグ：aside（サイドバー）・main（メインコンテンツ）・sectionの使い分け → flexで左右カラムに分ける",
+    "line": 17781,
+    "lastReviewed": 1774478341147,
+    "reviewCount": 7,
+    "questionText": "aside、main、sectionタグを左右のカラムに分けるために使用するCSSプロパティは何ですか？",
+    "aiCategory": "HTML",
+    "stagingLevel": 1,
+    "lastAnsweredDate": "2026-03-25"
+  },
+  "メモ：ホバーで疑似要素を動かす → `.parent:hover::after` の順番で書く（逆にすると効かない）": {
+    "title": "メモ：ホバーで疑似要素を動かす → `.parent:hover::after` の順番で書く（逆にすると効かない）",
+    "line": 16051,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSで親要素のホバー時に疑似要素を動かす際、セレクタはどのように記述する必要がありますか？",
+    "aiCategory": "その他"
+  },
+  "★★★WordPress 開発テーマ開発の全体フロー HTMLあり それぞれのテンプレート事作成フロー★★★": {
+    "title": "★★★WordPress 開発テーマ開発の全体フロー HTMLあり それぞれのテンプレート事作成フロー★★★",
+    "line": 14438,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressテーマ開発において、一度作成すれば全記事で使い回せる「型紙」にあたるファイルは何でしょうか？",
+    "aiCategory": "WordPress"
+  },
+  "パララックス・background attachment fixed と 背景を固定したアニメーションの違い": {
+    "title": "パララックス・background attachment fixed と 背景を固定したアニメーションの違い",
+    "line": 14732,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "パララックス表現における、background-attachment: fixedと背景固定アニメーションの違いは何ですか？",
+    "aiCategory": "HTML"
+  },
+  "📌 背景を固定したいとき → セクションだけならsticky、下の全セクションを流すならfixed（親の範囲か画面全体かで選ぶ）背景に固定画像、前面にながれすスクロール ★★★": {
+    "title": "📌 背景を固定したいとき → セクションだけならsticky、下の全セクションを流すならfixed（親の範囲か画面全体かで選ぶ）背景に固定画像、前面にながれすスクロール ★★★",
+    "line": 4722,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "背景をセクション内で固定する場合と、画面全体で固定する場合に使うプロパティは？",
+    "aiCategory": "HTML"
+  },
+  "★★★（main）WordPress ページネーション - paginate_links() 丸ボタン型（現在ページ黒塗り・spanタグ・CSS付き）ページネーションの作り方 〇 archive.phpに追加する ★★★": {
+    "title": "★★★（main）WordPress ページネーション - paginate_links() 丸ボタン型（現在ページ黒塗り・spanタグ・CSS付き）ページネーションの作り方 〇 archive.phpに追加する ★★★",
+    "line": 14127,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressでpaginate_links()を使い、現在ページが黒塗りの丸ボタン型ページネーションを作るには？",
+    "aiCategory": "WordPress"
   },
   "_meta": {
     "lastFilter": {
