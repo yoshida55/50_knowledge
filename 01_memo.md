@@ -17688,3 +17688,79 @@ window.addEventListener("scroll", function () {
   }
 });
 ```
+## aタグはデフォルトinline → paddingを効かせるにはinline-blockかblock、全幅にしたいときはblock + width:100%（横paddingは不要になる）
+
+【日付】2026-03-25
+【結論】
+`<a>` タグはデフォルトで `inline` なので、そのままでは `padding` や `width` が効かない。
+ボタンっぽく見せたいときは `inline-block` か `block` に変える必要がある。
+全幅ボタンにしたいときは `display: block; width: 100%` を使い、横paddingは不要（縦だけ残せばOK）。
+
+【具体例】
+```css
+/*
+  構造:
+  <a .contact_msg> 出品に関するお問い合わせ  ← aタグはデフォルトinline
+*/
+
+/* ❌ そのままではpaddingが縦に効かない */
+.contact_msg {
+  padding: 2rem 4rem;  /* 横が効かない */
+}
+
+/* ✅ inline-block：テキスト幅+paddingぶんのボタンサイズ（PCなど固定幅ボタン向け） */
+.contact_msg {
+  display: inline-block;
+  padding: 4rem 10rem;  /* 横paddingでボタン幅を作る */
+  text-align: center;
+}
+
+/* ✅ block + width:100%：画面いっぱいの全幅ボタン（SP向け） */
+.contact_msg {
+  display: block;
+  width: 100%;
+  padding: 2rem 0;      /* 横paddingは不要、縦だけ残す */
+  box-sizing: border-box;
+  text-align: center;   /* 文字は中央のまま */
+}
+```
+
+【補足】
+- `inline` → paddingもwidthも効かない
+- `inline-block` → paddingもwidthも効く、横幅はテキストに合わせる（PCボタン向き）
+- `block` → paddingもwidthも効く、横幅は親いっぱいに広がる（全幅ボタン向き）
+- 全幅にすると横paddingの意味がなくなる → 縦paddingだけ残せばOK
+- `text-align: center` はボタン幅に関係なく文字を中央に置く
+
+⚠ 間違えやすいこと：`display: block; width: 100%` にしても横paddingを残すと幅がはみ出す（`box-sizing: border-box` を忘れずに）
+💡 つまり：全幅ボタンは `block + width:100%`、固定幅ボタンは `inline-block + padding` で作る
+
+## html に calc(10 / 1400 * 100vw) があると rem は固定値ではなくビューポートに追従して変わる（80rem = 800px固定ではない）
+
+【日付】2026-03-25
+【結論】
+`html { font-size: calc(10 / 1400 * 100vw); }` が設定されている場合、`1rem` は画面幅に合わせて変化する。
+`80rem` と書いても固定800pxにはならず、画面幅に比例して伸縮する。
+
+【具体例】
+```css
+html {
+  font-size: calc(10 / 1400 * 100vw);
+  /* 1400px のとき → 1rem = 10px */
+}
+
+.gallery {
+  width: 80rem;
+  /* 1400px のとき → 800px */
+  /* 1600px のとき → 1rem = 11.4px → 80rem = 914px（広がる！） */
+  /*  700px のとき → 1rem =  5px  → 80rem = 400px（縮む！） */
+}
+```
+
+【補足】
+- `calc(10 / 1400 * 100vw)` がある環境では、remで書いた値は「固定px」ではなく「比率」として動く
+- 見た目上は数値が固定に見えても、実際は画面幅と連動している
+- 「remで書いたから固定幅」という思い込みに注意
+⚠ 間違えやすいこと：style.cssに上記のcalcがあると気づかずに「rem = 固定」と勘違いしやすい
+💡 つまり：remの実際のpx値は、htmlのfont-sizeが何になっているかで決まる
+【関連】→「calc(10 / 1400 * 100vw)」で検索（calcの設定が既にある場合のmax-width対応）
