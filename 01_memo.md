@@ -18143,4 +18143,52 @@ row-reverse:    子C → 子B → 子A   （左から）
 
 【補足】
 - ⚠ 間違えやすいこと：`writing-mode: vertical-rl` の中でも flex は使えるが、border区切りのリストではアイテム内部にflexは不要。外側（news_list）のflexで列を並べるだけでいい。
+
+## 📌 writing-mode: vertical-rl を使うときの注意点まとめ（flex・height・row-reverse） HTML
+【日付】2026-03-27
+【結論】
+`writing-mode: vertical-rl` を使うときは、height・flex・row-reverse の挙動が通常と変わる。以下の4点を守ると崩れにくい。
+
+【具体例】
+
+**① height は基本つけない**
+```css
+/* ❌ height を指定すると align-items との組み合わせで余白が生まれる */
+.footer_area {
+  writing-mode: vertical-rl;
+  height: 60rem; /* → コンテンツが中央揃えされて上下に隙間ができる */
+}
+
+/* ✅ height は省略してコンテンツに合わせる */
+.footer_area {
+  writing-mode: vertical-rl;
+}
+```
+
+**② flex で左右に分けるときは display: flex を使う**
+```css
+.footer_area {
+  writing-mode: vertical-rl;
+  display: flex;
+  justify-content: space-between; /* 左右に分ける */
+}
+```
+
+**③ 同じ構造のセクションが2つある → row-reverse で左右を入れ替える**
+```css
+/* セクション1: 画像左・テキスト右 */
+.products_area1 {
+  flex-direction: row-reverse;
+}
+/* セクション2: 通常（画像右・テキスト左）*/
+/* → row-reverse なし */
+```
+
+**④ コピーライトは別セクションで作る**
+- `writing-mode: vertical-rl` の縦書き要素の中に入れると縦書きになってしまう
+- `writing-mode` の影響を受けない別の要素・セクションとして作る
+
+【補足】
+- ⚠ 間違えやすいこと：`writing-mode: vertical-rl` + `height` + `align-items: center` の組み合わせは特に注意。高さが固定されてコンテンツが中央揃えされ、意図しない余白が生まれる。
+- 💡 つまり：vertical-rl のときは height を省いてコンテンツ自動調整に任せる。どうしても必要なら justify-content で余白をコントロールする。
 - 💡 つまり：borderが「仕切り」の役割、paddingが「余白」の役割を分担している。flexはあくまで「列を横に並べる」ためだけに使う。
