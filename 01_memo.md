@@ -1338,8 +1338,45 @@ html {
 それ以外は、子でマージンで別々に管理する。
 ![](2026-01-04-09-13-54.png)
 
-## ▢ 　 writing-mode: vertical-rl HTML
-これをかけることによって見方がかわる。flex direction :column;が横配置など
+## 📌 writing-mode: vertical-rl は「縦書き」と「右スタート」が必ずセット → 右に寄せるだけなら flex を使う HTML
+
+【日付】2026-03-26
+
+【結論】
+`writing-mode: vertical-rl` は2つの効果が同時に起きる。縦書きにしたいときだけ使う。
+右に寄せたいだけなら flex の `justify-content: flex-end` か `margin-left: auto` を使う。
+
+【具体例】
+```css
+/* ① 縦書き＋右スタートにしたい（writing-mode使用） */
+.header_area {
+  writing-mode: vertical-rl; /* 縦書き + 右から左へ流れる */
+  width: 100%;               /* 全幅がないと右に寄らない！ */
+  height: 100vh;
+}
+
+/* ② 右に寄せるだけ（縦書きなし） */
+.header_area {
+  display: flex;
+  justify-content: flex-end; /* 子要素を右寄せ */
+}
+
+/* ③ 右に寄せるだけ（absolute版） */
+.header_area {
+  position: relative;
+}
+.header_inner {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+```
+
+【補足】
+- `rl` = right to left（右から左）。必ず縦書きとセットで動く
+- ⚠ 間違えやすい：`width: 100%` がないと右に寄らず左に出てしまう
+- `display: flex` は子要素が1つでも使う。数ではなく「配置をコントロールしたいとき」に使うもの
+- 💡 つまり：縦書きデザイン → `writing-mode: vertical-rl`、右寄せだけ → `flex`
 
 ## ▢ 　うっかりミス HTML
 見た目が、自分の想定と違うと思った、デザインカンプ 1400px に対して、wrapper でサイズを max-with1200 にしていた。
@@ -4301,6 +4338,9 @@ min-width: 0;　をつける
 ```
 
 
+
+### google mapを埋め込む
+Googleマップを埋め込むには、Googleマップで対象の場所を開き、「共有」→「地図を埋め込む」から取得できるiframeタグをHTMLに貼り付けます。WordPressの場合は、ブロックエディタの「埋め込み」ブロックにURLを貼り付けるか、カスタムHTMLブロックにiframeタグを直接記述します。
 ## 特定のセクションの下に同じ位置に配置したい場合は、新たにセクションの下にdivをつけることも考える。 HTML
     <section>
     </section>
@@ -17815,3 +17855,108 @@ html {
 - `<a>` の中に `<a>` は入れられない（HTMLルール違反）。記事全体をリンクにしたいときはCSSの `position: absolute + inset: 0` で対応する
 - ⚠ 間違えやすい：`<section>` と `<div>` を混同しがち。意味のあるかたまりは `<section>`、レイアウトだけなら `<div>`
 - 💡 つまり：flexは「箱の中身を横に並べる命令」。タグ自体はバラバラのまま
+
+## 📌 HTMLの `<ul>` の中でナビリンクを並べるとき → `<li>` は1つのリンクにつき1つ必要（1リンク = 1li）HTML
+
+【日付】2026-03-26
+
+【結論】
+`<li>` は「リストの1項目」なので、リンク（`<a>`）の数だけ `<li>` を用意する。
+1つの `<li>` に複数の `<a>` を入れると、見た目は動いても構造として間違いになる。
+
+【具体例】
+```html
+<!-- ❌ 間違い：1つの li に複数の a -->
+<ul>
+  <li>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="work.html">Work</a>
+  </li>
+</ul>
+
+<!-- ✅ 正しい：1つの a に 1つの li -->
+<ul>
+  <li><a href="index.html">Home</a></li>
+  <li><a href="about.html">About</a></li>
+  <li><a href="work.html">Work</a></li>
+</ul>
+```
+
+【補足】
+- `<li>` = list item（リストの1項目）。1項目に1つのリンクが基本
+- ❌ 間違えやすい：`<a>` が並べば動くので、`<li>` が1つでも見た目はOKに見える
+- ⚠ ハマりやすい：CSSでスタイルを当てるとき `li` を基準にしていると、1つしかなくてレイアウトが崩れる
+- 💡 つまり：`<li>` の数 ＝ メニュー項目の数、で覚える
+
+## 📌 日付を表示するとき `<date>` は存在しない → `<time datetime="YYYY-MM-DD">` を使う HTML
+
+【日付】2026-03-26
+
+【結論】
+HTMLに `<date>` タグは存在しない。日付・時刻には `<time>` タグを使い、`datetime` 属性に機械が読める形式（YYYY-MM-DD）を書く。
+表示テキストは人が読みやすい形式でOK。
+
+【具体例】
+```html
+<!-- ❌ 間違い：dateタグは存在しない -->
+<date>2024.06.01</date>
+
+<!-- ✅ 正しい：timeタグ + datetime属性 -->
+<time datetime="2024-06-01">2024.06.01</time>
+
+<!-- datetime の書き方 -->
+<time datetime="2024-06-01">2024年6月1日</time>       ← 日付
+<time datetime="14:30">14:30</time>                    ← 時刻
+<time datetime="2024-06-01T14:30">6月1日 14:30</time> ← 日時
+```
+
+【補足】
+- `datetime` 属性 = 機械（検索エンジン等）が読む用。ハイフン区切り（YYYY-MM-DD）で書く
+- タグの中身（表示テキスト）= 人が読む用。どんな形式でもOK
+- ⚠ 間違えやすい：`<date>` と書いてもブラウザでエラーにならず表示される（でも正しくない）
+- 💡 つまり：日付は必ず `<time datetime="機械用">表示用</time>` のセットで書く
+
+## 📌 writing-mode: vertical-rl の中でflex子要素がボックスいっぱいに広がる → align-items: flex-start で中身サイズに収まる（stretchがデフォルトで横に伸びるため） HTML
+
+【日付】2026-03-26
+
+【結論】
+`writing-mode: vertical-rl` があるとflexの軸が90度回転する。
+`align-items` は通常「縦方向」を制御するが、縦書きでは「横方向」を制御する。
+デフォルトの `stretch` が横に広がってしまうため、`flex-start` で中身サイズに収める。
+
+【具体例】
+```css
+/*
+  <section .news_area>     ← writing-mode: vertical-rl
+    <div .news_list>       ← display: flex（縦書き内）
+      <div .news_item>     ← 子要素
+*/
+
+/* ❌ 何も指定しない（stretch）→ 子が横いっぱいに伸びる */
+.news_list {
+  display: flex;
+}
+
+/* ✅ flex-start → 子が中身のサイズになる */
+.news_list {
+  display: flex;
+  align-items: flex-start;
+}
+```
+
+```
+【通常・横書き】                【縦書き writing-mode: vertical-rl】
+主軸  → 横                     主軸  ↕ 縦
+交差軸 ↕ 縦                    交差軸 → 横
+
+stretch → 縦に伸びる            stretch → 横に伸びる ← これが問題
+flex-start → 上端に揃う         flex-start → 右端に揃う＝中身の横幅になる ✅
+```
+
+【補足】
+- ⚠ 間違えやすい：縦書きでも `align-items` の名前は変わらない。でも制御する方向が変わる
+- `writing-mode` を使うたびに「軸が90度回転している」と意識する
+- 💡 つまり：縦書き中のflexで子が広がりすぎたら `align-items: flex-start` で解決
+- 【関連】→ 「writing-mode: vertical-rl は縦書き」で検索（軸の回転の基本）
