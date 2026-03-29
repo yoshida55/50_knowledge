@@ -18227,3 +18227,49 @@ text
 今日から: 最初は50回（5セット）でフォーム確認後、徐々に100回へ。
 正しい100回＞雑な10回のほうが、認知機能向上効果も高いです。
 
+## 📌 writing-mode: vertical-rl を flex の親に付けると flex の主軸が回転してレイアウトが崩れる（子要素に個別に付けるのが正解） HTML
+【日付】2026-03-29
+【結論】
+`writing-mode` は「文字の流れ」だけでなく、その要素の縦横の概念ごと変えるプロパティ。
+flex コンテナに付けると `justify-content` や `align-items` の効く方向が入れ替わるため、
+意図しないレイアウト崩れが起きる。**子要素に個別に付けるのが正解。**
+
+【具体例】
+
+```css
+/*
+  構造:
+  <footer .footer_area>          ← flex 横並び（親）
+    <div .footer_store>          ← writing-mode: vertical-rl（子）
+    <div .footer_inner>          ← writing-mode: vertical-rl（子）
+*/
+
+/* ✅ 正しい：子に writing-mode を付ける */
+.footer_area {
+  display: flex;
+  justify-content: space-between; /* → 横方向に効く（正常） */
+}
+.footer_store,
+.footer_inner {
+  writing-mode: vertical-rl; /* 中の文字だけ縦書き */
+}
+
+/* ❌ 間違い：親に writing-mode を付けると flex の軸が回転する */
+.footer_area {
+  display: flex;
+  writing-mode: vertical-rl;    /* ← これをやると↓ */
+  justify-content: space-between; /* 縦方向に効いてしまう！ */
+}
+```
+
+【図解】
+[プレビュー](http://localhost:54321/preview-20260329-190556.svg)
+
+
+【補足】
+- ⚠ `writing-mode` を親 flex に付けると `justify-content: space-between` が縦方向に効いてしまうのが典型的な症状
+- ⚠ `align-items` と `justify-content` の効く方向も入れ替わるので混乱しやすい
+- 💡 つまり：writing-mode は「その要素の縦横の世界観ごと変える」もの。flex の親には付けない
+
+【関連】→ 「writing-mode: vertical-rl で縦書き」で検索（縦書き × flex の基本パターン）
+
