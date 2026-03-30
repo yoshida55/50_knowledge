@@ -3,6 +3,11 @@
 - `get_categories()` → 全カテゴリを取得
 - `get_the_category()` → ループ内で使う・その特定記事につけた全カテゴリを取得
 
+
+
+- `wp_title('|', true, 'right')` → ページごとのタイトル表示・`bloginfo('name')` と組み合わせて「ページ名 | サイト名」になる
+- wp_head()にCSSが出るのは「なぜ？」と思ったが、functions.phpで登録したものが出てくる仕組みだと理解した → wp_enqueue_style()で登録 → wp_head()で出力の2段階セット
+
 - `esc_html()` → テキストを表示するとき（カテゴリ名・タイトル・著者名など）
 - `esc_url()` → URLを表示するとき（hrefの中など）
 - `esc_attr()` → HTML属性の値を表示するとき（class・id・valueの中など）
@@ -55,3 +60,7 @@
 
 会社情報サンプル
 ![](images/2026-03-30-22-12-55.png)
+
+## 2026-03-31
+
+- wp_head()にCSSが自動で出るのを不思議に思ったが → functions.phpのwp_enqueue_style()で登録したものがwp_head()から出てくる2段階の仕組み
