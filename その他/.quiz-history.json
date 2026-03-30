@@ -4929,6 +4929,30 @@
     "questionText": "HTMLでサイドバーやメインコンテンツを左右に配置する際、flexプロパティはどこに適用すべきですか？",
     "aiCategory": "html"
   },
+  "📌 HTMLの `<ul>` の中でナビリンクを並べるとき → `<li>` は1つのリンクにつき1つ必要（1リンク = 1li）HTML": {
+    "title": "📌 HTMLの `<ul>` の中でナビリンクを並べるとき → `<li>` は1つのリンクにつき1つ必要（1リンク = 1li）HTML",
+    "line": 17891,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "HTMLの<ul>の中でナビリンクを並べる際、1つの<li>につき何個のリンクを配置すべきですか？",
+    "aiCategory": "html"
+  },
+  "📌 日付を表示するとき `<date>` は存在しない → `<time datetime=\"YYYY-MM-DD\">` を使う": {
+    "title": "📌 日付を表示するとき `<date>` は存在しない → `<time datetime=\"YYYY-MM-DD\">` を使う",
+    "line": 17924,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "HTMLで日付を表示する際、存在しない<date>タグの代わりに使うべき正しいタグと属性は何ですか？",
+    "aiCategory": "html"
+  },
+  "📌 writing-mode: vertical-rl の中でflex子要素がボックスいっぱいに広がる → align-items: flex-start で中身サイズに収まる（stretchがデフォルトで横に伸びるため）": {
+    "title": "📌 writing-mode: vertical-rl の中でflex子要素がボックスいっぱいに広がる → align-items: flex-start で中身サイズに収まる（stretchがデフォルトで横に伸びるため）",
+    "line": 17952,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "writing-mode: vertical-rl を指定した際、flex子要素が横に伸びないようにするには？",
+    "aiCategory": "html"
+  },
   "_meta": {
     "lastFilter": {
       "date": "昨日",

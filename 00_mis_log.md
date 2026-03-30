@@ -30,4 +30,15 @@
 
 
 - `get_queried_object_id()` → 今のページのID（数字） / `get_the_category()` → 記事のカテゴリ配列
+
+- タグごと出力する関数（この3つだけ覚える）：
+  - `the_post_thumbnail()` → `<img>` ごと出る
+  - `the_category()` → `<ul><li><a>` ごと出る
+  - `wp_list_categories()` → `<ul><li><a>` ごと出る
+  - それ以外の `the_` 系 → テキストだけ（自分でタグを書く）
 基本的にどちらも画面に表示されているカテゴリであるのはかわれない。IDか、配列あの違い。　なので表示でなければ、get_queried_object_idをつかう
+
+- justify-content: space-between → 子要素が3つのとき、2つめが自動的に中央にくる（1つめ=左端 / 3つめ=右端）
+
+- クラス名のハイフン（`-`）禁止 → アンダースコア（`_`）に統一（例: `global-nav` → `header_nav`）
+- `font-size: calc(10 / 1400 * 100vw)` → 横幅が狭いとremが小さくなり全体が縮む（1400px幅で正常サイズ）
