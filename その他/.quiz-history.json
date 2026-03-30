@@ -4881,6 +4881,54 @@
     "questionText": "HTMLからWordPressテーマを制作する際、効率的な初期セットアップの手順は？",
     "aiCategory": "wordpress/php"
   },
+  "📌 writing-mode: vertical-rl を flex の親に付けると flex の主軸が回転してレイアウトが崩れる（子要素に個別に付けるのが正解）": {
+    "title": "📌 writing-mode: vertical-rl を flex の親に付けると flex の主軸が回転してレイアウトが崩れる（子要素に個別に付けるのが正解）",
+    "line": 18230,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "flexコンテナにwriting-mode: vertical-rlを適用した際、レイアウトが崩れるのを防ぐ正しい方法は？",
+    "aiCategory": "html"
+  },
+  "📌 writing-mode: vertical-rl を使うときの注意点まとめ（flex・height・row-reverse）": {
+    "title": "📌 writing-mode: vertical-rl を使うときの注意点まとめ（flex・height・row-reverse）",
+    "line": 18147,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "writing-mode: vertical-rl を使う際、注意が必要なCSSプロパティはどれ？",
+    "aiCategory": "html"
+  },
+  "📌 縦書きリストでborder-rightで区切るとき → flexなしでpaddingで間隔調整する": {
+    "title": "📌 縦書きリストでborder-rightで区切るとき → flexなしでpaddingで間隔調整する",
+    "line": 18049,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "縦書きリストでborder-rightを使って区切る際、アイテム間の間隔調整にflexではなく何を使うべきか？",
+    "aiCategory": "html"
+  },
+  "📌 writing-mode: vertical-rl は「縦書き」と「右スタート」が必ずセット → 右に寄せるだけなら flex を使う": {
+    "title": "📌 writing-mode: vertical-rl は「縦書き」と「右スタート」が必ずセット → 右に寄せるだけなら flex を使う",
+    "line": 1341,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "writing-mode: vertical-rl を指定すると発生する「縦書き以外」の副作用とは？",
+    "aiCategory": "その他"
+  },
+  "writing-mode: vertical-rl を書くと縦書き以外にも4つ変化する + 書く場所は最下位クラスに": {
+    "title": "writing-mode: vertical-rl を書くと縦書き以外にも4つ変化する + 書く場所は最下位クラスに",
+    "line": 1381,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSでwriting-mode: vertical-rlを指定した際、縦書き以外に変化する挙動と、記述すべき場所はどこ？",
+    "aiCategory": "html"
+  },
+  "📌 HTMLセマンティックタグ：aside（サイドバー）・main（メインコンテンツ）・sectionの使い分け → flexで左右カラムに分ける": {
+    "title": "📌 HTMLセマンティックタグ：aside（サイドバー）・main（メインコンテンツ）・sectionの使い分け → flexで左右カラムに分ける",
+    "line": 17853,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "HTMLでサイドバーやメインコンテンツを左右に配置する際、flexプロパティはどこに適用すべきですか？",
+    "aiCategory": "html"
+  },
   "_meta": {
     "lastFilter": {
       "date": "昨日",

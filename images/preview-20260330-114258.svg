@@ -1,0 +1,50 @@
+<svg width="620" height="280" xmlns="http://www.w3.org/2000/svg" font-family="monospace" font-size="15">
+
+  <!-- 背景 -->
+  <rect width="620" height="280" fill="#1e1e1e" rx="10"/>
+
+  <!-- タイトル -->
+  <text x="20" y="35" fill="#aaa" font-size="13">PHPでHTMLタグを書くときのクォートの構造</text>
+
+  <!-- コード全体 -->
+  <text x="20" y="75" fill="#fff" font-size="15">'&lt;li&gt;&lt;a href="'  .  esc_url(...)  .  '"&gt;'  .  esc_html(...)  .  '&lt;/a&gt;&lt;/li&gt;'</text>
+
+  <!-- 区切り線 -->
+  <line x1="20" y1="90" x2="600" y2="90" stroke="#444" stroke-width="1"/>
+
+  <!-- ブロック1 -->
+  <rect x="20" y="100" width="130" height="36" fill="#264f78" rx="5"/>
+  <text x="26" y="124" fill="#9cdcfe">'&lt;li&gt;&lt;a href="'</text>
+
+  <!-- ブロック2 -->
+  <rect x="230" y="100" width="110" height="36" fill="#3a3a00" rx="5"/>
+  <text x="236" y="124" fill="#dcdcaa">esc_url(...)</text>
+
+  <!-- ブロック3 -->
+  <rect x="360" y="100" width="50" height="36" fill="#264f78" rx="5"/>
+  <text x="366" y="124" fill="#9cdcfe">'"&gt;'</text>
+
+  <!-- ブロック4 -->
+  <rect x="430" y="100" width="130" height="36" fill="#3a3a00" rx="5"/>
+  <text x="436" y="124" fill="#dcdcaa">esc_html(...)</text>
+
+  <!-- 説明ラベル -->
+  <text x="26" y="165" fill="#9cdcfe" font-size="13">HTMLタグ</text>
+  <text x="22" y="182" fill="#666" font-size="12">'で囲む</text>
+
+  <text x="236" y="165" fill="#dcdcaa" font-size="13">URL取得</text>
+  <text x="232" y="182" fill="#666" font-size="12">PHPの関数</text>
+
+  <text x="363" y="165" fill="#9cdcfe" font-size="13">"を閉じる</text>
+  <text x="360" y="182" fill="#666" font-size="12">&gt;でタグ閉じ</text>
+
+  <text x="436" y="165" fill="#dcdcaa" font-size="13">カテゴリ名</text>
+  <text x="432" y="182" fill="#666" font-size="12">PHPの関数</text>
+
+  <!-- ポイント -->
+  <rect x="20" y="210" width="580" height="55" fill="#2a2a2a" rx="5"/>
+  <text x="30" y="232" fill="#aaa" font-size="13">💡 ポイント</text>
+  <text x="30" y="252" fill="#fff" font-size="13">外が ' で囲まれていれば、中に " をそのまま書ける</text>
+  <text x="30" y="268" fill="#666" font-size="12">→ href="" の " が使えるのはこのため</text>
+
+</svg>

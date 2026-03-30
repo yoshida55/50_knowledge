@@ -11826,7 +11826,7 @@ add_filter('register_post_type_args', 'set_post_archive', 10, 2);
 1. **パーマリンクの更新**：WordPress管理画面の「設定」→「パーマリンク」を開き、何も変更せずに「変更を保存」ボタンを押す（設定を読み込ませるため）。
 2. **URLの確認**：ブラウザで「サイトURL/news/」に���クセスし、ページが表示されるか確認する。
 3. **テンプレートの確認**：`archive.php` ファイルに、一覧を表示するためのコード（`the_posts_pagination()` など）を書く。
-### 📌 パーマリンク更新が必要かどうかの判断基準 → URLが変わる操作のみ必要、single.phpなどのテンプレート変更は不要 WordPress
+### 📌 パーマリンク更新が必要かどうかの判断基準 → URLが変わる操作のみ必要、single.phpなどのテンプレート変更は不要 ➡　パーマリンクを使用する用途、一覧画面から詳細画面に遷移する際によく利用する。　WordPress
 
 【★★覚え方★★】
 **「URLという『住所』そのものに変更があるか、それとも同じ住所のまま『家の中身』を変えるだけか」　つまり中身だけかえれるものはfunction.phpは修正不要**
@@ -13899,7 +13899,7 @@ the_post_thumbnail('thumbnail', [
 - ⚠ 第2引数を省略するとimgにクラスがつかず、CSSでサイズ制御できない
 - 💡 つまり：`=>` は「キー → 値」のペアを表す記号
 
-## 📌 詳細ページのURLの形式 → 管理画面「設定 > パーマリンク」から変更できる（スラッグ個別変更は投稿編集画面） WordPress
+## 📌 詳細ページのURLの形式 → 管理画面「設定 > パーマリンク」から変更できる（スラッグ個別変更は投稿編集画面） ➡　パーマリンクを使用する用途、一覧画面から詳細画面に遷移する際によく利用する。　　WordPress
 
 【日付】2026-03-11
 
@@ -18085,61 +18085,8 @@ row-reverse:    子C → 子B → 子A   （左から）
 ```
 
 【図解】
+[プレビュー](http://localhost:54321/preview-20260330-094849.svg)
 
-<svg xmlns="http://www.w3.org/2000/svg" width="520" height="260" font-family="sans-serif" font-size="12">
-  <!-- 背景 -->
-  <rect width="520" height="260" fill="#f9f9f9" rx="8"/>
-  <text x="20" y="28" font-size="13" font-weight="bold" fill="#333">縦書きリスト：borderで区切り → padding で内側の余白</text>
-
-  <!-- 列1 -->
-  <rect x="20" y="45" width="90" height="185" fill="#fff" stroke="#ccc" stroke-width="1.5"/>
-  <rect x="108" y="45" width="2" height="185" fill="#ccc"/>
-  <!-- 日付エリア -->
-  <rect x="20" y="45" width="90" height="80" fill="#e8f4fd" opacity="0.6"/>
-  <text x="65" y="65" text-anchor="middle" fill="#555" font-size="11">padding-right</text>
-  <text x="65" y="82" text-anchor="middle" fill="#333" font-size="12">2024.06.01</text>
-  <text x="65" y="98" text-anchor="middle" fill="#888" font-size="10">（日付）</text>
-  <!-- テキストエリア -->
-  <rect x="20" y="125" width="90" height="105" fill="#fdf6e8" opacity="0.6"/>
-  <text x="65" y="148" text-anchor="middle" fill="#555" font-size="11">padding-left</text>
-  <text x="65" y="168" text-anchor="middle" fill="#333" font-size="11">タイトル</text>
-  <text x="65" y="185" text-anchor="middle" fill="#333" font-size="11">テキスト</text>
-  <text x="65" y="202" text-anchor="middle" fill="#888" font-size="10">（内容）</text>
-
-  <!-- 列2 -->
-  <rect x="110" y="45" width="90" height="185" fill="#fff" stroke="none"/>
-  <rect x="198" y="45" width="2" height="185" fill="#ccc"/>
-  <rect x="110" y="45" width="90" height="80" fill="#e8f4fd" opacity="0.4"/>
-  <text x="155" y="82" text-anchor="middle" fill="#333" font-size="12">2024.06.01</text>
-  <rect x="110" y="125" width="90" height="105" fill="#fdf6e8" opacity="0.4"/>
-  <text x="155" y="168" text-anchor="middle" fill="#333" font-size="11">タイトル</text>
-  <text x="155" y="185" text-anchor="middle" fill="#333" font-size="11">テキスト</text>
-
-  <!-- 列3 -->
-  <rect x="200" y="45" width="90" height="185" fill="#fff" stroke="none"/>
-  <rect x="288" y="45" width="2" height="185" fill="#ccc"/>
-  <rect x="200" y="45" width="90" height="80" fill="#e8f4fd" opacity="0.4"/>
-  <text x="245" y="82" text-anchor="middle" fill="#333" font-size="12">2024.06.01</text>
-  <rect x="200" y="125" width="90" height="105" fill="#fdf6e8" opacity="0.4"/>
-  <text x="245" y="168" text-anchor="middle" fill="#333" font-size="11">タイトル</text>
-  <text x="245" y="185" text-anchor="middle" fill="#333" font-size="11">テキスト</text>
-
-  <!-- 区切り線の説明 -->
-  <line x1="110" y1="235" x2="110" y2="248" stroke="#ccc" stroke-width="2"/>
-  <text x="110" y="260" text-anchor="middle" fill="#888" font-size="11">↑ border-right（区切り線）</text>
-
-  <!-- 右側の説明 -->
-  <text x="310" y="65" fill="#555" font-size="12">← 右から並ぶ（rl）</text>
-  <text x="310" y="90" fill="#4a90d9" font-size="12">🔵 日付エリア</text>
-  <text x="310" y="110" fill="#888" font-size="11">  padding-rightで</text>
-  <text x="310" y="126" fill="#888" font-size="11">  右borderから離す</text>
-  <text x="310" y="155" fill="#d4a017" font-size="12">🟡 テキストエリア</text>
-  <text x="310" y="175" fill="#888" font-size="11">  padding-leftで</text>
-  <text x="310" y="191" fill="#888" font-size="11">  左端から離す</text>
-  <text x="310" y="220" fill="#e74c3c" font-size="12">❌ flex は不要！</text>
-  <text x="310" y="238" fill="#888" font-size="11">  borderが仕切り役なので</text>
-  <text x="310" y="254" fill="#888" font-size="11">  paddingだけでOK</text>
-</svg>
 
 【補足】
 - ⚠ 間違えやすいこと：`writing-mode: vertical-rl` の中でも flex は使えるが、border区切りのリストではアイテム内部にflexは不要。外側（news_list）のflexで列を並べるだけでいい。
