@@ -16362,31 +16362,53 @@ add_theme_support('post-thumbnails');
 - ⚠ `wp_enqueue_scripts` などの関数の中には書かない（外に単独で書く）
 - 💡 つまり：WordPressの機能追加は `add_theme_support()` で有効化する
 
-## WordPress テーマ化で修正したポイント一覧（header.php / footer.php / functions.php） WordPress
-【日付】2026-03-20
+## WordPressテーマ化の全体の流れ（ローカルHTML → WordPress） WordPress
+【日付】2026-03-20 / 2026-03-31
 【結論】
-HTMLをWordPressテーマに変換する際に修正・追加が必要な箇所まとめ。
+HTMLファイルをそのままWordPressで動かすには4ステップで変換する。
 
-**header.php**
-- `<title>` を `<?php bloginfo('name'); ?>` に変更
-- `home_url()` を `esc_url( home_url() )` にすべて変更
-- `get_theme_file_uri()` を `esc_url( get_theme_file_uri() )` に変更
-- `wp_head()` 直後の余分な文字を削除
-- テスト用の不要なコードを削除
+**① style.css（テーマルート）に Theme Name を書く**
+```css
+/*
+  Theme Name: テーマ名
+*/
+```
+→ WordPressがテーマとして認識するために必須
 
-**footer.php**
-- コピーライトのサイト名を `bloginfo('name')` に変更・`&copy;` を追加
-- SNSアイコンに `<a href="URL" target="_blank">` を追加
-- HTML時代のリンク（view_more）を削除
-- `wp_footer()` は `</body>` 直前に配置済みを確認
+**② header.php / footer.php を作る**
+- `wp_head()` を `</head>` 直前に書く
+- `wp_footer()` を `</body>` 直前に書く
+- header.phpの修正ポイント：
+  - `<title>` を `<?php bloginfo('name'); ?>` に変更
+  - `home_url()` を `esc_url( home_url() )` に変更
+  - `get_theme_file_uri()` を `esc_url( get_theme_file_uri() )` に変更
 
-**functions.php**
-- `wp_enqueue_script('jquery')` を追加（ハンバーガーメニュー用）
-- `add_theme_support('post-thumbnails')` を追加（アイキャッチ有効化）
-- ページネーション関数を追加
+**③ index.php を作る**
+```php
+<?php get_header(); ?>
+
+<!-- index.htmlの<header>と<footer>以外の中身をここに貼る -->
+
+<?php get_footer(); ?>
+```
+- 画像パスは `get_template_directory_uri() . '/img/〜'` に変換
+
+**④ functions.php を作る（CSSの登録）**
+```php
+<?php
+function my_theme_enqueue_styles() {
+    wp_enqueue_style('reset', get_theme_file_uri('css/reset.css'));
+    wp_enqueue_style('style', get_theme_file_uri('css/style.css'));
+    wp_enqueue_style('work',  get_theme_file_uri('css/work.css'));
+}
+add_action('wp_enqueue_scripts', 'my_theme_enqueue_styles');
+```
+→ `<link>` の直書きではなく、functions.php で登録 → wp_head() から自動出力
 
 【補足】
-- 💡 つまり：WordPressテーマ化 = ①固定文字→関数 ②URLにesc_url ③wp_head/wp_footer確認 ④必要な機能をfunctionsに登録
+- `functions.php` がないとCSSが一切当たらない
+- ハンドル名（'reset'/'style'/'work'）は重複禁止（同じ名前だと2つ目が無視される）
+- 💡 つまり：WordPressテーマ化 = ①style.css ②header/footer.php ③index.php ④functions.phpの4ステップ
 
 ## get_post_meta() でカスタムフィールドの値を取得する（DBの値はesc_htmlで安全に出力） WordPress
 【日付】2026-03-20
@@ -18259,3 +18281,70 @@ functions.php:
 【日付】2026-03-31
 【結論】BashツールのrunInBackgroundで書き込めるか確認
 #TEST
+
+---
+
+
+---
+
+## 【2026-03-31】HTML属性の中では get_ + echo、タグの外では the_ WordPress
+
+### 結論
+`"` の中（属性値）に埋め込むときは `get_` 系 + `echo`、タグの外に表示するだけなら `the_` 系
+
+### 具体例
+```php
+<time datetime="<?php echo esc_html( get_the_date('Y-m-d') ); ?>">
+  <?php the_date('Y.m.d'); ?>
+</time>
+```
+
+### 理由
+- `the_date()` は画面に**直接出力**する → 属性の中に入れられない
+- `get_the_date()` は**値を返すだけ** → echo で好きな場所に埋め込める
+
+### 同じルールが使える関数
+| 表示 | 取得 |
+|------|------|
+| `the_date()` | `get_the_date()` |
+| `the_permalink()` | `get_permalink()` |
+| `the_title()` | `get_the_title()` |
+
+#WordPress
+
+## 📌 the_category()が出力するaタグにCSSが効かない → `.news_category a` で上書きする WordPress
+
+【日付】2026-03-31
+【結論】`the_category()` は `<a>` タグを自動出力するため、親要素の `color` が効かない。`.news_category a { color: white; }` で明示的に上書きする必要がある。
+
+【具体例】
+```php
+// index.php
+<span class="news_category"><?php the_category(', '); ?></span>
+```
+↓ WordPressが出力するHTML
+```html
+<span class="news_category">
+  <a href="...">Uncategorized</a>  ← aタグが自動で入る
+</span>
+```
+
+```css
+/* ❌ これだけでは効かない */
+.news_category {
+  color: white;
+}
+
+/* ✅ aタグを明示的に指定する */
+.news_category a {
+  color: white;
+  text-decoration: none;
+}
+```
+
+【補足】
+- `the_category()` は「カテゴリ名をリンク付きで出力する」仕様
+- HTMLのときはテキスト直書きなので `color` が素直に効く
+- WordPressに変換すると `<a>` タグが入り、ブラウザのデフォルト色が優先される
+- 解決策：`親クラス a { color: ...; }` で明示的に上書き
+

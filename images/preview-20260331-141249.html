@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>オフィス　階段式</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/work.css" />
+  </head>
+  <body>
+    <header class="header_area">
+      <h1 class="header_logo">
+        <img src="img/logo.svg" alt="ロゴ" />
+      </h1>
+      <nav class="header_nav">
+        <ul class="header_list">
+          <li class="header_item"><a href="#" class="header_link">NEWS</a></li>
+          <li class="header_item"><a href="#" class="header_link">ABOUT</a></li>
+          <li class="header_item"><a href="#" class="header_link">BUSINESS</a></li>
+          <li class="header_item"><a href="#" class="header_link">COMPANY</a></li>
+        </ul>
+      </nav>
+      <!-- お問い合わせ -->
+      <a href="#" class="header_button">お問い合わせ</a>
+    </header>
+    <!-- ===============================================
+     メインビジュアル
+     =============================================== -->
+    <section class="mainvisual_area">
+      <img src="img/mainvisual.jpg" alt="オフィスの画像" />
+    </section>
+    <!-- ===============================================
+     ニュースエリア
+     =============================================== -->
+    <main>
+      <section class="news_area">
+        <!-- 【flex】titleとlineupを横並びにする -->
+        <div class="news_flex">
+          <h2 class="title_main">News</h2>
+          <a href="news.html" class="news_lineUp">すべて見る</a>
+        </div>
+        <p class="subTitle">ニュース</p>
+        <ul class="news_list">
+          <li class="news_item">
+            <a href="#" class="news_link">
+              <time datetime="2024-06-01" class="news_date">2024.06.01</time>
+              <span class="news_category">NEWS</span>
+              <p class="news_text">タイトルタイトルタイトルタイトル</p>
+            </a>
+          </li>
+          <li class="news_item">
+            <a href="#" class="news_link">
+              <time datetime="2024-05-15" class="news_date">2024.05.15</time>
+              <span class="news_category">PRESS</span>
+              <p class="news_text">タイトルタイトルタイトルタイトル</p>
+            </a>
+          </li>
+          <li class="news_item">
+            <a href="#" class="news_link">
+              <time datetime="2024-04-30" class="news_date">2024.04.30</time>
+              <span class="news_category">NEWS</span>
+              <p class="news_text">タイトルタイトルタイトルタイトル</p>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ===============================================
+      ABOUT
+      =============================================== -->
+      <section class="about_area">
+        <img src="img/about.jpg" alt="地面に靴" />
+        <div class="about_textArea">
+          <h2 class="title">About</h2>
+          <p class="subTitle">私たちについて</p>
+          <p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+
+          <p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+
+          <p>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
+        </div>
+      </section>
+      <!-- ===============================================
+      BUSINESS
+      =============================================== -->
+      <section class="business_area">
+        <h2 class="title">BUSINESS</h2>
+        <p class="subTitle">事業内容</p>
+        <div class="business_list">
+          <div class="business_item">
+            <p class="business_name">Web制作・マーケティング</p>
+            <img class="business_img" src="img/business1.jpg" alt="事業内容の画像" />
+          </div>
+          <div class="business_item">
+            <p class="business_name">プロモーション企画・制作</p>
+            <img class="business_img" src="img/business2.jpg" alt="事業内容の画像" />
+          </div>
+
+          <div class="business_item">
+            <p class="business_name">インターネットメディア事業</p>
+            <img class="business_img" src="img/business3.jpg" alt="事業内容の画像" />
+          </div>
+
+          <div class="business_item">
+            <p class="business_name">ソーシャル企画・運営</p>
+            <img class="business_img" src="img/business4.jpg" alt="事業内容の画像" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ===============================================
+       COMPANY
+       =============================================== -->
+      <section class="company_area">
+        <!-- 会社情報 -->
+        <div class="company_info">
+          <h2 class="title">COMPANY</h2>
+          <p class="subTitle">会社情報</p>
+          <dl class="company_wrapper">
+            <dt class="company_title">会社名</dt>
+            <dd class="company_detail">株式会社階段式</dd>
+            <dt class="company_title">所在地</dt>
+            <dd class="company_detail">東京都渋谷区</dd>
+            <dt class="company_title">代表</dt>
+            <dd class="company_detail">東京都渋谷区</dd>
+            <dt class="company_title">設立</dt>
+            <dd class="company_detail">東京都渋谷区</dd>
+            <dt class="company_title">資本金</dt>
+            <dd class="company_detail">東京都渋谷区</dd>
+            <dt class="company_title">事業内容</dt>
+            <dd class="company_detail">Web制作・マーケティング<br />インターネットメディア事業<br />プロモーション企画・制作<br />ソーシャル企画・運営</dd>
+          </dl>
+          <img class="company_img" src="img/company.jpg" alt="会社の画像" />
+        </div>
+      </section>
+    </main>
+    <!-- ===============================================
+       フッター
+       =============================================== -->
+    <footer class="footer_area">
+      <div class="footer_wrapper">
+        <img class="footer_logo" src="img/logo.svg" alt="ロゴ" />
+        <div class="footer_text">Web Entertainment Design Inc.<br />West Building 3F<br />9-99 Sakuragaokacho Shibuya-ku<br />Tokyo, Japan 150-0031<br />T/99-9999-9999</div>
+      </div>
+      <p class="copyright">© 2024 株式会社階段式. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

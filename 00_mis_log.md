@@ -6,7 +6,8 @@
 
 
 - `wp_title('|', true, 'right')` → ページごとのタイトル表示・`bloginfo('name')` と組み合わせて「ページ名 | サイト名」になる
-- wp_head()にCSSが出るのは「なぜ？」と思ったが、functions.phpで登録したものが出てくる仕組みだと理解した → wp_enqueue_style()で登録 → wp_head()で出力の2段階セット
+
+- wp_head()にCSSが自動で出るのを不思議に思ったが（つまりCSSの一覧がWEB出力時に設定される） → functions.phpのwp_enqueue_style()で登録したものがwp_head()から出てくる2段階の仕組み
 
 - `esc_html()` → テキストを表示するとき（カテゴリ名・タイトル・著者名など）
 - `esc_url()` → URLを表示するとき（hrefの中など）
@@ -34,11 +35,14 @@
 
 
 
-- `get_queried_object_id()` → 今のページのID（数字） / `get_the_category()` → 記事のカテゴリ配列
+- `get_queried_object_id()` → 今のページのID（数字） / `get_the_category()` → 記事のカテゴリ配列（これはカテゴリだけではない。今いるページによって取得するＩＤがかわってくる。　記事ページ(single.php)ならば記事ＩＤ）
+
 ・ `get_queried_object_id()` ようするにID取得するか配列か。シンプルにIDを利用すると、比較しやすい。　
 カテゴリを表示するときなどは、配列からカテゴリ名を取り出す必要がある。　なので、IDで比較して、表示するときは、配列からカテゴリ名を取り出すのがベスト。
 
-例）その投稿に付随するカテ
+
+例）その投稿に対して、全カテゴリを回して一致したものの色を変える（class）そのときでは、配列で比較すると大変なので、get_queried_object_id()でカテゴリのＩＤを
+取得し、比較をすると便利。
 
 
 - タグごと出力する関数（この3つだけ覚える）：
@@ -63,4 +67,23 @@
 
 ## 2026-03-31
 
-- wp_head()にCSSが自動で出るのを不思議に思ったが → functions.phpのwp_enqueue_style()で登録したものがwp_head()から出てくる2段階の仕組み
+
+
+- get_template_directory_uri() はURLを返す（物理パスではない）→ src="" や href="" に使う★画像やＵＲＬにつかう。　
+- get_template_directory() は物理パスを返す → require / include に使う（_uri なし）
+
+- wp_footer() は </body> 直前に必ず書く（WordPressのお決まり）
+- wp_head() は </head> 直前に書く（wp_footer() は </body> 直前・セットで覚える）
+
+- ローカルHTMLのWordPress化 → ①style.css ②header/footer.php ③index.php ④functions.phpの4ステップ
+
+- wp_enqueue_styleのハンドル名が重複すると2つ目が無視される → それぞれ別名にする
+
+- HTML属性の中（datetime=""など）→ get_the_date() + echo / タグの外の表示 → the_date()　つまりなぜ、<time datetime= get_the_date> the_date</time>
+→これはよくわからないのでそういうものだとおもっておく！
+- the_category()はaタグを自動出力 → 親のCSSのcolor:whiteが効かない。なぜなら、<li>タグであればそのなかに<a>タグがつくられるので、
+
+.news_category a { color: white; } で上書きが必要
+（  - `the_post_thumbnail()` → `<img>` ごと出る
+  - `the_category()` → `<ul><li><a>タグででる` ごと出る
+  - `wp_list_categories()` → `<ul><li><a>` ごと出る　要注意）
