@@ -18348,3 +18348,79 @@ functions.php:
 - WordPressに変換すると `<a>` タグが入り、ブラウザのデフォルト色が優先される
 - 解決策：`親クラス a { color: ...; }` で明示的に上書き
 
+▢
+## メモ：タブ切り替え時に、下線が移動する（offsetLeft+transition でスライドアニメーション）
+【日付】2026-03-31
+
+【気づき】
+- CSS・HTMLだけでは動かない。動きは必ずJSが必要
+- JSは位置を変えるだけ。なめらかに動くのはCSSのtransitionの仕事
+- `<script>` は `</body>` 直前に書く（HTML読み込み後にJSを動かすため）
+
+【ポイント】
+
+★線の位置はoffsetLeft/offsetWidthで取得
+```js
+line.style.left = activeBtn.offsetLeft + 'px';
+line.style.width = activeBtn.offsetWidth + 'px';
+```
+
+★スライドアニメーションはCSSのtransition
+```css
+transition: left 0.3s ease, width 0.3s ease;
+/* 数字を変えると速さが変わる。0.1s=速い / 1s=ゆっくり */
+```
+
+★タブ切り替えはclassListでis-active/is-showを付け替えるだけ
+```js
+buttons.forEach(b => b.classList.remove('is-active'));
+btn.classList.add('is-active');
+```
+
+★コピペで動く最小コード（ファイル分離版）
+
+**HTML**
+```html
+<div class="tab_list">
+  <button class="tab_btn is-active" data-tab="news">ニュース</button>
+  <button class="tab_btn" data-tab="press">プレスリリース</button>
+  <span class="tab_line"></span>
+</div>
+<div class="tab_content is-show" data-content="news">ニュース内容</div>
+<div class="tab_content" data-content="press">プレスリリース内容</div>
+<script src="js/tab.js"></script>
+```
+
+**CSS（css/style.css）**
+```css
+.tab_list { position: relative; display: flex; border-bottom: 1px solid #ccc; }
+.tab_btn { padding: 12px 24px; background: none; border: none; cursor: pointer; }
+.tab_line { position: absolute; bottom: 0; height: 2px; background: #000; transition: left 0.3s ease, width 0.3s ease; }
+.tab_content { display: none; }
+.tab_content.is-show { display: block; }
+```
+
+**JavaScript（js/tab.js）**
+```javascript
+const buttons = document.querySelectorAll('.tab_btn');
+const line = document.querySelector('.tab_line');
+const contents = document.querySelectorAll('.tab_content');
+moveLine(document.querySelector('.tab_btn.is-active'));
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    buttons.forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    moveLine(btn);
+    const target = btn.dataset.tab;
+    contents.forEach(c => c.classList.remove('is-show'));
+    document.querySelector(`[data-content="${target}"]`).classList.add('is-show');
+  });
+});
+function moveLine(activeBtn) {
+  line.style.left = activeBtn.offsetLeft + 'px';
+  line.style.width = activeBtn.offsetWidth + 'px';
+}
+```
+
+> 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★タブ切り替え時に、下線が移動する.md)
+
