@@ -102,3 +102,9 @@
 ## 2026-04-01
 
 - セクション余白：上・サイドはpadding、下だけmargin-bottom → モバイルで修正しやすい
+- <ul>直下に<a>を置いてしまった → 正しくは<li>の中に<a>を入れる
+- href=""を空のままにした → href="<?php the_permalink(); ?>"を入れる
+- target="blank" と書いてしまった → 正しくは target="_blank"（アンダースコアが必要）
+- カテゴリーURLの取得：get_category_link(get_cat_ID('カテゴリー名')) をセットで使う
+- position: absolute は横並び・SPで調整大変 → 横並びは flexbox を使う
+- SP切り替え時に新変数を作らない → @media内で既存の --side-width の値を上書きする

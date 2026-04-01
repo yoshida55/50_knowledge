@@ -18528,3 +18528,55 @@ padding-right: var(--side-width);
 - widthは基本100%。サイド余白はcalcではなくpaddingで作る
 
 `CSS`
+## 📌 `<ul>` の直接の子は `<li>` だけ・`<a>` の正しい位置 HTML
+
+【日付】2026-04-01
+【結論】`<ul>` や `<ol>` の直接の子要素は `<li>` だけ。リンクにしたい場合は `<li>` の中に `<a>` を入れる。
+
+【具体例】
+```html
+<!-- ❌ NG：ulの直下にaがいる -->
+<ul>
+  <a href="...">
+    <li>記事</li>
+  </a>
+</ul>
+
+<!-- ✅ OK：liの中にaを入れる -->
+<ul>
+  <li>
+    <a href="<?php the_permalink(); ?>">記事</a>
+  </li>
+</ul>
+```
+
+【補足】
+- `href=""` を空のままにしない → `<?php the_permalink(); ?>` で記事URLを取得する
+- `<ul>` の子は `<li>` だけというHTMLの仕様ルール
+
+
+## 📌 カテゴリー名からURLを取得する・WordPressテンプレート階層 WordPress
+
+【日付】2026-04-01
+【結論】カテゴリー名からURLを取得するには `get_category_link(get_cat_ID('カテゴリー名'))` をセットで使う。カテゴリーページを開くとWordPressが自動で `archive.php` を呼び出す。
+
+【具体例】
+```php
+// カテゴリー名からURLを取得してリンクにする
+<a href="<?php echo get_category_link(get_cat_ID('ニュース')); ?>">すべて見る</a>
+```
+
+【テンプレート階層（カテゴリーページの場合）】
+```
+category-news.php  → なければ
+category.php       → なければ
+archive.php        → なければ
+index.php
+```
+ファイル名がルール。置くだけで自動で呼び出される（設定不要）。
+
+【補足】
+- `get_cat_ID('カテゴリー名')` → カテゴリー名からIDを取得
+- `get_category_link(ID)` → IDからURLを取得
+- 細かい書き方は都度調べてOK・仕組みだけ覚える
+
