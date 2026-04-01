@@ -18424,3 +18424,107 @@ function moveLine(activeBtn) {
 
 > 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★タブ切り替え時に、下線が移動する.md)
 
+
+## widthは基本100%。サイドの余白はpaddingで作る（calc削減）
+
+【日付】2026-04-01
+【結論】要素のwidthを `calc(100% - サイド幅 * 2)` で計算するより、`width: 100%` のまま `padding` でサイドの余白を作るほうがシンプルで管理しやすい。
+
+【具体例】
+```css
+/* ❌ calcで削る書き方（複雑・変更に弱い） */
+width: calc(100% - var(--side-width) * 2);
+
+/* ✅ paddingで作る書き方（シンプル） */
+width: 100%;
+padding-left: var(--side-width);
+padding-right: var(--side-width);
+/* または padding: 0 var(--side-width); */
+```
+
+【補足】
+- `box-sizing: border-box` が効いていればpaddingを足してもwidthからはみ出さない
+- サイドに余白を持たせたいだけなら `calc` を使う必要はない
+
+`CSS`
+
+## わき余白はpadding・要素間の隙間はmargin（横スクロール防止）
+
+【日付】2026-04-01
+【結論】コンテナのわき余白は `padding` で作る。`margin` は要素と要素の間の距離に使う。`margin` を `width: 100%` と組み合わせると要素が外にはみ出し横スクロールの原因になる。
+
+【具体例】
+```css
+/* ✅ わき余白はpadding */
+.section {
+  width: 100%;
+  padding: 0 2rem; /* 内側に収まる・背景色も出る */
+}
+
+/* ⚠ marginをわきに使うと横スクロールが出やすい */
+.section {
+  width: 100%;
+  margin: 0 2rem; /* 外に飛び出す → 全体幅が広がる */
+}
+
+/* ✅ 要素間の距離はmargin（またはgap） */
+.card + .card {
+  margin-top: 2rem;
+}
+```
+
+【補足】
+- paddingは `box-sizing: border-box` があれば width の内側に収まる
+- 使い分け：**わき → padding / 要素間 → margin or gap**
+
+`CSS`
+
+## pタグは話題が変わらなければ1つにまとめる
+
+【日付】2026-04-01
+【結論】`<p>` タグは「1つの段落」を表す。話題がつながっているテキストは1つの `<p>` にまとめる。細かく分けすぎない。
+
+【具体例】
+```html
+<\!-- ❌ 細かく分けすぎ -->
+<p>テキスト</p>
+<p>テキスト</p>
+<p>テキスト</p>
+
+<\!-- ✅ 話題が同じなら1つにまとめる -->
+<p>テキストテキストテキスト</p>
+```
+
+【補足】
+- 話題が変わる・段落を意図的に分けたいときは複数に分けてOK
+- 迷ったら「意味的に1つの段落か？」を基準にする
+
+`HTML`
+
+## セクションの余白：上・サイドはpadding、下だけmargin
+
+【日付】2026-04-01
+【結論】セクションの上・サイドは `padding`、下だけ `margin-bottom` にする。モバイル対応のときに下の余白だけ変えれば済むので修正しやすい。
+
+【具体例】
+```css
+.section {
+  width: 100%;           /* サイドはpaddingで余白を作る */
+  padding: 8rem 4rem 0;  /* 上・サイドはpadding、下は0 */
+  margin-bottom: 8rem;   /* 下だけmargin → モバイルで変えやすい */
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 2rem 0; /* 上・サイドだけ変える */
+    margin-bottom: 4rem;  /* 下だけ変える → シンプル */
+  }
+}
+```
+
+【補足】
+- `padding-bottom` にすると背景色の範囲が変わるので注意
+- `margin-bottom` なら背景色の外に余白ができる
+- widthは基本100%。サイド余白はcalcではなくpaddingで作る
+
+`CSS`
