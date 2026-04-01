@@ -6,6 +6,13 @@
 
 
 - `wp_title('|', true, 'right')` → ページごとのタイトル表示・`bloginfo('name')` と組み合わせて「ページ名 | サイト名」になる
+/* ✨ポイント✨ */
+`wp_title('|', true, 'right')`**: 現在表示しているページの名前（例：会社概要）を取得し、後ろに「|」を付けます。
+`bloginfo('name')`**: 設定で決めた「サイト名（例：〇〇株式会社）」を取得します。
+
+これらを組み合わせることで、**「会社概要 | 〇〇株式会社」**という形式で、ページごとに正しいタイトルが自動的に表示される仕組みです。
+
+
 
 - wp_head()にCSSが自動で出るのを不思議に思ったが（つまりCSSの一覧がWEB出力時に設定される） → functions.phpのwp_enqueue_style()で登録したものがwp_head()から出てくる2段階の仕組み
 
@@ -87,19 +94,14 @@
 （  - `the_post_thumbnail()` → `<img>` ごと出る
   - `the_category()` → `<ul><li><a>タグででる` ごと出る
   - `wp_list_categories()` → `<ul><li><a>` ごと出る　要注意）
-## 2026-04-01
-
-- width: calc(100% - サイド幅 * 2) で削るより、width: 100% のまま padding でサイド余白を作るほうがシンプル
 
 ## 2026-04-01
+
 
 - わき余白は padding、要素間の隙間は margin（marginをwidth:100%と組み合わせると横スクロールの原因）
 
-## 2026-04-01
-
 - pタグは細かく分けすぎない → 話題が変わらなければ1つの<p>にまとめる
 
-## 2026-04-01
 
 - セクション余白：上・サイドはpadding、下だけmargin-bottom → モバイルで修正しやすい
 - <ul>直下に<a>を置いてしまった → 正しくは<li>の中に<a>を入れる
@@ -108,3 +110,16 @@
 - カテゴリーURLの取得：get_category_link(get_cat_ID('カテゴリー名')) をセットで使う
 - position: absolute は横並び・SPで調整大変 → 横並びは flexbox を使う
 - SP切り替え時に新変数を作らない → @media内で既存の --side-width の値を上書きする
+- position: absolute する要素は親の子にしない → 兄弟要素にするとSP切り替えで static に戻すだけで縦並びになる(子要素にするとあとでSPのとき、分けて処理できないのでやっかい。)
+
+
+- position: fixed に margin-left: auto は効かない → left プロパティで位置指定する
+- サイドバーありパララックス: left: var(--left-side-width) + width: calc(100% - サイドバー幅) + z-index管理（背景1・セクション10・ヘッダー100）
+z-index サイドバーは200
+z-index トップ画像は10
+z-index contentsは100（margin-top 100vh）
+
+こうすることで、背景を固定したまま、セクションとヘッダーはスクロールに合わせて動くようになる。　サイドバーは常に最前面に表示される。
+
+-   background-image: url("../img/project1.jpg");(3点セット)は,DIVタグに記載する
+

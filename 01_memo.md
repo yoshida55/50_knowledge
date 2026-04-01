@@ -18580,3 +18580,104 @@ index.php
 - `get_category_link(ID)` → IDからURLを取得
 - 細かい書き方は都度調べてOK・仕組みだけ覚える
 
+
+---
+
+## 【2026-04-01】position: absolute する要素は兄弟にする（子にしない）
+
+### 結論
+`position: absolute` で大きく動かす要素は、**親の子ではなく兄弟要素**として配置する。
+
+### なぜか
+子要素として入れると：
+- SPで `position: static` に戻したとき**親の背景色・高さに閉じ込められる**
+- 親の `background-color` が画像の後ろに残り見た目がおかしくなる
+- 余白・高さの計算がずれやすい
+
+### 正しい設計
+```
+✅ 正しい設計
+.company_area
+  ├── .company_info（テキスト）
+  └── .company_img（画像）← 兄弟
+
+❌ ミスの設計
+.company_area
+  └── .company_info（テキスト）
+        └── .company_img（画像）← 子
+```
+
+### SP切り替えのポイント
+兄弟にしておけば、SP用CSSで `position: static` に戻すだけで自然に縦並びになる。
+
+#CSS #HTML
+
+## 📌 サイドバーありレイアウトでのパララックス（固定背景 + セクション通過）の作り方 HTML
+
+### 📅 2026-04-01
+### 🎯 結論
+`position: fixed` の背景 + `margin-top: 100vh` のセクション + z-index 管理で実現できる。
+サイドバーがある場合は `left: var(--left-side-width)` + `width: calc(100% - var(--left-side-width))` で位置調整する。
+
+### 💡 構造のポイント
+
+```
+z-index の重ね順:
+  main_img（背景画像）: z-index: 1    ← 一番奥
+  case_area（セクション）: z-index: 10  ← 中間（上を通過）
+  header_area（サイドバー）: z-index: 100 ← 一番手前（常に見える）
+```
+
+### 🎯 HTML構造
+
+```html
+<header class="header_area">...</header>
+<main class="main_area">
+  <div class="main_img"></div>   ← 固定背景用（position: fixed）
+  <section class="case_area">...</section>  ← スクロールで上を通過
+</main>
+```
+
+### 🎯 CSS
+
+```css
+/* メインエリア：サイドバー分右にずらす */
+.main_area {
+  width: calc(100% - var(--left-side-width));
+  margin-left: var(--left-side-width);
+}
+
+/* 固定背景 */
+.main_img {
+  width: calc(100% - var(--left-side-width));
+  height: 100vh;
+  background-image: url("../img/project1.jpg");
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  left: var(--left-side-width);  /* ← サイドバー幅分右から開始 */
+  z-index: 1;
+}
+
+/* スクロールで上を通過するセクション */
+.case_area {
+  background-color: #ffffff;
+  margin-top: 100vh;    /* ← 背景の高さ分だけ下にスペースを作る */
+  position: relative;
+  z-index: 10;
+}
+```
+
+### ⚠️ よくあるハマりポイント
+
+| 問題 | 原因 | 解決 |
+|------|------|------|
+| `position: fixed` に `margin-left: auto` が効かない | fixed は親から切り離されてビューポート基準 | `left: var(--left-side-width)` を使う |
+| セクションが一番上まで行かない | `z-index` が `header_area` より大きい | セクションのz-indexをヘッダーより小さくする |
+| 背景が画面全体に広がる | `width: 100%` = ビューポート幅（サイドバー込み） | `width: calc(100% - サイドバー幅)` にする |
+| スクロールしても背景が残る | z-indexの順序が逆 | 背景1・セクション10・ヘッダー100の順を守る |
+
+### 📌 position: fixed の width の意味
+- `width: 100%` → **ビューポート（画面全体）の幅**（親の padding は無関係）
+- `left` で位置指定、`width: calc(100% - サイドバー幅)` で右端に合わせる
