@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>みどりの杜 | 就労継続支援A型</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sage: #e6ede6;
+    --sage-mid: #c8dac8;
+    --green-main: #5e9b76;
+    --green-dark: #3a6650;
+    --green-pale: #f2f7f2;
+    --cream: #faf8f3;
+    --sand: #ede9e0;
+    --text: #2e3a34;
+    --text-muted: #7a8c82;
+    --accent: #d4956a;
+    --radius: 12px;
+  }
+
+  body {
+    font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    font-weight: 300;
+    line-height: 1.9;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(250,248,243,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(94,155,118,0.15);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--green-dark);
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .logo-dot {
+    width: 8px; height: 8px;
+    background: var(--green-main);
+    border-radius: 50%;
+  }
+
+  nav { display: flex; gap: 2.2rem; }
+
+  nav a {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: color 0.25s;
+  }
+
+  nav a:hover { color: var(--green-main); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(160deg, #deeade 0%, #f2f7f2 45%, #faf5ee 100%);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .hero-circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.18;
+  }
+
+  .hero-circle-1 {
+    width: 600px; height: 600px;
+    background: var(--green-main);
+    top: -150px; right: -100px;
+  }
+
+  .hero-circle-2 {
+    width: 350px; height: 350px;
+    background: var(--accent);
+    bottom: -80px; left: 5%;
+    opacity: 0.1;
+  }
+
+  .hero-circle-3 {
+    width: 200px; height: 200px;
+    background: var(--green-dark);
+    top: 60%; right: 15%;
+    opacity: 0.08;
+  }
+
+  /* leaf shapes */
+  .leaf {
+    position: absolute;
+    opacity: 0.12;
+  }
+
+  .hero-inner {
+    position: relative;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    max-width: 700px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--green-main);
+    border: 1px solid var(--green-main);
+    border-radius: 100px;
+    padding: 0.3rem 1.1rem;
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--green-dark);
+    margin-bottom: 1.4rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .hero h1 strong {
+    font-weight: 600;
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 2;
+    max-width: 480px;
+    margin: 0 auto 2.8rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--green-main);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    padding: 0.85rem 2.2rem;
+    border-radius: 100px;
+    transition: background 0.25s, transform 0.2s;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+
+  .hero-cta:hover {
+    background: var(--green-dark);
+    transform: translateY(-2px);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
+    opacity: 0;
+    animation: fadeUp 0.8s 1.2s forwards;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(to bottom, var(--green-main), transparent);
+    animation: scrollDown 1.8s 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scrollDown {
+    0%, 100% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 2rem; }
+
+  .section-inner { max-width: 900px; margin: 0 auto; }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--green-main);
+    text-transform: uppercase;
+    margin-bottom: 1.4rem;
+  }
+
+  .section-label::before,
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 40px;
+    height: 1px;
+    background: var(--sage-mid);
+  }
+
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 400;
+    text-align: center;
+    color: var(--green-dark);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  /* ── VALUES ── */
+  .values {
+    background: var(--green-pale);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .values::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: var(--cream);
+    clip-path: ellipse(60% 100% at 50% 100%);
+  }
+
+  .tree-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .values-body {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .values-body p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 2.1;
+    margin-bottom: 1rem;
+  }
+
+  .values-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-top: 3rem;
+  }
+
+  .val-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 1.8rem 1.4rem;
+    text-align: center;
+    border: 1px solid rgba(200,218,200,0.5);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+
+  .val-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(94,155,118,0.12);
+  }
+
+  .val-icon {
+    width: 48px; height: 48px;
+    background: var(--sage);
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .val-card h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--green-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .val-card p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+  }
+
+  /* ── WORKS ── */
+  .works { background: var(--cream); }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--sage);
+    border-radius: 100px;
+    padding: 4px;
+    max-width: 340px;
+    margin: 2.5rem auto 3rem;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 0.6rem 1.6rem;
+    border: none;
+    background: transparent;
+    border-radius: 100px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .tab-btn.active {
+    background: #fff;
+    color: var(--green-dark);
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(94,155,118,0.15);
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: fadeIn 0.4s ease; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .work-visual {
+    border-radius: var(--radius);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: var(--sage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .work-text h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--green-dark);
+    margin-bottom: 1rem;
+  }
+
+  .work-text p {
+    font-size: 0.86rem;
+    color: var(--text-muted);
+    line-height: 2.1;
+    margin-bottom: 1.4rem;
+  }
+
+  .work-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .work-tag {
+    font-size: 0.75rem;
+    background: var(--sage);
+    color: var(--green-dark);
+    border-radius: 100px;
+    padding: 0.25rem 0.9rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--green-dark);
+    color: rgba(255,255,255,0.7);
+    padding: 3.5rem 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 0.6rem;
+  }
+
+  footer p { font-size: 0.78rem; line-height: 2; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 680px) {
+    .values-cards { grid-template-columns: 1fr; }
+    .work-grid { grid-template-columns: 1fr; }
+    header nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    みどりの杜
+  </div>
+  <nav>
+    <a href="#about">わたしたちについて</a>
+    <a href="#works">お仕事内容</a>
+    <a href="#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-circle hero-circle-1"></div>
+    <div class="hero-circle hero-circle-2"></div>
+    <div class="hero-circle hero-circle-3"></div>
+
+    <!-- Decorative leaves -->
+    <svg class="leaf" style="top:15%;left:8%;width:80px;" viewBox="0 0 80 100">
+      <path d="M40 5 Q70 25 60 60 Q50 85 40 95 Q30 85 20 60 Q10 25 40 5Z" fill="#5e9b76"/>
+    </svg>
+    <svg class="leaf" style="top:65%;right:6%;width:55px;transform:rotate(45deg);" viewBox="0 0 80 100">
+      <path d="M40 5 Q70 25 60 60 Q50 85 40 95 Q30 85 20 60 Q10 25 40 5Z" fill="#3a6650"/>
+    </svg>
+    <svg class="leaf" style="top:30%;right:22%;width:40px;transform:rotate(-20deg);" viewBox="0 0 80 100">
+      <path d="M40 5 Q70 25 60 60 Q50 85 40 95 Q30 85 20 60 Q10 25 40 5Z" fill="#5e9b76"/>
+    </svg>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-tag">就労継続支援 A 型</div>
+    <h1>
+      あなたのペースで、<br>
+      <strong>自分らしく働く場所</strong>
+    </h1>
+    <p class="hero-sub">
+      みどりの杜は、一人ひとりの可能性を大切に育む<br>
+      就労継続支援A型の事業所です。<br>
+      無理なく、穏やかに、社会とつながる毎日をサポートします。
+    </p>
+    <a href="#about" class="hero-cta">わたしたちについて知る</a>
+  </div>
+
+  <div class="hero-scroll">
+    SCROLL
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values" id="about">
+  <div class="section-inner">
+    <div class="section-label">ABOUT US</div>
+
+    <!-- Tree SVG (like image 2) -->
+    <div class="tree-wrap">
+      <svg width="120" height="130" viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- trunk -->
+        <path d="M55 90 Q53 110 50 125 L70 125 Q67 110 65 90Z" fill="#b08a6e"/>
+        <!-- roots -->
+        <path d="M50 125 Q40 122 30 128" stroke="#b08a6e" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M70 125 Q80 122 90 128" stroke="#b08a6e" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- leaves cluster -->
+        <ellipse cx="60" cy="55" rx="40" ry="38" fill="#7ec99a" opacity="0.6"/>
+        <!-- individual leaves -->
+        <ellipse cx="42" cy="38" rx="22" ry="19" fill="#5aaa7e" transform="rotate(-20,42,38)"/>
+        <ellipse cx="78" cy="38" rx="22" ry="19" fill="#5aaa7e" transform="rotate(20,78,38)"/>
+        <ellipse cx="60" cy="25" rx="20" ry="18" fill="#4d9970"/>
+        <ellipse cx="45" cy="52" rx="18" ry="15" fill="#6ab88a" transform="rotate(-10,45,52)"/>
+        <ellipse cx="75" cy="52" rx="18" ry="15" fill="#6ab88a" transform="rotate(10,75,52)"/>
+        <!-- center -->
+        <ellipse cx="60" cy="42" rx="14" ry="13" fill="#5e9b76"/>
+        <!-- highlight dots -->
+        <circle cx="52" cy="30" r="3" fill="#a8dbb8" opacity="0.7"/>
+        <circle cx="68" cy="28" r="2.5" fill="#a8dbb8" opacity="0.6"/>
+        <circle cx="44" cy="44" r="2" fill="#a8dbb8" opacity="0.5"/>
+      </svg>
+    </div>
+
+    <h2 class="section-title">最新医療……ではなく、<br>あなたの笑顔を大切にする事業所</h2>
+
+    <div class="values-body">
+      <p>みどりの杜は、インターネットを活用したデジタルワークと、丁寧な軽作業を中心に事業を行う就労継続支援A型の事業所です。</p>
+      <p>利用者の方一人ひとりのペースや状況に寄り添い、無理のない形で社会参加できるよう支援しています。ITを使った仕事は、今後もますます需要が広がる分野。自分のペースでスキルを身につけながら働けます。</p>
+    </div>
+
+    <div class="values-cards">
+      <div class="val-card">
+        <div class="val-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3C8 3 5 6 5 9c0 4 7 12 7 12s7-8 7-12c0-3-3-6-7-6z" fill="#5e9b76"/>
+            <circle cx="12" cy="9" r="2.5" fill="#fff"/>
+          </svg>
+        </div>
+        <h3>あなたのペースで</h3>
+        <p>焦らず、自分のリズムに合わせて働けます。スタッフが丁寧にサポートします。</p>
+      </div>
+      <div class="val-card">
+        <div class="val-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="#5e9b76" stroke-width="2"/>
+            <path d="M8 12l3 3 5-5" stroke="#5e9b76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>スキルが身につく</h3>
+        <p>軽作業からIT作業まで。働きながら自然とスキルアップできる環境を整えています。</p>
+      </div>
+      <div class="val-card">
+        <div class="val-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#5e9b76" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="9" cy="7" r="4" stroke="#5e9b76" stroke-width="2"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#5e9b76" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>つながりが生まれる</h3>
+        <p>同じ仲間と一緒に働くことで、自然なコミュニケーションと絆が生まれます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section class="works" id="works">
+  <div class="section-inner">
+    <div class="section-label">OUR WORKS</div>
+    <h2 class="section-title">お仕事の内容</h2>
+
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" role="tab" data-tab="light">軽　作　業</button>
+      <button class="tab-btn" role="tab" data-tab="it">Ｉ Ｔ　作 業</button>
+    </div>
+
+    <!-- 軽作業 panel -->
+    <div class="tab-panel active" id="panel-light">
+      <div class="work-grid">
+        <div class="work-visual">
+          <svg width="260" height="200" viewBox="0 0 260 200" fill="none">
+            <!-- gentle illustration: packaging / sorting -->
+            <rect x="30" y="120" width="200" height="55" rx="6" fill="#c8dac8" opacity="0.5"/>
+            <!-- boxes -->
+            <rect x="60" y="95" width="50" height="45" rx="4" fill="#a8c8a8"/>
+            <rect x="62" y="97" width="46" height="20" rx="3" fill="#c8dcc8"/>
+            <path d="M85 97 v20" stroke="#8ab88a" stroke-width="1.5"/>
+            <rect x="125" y="100" width="40" height="40" rx="4" fill="#b8d0b8"/>
+            <rect x="127" y="102" width="36" height="16" rx="3" fill="#ccdacc"/>
+            <path d="M145 102 v16" stroke="#9ab89a" stroke-width="1.5"/>
+            <!-- hand -->
+            <path d="M130 80 Q120 72 115 85 Q110 95 118 98" stroke="#d4a87a" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M118 88 Q122 82 128 88" stroke="#d4a87a" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- small leaves decoration -->
+            <ellipse cx="220" cy="130" rx="14" ry="10" fill="#7ec99a" opacity="0.4" transform="rotate(-15,220,130)"/>
+            <ellipse cx="40" cy="140" rx="10" ry="7" fill="#7ec99a" opacity="0.35" transform="rotate(10,40,140)"/>
+            <text x="130" y="178" text-anchor="middle" fill="#7a8c82" font-size="12" font-family="sans-serif">丁寧に、ひとつひとつ</text>
+          </svg>
+        </div>
+        <div class="work-text">
+          <h3>軽作業</h3>
+          <p>体を動かしながら、集中して取り組める作業です。手先を使う仕事が好きな方、コツコツと丁寧な作業が得意な方に向いています。難しいスキルは必要ありません。</p>
+          <div class="work-items">
+            <span class="work-tag">封入・梱包作業</span>
+            <span class="work-tag">仕分け・ピッキング</span>
+            <span class="work-tag">シール貼り</span>
+            <span class="work-tag">組み立て作業</span>
+            <span class="work-tag">検品・数量確認</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IT作業 panel -->
+    <div class="tab-panel" id="panel-it">
+      <div class="work-grid">
+        <div class="work-visual">
+          <svg width="260" height="200" viewBox="0 0 260 200" fill="none">
+            <!-- laptop illustration -->
+            <rect x="55" y="50" width="150" height="100" rx="8" fill="#b8cfc0"/>
+            <rect x="62" y="57" width="136" height="86" rx="5" fill="#e8f0e8"/>
+            <!-- screen content lines -->
+            <rect x="72" y="67" width="80" height="6" rx="3" fill="#5e9b76" opacity="0.6"/>
+            <rect x="72" y="79" width="116" height="4" rx="2" fill="#a8c0a8" opacity="0.7"/>
+            <rect x="72" y="89" width="100" height="4" rx="2" fill="#a8c0a8" opacity="0.5"/>
+            <rect x="72" y="99" width="110" height="4" rx="2" fill="#a8c0a8" opacity="0.5"/>
+            <rect x="72" y="109" width="60" height="4" rx="2" fill="#a8c0a8" opacity="0.4"/>
+            <!-- cursor -->
+            <rect x="155" y="99" width="2" height="10" rx="1" fill="#5e9b76" opacity="0.8"/>
+            <!-- keyboard base -->
+            <rect x="45" y="150" width="170" height="12" rx="4" fill="#9ab8a0"/>
+            <!-- leaves -->
+            <ellipse cx="215" cy="80" rx="16" ry="11" fill="#7ec99a" opacity="0.35" transform="rotate(-25,215,80)"/>
+            <ellipse cx="42" cy="100" rx="11" ry="8" fill="#7ec99a" opacity="0.3" transform="rotate(15,42,100)"/>
+            <text x="130" y="178" text-anchor="middle" fill="#7a8c82" font-size="12" font-family="sans-serif">パソコンで、可能性を広げる</text>
+          </svg>
+        </div>
+        <div class="work-text">
+          <h3>IT作業</h3>
+          <p>パソコンを使ったデジタルワークです。初めての方でも基礎から丁寧に教えます。スキルを身につけながら働けるので、将来の就職にも活かせます。リモート対応の案件も多数あります。</p>
+          <div class="work-items">
+            <span class="work-tag">WEB記事ライティング</span>
+            <span class="work-tag">データ入力・整理</span>
+            <span class="work-tag">画像編集</span>
+            <span class="work-tag">SNS運用補助</span>
+            <span class="work-tag">ECサイト出品補助</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-logo">みどりの杜</div>
+  <p>就労継続支援A型事業所<br>
+  〒000-0000 ○○県○○市○○町 1-2-3<br>
+  TEL: 000-000-0000 ／ 受付時間 平日 9:00〜17:00</p>
+  <p style="margin-top:1.5rem;font-size:0.72rem;opacity:0.5;">© 2025 みどりの杜 All rights reserved.</p>
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      const target = btn.dataset.tab;
+      document.getElementById('panel-' + target).classList.add('active');
+    });
+  });
+
+  // smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const el = document.querySelector(a.getAttribute('href'));
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
