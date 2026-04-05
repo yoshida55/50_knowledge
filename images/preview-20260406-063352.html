@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>就労継続支援A型 カラフルワークス</title>
+    <style>
+        /* 全体のベース設定 */
+        :root {
+            --main-color: #2b7a78;
+            --accent-color: #fe9c8f;
+            --bg-color: #f4f9f9;
+            --text-color: #17252a;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        /* ヘッダーとメインビジュアル */
+        header {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .hero {
+            background-color: var(--main-color);
+            color: #ffffff;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        /* コンテンツ領域 */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        .section-title {
+            text-align: center;
+            color: var(--main-color);
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+        }
+
+        /* お仕事紹介のカードレイアウト */
+        .card-wrapper {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            flex: 1;
+            min-width: 280px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .card h3 {
+            color: var(--main-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        /* お申し込みボタン */
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+
+        /* フッター */
+        footer {
+            background-color: #17252a;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>カラフルワークス</h2>
+</header>
+
+<section class="hero">
+    <h1>あなたの「得意」を、仕事にしよう。</h1>
+    <p>ITとWebデザインの力で、新しい未来を創る就労継続支援A型事業所です。</p>
+    <a href="#contact" class="btn">見学・体験のお申し込み</a>
+</section>
+
+<div class="container">
+    <h2 class="section-title">私たちが得意とするお仕事</h2>
+    <p style="text-align: center; margin-bottom: 40px;">
+        企業様から直接受注している本格的な業務です。<br>
+        プロのスキルを身につけながら、やりがいを持って働けます。
+    </p>
+
+    <div class="card-wrapper">
+        <div class="card">
+            <h3>🎨 軽作業（Webデザイン）</h3>
+            <p>企業様のホームページを制作します。様々なデザインに対応し、高い評価をいただいているお仕事です。</p>
+            <ul>
+                <li>ホームページのデザイン制作</li>
+                <li>コーディングの補助作業</li>
+                <li>デザインツールの操作スキル習得</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>💻 IT作業</h3>
+            <p>集中力と正確性が活きるお仕事です。未経験からでも、支援員がしっかりサポートします。</p>
+            <ul>
+                <li>正確なデータ入力と集計</li>
+                <li>PCを使った事務サポート</li>
+                <li>基礎的なITスキルの習得</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 就労継続支援A型事業所 カラフルワークス. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
