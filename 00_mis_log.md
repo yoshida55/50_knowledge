@@ -123,3 +123,54 @@ z-index contentsは100（margin-top 100vh）
 
 -   background-image: url("../img/project1.jpg");(3点セット)は,DIVタグに記載する
 
+
+## 2026-04-04
+・専門用語
+- セクションラベル
+
+- outline = paddingの外側に線（レイアウトに影響しない） / border = レイアウトに影響する
+- 幅を文字+paddingに自動で合わせる → width: fit-content
+
+- 角を完全に丸くする（カプセル型）→ border-radius: 100px
+- border-radius: 50% = 完全な丸（縦横が同じ正方形のときだけ丸。長方形だと楕円になる）
+
+- margin: 0 auto はインライン要素（span）に効かない → display: block を追加する
+
+
+- clip-path で切り取られた部分は描画ごと消える → 別要素を margin-top マイナスで潜り込ませる
+
+![](images/2026-04-05-06-13-17.png)
+
+
+- overflow: hidden 削除後に position: absolute; right: マイナス値の要素がはみ出す → overflow-x: hidden を body に追加
+
+- タブボタンの余白は gap でなく padding → gap だと tab_line（position: absolute の下線）がズレるリスクあり
+- box-sizing: border-box → paddingかけてもコンテンツ幅はひろがらない。でもpaddingの合計がwidthをこえるとひろがってしまう
+- CSSの継承は子（下方向）にしか流れない → 兄弟・親には継承されない
+- 継承される: color / font-size / font-family など / されない: width / padding / margin など
+
+- JavaScript概要 → HTML/CSSだけでは動かせない「動き・操作・タイミング制御」を担当する言語。スクロール検知・クラスの付け外し・値の書き換えなどをする
+- CSSアニメーションの使い分け → 単純な動きはCSS / スクロールや操作が絡むときはJS / 複雑な連続アニメはライブラリ（GSAP等）
+- transition → 値が変わるときになめらかに動かす。transition: プロパティ名 時間 イージング の形
+- ease → ゆっくり始まって速くなってゆっくり終わる（自然な動き）/ linear → 一定速度
+
+## 2026-04-05
+
+- tab_line に span を使うのは装飾用だから → flex から外れているのは position: absolute のおかげ（spanかどうかは関係ない）
+```html
+<div class="tab_list"> <!-- flex & position:relative -->
+  <button class="tab_btn is-active" data-tab="news">軽　作　業</button>
+  <button class="tab_btn" data-tab="press">ＩＴ作業</button>
+  <span class="tab_line"></span> <!-- position:absolute 下線-->
+</div>
+
+- タブUIは flex（横並び）+ position:absolute（下線の自由配置）+ JS（クリックで動かす）の3役割分担
+
+- CSS transition → 値が変わるときになめらかにする / JS → 実際に値を書き換える役割　
+transition: プロパティ名 時間 イージング の形で書く。　
+
+- ブラウザはデフォルトで body に margin: 8px が付く → リセットCSSで * { margin: 0; padding: 0; box-sizing: border-box; } を先頭に書く
+
+- セクションwidthの選択基準：背景を全幅に伸ばしたい → width:100% + padding / コンテンツだけ中央に収めたい → width:70% + margin:0 auto。背景も考慮して選ぶ
+
+- flexで段差レイアウトにするには align-items: flex-start が必要（ないとflex が全カードを同じ高さに揃えてしまい margin-top が効かない）

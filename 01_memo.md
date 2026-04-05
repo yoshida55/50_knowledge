@@ -18681,3 +18681,122 @@ z-index の重ね順:
 ### 📌 position: fixed の width の意味
 - `width: 100%` → **ビューポート（画面全体）の幅**（親の padding は無関係）
 - `left` で位置指定、`width: calc(100% - サイドバー幅)` で右端に合わせる
+
+---
+
+## セクションラベルとは何か（PHILOSOPHY などの英字小見出し）
+【日付】2026-04-04
+【結論】セクションの手前に置く小さい英字ラベルのこと。両側に線が入ることが多い。
+【具体例】
+```html
+<div class="sec_label">PHILOSOPHY</div>
+```
+```css
+.sec_label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  font-size: 0.68rem;        /* かなり小さめ */
+  letter-spacing: 0.22em;    /* 文字間を広く取る */
+  color: #4a95b5;
+}
+.sec_label::before,
+.sec_label::after {
+  content: "";
+  flex: 1;
+  max-width: 32px;
+  height: 1px;
+  background: #8cdbff;
+}
+```
+【補足】
+- 「セクションラベル」「アイキャッチラベル」「見出しラベル」とも呼ばれる
+- 両側の線は ::before / ::after で CSS だけで作るのが定番
+- HTMLに <span>—</span> などを書くのは禁止（CSS で表現する）
+#HTML #CSS
+
+## 2026-04-04 タブUIでgapよりpaddingを使う理由
+
+【結論】
+tab_line（動く下線）が position: absolute で動くため、gap を入れると下線がズレるリスクがある。余白は padding で調整する。
+
+【仕組み】
+- gap → ボタン間に「クリックできない隙間」ができる
+- padding → ボタン自体を大きくする（クリック範囲が広い）
+- tab_line は JS が button.offsetLeft / offsetWidth を読んで位置を計算する
+- gap があるとそのぶんがズレる場合がある
+
+【コード例】
+.tab_list { display: flex; } /* gap なし */
+.tab_btn  { padding: 1.2rem 5rem; } /* paddingで幅を出す */
+.tab_line { position: absolute; bottom: 0; } /* JSで動く */
+
+【覚えるポイント】
+- position: absolute で動く要素がある → 親に gap を入れると位置計算がズレやすい
+- タブボタンの幅は padding で調整するのが定石
+
+#CSS #タブUI
+
+## 2026-04-05 タブUIの3つの役割分担（flex・absolute・JS）
+
+【結論】タブUIは「flex・position:absolute・JavaScript」の3つが役割を分けて動いている
+
+【構造】
+```html
+<div class="tab_list">            <!-- flex コンテナ -->
+  <button class="tab_btn">ＩＴ作業</button>
+  <button class="tab_btn">軽作業</button>
+  <span class="tab_line"></span>  <!-- 動く下線（装飾用なのでspan） -->
+</div>
+```
+
+【役割分担】
+- flex → ボタンを横に並べる
+- position: absolute → tab_line を flex の外に出して自由に配置
+- JavaScript → クリックで tab_line の left と width を書き換える
+
+【なぜ tab_line に span を使うのか】
+- 見た目だけの装飾なので div より span が意味的に正しい
+- flex から外れているのは span だからではなく position: absolute のおかげ
+- position: absolute にすると flex アイテムから除外されて自由な位置に置ける
+
+【transition との組み合わせ】
+```css
+.tab_line {
+  position: absolute;
+  bottom: 0;
+  transition: left 0.3s ease, width 0.3s ease;
+}
+```
+JS が left と width を書き換える → transition がその変化をなめらかにアニメーションする
+
+#CSS #タブUI #JavaScript
+
+## 2026-04-05 アニメーションの使い分け（CSS・JS・ライブラリ）
+
+【結論】まず CSS で覚える。スクロール連動が必要になったら JS。複雑になったらライブラリ。
+
+【使い分け】
+- CSS transition/animation → ホバー・フェードイン・タブ下線など単純な動き
+- JavaScript → スクロール検知・クリック操作・タイミング制御が絡むとき
+- GSAP等ライブラリ → CSSとJSだと辛いと感じたとき（今は不要）
+
+【CSS transition の書き方】
+```css
+transition: プロパティ名 時間 イージング;
+transition: left 0.3s ease, width 0.3s ease; /* カンマで複数指定可 */
+```
+「値が変わるとき」にアニメーションを追加するのが transition の役割
+
+【イージングの種類】
+- ease → ゆっくり始まって速くなってゆっくり終わる（一番自然・よく使う）
+- linear → 一定速度（ロボットっぽい）
+- ease-in → ゆっくり始まる / ease-out → ゆっくり終わる
+
+#CSS #JavaScript #アニメーション
+
+## リンクワークスHP作成
+
+・メインカラー
+#79bddd
