@@ -174,3 +174,7 @@ transition: プロパティ名 時間 イージング の形で書く。　
 - セクションwidthの選択基準：背景を全幅に伸ばしたい → width:100% + padding / コンテンツだけ中央に収めたい → width:70% + margin:0 auto。背景も考慮して選ぶ
 
 - flexで段差レイアウトにするには align-items: flex-start が必要（ないとflex が全カードを同じ高さに揃えてしまい margin-top が効かない）
+
+## 2026-04-07
+
+- 疑似要素の縦位置を fixed 値（rem/px）で合わせると、フォントサイズ変更でズレる → vertical-align: middle か top:50- 疑似要素の縦位置を固定値（rem/px）で合わせると、フォントサイズ変更でズレる → vertical-align: middle か top:50%+translateY(-50%) を使う

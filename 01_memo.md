@@ -18800,3 +18800,84 @@ transition: left 0.3s ease, width 0.3s ease; /* カンマで複数指定可 */
 
 ・メインカラー
 #79bddd
+
+---
+
+## 疑似要素の縦位置ズレは「自動揃え」で解決する
+
+【日付】2026-04-07
+
+【結論】
+疑似要素の縦位置を `top: 0.4rem` などの固定値で合わせるのは NG。
+フォントサイズが変わるたびにズレるので、**自動で揃う仕組み** を使う。
+
+【具体例】
+
+❌ NG（固定値で頑張る）
+```css
+.label::after {
+  position: absolute;
+  top: 0.4rem;       /* フォントサイズが変わるとズレる */
+  margin-top: 0.5rem; /* topと打ち消し合いがち */
+}
+```
+
+✅ OK パターン① inline-block + vertical-align（テキスト隣に線を置くとき）
+```css
+.label::after {
+  content: "";
+  display: inline-block;
+  width: 3rem;
+  height: 0.1rem;
+  vertical-align: middle;  /* ← これだけで文字の中央に揃う */
+  margin-left: 1rem;
+  background-color: currentColor;
+}
+```
+
+✅ OK パターン② absolute + top:50
+---
+
+## 疑似要素の縦位置ズレは「自動揃え」で解決する
+
+【日付】2026-04-07
+
+【結論】
+疑似要素の縦位置を `top: 0.4rem` などの固定値で合わせるのは NG。
+フォントサイズが変わるたびにズレるので、自動で揃う仕組みを使う。
+
+【具体例】
+
+NG（固定値で頑張る）
+.label::after {
+  position: absolute;
+  top: 0.4rem;        /* フォントサイズが変わるとズレる */
+  margin-top: 0.5rem; /* topと打ち消し合いがち */
+}
+
+OK パターン① inline-block + vertical-align（テキスト隣に線を置くとき）
+.label::after {
+  content: "";
+  display: inline-block;
+  width: 3rem;
+  height: 0.1rem;
+  vertical-align: middle;  /* これだけで文字の中央に揃う */
+  margin-left: 1rem;
+  background-color: currentColor;
+}
+
+OK パターン② absolute + top:50% + translateY（自由配置したいとき）
+.label::after {
+  position: absolute;
+  top: 50%;                    /* 親の縦中央に上端が来る */
+  transform: translateY(-50%); /* 自分の高さ半分だけ上にズラす → 完璧に中央 */
+  left: 100%;
+  margin-left: 1rem;
+}
+
+【補足】
+- vertical-align と margin-top を同時に使うと打ち消し合ってズレる
+- テキスト隣に線を置くだけなら inline-block + vertical-align がシンプルで崩れにくい
+- absolute版は top:50% + translateY(-50%) の2行セットが鉄板
+
+#HTML #CSS
