@@ -178,3 +178,10 @@ transition: プロパティ名 時間 イージング の形で書く。　
 ## 2026-04-07
 
 - 疑似要素の縦位置を fixed 値（rem/px）で合わせると、フォントサイズ変更でズレる → vertical-align: middle か top:50- 疑似要素の縦位置を固定値（rem/px）で合わせると、フォントサイズ変更でズレる → vertical-align: middle か top:50%+translateY(-50%) を使う
+
+## 2026-04-07
+
+- border-radiusは特定の角だけ指定できる → border-radius: 左上 右上 右下 左下（時計回り）
+- margin-bottomが効かないときはDevToolsで取り消し線チェック → 上書き・親のoverflow・flexが原因
+- :nth-last-child は () と数字が必須 → 最後の要素だけなら :last-child がシンプル
+- border shorthand は border-bottom を上書きする → 書く順番に注意

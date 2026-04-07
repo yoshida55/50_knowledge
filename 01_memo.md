@@ -18881,3 +18881,82 @@ OK パターン② absolute + top:50% + translateY（自由配置したいとき
 - absolute版は top:50% + translateY(-50%) の2行セットが鉄板
 
 #HTML #CSS
+
+---
+
+## 【CSS】border-radius で特定の角だけ丸くできる（時計回りで指定）
+
+【日付】2026-04-07
+【結論】`border-radius` は4つの角を個別に指定できる。順番は「左上 右上 右下 左下」（時計回り）。
+
+【具体例】
+```css
+/* 上2つの角だけ丸くする */
+border-radius: 1rem 1rem 0 0;
+
+/* 左上だけ丸くする */
+border-radius: 1rem 0 0 0;
+
+/* 個別プロパティでも書ける */
+border-top-left-radius: 1rem;
+border-top-right-radius: 1rem;
+border-bottom-right-radius: 0;
+border-bottom-left-radius: 0;
+```
+
+【補足】
+- 値が1つだけなら全角に同じ値が適用される
+- 0には `rem` などの単位は不要
+
+#HTML #CSS
+
+---
+
+## 【CSS】@keyframes で画像を右下から移動させるアニメーション
+
+【日付】2026-04-07
+【結論】`@keyframes` + `transform: translate()` で、要素を指定した位置からスタートさせて動かせる。
+
+【具体例】
+```css
+@keyframes bird-fly-in {
+  from {
+    transform: translate(100px, 100px); /* 右下からスタート */
+    opacity: 0;
+  }
+  to {
+    transform: translate(0, 0); /* 元の位置に到着 */
+    opacity: 1;
+  }
+}
+
+.bird {
+  animation: bird-fly-in 1.2s ease-out forwards;
+  /* ease-out = だんだんゆっくり止まる（自然な動き） */
+  /* forwards = アニメーション終了後、最終状態を維持 */
+}
+```
+
+【補足】
+- `translate(X, Y)` のXが正 → 右方向、Yが正 → 下方向
+- 右下からスタートしたければ `from` でプラスの値を指定する
+
+#HTML #CSS
+
+---
+
+## 【CSS】margin-bottom が効かない3つの原因
+
+【日付】2026-04-07
+【結論】margin-bottom が見た目に反映されない場合、親の `overflow: hidden`・後ろのCSSで上書き・flexboxの影響のどれかが原因であることが多い。
+
+【原因と確認方法】
+1. **親要素に `overflow: hidden`** → 子要素のマージンが見た目に出ない
+2. **後ろのCSSで上書き** → DevToolsで取り消し線が付いていないか確認
+3. **flexboxの親の中** → `align-items` などの影響で余白が潰れることがある
+
+【確認手順】
+- ブラウザのDevTools（F12）で対象要素を選択
+- 右側「Styles」に取り消し線つきで表示されていれば → 上書きされている
+
+#HTML #CSS
