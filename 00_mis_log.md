@@ -191,3 +191,6 @@ transition: プロパティ名 時間 イージング の形で書く。　
 - gridで段差が出る → voice_quoteにmin-heightを設定して高さを揃える
 - CSS変数の色が暗くて見えない → #5a7a8eなど薄めの色に変更する
 - grid-template-columns: 1fr 1fr → 1frの数が列数、frは残りスペースを比率で分ける単位
+- JS で行頭が function 以外 → 変数名で始まる行は「使う」操作。function で始まる行だけが「作る（定義）」
+- ::before/::after は flex の子アイテムになれる → position:absolute なしで align-items:center で縦位置が自動で揃う
+- align-items: center は flex の子全員に効く → 疑似要素・div 問わず、子の数や種類に関係なく縦中央に揃う

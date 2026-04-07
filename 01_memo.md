@@ -18566,6 +18566,10 @@ padding-right: var(--side-width);
 <a href="<?php echo get_category_link(get_cat_ID('ニュース')); ?>">すべて見る</a>
 ```
 
+ordPressでは、**カテゴリーごとに自動で専用のURL（住所）が割り当てられています。**
+例えば「ニュース」というカテゴリーを作れば、自動的にそのカテゴリー専用のページ（URL）ができあがる仕組みになっています。
+
+
 【テンプレート階層（カテゴリーページの場合）】
 ```
 category-news.php  → なければ
@@ -18937,6 +18941,11 @@ border-bottom-left-radius: 0;
 }
 ```
 
+translate(-100px, 0)  /* 左に100px */
+translate(100px, 0)   /* 右に100px */
+translate(0, -100px)  /* 上に100px */
+translate(0, 100px)   /* 下に100px */
+
 【補足】
 - `translate(X, Y)` のXが正 → 右方向、Yが正 → 下方向
 - 右下からスタートしたければ `from` でプラスの値を指定する
@@ -18951,7 +18960,7 @@ border-bottom-left-radius: 0;
 【結論】margin-bottom が見た目に反映されない場合、親の `overflow: hidden`・後ろのCSSで上書き・flexboxの影響のどれかが原因であることが多い。
 
 【原因と確認方法】
-1. **親要素に `overflow: hidden`** → 子要素のマージンが見た目に出ない
+1. **親要素に `overflow: hidden`** → 子要素のマージンが見た目に出ない ⇀〇の線とか、画面の端にかくれていてわからない
 2. **後ろのCSSで上書き** → DevToolsで取り消し線が付いていないか確認
 3. **flexboxの親の中** → `align-items` などの影響で余白が潰れることがある
 
@@ -18960,3 +18969,45 @@ border-bottom-left-radius: 0;
 - 右側「Styles」に取り消し線つきで表示されていれば → 上書きされている
 
 #HTML #CSS
+
+## 📌 疑似要素（::before/::after）を flex の子アイテムとして使う → position:absolute 不要で自動整列 HTML
+
+【日付】2026-04-08
+【結論】親に `display: flex` を指定すると `::before` / `::after` も flex の子アイテムになる。`align-items: center` で縦位置が自動で揃い、固定値（`top`, `left`）不要。
+
+【具体例】
+```css
+/* ❌ Before: position:absolute で固定値配置 → 文字数が変わるとズレる */
+.section_label { position: relative; }
+.section_label::before { position: absolute; left: -5rem; top: 1.3rem; }
+.section_label::after  { position: absolute; left: 13rem;  top: 1.1rem; } /* topが揃ってない */
+
+/* ✅ After: flex の子として並べる → 文字数に依存しない・縦位置は自動 */
+.section_label {
+  display: flex;
+  align-items: center; /* 縦中央が自動で揃う */
+  gap: 1.5rem;
+}
+.section_label::before,
+.section_label::after {
+  content: "";
+  width: 3.5rem;
+  height: 1px;
+  background: var(--main-color);
+  /* position: static（デフォルト）のまま flex に乗る */
+}
+```
+
+【構造イメージ】
+```
+.section_label（flex コンテナ）
+  ├── ::before（flex アイテム①）← 左の線
+  ├── "PHILOSOPHY"（テキスト）  ← 中央の文字
+  └── ::after（flex アイテム②） ← 右の線
+```
+
+【補足】
+- `position: absolute` を使うと「親から切り離して配置」になるため、テキストの長さが変わると線がズレる
+- flex の子にすれば `gap` で間隔を均等に保てる
+- `::before` / `::after` は「特別な要素」ではなく、**flex の流れに乗れる普通の子要素**として使える
+

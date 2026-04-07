@@ -4953,6 +4953,33 @@
     "questionText": "writing-mode: vertical-rl を指定した際、flex子要素が横に伸びないようにするには？",
     "aiCategory": "html"
   },
+  "疑似要素の縦位置ズレは「自動揃え」で解決する": {
+    "title": "疑似要素の縦位置ズレは「自動揃え」で解決する",
+    "line": 18845,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "疑似要素の縦位置がズレる問題を「自動揃え」で解決するにはどうすればよいですか？",
+    "aiCategory": "HTML"
+  },
+  "📌 疑似要素（::before/::after）を flex の子アイテムとして使う → position:absolute 不要で自動整列": {
+    "title": "📌 疑似要素（::before/::after）を flex の子アイテムとして使う → position:absolute 不要で自動整列",
+    "line": 18968,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "疑似要素（::before/::after）をflexの子アイテムとして使うメリットは何ですか？",
+    "aiCategory": "HTML"
+  },
+  "【CSS】@keyframes で画像を右下から移動させるアニメーション": {
+    "title": "【CSS】@keyframes で画像を右下から移動させるアニメーション",
+    "line": 18919,
+    "lastReviewed": 1775601227984,
+    "reviewCount": 0,
+    "questionText": "CSSの@keyframesで画像を右下から移動させるアニメーションを作るには？",
+    "evaluations": [
+      1
+    ],
+    "lastAnsweredDate": "2026-04-07"
+  },
   "_meta": {
     "lastFilter": {
       "date": "昨日",
