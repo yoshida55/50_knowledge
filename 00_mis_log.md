@@ -185,3 +185,9 @@ transition: プロパティ名 時間 イージング の形で書く。　
 - margin-bottomが効かないときはDevToolsで取り消し線チェック → 上書き・親のoverflow・flexが原因
 - :nth-last-child は () と数字が必須 → 最後の要素だけなら :last-child がシンプル
 - border shorthand は border-bottom を上書きする → 書く順番に注意
+
+## 2026-04-08
+
+- gridで段差が出る → voice_quoteにmin-heightを設定して高さを揃える
+- CSS変数の色が暗くて見えない → #5a7a8eなど薄めの色に変更する
+- grid-template-columns: 1fr 1fr → 1frの数が列数、frは残りスペースを比率で分ける単位
