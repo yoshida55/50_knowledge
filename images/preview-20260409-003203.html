@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Flexboxの仕組み</title>
+    <style>
+        /* --- 1. 親（外枠）の設定 --- */
+        .oya-flex {
+            display: flex;           /* 【重要】横に並べる魔法の合図 */
+            justify-content: center; /* 【重要】横方向の真ん中に寄せる */
+            
+            background-color: #f0f0f0; /* 薄グレー */
+            padding: 30px;
+            border: 3px dashed #333; /* 点線の枠 */
+            min-height: 200px;
+        }
+
+        /* --- 2. 子（中身）の設定 --- */
+        .ko-item {
+            width: 80px;
+            height: 80px;
+            background-color: #ff6347; /* トマト色 */
+            color: white;
+            margin: 10px;
+            font-weight: bold;
+            display: flex;             /* 子の中の文字も真ん中にしたい場合 */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 説明用の文字 */
+        .setsumei {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="setsumei">親に display: flex と justify-content: center を書くと...</div>
+
+    <!-- 親の箱 -->
+    <div class="oya-flex">
+        <!-- 子の箱たち -->
+        <div class="ko-item">子 1</div>
+        <div class="ko-item">子 2</div>
+        <div class="ko-item">子 3</div>
+    </div>
+
+</body>
+</html>
