@@ -194,3 +194,6 @@ transition: プロパティ名 時間 イージング の形で書く。　
 - JS で行頭が function 以外 → 変数名で始まる行は「使う」操作。function で始まる行だけが「作る（定義）」
 - ::before/::after は flex の子アイテムになれる → position:absolute なしで align-items:center で縦位置が自動で揃う
 - align-items: center は flex の子全員に効く → 疑似要素・div 問わず、子の数や種類に関係なく縦中央に揃う
+- WordPressテーマを別フォルダからコピーしたとき → style.css の先頭に `/* Theme Name: テーマ名 */` が必要
+- wp_enqueue_style のハンドル名が重複すると後者が読み込まれない → 全て別名にする
+- テーマフォルダをコピー後は WordPress管理画面「外観→テーマ」で有効化し直す
