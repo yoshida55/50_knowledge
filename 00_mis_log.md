@@ -189,11 +189,38 @@ transition: プロパティ名 時間 イージング の形で書く。　
 ## 2026-04-08
 
 - gridで段差が出る → voice_quoteにmin-heightを設定して高さを揃える
-- CSS変数の色が暗くて見えない → #5a7a8eなど薄めの色に変更する
+
 - grid-template-columns: 1fr 1fr → 1frの数が列数、frは残りスペースを比率で分ける単位
+
+
+※基本２列
+.parent {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 1fr = 「残りの幅を1等分」 */
+  gap: 20px; /* 列の間隔 */
+}
+
 - JS で行頭が function 以外 → 変数名で始まる行は「使う」操作。function で始まる行だけが「作る（定義）」
+
 - ::before/::after は flex の子アイテムになれる → position:absolute なしで align-items:center で縦位置が自動で揃う
+
 - align-items: center は flex の子全員に効く → 疑似要素・div 問わず、子の数や種類に関係なく縦中央に揃う
+
+h2 {
+  display: flex;
+  align-items: center;
+}
+h2::before {
+  content: '';
+  width: 4px;
+  height: 1em;  /* 文字と同じ高さ */
+  background: blue;
+  margin-right: 8px;
+}
+
+※display: flex を使うと、position: absolute を使わなくても疑似要素を縦中央に揃えられる
+
+
 - WordPressテーマを別フォルダからコピーしたとき → style.css の先頭に `/* Theme Name: テーマ名 */` が必要
-- wp_enqueue_style のハンドル名が重複すると後者が読み込まれない → 全て別名にする
+
 - テーマフォルダをコピー後は WordPress管理画面「外観→テーマ」で有効化し直す

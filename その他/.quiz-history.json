@@ -1221,11 +1221,15 @@
   "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）": {
     "title": "📌 Flexboxの子要素は min-width: 0 を付けないとはみ出す（デフォルトの min-width: auto が縮小を拒否する）",
     "line": 0,
-    "lastReviewed": 1773467835139,
-    "reviewCount": 2,
+    "lastReviewed": 1775729750176,
+    "reviewCount": 3,
     "aiCategory": "html",
     "questionText": "Flexboxの子要素が中身の幅によって親要素からはみ出してしまうのを防ぐプロパティは？",
-    "hiddenFromList": true
+    "hiddenFromList": true,
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-04-09"
   },
   "📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）": {
     "title": "📌 CSS maskプロパティはbackgroundと同じ構造（mask-image / size / position / repeat）",
@@ -1237,13 +1241,15 @@
   "📌 JSでアロー関数の`this`はwindowになる（e.targetを使え）": {
     "title": "📌 JSでアロー関数の`this`はwindowになる（e.targetを使え）",
     "line": 0,
-    "lastReviewed": 1773504688777,
-    "reviewCount": 1,
+    "lastReviewed": 1775729768623,
+    "reviewCount": 2,
     "aiCategory": "wordpress/php",
     "questionText": "JavaScriptのアロー関数内でイベントが発生した要素を取得するために使うプロパティは？",
     "evaluations": [
-      1
-    ]
+      1,
+      2
+    ],
+    "lastAnsweredDate": "2026-04-09"
   },
   "📌 querySelectorAllで複数要素にイベントをつける（forEachが必要）": {
     "title": "📌 querySelectorAllで複数要素にイベントをつける（forEachが必要）",
@@ -3012,9 +3018,15 @@
   "📌 PHP 変数の基本（宣言不要・スネークケース・ドット結合・配列操作）": {
     "title": "📌 PHP 変数の基本（宣言不要・スネークケース・ドット結合・配列操作）",
     "line": 0,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "aiCategory": "wordpress/php"
+    "lastReviewed": 1775730401078,
+    "reviewCount": 4,
+    "aiCategory": "wordpress/php",
+    "questionText": "PHPの変数の宣言や命名規則に関する基本的な特徴は？",
+    "evaluations": [
+      2,
+      3
+    ],
+    "lastAnsweredDate": "2026-04-09"
   },
   "変数の宣言": {
     "title": "変数の宣言",
@@ -3286,9 +3298,14 @@
   "画像をｐｈｐで表示させたときどうすればいいか？": {
     "title": "画像をｐｈｐで表示させたときどうすればいいか？",
     "line": 0,
-    "lastReviewed": 0,
-    "reviewCount": 0,
-    "aiCategory": "wordpress/php"
+    "lastReviewed": 1775732277928,
+    "reviewCount": 1,
+    "aiCategory": "wordpress/php",
+    "questionText": "WordPressのPHPファイル内で画像ファイルを表示するためのパスの指定方法は？",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-04-09"
   },
   "HTMLでの書き方": {
     "title": "HTMLでの書き方",
@@ -4509,28 +4526,30 @@
   "WordPress の esc_ 関数3種（URLはesc_url・テキストはesc_html・属性はesc_attr）": {
     "title": "WordPress の esc_ 関数3種（URLはesc_url・テキストはesc_html・属性はesc_attr）",
     "line": 8738,
-    "lastReviewed": 1774376138367,
-    "reviewCount": 1,
+    "lastReviewed": 1775729965972,
+    "reviewCount": 4,
     "questionText": "WordPressにおいて、HTMLの属性値を出力する際に使用する関数は何ですか？",
     "aiCategory": "wordpress/php",
     "evaluations": [
       1,
       1,
-      2
+      2,
+      3
     ],
-    "lastAnsweredDate": "2026-03-24"
+    "lastAnsweredDate": "2026-04-09"
   },
   "esc_url() は「URLを出力するとき反射的に付ける」習慣（安全より規約）": {
     "title": "esc_url() は「URLを出力するとき反射的に付ける」習慣（安全より規約）",
     "line": 8756,
-    "lastReviewed": 1774001772367,
-    "reviewCount": 3,
+    "lastReviewed": 1775729980017,
+    "reviewCount": 6,
     "questionText": "WordPressでURLを出力する際、安全性の有無に関わらずコーディング規約として反射的に付けるべき関数は何でしょう？",
     "aiCategory": "wordpress/php",
     "evaluations": [
+      3,
       3
     ],
-    "lastAnsweredDate": "2026-03-20"
+    "lastAnsweredDate": "2026-04-09"
   },
   "bloginfo('name') でサイト名を出力する（タイトルタグをWordPressで管理する）": {
     "title": "bloginfo('name') でサイト名を出力する（タイトルタグをWordPressで管理する）",
@@ -4700,10 +4719,14 @@
   "data-aos を複数要素に個別につけると「順番に動く」演出になる（親divにつけると全部同時）": {
     "title": "data-aos を複数要素に個別につけると「順番に動く」演出になる（親divにつけると全部同時）",
     "line": 7264,
-    "lastReviewed": 1774294708847,
-    "reviewCount": 1,
+    "lastReviewed": 1775729713671,
+    "reviewCount": 2,
     "questionText": "AOSライブラリで要素を順番に動かすには、data-aos属性をどこに付与すべきですか？",
-    "aiCategory": "html"
+    "aiCategory": "html",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-04-09"
   },
   "transition の最小構成は「対象 + 時間」の2点セット。all = クラス全体ではなく「すべてのプロパティの変化」": {
     "title": "transition の最小構成は「対象 + 時間」の2点セット。all = クラス全体ではなく「すべてのプロパティの変化」",
@@ -4908,16 +4931,20 @@
   "📌 writing-mode: vertical-rl は「縦書き」と「右スタート」が必ずセット → 右に寄せるだけなら flex を使う": {
     "title": "📌 writing-mode: vertical-rl は「縦書き」と「右スタート」が必ずセット → 右に寄せるだけなら flex を使う",
     "line": 1341,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1775730211545,
+    "reviewCount": 1,
     "questionText": "writing-mode: vertical-rl を指定すると発生する「縦書き以外」の副作用とは？",
-    "aiCategory": "その他"
+    "aiCategory": "その他",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-04-09"
   },
   "writing-mode: vertical-rl を書くと縦書き以外にも4つ変化する + 書く場所は最下位クラスに": {
     "title": "writing-mode: vertical-rl を書くと縦書き以外にも4つ変化する + 書く場所は最下位クラスに",
     "line": 1381,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1775730243990,
+    "reviewCount": 1,
     "questionText": "CSSでwriting-mode: vertical-rlを指定した際、縦書き以外に変化する挙動と、記述すべき場所はどこ？",
     "aiCategory": "html"
   },
@@ -4956,10 +4983,14 @@
   "疑似要素の縦位置ズレは「自動揃え」で解決する": {
     "title": "疑似要素の縦位置ズレは「自動揃え」で解決する",
     "line": 18845,
-    "lastReviewed": 0,
-    "reviewCount": 0,
+    "lastReviewed": 1775723661692,
+    "reviewCount": 3,
     "questionText": "疑似要素の縦位置がズレる問題を「自動揃え」で解決するにはどうすればよいですか？",
-    "aiCategory": "HTML"
+    "aiCategory": "HTML",
+    "evaluations": [
+      3
+    ],
+    "lastAnsweredDate": "2026-04-09"
   },
   "📌 疑似要素（::before/::after）を flex の子アイテムとして使う → position:absolute 不要で自動整列": {
     "title": "📌 疑似要素（::before/::after）を flex の子アイテムとして使う → position:absolute 不要で自動整列",
@@ -4979,6 +5010,169 @@
       1
     ],
     "lastAnsweredDate": "2026-04-07"
+  },
+  "2026-04-05 タブUIの3つの役割分担（flex・absolute・JS）": {
+    "title": "2026-04-05 タブUIの3つの役割分担（flex・absolute・JS）",
+    "line": 18745,
+    "lastReviewed": 1775723609511,
+    "reviewCount": 1,
+    "questionText": "タブUIを実装する際、flex、position:absolute、JavaScriptの3つがどのように役割を分担するか？",
+    "aiCategory": "HTML",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-04-09"
+  },
+  "【CSS】border-radius で特定の角だけ丸くできる（時計回りで指定）": {
+    "title": "【CSS】border-radius で特定の角だけ丸くできる（時計回りで指定）",
+    "line": 18891,
+    "lastReviewed": 1775723675503,
+    "reviewCount": 1,
+    "questionText": "CSSのborder-radiusプロパティで、4つの角を指定する順番は時計回りに何と何と何と何ですか？",
+    "aiCategory": "HTML",
+    "evaluations": [
+      2
+    ],
+    "lastAnsweredDate": "2026-04-09"
+  },
+  "【CSS】margin-bottom が効かない3つの原因": {
+    "title": "【CSS】margin-bottom が効かない3つの原因",
+    "line": 18957,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSでmargin-bottomが効かない主な原因は、親要素の指定、上書き、そしてあと一つは何？",
+    "aiCategory": "HTML"
+  },
+  "セクションラベルとは何か（PHILOSOPHY などの英字小見出し）": {
+    "title": "セクションラベルとは何か（PHILOSOPHY などの英字小見出し）",
+    "line": 18691,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "Webデザインにおいて、セクションの手前に置く線付きの英字小見出しのことを何と呼ぶ？",
+    "aiCategory": "HTML"
+  },
+  "2026-04-05 アニメーションの使い分け（CSS・JS・ライブラリ）": {
+    "title": "2026-04-05 アニメーションの使い分け（CSS・JS・ライブラリ）",
+    "line": 18780,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "アニメーション実装において、まずCSSで試すべき理由と使い分けの基準は何ですか？",
+    "aiCategory": "HTML"
+  },
+  "2026-04-04 タブUIでgapよりpaddingを使う理由": {
+    "title": "2026-04-04 タブUIでgapよりpaddingを使う理由",
+    "line": 18723,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "タブUIにおいて、gapではなくpaddingで余白を調整する理由は？",
+    "aiCategory": "HTML"
+  },
+  "widthは基本100%。サイドの余白はpaddingで作る（calc削減）": {
+    "title": "widthは基本100%。サイドの余白はpaddingで作る（calc削減）",
+    "line": 18428,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "CSSで要素の幅を調整する際、calcを使わずにサイドの余白を作る推奨される方法は？",
+    "aiCategory": "HTML"
+  },
+  "わき余白はpadding・要素間の隙間はmargin（横スクロール防止）": {
+    "title": "わき余白はpadding・要素間の隙間はmargin（横スクロール防止）",
+    "line": 18451,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "横スクロールを防ぐために、要素間の隙間やわき余白を適切に設定する方法は？",
+    "aiCategory": "HTML"
+  },
+  "pタグは話題が変わらなければ1つにまとめる": {
+    "title": "pタグは話題が変わらなければ1つにまとめる",
+    "line": 18482,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "HTMLにおいて、話題が変わらないテキストはどのように記述すべきですか？",
+    "aiCategory": "HTML"
+  },
+  "📌 カテゴリー名からURLを取得する・WordPressテンプレート階層": {
+    "title": "📌 カテゴリー名からURLを取得する・WordPressテンプレート階層",
+    "line": 18558,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressでカテゴリー名からそのカテゴリーページのURLを取得する関数を組み合わせは何ですか？",
+    "aiCategory": "WordPress"
+  },
+  "セクションの余白：上・サイドはpadding、下だけmargin": {
+    "title": "セクションの余白：上・サイドはpadding、下だけmargin",
+    "line": 18504,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "セクションの余白調整において、上・サイドにpaddingを使い、下だけにmarginを使う利点は？",
+    "aiCategory": "HTML"
+  },
+  "📌 `<ul>` の直接の子は `<li>` だけ・`<a>` の正しい位置": {
+    "title": "📌 `<ul>` の直接の子は `<li>` だけ・`<a>` の正しい位置",
+    "line": 18531,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "<ul>や<ol>の直下における、正しいHTML構造はどのような形でしょうか？",
+    "aiCategory": "HTML"
+  },
+  "WordPressの全体のフロー": {
+    "title": "WordPressの全体のフロー",
+    "line": 14591,
+    "lastReviewed": 1775730432267,
+    "reviewCount": 3,
+    "questionText": "WordPressのテーマ開発における全体のフローとは？",
+    "evaluations": [
+      3
+    ],
+    "lastAnsweredDate": "2026-04-09"
+  },
+  "📅 2026-04-01": {
+    "title": "📅 2026-04-01",
+    "line": 18621,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "2026年4月1日の日付は？",
+    "aiCategory": "その他"
+  },
+  "[WordPress] wp_head() / wp_enqueue_style() の登録→出力の仕組み": {
+    "title": "[WordPress] wp_head() / wp_enqueue_style() の登録→出力の仕組み",
+    "line": 18263,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressでCSSを適切に読み込む際、wp_enqueue_style()で登録したファイルを自動出力させるためにheader.phpへ記述すべき関数は何ですか？",
+    "aiCategory": "WordPress"
+  },
+  "[WordPress] wp_head() / wp_enqueue_style() の仕組み（登録→出力の2段階）": {
+    "title": "[WordPress] wp_head() / wp_enqueue_style() の仕組み（登録→出力の2段階）",
+    "line": 18246,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressでCSSを正しく読み込むために必要な、登録から出力までの2段階の仕組みとは？",
+    "aiCategory": "WordPress"
+  },
+  "[TEST3] Bash バックグラウンドテスト": {
+    "title": "[TEST3] Bash バックグラウンドテスト",
+    "line": 18279,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "BashのrunInBackground関数で書き込みテストを行うためのプロジェクト名は？",
+    "aiCategory": "その他"
+  },
+  "メモ：タブ切り替え時に、下線が移動する（offsetLeft+transition でスライドアニメーション）": {
+    "title": "メモ：タブ切り替え時に、下線が移動する（offsetLeft+transition でスライドアニメーション）",
+    "line": 18352,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "タブ切り替え時に下線をスライドアニメーションさせるために、JSで取得する要素の位置プロパティは何ですか？",
+    "aiCategory": "HTML"
+  },
+  "📌 the_category()が出力するaタグにCSSが効かない → `.news_category a` で上書きする": {
+    "title": "📌 the_category()が出力するaタグにCSSが効かない → `.news_category a` で上書きする",
+    "line": 18315,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressのthe_category()が出力するaタグにCSSが効かない場合、どのように指定すべきですか？",
+    "aiCategory": "WordPress"
   },
   "_meta": {
     "lastFilter": {
