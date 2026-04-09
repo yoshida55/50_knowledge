@@ -7811,6 +7811,14 @@ z-index 2だけつけておく
 - `margin-top: 100vh` → fixedの要素は通常フローから消えるため、次の要素がその分ずれる。100vhで画面1枚分の空白を作る
 - 透過で後ろを見せたい場合は `rgba()` の4番目の値を小さくする（0.5 = 半透明、0.3 = かなり透ける）
 
+※
+position: fixed
+→ 要素ごと（ボックス・テキスト・全部）が画面に貼り付く
+
+background-attachment: fixed
+→ 背景画像だけが固定される（要素自体はスクロールで消える）
+
+
 ---
 
 
@@ -9337,6 +9345,16 @@ Localを使ってWordPressのローカル環境をセットアップする手順
 
 ## `home_url`と`get_template_directory_uri`の主な違いは、**「何を参照するか」**です。 WordPress
 【日付】2026-03-08
+
+★画像など呼ぶ際は、get_template_directory_uri() を使うのが正しいです。home_url()はページへのリンク。トップページに戻るや、別ページへのリンク。PHPファイルの読み込み	get_template_directory()はテーマ内の別PHPファイルを読み込むときに使います。
+
+
+// functions.php から別ファイルを読み込む
+require get_template_directory() . '/inc/custom-post-types.php';
+require get_template_directory() . '/inc/widgets.php';
+
+// header.php からパーツを読み込む
+include get_template_directory() . '/parts/hero.php';
 
 *   **home_url()**
     *   **役割:** サイトの**トップページ（ホーム）のURL**を取得します。
@@ -13143,7 +13161,6 @@ https://example.com/wp-content/themes/テーマ名/img/news.jpg
 ---
 
 
-### get_theme_file_uri とは WordPress
 ### get_theme_file_uri とは WordPress
 WordPressでテーマ内にある画像やCSSファイルなどの「URL」を自動で取得するための関数です。
 

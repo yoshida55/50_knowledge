@@ -79,7 +79,12 @@
 - get_template_directory_uri() はURLを返す（物理パスではない）→ src="" や href="" に使う★画像やＵＲＬにつかう。　
 - get_template_directory() は物理パスを返す → require / include に使う（_uri なし）
 
+ブラウザに渡すもの（HTML）か、サーバー（php）が使うものかで決まります！
+
+
 - wp_footer() は </body> 直前に必ず書く（WordPressのお決まり）
+CSSを読み込む
+
 - wp_head() は </head> 直前に書く（wp_footer() は </body> 直前・セットで覚える）
 
 - ローカルHTMLのWordPress化 → ①style.css ②header/footer.php ③index.php ④functions.phpの4ステップ
@@ -121,7 +126,14 @@ z-index contentsは100（margin-top 100vh）
 
 こうすることで、背景を固定したまま、セクションとヘッダーはスクロールに合わせて動くようになる。　サイドバーは常に最前面に表示される。
 
+
 -   background-image: url("../img/project1.jpg");(3点セット)は,DIVタグに記載する
+
+  background-image: url("../img/fashion.jpg");
+  background-size: cover; /* 要素いっぱいに広げる */
+  background-position: center; /* 中央基準で表示 */
+
+
 
 
 ## 2026-04-04
@@ -169,7 +181,9 @@ z-index contentsは100（margin-top 100vh）
 - CSS transition → 値が変わるときになめらかにする / JS → 実際に値を書き換える役割　
 transition: プロパティ名 時間 イージング の形で書く。　
 
+
 - ブラウザはデフォルトで body に margin: 8px が付く → リセットCSSで * { margin: 0; padding: 0; box-sizing: border-box; } を先頭に書く
+
 
 - セクションwidthの選択基準：背景を全幅に伸ばしたい → width:100% + padding / コンテンツだけ中央に収めたい → width:70% + margin:0 auto。背景も考慮して選ぶ
 
@@ -182,7 +196,9 @@ transition: プロパティ名 時間 イージング の形で書く。　
 ## 2026-04-07
 
 - border-radiusは特定の角だけ指定できる → border-radius: 左上 右上 右下 左下（時計回り）
+
 - margin-bottomが効かないときはDevToolsで取り消し線チェック → 上書き・親のoverflow・flexが原因
+
 - :nth-last-child は () と数字が必須 → 最後の要素だけなら :last-child がシンプル
 - border shorthand は border-bottom を上書きする → 書く順番に注意
 
@@ -224,3 +240,9 @@ h2::before {
 - WordPressテーマを別フォルダからコピーしたとき → style.css の先頭に `/* Theme Name: テーマ名 */` が必要
 
 - テーマフォルダをコピー後は WordPress管理画面「外観→テーマ」で有効化し直す
+流れとしては、以下の通りです：
+
+1. テーマをフォルダに入れる
+2. CSSを書く
+3. style.cssに書く
+4. テーマを有効化する
