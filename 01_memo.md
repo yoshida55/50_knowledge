@@ -19122,3 +19122,43 @@ contact7.css でinputのborder・backgroundを上書きする。
 - reset.cssがCF7の入力欄を消している場合があるので検証ツールで確認する
 
 #WordPress
+
+---
+
+## 【WordPress】the_title / get_the_title / the_content の使い分け
+
+【日付】2026-04-11
+【結論】加工・サニタイズしたいなら `get_` 付きを使う。本文は `the_content()` のまま。
+
+### 関数の違い
+
+| 関数 | 動作 | echo 必要？ |
+|------|------|-------------|
+| `the_title()` | タイトルをそのまま出力 | 不要 |
+| `get_the_title()` | タイトルの値を返すだけ | 必要 |
+| `the_content()` | 本文をフィルター済みで出力 | 不要 |
+| `get_the_content()` | 本文の値を返すだけ | 必要 |
+
+### esc_html() との組み合わせ
+
+```php
+// ✅ タイトルをエスケープして出力（推奨）
+echo esc_html(get_the_title());
+
+// ✅ the_title() でもタイトルは表示できる（エスケープなし）
+the_title();
+
+// ❌ 本文に esc_html() は使わない
+//    → <p>タグ等がそのまま文字として表示されてしまう
+echo esc_html(get_the_content()); // NG
+
+// ✅ 本文はこれだけでOK
+the_content();
+```
+
+【補足】
+- `the_content()` は WordPress 内部でフィルター・エスケープ処理済み
+- XSS対策として、タイトルや任意テキストには `esc_html()` を使う習慣をつける
+- `get_` 付き = 「値を返す」、なし = 「その場で出力」
+
+#WordPress #PHP

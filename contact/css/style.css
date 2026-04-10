@@ -21,6 +21,10 @@ img {
   object-fit: cover;
 }
 
+.category p {
+  margin: 0;
+}
+
 footer {
   width: 100%;
   height: 8rem;
@@ -63,9 +67,8 @@ h3 {
   font-size: 2.2rem;
 }
 
-
 /* スマホ表示 */
-@media screen and (max-width:960px) {
+@media screen and (max-width: 960px) {
   html {
     font-size: calc(10 / 400 * 100vw);
   }
@@ -90,5 +93,4 @@ h3 {
   h3 {
     font-size: 1.8rem;
   }
-
 }

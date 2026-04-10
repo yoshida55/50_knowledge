@@ -262,4 +262,16 @@ h2::before {
   4. PHPに `<?php echo do_shortcode('[contact-form-7 id="xxx"]'); ?>` を書く
   
   5. reset.cssでinputが消える場合 → functions.phpでcontact7.cssを登録して上書き。そのCSSで上書き。
-  
+
+- ブラウザのURLバーのドメイン（〇〇.local）とLocal Sitesのフォルダ名が一致しているか確認する → 別サイトを見ていないかチェックできる
+
+- while のコロン構文: `while (have_posts()) : the_post();` ～ `endwhile;` → `{}` と同じ意味・WordPressでよく使う
+
+- `get_the_category()` は配列で返る → 1件だけ取るときは `get_the_category()[0]->name` / 全件は `foreach` で回す
+
+
+## 2026-04-11
+
+- the_title() はそのまま出力・get_the_title() は値を返すだけ → esc_html()で加工したいときは get_ 付きを使う。the_content() は esc_html() 不要（タグが文字化けする）
+- the_content() は自動で <p> タグ付き出力 → margin: 0 だけでは改行は消えない。display: inline も必要
+- ブロック要素は margin をゼロにしても改行は残る → display: inline で同じ行に続けられる
