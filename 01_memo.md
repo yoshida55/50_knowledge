@@ -19028,3 +19028,97 @@ translate(0, 100px)   /* 下に100px */
 - flex の子にすれば `gap` で間隔を均等に保てる
 - `::before` / `::after` は「特別な要素」ではなく、**flex の流れに乗れる普通の子要素**として使える
 
+
+---
+
+## 【2026-04-10】WordPressのテンプレート階層と home_url()
+
+### 結論
+WordPressはURLとPHPファイルが直接紐づいておらず、アクセスされたURLをWordPressが判断して適切なPHPテンプレートを自動選択する。
+
+### トップページのテンプレート優先順位
+```
+① front-page.php ← あれば最優先
+② home.php       ← なければこれ
+③ index.php      ← どちらもなければこれ（必須ファイル）
+```
+上から順に探して、最初に見つかったものを表示する。
+
+### home_url('/') とは
+```php
+home_url('/') // → 管理画面で設定したサイトのトップURL
+```
+- URLを直書きしない理由：本番サーバーに移したときURLが変わっても自動対応できるため
+- 管理画面 → 設定 → 一般 → 「サイトのURL」の値を返す
+
+### HTMLとの違い
+```
+HTML       → /index.html に直接アクセス
+WordPress  → URLをWordPressが受け取り、テンプレート階層で適切なPHPを選んで表示
+```
+
+### 覚えるべきポイント
+- この仕組みを「テンプレート階層」という
+- `index.php` はテーマに必須（ないとテーマと認識されない）
+- WordPressではURLは必ず関数（`home_url()` など）で取得する
+
+#WordPress
+
+---
+
+## 【2026-04-10】Contact Form 7 の使い方（インストール〜表示まで）
+
+### 結論
+Contact Form 7を使えばフォームのバリデーション・メール送信処理をPHPで書かずに済む。
+コーディング段階では `<form>` をダミーで書いておき、WordPress化後に差し替えるのが正しい流れ。
+
+### ① インストール
+```
+管理画面 → プラグイン → 新規追加
+→「Contact Form 7」で検索 → インストール → 有効化
+```
+
+### ② ショートコードを取得
+```
+管理画面 → お問い合わせ → フォーム一覧
+→ [contact-form-7 id="xxxx" title="コンタクトフォーム1"] をコピー
+```
+
+### ③ フォームテンプレートの書き方（管理画面）
+```
+# ✅ 正しい書き方（ラベルと入力欄を分ける）
+<label> 氏名 </label>
+[text* your-name autocomplete:name]
+
+<label> メールアドレス </label>
+[email* your-email autocomplete:email]
+
+[submit "送信"]
+
+# ❌ 間違い（labelの中に入力欄を入れると表示が崩れる）
+<label> 氏名 [text* your-name] </label>
+```
+
+### ④ PHPファイルに組み込む
+```php
+// page-contact.php
+<?php echo do_shortcode('[contact-form-7 id="xxxx"]'); ?>
+```
+- `do_shortcode()` = ショートコードをHTMLに変換して出力する関数
+
+### ⑤ CSSを当てる（reset.cssに注意）
+reset.cssで `input, textarea` がリセットされているとCF7の入力欄が見えなくなる。
+```php
+// functions.php
+if (is_page('contact')) {
+    wp_enqueue_style('contact7', get_template_directory_uri() . '/css/contact7.css');
+}
+```
+contact7.css でinputのborder・backgroundを上書きする。
+
+### 覚えるべきポイント
+- コーディング段階ではフォームはダミーでOK、WordPress化後にCF7で差し替える
+- `do_shortcode()` を使わないとショートコードがそのまま文字として表示される
+- reset.cssがCF7の入力欄を消している場合があるので検証ツールで確認する
+
+#WordPress

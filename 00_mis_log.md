@@ -246,3 +246,20 @@ h2::before {
 2. CSSを書く
 3. style.cssに書く
 4. テーマを有効化する
+
+## 2026-04-10
+
+- WordPressはURLとPHPが直結していない → テンプレート階層でWordPressが自動選択する
+
+- Contact Form 7 導入フロー
+  1. 管理画面 → プラグイン → Contact Form 7 インストール＆有効化
+  2. お問い合わせ → フォーム一覧 → ショートコード `[contact-form-7 id="xxx"]` をコピー
+
+  3. フォームテンプレートはラベルと入力欄を分けて書く（labelの中にショートコードを入れると崩れる）
+     ✅ `<label>氏名</label>` + `[text* your-name]`
+     ❌ `<label>氏名 [text* your-name]</label>`
+  
+  4. PHPに `<?php echo do_shortcode('[contact-form-7 id="xxx"]'); ?>` を書く
+  
+  5. reset.cssでinputが消える場合 → functions.phpでcontact7.cssを登録して上書き。そのCSSで上書き。
+  

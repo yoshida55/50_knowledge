@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お問い合わせ</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/contact.css">
+</head>
+
+<body>
+  <main>
+    <h1 class="title">お問い合わせ</h1>
+    <div class="contact_container">
+      <span class="contact_text_main">ご用のある方はこちらのお問い合わせフォームからご連絡ください。</span>
+      <span class="contact_text_sub">※お返事は遅れる場合がございます。あらかじめご了承ください。</span>
+    </div>
+
+    <form action="#" method="post" class="contact_form">
+
+      <div class="form_item">
+        <label for="user_name" class="form_label">氏名<span class="badge_required">必須</span></label>
+        <input type="text" id="user_name" name="user_name" required class="form_input" placeholder="田中 太郎">
+      </div>
+
+      <div class="form_item">
+        <label for="user_kana" class="form_label">ふりがな<span class="badge_required">必須</span></label>
+        <input type="text" id="user_kana" name="user_kana" class="form_input" placeholder="たなか たろう">
+      </div>
+
+      <div class="form_item">
+        <label for="user_tel" class="form_label">電話番号<span class="badge_required">必須</span></label>
+        <input type="tel" id="user_tel" name="user_tel" class="form_input" placeholder="000-0000-0000">
+      </div>
+
+      <div class="form_item">
+        <label for="user_email" class="form_label">メールアドレス<span class="badge_required">必須</span></label>
+        <input type="email" id="user_email" name="user_email" required class="form_input"
+          placeholder="sample@sample.com">
+      </div>
+
+      <div class="form_item">
+        <label for="location" class="form_label">お問い合わせ先<span class="badge_required">必須</span></label>
+        <select id="location" name="location" class="form_input is_pointer" required>
+          <option value="">選択してください</option>
+          <option value="east_exit">仙台駅東口</option>
+          <option value="station_front">仙台駅前</option>
+        </select>
+      </div>
+
+      <div class="form_item">
+        <label for="contact_type" class="form_label">お問い合わせ項目<span class="badge_required">必須</span></label>
+        <select id="contact_type" name="contact_type" class="form_input is_pointer">
+          <option value="">選択してください</option>
+          <option value="tour">見学のお申し込み</option>
+          <option value="request">お仕事のご依頼</option>
+          <option value="other">その他</option>
+        </select>
+      </div>
+
+      <div class="form_item is_align_top">
+        <label for="contact_detail" class="form_label">お問い合わせ内容<span class="badge_required">必須</span></label>
+        <textarea id="contact_detail" name="contact_detail" class="form_box" placeholder="入力してください"></textarea>
+      </div>
+
+      <div>
+        <button type="submit" class="btn">送信する</button>
+      </div>
+    </form>
+  </main>
+</body>
+
+</html>
