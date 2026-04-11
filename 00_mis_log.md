@@ -272,6 +272,68 @@ h2::before {
 
 ## 2026-04-11
 
-- the_title() はそのまま出力・get_the_title() は値を返すだけ → esc_html()で加工したいときは get_ 付きを使う。the_content() は esc_html() 不要（タグが文字化けする）
-- the_content() は自動で <p> タグ付き出力 → margin: 0 だけでは改行は消えない。display: inline も必要
-- ブロック要素は margin をゼロにしても改行は残る → display: inline で同じ行に続けられる
+- 【the = 出す / get = もらう】the_○○() → HTMLごと直接出力（echo・esc_html不要）/ get_the_○○() → 値を返すだけ（echo esc_html() がセット）
+- the_content() / the_post_thumbnail() 【出す系】に esc_html() を使うと HTMLタグが文字化け 
+→ WordPress内部で安全処理済みなので不要（getするときは、echo & エスケープ $ get th～ ）
+
+- the_content() は自動で <p> タグ付き出力 → 余白を消すには margin: 0 だけでは不十分・display: inline も必要
+
+- 加工・条件分岐したいときは get_the_○○() を使う（値として受け取れる）
+- PHPコロン構文: `while (have_posts()):` の `:` は `{` と同じ・`endwhile;` は `}` と同じ → HTMLと混在するWordPressテンプレートで主流
+- the_post_thumbnail() にクラスを付けるには第2引数に配列で渡す → `the_post_thumbnail('post-thumbnail', ['class' => 'クラス名'])`
+
+- margin-top: auto は flexbox なしでは効かない → 「余ったスペースという概念がない」から（ゼロではなく概念なし）
+(そもそも隙間がないときにはマージン０,autoはきかないことを理解する。)
+
+以下の２番目で/mainにフレックス１を設定してない場合は、margin-top: autoする必要がある。mainにflex1を設定すれば伸びるので
+margin-top: autoせずに自動的にフッターは↓にいく。
+[プレビュー](http://localhost:54321/preview-20260411-103245.svg)
+
+
+- フッター下固定 → body に `display:flex; flex-direction:column; min-height:100vh` + main に `flex:1`
+
+
+
+- single.php のループは「記事があるか確認」より「the_post() を呼ぶための儀式」→ the_post() なしだと the_title() 等が動かない
+- have_posts() + the_post() のセットはWordPressの慣習・公式テンプレートに合わせて書く
+
+- 「一覧へ戻る」に `get_permalink()` 引数なし → 同じ記事URLに戻るだけ / `get_post_type_archive_link()` は通常投稿では false → トップに飛ぶ / `get_term_link()` はカテゴリが存在しないと WP_Error → Fatal Error / URLがわかっているなら `home_url('/news/')` が一番シンプル・確実
+
+- テーマに `front-page.php` があると `home_url('/')` はフロントページに飛ぶ（投稿一覧ではない）
+
+- アーカイブページのURL（`/news/`） のURLがどこから来るか → 
+functions.php の set_post_archiveメソッドの
+`has_archive = 'news'` で設定している（カテゴリではなく投稿タイプのアーカイブ）
+
+'''php
+/*====================================
+ * 投稿のアーカイブページを作成
+====================================*/
+function set_post_archive($args, $post_type)
+{ // 設定後に（パーマリンク更新すること）
+  if ('post' == $post_type) {
+    $args['rewrite'] = array('with_front' => false);
+    $args['has_archive'] = 'news';
+    $args['label'] = 'お知らせ';
+  }
+  return $args;
+}
+add_filter('register_post_type_args', 'set_post_archive', 10, 2);
+
+'''
+
+- `/news/` = カテゴリでしぼった一覧ではなく「全投稿の一覧」→ `get_term_link()` は使えない / `get_post_type_archive_link('post')` か `home_url('/news/')` が正解
+
+- WordPressのアーカイブ2種類：
+  - カテゴリアーカイブ → 特定カテゴリの投稿だけ 
+  / URL: `/category/news/` / ※functions.php の has_archive = 'news' の 'news' の部分を変えれば、URLが変更
+  関数: `get_term_link('news', 'category')`
+  
+  
+  - 投稿タイプのアーカイブ → 全投稿の一覧 
+  / URL: `/news/` / 
+  関数: `get_post_type_archive_link('post')`
+
+## 2026-04-12
+
+- `img { height: 100%; }` のグローバル指定は全画像に影響する → `main { flex: 1; }` と組み合わさると画像が縦に巨大化 → 個別クラスで `height: auto` を上書きして解決

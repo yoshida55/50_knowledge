@@ -19162,3 +19162,190 @@ the_content();
 - `get_` 付き = 「値を返す」、なし = 「その場で出力」
 
 #WordPress #PHP
+
+## 📌 PHPのコロン構文 → `{` の代わりに `:` を使うブロック開始の書き方（WordPressテンプレートで主流） WordPress
+
+【日付】2026-04-11
+【結論】
+- `:` は `{` と同じ意味（ブロックの開始）
+- `endwhile;` / `endif;` / `endforeach;` は `}` と同じ意味
+- HTMLと混在するテンプレートで「どこで終わっているか」が読みやすくなる
+
+【具体例】
+```php
+// 通常の書き方
+while (have_posts()) {
+    the_post();
+}
+
+// コロン構文（WordPressで主流）
+while (have_posts()): the_post();
+
+    <li><?php the_title(); ?></li>
+
+endwhile;
+```
+
+【補足】
+- ⚠ `:` の後に `the_post();` を続けて書くのはWordPressの慣習
+- 💡 つまり：`{}` とまったく同じ動きをする。HTMLが混ざるテンプレートでは `endwhile;` の方が閉じ位置がわかりやすい
+- `if / foreach / for` でも同様に使える
+
+## 📌 the_post_thumbnail() にクラス名を付ける方法 WordPress
+【日付】2026-04-11
+【結論】
+第2引数に配列で `['class' => 'クラス名']` を渡す。
+
+【具体例】
+```php
+<?php the_post_thumbnail('post-thumbnail', ['class' => 'archive_thumbnail']); ?>
+```
+
+- 第1引数: サムネイルのサイズ（`'post-thumbnail'` `'full'` `'medium'` など）
+- 第2引数: `<img>` タグに追加する属性（配列で指定）
+
+【補足】
+- ⚠ `the_post_thumbnail()` はHTMLごと出力するので `echo` 不要
+- 💡 つまり：第2引数の配列でクラスやaltなどのHTML属性を自由に追加できる
+
+## 📌 フッターを画面下に固定する → body に flexbox + min-height: 100vh / margin-top: auto は flexbox がないと効かない HTML
+【日付】2026-04-11
+【結論】
+`margin-top: auto` は「余ったスペースを全部使う」命令だが、**余ったスペースという概念がないと動かない**。
+flexbox（`flex-direction: column`）を親に設定することで縦方向の余白が生まれ、初めて効く。
+
+
+[プレビュー](http://localhost:54321/preview-20260411-103245.svg)
+
+【具体例】
+```css
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 画面の高さいっぱいに広げる */
+}
+
+main {
+  flex: 1; /* 余ったスペースをすべて main が占める */
+}
+
+footer {
+  margin-top: auto; /* flexbox があって初めて「押し下げ」として機能する */
+}
+```
+
+【補足】
+- ⚠ flexbox なしの通常レイアウト（block）では `margin-top: auto = 0` と同じ扱い
+- ⚠ 「ゼロだから効かない」ではなく「余ったスペースという概念自体がない」ため効かない
+- 💡 つまり：`min-height: 100vh` で高さを確保 → `flex: 1` で main が伸びる → footer が自然に一番下へ
+
+## 📌 WordPress「一覧へ戻る」リンクの正しい書き方 → 設定次第で使う関数が変わる WordPress
+
+【日付】2026-04-11
+【結論】
+**一覧ページのURLがわかっているなら `home_url('/パス/')` が一番シンプルで確実。**
+`get_term_link()` はカテゴリが存在しないと `WP_Error` を返してFatal Errorになる。
+
+### 状況別の使い分け
+
+管理画面ー設定ー表示設定
+![](images/2026-04-11-15-42-34.png)
+
+| 状況 | 使う関数 |
+|---|---|
+| 一覧URLが固定でわかっている（一番シンプル） | `home_url('/news/')` |
+| 投稿ページ を固定ページに設定済み | `get_permalink( get_option('page_for_posts') )` |
+| カテゴリアーカイブ（スラッグが確実にある） | `get_term_link('スラッグ', 'category')` |
+| カスタム投稿タイプ（archive有効） | `get_post_type_archive_link( get_post_type() )` |
+
+【具体例】
+```php
+// ✅ 一番シンプル・確実（URLがわかっているとき）
+echo '<a href="' . home_url('/news/') . '" class="single_back">一覧へ戻る</a>';
+
+// 投稿ページを固定ページに設定している場合
+echo '<a href="' . get_permalink( get_option('page_for_posts') ) . '" class="single_back">一覧へ戻る</a>';
+
+// カテゴリアーカイブ（スラッグが確実に存在するとき）
+echo '<a href="' . esc_url( get_term_link('news', 'category') ) . '" class="single_back">一覧へ戻る</a>';
+```
+
+【補足】
+- ⚠ `get_permalink()` 引数なし = 今見ている投稿のURL（同じページに戻ってしまう）
+- ⚠ `get_post_type_archive_link()` は通常の「投稿」では `false` を返す → トップに飛ぶ
+- ⚠ `get_term_link()` はカテゴリが存在しないと `WP_Error` を返す → `esc_url()` に渡すとFatal Error
+- ⚠ テーマに `front-page.php` があると `home_url('/')` は投稿一覧ではなくフロントページに飛ぶ
+- 💡 確認場所：管理画面 → 設定 → 表示設定 → 「投稿ページ」が設定されているか
+- 💡 URLがわかっているなら `home_url('/パス/')` が最もトラブルが少ない
+- 💡 `functions.php` で `has_archive = 'news'` を設定している場合は `get_post_type_archive_link('post')` でも `/news/` が取れる
+- 💡 アーカイブURLの設定手順は「has_archive」で検索（11730行目あたり）
+
+#WordPress #PHP
+
+---
+
+## 📌 WordPressのアーカイブは2種類ある → カテゴリアーカイブ と 投稿タイプのアーカイブ WordPress
+
+【日付】2026-04-11
+【結論】
+`/news/` のURLがカテゴリなのか投稿タイプなのかで、使うべき関数が変わる。
+
+### 2種類の違い
+
+| 種類 | 意味 | URL例 | 取得する関数 |
+|---|---|---|---|
+| カテゴリアーカイブ | 特定カテゴリの投稿だけ表示 | `/category/news/` | `get_term_link('news', 'category')` |
+| 投稿タイプのアーカイブ | その投稿タイプの全投稿を表示 | `/news/` | `get_post_type_archive_link('post')` |
+
+【具体例】
+```
+/category/news/ → 「newsカテゴリ」の投稿だけ
+/news/          → 「post投稿タイプ」の全投稿（has_archive='news'で設定）
+```
+
+【補足】
+- ⚠ `get_term_link()` はカテゴリ専用 → 投稿タイプのアーカイブURLには使えない
+- ⚠ URLが同じように見えても中身が別物なので、どちらで作ったか確認する
+- 💡 どちらかわからないときは functions.php の `has_archive` を確認する
+
+#WordPress
+
+---
+
+## 📌 `img { height: 100%; }` のグローバル指定 + `main { flex: 1; }` の組み合わせで画像が巨大化する → 個別クラスで `height: auto` を上書きする WordPress HTML
+
+【日付】2026-04-12
+【結論】
+`style.css` に書いた `img { height: 100%; }` は全画像に適用される。
+`body { display: flex; }` + `main { flex: 1; }` で main が画面いっぱいの高さになると、
+main の中の img が `height: 100%` でその高さを受け取ろうとして縦に巨大化する。
+
+### 何が起きていたか
+
+```
+body（flex column / min-height: 100vh）
+  └── main（flex: 1 → 画面いっぱいの高さ）
+      └── li
+          └── img（height: 100% → main の高さを参照 → 縦に巨大化）
+```
+
+結果：画像が縦に膨らんで main からはみ出し、フッターより下にページネーションが押し出された。
+
+### 解決策
+
+個別クラスで `height: auto` を指定して上書きする。
+
+```css
+/* archive.css */
+.archive_thumbnail {
+  width: 20%;
+  height: auto;  /* img の height: 100% を上書き → 縦横比を保った自然なサイズ */
+}
+```
+
+【補足】
+- `height: auto` = 「縦横比を保って幅に合わせた高さ」
+- `img { }` のタグ指定（詳細度 0-0-1）より `.クラス名 { }` の方が詳細度（0-1-0）が高い → 上書きできる
+- `img` にグローバルで `height` を指定するときは必ず個別クラスで `auto` 上書きをセットにする癖をつける
+
+#WordPress #HTML
