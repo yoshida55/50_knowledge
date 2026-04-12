@@ -411,3 +411,4 @@ footer { margin-top: auto; }  ← footer 自
 
 - `section { flex: 1 }` + `pagination` が同じ flex コンテナにあると section が全スペースを取って pagination がはみ出す → section から `flex: 1` を削除する
 - 開発中の「記事0件」白い空白は本番では起きない → デザインカンプは記事がある状態で設計されているため気にしなくてよい
+- テスト：今日の朝は気分がいい → 新インデックス方式で書き込み成功
