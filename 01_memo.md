@@ -19119,6 +19119,14 @@ Contact Form 7を使えばフォームのバリデーション・メール送信
 ```
 - `do_shortcode()` = ショートコードをHTMLに変換して出力する関数
 
+```html
+      <div class="form_wrap">
+        <!-- <form action=""> -->
+        <?php echo do_shortcode('[contact-form-7 id="XXX"]') ?>
+
+      </div>
+```
+
 ### ⑤ CSSを当てる（reset.cssに注意）
 reset.cssで `input, textarea` がリセットされているとCF7の入力欄が見えなくなる。
 ```php
@@ -19127,6 +19135,30 @@ if (is_page('contact')) {
     wp_enqueue_style('contact7', get_template_directory_uri() . '/css/contact7.css');
 }
 ```
+
+### メニューへの表示方法　contact 7を有効化する
+
+/*====================================
+ * contact 7を有効化する
+ * ====================================*/
+```php
+// functions.php
+function my_theme_setup()
+{
+  add_theme_support('post-thumbnails'); // アイキャッチ
+  add_theme_support('menus');          // メニュー機能を有効化
+
+  // メニューの「場所」を登録する
+  register_nav_menus(array(
+    'header-menu' => 'ヘッダーメニュー',
+  ));
+}
+add_action('after_setup_theme', 'my_theme_setup');
+```
+
+###  保存したあと、WordPress の管理画面を**再読み込み（リフレッシュ）**してください
+
+
 contact7.css でinputのborder・backgroundを上書きする。
 
 ### 覚えるべきポイント
@@ -19136,7 +19168,18 @@ contact7.css でinputのborder・backgroundを上書きする。
 
 #WordPress
 
----
+###  header.php でメニューを表示するコードを書く
+header.php
+
+header.php のメニューを出したい場所に、以下のコードを記述します。
+
+<?php
+wp_nav_menu( array(
+    'theme_location' => 'header-menu', // 管理画面で設定した位置の名前
+) );
+?>
+
+
 
 ## 【WordPress】the_title / get_the_title / the_content の使い分け
 
