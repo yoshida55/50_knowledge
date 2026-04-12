@@ -12940,7 +12940,7 @@ if(false): で囲む
 ```
 
 ```
-★「自動で出力されるHTML」:
+★「自動で出力されるHTML」:　⇀　これ引数によって、変更される。　
 <nav class="navigation pagination">
   <div class="nav-links">
     <span class="page-numbers current">1</span>  ← 今のページ
@@ -12949,6 +12949,17 @@ if(false): で囲む
   </div>
 </nav>
 ```
+
+➁以下の場合、クラスのつくりが変わってくる
+echo paginate_links(array(
+  'type' => 'list',   ← ここが重要
+));
+
+<ul class="page-numbers">   ← .nav-links は存在しない
+  <li><span class="page-numbers current">1</span></li>
+  <li><a class="page-numbers" href="...">2</a></li>
+</ul>
+
 
 ```css
 /*
@@ -19015,6 +19026,8 @@ translate(0, 100px)   /* 下に100px */
 }
 ```
 
+※片側だけを書く場合・・・・BEFORE を消すか AFTER を消すかだけで十分
+
 【構造イメージ】
 ```
 .section_label（flex コンテナ）
@@ -19215,7 +19228,7 @@ endwhile;
 flexbox（`flex-direction: column`）を親に設定することで縦方向の余白が生まれ、初めて効く。
 
 
-[プレビュー](http://localhost:54321/preview-20260411-103245.svg)
+![](images/2026-04-12-21-34-53.png)
 
 【具体例】
 ```css
@@ -19238,6 +19251,43 @@ footer {
 - ⚠ flexbox なしの通常レイアウト（block）では `margin-top: auto = 0` と同じ扱い
 - ⚠ 「ゼロだから効かない」ではなく「余ったスペースという概念自体がない」ため効かない
 - 💡 つまり：`min-height: 100vh` で高さを確保 → `flex: 1` で main が伸びる → footer が自然に一番下へ
+
+
+- 💡 **ページネーションを section の下に固定したい場合も同じパターン**が使える（bodyではなく section に適用する）
+
+![](images/2026-04-12-21-35-08.png)
+
+```css
+/* ページネーションを section の下に固定する場合 */
+.archive_section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pagination {
+  margin-top: auto; /* コンテンツと下端の間を全部余白にする → ページネーションが下へ */
+}
+```
+
+- 💡 **シンプルパターン（中間要素なし）**: `height: 100vh` + 最後の子に直接 `margin-top: auto`
+
+```css
+/* シンプルパターン: 最後の子をそのまま一番下へ */
+.parent {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 高さを画面いっぱいに固定 */
+}
+
+.last-child {
+  margin-top: auto; /* 上の余白を全部消費 → 一番下に押し出される */
+}
+```
+
+- ⚠ `height: 100vh`（固定）vs `min-height: 100vh`（最低限）の違い
+  - `height: 100vh` → コンテンツが多いと**画面外にはみ出る**
+  - `min-height: 100vh` → コンテンツが多ければ**自動で伸びる**（フッターレイアウトはこちらが安全）
 
 ## 📌 WordPress「一覧へ戻る」リンクの正しい書き方 → 設定次第で使う関数が変わる WordPress
 
@@ -19347,5 +19397,54 @@ body（flex column / min-height: 100vh）
 - `height: auto` = 「縦横比を保って幅に合わせた高さ」
 - `img { }` のタグ指定（詳細度 0-0-1）より `.クラス名 { }` の方が詳細度（0-1-0）が高い → 上書きできる
 - `img` にグローバルで `height` を指定するときは必ず個別クラスで `auto` 上書きをセットにする癖をつける
+
+---
+
+## 📌 `margin-top: auto` は直接の flex 子要素でないと効かない → 入れ子の場合は親も flex にするか要素を外に出す HTML CSS
+
+【日付】2026-04-13
+【結論】
+`margin-top: auto` は、**直接の flex コンテナの子要素** でないと「余白を全部使って押し下げる」効果が出ない。
+`section` などの非 flex 要素の中に入っている場合、`margin-top: auto` は 0 と同じ扱いになる。
+
+### なぜ効かないのか
+
+```
+main（flex / flex-direction: column）
+  └── section（flex じゃない！）← ここが壁
+        └── div.pagination（margin-top: auto → 効かない）
+```
+
+`margin-top: auto` が使えるのは「余ったスペース」という概念がある flexbox の中だけ。
+`section` が flex でなければ「余ったスペース」が存在しないため、auto が 0 になる。
+
+### 解決策 2 パターン
+
+**① section も flex にする**
+```css
+section {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.pagination {
+  margin-top: auto; /* 効くようになる */
+}
+```
+
+**② pagination を section の外に出す（推奨）**
+```php
+<main>
+  <section>記事一覧</section>
+  <div class="pagination">...</div>  ← main の直接の子 → auto が効く
+</main>
+```
+
+【補足】
+- ページネーションは「ナビゲーション（操作）」であり、セクションのコンテンツではない
+- 意味的にも構造的にも section の外に出す方が正しい
+- コンテンツ（section）とナビゲーション（pagination）を分けるのが一般的なWordPressの書き方
+
+#HTML #CSS
 
 #WordPress #HTML

@@ -140,31 +140,34 @@ z-index contentsは100（margin-top 100vh）
 ・専門用語
 - セクションラベル
 
-- outline = paddingの外側に線（レイアウトに影響しない） / border = レイアウトに影響する
+✅outline = paddingの外側に線（レイアウトに影響しない） / border = レイアウトに影響する
+
 - 幅を文字+paddingに自動で合わせる → width: fit-content
 
-- 角を完全に丸くする（カプセル型）→ border-radius: 100px
+✅- 角を完全に丸くする（カプセル型）→ border-radius: 100px
 - border-radius: 50% = 完全な丸（縦横が同じ正方形のときだけ丸。長方形だと楕円になる）
 
-- margin: 0 auto はインライン要素（span）に効かない → display: block を追加する
+✅- margin: 0 auto はインライン要素（span）に効かない → display: block を追加する
 
 
-- clip-path で切り取られた部分は描画ごと消える → 別要素を margin-top マイナスで潜り込ませる
+✅- clip-path で切り取られた部分は描画ごと消える → 別要素を margin-top マイナスで潜り込ませる
 
 ![](images/2026-04-05-06-13-17.png)
 
 
-- overflow: hidden 削除後に position: absolute; right: マイナス値の要素がはみ出す → overflow-x: hidden を body に追加
+✅- overflow: hidden 削除後に position: absolute; right: マイナス値の要素がはみ出す → overflow-x: hidden を body に追加
 
-- タブボタンの余白は gap でなく padding → gap だと tab_line（position: absolute の下線）がズレるリスクあり
+✅- タブボタンの余白は gap でなく padding → gap だと tab_line（position: absolute の下線）がズレるリスクあり
 - box-sizing: border-box → paddingかけてもコンテンツ幅はひろがらない。でもpaddingの合計がwidthをこえるとひろがってしまう
 - CSSの継承は子（下方向）にしか流れない → 兄弟・親には継承されない
 - 継承される: color / font-size / font-family など / されない: width / padding / margin など
 
-- JavaScript概要 → HTML/CSSだけでは動かせない「動き・操作・タイミング制御」を担当する言語。スクロール検知・クラスの付け外し・値の書き換えなどをする
+✅- JavaScript概要 → HTML/CSSだけでは動かせない「動き・操作・タイミング制御」を担当する言語。スクロール検知・クラスの付け外し・値の書き換えなどをする
+
 - CSSアニメーションの使い分け → 単純な動きはCSS / スクロールや操作が絡むときはJS / 複雑な連続アニメはライブラリ（GSAP等）
+
 - transition → 値が変わるときになめらかに動かす。transition: プロパティ名 時間 イージング の形
-- ease → ゆっくり始まって速くなってゆっくり終わる（自然な動き）/ linear → 一定速度
+✅- ease → ゆっくり始まって速くなってゆっくり終わる（自然な動き）/ linear → 一定速度
 
 ## 2026-04-05
 
@@ -175,6 +178,8 @@ z-index contentsは100（margin-top 100vh）
   <button class="tab_btn" data-tab="press">ＩＴ作業</button>
   <span class="tab_line"></span> <!-- position:absolute 下線-->
 </div>
+```
+
 
 - タブUIは flex（横並び）+ position:absolute（下線の自由配置）+ JS（クリックで動かす）の3役割分担
 
@@ -204,9 +209,13 @@ transition: プロパティ名 時間 イージング の形で書く。　
 
 ## 2026-04-08
 
-- gridで段差が出る → voice_quoteにmin-heightを設定して高さを揃える
+- gridで段差が出る → voice_quote（HP作成で使段差のアイテム）にmin-heightを設定して高さを揃える
+（Gridカードの高さが揃わないときは min-height を指定するheight 固定ではなく min-height にすると、文字が多くても伸びる）
 
 - grid-template-columns: 1fr 1fr → 1frの数が列数、frは残りスペースを比率で分ける単位
+
+fr = fraction（フラクション）
+「分数・割合」という意味の英語です。
 
 
 ※基本２列
@@ -259,6 +268,7 @@ h2::before {
      ✅ `<label>氏名</label>` + `[text* your-name]`
      ❌ `<label>氏名 [text* your-name]</label>`
   
+  // page-contact.php
   4. PHPに `<?php echo do_shortcode('[contact-form-7 id="xxx"]'); ?>` を書く
   
   5. reset.cssでinputが消える場合 → functions.phpでcontact7.cssを登録して上書き。そのCSSで上書き。
@@ -273,13 +283,15 @@ h2::before {
 ## 2026-04-11
 
 - 【the = 出す / get = もらう】the_○○() → HTMLごと直接出力（echo・esc_html不要）/ get_the_○○() → 値を返すだけ（echo esc_html() がセット）
-- the_content() / the_post_thumbnail() 【出す系】に esc_html() を使うと HTMLタグが文字化け 
+- the_content() 
+/ the_post_thumbnail() 
+【出す系】に esc_html() を使うと HTMLタグが文字化け 
 → WordPress内部で安全処理済みなので不要（getするときは、echo & エスケープ $ get th～ ）
 
 - the_content() は自動で <p> タグ付き出力 → 余白を消すには margin: 0 だけでは不十分・display: inline も必要
 
 - 加工・条件分岐したいときは get_the_○○() を使う（値として受け取れる）
-- PHPコロン構文: `while (have_posts()):` の `:` は `{` と同じ・`endwhile;` は `}` と同じ → HTMLと混在するWordPressテンプレートで主流
+
 - the_post_thumbnail() にクラスを付けるには第2引数に配列で渡す → `the_post_thumbnail('post-thumbnail', ['class' => 'クラス名'])`
 
 - margin-top: auto は flexbox なしでは効かない → 「余ったスペースという概念がない」から（ゼロではなく概念なし）
@@ -297,7 +309,8 @@ margin-top: autoせずに自動的にフッターは↓にいく。
 - single.php のループは「記事があるか確認」より「the_post() を呼ぶための儀式」→ the_post() なしだと the_title() 等が動かない
 - have_posts() + the_post() のセットはWordPressの慣習・公式テンプレートに合わせて書く
 
-- 「一覧へ戻る」に `get_permalink()` 引数なし → 同じ記事URLに戻るだけ / `get_post_type_archive_link()` は通常投稿では false → トップに飛ぶ / `get_term_link()` はカテゴリが存在しないと WP_Error → Fatal Error / URLがわかっているなら `home_url('/news/')` が一番シンプル・確実
+- 「一覧へ戻る」に `get_permalink()` 引数なし → 同じ記事URLに戻るだけ / `get_post_type_archive_link()` は通常投稿では false → トップに飛ぶ / `get_term_link()
+` はカテゴリが存在しないと WP_Error → Fatal Error / URLがわかっているなら `home_url('/news/')` が一番シンプル・確実
 
 - テーマに `front-page.php` があると `home_url('/')` はフロントページに飛ぶ（投稿一覧ではない）
 
@@ -334,6 +347,67 @@ add_filter('register_post_type_args', 'set_post_archive', 10, 2);
   / URL: `/news/` / 
   関数: `get_post_type_archive_link('post')`
 
+---
 ## 2026-04-12
 
 - `img { height: 100%; }` のグローバル指定は全画像に影響する → `main { flex: 1; }` と組み合わさると画像が縦に巨大化 → 個別クラスで `height: auto` を上書きして解決
+
+- CSSが効かないときはまずF12でHTMLを確認 → クラスが存在するか・スペルが合っているかを先に確かめる
+- WordPressの関数によって出力されるHTMLが変わる → `paginate_links(type=>'list')` は `<ul class="page-numbers">` / `the_posts_pagination()` は `<nav><div class="nav-links">` が出る
+
+- `min-height` だけでは要素を下に固定できない → 
+
+WordPressなどで要素を一番したにもってきたい場合。
+親に `flex-direction: column` + 
+対象要素に `margin-top: auto` がセット
+flex-direction: columnをかけることによって、隙間が発生する。
+
+![](images/2026-04-12-21-35-53.png)
+
+（body/footer も section/pagination も同じパターン）
+- `height: 100vh` vs `min-height: 100vh` → 固定か・伸びるかの違い / フッター固定なら `min-height` が安全（伸びる可能性あり） 
+/ 中間要素不要なら直接 `margin-top: auto` でOK（伸びる可能性がないため）
+
+
+※height = 固定 / 
+min-height = 最低保証（中に要素などあれば伸びる）
+
+`※フッターを下に固定する方法は2パターンあります。`
+
+パターンA：main { flex: 1 } を使う（中間要素あり）
+
+```css
+body { 
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100vh; }
+
+main { flex: 1; }  
+← main が余白を全部使う → footer が下へ
+```
+
+パターンB：
+
+footer に margin-top: auto だけ（中間要素なし）
+
+```css
+body { 
+  display: flex; 
+  flex-direction: column; 
+  min-height: 100vh; }
+footer { margin-top: auto; }  ← footer 自
+```
+
+身が余白を全部使う → 下へ
+どちらも結果は同じです。
+
+「中間要素不要」= main に flex: 1 を書かなくてもできる、という意味です。
+
+## 2026-04-13
+
+- flexbox でフッターが下に来ないとき → `img { height: 100%; }` のグローバル指定を疑う（画像が親の高さを引き継いで膨らみ、flex: 1 / margin-top: auto が効かなくなる）
+- `margin-top: auto` は直接の flex 子でないと効かない → section が間にあると 0 扱い（親も flex にするか、pagination を section の外に出す）
+- ページネーションは section の外が一般的 → コンテンツ（section）とナビゲーション（pagination）は分けて書く
+
+- `section { flex: 1 }` + `pagination` が同じ flex コンテナにあると section が全スペースを取って pagination がはみ出す → section から `flex: 1` を削除する
+- 開発中の「記事0件」白い空白は本番では起きない → デザインカンプは記事がある状態で設計されているため気にしなくてよい

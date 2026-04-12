@@ -60,7 +60,76 @@ if (strpos($page, 'current') !== false) {
 管理画面「設定 → 表示設定」で1ページの表示件数を減らして確認する。
 
 ---
+✅✅✅★★★研修時のページネーションスニペット★★★✅✅✅
 
+![](images/2026-04-12-10-48-16.png)
+---
+
+## ✅ the_posts_pagination() 版（丸ボタン型・そのまま貼れる）
+
+### PHP（archive.php のページネーション部分に貼る）
+```php
+<!-- ページネーション -->
+<div class="pagination">
+  <?php
+  $args = array(
+    'mid_size'           => 1,
+    'prev_text'          => '«',
+    'next_text'          => '»',
+    'screen_reader_text' => ' ',
+  );
+  the_posts_pagination($args);
+  ?>
+</div>
+```
+
+### CSS（archive.css に貼る）
+```css
+/* ページネーション全体を横並びに */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* 各ボタンを〇にする */
+.page-numbers {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  border: 0.2rem solid black;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  color: black;
+  text-decoration: none;
+}
+
+/* 現在のページは黒く塗る */
+.page-numbers.current {
+  background-color: black;
+  color: white;
+}
+```
+
+### 出力されるHTML構造（参考）
+```html
+<nav class="navigation pagination">
+  <div class="nav-links">
+    <a class="prev page-numbers" href="...">«</a>
+    <a class="page-numbers" href="...">1</a>
+    <span class="page-numbers current">2</span>  ← 今のページ
+    <a class="page-numbers" href="...">3</a>
+    <a class="next page-numbers" href="...">»</a>
+  </div>
+</nav>
+```
+
+---
+
+
+ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 <a id="snippet1"></a>
 ## スニペット1: 丸ボタン型（span・CSS付き）← おすすめ
 
