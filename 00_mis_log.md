@@ -476,3 +476,6 @@ footer { margin-top: auto; }  ← footer 自
 - `the_` 系は自分でecho → `echo the_title()` は二重になるNG・`get_` 系はechoが必要
 
 つまり今回はthe_postを使っているので、The Titleっていうのが使える。
+
+## 2026-04-14
+- AIへのskeleton/kanpu依頼 → セクション単位でJSONを渡す・「HTMLのコメントも参考に」と一言添えると作業ミスが減る
