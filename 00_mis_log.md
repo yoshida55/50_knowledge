@@ -412,3 +412,7 @@ footer { margin-top: auto; }  ← footer 自
 - `section { flex: 1 }` + `pagination` が同じ flex コンテナにあると section が全スペースを取って pagination がはみ出す → section から `flex: 1` を削除する
 - 開発中の「記事0件」白い空白は本番では起きない → デザインカンプは記事がある状態で設計されているため気にしなくてよい
 - テスト：今日の朝は気分がいい → 新インデックス方式で書き込み成功
+
+- `body { flex-direction: column }` だけではナビが縦になる → nav の `ul` に `display: flex` がないとブラウザデフォルト（縦並び）のまま
+- 検証ツールで対象要素を確認 → 正しいセレクタに `display: flex` を当てることで正確な位置に配置できる
+- ブラウザのデフォルトスタイル（`ul/li` は縦・点つき）は検証ツールで取り消し線で確認できる → `display: flex` + `list-style: none` で上書きする
