@@ -1,6 +1,10 @@
+## 2026-04-13
+- Copilot Edits でツール実行が確認される場合は `github.copilot.chat.edits.instructions` にも同様の自動承認指示が必要（ `github.copilot.chat.codeGeneration.instructions` とは別設定）。
+
 ## 2026-03-30
 
-- `get_categories()` → 全カテゴリを取得
+- `get_categories()` → 全カテゴリを取得(全てだから、そのではないのでtheはつかない。)
+
 - `get_the_category()` → ループ内で使う・その特定記事につけた全カテゴリを取得
 
 
@@ -411,8 +415,64 @@ footer { margin-top: auto; }  ← footer 自
 
 - `section { flex: 1 }` + `pagination` が同じ flex コンテナにあると section が全スペースを取って pagination がはみ出す → section から `flex: 1` を削除する
 - 開発中の「記事0件」白い空白は本番では起きない → デザインカンプは記事がある状態で設計されているため気にしなくてよい
-- テスト：今日の朝は気分がいい → 新インデックス方式で書き込み成功
 
-- `body { flex-direction: column }` だけではナビが縦になる → nav の `ul` に `display: flex` がないとブラウザデフォルト（縦並び）のまま
+
 - 検証ツールで対象要素を確認 → 正しいセレクタに `display: flex` を当てることで正確な位置に配置できる
+
 - ブラウザのデフォルトスタイル（`ul/li` は縦・点つき）は検証ツールで取り消し線で確認できる → `display: flex` + `list-style: none` で上書きする
+
+- `get_categories()` はデフォルトで空カテゴリーを非表示 → `array('hide_empty' => false)` を渡すと全表示　「空カテゴリー」というのは、存在しているが、そのカテゴリが付与されている投稿がないということ。
+
+
+- 選択中カテゴリーのクラス付与 → `get_queried_object_id()` でID取得してループ内で比較
+- `archive.php` はカテゴリーURL（`/category/スラッグ/`）でアクセスしたときに呼ばれる
+- memo-all 高速化：`last_config.json` に `last_memo_line` を保存 → wc -l と Read末尾が不要になり約5秒短縮
+- 手書きで 01_memo.md を編集したら `wc -l` で行数を確認して `last_memo_line` を手動更新する
+- カスタムタクソノミー = カスタム投稿タイプ専用の分類機能 → CPT UI で「タクソノミーを追加」から作成
+- カスタム投稿タイプのテンプレートは `archive-スラッグ.php` / `single-スラッグ.php` → テーマ直下に置くだけ
+
+【特定のカテゴリを絞る際の書き方】
+
+
+- WP_Query でカテゴリ絞り込み → ループの**前**（クエリ）で絞る・ループ中のif絞りはページネーションがズレる➡要するに、
+➀最初は WP_Query に特定の値を詰め込んで、※これはループの前が大前提　ページネーションがずれてしまうので。
+➁それを引数としてオブジェクトを作成し、
+➂そのオブジェクトのメソッドを利用することによって、
+
+特定のカテゴリの投稿名であったり、カテゴリを取得したりすることができる、ということを言いたいわけです。
+・クエリ
+```php
+  <?php
+  ✅
+  $args = array(
+    'category_name' => 'これがでればOK', // カテゴリースラッグを指定
+    'posts_per_page' => 5, // 表示する記事数を指定
+  );
+
+  $query = new WP_Query($args);
+
+  if ($query->have_posts()) {
+    echo '<ul class="archive_category_query">';
+    while ($query->have_posts()) {
+     ✅
+      $query->the_post();
+     ✅
+      // カテゴリー名を取得する。そのカテゴリ―が複数ある場合は最初のものを表示する。
+      the_title();
+    }
+    echo '</ul>';
+    wp_reset_postdata();
+  } else {
+    echo '記事が見つかりませんでした。';
+  }
+
+  ?>
+```
+　
+
+- `WP_Query` 使ったら必ず `wp_reset_postdata()` を最後に呼ぶ
+- `$query->have_posts()` の `->` は「変数の中にある機能を使う」記号・WP_Query使用時は必須
+- `var_dump($query)` は量が多すぎる → `var_dump($query->posts)` で記事だけ見る
+- `the_` 系は自分でecho → `echo the_title()` は二重になるNG・`get_` 系はechoが必要
+
+つまり今回はthe_postを使っているので、The Titleっていうのが使える。

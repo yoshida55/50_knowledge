@@ -19443,13 +19443,6 @@ body（flex column / min-height: 100vh）
 
 ---
 
-## 📌 テスト：今日の朝は気分がいい
-
-【日付】2026-04-13
-【結論】
-気分がいい朝はいいことがある。
-
-#テスト
 
 ---
 
@@ -19501,3 +19494,229 @@ section {
 #HTML #CSS
 
 #WordPress #HTML
+
+---
+
+## 📌 get_categories() は空カテゴリーを隠す・hide_empty と get_queried_object_id() 「空のカテゴリー」というのは、投稿が一切ない、何もタグ付けされていないカテゴリーのことを言う。WordPress
+
+【日付】2026-04-13
+
+【結論】
+`get_categories()` はデフォルトで記事が0件のカテゴリーを表示しない。
+`'hide_empty' => false` を渡すと全カテゴリーを表示できる。
+
+【具体例】
+```php
+// 空カテゴリーも含めて全部取得
+$categories = get_categories( array( 'hide_empty' => false ) );
+```
+
+現場では先にカテゴリーを作って記事を後から入れることが多いので、`hide_empty => false` を付けるのが基本。
+
+【選択中カテゴリーにクラスを付ける】
+`get_queried_object_id()` で「今いるページのカテゴリーID」を取得できる。
+ループの中でIDを比較して `current-category` クラスを付与する。
+
+```php
+$current_cat_id = get_queried_object_id(); // 今いるカテゴリーのIDを取得
+$categories = get_categories( array( 'hide_empty' => false ) );
+foreach ( $categories as $category ) {
+    $class = ($category->term_id == $current_cat_id) ? 'current-category' : '';
+    echo '<li class="' . $class . '"><a href="' . esc_url( get_category_link( $category ) ) . '">' . esc_html( $category->name ) . '</a></li>';
+}
+```
+
+【archive.php が呼ばれるURL】
+- カテゴリーURL: `/category/[スラッグ]/` → `archive.php` が呼ばれる
+- `front-page.php` があると `/` はトップページ専用になるので注意
+
+【補足】
+- `get_queried_object_id()` はカテゴリーアーカイブ以外のページでも使えるが、カテゴリーIDを返すのはカテゴリーアーカイブページのみ
+
+#WordPress
+
+---
+
+
+
+---
+
+## 📌 WP_Query でカテゴリを絞って取得する・-> 記法・wp_reset_postdata()。イメージとしては、➀最初にカテゴリを引数で指定する。➁それでクラスを作る、オブジェクトを作る。➂その後にそのオブジェクトを使って、そのメソッドで表示させる。 WordPress
+
+【日付】2026-04-13
+
+【結論】
+カテゴリで絞り込むときは**ループの前（クエリ）で絞る**。ループの中でif文で絞るとページネーションがズレる。
+
+【具体例】
+```php
+// ✅ 正しい：取得前に絞る
+$query = new WP_Query( array(
+    'category_name' => 'news',
+    'posts_per_page' => 10,
+) );
+
+while ( $query->have_posts() ) : $query->the_post();
+    // 表示
+endwhile;
+wp_reset_postdata(); // 必須！忘れると後続のループが壊れる
+```
+
+```php
+// ❌ NG：ループの中でif絞り込み → ページネーションがズレる
+while ( have_posts() ) : the_post();
+    if ( get_the_category()[0]->slug == 'news' ) {
+        // 10件取得して5件しか表示されない → ページネーションが狂う
+    }
+endwhile;
+```
+
+【-> 記法について】
+`$query->have_posts()` の `->` は「この変数の中にある機能を使う」という記号。
+`WP_Query` で自分でクエリを作ったときは必ず `$query->` をつける。
+
+```
+$query        → WP_Query で作ったオブジェクト
+->            → 「この中にある」
+have_posts()  → 記事があるか確認する機能
+```
+
+【補足】
+- `wp_reset_postdata()` を忘れると、その後の `the_title()` 等が別の記事を参照してしまう
+- `category_name` にはスラッグを入れる（日本語名ではなく英字）
+
+#WordPress
+
+---
+
+## 📌 PHP デバッグは var_dump() + die() → $query->posts だけ見ると量が減って見やすい →
+the_ 系関数は自分で echo する・get_ 系は値を返すだけなので echo が必要 WordPress
+
+【日付】2026-04-13
+
+【結論】
+変数の中身を確認するときは `var_dump()` + `die()` をセットで使う。
+`WP_Query` オブジェクト全体は量が多すぎるので `->posts` だけを見る。
+
+【具体例】
+```php
+// ❌ 多すぎて読めない
+var_dump( $query );
+die();
+
+// ✅ 記事だけ見える
+var_dump( $query->posts );
+die();
+```
+
+確認したら必ず削除すること。
+
+【the_ 系 vs get_ 系】
+```php
+// the_ 系 → 自分でechoする（echo不要）
+the_title();        // ✅
+echo the_title();   // ❌ 二重になる
+
+// get_ 系 → 値を返すだけ（echoが必要）
+echo get_the_title();  // ✅
+get_the_title();       // ❌ 何も表示されない
+```
+
+【補足】
+- `var_dump()` はブラウザに直接出力される
+- `die()` でそれ以降のHTMLを止めるのがポイント
+
+#WordPress
+
+## 📌 カスタムタクソノミーとは → カスタム投稿タイプ専用の分類機能。イメージとしては、➀デフォルトの「カテゴリー・タグ」は通常投稿専用。➁カスタム投稿タイプには独自の分類（タクソノミー）を別途作る必要がある　➂CPT UI の「タクソノミーを追加」から作成できる。 WordPress
+
+【日付】2026-04-13
+
+【結論】
+カスタム投稿タイプに分類（カテゴリーのようなもの）をつけたいとき → カスタムタクソノミーを作る
+
+【具体例】
+制作実績（works）-「Web制作」などの分類をつけたい場合
+                -「デザイン」
+                -「動画」
+
+タクソノミー = 分類のこと
+- デフォルトのタクソノミー: カテゴリー（category）、タグ（tag）
+- カスタムタクソノミー: 自分で作った分類（例: work_type）
+
+CPT UI プラグインで「タクソノミーを追加」から作成できる
+
+【補足】
+- カスタム投稿タイプのカテゴリーフィルタリングに使う
+- 普通のカテゴリーは投稿（post）専用のため、カスタム投稿タイプには使えない
+
+---
+
+## 📌 カスタム投稿タイプのテンプレートファイルの命名ルール。
+イメージとしては、
+➀スラッグが works なら archive-works.php / single-works.php というファイル名にする。
+➁テーマフォルダ直下に置くだけで WordPress が自動で探して読み込む（設定不要）。
+➂ファイルがなければ archive.php / single.php にフォールバックする。 WordPress
+
+【日付】2026-04-13
+
+【結論】
+スラッグが `works` なら：
+- 一覧ページ: `archive-works.php`
+- 詳細ページ: `single-works.php`
+
+
+★実際作れるもの
+デフォルト	　　　　CPT UI で追加できる例
+投稿（ブログ記事）	News（ニュース）
+固定ページ	　　　　制作実績（Portfolio）
+―	　　　　　　　　　スタッフ紹介
+―	　　　　　　　　　よくある質問（FAQ）
+
+
+具体的に何が起きているか
+
+/works/ にアクセス
+       ↓
+WordPress が内部で探す
+  1. archive-works.php  ← あった！これを使う
+  2. archive.php        ← なければこっち
+  3. index.php          ← それもなければこ
+
+【具体例】
+```
+テーマフォルダ/
+├── archive-works.php  ← /works/ へのアクセスで自動で読まれる
+└── single-works.php   ← /works/123/ へのアクセスで自動で読まれる
+```
+
+ファイルがなければ `archive.php` / `single.php` にフォールバック（代わりに使う）
+
+【補足】
+- ファイル名はスラッグと完全一致させること
+- テーマフォルダ直下に置くだけで認識される（設定不要）
+
+---
+#WordPress
+
+### メニューで動かす方法
+
+管理画面 → CPT UI → 投稿タイプの編集 → 「追加設定」タブ
+
+Has Archive → true にする
+これで /works/ という URLが有効になり、archive-works.php が読み込まれます。
+管理画面 → CPT UI → 投稿タイプの編集 → 「追加設定」タブ
+
+
+Has Archive → true にする
+これで /works/ という URLが有効になり、archive-works.php が読み込まれます。
+
+
+★実際のサイトではナビゲーションメニューにリンクを貼ります。これでヘッダーから飛べる。
+
+
+管理画面 → 外観 → メニュー
+
+
+カスタムリンク: https://example.com/works/
+テキスト: 制作実績

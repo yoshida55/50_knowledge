@@ -181,3 +181,13 @@ WordPress アーカイブ 2種類 カテゴリ 投稿タイプ | WordPress
 img height: 100% グローバル main flex: 1 画像巨大化 height: auto 上書き | WordPress HTML
 margin-top: auto 直接のflex子 入れ子 親もflexにする | HTML CSS
 今日の朝は気分がいい テスト | テスト
+get_categories hide_empty false 空カテゴリー 非表示 全表示 | WordPress
+get_queried_object_id 選択中カテゴリー ID current-category クラス付与 | WordPress
+archive.php カテゴリーURL /category/スラッグ/ front-page.php 優先 | WordPress
+memo-all last_memo_line last_config.json 高速化 手書き wc -l 更新 | HTML
+WP_Query カテゴリ絞り込み ループ前 ページネーション wp_reset_postdata | WordPress
+-> 記法 オブジェクト メソッド呼び出し $query->have_posts | WordPress
+var_dump die() デバッグ $query->posts 記事だけ確認 | WordPress
+the_ 系 echo不要 get_ 系 echo必要 二重出力 | WordPress
+カスタムタクソノミー カスタム投稿タイプ 分類 CPT UI | WordPress
+カスタム投稿タイプ テンプレートファイル archive-works.php single-works.php スラッグ | WordPress
