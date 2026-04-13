@@ -479,3 +479,4 @@ footer { margin-top: auto; }  ← footer 自
 
 ## 2026-04-14
 - AIへのskeleton/kanpu依頼 → セクション単位でJSONを渡す・「HTMLのコメントも参考に」と一言添えると作業ミスが減る
+- `width: 100%` はブロック要素（div・p・h1等）には書かなくていい（デフォルトで親幅いっぱい）→ `img` `a` `span` などインライン要素には必要
