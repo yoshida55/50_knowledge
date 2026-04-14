@@ -192,3 +192,8 @@ the_ 系 echo不要 get_ 系 echo必要 二重出力 | WordPress
 カスタムタクソノミー カスタム投稿タイプ 分類 CPT UI | WordPress
 カスタム投稿タイプ テンプレートファイル archive-works.php single-works.php スラッグ | WordPress
 AIへの依頼 skeleton kanpu セクション単位 JSONの渡し方 HTMLコメント flex情報 | HTML
+フッターずれ デバッグ 親要素 height固定 はみ出し 検証ツール min-height | HTML CSS
+検証ツール 親要素さかのぼる レイアウト崩れ 加害者 height overflow | HTML CSS
+CPT UI Custom Post Type UI 投稿タイプ タクソノミー 追加手順 管理画面 GUI スラッグ | WordPress
+archive-works.php テンプレート命名ルール スラッグ taxonomy-works-category.php | WordPress
+get_queried_object_id すべてのページID is_category カテゴリー限定 current-cat クラス | WordPress

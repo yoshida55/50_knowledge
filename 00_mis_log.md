@@ -47,6 +47,25 @@
 
 
 - `get_queried_object_id()` → 今のページのID（数字） / `get_the_category()` → 記事のカテゴリ配列（これはカテゴリだけではない。今いるページによって取得するＩＤがかわってくる。　記事ページ(single.php)ならば記事ＩＤ）
+archive.php→archive.phpのIDなど
+
+$cat_id = get_queried_object_id();
+$cat = get_category( $cat_id );
+echo $cat->name;
+
+説明文
+$id = get_queried_object_id();  // → 5 （数字が返る）
+$cat = get_category( $id );     // → IDからカテゴリー情報を取得
+echo $cat->name;                // →「WEB制作」（名前が出る）
+
+
+だから条件分岐が必要→すべてのページのＩＤがかえってくるのでカテゴリに絞ってだすようにする。
+if ( is_category() ) {
+    $id = get_queried_object_id();  // カテゴリーIDが返る
+    $cat = get_category( $id );
+    echo $cat->name;
+}
+
 
 ・ `get_queried_object_id()` ようするにID取得するか配列か。シンプルにIDを利用すると、比較しやすい。　
 カテゴリを表示するときなどは、配列からカテゴリ名を取り出す必要がある。　なので、IDで比較して、表示するときは、配列からカテゴリ名を取り出すのがベスト。
@@ -425,6 +444,13 @@ footer { margin-top: auto; }  ← footer 自
 
 
 - 選択中カテゴリーのクラス付与 → `get_queried_object_id()` でID取得してループ内で比較
+今表示中のページのID | IDを返す | ✅ 必要 | ループ外 |
+「今どのカテゴリーページを見ているかID知りたい（ハイライトなど）」
+  → get_queried_object_id()
+
+
+
+
 - `archive.php` はカテゴリーURL（`/category/スラッグ/`）でアクセスしたときに呼ばれる
 - memo-all 高速化：`last_config.json` に `last_memo_line` を保存 → wc -l と Read末尾が不要になり約5秒短縮
 - 手書きで 01_memo.md を編集したら `wc -l` で行数を確認して `last_memo_line` を手動更新する
@@ -479,4 +505,17 @@ footer { margin-top: auto; }  ← footer 自
 
 ## 2026-04-14
 - AIへのskeleton/kanpu依頼 → セクション単位でJSONを渡す・「HTMLのコメントも参考に」と一言添えると作業ミスが減る
+
 - `width: 100%` はブロック要素（div・p・h1等）には書かなくていい（デフォルトで親幅いっぱい）→ `img` `a` `span` などインライン要素には必要
+
+- フッターがずれている → フッター自体より「すぐ上の親要素の `height` 固定」を疑う → 検証ツールで確認
+
+- 検証ツールでクラスがわからないとき → ↖で要素を選んで左パネルの親をさかのぼる → 右パネルでheightを確認
+(親要素からでもいい。縦がおかしいときは明らかにheightが大きいものなど調査する)
+
+- CPT UI = プラグインで「投稿タイプ」と「タクソノミー」を管理画面のボタン操作だけで追加できる（PHPコード不要）
+- `get_queried_object_id()` = 今見ているページの主役のID（カテゴリーページならカテゴリーID・記事ページなら記事ID）→ カテゴリーに限定したいときは `is_category()` と組み合わせる
+- archive-works.php = archive.phpをコピーしてファイル名を変えるだけ・命名ルール: `archive-{スラッグ}.php` / タクソノミーは `taxonomy-{スラッグ}.php`
+
+- PHPブロックの中 → `.` で文字結合 / HTMLの中にPHPを混ぜる → `<?php ?>` で挟む
+
