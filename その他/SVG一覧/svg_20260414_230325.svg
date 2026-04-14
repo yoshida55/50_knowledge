@@ -1,0 +1,91 @@
+﻿<svg width="780" height="480" xmlns="http://www.w3.org/2000/svg" font-family="sans-serif">
+
+  <!-- 背景 -->
+  <rect width="780" height="480" fill="#f8f9fa"/>
+
+  <!-- CPT UIで作る 枠 -->
+  <rect x="30" y="50" width="210" height="280" rx="6" fill="#e9ecef" stroke="#adb5bd" stroke-width="1.5"/>
+  <rect x="50" y="38" width="110" height="26" rx="5" fill="#6c757d"/>
+  <text x="105" y="55" text-anchor="middle" fill="white" font-size="12" font-weight="bold">CPT UI で作る</text>
+
+  <!-- カスタム投稿タイプ ボックス -->
+  <rect x="55" y="70" width="160" height="65" rx="8" fill="#4a90d9" stroke="#2c6fad" stroke-width="2"/>
+  <text x="135" y="97" text-anchor="middle" fill="white" font-size="12" font-weight="bold">カスタム投稿タイプ</text>
+  <text x="135" y="118" text-anchor="middle" fill="white" font-size="13">制作実績</text>
+
+  <!-- 記事を追加 矢印 -->
+  <line x1="135" y1="135" x2="135" y2="195" stroke="#6c757d" stroke-width="1.5"/>
+  <polygon points="130,190 135,200 140,190" fill="#6c757d"/>
+  <text x="150" y="170" fill="#6c757d" font-size="11">記事を追加</text>
+
+  <!-- 個別の記事 ボックス -->
+  <rect x="55" y="200" width="160" height="70" rx="8" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="135" y="225" text-anchor="middle" fill="white" font-size="12" font-weight="bold">個別の記事（投稿）</text>
+  <text x="135" y="245" text-anchor="middle" fill="white" font-size="12">制作実績の1件1件</text>
+
+  <text x="135" y="295" text-anchor="middle" fill="#555" font-size="10">ほかにもついていればその分だけ</text>
+
+  <!-- CPT UI紐付け 矢印 -->
+  <line x1="215" y1="100" x2="350" y2="100" stroke="#e74c3c" stroke-width="2" stroke-dasharray="6,4"/>
+  <polygon points="345,95 355,100 345,105" fill="#e74c3c"/>
+  <text x="283" y="88" text-anchor="middle" fill="#e74c3c" font-size="11" font-weight="bold">CPT UIで紐付け</text>
+
+  <!-- カスタムタクソノミー ボックス -->
+  <rect x="355" y="68" width="200" height="65" rx="8" fill="#e67e22" stroke="#b96319" stroke-width="2"/>
+  <text x="455" y="93" text-anchor="middle" fill="white" font-size="12" font-weight="bold">カスタムタクソノミー</text>
+  <text x="455" y="115" text-anchor="middle" fill="white" font-size="13">works-category</text>
+
+  <!-- タクソノミー → ターム 矢印 -->
+  <line x1="395" y1="133" x2="365" y2="220" stroke="#e67e22" stroke-width="1.5"/>
+  <polygon points="360,216 365,228 372,219" fill="#e67e22"/>
+  <line x1="455" y1="133" x2="455" y2="220" stroke="#e67e22" stroke-width="1.5"/>
+  <polygon points="450,216 455,228 460,216" fill="#e67e22"/>
+  <line x1="515" y1="133" x2="545" y2="220" stroke="#e67e22" stroke-width="1.5"/>
+  <polygon points="538,216 545,228 552,219" fill="#e67e22"/>
+  <text x="530" y="175" fill="#e67e22" font-size="10">ターム（実際の分類）</text>
+
+  <!-- ターム ボックス -->
+  <rect x="325" y="228" width="90" height="42" rx="6" fill="#e67e22" stroke="#b96319" stroke-width="1.5"/>
+  <text x="370" y="253" text-anchor="middle" fill="white" font-size="13">Web制作</text>
+
+  <rect x="428" y="228" width="90" height="42" rx="6" fill="#e67e22" stroke="#b96319" stroke-width="1.5"/>
+  <text x="473" y="253" text-anchor="middle" fill="white" font-size="13">ロゴ制作</text>
+
+  <rect x="531" y="228" width="90" height="42" rx="6" fill="#e67e22" stroke="#b96319" stroke-width="1.5"/>
+  <text x="576" y="253" text-anchor="middle" fill="white" font-size="13">グラフィック</text>
+
+  <!-- 記事にターム設定 矢印 -->
+  <path d="M 135 270 Q 220 330 325 249" stroke="#8e44ad" stroke-width="1.8" fill="none" stroke-dasharray="5,4"/>
+  <polygon points="320,244 330,250 322,257" fill="#8e44ad"/>
+  <text x="200" y="330" text-anchor="middle" fill="#8e44ad" font-size="10">記事にタームを設定する</text>
+  <text x="200" y="343" text-anchor="middle" fill="#8e44ad" font-size="10">（記事編集画面で選ぶ）</text>
+
+  <!-- ===== 表示対象の強調 ===== -->
+
+  <!-- ② 投稿タイプの一覧ページ 強調枠 -->
+  <rect x="46" y="192" width="178" height="86" rx="10" fill="none" stroke="#ff4757" stroke-width="3" stroke-dasharray="0"/>
+  <rect x="60" y="183" width="130" height="20" rx="4" fill="#ff4757"/>
+  <text x="125" y="196" text-anchor="middle" fill="white" font-size="11" font-weight="bold">② 投稿タイプの一覧</text>
+
+  <!-- ③ タクソノミーのターム一覧 強調枠 -->
+  <rect x="313" y="218" width="320" height="64" rx="10" fill="none" stroke="#2ed573" stroke-width="3"/>
+  <rect x="380" y="207" width="160" height="20" rx="4" fill="#2ed573"/>
+  <text x="460" y="220" text-anchor="middle" fill="white" font-size="11" font-weight="bold">③ タームの一覧（絞り込み）</text>
+
+  <!-- 凡例 -->
+  <rect x="30" y="395" width="14" height="14" rx="2" fill="#4a90d9"/>
+  <text x="50" y="407" fill="#333" font-size="11">投稿タイプ</text>
+  <rect x="130" y="395" width="14" height="14" rx="2" fill="#e67e22"/>
+  <text x="150" y="407" fill="#333" font-size="11">タクソノミー / ターム</text>
+  <rect x="290" y="395" width="14" height="14" rx="2" fill="#27ae60"/>
+  <text x="310" y="407" fill="#333" font-size="11">個別の記事</text>
+  <line x1="390" y1="402" x2="415" y2="402" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="420" y="407" fill="#333" font-size="11">CPT UIでの紐付け</text>
+
+  <!-- 凡例2 -->
+  <rect x="30" y="425" width="14" height="4" rx="2" fill="#ff4757"/>
+  <text x="50" y="435" fill="#ff4757" font-size="11" font-weight="bold">② 表示する：投稿タイプの一覧（記事が全部並ぶ）</text>
+  <rect x="30" y="448" width="14" height="4" rx="2" fill="#2ed573"/>
+  <text x="50" y="458" fill="#2ed573" font-size="11" font-weight="bold">③ 表示する：タームの一覧（絞り込みボタンになる）</text>
+
+</svg>

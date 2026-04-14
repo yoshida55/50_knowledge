@@ -19953,3 +19953,69 @@ _draft/
 - グローバル側に書けば完全に非公開
 - `wp_title()` は WordPress 4.1 以降 deprecated（非推奨）→ `add_theme_support('title-tag')` が正解
 
+---
+
+## 📌 get_the_terms() で記事のターム取得・get_terms() で全ターム取得（カスタムタクソノミー） WordPress
+
+【日付】2026-04-14
+
+**【結論】**
+カスタムタクソノミーのタームを取得する関数は3種類ある。
+
+| 関数 | 何をする |
+|---|---|
+| `get_the_terms(記事ID, スラッグ)` | その記事についたタームだけを取得（ループ内で使う） |
+| `get_terms(['taxonomy' => 'スラッグ'])` | 全タームをオブジェクト配列で取得（リンク付きリストを自作できる） |
+| `wp_list_categories('taxonomy=スラッグ')` | 全タームをリスト形式で自動出力（シンプルだがカスタマイズが難しい） |
+
+**【具体例】**
+
+```php
+// 記事についたタームを取得（ループ内で使う）
+$terms = get_the_terms( get_the_ID(), 'works-category' );
+foreach ( $terms as $term ) {
+    echo '<li>' . esc_html( $term->name ) . '</li>';
+}
+
+// 全タームを取得してリンク付きリストを出力
+$all_terms = get_terms( array('taxonomy' => 'works-category') );
+foreach ( $all_terms as $term ) {
+    echo '<li><a href="' . esc_url( get_term_link($term) ) . '">' . esc_html($term->name) . '</a></li>';
+}
+```
+
+**【補足】**
+- ターム = 1つ1つの分類ラベル（例：「Web制作」「ロゴ制作」）
+- `get_term_link($term)` でそのタームのアーカイブURLを取得できる
+- `$term->name` でターム名を取得（`->` はオブジェクトのプロパティにアクセスする記法）
+
+---
+
+## 📌 カスタムタクソノミーとカスタム投稿タイプの関係 → CPT UIで別々に作って「紐付け」する WordPress
+
+【日付】2026-04-14
+
+**【結論】**
+投稿タイプとタクソノミーは **別々に作って、CPT UIで紐付けする**。
+
+
+![](images/2026-04-14-22-43-06.png)
+```
+制作実績（カスタム投稿タイプ）← CPT UIで作る
+  └── 個別の記事（投稿）
+
+works-category（カスタムタクソノミー）← CPT UIで作る・制作実績と紐付け
+  └── ターム（Web制作 / ロゴ制作 など）← 管理画面から追加
+
+個別の記事に、タームを設定する（記事編集画面で選ぶ）
+
+
+```
+
+**【紐付けの場所】**
+CPT UIでタクソノミーを作るとき「関連する投稿タイプ」に投稿タイプ名を設定する。
+
+**【補足】**
+- 「制作実績の下にタクソノミーがぶら下がる」のではなく、**横に並んで紐付いている**イメージ
+- タクソノミーアーカイブテンプレートは `taxonomy-{スラッグ}.php`（例：`taxonomy-works-category.php`）
+

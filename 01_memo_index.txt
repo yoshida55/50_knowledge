@@ -200,3 +200,5 @@ get_queried_object_id すべてのページID is_category カテゴリー限定 
 会社Git Backlog TortoiseGit ブランチ 運用フロー commit push pull mainから切る | WordPress HTML
 グローバル .gitignore ~/.gitignore_global 非公開 会社に届かない プロジェクト内は届く | HTML
 wp_title deprecated 非推奨 add_theme_support title-tag WordPress 4.1以降 | WordPress
+get_the_terms get_terms wp_list_categories タームの取得 カスタムタクソノミー ループ内 全ターム | WordPress
+カスタムタクソノミー カスタム投稿タイプ 紐付け CPT UI 関係性 横並び 別々に作る | WordPress

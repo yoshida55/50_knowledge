@@ -609,7 +609,29 @@ footer { margin-top: auto; }  ← footer 自
 - CPT UI = プラグインで「投稿タイプ」と「タクソノミー」を管理画面のボタン操作だけで追加できる（PHPコード不要）
 - `get_queried_object_id()` = 今見ているページの主役のID（カテゴリーページならカテゴリーID・記事ページなら記事ID）→ カテゴリーに限定したいときは `is_category()` と組み合わせる
 
-※ほかの行にもあるので、そこを参照する
+
+- `get_queried_object_id()` → 今のページのID（数字） / `get_the_category()` → 記事のカテゴリ配列（これはカテゴリだけではない。今いるページによって取得するＩＤがかわってくる。　記事ページ(single.php)ならば記事ＩＤ）
+archive.php→archive.phpのIDなど
+
+$cat_id = get_queried_object_id();
+$cat = get_category( $cat_id );
+echo $cat->name;
+
+説明文
+$id = get_queried_object_id();  // → 5 （数字が返る）
+$cat = get_category( $id );     // → IDからカテゴリー情報を取得
+echo $cat->name;                // →「WEB制作」（名前が出る）
+
+
+だから条件分岐が必要→すべてのページのＩＤがかえってくるのでカテゴリに絞ってだすようにする。
+if ( is_category() ) {
+    $id = get_queried_object_id();  // カテゴリーIDが返る
+    $cat = get_category( $id );
+    echo $cat->name;
+}
+
+➡つまり、すべてのカテゴリが混ざった投稿を表示する画面じゃなく、特定のカテゴリに絞った投稿を出す画面のみだよね？
+
 
 - archive-works.php = archive.phpをコピーしてファイル名を変えるだけ・命名ルール: `archive-{スラッグ}.php` / タクソノミーは `taxonomy-{スラッグ}.php`
 
@@ -629,3 +651,7 @@ add_theme_support('title-tag');
 
 なお、
 ・bloginfo('name') はサイト名を表示するだけの関数で
+
+- カスタムタクソノミーのターム取得 → `get_the_terms(記事ID, スラッグ)` で記事のターム・`get_terms(['taxonomy' => スラッグ])` で全ターム取得
+- 投稿タイプとタクソノミーの関係 → 「ぶら下がる」のではなく横並びでCPT UIで紐付け・記事にタームを設定する
+![](images/2026-04-14-22-43-06.png)

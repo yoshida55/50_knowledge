@@ -7,5 +7,8 @@
 			"path": ".."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"claudeCode.initialPermissionMode": "acceptEdits",
+		"claudeCode.hideOnboarding": false
+	}
 }
