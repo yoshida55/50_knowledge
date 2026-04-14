@@ -18588,6 +18588,9 @@ padding-right: var(--side-width);
 【日付】2026-04-01
 【結論】カテゴリー名からURLを取得するには `get_category_link(get_cat_ID('カテゴリー名'))` をセットで使う。カテゴリーページを開くとWordPressが自動で `archive.php` を呼び出す。
 
+※カテゴリーごとにURLをもっている。
+管理画面できめる。　カテゴリーURL = /category/スラッグ/ の形
+
 【具体例】
 ```php
 // カテゴリー名からURLを取得してリンクにする
@@ -19912,4 +19915,41 @@ foreach ( $all_terms as $term ) {
 - `get_the_ID()` は記事ページ専用 / `get_queried_object_id()` はページを問わず対応
 - カテゴリー名を出すには2段階: ID取得 → `get_category($id)` で情報を取る
 - IDで比較・判定、表示するときは配列から名前を取り出す、という使い分けがベスト
+
+---
+
+## 📌 会社のGit運用フロー（Backlog + TortoiseGit）→ mainから自分ブランチを切り毎日commit&push・朝pullする WordPress HTML
+
+【日付】2026-04-14
+
+**【結論】**
+案件ごとに main から自分の名前ブランチを切って作業する。帰る前に commit & push・毎朝 pull でみんなの修正を取り込む。
+
+**【手順】**
+➀ 案件を振られたら → Backlog のネットワークを開く → main から自分の名前ブランチを作成（TortoiseGit）
+➁ 作業中 → 自分のブランチで作業 → コメント付きで commit & push（帰る前）
+➂ 毎朝 → TortoiseGit で pull（みんなの最新を取り込む）
+
+**【自分の学習Gitと共存させる方法】**
+- 案件フォルダ = 作業場所・自分の勉強フォルダとは分ける
+- 自分用メモや下書きは `_memo/` `_claude/` などのフォルダに入れる
+- グローバル `.gitignore` に書けば会社のリポジトリに届かない
+
+**【グローバル .gitignore の設定手順】**
+➀ 1回だけ実行：
+```bash
+git config --global core.excludesfile ~/.gitignore_global
+```
+➁ `~/.gitignore_global` に書く：
+```
+_claude/
+_memo/
+_draft/
+```
+➂ このファイルはどのリポジトリにも含まれない（自分PCのみ）
+
+**【注意点】**
+- プロジェクト内の `.gitignore` は会社に届いて見られる
+- グローバル側に書けば完全に非公開
+- `wp_title()` は WordPress 4.1 以降 deprecated（非推奨）→ `add_theme_support('title-tag')` が正解
 

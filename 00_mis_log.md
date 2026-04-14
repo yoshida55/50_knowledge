@@ -14,15 +14,21 @@
 `wp_title('|', true, 'right')`**: 現在表示しているページの名前（例：会社概要）を取得し、後ろに「|」を付けます。
 `bloginfo('name')`**: 設定で決めた「サイト名（例：〇〇株式会社）」を取得します。
 
+➡　これを使う。wp_titleは非推奨➡　add_theme_support('title-tag')　
+これを書くだけで、WordPressが自動でタイトルを <title> タグに出力してくれます。
+
+
 これらを組み合わせることで、**「会社概要 | 〇〇株式会社」**という形式で、ページごとに正しいタイトルが自動的に表示される仕組みです。
 
 
 
 - wp_head()にCSSが自動で出るのを不思議に思ったが（つまりCSSの一覧がWEB出力時に設定される） → functions.phpのwp_enqueue_style()で登録したものがwp_head()から出てくる2段階の仕組み
 
+✅
 - `esc_html()` → テキストを表示するとき（カテゴリ名・タイトル・著者名など）
 - `esc_url()` → URLを表示するとき（hrefの中など）
 - `esc_attr()` → HTML属性の値を表示するとき（class・id・valueの中など）
+
 
 - PHPでHTMLタグを書くとき → `'` で囲む（外が `'` なら中に `"` を書ける）
 - `href=""` の `"` が使えるのも外を `'` で囲んでいるから
@@ -66,6 +72,8 @@ if ( is_category() ) {
     echo $cat->name;
 }
 
+➡つまり、すべてのカテゴリが混ざった投稿を表示する画面じゃなく、特定のカテゴリに絞った投稿を出す画面のみだよね？
+
 
 ・ `get_queried_object_id()` ようするにID取得するか配列か。シンプルにIDを利用すると、比較しやすい。　
 カテゴリを表示するときなどは、配列からカテゴリ名を取り出す必要がある。　なので、IDで比較して、表示するときは、配列からカテゴリ名を取り出すのがベスト。
@@ -99,49 +107,129 @@ if ( is_category() ) {
 
 
 
-- get_template_directory_uri() はURLを返す（物理パスではない）→ src="" や href="" に使う★画像やＵＲＬにつかう。　
-- get_template_directory() は物理パスを返す → require / include に使う（_uri なし）
+- ➀get_template_directory_uri() はURLを返す（物理パスではない）→ src="" や href="" に使う★画像やＵＲＬにつかう。　
+- ➁get_template_directory() は物理パスを返す → require / include に使う（_uri なし）→つまり他のPHPをよぶ
 
 ブラウザに渡すもの（HTML）か、サーバー（php）が使うものかで決まります！
 
 
-- wp_footer() は </body> 直前に必ず書く（WordPressのお決まり）
+// ➁functions.php から別ファイルを読み込む
+require get_template_directory() . '/inc/custom-post-types.php';
+require get_template_directory() . '/inc/widgets.php';
+
+
+✅wp_footer() は </body> 直前に必ず書く（WordPressのお決まり）
 CSSを読み込む
 
 - wp_head() は </head> 直前に書く（wp_footer() は </body> 直前・セットで覚える）
 
 - ローカルHTMLのWordPress化 → ①style.css ②header/footer.php ③index.php ④functions.phpの4ステップ
 
-- wp_enqueue_styleのハンドル名が重複すると2つ目が無視される → それぞれ別名にする
+✅wp_enqueue_styleのハンドル名が重複すると2つ目が無視される → それぞれ別名にする
 
 - HTML属性の中（datetime=""など）→ get_the_date() + echo / タグの外の表示 → the_date()　つまりなぜ、<time datetime= get_the_date> the_date</time>
 →これはよくわからないのでそういうものだとおもっておく！
+
 - the_category()はaタグを自動出力 → 親のCSSのcolor:whiteが効かない。なぜなら、<li>タグであればそのなかに<a>タグがつくられるので、
+
 
 .news_category a { color: white; } で上書きが必要
 （  - `the_post_thumbnail()` → `<img>` ごと出る
   - `the_category()` → `<ul><li><a>タグででる` ごと出る
   - `wp_list_categories()` → `<ul><li><a>` ごと出る　要注意）
 
-## 2026-04-01
 
+  ※なお基本以下の通りthe_XXXだが例外がある。サムネイル
+the_title()           ← the_ だけ
+the_permalink()       ← the_ だけ
+the_content()         ← the_ だけ
+the_post_thumbnail()  ← the_post_ が付く（アイキャッチのみ）
+
+★また、the_title() 系はエスケープも、echoも不要。
+※唯一の例外
+
+`つまりHTMLタグを自分でかいちゃうと、getにしないといけないってことね。単独ならthe_title()だけで十分ってことね`
+
+
+
+
+## 2026-04-01
 
 - わき余白は padding、要素間の隙間は margin（marginをwidth:100%と組み合わせると横スクロールの原因）
 
-- pタグは細かく分けすぎない → 話題が変わらなければ1つの<p>にまとめる
+✅pタグは細かく分けすぎない → 話題が変わらなければ1つの<p>にまとめる
 
 
-- セクション余白：上・サイドはpadding、下だけmargin-bottom → モバイルで修正しやすい
-- <ul>直下に<a>を置いてしまった → 正しくは<li>の中に<a>を入れる
+✅セクション余白：上・サイドはpadding、下だけmargin-bottom → モバイルで修正しやすい
+
+✅<ul>直下に<a>を置いてしまった → 正しくは<li>の中に<a>を入れる
 - href=""を空のままにした → href="<?php the_permalink(); ?>"を入れる
-- target="blank" と書いてしまった → 正しくは target="_blank"（アンダースコアが必要）
+
+✅target="blank" と書いてしまった → 正しくは target="_blank"（アンダースコアが必要）
+
 - カテゴリーURLの取得：get_category_link(get_cat_ID('カテゴリー名')) をセットで使う
-- position: absolute は横並び・SPで調整大変 → 横並びは flexbox を使う
-- SP切り替え時に新変数を作らない → @media内で既存の --side-width の値を上書きする
-- position: absolute する要素は親の子にしない → 兄弟要素にするとSP切り替えで static に戻すだけで縦並びになる(子要素にするとあとでSPのとき、分けて処理できないのでやっかい。)
+
+※カテゴリーごとにURLをもっている。
+管理画面できめる。　カテゴリーURL = /category/スラッグ/ の形
+
+
+- get_the_category_list() の特徴
+// こういうHTMLの文字列を返してくれる
+<a href="/category/news/">ニュース</a>, <a href="/category/event/">イベント</a>
+
+echo get_the_category_list(', '); 
+// ニュース, イベント
+
+手っ取り早くリンク付きカテゴリーを表示したいときは get_the_category_list() が一番ラクです！
+
+
+【似ている関数】
+似ている関数との違い
+関数	返すもの
+・get_the_category_list()	HTML文字列（リンク付き）
+・get_the_category()	配列（自分でループして使う）
+・the_category()	そのまま出力（echoなし）
+
+手っ取り早くリンク付きカテゴリーを表示したいときは get_the_category_list() が一番ラクです！
+
+【get_theで配列をかえすもの】
+配列を返す get_the_ 系
+関数	返すもの（タクソノミー（分類）系だけが配列です！）
+get_the_category()	カテゴリーの配列
+get_the_tags()	タグの配列
+get_the_terms()	タクソノミー全般の配列
+
+
+✅position: absolute は横並び・SPで調整大変 → 横並びは flexbox を使う。それか子要素としてポジションあぷソリュートはつかわない。スマホで縦に並べると、うまくならべれない。兄弟関係にすること
+
+
+✅SP切り替え時に新変数を作らない → @media内で既存の --side-width の値を上書きする
+
+✅position: absolute する要素は親の子にしない → 兄弟要素にするとSP切り替えで static に戻すだけで縦並びになる(子要素にするとあとでSPのとき、分けて処理できないのでやっかい。)
 
 
 - position: fixed に margin-left: auto は効かない → left プロパティで位置指定する
+
+fixed は親から切り離れるから、親基準の margin が効かない。
+
+left / top など画面基準のプロパティで動かす。
+
+
+/* ❌ 効かない */
+.fixed-box {
+    position: fixed;
+    margin-left: auto;
+}
+
+/* ✅ 正しい書き方 */
+.fixed-box {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);  /* 真ん中に持ってくる */
+}
+
+
+
 - サイドバーありパララックス: left: var(--left-side-width) + width: calc(100% - サイドバー幅) + z-index管理（背景1・セクション10・ヘッダー100）
 z-index サイドバーは200
 z-index トップ画像は10
@@ -181,8 +269,12 @@ z-index contentsは100（margin-top 100vh）
 ✅- overflow: hidden 削除後に position: absolute; right: マイナス値の要素がはみ出す → overflow-x: hidden を body に追加
 
 ✅- タブボタンの余白は gap でなく padding → gap だと tab_line（position: absolute の下線）がズレるリスクあり
+
+
 - box-sizing: border-box → paddingかけてもコンテンツ幅はひろがらない。でもpaddingの合計がwidthをこえるとひろがってしまう
+
 - CSSの継承は子（下方向）にしか流れない → 兄弟・親には継承されない
+
 - 継承される: color / font-size / font-family など / されない: width / padding / margin など
 
 ✅- JavaScript概要 → HTML/CSSだけでは動かせない「動き・操作・タイミング制御」を担当する言語。スクロール検知・クラスの付け外し・値の書き換えなどをする
@@ -341,7 +433,7 @@ margin-top: autoせずに自動的にフッターは↓にいく。
 functions.php の set_post_archiveメソッドの
 `has_archive = 'news'` で設定している（カテゴリではなく投稿タイプのアーカイブ）
 
-'''php
+```php
 /*====================================
  * 投稿のアーカイブページを作成
 ====================================*/
@@ -356,7 +448,8 @@ function set_post_archive($args, $post_type)
 }
 add_filter('register_post_type_args', 'set_post_archive', 10, 2);
 
-'''
+```
+
 
 - `/news/` = カテゴリでしぼった一覧ではなく「全投稿の一覧」→ `get_term_link()` は使えない / `get_post_type_archive_link('post')` か `home_url('/news/')` が正解
 
@@ -515,7 +608,24 @@ footer { margin-top: auto; }  ← footer 自
 
 - CPT UI = プラグインで「投稿タイプ」と「タクソノミー」を管理画面のボタン操作だけで追加できる（PHPコード不要）
 - `get_queried_object_id()` = 今見ているページの主役のID（カテゴリーページならカテゴリーID・記事ページなら記事ID）→ カテゴリーに限定したいときは `is_category()` と組み合わせる
+
+※ほかの行にもあるので、そこを参照する
+
 - archive-works.php = archive.phpをコピーしてファイル名を変えるだけ・命名ルール: `archive-{スラッグ}.php` / タクソノミーは `taxonomy-{スラッグ}.php`
 
 - PHPブロックの中 → `.` で文字結合 / HTMLの中にPHPを混ぜる → `<?php ?>` で挟む
 
+- 会社Git（Backlog）運用 → mainから自分の名前ブランチを切る → 毎日commit&push・朝pull（TortoiseGit）
+- グローバル `.gitignore`（`~/.gitignore_global`）に書けば会社に届かない → プロジェクト内の `.gitignore` は届く・見られる
+
+
+- `wp_title()` は WordPress 4.1 以降 非推奨 → `add_theme_support('title-tag')` を使う
+
+➡　<title> タグをWordPressに自動で出力させるための設定です。　// functions.php に書くだけ
+add_theme_support('title-tag');
+
+<title>ページ名 | サイト名</title>
+を出力してくれます。header.php に <title> タグを自分で書かなくていいです。
+
+なお、
+・bloginfo('name') はサイト名を表示するだけの関数で
