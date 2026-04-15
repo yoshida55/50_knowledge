@@ -1,8 +1,4 @@
-CSS jump
-▢　タブがひらいてないときは、ＣＳＳのクラスをクリックしてもＨＴＭＬタブをひらかない。
-▢　クイズエラー: Cannot access 'stagedTitles' before initializat
-▢　縦幅check。
-▢　
+▢　AltTabTerminatorをインストールする
 
 
 
@@ -12,11 +8,10 @@ CSS jump
 
 
 
-▢　VSCODEの拡張の設定で、claude codeを許可する
-![](images/2026-03-14-11-22-58.png)
 
-"claude.permissionMode": "bypassPermissions"
-Permission Mode を探して bypassPermissions に変更してみてください。
+
+
+
 
 
 -----------------------------------------------------
