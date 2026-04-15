@@ -655,3 +655,19 @@ add_theme_support('title-tag');
 - カスタムタクソノミーのターム取得 → `get_the_terms(記事ID, スラッグ)` で記事のターム・`get_terms(['taxonomy' => スラッグ])` で全ターム取得
 - 投稿タイプとタクソノミーの関係 → 「ぶら下がる」のではなく横並びでCPT UIで紐付け・記事にタームを設定する
 ![](images/2026-04-14-22-43-06.png)
+
+## 2026-04-15
+
+- メインクエリ → WordPressがアクセス時に自動で記事取得する仕組み・`have_posts()` はこれを使っている
+- 条件分岐タグ → `is_front_page()` `is_single()` `is_tax()` `is_post_type_archive()` でページ種類を判定できる
+- `get_the_ID()` → ループ中に `the_post()` が記事をセットするから自動で今の記事IDを返す・手動でID不要
+- カスタム投稿タイプ → 記事を入れる専用フォルダ・見出しではない・CPT UIで作る
+- タクソノミースラッグ間違い → `'works-tag'` と書いたがデータは `'works-category'` に入っていた → CPT UIで必ず確認
+- `<main>` をループ内に書いた → 記事の数だけ出力される → ループの外に出す
+- ファイル間違い → `page-contact.php` に制作実績のタームを書いた → `archive-works.php` に書く
+- ループが1回しか回らない → WordPress「設定 → 表示設定 → 1ページに表示する最大投稿数」が1になっていた → 件数を増やす
+
+- `$teams` とタイポ → `$terms` が正しい変数名
+- `foreach` を書き忘れ・`<li>echo teams->name</li>` は無効 → `foreach ($terms as $term) { echo '<li>' . esc_html($term->name) . '</li>'; }` が正しい
+- デバッグ用 `the_title()` を消し忘れた → 確認後は必ず削除する
+- `get_terms()` をループ内に書いた → 記事の数だけ出力される → `endwhile` の外に出す

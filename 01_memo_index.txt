@@ -202,3 +202,10 @@ get_queried_object_id すべてのページID is_category カテゴリー限定 
 wp_title deprecated 非推奨 add_theme_support title-tag WordPress 4.1以降 | WordPress
 get_the_terms get_terms wp_list_categories タームの取得 カスタムタクソノミー ループ内 全ターム | WordPress
 カスタムタクソノミー カスタム投稿タイプ 紐付け CPT UI 関係性 横並び 別々に作る | WordPress
+メインクエリ WordPressが自動で記事取得 have_posts the_post URLアクセス | WordPress
+条件分岐タグ is_front_page is_single is_page is_tax is_post_type_archive is_404 ページ種類判定 | WordPress
+get_the_ID ループ中 自動切り替え the_post 記事ID 手動不要 | WordPress
+カスタム投稿タイプ 記事の箱 フォルダ 専用URL works 管理画面メニュー CPT UI | WordPress
+タクソノミースラッグ CPT UI確認 タグ カテゴリー 一致しないとターム取れない | WordPress
+main h1 ループ外 アーカイブ構造 記事の数だけ出力 1回だけ | WordPress HTML
+表示設定 1ページ最大投稿数 ループ1回 have_posts 件数設定 | WordPress
