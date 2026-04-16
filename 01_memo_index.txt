@@ -209,3 +209,6 @@ get_the_ID ループ中 自動切り替え the_post 記事ID 手動不要 | Word
 タクソノミースラッグ CPT UI確認 タグ カテゴリー 一致しないとターム取れない | WordPress
 main h1 ループ外 アーカイブ構造 記事の数だけ出力 1回だけ | WordPress HTML
 表示設定 1ページ最大投稿数 ループ1回 have_posts 件数設定 | WordPress
+余白 8ptグリッド 8の倍数 margin padding gap リズム | HTML CSS
+タイポグラフィ ジャンプ率 見出し 文字サイズ 差 階層 | HTML CSS
+デザインフィードバック 凡庸化の罠 弱くする 洗練 ヒーロー グラデーション | HTML CSS

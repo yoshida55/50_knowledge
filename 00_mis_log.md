@@ -694,3 +694,8 @@ foreach ($terms as $term) {
 ✅`$teams` とタイポ → `$terms` が正しい変数名
 ✅`foreach` を書き忘れ・`<li>echo teams->name</li>` は無効 → `foreach ($terms as $term) { echo '<li>' . esc_html($term->name) . '</li>'; }` が正しい
 ✅get_terms()` をループ内に書いた → 記事の数だけ出力される → `endwhile` の外に出す
+
+## 2026-04-17
+- フィードバックで「テンプレっぽい」と言われて青を薄くした → 逆効果。グラデにして濃くしたら評価が上がった → 弱くするんじゃなく洗練させる
+- 余白がバラバラで「リズムがない」と指摘 → 8ptグリッド（8の倍数px）に統一するだけで改善
+- section見出しにサイズ指定がなくh2を使い回していた → 全部同じ強さになって階層が消える → 明示的に font-size: 3.2rem; font-weight: 600; を指定
