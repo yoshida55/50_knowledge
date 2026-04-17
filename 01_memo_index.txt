@@ -212,3 +212,5 @@ main h1 ループ外 アーカイブ構造 記事の数だけ出力 1回だけ |
 余白 8ptグリッド 8の倍数 margin padding gap リズム | HTML CSS
 タイポグラフィ ジャンプ率 見出し 文字サイズ 差 階層 | HTML CSS
 デザインフィードバック 凡庸化の罠 弱くする 洗練 ヒーロー グラデーション | HTML CSS
+wp_nav_menu theme_location header-menu container menu_class ナビゲーション 管理画面 外観メニュー | WordPress
+CPT スラッグ URL テンプレートファイル名 3つ一致 archive-works.php works フォールバック index.php | WordPress
