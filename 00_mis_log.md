@@ -746,7 +746,3 @@ wp_nav_menu(array(
 - archive.php はカテゴリ・タグ・日付・CPTすべての一覧を受け取る汎用テンプレート → 見た目を変えたいときだけ archive-{スラッグ}.php を追加すればOK
 - /memo-all + auto-memo MCPサーバーの動作テスト → 4ファイル一括書き込み成功
 
-- Claude Code ギャグテスト → highlight_line を memo_write_all に内蔵して curl 呼び出し削減成功
-
-- ギャグその２ → memo_read_context に index_path 追加・インデックス全件重複チェック成功
-- ギャグその３ → 既存エントリに正しく追記（新規作成せず重複チェック通過）
