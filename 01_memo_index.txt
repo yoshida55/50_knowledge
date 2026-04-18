@@ -228,3 +228,6 @@ get_template_part 使う理由 複数ページ 使い回し 直接書く 1ペー
 Contact Form 7 CF7 導入フロー スラッグ contact page-contact.php ショートコード 固定ページ本文 the_content | WordPress
 the_title ショートコード 違い 比較 archive-xxx.php ループ 投稿一覧 管理画面 the_content 役割 | WordPress
 archive.php 全一覧担当 汎用テンプレート archive-スラッグ.php 見た目変えたいときだけ フォールバック | WordPress
+天気は良くて気分がいい これはテストです MCP動作確認 | テスト
+Claude Code ギャグ プログラマー バグ デバッグ MCP JSON null pointer | テスト
+Claude Code ギャグその２ セッション 記憶 機能 バグではない won't fix | テスト

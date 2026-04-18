@@ -1,18 +1,27 @@
-▢　CSS jump
-
-☑最初の名詞は取得するようにする。文字補完。
-検索スピード改善
-
-Get the ID（統合タイプ）タクソノミーの「Get the ID」とは、
-
-Get the ID（投稿タイプ）タクソノミー　「Get the ID」とは、⇀これだと目的の記事が取得できた！
-
-※空白をあけたほうが、精度がたかいのか？？
 
 
 
+▢　メモ補助 MCP Server 登録処理
+
+１ githubからプルして、フォルダを作成する。
+　
+２　settings.jsonに以下の処理を追加する
+
+※会社のものにかえる。
+
+ C:\Users\sensh\.claude\settings.json
+
+"mcpServers": {
+  "auto-memo": {
+    "command": "python",
+    "args": ["D:/01_AI/10_Python/00_Python_src/99_commit/84_auto-memo補助MCPツール/server.py"]
+  }
+}
 
 
+
+
+3.Claude Codeによって登録してもらう
 
 
 
