@@ -20928,7 +20928,9 @@ wp_reset_postdata(); // ← ループの直後に必ず書く
 ```php
 <?php
 // ① クエリ準備はまとめてPHPブロック
-$query = new WP_Query(['post_type' => 'sweets', 'posts_per_page' => 1]);
+$query = new WP_Query
+(['post_type' 　　 => 'sweets', 
+　'posts_per_page' => 1]);
 ?>
 
 <!-- ② 表示はHTMLに混ぜる -->

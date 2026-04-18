@@ -7524,6 +7524,30 @@
     "reviewCount": 0,
     "aiCategory": "その他"
   },
+  "📌 Claude Code の確認プロンプトを減らす →": {
+    "title": "📌 Claude Code の確認プロンプトを減らす →",
+    "line": 20979,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "Claude Codeで新しいコマンドを実行するたびに確認が出るのを防ぐには、何を設定すればよいですか？",
+    "aiCategory": "その他"
+  },
+  "📌 デフォルト投稿（お知らせ）のアーカイブをメニューに追加する方法 →": {
+    "title": "📌 デフォルト投稿（お知らせ）のアーカイブをメニューに追加する方法 →",
+    "line": 20967,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressでデフォルト投稿のアーカイブページをメニューに追加する推奨手順は？",
+    "aiCategory": "WordPress"
+  },
+  "📌 get_template_part() を使う理由 →": {
+    "title": "📌 get_template_part() を使う理由 →",
+    "line": 20629,
+    "lastReviewed": 0,
+    "reviewCount": 0,
+    "questionText": "WordPressにおいて、複数のページで同じパーツを使い回す際に使用する関数は何ですか？",
+    "aiCategory": "WordPress"
+  },
   "_meta": {
     "lastFilter": {
       "date": "昨日",

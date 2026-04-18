@@ -1,9 +1,28 @@
+▢ BigQuery の料金をチェックする
+
+次は実際に料金データが流れてくるまで約24時間待つ必要があります。
+
+明日以降、BigQuery でこのSQLを実行すると Gemini の料金が見られます：
+
+
+SELECT
+  usage_start_time,
+  sku.description,
+  cost
+FROM `fluted-cogency-429421-r2.sensha.gcp_billing_export_v1_*`
+WHERE service.description LIKE '%Gemini%'
+ORDER BY usage_start_time DESC
+LIMIT 20;
+
+
+
 
 
 
 ▢　メモ補助 MCP Server 登録処理 ⇀
 ・とりあえずメモールを修正したので、
 MCBサーバーを見て接続してください、と言えばいいんだね。
+(84_auto-memo補助MCPツール)
 
 ・だから、Git cloneも必要だね。
 

@@ -748,8 +748,79 @@ wp_nav_menu(array(
 
 - デフォルト投稿（お知らせ/post）にはスラッグがない → アーカイブURLは /post にならない → 実務ではカスタム投稿タイプで作るほうが多い
 - サブクエリのループは $query->have_posts() / $query->the_post() → メインクエリと違い、変数名を前につける
-- register_post_type() と CPT UI は同じ結果 → 学習はCPT UIだけでOK・本番納品ではfunctions.phpに直書きも- WP_Query の post_type は CPTのスラッグ or 'post'（デフォルト投稿）を指定 → スラッグ名が一致していないと記事が取得できない- サブクエリのループ後に wp_reset_postdata() を忘れた → endwhile の直後に必ず書く（忘れるとメインクエリが壊れる）- wp_reset_postdata() の正しい位置は endif の外側（ループとifブロックの両方が終わった後）- PHPで全体を囲むと echo だらけになる → クエリ準備はPHPブロック・表示はHTMLに混ぜるのが読みやすい- register_nav_menus のキー名は自由に決める → functions.php と header.php の theme_location を同じ名前に揃える
+- register_post_type() と CPT UI は同じ結果 → 学習はCPT UIだけでOK・本番納品ではfunctions.phpに直書きも
+
+- 実務では納品先のリスクに応じてfunctions.phpに直書きすることもある（基本はCPTUI）
+```php
+register_post_type('news', [
+    'public'      => true,
+    'has_archive' => true,
+    'labels'      => ['name' => 'ニュース'],
+    'supports'    => ['title', 'editor'],
+]);
+
+
+- WP_Query の post_type は CPTのスラッグ or 'post'（デフォルト投稿・お知らせ　archive.php）を指定 → スラッグ名が一致していないと記事が取得できない
+
+要するに「お知らせ」じゃない画面で投稿を取得したいときに使う、3件だけ表示するとか
+
+
+【具体例】
+<?php
+// ① クエリ準備はまとめてPHPブロック
+$query = new WP_Query
+(['post_type' 　　 => 'sweets', 
+　'posts_per_page' => 1]);
+?>
+
+<!-- ② 表示はHTMLに混ぜる -->
+<main>
+  <?php while ($query->have_posts()) : $query->the_post(); ?>
+    <a href="<?php the_permalink(); ?>">
+      <?php the_title(); ?>
+    </a>
+  <?php endwhile; wp_reset_postdata(); ?>
+</main>
+```
+
+【実務でつかう場面】
+
+TOPページ
+├ 最新ニュース 3件（post）
+└ 制作実績 3件（works）← メインクエリと別に取得
+
+
+- サブクエリのループ後に wp_reset_postdata() を忘れた → endwhile の直後に必ず書く（忘れるとメインクエリが壊れる）
+
+- wp_reset_postdata() の正しい位置は endif の外側（ループとifブロックの両方が終わった後）
+
+
+- PHPで全体を囲むと echo だらけになる 
+→ `クエリ準備はPHPブロック・表示はHTMLに混ぜるのが読みやすい`- 
+
+register_nav_menus(ヘッダーPHPに記載するメソッド。これがあると管理画面のメニューが反映) のキー名は自由に決める 
+→ functions.php と header.php の theme_location を同じ名前に揃える
+
+```php
+// functions.php
+register_nav_menus([
+    'header-menu' => 'ヘッダーメニュー',  // キー名 => 管理画面に表示される説明
+]);
+
+// header.php
+wp_nav_menu(['theme_location' => 'header-menu']);
+```
+
+
+
 ## 2026-04-19
 - bloginfo('name') → WordPress関数でサイト名を表示。変数に入れたいときは get_bloginfo('name')
+
 - VS Code で WordPress関数に青線（intelephense警告）→ エラーではない・WordPressのスタブがないだけ → ブラウザでは正常動作する
-- デフォルト投稿のアーカイブをメニューに追加したい → 設定 → 表示設定 → 投稿ページに固定ページを割り当ててから外観 → メニューで追加する- Claude Code の確認が何度も出る → settings.json の Bash が個別登録になっていた → Bash(curl*) などワイルドカードにまとめて解決
+
+
+- デフォルト投稿のアーカイブをメニューに追加したい → 設定 → 表示設定 → 投稿ページに固定ページを割り当ててから外観 → メニューで追加する
+
+- 推奨：➀固定ページ「お知らせ」を作成（スラッグ: news）→ ➁設定 → 表示設定 → 投稿ページに割り当て → ➂/news/ がアーカイブになる → ➃外観 → メニューで固定ページとして追加
+
+- Claude Code の確認が何度も出る → settings.json の Bash が個別登録になっていた → Bash(curl*) などワイルドカードにまとめて解決
