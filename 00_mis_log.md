@@ -746,3 +746,10 @@ wp_nav_menu(array(
 - archive.php はカテゴリ・タグ・日付・CPTすべての一覧を受け取る汎用テンプレート → 見た目を変えたいときだけ archive-{スラッグ}.php を追加すればOK
 - /memo-all + auto-memo MCPサーバーの動作テスト → 4ファイル一括書き込み成功
 
+- デフォルト投稿（お知らせ/post）にはスラッグがない → アーカイブURLは /post にならない → 実務ではカスタム投稿タイプで作るほうが多い
+- サブクエリのループは $query->have_posts() / $query->the_post() → メインクエリと違い、変数名を前につける
+- register_post_type() と CPT UI は同じ結果 → 学習はCPT UIだけでOK・本番納品ではfunctions.phpに直書きも- WP_Query の post_type は CPTのスラッグ or 'post'（デフォルト投稿）を指定 → スラッグ名が一致していないと記事が取得できない- サブクエリのループ後に wp_reset_postdata() を忘れた → endwhile の直後に必ず書く（忘れるとメインクエリが壊れる）- wp_reset_postdata() の正しい位置は endif の外側（ループとifブロックの両方が終わった後）- PHPで全体を囲むと echo だらけになる → クエリ準備はPHPブロック・表示はHTMLに混ぜるのが読みやすい- register_nav_menus のキー名は自由に決める → functions.php と header.php の theme_location を同じ名前に揃える
+## 2026-04-19
+- bloginfo('name') → WordPress関数でサイト名を表示。変数に入れたいときは get_bloginfo('name')
+- VS Code で WordPress関数に青線（intelephense警告）→ エラーではない・WordPressのスタブがないだけ → ブラウザでは正常動作する
+- デフォルト投稿のアーカイブをメニューに追加したい → 設定 → 表示設定 → 投稿ページに固定ページを割り当ててから外観 → メニューで追加する- Claude Code の確認が何度も出る → settings.json の Bash が個別登録になっていた → Bash(curl*) などワイルドカードにまとめて解決

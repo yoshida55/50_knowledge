@@ -20842,3 +20842,174 @@ A. これは機能です。バグではありません。（issue: won't fix）
 
 Q. Claude に「コードを書いて」とお願いしたら？
 A. 「承知しました。まず TodoWrite でチェックリストを出します。」
+## 📌 サブクエリ（WP_Query）とは → メインクエリとは別に任意の場所で記事を取得する仕組み。
+new WP_Query() で条件を指定 → $query->have_posts() / $query->the_post() でループ WordPress
+
+【日付】2026-04-18
+【結論】
+- メインクエリ：URLを見てWordPressが自動で記事を取得（have_posts / the_post / the_content）
+- サブクエリ：自分でクエリを作成（TOPページにworksを3件表示 など）
+
+【具体例】
+```php
+$query = new WP_Query([
+    'post_type'      => 'works',
+    'posts_per_page' => 3
+]);
+if ( $query->have_posts() ) :
+    while ( $query->have_posts() ) : $query->the_post();
+        // タイトル・リンクなど
+    endwhile;
+endif;
+```
+メインクエリとの違い：have_posts() / the_post() の前に $query-> をつけるだけ
+
+【補足】
+- post_type：取得したい投稿タイプ名
+- posts_per_page：取得件数
+- 変数名は自由（$query でなくてもOK）
+
+## 📌 register_post_type() と CPT UI は同じ結果 → 学習はCPT UIだけでOK。
+プラグイン削除リスクを避けるため本番納品時はfunctions.phpに直書きする場合もある WordPress
+
+【日付】2026-04-18
+【結論】
+- CPT UI（管理画面）：ポチポチ設定するだけ → 学習・開発中はこれでOK
+- register_post_type()（functions.php直書き）：プラグイン削除でも消えない → 本番納品時に使う
+
+【補足】
+- CPT UI はプラグイン → クライアントが削除すると投稿タイプごと消える
+- 実務では納品先のリスクに応じてfunctions.phpに直書きすることもある
+```php
+register_post_type('news', [
+    'public'      => true,
+    'has_archive' => true,
+    'labels'      => ['name' => 'ニュース'],
+    'supports'    => ['title', 'editor'],
+]);
+```
+## 📌 WP_Query の post_type パラメータ → CPTのスラッグ or 'post'（デフォルト投稿）を指定する WordPress
+
+【日付】2026-04-18
+【結論】
+- 'post_type' => 'works' → CPT UIで作ったカスタム投稿タイプのスラッグ名を指定
+- 'post_type' => 'post'  → デフォルトの投稿（お知らせなど）を指定
+
+【補足】
+- スラッグ名と一致していないと記事が取得できない
+- archive.phpのメインクエリ内部も内部的には 'post' が使われている
+## 📌 サブクエリ（WP_Query）のループ後は wp_reset_postdata() が必須 →
+忘れるとその後のメインクエリ（have_posts / the_post）が壊れる WordPress
+
+【日付】2026-04-18
+【結論】
+- サブクエリのループ終了後に必ず wp_reset_postdata() を呼ぶ
+- 忘れると、その後のメインクエリが正しく動かなくなる
+
+【具体例】
+```php
+while ( $query->have_posts() ) : $query->the_post();
+    // 表示処理
+endwhile;
+wp_reset_postdata(); // ← ループの直後に必ず書く
+```
+## 📌 WordPressテンプレートのPHP/HTML混在ルール →
+クエリ準備はPHPブロックにまとめ・表示はHTMLの中に <?php ?> を埋め込む WordPress
+
+【日付】2026-04-18
+【結論】
+- PHPで全体を囲むと echo だらけになって読みにくい → HTMLはHTMLで書くのが基本
+- クエリ・変数の準備 → PHPブロックにまとめる
+- ループ・if → コロン構文（: 〜 endwhile）でHTMLに混ぜる
+- the_ 系関数 → echo不要でそのまま出力
+- 変数を出力するとき → echo $変数
+
+【具体例】
+```php
+<?php
+// ① クエリ準備はまとめてPHPブロック
+$query = new WP_Query(['post_type' => 'sweets', 'posts_per_page' => 1]);
+?>
+
+<!-- ② 表示はHTMLに混ぜる -->
+<main>
+  <?php while ($query->have_posts()) : $query->the_post(); ?>
+    <a href="<?php the_permalink(); ?>">
+      <?php the_title(); ?>
+    </a>
+  <?php endwhile; wp_reset_postdata(); ?>
+</main>
+```
+## 📌 register_nav_menus() で任意の名前（キー）を登録 →
+wp_nav_menu() の theme_location に同じキーを指定して表示する WordPress
+
+【日付】2026-04-18
+【結論】
+- ➀ functions.php で register_nav_menus() に任意の名前（キー）を登録する
+- ➁ 管理画面「外観 → メニュー」でそのキー名の場所にメニューを割り当てる
+- ➂ header.php で wp_nav_menu(['theme_location' => 'キー名']) を呼ぶと表示される
+- キー名は自由に決めてOK（例：'header-menu'）→ functions.php と header.php で一致させる
+
+【具体例】
+```php
+// functions.php
+register_nav_menus([
+    'header-menu' => 'ヘッダーメニュー',  // キー名 => 管理画面に表示される説明
+]);
+
+// header.php
+wp_nav_menu(['theme_location' => 'header-menu']);
+```
+
+【補足】
+- キー名を変えたら functions.php と header.php の両方を合わせる必要がある
+- 管理画面でメニューを割り当てないと何も表示されない
+## 📌 デフォルト投稿（お知らせ）のアーカイブをメニューに追加する方法 →
+「設定 → 表示設定 → 投稿ページ」に固定ページを割り当てるのが推奨 WordPress
+
+【日付】2026-04-19
+【結論】
+- CPT（works など）は has_archive => true で /works/ のURLが使えるが、デフォルト投稿は専用アーカイブURLがない
+- 推奨：➀固定ページ「お知らせ」を作成（スラッグ: news）→ ➁設定 → 表示設定 → 投稿ページに割り当て → ➂/news/ がアーカイブになる → ➃外観 → メニューで固定ページとして追加
+- 簡易：外観 → メニュー → カスタムリンクでURLを直接指定（不安定）
+
+【補足】
+- 投稿ページを設定するとテンプレートは home.php または index.php が使われる
+- CPTのアーカイブをメニューに追加するときはカスタムリンクに /CPTスラッグ/ を入れる（別の話）
+## 📌 Claude Code の確認プロンプトを減らす →
+.claude/settings.json の Bash 許可をワイルドカードでまとめる HTML
+
+【日付】2026-04-19
+【結論】
+- Bash コマンドが個別登録されていると、新しいコマンドのたびに確認が出る
+- ワイルドカード（*）でまとめることで確認を大幅に減らせる
+- Write / Edit は引数なしで書くと全ファイルに適用される
+
+【具体例】
+```json
+// .claude/settings.json（プロジェクト内の .claude/ フォルダ）
+{
+  "permissions": {
+    "allow": [
+      "Write",
+      "Edit",
+      "Read(//c/Users/sensh/**)",
+      "WebSearch",
+      "Bash(curl*)",
+      "Bash(test -f *)",
+      "Bash(git *)",
+      "Bash(tail *)",
+      "Bash(grep *)",
+      "Bash(echo *)",
+      "Bash(npm *)",
+      "Bash(node *)",
+      "Bash(printf *)"
+    ]
+  }
+}
+```
+
+【補足】
+- 個別の curl コマンドが行番号ごとに大量追加されていたのが原因
+- `"Bash(curl*)"` の1行で全 curl コマンドをまとめて許可できる
+- VS Code の設定とは別物（Claude Code 独自の許可システム）

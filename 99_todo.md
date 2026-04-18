@@ -1,8 +1,13 @@
 
 
 
-▢　メモ補助 MCP Server 登録処理
+▢　メモ補助 MCP Server 登録処理 ⇀
+・とりあえずメモールを修正したので、
+MCBサーバーを見て接続してください、と言えばいいんだね。
 
+・だから、Git cloneも必要だね。
+
+--------------
 １ githubからプルして、フォルダを作成する。
 　
 ２　settings.jsonに以下の処理を追加する
@@ -17,11 +22,8 @@
     "args": ["D:/01_AI/10_Python/00_Python_src/99_commit/84_auto-memo補助MCPツール/server.py"]
   }
 }
+--------------
 
-
-
-
-3.Claude Codeによって登録してもらう
 
 
 
