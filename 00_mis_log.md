@@ -951,4 +951,4 @@ foreach ( $categories as $category ) {
 - ❌ カテゴリーアーカイブのURL取得 → get_term_link('スラッグ', 'category')
 - get_term_link('news', 'category') → カテゴリー・タグページへのリンクURL取得（href="" に入れて使う）
 - get_post_type_archive_link('post') → 投稿タイプ一覧ページへのリンクURL取得（href="" に入れて使う）
-- ✅ アーカイブ設定2つ → ①functions.phpのset_post_archive() ②設定→表示設定→投稿ページに固定ページ割り当て- SCF 繰り返しフィールドはサブフィールドのタイプが変わっても have_rows → the_row → the_sub_field の構造は同じ
+- ✅ アーカイブ設定2つ → ①functions.phpのset_post_archive() ②設定→表示設定→投稿ページに固定ページ割り当て- SCF 繰り返しフィールドはサブフィールドのタイプが変わっても have_rows → the_row → the_sub_field の構造は同じ- CF7 はフォームに自動で `<p>` タグを挿入 → functions.php に `add_filter('wpcf7_autop_or_not', '__return_false')` で削除できる

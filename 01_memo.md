@@ -21178,3 +21178,36 @@ SCFをインストールした後は、以下の順番で進める。
 - have_rows('フィールド名') → the_row() → the_sub_field('サブフィールド名') の3点セットは共通
 - サブフィールドのタイプ（テキスト/画像/URL）はHTMLタグ側で使い分けるだけ
 - 「1行に何を入れるか」の設計がSCFの仕事・コードの書き方は変わらない
+
+## 📌 Contact Form 7 が自動挿入する `<p>` タグを削除するには → functions.php に add_filter('wpcf7_autop_or_not', '__return_false') を追記する WordPress
+
+【日付】2026-04-20
+
+【結論】
+CF7はフォームに自動で `<p>` タグを挿入するため、独自のCSSで組んだフォームが崩れる。
+`functions.php` に1行追加するだけで止められる。
+
+【具体例】
+```php
+add_filter('wpcf7_autop_or_not', '__return_false');
+```
+- `__return_false` はWordPress組み込みの関数（false を返すだけ）
+- 自前で関数を作って渡す書き方（PDFの例）と動作は同じ
+
+【page-contact.php の基本構造】
+```php
+<?php get_header(); ?>
+<main>
+    <?php if (have_posts()): while (have_posts()): the_post(); ?>
+        <div class="contact_content">
+            <?php the_content(); ?>
+        </div>
+    <?php endwhile; endif; ?>
+</main>
+<?php get_footer(); ?>
+```
+- 管理画面の「お問い合わせ」固定ページ本文に CF7 ショートコードを貼ると `the_content()` が表示する
+
+【補足】
+- ショートコードは CF7 管理画面（お問い合わせ → コンタクトフォーム1）にある
+- `[contact-form-7 id="xxx"]` の形式をコピーして固定ページ本文に貼るだけ
