@@ -25,9 +25,9 @@
 - wp_head()にCSSが自動で出るのを不思議に思ったが（つまりCSSの一覧がWEB出力時に設定される） → functions.phpのwp_enqueue_style()で登録したものがwp_head()から出てくる2段階の仕組み
 
 ✅
-- `esc_html()` → テキストを表示するとき（カテゴリ名・タイトル・著者名など）
-- `esc_url()` → URLを表示するとき（hrefの中など）
-- `esc_attr()` → HTML属性の値を表示するとき（class・id・valueの中など）
+- ❌ `esc_html()` → テキストを表示するとき（カテゴリ名・タイトル・著者名など）
+- ❌ `esc_url()` → URLを表示するとき（hrefの中など）
+- ❌ `esc_attr()` → HTML属性の値を表示するとき（class・id・valueの中など）
 
 
 - PHPでHTMLタグを書くとき → `'` で囲む（外が `'` なら中に `"` を書ける）
@@ -83,7 +83,7 @@ if ( is_category() ) {
 取得し、比較をすると便利。
 
 
-- タグごと出力する関数（この3つだけ覚える）：
+- ✅ タグごと出力する関数（この3つだけ覚える）：
   - `the_post_thumbnail()` → `<img>` ごと出る
   - `the_category()` → `<ul><li><a>` ごと出る
   - `wp_list_categories()` → `<ul><li><a>` ごと出る
@@ -107,8 +107,8 @@ if ( is_category() ) {
 
 
 
-- ➀get_template_directory_uri() はURLを返す（物理パスではない）→ src="" や href="" に使う★画像やＵＲＬにつかう。　
-- ➁get_template_directory() は物理パスを返す → require / include に使う（_uri なし）→つまり他のPHPをよぶ
+- ✅ ➀get_template_directory_uri() はURLを返す（物理パスではない）→ src="" や href="" に使う★画像やＵＲＬにつかう。　
+- ✅ ➁get_template_directory() は物理パスを返す → require / include に使う（_uri なし）→つまり他のPHPをよぶ
 
 ブラウザに渡すもの（HTML）か、サーバー（php）が使うものかで決まります！
 
@@ -121,7 +121,7 @@ require get_template_directory() . '/inc/widgets.php';
 ✅wp_footer() は </body> 直前に必ず書く（WordPressのお決まり）
 CSSを読み込む
 
-- wp_head() は </head> 直前に書く（wp_footer() は </body> 直前・セットで覚える）
+- ✅ wp_head() は </head> 直前に書く（wp_footer() は </body> 直前・セットで覚える）
 
 - ローカルHTMLのWordPress化 → ①style.css ②header/footer.php ③index.php ④functions.phpの4ステップ
 
@@ -392,12 +392,12 @@ h2::before {
 
 - while のコロン構文: `while (have_posts()) : the_post();` ～ `endwhile;` → `{}` と同じ意味・WordPressでよく使う
 
-- `get_the_category()` は配列で返る → 1件だけ取るときは `get_the_category()[0]->name` / 全件は `foreach` で回す
+- ✅ `get_the_category()` は配列で返る → 1件だけ取るときは `get_the_category()[0]->name` / 全件は `foreach` で回す
 
 
 ## 2026-04-11
 
-- 【the = 出す / get = もらう】the_○○() → HTMLごと直接出力（echo・esc_html不要）/ get_the_○○() → 値を返すだけ（echo esc_html() がセット）
+- ✅ 【the = 出す / get = もらう】the_○○() → HTMLごと直接出力（echo・esc_html不要）/ get_the_○○() → 値を返すだけ（echo esc_html() がセット）
 - the_content() 
 / the_post_thumbnail() 
 【出す系】に esc_html() を使うと HTMLタグが文字化け 
@@ -407,7 +407,7 @@ h2::before {
 
 - 加工・条件分岐したいときは get_the_○○() を使う（値として受け取れる）
 
-- the_post_thumbnail() にクラスを付けるには第2引数に配列で渡す → `the_post_thumbnail('post-thumbnail', ['class' => 'クラス名'])`
+- ✅ the_post_thumbnail() にクラスを付けるには第2引数に配列で渡す → `the_post_thumbnail('post-thumbnail', ['class' => 'クラス名'])`
 
 - margin-top: auto は flexbox なしでは効かない → 「余ったスペースという概念がない」から（ゼロではなく概念なし）
 (そもそも隙間がないときにはマージン０,autoはきかないことを理解する。)
@@ -589,7 +589,7 @@ footer { margin-top: auto; }  ← footer 自
 ```
 　
 
-- `WP_Query` 使ったら必ず `wp_reset_postdata()` を最後に呼ぶ
+- ✅ `WP_Query` 使ったら必ず `wp_reset_postdata()` を最後に呼ぶ
 - `$query->have_posts()` の `->` は「変数の中にある機能を使う」記号・WP_Query使用時は必須
 - `var_dump($query)` は量が多すぎる → `var_dump($query->posts)` で記事だけ見る
 - `the_` 系は自分でecho → `echo the_title()` は二重になるNG・`get_` 系はechoが必要
@@ -661,7 +661,8 @@ add_theme_support('title-tag');
 ✅メインクエリ → WordPressがアクセス時に自動で記事取得する仕組み・`have_posts()` はこれを使っている
 ✅条件分岐タグ → `is_front_page()` `is_single()` `is_tax()` `is_post_type_archive()` でページ種類を判定できる
 ✅`get_the_ID()` → ループ中に `the_post()` が記事をセットするから自動で今の記事IDを返す・手動でID不要
-- カスタム投稿タイプ → 記事を入れる専用フォルダ・見出しではない・CPT UIで作る
+
+✅- カスタム投稿タイプ → 記事を入れる専用フォルダ・見出しではない・CPT UIで作る
 ※制作実績、物件情報、ニュース
 
 - タクソノミースラッグ間違い → `'works-tag'` と書いたがデータは `'works-category'` に入っていた → CPT UIで必ず確認
@@ -739,6 +740,11 @@ wp_nav_menu(array(
 ## 2026-04-18
 - Contact Form 7 のショートコードとテーマのファイル名は無関係 → ショートコードはプラグインが処理するので `page-contact.php` などファイル名は何でもOK
 - CF7 を使うには `the_content()` があるページ本文にショートコードを貼るだけ
+- ❌ CF7はpタグを自動挿入してレイアウトが崩れる → functions.phpに以下を書いて削除する
+```php
+function wpcf7_p_remover(){ return false; }
+add_filter('wpcf7_autop_or_not', 'wpcf7_p_remover');
+```
 - get_template_part() は「複数ページで使い回すとき」に使う → 1ページだけなら直接PHPファイルに書いてOK
 - CF7導入フロー: ➀スラッグを `contact` にする → ➁固定ページ本文にショートコードを貼る → ➂ `the_content()` が展開して表示
 - the_title() はループで投稿を1件ずつ出すもの・ショートコードは管理画面の本文に貼るプラグイン機能 → 全然別物
@@ -816,29 +822,52 @@ wp_nav_menu(['theme_location' => 'header-menu']);
 ## 2026-04-19
 ✅ bloginfo('name') → WordPress関数でサイト名を表示。変数に入れたいときは get_bloginfo('name')
 
+
 - VS Code で WordPress関数に青線（intelephense警告）→ エラーではない・WordPressのスタブがないだけ → ブラウザでは正常動作する
 
 
 - デフォルト投稿のアーカイブをメニューに追加したい → 設定 → 表示設定 → 投稿ページに固定ページを割り当ててから外観 → メニューで追加する
 
-※推奨：➀固定ページ「お知らせ」を作成（スラッグ: news）→ ➁設定 → 表示設定 → 投稿ページに割り当て → ➂/news/ がアーカイブになる → ➃外観 → メニューで固定ページとして追加
+※推奨：
+➀固定ページ「お知らせ」を作成（スラッグ: news）→ 
+➁設定 → 表示設定 → 投稿ページに割り当て → 
+➂/news/ がアーカイブになる → 
+➃外観 → メニューで固定ページとして追加
 
 - Claude Code の確認が何度も出る → settings.json の Bash が個別登録になっていた → Bash(curl*) などワイルドカードにまとめて解決
 
+
+※　set_post_archive() 方式
+→ 同じことをPHPで書いているだけ
+
+
 - functions.php に書くもの → CSS/JS以外に「アイキャッチ有効化・title-tag・メニュー登録」が優先度高・CPT登録は中
 
+`set_post_archive()`      │ 「投稿」アーカイブURLを設定 │
+```php
+function set_post_archive($args, $post_type) {
+    if ('post' == $post_type) {
+        $args['has_archive'] = 'news';  // ← /news/ というURLにする
+        $args['label'] = 'お知らせ';
+    }
+    return $args;
+}
+```
 
-┌─────────────────────────────────────────────────────┐
-│ 関数名                  │ 役割                        │
-├─────────────────────────────────────────────────────┤
-│ set_post_archive()      │ 「投稿」アーカイブURLを設定 │
-│ register_post_type()    │ カスタム投稿タイプを新規作成│
-│ add_theme_support()     │ アイキャッチ画像を有効化    │
-└─────────────────────────────────────────────────────┘
-add_theme_support('title-tag')` | `<title>` 
+add_filter('register_post_type_args', 'set_post_archive', 10, 2);
 
+
+・register_post_type()    │ カスタム投稿タイプを新規作成・CPT UIがあればいらない│
+
+`add_theme_support('title-tag')` | `<title>``<title>` タグをWordPressに管理させる |
+※例：タブに「会社概要 | 株式会社〇〇」と表示される部分
+
+`add_theme_support('post-thumbnails')` | アイキャッチ画像を有効化する
 
 - add_theme_support('title-tag') → WordPressがページ種類に応じて <title> を自動出力してくれる（記事タイトル・カテゴリ名・サイト名など）→ header.php に <title> を手書きしなくてよい
+
+ `register_nav_menus([...])` | ヘッダー・フッターなどメニューの場所を登録する |
+
 ## 2026-04-19
 
 - SCF導入フロー
@@ -852,9 +881,53 @@ add_theme_support('title-tag')` | `<title>`
 ➂MetaBoxで内容入力（固定ページメニュー）
 
 
-- メニュー登録：カスタム投稿タイプの枝葉の方じゃなくて、メニューを登録したい場合
+- Scfの役割
+SCFは 「PHPを触らずに、管理画面から内容を更新できるようにする仕組み」 です！
+
+
+- CPTUIメニュー登録：
+
+カスタム投稿タイプの枝葉の方じゃなくて、メニューを登録したい場合
 カスタムリンク（URL手打ち）は現在地クラスが効かないことがある → 
-CPT UIの「アーカイブあり」から追加した「投稿タイプアーカイブ」の方が正しい
+・CPT UIの「アーカイブあり」から追加した「投稿タイプアーカイブ」の方が正しい
 
 
 - SCF繰り返しフィールド: have_rows('フィールド名') + the_row() + the_sub_field() のセットで使う → 新しいグループを作らず既存グループに追加する
+```php
+<?php if (have_rows('company_info')) : ?>
+  <?php while (have_rows('company_info')) : the_row(); ?>
+    <tr>
+      <th><?php the_sub_field('items'); ?></th>
+      <td><?php the_sub_field('contents'); ?></td>
+    </tr>
+  <?php endwhile; ?>
+<?php endif; ?>
+```
+
+
+- PHPの文字列は `''` で囲む → HTML属性値の `""` と混在しないためエスケープ不要
+```php
+// ✅ シングルクォートで囲めば " をそのまま書ける
+echo '<span class="cat-label">' . $category->name . '</span>';
+
+// ❌ ダブルクォートで囲むと \" とエスケープが必要になる
+echo "<span class=\"cat-label\">" . $category->name . "</span>";
+```
+
+
+
+- セミコロンは文の最後だけ → `.` でつないでいる間は文の途中(phpで全てかこまず、通常のHTMLに埋め込むパターン)
+
+```php
+echo '<span>' . $category->name . '</span>';
+//        　↑タグは文字列            　　　　　↑ここだけ（文の最後）
+```
+
+
+- `get_the_category()` は配列で返る → `foreach` で回す
+```php
+$categories = get_the_category();
+foreach ( $categories as $category ) {
+    echo '<span class="cat-label">' . $category->name . '</span>';
+}
+```
