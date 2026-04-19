@@ -21098,3 +21098,83 @@ SCFをインストールした後は、以下の順番で進める。
 - the_row()       → 繰り返しの1行に移動（必須・おまじない）
 - the_sub_field() → 繰り返しの中の各フィールドを表示
 
+
+## 📌 SCF 画像フィールド → the_sub_field() でURLが返る → src="" に入れる / エスケープ不要（内部処理済み） WordPress
+
+【日付】2026-04-20
+【結論】SCFの画像フィールドは the_sub_field() でURLを返す。src="" に直接入れるだけでOK。esc_url() などエスケープは不要（SCF内部で処理済み）。
+
+【具体例】
+```php
+<?php if ( have_rows('partner') ) : ?>
+  <?php while ( have_rows('partner') ) : the_row(); ?>
+    <div class="partner_item">
+      <img src="<?php the_sub_field('logo'); ?>" alt="">
+      <p><?php the_sub_field('company_name'); ?></p>
+      <a href="<?php the_sub_field('site_url'); ?>">サイトを見る</a>
+    </div>
+  <?php endwhile; ?>
+<?php endif; ?>
+```
+
+【補足】
+- the_sub_field() → SCF内部でエスケープ済み・echo不要・esc_url()不要
+- get_the_○○()（WordPress標準） → esc_html() / esc_url() が必要
+- 画像フィールドはURLを返す → &lt;img src=""&gt; の中に入れる（imgタグは自分で書く）
+
+【フィールド構造の考え方】
+- 固定で1回だけ表示 → 個別フィールド（the_field('company_name')）
+- 何行でも増やせる → 繰り返しフィールド（have_rows + the_row + the_sub_field）
+
+## 📌 SCF 画像フィールドは「返り値の形式」で URL か ID かが変わる →「画像URL」に設定しないと src="" に数字が入る WordPress
+
+【日付】2026-04-20
+【結論】SCFの画像フィールドはデフォルトでIDを返すことがある。src="" に使うには「返り値の形式」を「画像URL」に設定する必要がある。
+
+【具体例】
+```php
+// ✅ 返り値の形式 = 画像URL のとき → そのまま使える
+<img src="<?php the_sub_field('logo'); ?>" alt="">
+
+// ❌ 返り値の形式 = 画像ID のとき → 数字が入って画像が出ない
+// → wp_get_attachment_url() で変換が必要
+<img src="<?php echo wp_get_attachment_url( get_sub_field('logo') ); ?>" alt="">
+```
+
+【補足】
+- SCF管理画面 → フィールドグループ → 画像フィールドを編集 →「返り値の形式」→「画像URL」を選ぶ
+- 画像が表示されないときは src="" の中身を検証ツールで確認 → 数字が入っていたらID返しが原因
+
+## 📌 SCF 繰り返しフィールドは「何をセットにして増やすか」だけが違う → have_rows・the_row・the_sub_field の構造は常に同じ WordPress
+
+【日付】2026-04-20
+【結論】テキストだけでも・画像+URL混じりでも、繰り返しフィールドのコードの書き方は変わらない。違うのはサブフィールドのタイプだけ。
+
+【具体例】
+```php
+// ① テキストだけのケース（会社情報）
+<?php if ( have_rows('company_info') ) : ?>
+  <?php while ( have_rows('company_info') ) : the_row(); ?>
+    <tr>
+      <th><?php the_sub_field('items'); ?></th>
+      <td><?php the_sub_field('contents'); ?></td>
+    </tr>
+  <?php endwhile; ?>
+<?php endif; ?>
+
+// ② 画像・テキスト・URLのケース（取引先）
+<?php if ( have_rows('partner') ) : ?>
+  <?php while ( have_rows('partner') ) : the_row(); ?>
+    <div class="partner_item">
+      <img src="<?php the_sub_field('logo'); ?>" alt="">
+      <p><?php the_sub_field('company_name'); ?></p>
+      <a href="<?php the_sub_field('site_url'); ?>">サイトを見る</a>
+    </div>
+  <?php endwhile; ?>
+<?php endif; ?>
+```
+
+【補足】
+- have_rows('フィールド名') → the_row() → the_sub_field('サブフィールド名') の3点セットは共通
+- サブフィールドのタイプ（テキスト/画像/URL）はHTMLタグ側で使い分けるだけ
+- 「1行に何を入れるか」の設計がSCFの仕事・コードの書き方は変わらない

@@ -1,3 +1,11 @@
+## 📊 クイズ履歴
+| 日付 | 出題数 | 正解 | 残り未出題 |
+|---|---|---|---|
+| 2026-04-19 | 10問 | 8問 | 154問 |
+| 2026-04-20 | 14問 | 10問 | 154問 |
+
+---
+
 ## 2026-04-13
 - Copilot Edits でツール実行が確認される場合は `github.copilot.chat.edits.instructions` にも同様の自動承認指示が必要（ `github.copilot.chat.codeGeneration.instructions` とは別設定）。
 
@@ -25,9 +33,9 @@
 - wp_head()にCSSが自動で出るのを不思議に思ったが（つまりCSSの一覧がWEB出力時に設定される） → functions.phpのwp_enqueue_style()で登録したものがwp_head()から出てくる2段階の仕組み
 
 ✅
-- ❌ `esc_html()` → テキストを表示するとき（カテゴリ名・タイトル・著者名など）
-- ❌ `esc_url()` → URLを表示するとき（hrefの中など）
-- ❌ `esc_attr()` → HTML属性の値を表示するとき（class・id・valueの中など）
+- ✅ `esc_html()` → テキストを表示するとき（カテゴリ名・タイトル・著者名など）
+- ✅ `esc_url()` → URLを表示するとき（hrefの中など）
+- ✅ `esc_attr()` → HTML属性の値を表示するとき（class・id・valueの中など）
 
 
 - PHPでHTMLタグを書くとき → `'` で囲む（外が `'` なら中に `"` を書ける）
@@ -421,7 +429,7 @@ margin-top: autoせずに自動的にフッターは↓にいく。
 
 
 
-- single.php のループは「記事があるか確認」より「the_post() を呼ぶための儀式」→ the_post() なしだと the_title() 等が動かない
+- ✅ single.php のループは「記事があるか確認」より「the_post() を呼ぶための儀式」→ the_post() なしだと the_title() 等が動かない
 - have_posts() + the_post() のセットはWordPressの慣習・公式テンプレートに合わせて書く
 
 - 「一覧へ戻る」に `get_permalink()` 引数なし → 同じ記事URLに戻るだけ / `get_post_type_archive_link()` は通常投稿では false → トップに飛ぶ / `get_term_link()
@@ -553,7 +561,7 @@ footer { margin-top: auto; }  ← footer 自
 【特定のカテゴリを絞る際の書き方】
 
 
-- WP_Query でカテゴリ絞り込み → ループの**前**（クエリ）で絞る・ループ中のif絞りはページネーションがズレる➡要するに、
+- ❌ WP_Query でカテゴリ絞り込み → ループの**前**（クエリ）で絞る・ループ中のif絞りはページネーションがズレる➡要するに、
 ➀最初は WP_Query に特定の値を詰め込んで、※これはループの前が大前提　ページネーションがずれてしまうので。
 ➁それを引数としてオブジェクトを作成し、
 ➂そのオブジェクトのメソッドを利用することによって、
@@ -641,7 +649,7 @@ if ( is_category() ) {
 - グローバル `.gitignore`（`~/.gitignore_global`）に書けば会社に届かない → プロジェクト内の `.gitignore` は届く・見られる
 
 
-- `wp_title()` は WordPress 4.1 以降 非推奨 → `add_theme_support('title-tag')` を使う
+- ❌ `wp_title()` は WordPress 4.1 以降 非推奨 → `add_theme_support('title-tag')` を使う
 
 ➡　<title> タグをWordPressに自動で出力させるための設定です。　// functions.php に書くだけ
 add_theme_support('title-tag');
@@ -740,7 +748,7 @@ wp_nav_menu(array(
 ## 2026-04-18
 - Contact Form 7 のショートコードとテーマのファイル名は無関係 → ショートコードはプラグインが処理するので `page-contact.php` などファイル名は何でもOK
 - CF7 を使うには `the_content()` があるページ本文にショートコードを貼るだけ
-- ❌ CF7はpタグを自動挿入してレイアウトが崩れる → functions.phpに以下を書いて削除する
+- ✅ CF7はpタグを自動挿入してレイアウトが崩れる → functions.phpに以下を書いて削除する
 ```php
 function wpcf7_p_remover(){ return false; }
 add_filter('wpcf7_autop_or_not', 'wpcf7_p_remover');
@@ -804,7 +812,7 @@ TOPページ
 - PHPで全体を囲むと echo だらけになる 
 → `クエリ準備はPHPブロック・表示はHTMLに混ぜるのが読みやすい`- 
 
-register_nav_menus(ヘッダーPHPに記載するメソッド。これがあると管理画面のメニューが反映) のキー名は自由に決める 
+✅ register_nav_menus(ヘッダーPHPに記載するメソッド。これがあると管理画面のメニューが反映) のキー名は自由に決める 
 → functions.php と header.php の theme_location を同じ名前に揃える
 
 ```php
@@ -931,3 +939,16 @@ foreach ( $categories as $category ) {
     echo '<span class="cat-label">' . $category->name . '</span>';
 }
 ```
+
+## 2026-04-20
+- SCF 画像フィールド → the_sub_field('logo') でURLが返る → `<img src="<?php the_sub_field('logo'); ?>">` に入れる
+- the_sub_field() はエスケープ不要 → SCF内部で処理済み（get_the_○○() と違い esc_url/esc_html 不要）
+- 繰り返しフィールドの中身はサブフィールド → 固定のものは個別フィールド・増やすものは繰り返しに入れる
+- SCFフィールドグループを作っただけでは管理画面に出ない → ロケーションルールで「固定ページ→会社概要」に紐づけが必要
+- SCF 画像フィールドの「返り値の形式」が「画像ID」だと src="" に数字が入る → SCF管理画面で「画像URL」に変更する
+- get_template_directory_uri() はHTMLに書くURL全般に使う → 画像（src）・CSS（href）・JS（src）すべて対象
+- ❌ 投稿タイプアーカイブのURL取得 → get_post_type_archive_link('post') or home_url('/news/')
+- ❌ カテゴリーアーカイブのURL取得 → get_term_link('スラッグ', 'category')
+- get_term_link('news', 'category') → カテゴリー・タグページへのリンクURL取得（href="" に入れて使う）
+- get_post_type_archive_link('post') → 投稿タイプ一覧ページへのリンクURL取得（href="" に入れて使う）
+- ✅ アーカイブ設定2つ → ①functions.phpのset_post_archive() ②設定→表示設定→投稿ページに固定ページ割り当て- SCF 繰り返しフィールドはサブフィールドのタイプが変わっても have_rows → the_row → the_sub_field の構造は同じ
