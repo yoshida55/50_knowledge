@@ -3,6 +3,7 @@
 |---|---|---|---|
 | 2026-04-19 | 10問 | 8問 | 154問 |
 | 2026-04-20 | 14問 | 10問 | 154問 |
+| 2026-04-20② | 10問 | 6問 | - |
 
 ---
 
@@ -11,9 +12,9 @@
 
 ## 2026-03-30
 
-- `get_categories()` → 全カテゴリを取得(全てだから、そのではないのでtheはつかない。)
+- ✅ `get_categories()` → 全カテゴリを取得(全てだから、そのではないのでtheはつかない。)
 
-- `get_the_category()` → ループ内で使う・その特定記事につけた全カテゴリを取得
+- ❌ `get_the_category()` → ループ内で使う・その特定記事につけた全カテゴリを取得
 
 
 
@@ -22,7 +23,7 @@
 `wp_title('|', true, 'right')`**: 現在表示しているページの名前（例：会社概要）を取得し、後ろに「|」を付けます。
 `bloginfo('name')`**: 設定で決めた「サイト名（例：〇〇株式会社）」を取得します。
 
-➡　これを使う。wp_titleは非推奨➡　add_theme_support('title-tag')　
+➡　これを使う。wp_titleは非推奨➡　❌ add_theme_support('title-tag')　
 これを書くだけで、WordPressが自動でタイトルを <title> タグに出力してくれます。
 
 
@@ -30,7 +31,7 @@
 
 
 
-- wp_head()にCSSが自動で出るのを不思議に思ったが（つまりCSSの一覧がWEB出力時に設定される） → functions.phpのwp_enqueue_style()で登録したものがwp_head()から出てくる2段階の仕組み
+- ✅ wp_head()にCSSが自動で出るのを不思議に思ったが（つまりCSSの一覧がWEB出力時に設定される） → functions.phpのwp_enqueue_style()で登録したものがwp_head()から出てくる2段階の仕組み
 
 ✅
 - ✅ `esc_html()` → テキストを表示するとき（カテゴリ名・タイトル・著者名など）
@@ -38,7 +39,7 @@
 - ✅ `esc_attr()` → HTML属性の値を表示するとき（class・id・valueの中など）
 
 
-- PHPでHTMLタグを書くとき → `'` で囲む（外が `'` なら中に `"` を書ける）
+- ✅ PHPでHTMLタグを書くとき → `'` で囲む（外が `'` なら中に `"` を書ける）
 - `href=""` の `"` が使えるのも外を `'` で囲んでいるから
 
 [プレビュー](http://localhost:54321/preview-20260330-114258.svg)
@@ -60,7 +61,7 @@
 
 
 
-- `get_queried_object_id()` → 今のページのID（数字） / `get_the_category()` → 記事のカテゴリ配列（これはカテゴリだけではない。今いるページによって取得するＩＤがかわってくる。　記事ページ(single.php)ならば記事ＩＤ）
+- ❌ `get_queried_object_id()` → 今のページのID（数字） / `get_the_category()` → 記事のカテゴリ配列（これはカテゴリだけではない。今いるページによって取得するＩＤがかわってくる。　記事ページ(single.php)ならば記事ＩＤ）
 archive.php→archive.phpのIDなど
 
 $cat_id = get_queried_object_id();
@@ -118,6 +119,7 @@ if ( is_category() ) {
 - ✅ ➀get_template_directory_uri() はURLを返す（物理パスではない）→ src="" や href="" に使う★画像やＵＲＬにつかう。　
 - ✅ ➁get_template_directory() は物理パスを返す → require / include に使う（_uri なし）→つまり他のPHPをよぶ
 
+
 ブラウザに渡すもの（HTML）か、サーバー（php）が使うものかで決まります！
 
 
@@ -131,11 +133,11 @@ CSSを読み込む
 
 - ✅ wp_head() は </head> 直前に書く（wp_footer() は </body> 直前・セットで覚える）
 
-- ローカルHTMLのWordPress化 → ①style.css ②header/footer.php ③index.php ④functions.phpの4ステップ
+- ❌ ローカルHTMLのWordPress化 → ①style.css ②header/footer.php ③index.php ④functions.phpの4ステップ
 
 ✅wp_enqueue_styleのハンドル名が重複すると2つ目が無視される → それぞれ別名にする
 
-- HTML属性の中（datetime=""など）→ get_the_date() + echo / タグの外の表示 → the_date()　つまりなぜ、<time datetime= get_the_date> the_date</time>
+- ✅ HTML属性の中（datetime=""など）→ get_the_date() + echo / タグの外の表示 → the_date()　つまりなぜ、<time datetime= get_the_date> the_date</time>
 →これはよくわからないのでそういうものだとおもっておく！
 
 - the_category()はaタグを自動出力 → 親のCSSのcolor:whiteが効かない。なぜなら、<li>タグであればそのなかに<a>タグがつくられるので、
