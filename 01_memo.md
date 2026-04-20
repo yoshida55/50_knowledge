@@ -14189,6 +14189,8 @@ if (strpos($page, 'current') !== false) {
 - 「小さいな（min）よっぱらい（width）ゼロ」 → `min-width: 0` のこと
 - 「小さくなる」           → 縮んでFlexの幅に収まる
 
+
+
 【具体例】
 ```css
 /*
