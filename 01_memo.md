@@ -18826,6 +18826,12 @@ transition: left 0.3s ease, width 0.3s ease; /* カンマで複数指定可 */
 ・メインカラー
 #79bddd
 
+・リンクワークスのロゴ
+増田さんから4/20日におくられる。
+
+・
+
+
 ---
 
 ## 疑似要素の縦位置ズレは「自動揃え」で解決する
@@ -21253,3 +21259,141 @@ body（flex縦並び）
 - `min-height: 0` はスクロール可能なサイドバーなど特殊な用途で使う
 - 通常のページには書かない
 - 「フッターが途中に出る」→ まず `min-height: 0` を疑う
+
+## 📌 CF7 Multi-Step Forms で確認画面を作る →
+入力フォームを複製して確認・完了ページを別途作る。
+multistep / multiform / previous の3タグを使い分ける。 WordPress
+
+【日付】2026-04-20
+
+【結論】
+確認画面は「フォームを2つ作る」方式。
+入力フォームに `[multistep]`、確認フォームに `[multiform]` と `[previous]` を追加して3画面を連携させる。
+
+【全体フロー】
+```
+/contact（入力）→ /confirm（確認）→ /thanks（完了）
+```
+
+【手順】
+➀ プラグイン「Contact Form 7 Multi-Step Forms」をインストール・有効化
+➁ 元のフォーム（コンタクトフォーム1）の submit の下に multistep タグを追加
+  - Next Page URL: `/confirm`
+  - First Step: チェックを入れる
+  ```
+  [multistep multistep-969 first_step "/confirm"]
+  ```
+➂ フォームを複製してタイトルを「確認画面」に変更
+➃ 確認フォームの input 部分を `[multiform フィールド名]` に書き換え
+  ```
+  [multiform contact_name]
+  ```
+➄ 確認フォームの multistep タグを書き換え
+  - Last Step: チェック / Send Email: チェック / Next Page URL: `/thanks`
+  ```
+  [multistep multistep-898 last_step send_email "/thanks"]
+  ```
+➅ submit の上に `[previous]`（戻るボタン）を追加
+➆ 固定ページ `/confirm`（確認画面）と `/thanks`（完了）を作成
+➇ それぞれ `page-confirm.php` と `page-thanks.php` も作成
+➈ メール確認は Local の Tools → Mailpit で行う
+
+【タグ比較】
+| タグ | 役割 |
+|---|---|
+| `[multistep]` | 次ページへ進む設定（入力フォームに付ける） |
+| `[multiform]` | 前ステップの入力値を表示（確認フォームに付ける） |
+| `[previous]` | 戻るボタン |
+
+【補足】
+- CF7ショートコードのクラス属性は `class:クラス名` で指定（例：`class:form_btn`）
+- CF7メールタブの `[contact_name]` などはフォームのname属性と一致させる
+- ⚠ プラグインは「Contact Form 7 Multi-Step Forms」（作者: webheadcoder）が正しい
+  → 「Multi Step Form」（Mondula製）は CF7 と連携しない別物・入れると3つのボタンが出ない
+- タグ番号（例: `previous-110`）はタグジェネレーターが自動付与する識別番号 → 任意の数字でOK
+
+## 📌 CF7のメールタグはフォームのname属性と同じ名前を [ ] で囲むだけ →
+name属性は自分で自由に決めてOK・メール側も同じ名前に合わせる WordPress
+
+【日付】2026-04-20
+
+【結論】
+CF7のフォームで設定したname属性と同じ名前を `[タグ名]` にするだけ。
+name属性の名前は自分で自由に決めてよい。
+
+【具体例】
+```
+// フォーム側（name属性を自分で決める）
+[text* namae]        ← name属性 = namae
+
+// メールタブ側（同じ名前を [ ] で囲む）
+名前：[namae]        ← 送信時に入力値に自動置換される
+```
+
+```
+// 標準的な名前例
+[text* contact_name]   → メール：名前：[contact_name]
+[email* e-mail]        → メール：メール：[e-mail]
+[textarea message]     → メール：内容：[message]
+```
+
+【補足】
+- CF7のメールタブを開くと「使用できるタグ一覧」が自動で表示される
+- `*` あり = 必須入力 / なし = 任意入力
+
+## 📌 SCFインストール時「目的のフォルダーはすでに存在しています」エラーの対処 →
+前回インストールの残骸が残っているので、フォルダを削除してから再インストールする WordPress
+
+【日付】2026-04-20
+
+【結論】
+SCFを再インストールしようとしたときに出るエラー。
+古いフォルダが残っているのが原因なので、手動で削除してからインストールしなおす。
+
+【手順】
+➀ FTPまたはローカルのファイルマネージャーで以下を削除する：
+  ```
+  wp-content/plugins/secure-custom-fields/
+  ```
+➁ WordPress管理画面 → プラグイン → 新規追加 → 再インストール
+
+【補足】
+- Local を使っている場合は「Site folder」→ `app/public/wp-content/plugins/` から削除できる
+- 削除してもデータベースのカスタムフィールドのデータは消えない（安全）
+
+## 📌 functions.php に require_once で debug_helper.php を読み込んでいる場合 →
+開発用のデバッグファイルなので、本番公開前に必ず削除する WordPress
+
+【日付】2026-04-20
+
+【結論】
+`require_once get_template_directory() . '/debug_helper.php';` は開発中だけ使うデバッグ用コード。
+本番サイトに残すとエラーや情報漏洩のリスクがあるので必ず削除する。
+
+【具体例】
+```php
+// functions.php にこれが残っていたら削除する
+require_once get_template_directory() . '/debug_helper.php';
+```
+
+【補足】
+- `debug_helper.php` 自体のファイルも本番前に削除する
+- 本番前チェックリストに入れておくと忘れない
+
+## 📌 Local でメール送受信を確認する方法 → Tools タブの Mailpit を使う WordPress
+
+【日付】2026-04-20
+
+【結論】
+ローカル環境ではメールは実際には送られない。
+Local の Mailpit が代わりにメールをキャッチして表示してくれる。
+
+【手順】
+➀ Local を開く
+➁ サイトを選択 → 「Tools」タブをクリック
+➂ 「Mailpit」の「Open Mailpit」ボタンをクリック
+➃ CF7 からメールを送信するとここに届く
+
+【補足】
+- 実際のメールサーバーには届かないので安心してテストできる
+- 件名・本文・送信元アドレスがすべて確認できる

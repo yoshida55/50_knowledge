@@ -968,4 +968,13 @@ foreach ( $categories as $category ) {
 
 ※てことはmin-height: 0  にすることによって、mainが画像（コンテンツ）より縮むことがあるていうこと。逆に１にすればかならず画像のサイズをひろげてもmainの幅も大きくなる
 - CF7導入でスラッグを news にしてしまった → お問い合わせページのスラッグは contact・news はお知らせ用
-- CF7のフォーム表示は the_content() で行う → 固定ページ本文にショートコードを貼り、PHPで the_content() を呼ぶ
+- CF7のフォーム表示は the_content() で行う → 固定ページ本文にショートコードを貼り、PHPで the_content() を呼ぶ- require_once get_template_directory() . '/debug_helper.php' は開発用 → 本番前に削除する
+- CF7ショートコードの項目名 = name属性（英語）・クラス属性 = inputのクラス名・デフォルト値 = プレースホルダー文字
+- functions.phpに書くもの = WordPressと連携が必要なもの（CSS/JS/メニュー/アイキャッチ等）→ header.phpやアーカイブPHPはファイルを置くだけで登録不要- CF7メールタグ = フォームのname属性と [ ] で囲むだけ・name属性名は自由に決めてよい
+- CF7 Multi-Step Forms のプラグインは「Contact Form 7 Multi-Step Forms」（webheadcoder）→「Multi Step Form」（Mondula）は CF7 と連携しない別物・3つのボタンが追加されない
+- [multiform] = 確認ページで前ステップの入力値を表示するだけのタグ（編集不可）
+- [previous] = 確認ページに置く「戻るボタン」タグ
+- タグの番号（例: previous-110）= タグジェネレーターが自動付与する識別番号・任意の数字でOK
+- CF7 Multi-Step Forms はフォームが2つ必要（入力フォーム + 確認フォーム）・固定ページも confirm と thanks の2つ作る
+- page-confirm.php / page-thanks.php は page-contact.php をコピーして作る
+- メール確認は Local → Tools タブ → Mailpit で行う
