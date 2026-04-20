@@ -954,3 +954,18 @@ foreach ( $categories as $category ) {
 - get_term_link('news', 'category') → カテゴリー・タグページへのリンクURL取得（href="" に入れて使う）
 - get_post_type_archive_link('post') → 投稿タイプ一覧ページへのリンクURL取得（href="" に入れて使う）
 - ✅ アーカイブ設定2つ → ①functions.phpのset_post_archive() ②設定→表示設定→投稿ページに固定ページ割り当て- SCF 繰り返しフィールドはサブフィールドのタイプが変わっても have_rows → the_row → the_sub_field の構造は同じ- CF7 はフォームに自動で `<p>` タグを挿入 → functions.php に `add_filter('wpcf7_autop_or_not', '__return_false')` で削除できる
+- SCFインストール「目的のフォルダーはすでに存在しています」エラー → wp-content/plugins/secure-custom-fields/ を削除してから再インストール
+- フィールドグループ名はPHPでは使わない（管理画面の整理用）→ the_field() / get_field() に渡すのはフィールド名（英語）
+- company_info はフィールドグループ名ではなく繰り返しフィールドのフィールド名 → グループ名はPHPに出てこない
+- フィールドグループ → タイトルのみ / フィールド → ラベル名・フィールド名・タイプ / サブフィールド（繰り返し内）→ 同じくラベル名・フィールド名・タイプを持つ
+
+- SCFのカスタムフィールドが表示されないとき → 
+①固定ページのスラッグとPHPファイル名が一致しているか確認（page-{スラッグ}.php）
+②繰り返しフィールドは the_sub_field() 
+/ 通常フィールドは the_field() を使い分ける
+
+- min-height: 0 = flex の main を「コンテンツより小さく縮めていい」と許可する → 通常ページには書かない・削除するとコンテンツ高さが守られてフッターが正しい位置に来る
+
+※てことはmin-height: 0  にすることによって、mainが画像（コンテンツ）より縮むことがあるていうこと。逆に１にすればかならず画像のサイズをひろげてもmainの幅も大きくなる
+- CF7導入でスラッグを news にしてしまった → お問い合わせページのスラッグは contact・news はお知らせ用
+- CF7のフォーム表示は the_content() で行う → 固定ページ本文にショートコードを貼り、PHPで the_content() を呼ぶ
