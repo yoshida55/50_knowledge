@@ -943,23 +943,101 @@ foreach ( $categories as $category ) {
 ```
 
 ## 2026-04-20
-- SCF 画像フィールド → the_sub_field('logo') でURLが返る → `<img src="<?php the_sub_field('logo'); ?>">` に入れる
-- the_sub_field() はエスケープ不要 → SCF内部で処理済み（get_the_○○() と違い esc_url/esc_html 不要）
-- 繰り返しフィールドの中身はサブフィールド → 固定のものは個別フィールド・増やすものは繰り返しに入れる
-- SCFフィールドグループを作っただけでは管理画面に出ない → ロケーションルールで「固定ページ→会社概要」に紐づけが必要
-- SCF 画像フィールドの「返り値の形式」が「画像ID」だと src="" に数字が入る → SCF管理画面で「画像URL」に変更する
-- get_template_directory_uri() はHTMLに書くURL全般に使う → 画像（src）・CSS（href）・JS（src）すべて対象
-- ❌ 投稿タイプアーカイブのURL取得 → get_post_type_archive_link('post') or home_url('/news/')
-- ❌ カテゴリーアーカイブのURL取得 → get_term_link('スラッグ', 'category')
-- get_term_link('news', 'category') → カテゴリー・タグページへのリンクURL取得（href="" に入れて使う）
-- get_post_type_archive_link('post') → 投稿タイプ一覧ページへのリンクURL取得（href="" に入れて使う）
-- ✅ アーカイブ設定2つ → ①functions.phpのset_post_archive() ②設定→表示設定→投稿ページに固定ページ割り当て- SCF 繰り返しフィールドはサブフィールドのタイプが変わっても have_rows → the_row → the_sub_field の構造は同じ- CF7 はフォームに自動で `<p>` タグを挿入 → functions.php に `add_filter('wpcf7_autop_or_not', '__return_false')` で削除できる
-- SCFインストール「目的のフォルダーはすでに存在しています」エラー → wp-content/plugins/secure-custom-fields/ を削除してから再インストール
-- フィールドグループ名はPHPでは使わない（管理画面の整理用）→ the_field() / get_field() に渡すのはフィールド名（英語）
-- company_info はフィールドグループ名ではなく繰り返しフィールドのフィールド名 → グループ名はPHPに出てこない
-- フィールドグループ → タイトルのみ / フィールド → ラベル名・フィールド名・タイプ / サブフィールド（繰り返し内）→ 同じくラベル名・フィールド名・タイプを持つ
+- SCF(Secure Custom Fields・カスタムフィールドをスマートに拡張できる) 画像フィールド → the_sub_field('logo') でURLが返る → 
+
+```php
+<img src="<?php the_sub_field('logo'); ?>" >
+``` 
+に入れる
+※サブフィールド（フィード）全体はフィールドグループ・
+
 
 - SCFのカスタムフィールドが表示されないとき → 
+①固定ページのスラッグとPHPファイル名が一致しているか確認（page-{スラッグ}.php）
+②繰り返しフィールドは the_sub_field() 
+/ 通常フィールドは the_field() を使い分ける
+
+
+- シンプルにSCFの繰り返しを自分で書いてみた
+<?php if(have_rows('フィールド名')):?>
+  <?php while(have_rows('フィールド名')):the_row(); ?>
+※まちがったポイント
+・フィールド名がなかった
+・the_rows()とかいていた　the_row
+
+
+
+- the_sub_field() はエスケープ不要 → SCF内部で処理済み（get_the_○○() と違い esc_url/esc_html 不要）
+
+
+- 繰り返しフィールドの中身はサブフィールド → 固定のものは個別フィールド・増やすものは繰り返しに入れる
+
+
+- SCFフィールドグループを作っただけでは管理画面に出ない → ロケーションルールで「固定ページ→会社概要」に紐づけが必要
+
+- SCF 画像フィールドの「返り値の形式」が「画像ID」だと src="" に数字が入る → SCF管理画面で「画像URL」に変更する
+
+- get_template_directory_uri() はHTMLに書くURL全般に使う → 画像（src）・CSS（href）・JS（src）すべて対象
+※　template = theme（も基本・同じ）
+
+画像をとりだすとき、
+❌（間違い） <?php echo esc_url(get_template_directory_uri("img/aaa.jpg")); ?>
+🙆‍♂️（正しい）<?php echo esc_url(get_theme_file_uri('img/aaa.jpg') ); ?>
+
+
+- ❌ 投稿タイプアーカイブ（カスタム投稿タイプ）のURL取得 → 
+・get_post_type_archive_link('post') or 
+・home_url('/news/')
+
+- // header.php のナビゲーション部分でget_post_type_archive_linkが使われる
+
+<nav>
+  <a href="<?php echo get_post_type_archive_link('works'); ?>">制作事例</a>
+  <a href="<?php echo get_post_type_archive_link('news'); ?>">ニュース</a>
+</nav>
+🎯 実務では wp_nav_menu() が主流
+
+・wp_nav_menu()	選択中のコード	管理画面でメニューを自由に編集できる
+・get_post_type_archive_link()	直接URLを書く	PHPに直書き・固定
+
+
+- ❌ カテゴリーアーカイブのURL取得 → get_term_link('スラッグ', 'category')
+
+- get_term_link('news', 'category') → カテゴリー・タグページへのリンクURL取得（href="" に入れて使う）
+
+※【使い方】
+// single.php で記事のカテゴリーリンクを表示
+$cats = get_the_category();
+foreach($cats as $cat) {
+    echo '<a href="' . get_term_link($cat) . '">' . $cat->name . '</a>';
+}
+
+　　関数	　　　　　　　　　　　　　　　　　　何の一覧？
+※　get_post_type_archive_link('works')	投稿タイプの一覧（- // header.php のナビゲーション部分で使われる・基本つかわない）
+）
+
+※　get_term_link('news', 'category')	カテゴリーの一覧
+// カテゴリー「news」の一覧ページへのリンク
+
+
+- get_post_type_archive_link('post') → 投稿タイプ一覧ページへのリンクURL取得（href="" に入れて使う）
+
+- アーカイブ設定2つ → 
+①functions.phpのset_post_archive() 
+②設定→表示設定→投稿ページに固定ページ割り当て
+
+- SCF 繰り返しフィールドはサブフィールドのタイプが変わっても have_rows → the_row → the_sub_field の構造は同じ- CF7 はフォームに自動で `<p>` タグを挿入 → functions.php に `add_filter('wpcf7_autop_or_not', '__return_false')` で削除できる
+
+
+✅ SCFインストール「目的のフォルダーはすでに存在しています」エラー → wp-content/plugins/secure-custom-fields/ を削除してから再インストール
+
+✅ フィールドグループ名はPHPでは使わない（管理画面の整理用）→ the_field() / get_field() に渡すのはフィールド名（英語）
+
+- company_info はフィールドグループ名ではなく繰り返しフィールドのフィールド名 → グループ名はPHPに出てこない
+
+✅ フィールドグループ → タイトルのみ / フィールド → ラベル名・フィールド名・タイプ / サブフィールド（繰り返し内）→ 同じくラベル名・フィールド名・タイプを持つ
+
+- SCFのカスタムフィールドが表示されないとき → （たとえばトップ画面にニュースみっつとか）
 ①固定ページのスラッグとPHPファイル名が一致しているか確認（page-{スラッグ}.php）
 ②繰り返しフィールドは the_sub_field() 
 / 通常フィールドは the_field() を使い分ける
@@ -967,14 +1045,41 @@ foreach ( $categories as $category ) {
 - min-height: 0 = flex の main を「コンテンツより小さく縮めていい」と許可する → 通常ページには書かない・削除するとコンテンツ高さが守られてフッターが正しい位置に来る
 
 ※てことはmin-height: 0  にすることによって、mainが画像（コンテンツ）より縮むことがあるていうこと。逆に１にすればかならず画像のサイズをひろげてもmainの幅も大きくなる
+
 - CF7導入でスラッグを news にしてしまった → お問い合わせページのスラッグは contact・news はお知らせ用
-- CF7のフォーム表示は the_content() で行う → 固定ページ本文にショートコードを貼り、PHPで the_content() を呼ぶ- require_once get_template_directory() . '/debug_helper.php' は開発用 → 本番前に削除する
+
+
+- CF7のフォーム表示は `the_content()` で行う → 固定ページ本文にショートコードを貼り、PHPで the_content() を呼ぶ（問い合わせページ・page-contact.phpでつかう）
+
+- require_once get_template_directory() . '/debug_helper.php' は開発用 → 本番前に削除する
+()
+
 - CF7ショートコードの項目名 = name属性（英語）・クラス属性 = inputのクラス名・デフォルト値 = プレースホルダー文字
+
 - functions.phpに書くもの = WordPressと連携が必要なもの（CSS/JS/メニュー/アイキャッチ等）→ header.phpやアーカイブPHPはファイルを置くだけで登録不要- CF7メールタグ = フォームのname属性と [ ] で囲むだけ・name属性名は自由に決めてよい
+
+
 - CF7 Multi-Step Forms のプラグインは「Contact Form 7 Multi-Step Forms」（webheadcoder）→「Multi Step Form」（Mondula）は CF7 と連携しない別物・3つのボタンが追加されない
+
+
 - [multiform] = 確認ページで前ステップの入力値を表示するだけのタグ（編集不可）
+　入力ページで「田中太郎」と入力
+      ↓
+　確認ページで [multiform] が「田中太郎」と表示
+      ↓
+「送信」ボタンで完了
+
 - [previous] = 確認ページに置く「戻るボタン」タグ
+
 - タグの番号（例: previous-110）= タグジェネレーターが自動付与する識別番号・任意の数字でOK
+
 - CF7 Multi-Step Forms はフォームが2つ必要（入力フォーム + 確認フォーム）・固定ページも confirm と thanks の2つ作る
+
 - page-confirm.php / page-thanks.php は page-contact.php をコピーして作る
+
 - メール確認は Local → Tools タブ → Mailpit で行う
+テストメール確認
+Local アプリ
+└── サイト選択
+    └── Tools タブ
+        └── Mailpit → 開くと受信メール一覧が見える
