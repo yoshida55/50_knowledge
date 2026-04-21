@@ -21510,3 +21510,141 @@ SEO対策プラグイン「All in One SEO」を入れることで、Googleの検
 - サイトタイトルとキャッチフレーズはAIOSEOの画面ではなく「設定 → 一般」で入力する
 - メタディスクリプションはSearch Appearance → Home Page の「edit your home page settings」から変更
 - 区切り文字はデフォルトの「-」でOK
+
+## 📌 label の for と input の id をペアにする → ラベルクリックでその input にフォーカスが移る HTML
+
+【日付】2026-04-21
+
+【結論】
+`label` の `for` 属性と `input` の `id` 属性に**同じ値**を入れると紐づく。
+
+【具体例】
+```html
+<label for="name">NAME</label>
+<input type="text" id="name" name="name">
+<!--         ↑ペア          ↑ペア  ↑サーバーに送るキー名（別の用途）-->
+```
+
+【id と name の違い】
+| 属性 | 役割 |
+|---|---|
+| `id` | ページ内でその要素を特定する → `label` の `for` と紐づく |
+| `name` | フォーム送信時にサーバーに送るキー名 |
+
+同じ値にすることが多いが、用途は別なので混同しない。
+
+【補足】
+フォームのラベルとinputのよくある3パターン：
+- `dl/dt/dd` パターン（昔からある・意味的に少しズレる）
+- `div + label` パターン（現在の主流）
+- `p` タグパターン（シンプル）
+
+どれでも動くが今は `div` パターンが主流。
+
+## 📌 CSS詳細度（Specificity）→ 後書きが勝つのは詳細度が同じときだけ。詳細度が高い方が順番に関係なく勝つ HTML CSS
+
+【日付】2026-04-21
+
+【結論】
+「後に書いた方が勝つ」は**詳細度が同じときだけ**。
+詳細度が違う場合は、強い方が必ず勝つ（順番は関係ない）。
+
+【詳細度の数え方】
+セレクタを3つの箱に仕分けする：
+
+```
+[ idの数 , クラス・属性の数 , タグの数 ]
+```
+
+| セレクタ | 内訳 | 詳細度 |
+|---|---|---|
+| `input[type="text"]` | タグ1 + 属性1 | 0, 1, 1 |
+| `.contact_input` | クラス1 | 0, 1, 0 |
+| `#header` | id1 | 1, 0, 0 |
+| `div p` | タグ2 | 0, 0, 2 |
+
+【比べ方】
+左の数字から順番に比べて、大きい方が勝ち。
+
+```
+[ 0, 1, 1 ]  ← input[type="text"]  reset.css
+[ 0, 1, 0 ]  ← .contact_input      work.css（後から読み込み）
+
+0 = 0 → 引き分け、次へ
+1 = 1 → 引き分け、次へ
+1 > 0 → input[type="text"] の勝ち！（work.css が後でも負ける）
+```
+
+【実例：フォームのinputが見えなかった原因】
+reset.css で `input[type="text"] { outline: none; border: none; }` が設定されており、
+work.css の `.contact_input { outline: 0.1rem solid; }` より詳細度が高いため、
+outlineが消えてinputが見えなくなった。
+
+→ 解決策：`outline` ではなく `border` を使うか、セレクタの詳細度を上げる。
+
+【確認方法】
+F12 デベロッパーツール → Styles タブ → 打ち消し線がついているルールが「負けている」もの。
+
+## 📌 reset.cssに詳細度で勝つには → IDセレクタを使うのが入門レベルの自然な解決策 HTML CSS
+
+【日付】2026-04-21
+
+※詳細度はきにしない。
+
+以下でクラスを指定クラスタを指定しても
+プロパティが指定されない場合
+セクションにIDを指定して、そのIDをセレクタに入れると勝つ。
+
+```html
+<section id="form" class="form_wrap">
+  <div class="form-group">
+    <label for="your-name">氏名</label>
+    <input type="text" name="your-name" id="your-name" class="form-control" placeholder="入力してくださ">
+  </div>  
+</section>
+```
+
+```css
+#form. input{
+  border: 1px solid red;
+}
+
+#contact input[type="submit"]
+→このようにするとさらに絞れる
+
+
+
+-------------------------------余裕があれば覚える
+【結論】
+reset.css の `input[type="text"]`（詳細度 0,1,1）に勝つには、
+セレクタに **IDを1つ入れるだけ**で圧倒的に強くなる。
+
+【見本コード（sankou/source/style.css）のやり方】
+```css
+/* #page（IDセレクタ）が入っているので詳細度が高い */
+#page .form dd input,
+#page .form dd textarea {
+  border: solid 1px #c8c8c8;
+}
+/* 詳細度: 1,1,2 → reset の 0,1,1 に完勝 */
+```
+
+【自分のコードへの応用】
+```html
+<!-- HTML: sectionにidをつける -->
+<section id="contact" class="contact_area">
+```
+
+```css
+/* CSS: idで絞り込む */
+#contact input,
+#contact textarea {
+  border: 0.1rem solid #24292e;
+}
+/* 詳細度: 1,0,1 → reset の 0,1,1 に勝てる */
+```
+
+【ポイント】
+- IDセレクタ（`#`）が1つ入ると左の箱が1になり、クラスや属性だけのセレクタに必ず勝つ
+- reset.css対策として「セクションにidをつけてそのidで絞り込む」のが入門レベルの自然な書き方
+- `!important` は最終手段（乱用すると管理しにくくなる）
