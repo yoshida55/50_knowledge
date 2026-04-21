@@ -21460,9 +21460,14 @@ hana
 ・Blue Jeans
 ・Rose
 
-
 サカナクション
 ・怪獣
+
+祭り
+・アバンチュール中目黒
+
+show-wa
+・君の王子様
 
 
 
@@ -21648,3 +21653,135 @@ reset.css の `input[type="text"]`（詳細度 0,1,1）に勝つには、
 - IDセレクタ（`#`）が1つ入ると左の箱が1になり、クラスや属性だけのセレクタに必ず勝つ
 - reset.css対策として「セクションにidをつけてそのidで絞り込む」のが入門レベルの自然な書き方
 - `!important` は最終手段（乱用すると管理しにくくなる）
+
+## 📌 `<head>` の中はブラウザへの設定（画面に出ない）・`<body>` の中が画面に出る → `<link rel="icon">` はファビコン設定でタブに出るがページ上には表示されない HTML
+
+【日付】2026-04-21
+【結論】
+HTMLには「ブラウザへの設定」と「画面に表示されるもの」の2種類がある。
+どこに書くか（head か body か）で、画面に出るかどうかが決まる。
+
+【`<head>` の中（ブラウザへの設定・画面に出ない）】
+- `<title>` → タブのタイトル文字
+- `<meta>` → 検索エンジン向けの説明文
+- `<link rel="icon">` → タブのアイコン（ファビコン）
+- `<link rel="stylesheet">` → CSSの読み込み
+
+【`<body>` の中（画面に表示される）】
+- `<h1>` `<p>` `<img>` など → 実際にページに見える
+
+【具体例】
+```html
+<!-- head の中 → ブラウザへの設定（画面に出ない） -->
+<link rel="icon" href="favicon.ico">
+<title>My Work</title>
+
+<!-- body の中 → 画面に表示される -->
+<img src="instagram.png" alt="インスタグラム">
+```
+
+【補足】`<link rel="icon">` と `<img>` の違い
+- `<link rel="icon">` → ブラウザのタブに使うアイコン設定（`<head>` 内・画面に出ない）
+- `<img>` → ページ上に画像を表示（`<body>` 内）
+→ `<img>` で書いてもブラウザはファビコンとして認識しない
+
+---
+
+## 📌 WordPress header.php の関数まとめ・`is_home() || is_front_page()` でトップページ判定してタグを動的に切り替える WordPress
+
+【日付】2026-04-21
+【結論】
+header.php で使う WordPress関数は6種類だけ。
+トップページだけ `<h1>`・それ以外は `<div>` にする条件分岐もよく使うパターン。
+
+【関数一覧】
+```php
+bloginfo('name')         // サイト名を出力
+bloginfo('description')  // サイトの説明文を出力
+home_url()               // トップページのURLを返す（echo + esc_url とセットで使う）
+get_theme_file_uri()     // テーマフォルダ内のファイルURLを返す（echo + esc_url とセットで使う）
+wp_head()                // CSS・JSを自動で読み込む（おまじない・</head>直前に必須）
+is_home()                // 投稿一覧ページかどうか判定（true/false）
+is_front_page()          // フロントページかどうか判定（true/false）
+```
+
+【タグを動的に切り替えるパターン】
+```php
+<?php $tag = (is_home() || is_front_page()) ? 'h1' : 'div'; ?>
+<<?php echo $tag; ?> class="site-title">
+  <a href="<?php echo esc_url(home_url()); ?>">
+    <img src="<?php echo esc_url(get_theme_file_uri('img/logo.svg')); ?>" alt="My Work">
+  </a>
+</<?php echo $tag; ?>>
+```
+→ SEO対策：h1 はページに1つだけが基本。
+  トップ以外は記事タイトルやページタイトルが h1 になるため、ロゴは div に変える。
+
+【is_home() と is_front_page() の違い】
+| 関数 | 意味 |
+|---|---|
+| `is_front_page()` | 表示設定の「表紙ページ」（管理画面の固定ページ設定に依存） |
+| `is_home()` | 投稿一覧ページ（ブログの新着記事リスト） |
+
+設定パターンA：「フロントページ = 最新の投稿」の場合
+→ `is_front_page()` も `is_home()` も true になる
+
+設定パターンB：「フロントページ = 固定ページ」「投稿ページ = 別ページ」の場合
+→ `/`（トップ）にアクセス → is_front_page() = true・is_home() = false
+→ `/blog` にアクセス → is_front_page() = false・is_home() = true
+
+→ `||` で両方チェックすることで、どちらの設定パターンでもトップページを正しく判定できる。
+
+【各ページの h1 について】
+「各ページに h1 が必要」という SEO のルールは「本文コンテンツの見出し」の話。
+ロゴを全ページで h1 にすると h1 が2つになってしまうのでNG。
+
+| ページ | h1 の主役 | ロゴのタグ |
+|---|---|---|
+| トップページ | サイト名（ロゴ） | h1 |
+| 記事詳細（single.php） | 記事タイトル | div / p |
+| カテゴリー一覧（archive.php） | カテゴリー名 | div / p |
+| 固定ページ（page.php） | ページタイトル | div / p |
+
+【echo と esc_url のセット】
+```php
+// get_theme_file_uri() は「URLを返すだけ」→ echo がないと画面に出力されない
+// esc_url() はURLに不正な文字が混ざっていたら除去するセキュリティ処理
+<link href="<?php echo esc_url(get_theme_file_uri('img/favicon.ico')); ?>">
+```
+
+
+## 📌 `<meta>` タグは閉じタグなし・`name` が情報の種類・`content` がその中身 → ブラウザや検索エンジンへの設定で画面には出ない HTML
+
+【日付】2026-04-21
+【結論】
+`<meta>` タグは「ブラウザや検索エンジンへ情報を渡す」タグ。
+`name` で「何の情報か」を指定し、`content` にその値を入れる。画面には表示されない。
+
+【構造】
+```html
+<meta name="情報の種類" content="その中身">
+```
+
+【name に入れられる主な値】
+| name の値 | 何の情報か |
+|---|---|
+| `description` | サイトの説明文（検索結果のスニペットに出る） |
+| `viewport` | スマホでの表示サイズ設定 |
+| `robots` | 検索エンジンにクロールさせるか |
+
+【WordPress での書き方】
+```html
+<!-- 固定の文字（HTML） -->
+<meta name="description" content="サイトの説明文">
+
+<!-- 管理画面から動的に取得（WordPress） -->
+<meta name="description" content="<?php bloginfo('description'); ?>">
+```
+→ `bloginfo('description')` は管理画面「設定 → 一般 → キャッチフレーズ」の値を出力する
+
+【補足】
+- `<meta>` は閉じタグ不要（`</meta>` は書かない）
+- `<head>` の中に書く → 画面には表示されない
+- WordPress を使う場合はハードコードせず `bloginfo()` で管理画面から取得するのが正しい書き方
+
