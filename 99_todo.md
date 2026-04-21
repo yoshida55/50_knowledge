@@ -1,48 +1,25 @@
-▢ BigQuery の料金をチェックする
-
-次は実際に料金データが流れてくるまで約24時間待つ必要があります。
-
-明日以降、BigQuery でこのSQLを実行すると Gemini の料金が見られます：
-
-
-SELECT
-  usage_start_time,
-  sku.description,
-  cost
-FROM `fluted-cogency-429421-r2.sensha.gcp_billing_export_v1_*`
-WHERE service.description LIKE '%Gemini%'
-ORDER BY usage_start_time DESC
-LIMIT 20;
 
 
 
+〇windsurfをセットアップした
 
+GITHUBでログインしている。
 
+信頼さているドメインにOKした。
 
-▢　メモ補助 MCP Server 登録処理 ⇀
-・とりあえずメモールを修正したので、
-MCBサーバーを見て接続してください、と言えばいいんだね。
-(84_auto-memo補助MCPツール)
+Ctrl+Shift+P → 「Open Keyboard Shortcuts」（UIの一覧）
 
-・だから、Git cloneも必要だね。
-
---------------
-１ githubからプルして、フォルダを作成する。
-　
-２　settings.jsonに以下の処理を追加する
-
-※会社のものにかえる。
-
- C:\Users\sensh\.claude\settings.json
-
-"mcpServers": {
-  "auto-memo": {
-    "command": "python",
-    "args": ["D:/01_AI/10_Python/00_Python_src/99_commit/84_auto-memo補助MCPツール/server.py"]
-  }
-}
---------------
-
+以下を追加
+  {
+    "key": "ctrl+i",
+    "command": "cssToHtmlJumper.askClaude",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "ctrl+i",
+    "command": "-windsurf.something", // Windsurfのコマンド名を確認して書く
+    "when": "",
+  },
 
 
 
@@ -137,6 +114,34 @@ ALT+Bでブラウザ表示.ahk
 ▢動画分割ツール使ったら以下のエラーがでた
 ![](images/2026-02-06-13-03-01.png)
 
+
+
+
+
+
+▢　メモ補助 MCP Server 登録処理 ⇀
+・とりあえずメモールを修正したので、
+MCBサーバーを見て接続してください、と言えばいいんだね。
+(84_auto-memo補助MCPツール)
+
+・だから、Git cloneも必要だね。
+
+--------------
+１ githubからプルして、フォルダを作成する。
+　
+２　settings.jsonに以下の処理を追加する
+
+※会社のものにかえる。
+
+ C:\Users\sensh\.claude\settings.json
+
+"mcpServers": {
+  "auto-memo": {
+    "command": "python",
+    "args": ["D:/01_AI/10_Python/00_Python_src/99_commit/84_auto-memo補助MCPツール/server.py"]
+  }
+}
+--------------
 
 
 

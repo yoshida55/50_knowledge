@@ -1129,3 +1129,10 @@ Local アプリ
 -functions.phpでregisterを文字の先頭につけるのが
 register_nav_menu（header.phpの　wp_nav_menu とペア） と 
 register_post_type（カスタム投稿タイプをfunctions.phpで設定する場合） を  で使うの。
+
+## 2026-04-21
+- CF7 Multi-Step Forms の3タグ復習 → multistep（次ページ設定）/ multiform（前ステップの入力値表示）/ previous（戻るボタン） → 詳細は01_memo.md「CF7 Multi-Step Forms で確認画面を作る」参照
+- CF7の `autocomplete:email` → ブラウザの自動補完ヒント。`autocomplete="email"` に変換される。name / email / tel / off が使える
+- `[multiform フィールド名]` のフィールド名はクラス名ではなく入力フォームの `[text* フィールド名 ...]` と一致させる
+- 確認フォームの btn_wrap は `last_step send_email "/thanks"` → 入力フォームの `first_step "/confirm"` と混同しない
+- 固定ページは contact / confirm / thanks の3つ作る → thanks を忘れやすい

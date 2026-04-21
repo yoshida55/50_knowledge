@@ -19772,10 +19772,40 @@ Has Archive → true にする
 
 
 ## 📌 linkworks（リンクワークス）
+
+〇
 link004s
 
 link-004
-　
+
+
+〇アドレス
+linkworks.sendai04@gmail.com
+link-004
+
+
+〇backlog
+
+【リンクワークス】髙橋 研三
+linkworks.sendai04@gmail.com
+Kenken1@
+
+〇windsurf
+
+Ctrl+Shift+P → 「Open Keyboard Shortcuts」（UIの一覧）
+
+以下を追加、アンインストール時にとる
+  {
+    "key": "ctrl+i",
+    "command": "cssToHtmlJumper.askClaude",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "ctrl+i",
+    "command": "-windsurf.something", // Windsurfのコマンド名を確認して書く
+    "when": "",
+  },
+
 
 ## 📌 フッターがずれているとき → 親要素の `height` 固定を疑う →  
 検証ツールで「ずれている場所のすぐ上の要素」を選んで `height` がないか確認する HTML CSS
@@ -21296,8 +21326,15 @@ multistep / multiform / previous の3タグを使い分ける。 WordPress
   [multistep multistep-898 last_step send_email "/thanks"]
   ```
 ➅ submit の上に `[previous]`（戻るボタン）を追加
-➆ 固定ページ `/confirm`（確認画面）と `/thanks`（完了）を作成
-➇ それぞれ `page-confirm.php` と `page-thanks.php` も作成
+➆ 固定ページを3つ作成してショートコードを貼り付ける
+
+| タイトル | スラッグ | ショートコード |
+|---|---|---|
+| お問い合わせ | contact | CF7「コンタクトフォーム1」を選択 |
+| 確認画面 | confirm | CF7「確認画面」フォームを選択 |
+| お問い合わせ完了 | thanks | なし（テキストのみでOK） |
+
+➇ それぞれ `page-contact.php` `page-confirm.php` `page-thanks.php` を作成
 ➈ メール確認は Local の Tools → Mailpit で行う
 
 【タグ比較】
@@ -21313,6 +21350,23 @@ multistep / multiform / previous の3タグを使い分ける。 WordPress
 - ⚠ プラグインは「Contact Form 7 Multi-Step Forms」（作者: webheadcoder）が正しい
   → 「Multi Step Form」（Mondula製）は CF7 と連携しない別物・入れると3つのボタンが出ない
 - タグ番号（例: `previous-110`）はタグジェネレーターが自動付与する識別番号 → 任意の数字でOK
+
+【間違いやすいポイント】
+- ❌ `[multiform contact_name]` → クラス名や自分で決めた名前を入れてしまいがち
+- ✅ `[multiform your-name]` → 入力フォームの `[text* your-name ...]` のフィールド名と一致させる
+- ラベルのクラス名（`form_label` など）は見た目用なので関係ない
+- CF7タグの構造: `[タグ種類* フィールド名 オプション]` → フィールド名は2番目
+
+【確認フォームの btn_wrap 完成形】
+```
+<div class="btn_wrap">
+  [previous previous-736]         ← 戻るボタン（番号は自動付与・何番でもOK）
+  [submit class:form_btn]
+  [multistep multistep-764 last_step send_email "/thanks"]
+</div>
+```
+- 入力フォームの `first_step "/confirm"` とは別物
+- 確認フォームは `last_step send_email "/thanks"` にする
 
 ## 📌 CF7のメールタグはフォームのname属性と同じ名前を [ ] で囲むだけ →
 name属性は自分で自由に決めてOK・メール側も同じ名前に合わせる WordPress
