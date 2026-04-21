@@ -21466,3 +21466,47 @@ hana
 
 
 
+
+## 📌 the_content() を使うと管理画面（固定ページの本文）から文言を変更できる → PHPを触らずにサンクスページの内容を更新できる WordPress
+
+【日付】2026-04-21
+
+【結論】
+固定ページの「本文エリア」に書いた内容は `the_content()` で出力される。
+これを使うと、PHPを一切触らずに管理画面から文言を変更できる。
+
+【具体例】
+```php
+// page-thanks.php
+<main>
+    <?php if (have_posts()): while (have_posts()): the_post(); ?>
+        <div class="contact_content">
+            <?php the_content(); ?>
+        </div>
+    <?php endwhile; endif; ?>
+</main>
+```
+→ 管理画面 → 固定ページ「サンクス」→ 本文に「お問合せが完了しました。」と書くだけで表示される。
+
+【補足】
+- CF7のショートコードも本文に書けば `the_content()` が展開して出力する
+- `<?php echo 'お問合せ完了'; ?>` のようにハードコードすると管理画面から変更できない
+- the_content() を使うには必ず `the_post()` を呼んでループの中に入れること
+
+## 📌 All in One SEO インストール〜初期設定フロー → サイトタイトル・区切り文字・メタディスクリプションをWordPress管理画面から設定できる WordPress
+
+【日付】2026-04-21
+
+【結論】
+SEO対策プラグイン「All in One SEO」を入れることで、Googleの検索結果に表示されるタイトル・説明文を管理画面から設定できる。
+
+【フロー】
+➀ プラグイン → 新規追加 → 「SEO」で検索 → All in One SEO をインストール・有効化
+➁ 設定 → 一般 → サイトのタイトル・キャッチフレーズを入力 → 変更を保存
+➂ All in One SEO → Search Appearance → 区切り文字を選択
+➃ プレビューで「サイトタイトル - キャッチフレーズ」が表示されれば完了
+
+【補足】
+- サイトタイトルとキャッチフレーズはAIOSEOの画面ではなく「設定 → 一般」で入力する
+- メタディスクリプションはSearch Appearance → Home Page の「edit your home page settings」から変更
+- 区切り文字はデフォルトの「-」でOK
