@@ -21785,3 +21785,79 @@ is_front_page()          // フロントページかどうか判定（true/false
 - `<head>` の中に書く → 画面には表示されない
 - WordPress を使う場合はハードコードせず `bloginfo()` で管理画面から取得するのが正しい書き方
 
+## 📌 git branch -M main でローカルのブランチ名を master から main に変更 →
+git push -u origin main でGitHubにmainブランチを新規作成してpushできる HTML
+
+【日付】2026-04-22
+
+【結論】
+GitHubでリポジトリを作ると「main」ブランチが標準。ローカルが「master」のままだとpushしても届かない。
+
+【具体例】
+```bash
+git branch -M main       # ローカルのブランチ名を main に変更
+git push -u origin main  # GitHubに main ブランチを作ってpush
+```
+
+【補足】
+- `-M` は強制rename（既にmainがあっても上書き）
+- `-u` は「このブランチはoriginのmainと連動」という設定（次回から `git push` だけでOK）
+- GitHub側のデフォルトブランチは「main」なので、新しいリポジトリは必ずこの手順が必要
+
+
+## 📌 wp_title() と bloginfo('name') は役割が違う →
+wp_title() はページごとに変わるタイトル / bloginfo('name') は常に同じサイト名 →
+wp_title() は deprecated（非推奨）なので今は書かなくてよい WordPress
+
+【日付】2026-04-22
+
+【結論】
+`<title>` タグに使う関数として wp_title() を書くことがあるが、WordPress 4.1以降は非推奨で、wp_head() の中に自動で含まれる。
+
+【具体例】
+| 関数 | 出力される内容 |
+|------|------|
+| `wp_title()` | ページタイトル（投稿名・固定ページ名など・ページごとに変わる） |
+| `bloginfo('name')` | サイト名（例：iwabu）常に同じ |
+
+```php
+<!-- 古い書き方（非推奨） -->
+<title><?php wp_title(); ?></title>
+
+<!-- 今の正しい書き方 -->
+<!-- functions.php に add_theme_support('title-tag') を書くだけでOK -->
+<!-- <title>タグ自体を書かなくてよい → wp_head() が自動で出力する -->
+```
+
+【補足】
+- `bloginfo('name')` はサイト名の表示に使う（ロゴテキスト・著作権など）
+- `<title>` タグに使うのは wp_title() だが、今は書かなくてよい
+- functions.php に `add_theme_support('title-tag')` があれば WordPress が自動管理してくれる
+
+## 📌 body_class() は <body> タグにページ種別クラスを自動付与する →同じ style.css でページごとに見た目を変えたいときに使える / 慣習として書くもので深く考えなくてOK WordPress
+
+【日付】2026-04-22
+
+【結論】
+`body_class()` を書くと、WordPress がアクセスしたページの種類に応じたクラスを `<body>` に自動で付ける。
+PHPはアクセスのたびにHTMLを生成するので、ページが変わるたびにクラスも変わる。
+
+【具体例】
+```html
+<!-- トップページを開いたとき -->
+<body class="home">
+
+<!-- Aboutページを開いたとき -->
+<body class="page page-about">
+```
+
+```css
+/* 同じstyle.cssで書いても、ページごとに効くスタイルを分けられる */
+.home .site-header { background: transparent; }
+.page-about .site-header { background: white; }
+```
+
+【補足】
+- `body` 自体を装飾するためではなく、**ページ判定の起点**として使う
+- ページごとにPHPファイルが分かれている場合は自分でクラスをつければいいので、必須ではない
+- 「書いておく慣習」程度のもの。今は深く考えなくてOK

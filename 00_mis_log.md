@@ -1221,3 +1221,16 @@ flex-shrink: 0
 flex-shrink 
 ![](images/2026-04-22-01-28-12.png)
 
+✅git ブランチ名 master のまま push してもGitHubに届かない → `git branch -M main && git push -u origin main` で解決
+
+- wp_title() は非推奨（deprecated）→ wp_head() の中に自動で含まれるので <title> タグは書かなくてよい
+
+- wp_title() と bloginfo('name') は別物 → wp_title()=ページタイトル（ページごと変わる） / bloginfo('name')=サイト名（常に同じ）
+- body_class() はbodyに自動でページ種別クラスを付ける → 同じCSSで `.home .site-header {}` のようにページごとにスタイルを分けられる。慣習として書くもので必須ではない
+
+- bloginfo('description') = 管理画面「設定 → 一般 → キャッチフレーズ」の内容を出力 → サイト全体で1つだけ。ページごとに変えたい場合はSEOプラグイン（All in One SEO等）が必要
+- rel属性はクラス名ではなくファイルの役割をブラウザに伝えるHTML属性 → rel="stylesheet" でCSS / rel="icon" でファビコン
+
+- wp_enqueue_script の第5引数 true を省略すると → スクリプトが `<head>` に読み込まれる → DOMが準備される前に実行されてエラーになる可能性あり → `wp_enqueue_script('handle', $src, [], null, true)` で `</body>` 直前に移動する
+- functions.php の CSS読み込み順 → reset.css を先頭にする → footer.css を reset より前に書くと reset が後から上書きしてスタイルが効かなくなる
+- WordPress フック関数名（mytheme_setup 等）は自由に決めてOK → ただし他テーマ・プラグインとかぶらないよう `テーマ名_` などプレフィックスをつけるのがマナー
