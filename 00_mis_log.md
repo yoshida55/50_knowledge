@@ -1234,3 +1234,5 @@ flex-shrink
 - wp_enqueue_script の第5引数 true を省略すると → スクリプトが `<head>` に読み込まれる → DOMが準備される前に実行されてエラーになる可能性あり → `wp_enqueue_script('handle', $src, [], null, true)` で `</body>` 直前に移動する
 - functions.php の CSS読み込み順 → reset.css を先頭にする → footer.css を reset より前に書くと reset が後から上書きしてスタイルが効かなくなる
 - WordPress フック関数名（mytheme_setup 等）は自由に決めてOK → ただし他テーマ・プラグインとかぶらないよう `テーマ名_` などプレフィックスをつけるのがマナー
+- wp_nav_menu() の引数で触れるのは <ul>（menu_class）まで → <a> タグのクラスは子孫セレクタ `.site_nav ul li a {}` か nav_menu_link_attributes フィルターで指定する
+- list-style: none は <li> のデフォルトの「・」を消すプロパティ → <li> か <ul> どちらに書いてもOK（reset.cssで最初から消えている場合もある）
