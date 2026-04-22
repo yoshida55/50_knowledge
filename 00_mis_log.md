@@ -1254,3 +1254,4 @@ flex-shrink
 - page.php がない場合は page-contact.php を作る → get_header() / the_content() / get_footer() の3点セット。CF7のショートコードは固定ページ本文に貼る- the_content() を <p> タグで囲んだ → <p> 禁止。CF7など内部でdivを使うフォームはHTML構造が崩れる。div で囲む
 - 静的HTMLにフォームを書かなくていいと思っていた → 書く。デザイン確認・クライアント承認・CSSの設計図として必要。WordPressに移行したら捨てる前提だが書く
 - CF7移行後の流れ → 静的HTMLのフォームをCF7に差し替え → CF7が出力するクラス名（.wpcf7-form等）に合わせてCSSを修正してデザインカンプに近づける
+- register_nav_menus（s付き）→ 配列で複数同時登録OK / register_nav_menu（単数）→ 1つだけ → ヘッダー＋フッターを同時登録したいなら register_nav_menus を使う

@@ -21026,30 +21026,43 @@ $query = new WP_Query
   <?php endwhile; wp_reset_postdata(); ?>
 </main>
 ```
-## 📌 register_nav_menus() で任意の名前（キー）を登録 →
-wp_nav_menu() の theme_location に同じキーを指定して表示する WordPress
+## 📌 register_nav_menus()（複数形）で配列を渡すと → ヘッダー・フッターなど複数のメニュー登録を1回で書ける →
+register_nav_menu（単数形）は1つだけ登録・複数登録したいときは必ず複数形を使う WordPress
 
-【日付】2026-04-18
+【日付】2026-04-18（2026-04-23 追記）
 【結論】
-- ➀ functions.php で register_nav_menus() に任意の名前（キー）を登録する
+- ➀ functions.php で register_nav_menus()（**s付き**）に配列で複数登録できる
 - ➁ 管理画面「外観 → メニュー」でそのキー名の場所にメニューを割り当てる
-- ➂ header.php で wp_nav_menu(['theme_location' => 'キー名']) を呼ぶと表示される
-- キー名は自由に決めてOK（例：'header-menu'）→ functions.php と header.php で一致させる
+- ➂ 各テンプレートで wp_nav_menu(['theme_location' => 'キー名']) を呼ぶと表示される
+- キー名は自由に決めてOK（例：'header-menu'）→ functions.php と各テンプレートで一致させる
+
+| 関数名 | 登録数 | 引数 |
+|---|---|---|
+| `register_nav_menu`（単数） | 1つだけ | `('キー名', '説明')` |
+| `register_nav_menus`（複数） | 複数まとめて | `array('キー1' => '説明1', ...)` |
 
 【具体例】
 ```php
-// functions.php
-register_nav_menus([
-    'header-menu' => 'ヘッダーメニュー',  // キー名 => 管理画面に表示される説明
-]);
+// functions.php → ヘッダーとフッターを一括登録
+function my_register_menus() {
+    register_nav_menus( array(
+        'header-menu' => 'ヘッダーメニュー',
+        'footer-menu' => 'フッターメニュー',
+    ) );
+}
+add_action( 'after_setup_theme', 'my_register_menus' );
 
 // header.php
 wp_nav_menu(['theme_location' => 'header-menu']);
+
+// footer.php
+wp_nav_menu(['theme_location' => 'footer-menu']);
 ```
 
 【補足】
-- キー名を変えたら functions.php と header.php の両方を合わせる必要がある
+- キー名を変えたら functions.php と各テンプレートの両方を合わせる必要がある
 - 管理画面でメニューを割り当てないと何も表示されない
+- `register_nav_menus` は `after_setup_theme` フックの中で呼ぶのが慣習
 ## 📌 デフォルト投稿（お知らせ）のアーカイブをメニューに追加する方法 →
 「設定 → 表示設定 → 投稿ページ」に固定ページを割り当てるのが推奨 WordPress
 
