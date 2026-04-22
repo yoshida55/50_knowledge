@@ -732,6 +732,7 @@ btn.addEventListener('click', () => {
 【補足】
 - ボタン・カード・ヘッダーロゴ・モーダルなど幅広く使える
 - `height` or `min-height` がないと縦中央が効いてるか見えない
+- 上位の要素（親・祖先）で高さが決まっている場合は `height: 100%` を指定すれば親の高さを引き継げる
 - 1つの要素が「外から見てblock」「内から見てflex container」の2役を同時に持てる
 
 ---
@@ -19812,6 +19813,12 @@ Ctrl+Shift+P → 「Open Keyboard Shortcuts」（UIの一覧）
 〇wify
 in4thcun485jh
 
+〇自分
+Kenken
+
+Takataka
+
+
 
 ## 📌 フッターがずれているとき → 親要素の `height` 固定を疑う →  
 検証ツールで「ずれている場所のすぐ上の要素」を選んで `height` がないか確認する HTML CSS
@@ -21842,6 +21849,7 @@ wp_title() は deprecated（非推奨）なので今は書かなくてよい Wor
 - `bloginfo('name')` はサイト名の表示に使う（ロゴテキスト・著作権など）
 - `<title>` タグに使うのは wp_title() だが、今は書かなくてよい
 - functions.php に `add_theme_support('title-tag')` があれば WordPress が自動管理してくれる
+- すでに functions.php に `add_theme_support('title-tag')` が書いてある場合は header.php の `<title><?php wp_title(); ?></title>` を丸ごと削除するだけでOK
 
 ## 📌 body_class() は <body> タグにページ種別クラスを自動付与する →同じ style.css でページごとに見た目を変えたいときに使える / 慣習として書くもので深く考えなくてOK WordPress
 
@@ -21947,3 +21955,174 @@ ul {
 【補足】
 - reset.css を使っている場合はあらかじめ消えていることが多い
 - ナビゲーションメニューや作品一覧など、見た目をカスタマイズしたい <ul><li> では必ず書く
+## 📌 img タグはデフォルトで元のサイズで表示される → 親より大きい画像は横にはみ出す → max-width: 100%; height: auto; display: block; を指定すれば防げる HTML
+
+【日付】2026-04-22
+【結論】
+img タグに何も指定しなければ、画像の元のサイズで表示される。
+画像が親要素より大きいと横スクロールが発生する。
+以下の3つのプロパティを指定することで防げる。
+
+【具体例】
+```css
+img {
+  max-width: 100%; /* 親より大きくならない */
+  height: auto;    /* 横幅に合わせて縦も自動調整（比率を保つ） */
+  display: block;  /* 画像下の謎の隙間をなくす */
+}
+```
+
+【補足】
+- display: block を指定しないと、画像の下に数px の謎の隙間ができる（inline 要素はベースラインに合わせるため）
+- style.css の body の下に書いておくとサイト全体の img に一括適用できる
+- WordPress の reset.css 的な定番スニペット
+## 📌 footer.phpの基本構造とフッターメニュー追加フロー WordPress
+
+【日付】2026-04-22
+
+【結論】
+footer.phpには `wp_footer()` を `</body>` 直前に必ず入れる。
+フッターにメニューを出したいときは functions.php の `register_nav_menus()` に `footer-menu` を追加し、footer.php で `wp_nav_menu()` を呼び出す。管理画面での割り当てをしてはじめて表示される。
+
+【具体例】
+
+```php
+// footer.php の基本構造
+<footer class="footer">
+  <?php wp_nav_menu([
+    'theme_location' => 'footer-menu',
+    'menu_class'     => 'footer_nav_list',
+  ]); ?>
+  <p class="footer_copy">&copy; My Work</p>
+</footer>
+<?php wp_footer(); ?>  // ← </body>直前に必須
+</body>
+</html>
+```
+
+```php
+// functions.php → register_nav_menus に footer-menu を追加
+register_nav_menus([
+  'header-menu' => 'ヘッダーメニュー',
+  'footer-menu' => 'フッターメニュー',  // ← 追加
+]);
+```
+
+管理画面の操作：外観 → メニュー → 新規メニュー作成 → 「フッターメニュー」に割り当て
+
+【補足】
+- `register_nav_menus()` のキー名（'footer-menu'）と `wp_nav_menu()` の `theme_location` は必ず一致させる
+- `wp_footer()` がないと `wp_enqueue_script()` で登録したJSが読み込まれない（管理バーも消える）
+- メニューを管理画面で割り当てるまで `wp_nav_menu()` は何も出力しない
+## 📌 wp_nav_menu() のフォールバック動作 → theme_location に管理画面のメニューが割り当てられていないと全ページを自動表示する → fallback_cb: false で無効化できる WordPress
+
+【日付】2026-04-22
+
+【結論】
+`wp_nav_menu()` でメニューを表示する仕組みは「管理画面のメニュー構造に入れたものを表示する」。
+theme_location にメニューが割り当てられていない場合だけ、WordPressが全ページを自動表示する（フォールバック）。
+ページが存在するから自動表示されるのではなく、メニューの中身がそうだったから表示された。
+
+【具体例】
+
+```php
+// フォールバックを無効にする（割り当てなければ何も表示しない）
+wp_nav_menu([
+  'theme_location' => 'footer-menu',
+  'menu_class'     => 'footer_nav_list',
+  'fallback_cb'    => false,  // ← これを追加
+]);
+```
+
+管理画面のメニュー構造：
+- ホーム・サンプルページ が入っている → それがそのまま表示される
+- 不要な項目は 各項目の ▼ → 「削除」 で消す
+
+【補足】
+- フォールバックは「管理画面でメニュー未割り当て」のときだけ発動
+- 意図せず全ページが表示されたらフォールバックを疑う
+## 📌 page-{スラッグ}.php はテンプレート（見た目の型）だけ → 管理画面で固定ページ（スラッグ一致）を作らないとURLが存在しない WordPress
+
+【日付】2026-04-23
+
+【結論】
+`page-about.php` を作っただけでは `サイトURL/about/` は存在しない。
+WordPressのテンプレートは「見た目の型」で、コンテンツ（中身）はデータベースにある。
+管理画面で固定ページを作り、スラッグを一致させてはじめてページが表示される。
+
+【具体例】
+
+```
+① page-about.php を作る（テンプレート）
+② 管理画面 → 固定ページ → 新規追加
+③ スラッグを about に設定して公開
+→ サイトURL/about/ にアクセスすると page-about.php が使われる
+```
+
+【補足】
+- スラッグが一致しないと `page.php` → `index.php` の順でフォールバックされる
+- テンプレートだけ作って「なぜ表示されないの？」になりやすいポイント
+
+---
+
+## 📌 wp_nav_menu() のクラス命名パターン → _list → _item → _link の順。flexはulに・aタグは子孫セレクタで指定 WordPress HTML
+
+【日付】2026-04-23
+
+【結論】
+`wp_nav_menu()` が出力するHTML構造に合わせて、クラス名は親から子へ `_list → _item → _link` の順で命名する。
+flexはulに、aタグへのスタイルは子孫セレクタで指定する（WordPressが自動生成するため直接クラスを付けられない）。
+
+【具体例】
+
+```
+nav.footer_nav
+  ul.footer_nav_list     ← menu_class で指定できる
+    li.footer_nav_item   ← WordPressが自動付与（クラス直指定不可）
+      a.footer_nav_link  ← WordPressが自動付与（クラス直指定不可）
+```
+
+```css
+/* flexはulに */
+.footer_nav_list {
+  display: flex;
+}
+
+/* aタグは子孫セレクタで */
+.footer_nav_list li a {
+  color: white;
+}
+```
+
+【補足】
+- 命名パターン（_list→_item→_link）は覚えなくていい。「親から子へ」の考え方だけ覚えればOK
+- `menu_class` で指定できるのは `ul` のクラスまで
+## 📌 中央配置の余白は padding より max-width + margin: auto が正解 → paddingは画面が狭いとコンテンツが潰れる HTML CSS
+
+【日付】2026-04-23
+
+【結論】
+コンテンツを中央に配置して左右に余白を作りたいときは `padding` ではなく `max-width + margin: auto` を使う。
+`padding` は中身を圧迫するため、画面が狭くなるとコンテンツが消えたり崩れたりする。
+
+【具体例】
+
+```css
+/* ❌ paddingで余白を作る → 画面が狭いと潰れる */
+.works_area {
+  padding-left: 30rem;
+  padding-right: 30rem;
+}
+
+/* ✅ max-width + margin: auto → どの画面幅でも安全 */
+.works_area {
+  max-width: 800px;
+  margin: 0 auto;
+}
+```
+
+画面が800px以上 → 800pxで表示・中央揃え
+画面が800px以下 → 画面幅に合わせて自動縮小
+
+【補足】
+- 迷ったときのルール：「余白を作りたい（中央配置）」→ max-width + margin: auto / 「要素の内側に空間」→ padding

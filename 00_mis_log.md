@@ -1236,3 +1236,16 @@ flex-shrink
 - WordPress フック関数名（mytheme_setup 等）は自由に決めてOK → ただし他テーマ・プラグインとかぶらないよう `テーマ名_` などプレフィックスをつけるのがマナー
 - wp_nav_menu() の引数で触れるのは <ul>（menu_class）まで → <a> タグのクラスは子孫セレクタ `.site_nav ul li a {}` か nav_menu_link_attributes フィルターで指定する
 - list-style: none は <li> のデフォルトの「・」を消すプロパティ → <li> か <ul> どちらに書いてもOK（reset.cssで最初から消えている場合もある）
+- img タグはデフォルトで元のサイズで表示 → 親より大きいと横スクロール発生 → `max-width: 100%; height: auto; display: block;` を全体CSSに入れておくと防げる
+- wp_title() は非推奨 → functions.php に `add_theme_support('title-tag')` があれば header.php の `<title>` タグを丸ごと削除してOK → WordPress が wp_head() の中で自動出力する
+- Flexbox 縦中央（align-items: center）は高さがないと効果が見えない → height 固定 or 上位で高さが決まっているなら height: 100% を指定する
+(おれがやったときは、設定・一般設定のサイトのタイトルが表示された。・bloginfoと同じような印象をうける)
+## 2026-04-22
+- footer.php 必須3点セット → `wp_footer()` を `</body>` 直前・`</body>`・`</html>` の順。wp_footer() がないと enqueue_script で登録したJSが読み込まれない
+- フッターメニュー追加は3ステップ → ➀ functions.php の register_nav_menus() に footer-menu 追加 → ➁ footer.php に wp_nav_menu(['theme_location' => 'footer-menu']) を書く → ➂ 管理画面 外観→メニュー で割り当て
+- wp_nav_menu() フォールバック → theme_location に管理画面のメニューが割り当てられていないと全ページが自動表示される → 'fallback_cb' => false で無効化できる
+- メニューに表示されるのはページが存在するからではなく、管理画面のメニュー構造に追加したから
+## 2026-04-23
+- page-{スラッグ}.php はテンプレートだけ → 管理画面で固定ページ（スラッグ一致）を作らないと表示されない。テンプレート作成≠ページ作成
+- wp_nav_menu のクラス命名 → _list→_item→_link の順。flexはulに。aタグは子孫セレクタで（WordPressが自動生成するため直接クラス指定不可）
+- 中央配置の余白は padding より max-width + margin: auto → padding は画面が狭いとコンテンツが潰れる。max-width はコンテンツ幅を守りながら自動縮小する
