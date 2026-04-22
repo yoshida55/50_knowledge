@@ -1249,3 +1249,8 @@ flex-shrink
 - page-{スラッグ}.php はテンプレートだけ → 管理画面で固定ページ（スラッグ一致）を作らないと表示されない。テンプレート作成≠ページ作成
 - wp_nav_menu のクラス命名 → _list→_item→_link の順。flexはulに。aタグは子孫セレクタで（WordPressが自動生成するため直接クラス指定不可）
 - 中央配置の余白は padding より max-width + margin: auto → padding は画面が狭いとコンテンツが潰れる。max-width はコンテンツ幅を守りながら自動縮小する
+- CSSデバッグ手順① → パーツを1つずつ消して残りで確認。全部消しても問題が残るなら全体HTMLのmargin等の共通スタイルが原因
+- the_content() を <p> タグで囲まない → CF7など内部でdivを使うフォームの場合、HTML構造が崩れる原因になる
+- page.php がない場合は page-contact.php を作る → get_header() / the_content() / get_footer() の3点セット。CF7のショートコードは固定ページ本文に貼る- the_content() を <p> タグで囲んだ → <p> 禁止。CF7など内部でdivを使うフォームはHTML構造が崩れる。div で囲む
+- 静的HTMLにフォームを書かなくていいと思っていた → 書く。デザイン確認・クライアント承認・CSSの設計図として必要。WordPressに移行したら捨てる前提だが書く
+- CF7移行後の流れ → 静的HTMLのフォームをCF7に差し替え → CF7が出力するクラス名（.wpcf7-form等）に合わせてCSSを修正してデザインカンプに近づける
