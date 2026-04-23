@@ -240,4 +240,4 @@ WordPress header.php 関数まとめ bloginfo wp_head is_home is_front_page h1 d
 wp_nav_menu クラス命名 _list _item _link flex ul 子孫セレクタ aタグ | WordPress HTMLmax-width margin: auto 中央配置 余白 padding 潰れる 画面幅 安全 | HTML CSSCSSデバッグ手順 パーツ削除 原因特定 全体HTML margin 共通スタイル | HTML CSSthe_content() pタグ禁止 CF7 div構造崩れ page-contact.php 固定ページ本文 | WordPress HTMLarchive.php functions.php 登録不要 テンプレート階層 自動認識 テーマ直下 置き場所 css フォルダ | WordPress
 get_header() get_footer() main タグ 外枠 中身 分業 header footer 構造 各テンプレート | WordPress HTML
 the_archive_title() アーカイブ タイトル カテゴリー タグ 日付 種類 自動表示 ベタ書き禁止 | WordPress投稿ページ 表示設定 home.php archive.php ではない テンプレート 例外 固定ページ /news/ パーマリンク | WordPressカテゴリーアーカイブ メニュー カスタムリンク /category/news/ 投稿から追加 category-news.php スラッグ一致 投稿0件 URL存在しない | WordPresssingle_cat_title the_archive_title 接頭語 カテゴリー名だけ 比較 | WordPress
-category-news.php archive.php 優先順位 テンプレート階層 is_category 条件分岐 複数カテゴリー | WordPress
+category-news.php archive.php 優先順位 テンプレート階層 is_category 条件分岐 複数カテゴリー | WordPressCodex memo-all auto-memo MCP未接続 update_plan PowerShell 読み書き 代替 | HTML

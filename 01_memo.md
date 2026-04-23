@@ -22345,3 +22345,25 @@ if ( is_category('news') ) {
 ・category-news.php は「必須」ではなく「あれば優先される」だけ
 ・home.php は別物 → 管理画面「表示設定 → 投稿ページ」に指定した固定ページで使われる（カテゴリーアーカイブとは無関係）
 ・archive.php のメニュー追加はカスタムリンクで /category/スラッグ/ を入力するだけ。固定ページを作る必要はない（投稿を公開するとURLが自動生成される）
+
+
+
+## 📌 Codexで /memo-all を使う場合、auto-memo MCPが未接続なら update_plan とPowerShell読み書きで代替する HTML
+
+【日付】2026-04-24
+
+【結論】
+Claude Code用の `/memo-all` は `mcp__auto-memo__memo_read_context` や `mcp__auto-memo__memo_write_all` が前提。Codex側にそのMCPが見えていない場合は、そのままでは実行できない。
+
+【具体例】
+Codexでは次のように置き換える。
+
+```text
+TodoWrite → update_plan
+memo_read_context → PowerShellの Get-Content / Select-String
+memo_write_all → 承認付き shell_command で 01_memo.md / 00_mis_log.md / 01_memo_index.txt に追記
+BashのPC判定 → PowerShellの Test-Path
+```
+
+【補足】
+Git管理されている補助MCPツールのフォルダが存在しても、それだけではCodexからMCPツールとして呼べるわけではない。Codexのツール一覧にMCPが接続されて初めて `mcp__auto-memo__...` 形式で使える。

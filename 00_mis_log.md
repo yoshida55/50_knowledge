@@ -1310,3 +1310,7 @@ flex-shrink
 投稿０件だと表示されない- single_cat_title() → カテゴリー名だけ出力（例：ニュース）/ the_archive_title() → 「カテゴリー: ニュース」と接頭語が自動でつく
 - category-news.php はarchive.phpより優先される → ①category-news.php ②category.php ③archive.php の順。カテゴリーが1つなら専用ファイル、複数なら archive.php 1つで管理が楽
 - the_time('Y.m.d') は「現在日付」ではなく「投稿日」を表示する → クライアントが投稿時に日付を自由に設定できる（過去日・未来日・予約投稿も可）
+
+## 2026-04-24
+
+- Codexで `/memo-all` を使う場合 → auto-memo MCPが未接続なら、MCP関数名を直接呼ぶのではなく `update_plan` とPowerShellの読み書きに置き換える。Git管理されているフォルダがあることと、MCPとして接続されていることは別。
