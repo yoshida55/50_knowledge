@@ -22296,3 +22296,52 @@ archive.php でタイトルを表示するときは `the_archive_title()` を使
 【注意】
 カテゴリースラッグとファイル名の「news」が一致していないと category-news.php が使われない
 投稿が0件だと /category/news/ のURLが存在しないので必ず1件以上公開する
+
+## 📌 single_cat_title() は接頭語なし / the_archive_title() は「カテゴリー:」が自動でつく → デザインに応じて使い分ける WordPress
+
+【日付】2026-04-23
+【結論】
+・single_cat_title() → カテゴリー名だけ出力（例：「ニュース」）
+・the_archive_title() → 「カテゴリー: ニュース」のように接頭語が自動でつく
+
+【具体例】
+```php
+<?php single_cat_title(); ?>
+// → ニュース
+
+<?php the_archive_title(); ?>
+// → カテゴリー: ニュース
+```
+
+【補足】
+・接頭語を表示したくないデザインなら single_cat_title() を使う
+・the_archive_title() はタグ・日付・作成者アーカイブにも対応（汎用的）
+
+---
+
+## 📌 カテゴリーテンプレートの優先順位 → category-news.php が最優先・archive.php は汎用フォールバック / カテゴリーが複数なら archive.php 1つで is_category() 条件分岐で管理 WordPress
+
+【日付】2026-04-23
+【結論】
+/category/news/ にアクセスしたとき、WordPressは以下の順でテンプレートを探す
+
+➀ category-news.php（newsカテゴリー専用 → あれば最優先）
+➁ category.php（カテゴリー全般）
+➂ archive.php（カテゴリー・タグ・日付・作成者 すべての共通テンプレート）
+➃ index.php（最終フォールバック）
+
+【具体例】
+カテゴリーが「ニュース」だけ → category-news.php を作れば完結
+カテゴリーが複数（ニュース・イベント・採用）→ archive.php 1つに条件分岐で対応
+
+```php
+// archive.php 内でカテゴリー別に処理を分ける場合
+if ( is_category('news') ) {
+    // ニュース用の処理
+}
+```
+
+【補足】
+・category-news.php は「必須」ではなく「あれば優先される」だけ
+・home.php は別物 → 管理画面「表示設定 → 投稿ページ」に指定した固定ページで使われる（カテゴリーアーカイブとは無関係）
+・archive.php のメニュー追加はカスタムリンクで /category/スラッグ/ を入力するだけ。固定ページを作る必要はない（投稿を公開するとURLが自動生成される）
