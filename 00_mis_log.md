@@ -1255,3 +1255,56 @@ flex-shrink
 - 静的HTMLにフォームを書かなくていいと思っていた → 書く。デザイン確認・クライアント承認・CSSの設計図として必要。WordPressに移行したら捨てる前提だが書く
 - CF7移行後の流れ → 静的HTMLのフォームをCF7に差し替え → CF7が出力するクラス名（.wpcf7-form等）に合わせてCSSを修正してデザインカンプに近づける
 - register_nav_menus（s付き）→ 配列で複数同時登録OK / register_nav_menu（単数）→ 1つだけ → ヘッダー＋フッターを同時登録したいなら register_nav_menus を使う
+- archive.php は functions.php への登録不要 → WordPressのテンプレート階層でファイル名から自動認識。テーマ直下に置くだけでOK
+- `<main>` が必要な理由 → header.php は `<body>` と `<header>` で終わり、footer.php は `<footer>` から始まる → その間を埋めるのが各テンプレートの `<main>` タグ（ないとヘッダーとフッターの間が空）
+- archive.php の置き場所 → テーマ直下（index.php と同じ階層）。css/ フォルダの中に置いてもWordPressが認識できない- the_archive_title() → アーカイブタイトルはWordPressが自動表示（カテゴリー名・タグ名・日付など）ベタ書きしない
+- 投稿のタイトルは自由 → スラッグは functions.php の has_archive 等と合わせる必要がある場合あり- 投稿ページ（表示設定）は home.php が使われる → archive.php ではない（WordPressの唯一の例外ルール）
+
+
+- - archive.phpを使う場合。基本カテゴリー/タグ/日付で絞れる汎用的なPHP。
+　今回使わなかった理由。すでに「category-news.php」という
+　カテゴリ専用ファイルがあるので、archive.phpは不要だった。
+
+　カテゴリーが複数（ニュース・イベントなど）に増えたら
+　archive.php 1つにまとめるほうが管理しやすい。
+
+【archive.php で表示するときの正規手順】
+① テーマ直下に archive.php を作成（index.php と同じ階層）
+② 投稿エディタでカテゴリーを新規作成（例：news）
+③ 投稿にカテゴリーをチェック → 公開（※投稿0件だとURLが存在しない）
+④ 外観 → メニュー → 「カスタムリンク」で /category/news/ を入力してメニューに追加（例）http://iwa.local/category/news/）
+
+（例）
+
+カテゴリー一覧にリンクしたい → /category/news/
+タグ一覧にリンクしたい      → /tag/php/
+日付一覧にリンクしたい      → /2026/04/
+
+つまり、archive.phpでもURLは絞る、URLでつくらないといけない。
+（投稿にカテゴリーをつけて公開
+  ↓
+/category/news/ が自動でできる
+  ↓
+そのURLをカスタムリンクに入力するだけ）
+
+
+
+
+   ※固定ページと違い、自分でページを作らなくてもWordPressが自動でURLを生成する
+⑤ メニューのリンクをクリックして表示を確認
+
+
+⚠ ハマりやすいポイント
+- archive.php を css/ フォルダに入れると認識されない → テーマ直下に置く
+- 投稿を公開する前にURLを踏んでも404になる → 先に投稿を1件以上公開する
+- メニューに /category/news/ を追加しても投稿0件だとページが存在しない
+
+
+- カテゴリで絞った投稿を表示
+カテゴリーアーカイブのメニュー追加フロー 
+→ 「外観ーメニューで」カスタムリンクで /category/スラッグ/ を設定 （例）http://iwa.local/category/news/）
+②投稿エディタのカテゴリーパネルから新規作成 （最初カテゴリがuncategorizedしかないので追加）
+③投稿にチェック→公開 → 投稿0件だとURLが存在しない
+(なお,この場合ファイル名は、category-スラッグ.php にする（例）category-news.php）
+
+投稿０件だと表示されない

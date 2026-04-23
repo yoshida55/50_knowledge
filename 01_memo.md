@@ -22184,3 +22184,115 @@ CF7のショートコードは固定ページ本文に貼るため、the_content
 【補足】
 - the_content() はCF7に限らず、固定ページの本文をすべて出力する関数
 - pタグはインライン・テキスト用。divやformなどのブロック要素を中に入れるとHTMLとして不正になる
+## 📌 archive.php は functions.php への登録不要 → テーマ直下に置くだけでWordPressが自動認識（テンプレート階層） WordPress
+
+【日付】2026-04-23
+
+【結論】
+archive.php はファイルをテーマ直下に置くだけでOK。functions.php に何かを書いたり登録する必要はない。
+
+【なぜそうなるか】
+WordPressの「テンプレート階層」という仕組みで、URLにアクセスがあるとWordPressが自動でファイルを探す：
+archive-{スラッグ}.php → archive.php → index.php
+ファイル名さえ合っていれば自動で使われる。
+
+【functions.php への登録が必要なもの vs 不要なもの】
+| 必要 | 不要 |
+|---|---|
+| CSS/JSの読み込み（wp_enqueue_style） | archive.php |
+| ナビメニュー登録（register_nav_menus） | single.php |
+| アイキャッチ有効化（add_theme_support） | page.php |
+
+【置き場所】
+テーマ直下（index.php と同じ階層）に置く。
+css/ フォルダの中では WordPressに認識されない。
+
+
+## 📌 get_header() / get_footer() の間を自分で書く理由 → header/footer が外枠担当・各テンプレートが中身担当 WordPress HTML
+
+【日付】2026-04-23
+
+【結論】
+archive.php など各テンプレートで `<main>` タグが必要な理由は、header.php と footer.php がページの「外枠」を担当し、その間の中身を各テンプレートが担当しているから。
+
+【構造のイメージ】
+header.php  →  <body>を開く + <header>...</header>
+                                ↑ ここが空白
+archive.php →    <main>...</main>  ← ここを自分で書く
+                                ↓ ここが空白
+footer.php  →  <footer>...</footer> + </body>を閉じる
+
+- get_header() → <body>を「開く」役割
+- get_footer() → </body>を「閉じる」役割
+- その間を埋めないとHTMLとして不完全（ヘッダーとフッターの間が空になる）
+
+
+## 📌 the_archive_title() → アーカイブページのタイトルをページ種類に応じて自動表示する WordPress
+
+【日付】2026-04-23
+
+【結論】
+archive.php でタイトルを表示するときは `the_archive_title()` を使う。
+アクセスしたページの種類によって表示が自動で変わるため、ベタ書きしない。
+
+【具体的な動作】
+| アクセスしたページ | 表示されるタイトル |
+|---|---|
+| カテゴリーページ | カテゴリー名（例：ニュース） |
+| タグページ | タグ名 |
+| 日付アーカイブ | 2026年4月 など |
+
+【書き方】
+```php
+<h2 class="news_title"><?php the_archive_title(); ?></h2>
+```
+
+ベタ書き（「News」と直書き）はしない。ページによってタイトルが変わるのでWordPressに任せる。
+
+## 📌 WordPress 投稿ページ（表示設定）は home.php が使われる → archive.php ではない。カテゴリー/タグ/日付は archive.php・投稿ページだけが例外 WordPress
+
+【日付】2026-04-23
+
+【結論】
+表示設定 → 投稿ページ に固定ページを設定した場合、そのURLには home.php が使われる。archive.php は使われない。投稿ページだけが WordPress の唯一の例外。
+
+【テンプレート階層の違い】
+| URL の種類 | 使われるテンプレート |
+|---|---|
+| 投稿ページ（表示設定で設定） | home.php → index.php |
+| /category/xxx/（カテゴリー） | category-{スラッグ}.php → category.php → archive.php |
+| /tag/xxx/（タグ） | tag-{スラッグ}.php → tag.php → archive.php |
+| /2026/04/（日付） | date.php → archive.php |
+
+【投稿ページを /news/ で表示する手順】
+➀ 固定ページ（スラッグ: news）を作成（本文は空でOK）
+➁ 設定 → 表示設定 → 投稿ページ → その固定ページを選択
+➂ 設定 → パーマリンク → 変更を保存（何も変えなくてOK・リセットのため）
+→ /news/ にアクセスすると home.php が表示される（home.php がなければ index.php）
+
+## 📌 カテゴリーアーカイブ（/category/スラッグ/）をメニューに表示する手順 →
+➀カスタムリンクでURL追加 ➁投稿エディタからカテゴリー作成 ➂投稿にチェック→公開 WordPress
+
+【日付】2026-04-23
+
+【結論】
+カテゴリーアーカイブページをメニューに追加するには、カスタムリンクでURLを設定し、
+投稿のカテゴリーパネルから新規カテゴリーを作って投稿に紐付ける。
+
+【手順】
+➀ 外観 → メニュー → カスタムリンク
+  URL: http://サイトURL/category/カテゴリースラッグ/（例: http://iwa.local/category/news/）
+  リンク文字列: News
+  → メニューに追加 → メニューを保存
+
+➁ 投稿 → 新規追加 → 右パネルの「カテゴリー」→「カテゴリーを追加」
+  新規カテゴリー名: news（スラッグも news）→ カテゴリーを追加ボタン
+
+➂ 作成したカテゴリー「news」にチェック → 公開
+
+→ /category/news/ にアクセスすると category-news.php が表示される
+（category-news.php がなければ archive.php にフォールバック）
+
+【注意】
+カテゴリースラッグとファイル名の「news」が一致していないと category-news.php が使われない
+投稿が0件だと /category/news/ のURLが存在しないので必ず1件以上公開する
