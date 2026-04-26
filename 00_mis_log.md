@@ -8,6 +8,7 @@
 | 2026-04-22 | 10問 | 8問 | 153問 |
 | 2026-04-22② | 10問 | 7問 | 150問 |
 | 2026-04-22③ | 10問 | 5問 | 148問 |
+| 2026-04-26 | 9問 | 6問 | 208問 |
 
 ---
 
@@ -295,7 +296,7 @@ z-index contentsは100（margin-top 100vh）
 
 - ❌ CSSアニメーションの使い分け → 単純な動きはCSS / スクロールや操作が絡むときはJS / 複雑な連続アニメはライブラリ（GSAP等）
 
-- ❌ transition → 値が変わるときになめらかに動かす。transition: プロパティ名 時間 イージング の形
+- ✅ transition → 値が変わるときになめらかに動かす。transition: プロパティ名 時間 イージング の形
 ✅- ease → ゆっくり始まって速くなってゆっくり終わる（自然な動き）/ linear → 一定速度
 
 ## 2026-04-05
@@ -310,7 +311,7 @@ z-index contentsは100（margin-top 100vh）
 ```
 
 
-- ❌ タブUIは flex（横並び）+ position:absolute（下線の自由配置）+ JS（クリックで動かす）の3役割分担
+- ✅ タブUIは flex（横並び）+ position:absolute（下線の自由配置）+ JS（クリックで動かす）の3役割分担
 
 - ❌ CSS transition → 値が変わるときになめらかにする / JS → 実際に値を書き換える役割　
 transition: プロパティ名 時間 イージング の形で書く。　
@@ -333,10 +334,10 @@ transition: プロパティ名 時間 イージング の形で書く。　
 
 - margin-bottomが効かないときはDevToolsで取り消し線チェック → 上書き・親のoverflow・flexが原因
 
-- ❌ :nth-last-child は () と数字が必須 → 最後の要素だけなら :last-child がシンプル
+- ✅ :nth-last-child は () と数字が必須 → 最後の要素だけなら :last-child がシンプル
   - :nth-last-child は「後ろから○番目」を指定する関数なので数字が必要
   - :last-child = 後ろから1番目（最後）/ :nth-last-child(2) = 後ろから2番目
-- ❌ border shorthand は border-bottom を上書きする → 書く順番に注意
+- ✅ border shorthand は border-bottom を上書きする → 書く順番に注意
 
 ## 2026-04-08
 
@@ -671,7 +672,7 @@ if ( is_category() ) {
 - グローバル `.gitignore`（`~/.gitignore_global`）に書けば会社に届かない → プロジェクト内の `.gitignore` は届く・見られる
 
 
-- ❌❌ `wp_title()` は WordPress 4.1 以降 非推奨 → `add_theme_support('title-tag')` を使う
+- ✅ `wp_title()` は WordPress 4.1 以降 非推奨 → `add_theme_support('title-tag')` を使う
 
 ➡　<title> タグをWordPressに自動で出力させるための設定です。　// functions.php に書くだけ
 add_theme_support('title-tag');
@@ -1104,7 +1105,7 @@ foreach($cats as $cat) {
 - require_once get_template_directory() . '/debug_helper.php' は開発用 → 本番前に削除する
 ()
 
-- CF7 ショートコード → [text* フィールド名 class:クラス名 "プレースホルダー"] の順で書く
+- ✅ CF7 ショートコード → [text* フィールド名 class:クラス名 "プレースホルダー"] の順だが、**WP管理画面のGUIから挿入できるので暗記不要**
   → フィールド名   = HTMLの name 属性になる（メール本文の []タグにも使う）
   → class:クラス名 = inputタグに付くクラス名（CSSで装飾できる）
   → "テキスト"     = プレースホルダー（入力欄の薄い文字ヒント）
@@ -1147,7 +1148,7 @@ Local アプリ
         └── Mailpit → 開くと受信メール一覧が見える
 
 ## 2026-04-20（追記）
-- ★ the_sub_field() vs the_field() の使い分けはCPT（カスタム投稿タイプ）かどうかではなく、**SCFで繰り返しフィールドを設定したかどうか**で決まる
+- ✅★ the_sub_field() vs the_field() の使い分けはCPT（カスタム投稿タイプ）かどうかではなく、**SCFで繰り返しフィールドを設定したかどうか**で決まる
   - SCFで繰り返しフィールドを設定 → have_rows → the_row のループの中 → the_sub_field()
   - SCFで通常フィールドを設定 → the_field()
   - 固定ページでもCPTでも同じルール
@@ -1314,3 +1315,55 @@ flex-shrink
 ## 2026-04-24
 
 - Codexで `/memo-all` を使う場合 → auto-memo MCPが未接続なら、MCP関数名を直接呼ぶのではなく `update_plan` とPowerShellの読み書きに置き換える。Git管理されているフォルダがあることと、MCPとして接続されていることは別。
+
+## 2026-04-26
+
+- アーカイブURL取得関数の使い分け → 一覧ページ=`get_post_type_archive_link('news')` / カテゴリ・タグ=`get_term_link('スラッグ','category')` / 個別記事=`get_permalink()`。主に header.php のナビ・TOPの「一覧へ」ボタン・single.php のカテゴリリンクで使う。
+- `wp_title()` の代わりに `add_theme_support('title-tag')` を functions.php に書くと、WordPressが自動で`<title>`タグを出力してくれる。header.php に自分で `<title>` を書かなくてOK。書く場所は `function my_setup(){ add_theme_support('title-tag'); } add_action('after_setup_theme','my_setup');` のセット。
+
+### 個別記事ページから「一覧」に戻る2つの導線（よく混同する）
+
+**前提のサイト構造（カスタム投稿タイプ「news」の例）**
+- 投稿タイプ：news（お知らせ）
+- カスタム分類：news_category（新製品 / イベント / 営業案内 など）
+
+**① お知らせ一覧へ戻る（全記事）→ `get_post_type_archive_link()`**
+- 飛び先：archive-news.php
+- 表示される記事：news 投稿タイプの**全部**（カテゴリ問わず）
+```php
+<a href="<?php echo get_post_type_archive_link('news'); ?>">
+  お知らせ一覧へ戻る
+</a>
+```
+
+**② カテゴリ一覧へ戻る（絞り込み）→ `get_term_link()`**
+- 飛び先：taxonomy-news_category.php
+- 表示される記事：そのカテゴリの記事**だけ**
+```php
+<a href="<?php echo get_term_link('shinseihin', 'news_category'); ?>">
+  新製品の記事一覧へ
+</a>
+```
+
+**実務でよく見るsingle.php末尾のUI**
+```
+カテゴリ：[ 新製品 ]   ← get_term_link（カテゴリ絞り一覧へ）
+タグ：[ 春 ] [ スイーツ ] ← get_term_link（タグ絞り一覧へ）
+
+      ┌─────────────────────┐
+      │  お知らせ一覧へ →    │  ← get_post_type_archive_link（全記事一覧へ）
+      └─────────────────────┘
+```
+
+**第2引数（タクソノミー名）の使い分け**
+- 通常投稿のカテゴリ → `'category'`
+- 通常投稿のタグ → `'post_tag'`
+- カスタム投稿のカスタム分類 → `'news_category'` などの独自名
+
+**今の記事のカテゴリリンクを表示する一番楽な方法 → `the_category()`**
+```php
+<p>カテゴリ: <?php the_category(', '); ?></p>
+<!-- 自動で <a href="..."> が出る。複数カテゴリはカンマ区切り -->
+```
+- `the_` 始まり = echo付き・自動表示（楽）
+- `get_` 始まり = 値を返すだけ・echo必要（自由度高い）
