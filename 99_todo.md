@@ -1,25 +1,18 @@
 
 
 
-〇windsurfをセットアップした
+🎯 会社PCでやること（3ステップだけ）
+1️⃣ pull_all.ps1 を実行
+→ auto-memo-mcp/ フォルダが同期される
 
-GITHUBでログインしている。
+2️⃣ C:/Users/guest04/.claude.json を開いて、mcpServers に追記
 
-信頼さているドメインにOKした。
+"auto-memo": {
+  "type": "stdio",
+  "command": "python",
+  "args": ["（会社PCでの auto-memo-mcp/server.py のパス）"]
+}
 
-Ctrl+Shift+P → 「Open Keyboard Shortcuts」（UIの一覧）
-
-以下を追加
-  {
-    "key": "ctrl+i",
-    "command": "cssToHtmlJumper.askClaude",
-    "when": "editorTextFocus",
-  },
-  {
-    "key": "ctrl+i",
-    "command": "-windsurf.something", // Windsurfのコマンド名を確認して書く
-    "when": "",
-  },
 
 
 

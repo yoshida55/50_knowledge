@@ -241,3 +241,5 @@ wp_nav_menu クラス命名 _list _item _link flex ul 子孫セレクタ aタグ
 get_header() get_footer() main タグ 外枠 中身 分業 header footer 構造 各テンプレート | WordPress HTML
 the_archive_title() アーカイブ タイトル カテゴリー タグ 日付 種類 自動表示 ベタ書き禁止 | WordPress投稿ページ 表示設定 home.php archive.php ではない テンプレート 例外 固定ページ /news/ パーマリンク | WordPressカテゴリーアーカイブ メニュー カスタムリンク /category/news/ 投稿から追加 category-news.php スラッグ一致 投稿0件 URL存在しない | WordPresssingle_cat_title the_archive_title 接頭語 カテゴリー名だけ 比較 | WordPress
 category-news.php archive.php 優先順位 テンプレート階層 is_category 条件分岐 複数カテゴリー | WordPressCodex memo-all auto-memo MCP未接続 update_plan PowerShell 読み書き 代替 | HTML
+width vs max-width 違い 固定 上限 レスポンシブ 60〜80文字 width: 100% max-width セット技 はみ出し防止 | HTML CSS
+セクションレイアウト 設計指針 ヒーロー 半分幅 他セクション 全幅 grid flex 重なり回避 absolute 避ける 2カラム grid-template-columns | HTML CSS
