@@ -313,7 +313,7 @@ z-index contentsは100（margin-top 100vh）
 
 - ✅ タブUIは flex（横並び）+ position:absolute（下線の自由配置）+ JS（クリックで動かす）の3役割分担
 
-- ❌ CSS transition → 値が変わるときになめらかにする / JS → 実際に値を書き換える役割　
+- ✅ CSS transition → 値が変わるときになめらかにする / JS → 実際に値を書き換える役割　
 transition: プロパティ名 時間 イージング の形で書く。　
 
 
