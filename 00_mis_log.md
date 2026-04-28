@@ -1,17 +1,30 @@
-## 📊 クイズ履歴
-| 日付 | 出題数 | 正解 | 残り未出題 |
+## 🗺 メモリーパレス記録
+※ 番号だけ言えばOK（① いま　メモリ / ② 家の前 / ③ 八軒小路付近 / ④ ボイス付近）
+
+| 場所 | 語呂合わせ・内容 | チェック | 更新日 |
 |---|---|---|---|
-| 2026-04-19 | 10問 | 8問 | 154問 |
-| 2026-04-20 | 14問 | 10問 | 154問 |
-| 2026-04-20② | 10問 | 6問 | - |
-| 2026-04-20③ | 10問 | 6問 | 175問 |
-| 2026-04-22 | 10問 | 8問 | 153問 |
-| 2026-04-22② | 10問 | 7問 | 150問 |
-| 2026-04-22③ | 10問 | 5問 | 148問 |
-| 2026-04-26 | 9問 | 6問 | 208問 |
-| 2026-04-29 | 10問 | 6問 | 219問 |
-| 2026-04-29② | 5問 | 3問 | 220問 |
-| 2026-04-29③ | 5問 | 3問 | 220問 |
+| ① いま　メモリ | - | - | - |
+| ② 家の前 | - | - | - |
+| ③ 八軒小路付近 | - | - | - |
+| ④ ボイス付近 | - | - | - |
+
+---
+
+## 📊 クイズ履歴
+| 日付 | 出題数 | 正解 | 残り（❌+未出題） | 完了済み（✅） |
+|---|---|---|---|---|
+| 2026-04-19 | 10問 | 8問 | - | - |
+| 2026-04-20 | 14問 | 10問 | - | - |
+| 2026-04-20② | 10問 | 6問 | - | - |
+| 2026-04-20③ | 10問 | 6問 | 175問 | - |
+| 2026-04-22 | 10問 | 8問 | 153問 | - |
+| 2026-04-22② | 10問 | 7問 | 150問 | - |
+| 2026-04-22③ | 10問 | 5問 | 148問 | - |
+| 2026-04-26 | 9問 | 6問 | 208問 | - |
+| 2026-04-29 | 10問 | 6問 | 219問 | - |
+| 2026-04-29② | 5問 | 3問 | 220問 | - |
+| 2026-04-29③ | 5問 | 3問 | 220問 | - |
+| 2026-04-29④ | 9問 | 4問 | 207問 | 67問 |
 
 ---
 
@@ -115,7 +128,7 @@ if ( is_category() ) {
 
 - ✅ 「項目名＋内容」（会社情報とか）の組み合わせ → `dl dt dd` + `display:flex` + `flex-wrap:wrap` がベスト
 - ✅ `table` → 比較・集計データ用 / `ul` → 順序なしリスト用 / `div` → 意味なし
-- ❌ `dt { width: 20% }` + `dd { width: 80% }` → 合計100%で自動折り返し・display:inline-block必須
+- ❌[0429] `dt { width: 20% }` + `dd { width: 80% }` → 合計100%で自動折り返し・display:inline-block必須
 
 会社情報サンプル
 ![](images/2026-03-30-22-12-55.png)
@@ -340,7 +353,7 @@ transition: プロパティ名 時間 イージング の形で書く。　
 
 - ✅ border-radiusは特定の角だけ指定できる → border-radius: 左上 右上 右下 左下（時計回り）
 
-- ❌ margin-bottomが効かないときはDevToolsで取り消し線チェック → ほぼ「上書き（他のCSSが勝っている）」が原因。overflow:hiddenはmarginは効いてるが見えないだけ。flexもmarginは効く。
+- ✅[0429] margin-bottomが効かないときはDevToolsで取り消し線チェック → ほぼ「上書き（他のCSSが勝っている）」が原因。overflow:hiddenはmarginは効いてるが見えないだけ。flexもmarginは効く。
 
 - ✅ :nth-last-child は () と数字が必須 → 最後の要素だけなら :last-child がシンプル
   - :nth-last-child は「後ろから○番目」を指定する関数なので数字が必要
@@ -365,7 +378,7 @@ fr = fraction（フラクション）
   gap: 20px; /* 列の間隔 */
 }
 
-- ❌ JS で行頭が function 以外 → 変数名で始まる行は「使う」操作。function で始まる行だけが「作る（定義）」
+- ✅[0429] JS で行頭が function 以外 → 変数名で始まる行は「使う」操作。function で始まる行だけが「作る（定義）」
 
 - ✅ ::before/::after は flex の子アイテムになれる → position:absolute なしで align-items:center で縦位置が自動で揃う
 
@@ -547,7 +560,7 @@ footer { margin-top: auto; }  ← footer 自
 ## 2026-04-13
 
 - flexbox でフッターが下に来ないとき → `img { height: 100%; }` のグローバル指定を疑う（画像が親の高さを引き継いで膨らみ、flex: 1 / margin-top: auto が効かなくなる）
-- ❌ `margin-top: auto` は flex/grid コンテナの直接の子でないと垂直方向に効かない（通常ブロックは0扱い）→ section が間にあると効かない / 親も flex にするか要素を外に出す。※左右の margin: auto は通常ブロックでも効く（別の話）
+- ✅[0429] `margin-top: auto` は flex/grid コンテナの直接の子でないと垂直方向に効かない（通常ブロックは0扱い）→ section が間にあると効かない / 親も flex にするか要素を外に出す。※左右の margin: auto は通常ブロックでも効く（別の話）
 - ページネーションは section の外が一般的 → コンテンツ（section）とナビゲーション（pagination）は分けて書く
 
 - `section { flex: 1 }` + `pagination` が同じ flex コンテナにあると section が全スペースを取って pagination がはみ出す → section から `flex: 1` を削除する
@@ -556,7 +569,7 @@ footer { margin-top: auto; }  ← footer 自
 
 - 検証ツールで対象要素を確認 → 正しいセレクタに `display: flex` を当てることで正確な位置に配置できる
 
-- ❌ ブラウザのデフォルトスタイル（`ul/li` は縦・点つき）は検証ツールで取り消し線で確認できる → `display: flex` + `list-style: none` で上書きする
+- ✅[0429] ブラウザのデフォルトスタイル（`ul/li` は縦・点つき）は検証ツールで取り消し線で確認できる → `display: flex` + `list-style: none` で上書きする
 
 - `get_categories()` はデフォルトで空カテゴリーを非表示 → `array('hide_empty' => false)` を渡すと全表示　「空カテゴリー」というのは、存在しているが、そのカテゴリが付与されている投稿がないということ。
 
@@ -1041,7 +1054,7 @@ foreach ( $categories as $category ) {
 🙆‍♂️（正しい）<?php echo esc_url(get_theme_file_uri('img/aaa.jpg') ); ?>
 
 
-- ❌ 投稿タイプアーカイブ（カスタム投稿タイプ）のURL取得 → 
+- ❌[0429] 投稿タイプアーカイブ（カスタム投稿タイプ）のURL取得 → 
 ・get_post_type_archive_link('news') or 
 ・home_url('/news/')
 💡覚え方：get(取得) _ post_type(投稿タイプ) _ archive(一覧) _ link(URL) → 関数名を日本語に読み替えると意味がつかめる *
@@ -1058,11 +1071,12 @@ foreach ( $categories as $category ) {
 ・get_post_type_archive_link()	直接URLを書く	PHPに直書き・固定
 
 
-- ❌ カテゴリーアーカイブのURL取得 → get_term_link('スラッグ', 'category')
+- ❌ カテゴリーアーカイブのURL取得 → get_term_link('スラッグ', 'category') [プレビュー](http://localhost:54321/preview-20260429-072010.svg) svg/get_term_link_vs_category_link.svg
+- ✅[0429] get_term_link も get_category_link も、どちらも返すのは「カテゴリーの記事一覧ページのURL」（リンク先のURLを作るだけ・ページを表示するわけではない）[プレビュー](http://localhost:54321/preview-20260429-072010.svg) svg/get_term_link_vs_category_link.svg
 
-- ❌ get_term_link('news', 'category') → カテゴリー・タグページへのリンクURL取得（href="" に入れて使う）
+- ❌[0429] get_term_link('news', 'category') → カテゴリー・タグページへのリンクURL取得（href="" に入れて使う） [プレビュー](http://localhost:54321/preview-20260429-072010.svg) svg/get_term_link_vs_category_link.svg
 
-- カテゴリーアーカイブページのテンプレートファイル優先順位 → category-{スラッグ}.php → category-{ID}.php → category.php → archive.php → index.php *
+- ❌ カテゴリーアーカイブページのテンプレートファイル優先順位 → category-{スラッグ}.php → category-{ID}.php → category.php → archive.php → index.php *
 
 ※【使い方】
 // single.php で記事のカテゴリーリンクを表示
