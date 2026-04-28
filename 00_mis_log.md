@@ -1372,4 +1372,4 @@ flex-shrink
 - `width` は固定命令でスマホで横スクロール発生／`max-width` は上限ガードで画面幅に合わせて縮む。文章ブロックや画像は基本 `max-width: 100%` か `width:100% + max-width` の組み合わせを使う。
 - max-width の目的は2つあると気づいた → ①スマホで崩れない（レスポンシブ） ②PCで広がりすぎない（読みやすさ・1行60〜80文字で改行されるよう制限）。レスポンシブ目的だけだと思ってたけど、PCでの可読性も大きな理由
 - セクションレイアウトの設計指針 → ヒーローは画像と並ぶ構造で半分幅、他セクションは全幅。役割が違うから幅違ってOKで違和感じゃない。今後の新規セクションは position: absolute を避けて grid/flex で組む。これで画像とテキストの重なり問題を根本回避できる
-- border-radius 4値は時計回り（左上→右上→右下→左下）→ 2番目が右上。親に overflow: hidden がないと角が白くつぶれる- mix-blend-mode: multiply → PNG画像の白い背景を消すのに使う。白×カード色=カード色の原理。screen（黒を消す）の逆
+- border-radius 4値は時計回り（左上→右上→右下→左下）→ 2番目が右上。親に overflow: hidden がないと角が白くつぶれる- mix-blend-mode: multiply → PNG画像の白い背景を消すのに使う。白×カード色=カード色の原理。screen（黒を消す）の逆- filter: brightness() → background-imageを持つdivにも直接かけられる。imgタグ限定じゃない。スライドごとに個別調整できる

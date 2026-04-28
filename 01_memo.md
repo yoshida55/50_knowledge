@@ -22561,3 +22561,27 @@ multiply（乗算）は 白 × 背景色 = 背景色 になる計算。
 - `mix-blend-mode: screen` は黒背景を透過させる（白を消す multiply の逆）
 - 背景が白い場所では効果が出ない（白×白=白で変化なし）
 - CSS プロパティ1行で済む・画像を加工しなくていい
+
+## 📌 filter: brightness() saturate() contrast() → background-image を持つ div にも直接かけて明るさ・色味を調整できる HTML CSS
+
+【日付】2026-04-28
+
+【結論】
+`filter` プロパティは `img` タグだけでなく、`background-image` を持つ div にも使える。
+ヒーローのスライドショーなど背景画像が暗い場合、スライド要素に直接 `filter` をかけて明るくできる。
+
+【具体例】
+```css
+.hero_slide_2 {
+  filter: brightness(1.2) saturate(0.95) contrast(1.04);
+}
+/* brightness: 1より大きい → 明るい
+   saturate:   1より小さい → 色が薄くなる（白飛び感）
+   contrast:   1より大きい → メリハリが出る */
+```
+
+【補足】
+- `brightness(1.0)` = 元の明るさ / `1.2` = 20%明るい
+- 複数の関数をスペース区切りで並べて同時に使える
+- オーバーレイ（白い div を重ねる）と違い、画像自体の見た目を変える
+- スライドごとに個別に値を変えれば、枚数ごとに明るさを揃えられる
