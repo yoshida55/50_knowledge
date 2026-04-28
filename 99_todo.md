@@ -10,7 +10,7 @@
 "auto-memo": {
   "type": "stdio",
   "command": "python",
-  "args": ["（会社PCでの auto-memo-mcp/server.py のパス）"]
+  "args": [""C:\Users\guest04\Desktop\高橋研三\01_研修用\96_過去の成果物（最新）\84_MEMO-mcp\server.py""]
 }
 
 
