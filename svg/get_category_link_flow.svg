@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 320" font-family="sans-serif">
+
+  <!-- 背景 -->
+  <rect width="680" height="320" fill="#f8f9fa" rx="12"/>
+
+  <!-- タイトル -->
+  <text x="340" y="36" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">get_category_link( get_cat_ID('ニュース') ) の流れ</text>
+
+  <!-- STEP1 ボックス -->
+  <rect x="30" y="70" width="180" height="80" rx="10" fill="#fff" stroke="#6c8ebf" stroke-width="2"/>
+  <text x="120" y="98" text-anchor="middle" font-size="11" fill="#6c8ebf" font-weight="bold">① カテゴリー名</text>
+  <text x="120" y="120" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">'ニュース'</text>
+  <text x="120" y="140" text-anchor="middle" font-size="11" fill="#888">（文字列）</text>
+
+  <!-- 矢印1 -->
+  <line x1="212" y1="110" x2="255" y2="110" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#999"/>
+    </marker>
+  </defs>
+
+  <!-- STEP2 関数ボックス -->
+  <rect x="256" y="70" width="168" height="80" rx="10" fill="#fff3cd" stroke="#f0a500" stroke-width="2"/>
+  <text x="340" y="96" text-anchor="middle" font-size="11" fill="#b07800" font-weight="bold">② get_cat_ID()</text>
+  <text x="340" y="118" text-anchor="middle" font-size="12" fill="#555">カテゴリー名</text>
+  <text x="340" y="136" text-anchor="middle" font-size="12" fill="#555">↓ IDに変換</text>
+
+  <!-- 矢印2 -->
+  <line x1="426" y1="110" x2="468" y2="110" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- STEP3 IDボックス -->
+  <rect x="470" y="70" width="178" height="80" rx="10" fill="#fff" stroke="#6c8ebf" stroke-width="2"/>
+  <text x="559" y="98" text-anchor="middle" font-size="11" fill="#6c8ebf" font-weight="bold">③ ID（数値）が返る</text>
+  <text x="559" y="124" text-anchor="middle" font-size="26" font-weight="bold" fill="#333">5</text>
+  <text x="559" y="144" text-anchor="middle" font-size="11" fill="#888">（例：5番）</text>
+
+  <!-- 矢印3（下へ） -->
+  <line x1="559" y1="152" x2="559" y2="185" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- STEP4 関数ボックス -->
+  <rect x="470" y="186" width="178" height="60" rx="10" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+  <text x="559" y="210" text-anchor="middle" font-size="11" fill="#1a6e2e" font-weight="bold">④ get_category_link(5)</text>
+  <text x="559" y="232" text-anchor="middle" font-size="12" fill="#555">URLに変換</text>
+
+  <!-- 矢印4（左へ） -->
+  <line x1="468" y1="216" x2="426" y2="216" stroke="#999" stroke-width="2" marker-end="url(#arrow2)"/>
+  <defs>
+    <marker id="arrow2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#999"/>
+    </marker>
+  </defs>
+
+  <!-- STEP5 URLボックス -->
+  <rect x="30" y="186" width="394" height="60" rx="10" fill="#fff" stroke="#28a745" stroke-width="2"/>
+  <text x="227" y="210" text-anchor="middle" font-size="11" fill="#28a745" font-weight="bold">⑤ カテゴリーアーカイブページのURL</text>
+  <text x="227" y="232" text-anchor="middle" font-size="12" fill="#555">https://example.com/category/news/</text>
+
+  <!-- 矢印5（下へ） -->
+  <line x1="227" y1="248" x2="227" y2="278" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- STEP6 結果ボックス -->
+  <rect x="30" y="280" width="394" height="30" rx="8" fill="#cce5ff" stroke="#3399ff" stroke-width="2"/>
+  <text x="227" y="300" text-anchor="middle" font-size="12" fill="#004085">href="" に入れる → クリックでニュース一覧ページへ！</text>
+
+</svg>

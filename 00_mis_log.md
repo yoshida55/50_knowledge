@@ -9,6 +9,9 @@
 | 2026-04-22② | 10問 | 7問 | 150問 |
 | 2026-04-22③ | 10問 | 5問 | 148問 |
 | 2026-04-26 | 9問 | 6問 | 208問 |
+| 2026-04-29 | 10問 | 6問 | 219問 |
+| 2026-04-29② | 5問 | 3問 | 220問 |
+| 2026-04-29③ | 5問 | 3問 | 220問 |
 
 ---
 
@@ -66,7 +69,7 @@
 
 
 
-- ❌ `get_queried_object_id()` → 今のページのID（数字） / `get_the_category()` → 記事のカテゴリ配列（これはカテゴリだけではない。今いるページによって取得するＩＤがかわってくる。　記事ページ(single.php)ならば記事ＩＤ）
+- ✅ `get_queried_object_id()` → 今のページのID（数字） / `get_the_category()` → 記事のカテゴリ配列（これはカテゴリだけではない。今いるページによって取得するＩＤがかわってくる。　記事ページ(single.php)ならば記事ＩＤ）
 archive.php→archive.phpのIDなど
 
 $cat_id = get_queried_object_id();
@@ -112,7 +115,7 @@ if ( is_category() ) {
 
 - ✅ 「項目名＋内容」（会社情報とか）の組み合わせ → `dl dt dd` + `display:flex` + `flex-wrap:wrap` がベスト
 - ✅ `table` → 比較・集計データ用 / `ul` → 順序なしリスト用 / `div` → 意味なし
-- `dt { width: 20% }` + `dd { width: 80% }` → 合計100%で自動折り返し
+- ❌ `dt { width: 20% }` + `dd { width: 80% }` → 合計100%で自動折り返し・display:inline-block必須
 
 会社情報サンプル
 ![](images/2026-03-30-22-12-55.png)
@@ -178,11 +181,16 @@ the_post_thumbnail()  ← the_post_ が付く（アイキャッチのみ）
 ✅セクション余白：上・サイドはpadding、下だけmargin-bottom → モバイルで修正しやすい
 
 ✅<ul>直下に<a>を置いてしまった → 正しくは<li>の中に<a>を入れる
-- href=""を空のままにした → href="<?php the_permalink(); ?>"を入れる
+- ✅ href=""を空のままにした → href="<?php the_permalink(); ?>"を入れる
 
 ✅target="blank" と書いてしまった → 正しくは target="_blank"（アンダースコアが必要）
 
 - カテゴリーURLの取得：get_category_link(get_cat_ID('カテゴリー名')) をセットで使う
+  └ get_cat_ID('ニュース') → カテゴリー名をIDに変換 → get_category_link(ID) → URLに変換
+  └ カテゴリーアーカイブページ = そのカテゴリーの記事がズラッと並ぶ一覧ページ（ニュース1・2・3…が出る）
+  └ 図解：D:/50_knowledge/svg/get_category_link_flow.svg（「図を見せて」と言えば表示）
+
+  [プレビュー](http://localhost:54321/preview-20260429-023126.svg)
 
 ※カテゴリーごとにURLをもっている。
 管理画面できめる。　カテゴリーURL = /category/スラッグ/ の形
@@ -294,7 +302,7 @@ z-index contentsは100（margin-top 100vh）
 
 ✅- JavaScript概要 → HTML/CSSだけでは動かせない「動き・操作・タイミング制御」を担当する言語。スクロール検知・クラスの付け外し・値の書き換えなどをする
 
-- ❌ CSSアニメーションの使い分け → 単純な動きはCSS / スクロールや操作が絡むときはJS / 複雑な連続アニメはライブラリ（GSAP等）
+- ✅ CSSアニメーションの使い分け → 単純な動きはCSS / スクロールや操作が絡むときはJS / 複雑な連続アニメはライブラリ（GSAP等）
 
 - ✅ transition → 値が変わるときになめらかに動かす。transition: プロパティ名 時間 イージング の形
 ✅- ease → ゆっくり始まって速くなってゆっくり終わる（自然な動き）/ linear → 一定速度
@@ -326,13 +334,13 @@ transition: プロパティ名 時間 イージング の形で書く。　
 
 ## 2026-04-07
 
-- 疑似要素の縦位置を fixed 値（rem/px）で合わせると、フォントサイズ変更でズレる → vertical-align: middle か top:50- 疑似要素の縦位置を固定値（rem/px）で合わせると、フォントサイズ変更でズレる → vertical-align: middle か top:50%+translateY(-50%) を使う
+- ✅ 疑似要素の縦位置を固定値（rem/px）で合わせると、フォントサイズ変更でズレる → vertical-align: middle か top:50%+translateY(-50%) を使う
 
 ## 2026-04-07
 
 - ✅ border-radiusは特定の角だけ指定できる → border-radius: 左上 右上 右下 左下（時計回り）
 
-- margin-bottomが効かないときはDevToolsで取り消し線チェック → 上書き・親のoverflow・flexが原因
+- ❌ margin-bottomが効かないときはDevToolsで取り消し線チェック → ほぼ「上書き（他のCSSが勝っている）」が原因。overflow:hiddenはmarginは効いてるが見えないだけ。flexもmarginは効く。
 
 - ✅ :nth-last-child は () と数字が必須 → 最後の要素だけなら :last-child がシンプル
   - :nth-last-child は「後ろから○番目」を指定する関数なので数字が必要
@@ -344,7 +352,7 @@ transition: プロパティ名 時間 イージング の形で書く。　
 - gridで段差が出る → voice_quote（HP作成で使段差のアイテム）にmin-heightを設定して高さを揃える
 （Gridカードの高さが揃わないときは min-height を指定するheight 固定ではなく min-height にすると、文字が多くても伸びる）
 
-- grid-template-columns: 1fr 1fr → 1frの数が列数、frは残りスペースを比率で分ける単位
+- ✅ grid-template-columns: 1fr 1fr → 1frの数が列数、frは残りスペースを比率で分ける単位
 
 fr = fraction（フラクション）
 「分数・割合」という意味の英語です。
@@ -357,11 +365,11 @@ fr = fraction（フラクション）
   gap: 20px; /* 列の間隔 */
 }
 
-- JS で行頭が function 以外 → 変数名で始まる行は「使う」操作。function で始まる行だけが「作る（定義）」
+- ❌ JS で行頭が function 以外 → 変数名で始まる行は「使う」操作。function で始まる行だけが「作る（定義）」
 
-- ::before/::after は flex の子アイテムになれる → position:absolute なしで align-items:center で縦位置が自動で揃う
+- ✅ ::before/::after は flex の子アイテムになれる → position:absolute なしで align-items:center で縦位置が自動で揃う
 
-- align-items: center は flex の子全員に効く → 疑似要素・div 問わず、子の数や種類に関係なく縦中央に揃う
+- ✅ align-items: center は flex の子全員に効く → 疑似要素・div 問わず、子の数や種類に関係なく縦中央に揃う
 
 h2 {
   display: flex;
@@ -378,9 +386,9 @@ h2::before {
 ※display: flex を使うと、position: absolute を使わなくても疑似要素を縦中央に揃えられる
 
 
-- WordPressテーマを別フォルダからコピーしたとき → style.css の先頭に `/* Theme Name: テーマ名 */` が必要
+- ✅ WordPressテーマを別フォルダからコピーしたとき → style.css の先頭に `/* Theme Name: テーマ名 */` が必要
 
-- テーマフォルダをコピー後は WordPress管理画面「外観→テーマ」で有効化し直す
+- ✅ テーマフォルダをコピー後は WordPress管理画面「外観→テーマ」で有効化し直す
 流れとしては、以下の通りです：
 
 1. テーマをフォルダに入れる
@@ -390,7 +398,7 @@ h2::before {
 
 ## 2026-04-10
 
-- WordPressはURLとPHPが直結していない → テンプレート階層でWordPressが自動選択する
+- ✅ WordPressはURLとPHPが直結していない → テンプレート階層でWordPressが自動選択する
 
 - Contact Form 7 導入フロー
   1. 管理画面 → プラグイン → Contact Form 7 インストール＆有効化
@@ -483,9 +491,9 @@ add_filter('register_post_type_args', 'set_post_archive', 10, 2);
 ---
 ## 2026-04-12
 
-- `img { height: 100%; }` のグローバル指定は全画像に影響する → `main { flex: 1; }` と組み合わさると画像が縦に巨大化 → 個別クラスで `height: auto` を上書きして解決
+- ✅ `img { height: 100%; }` のグローバル指定は全画像に影響する → `main { flex: 1; }` と組み合わさると画像が縦に巨大化 → 個別クラスで `height: auto` を上書きして解決
 
-- CSSが効かないときはまずF12でHTMLを確認 → クラスが存在するか・スペルが合っているかを先に確かめる
+- ✅ CSSが効かないときはまずF12でHTMLを確認 → クラスが存在するか・スペルが合っているかを先に確かめる
 - WordPressの関数によって出力されるHTMLが変わる → `paginate_links(type=>'list')` は `<ul class="page-numbers">` / `the_posts_pagination()` は `<nav><div class="nav-links">` が出る
 
 - `min-height` だけでは要素を下に固定できない → 
@@ -498,7 +506,7 @@ flex-direction: columnをかけることによって、隙間が発生する。
 ![](images/2026-04-12-21-35-53.png)
 
 （body/footer も section/pagination も同じパターン）
-- `height: 100vh` vs `min-height: 100vh` → 固定か・伸びるかの違い / フッター固定なら `min-height` が安全（伸びる可能性あり） 
+- ✅ `height: 100vh` vs `min-height: 100vh` → 固定か・伸びるかの違い / フッター固定なら `min-height` が安全（伸びる可能性あり） 
 / 中間要素不要なら直接 `margin-top: auto` でOK（伸びる可能性がないため）
 
 
@@ -539,7 +547,7 @@ footer { margin-top: auto; }  ← footer 自
 ## 2026-04-13
 
 - flexbox でフッターが下に来ないとき → `img { height: 100%; }` のグローバル指定を疑う（画像が親の高さを引き継いで膨らみ、flex: 1 / margin-top: auto が効かなくなる）
-- `margin-top: auto` は直接の flex 子でないと効かない → section が間にあると 0 扱い（親も flex にするか、pagination を section の外に出す）
+- ❌ `margin-top: auto` は flex/grid コンテナの直接の子でないと垂直方向に効かない（通常ブロックは0扱い）→ section が間にあると効かない / 親も flex にするか要素を外に出す。※左右の margin: auto は通常ブロックでも効く（別の話）
 - ページネーションは section の外が一般的 → コンテンツ（section）とナビゲーション（pagination）は分けて書く
 
 - `section { flex: 1 }` + `pagination` が同じ flex コンテナにあると section が全スペースを取って pagination がはみ出す → section から `flex: 1` を削除する
@@ -548,7 +556,7 @@ footer { margin-top: auto; }  ← footer 自
 
 - 検証ツールで対象要素を確認 → 正しいセレクタに `display: flex` を当てることで正確な位置に配置できる
 
-- ブラウザのデフォルトスタイル（`ul/li` は縦・点つき）は検証ツールで取り消し線で確認できる → `display: flex` + `list-style: none` で上書きする
+- ❌ ブラウザのデフォルトスタイル（`ul/li` は縦・点つき）は検証ツールで取り消し線で確認できる → `display: flex` + `list-style: none` で上書きする
 
 - `get_categories()` はデフォルトで空カテゴリーを非表示 → `array('hide_empty' => false)` を渡すと全表示　「空カテゴリー」というのは、存在しているが、そのカテゴリが付与されている投稿がないということ。
 
@@ -570,7 +578,7 @@ footer { margin-top: auto; }  ← footer 自
 【特定のカテゴリを絞る際の書き方】
 
 
-- ❌ WP_Query でカテゴリ絞り込み → ループの**前**（クエリ）で絞る・ループ中のif絞りはページネーションがズレる➡要するに、
+- ✅ WP_Query でカテゴリ絞り込み → ループの**前**（クエリ）で絞る・ループ中のif絞りはページネーションがズレる➡要するに、
 ➀最初は WP_Query に特定の値を詰め込んで、※これはループの前が大前提　ページネーションがずれてしまうので。
 ➁それを引数としてオブジェクトを作成し、
 ➂そのオブジェクトのメソッドを利用することによって、
@@ -1034,8 +1042,9 @@ foreach ( $categories as $category ) {
 
 
 - ❌ 投稿タイプアーカイブ（カスタム投稿タイプ）のURL取得 → 
-・get_post_type_archive_link('post') or 
+・get_post_type_archive_link('news') or 
 ・home_url('/news/')
+💡覚え方：get(取得) _ post_type(投稿タイプ) _ archive(一覧) _ link(URL) → 関数名を日本語に読み替えると意味がつかめる *
 
 - // header.php のナビゲーション部分でget_post_type_archive_linkが使われる
 
@@ -1052,6 +1061,8 @@ foreach ( $categories as $category ) {
 - ❌ カテゴリーアーカイブのURL取得 → get_term_link('スラッグ', 'category')
 
 - ❌ get_term_link('news', 'category') → カテゴリー・タグページへのリンクURL取得（href="" に入れて使う）
+
+- カテゴリーアーカイブページのテンプレートファイル優先順位 → category-{スラッグ}.php → category-{ID}.php → category.php → archive.php → index.php *
 
 ※【使い方】
 // single.php で記事のカテゴリーリンクを表示
