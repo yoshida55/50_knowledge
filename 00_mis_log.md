@@ -1411,3 +1411,40 @@ flex-shrink
        + inset: 0（親の四隅に張り付く → 結果的に親と同じサイズになる）
        + object-fit: cover（縦横比を保ったまま黒帯をトリミング）
   height: 100% は親に height がないと効かないので使わない
+
+
+- セクション間の仕切りをなくして画像を置きたい時
+
+clip-path は子要素（img）も一緒に切り取る → 背景だけ斜めにしたいときは ::before（疑似要素） に背景を分離。
+つまり疑似要素に、insertでかぶせて、クリップパスをかける。疑似要素にすることで、疑似要素が子要素になるから、なにも(img)切り取らなくなる
+
+```css
+
+
+/*高さだけ確保　*/
+.home_bridge {
+  position: relative;
+  overflow: visible;
+  height: 16rem;
+  z-index: 1;
+}
+
+/* ::before で緑の斜め背景を作る（clip-path で斜めに切り取り） */
+.home_bridge::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* 親と同じ位置 */ 
+  background: var(--green);
+  clip-path: polygon(0 5rem, 100% 0%, 100% 100%, 0 100%);
+}
+```
+
+<div class = "home_bridge">
+  img
+</div>
+
+::before に background + clip-path を書く → img は自由にはみ出せる
+
+
+![](images/2026-04-29-21-44-14.png)- 装飾目的の画像（セクション橋渡しなど）に矢印が出る → imgタグ → divタグ + background-image に変えるとブラウザ矢印が消える。divは中身なしだとheight: 0になるのでaspect-ratioかheightを必ず指定する
+- background-imageのファイル名に()カッコがある場合はurl()を"ダブルクォート"で囲む- position: absolute; inset: 0 の子（動画など）は親のpaddingを増やすと一緒に大きくなる → テキストだけ下にずらしたいときは親ではなくinner要素にpadding-topをつける

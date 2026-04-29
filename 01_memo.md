@@ -22733,4 +22733,140 @@ animation: home_marker_draw 1.2s ease-out 1.5s forwards;
 
 
 参考処理フロー（導入フロー）だが、割といいデザイン
-  ![](images/2026-04-29-13-52-01.png)
+  ![](images/2026-04-29-13-52-01.png)## 📌 clip-path は div の中の img も一緒に切り取る → 背景だけ斜めにしたいときは ::before に背景を分離する HTML CSS
+
+【日付】2026-04-29
+
+【結論】
+`clip-path` をそのまま div につけると、子要素の img も一緒に切り取られる。
+背景だけ斜めにして img は自由に配置したいときは、**::before に背景を分離する**のが定石。
+
+【なぜそうなる？】
+`clip-path` は「その要素の表示できる窓枠」を変えるプロパティ。
+div の中にいる子要素も、窓の外に出た部分はすべて非表示になる。
+
+【構造パターン（定石）】
+```css
+/* ❌ これだと img も一緒に切り取られる */
+.home_bridge {
+  background: var(--green);
+  clip-path: polygon(0 5rem, 100% 0%, 100% 100%, 0 100%);
+}
+
+/* ✅ ::before に背景を分離 → img は自由にはみ出せる */
+.home_bridge {
+  position: relative;
+  overflow: visible; /* img が上にはみ出せる */
+}
+
+.home_bridge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--green);
+  clip-path: polygon(0 5rem, 100% 0%, 100% 100%, 0 100%); /* 背景だけ斜め */
+}
+
+.home_bridge_image {
+  position: absolute;
+  top: -5rem; /* 上のセクションに食い込む */
+  left: 6%;
+  z-index: 2;
+}
+```
+
+【使う場面】
+- セクション間を斜め（diagonal）でつなぐとき
+- 画像を斜めの境界線をまたがせたいとき
+
+【覚えるべきポイント】
+- `clip-path` = その要素の「見える窓枠」。子要素も窓の外に出たら消える
+- 「背景だけ斜め・子要素は自由に」→ `::before` に背景を逃がす
+- `overflow: visible` がないと img のはみ出しが隠れる
+## 📌 画像に装飾（ブラウザ矢印など）がつく場合は img + object-fit: cover ではなく div + background-image にする →
+ブラウザが自動追加する矢印が消え、background-size: cover で綺麗に収まる。
+div は中身がないと height: 0 になるので aspect-ratio か height を必ず指定する HTML CSS
+
+【日付】2026-04-29
+
+【結論】
+画像の横に ◀ ▶ などの矢印が出る場合、`<img>` タグをブラウザが「画像コンテンツ」と認識して操作UIを自動表示している。
+`<div>` + `background-image` に変えるだけで消える。装飾目的の画像はこちらが正しい使い方。
+
+【なぜそうなる？】
+- `<img>` → ブラウザが「コンテンツ画像」と認識 → ホバー時に矢印ボタンなどのUIを自動表示
+- `<div>` + `background-image` → ブラウザが「飾り背景」と認識 → 操作UIは出ない
+
+【実装パターン】
+```html
+<!-- ❌ img タグだとブラウザ矢印が出ることがある -->
+<img src="img/写真.jpg" class="photo" alt="" />
+
+<!-- ✅ 装飾画像は div + background-image にする -->
+<div class="photo"></div>
+```
+
+```css
+/* ❌ height: auto だと div の高さが 0 になって何も見えない */
+.photo {
+  background-image: url("../img/写真.jpg");
+  background-size: cover;
+  background-position: center;
+  height: auto; /* ← 中身がないので 0px になる。画像は非表示 */
+}
+
+/* ✅ aspect-ratio か height を明示して高さを確保する */
+.photo {
+  background-image: url("../img/写真.jpg");
+  background-size: cover;
+  background-position: center;
+  aspect-ratio: 16 / 11; /* ← これで高さが確保される */
+}
+```
+
+【追加注意】
+- ファイル名に `()` カッコが含まれる場合はURLを `"` で囲む
+  → `url("../img/ファイル名(私服).png")`
+
+【覚えるべきポイント】
+- ブラウザ矢印が出る → `<img>` を `<div>` + `background-image` に変えると消える
+- `<div>` は中身なし = 高さ 0 → `aspect-ratio` か `height` を必ず書く
+- `<img>` の `object-fit: cover` に相当するのが `background-size: cover`
+## 📌 position: absolute; inset: 0 の子要素は親の padding-top を増やすと一緒に大きくなる →
+動画を大きくせず内側コンテンツだけ下にずらしたいときは 親ではなく inner 要素に padding-top をつける HTML CSS
+
+【日付】2026-04-30
+
+【結論】
+`position: absolute; inset: 0` の子要素（例：背景動画）は親のサイズに完全追従する。
+親に `padding-top` を増やすと親が背高くなり、子も一緒に大きくなる。
+コンテンツ（テキスト）だけ下にずらしたいときは、ラッパー（inner要素）に `padding-top` をつける。
+
+【なぜそうなる？】
+`inset: 0` = `top: 0; right: 0; bottom: 0; left: 0` → 親の四隅にピタッと張り付く。
+親が高くなれば → 子も高くなる（親のサイズに100%追従）。
+
+【実装パターン】
+```css
+/* ❌ これだと動画も一緒に大きくなる */
+.home_work {
+  padding-top: 20rem;
+}
+
+/* ✅ 内側のテキストだけ下にずらしたいならinner要素につける */
+.home_work_inner {
+  padding-top: 20rem;
+}
+```
+
+【構造のイメージ】
+```
+.home_work（height が決まる）
+  ├── video（inset: 0 → 親と同じ高さに追従）
+  └── .home_work_inner（padding-top でテキストだけ下にずれる）
+```
+
+【覚えるべきポイント】
+- `position: absolute; inset: 0` の子 = 親サイズに完全追従
+- 親の `padding` を増やすと子も大きくなる
+- 「テキストだけ下にずらしたい」→ outer ではなく inner 要素に `padding` をつける
