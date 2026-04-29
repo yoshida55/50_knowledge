@@ -22688,3 +22688,49 @@ animation: home_marker_draw 1.2s ease-out 1.5s forwards;
 **⚠ 数値が2つあるとき**
 - **最初の数値** → duration（アニメーションの速さ）
 - **後半の数値** → delay（読み込み後の待機時間）
+
+## 📌 動画を枠いっぱいに表示する → relative + absolute + inset: 0 + object-fit: cover のセット技 HTML CSS
+
+【日付】2026-04-29
+
+```css
+/* 親：基準点を作って高さを確保 */
+.親要素 {
+  position: relative;
+  min-height: 52rem; /* ← これがないと absolute の子が表示されない */
+}
+
+/* 子：親の四隅に張り付いて枠を埋める */
+.親要素 video {
+  position: absolute;
+  inset: 0;            /* top/right/bottom/left を全部0にする省略形 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* 縦横比を保ったまま枠を隙間なく埋める */
+}
+```
+
+**3つの役割：**
+
+| プロパティ | 役割 |
+|-----------|------|
+| `inset: 0` | 親の四隅に張り付いてサイズを合わせる |
+| `object-fit: cover` | 縦横比を保ったまま枠を隙間なく拡大・トリミング |
+| `min-height` | absoluteの子は親の高さを押し広げないので、親に高さを確保する |
+
+**⚠ なぜ `height: 100%` ではダメか**
+- `height: 100%` は親の「height の数値」を参照する
+- 親に `min-height` しかなく `height` が未指定 → 参照できず効かない
+- `absolute + inset: 0` は「親の表示領域そのもの」に張り付くので height 不要
+
+**⚠ video は img と違って object-fit: cover を自分で書く必要がある**
+- img タグはブラウザがデフォルトで扱いやすくしてくれることが多いが
+- video タグはそのままだと元のサイズで表示されて黒帯が残る
+
+
+##　自社HP作成参考ページやらメモ
+
+
+
+参考処理フロー（導入フロー）だが、割といいデザイン
+  ![](images/2026-04-29-13-52-01.png)

@@ -246,4 +246,4 @@ width vs max-width 違い 固定 上限 レスポンシブ 60〜80文字 width: 
 border-radius 4値 順番 時計回り 左上 右上 右下 左下 2番目 アーチ overflow: hidden | HTML CSSmix-blend-mode: multiply 白背景 PNG アイコン 乗算 screen 比較 | HTML CSSfilter: brightness() saturate() contrast() background-image スライド 明るさ 画像調整 | HTML CSSbackdrop-filter blur() すりガラス 背景 半透明 rgba セット filter 違い | HTML CSS
 rgba r g b a 透明度 0〜1 alpha opacity 違い 色指定 | HTML CSS
 background 複数背景 グラデーション url 画像重ね 前が上 後が下 カンマ区切り | HTML CSS
-display: grid gap のみ 縦並べ grid-template-columns なし flex-direction: column 同等 | HTML CSSanimation ショートハンド 順番 duration delay timing fill-mode forwards 数値2つ | HTML CSS
+display: grid gap のみ 縦並べ grid-template-columns なし flex-direction: column 同等 | HTML CSSanimation ショートハンド 順番 duration delay timing fill-mode forwards 数値2つ | HTML CSSvideo 動画 枠いっぱい relative absolute inset: 0 object-fit: cover min-height 黒帯 | HTML CSS

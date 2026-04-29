@@ -1403,3 +1403,11 @@ flex-shrink
 - display: grid + gap のみ（grid-template-columns なし）→ flex-direction: column + gap と同じ縦並べになる
 ## 2026-04-29
 - animation ショートハンドの数値2つ → 最初がduration（速さ）、後半がdelay（読み込み後に動き始めるまでの待機時間）。`animation: name duration timing delay fill-mode` の順番
+
+
+- video を枠いっぱいに表示
+  → 親に position: relative + min-height（基本は height と width を指定する）
+  → 子に position: absolute
+       + inset: 0（親の四隅に張り付く → 結果的に親と同じサイズになる）
+       + object-fit: cover（縦横比を保ったまま黒帯をトリミング）
+  height: 100% は親に height がないと効かないので使わない
