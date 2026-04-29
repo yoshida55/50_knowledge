@@ -22667,3 +22667,24 @@ background:
 - どちらでも同じ見た目になる
 - `grid + gap` のほうが記述がシンプルなので縦並べでも grid が使われることが多い
 
+
+## 📌 animation ショートハンドの値の順番 → name / duration / timing / delay / fill-mode HTML CSS
+
+【日付】2026-04-29
+
+```css
+animation: home_marker_draw 1.2s ease-out 1.5s forwards;
+/*         ↑名前            ↑速さ  ↑加速  ↑待機時間 ↑終了後の状態 */
+```
+
+| 順番 | 値 | 意味 |
+|------|-------|------|
+| 1 | `name` | @keyframes の名前 |
+| 2 | `duration` | アニメーションが完了するまでの時間（速さ） |
+| 3 | `timing` | 加速パターン（ease / ease-out / linear など） |
+| 4 | `delay` | ページ読み込み後、動き始めるまでの待機時間 |
+| 5 | `fill-mode` | 終了後の状態（forwards = 終了状態を維持） |
+
+**⚠ 数値が2つあるとき**
+- **最初の数値** → duration（アニメーションの速さ）
+- **後半の数値** → delay（読み込み後の待機時間）

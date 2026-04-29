@@ -1401,3 +1401,5 @@ flex-shrink
 - rgba の a = 透明度（0〜1）。#ffffff では透明度指定できないので透かしたいときは rgba に切り替える
 - background: グラデーション, url() → カンマ区切りで複数背景。前に書いたほうが上に重なる。写真の上に色をかぶせるテクニック
 - display: grid + gap のみ（grid-template-columns なし）→ flex-direction: column + gap と同じ縦並べになる
+## 2026-04-29
+- animation ショートハンドの数値2つ → 最初がduration（速さ）、後半がdelay（読み込み後に動き始めるまでの待機時間）。`animation: name duration timing delay fill-mode` の順番
