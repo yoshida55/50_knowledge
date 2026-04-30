@@ -22950,3 +22950,49 @@ ChatGPT生成動画 → 再ダウンロードか再生成
 【補足】
 - `display: block` を追加するのは inline 要素のデフォルト隙間をなくすため
 - `object-position: center` は `object-fit: cover` のデフォルト位置と同じ（省略可）
+
+## 📌 疑似要素オーバーレイの定石パターン → ::after に position: absolute; inset: 0; z-index を動画より上・テキストより下に設定して background で色をのせる HTML CSS
+
+【日付】2026-04-30
+
+【結論】
+動画や画像の上に「半透明の膜（オーバーレイ）」をかぶせるとき、疑似要素 `::after` で作るのが定石。HTMLを汚さずに重ねられる。
+
+【z-index の層構造】
+```
+z-index 2 → テキスト・コンテンツ（最前面）
+z-index 1 → ::after オーバーレイ（膜）
+z-index 0 → video / 背景画像（背面）
+```
+
+【コードパターン（コピペ用）】
+```css
+.親要素 {
+  position: relative; /* 子要素の absolute の基準点 */
+}
+
+.親要素::after {
+  content: "";           /* 疑似要素は content が必須 */
+  position: absolute;
+  inset: 0;              /* top/right/bottom/left: 0 の一括指定 */
+  z-index: 1;            /* 背景より上・テキストより下 */
+  background: rgba(0, 0, 0, 0.5); /* 単色の場合 */
+  /* グラデーションの場合 ↓ */
+  background: linear-gradient(105deg,
+    rgba(0,0,0, 0.78) 0%,   /* 左：濃い（テキスト読みやすくする） */
+    rgba(0,0,0, 0.42) 55%,
+    rgba(0,0,0, 0.08) 100%  /* 右：薄い（動画が見える） */
+  );
+}
+
+/* テキストは z-index: 2 以上にする */
+.親要素_inner {
+  position: relative;
+  z-index: 2;
+}
+```
+
+【補足】
+- `::before` でも同じことができる（どちらでもOK）
+- グラデーションにすることで「テキスト側は読みやすく・動画側は見える」デザインになる
+- 親に `overflow: hidden` があればはみ出しを自動でカットできる
