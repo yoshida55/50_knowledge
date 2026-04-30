@@ -25,6 +25,7 @@
 | 2026-04-29② | 5問 | 3問 | 220問 | - |
 | 2026-04-29③ | 5問 | 3問 | 220問 | - |
 | 2026-04-29④ | 9問 | 4問 | 207問 | 67問 |
+| 2026-04-30 | 7問 | 4問 | 182問 | 71問 |
 
 ---
 
@@ -447,7 +448,7 @@ h2::before {
 
 - ✅ the_post_thumbnail() にクラスを付けるには第2引数に配列で渡す → `the_post_thumbnail('post-thumbnail', ['class' => 'クラス名'])`
 
-- margin-top: auto は flexbox なしでは効かない → 「余ったスペースという概念がない」から（ゼロではなく概念なし）
+- ✅[0430] margin-top: auto は flexbox なしでは効かない → 「余ったスペースという概念がない」から（ゼロではなく概念なし）
 (そもそも隙間がないときにはマージン０,autoはきかないことを理解する。)
 
 以下の２番目で/mainにフレックス１を設定してない場合は、margin-top: autoする必要がある。mainにflex1を設定すれば伸びるので
@@ -1054,10 +1055,18 @@ foreach ( $categories as $category ) {
 🙆‍♂️（正しい）<?php echo esc_url(get_theme_file_uri('img/aaa.jpg') ); ?>
 
 
-- ❌[0429] 投稿タイプアーカイブ（カスタム投稿タイプ）のURL取得 → 
+- ✅[0430] 投稿タイプアーカイブ（カスタム投稿タイプ）のURL取得 → 
 ・get_post_type_archive_link('news') or 
 ・home_url('/news/')
 💡覚え方：get(取得) _ post_type(投稿タイプ) _ archive(一覧) _ link(URL) → 関数名を日本語に読み替えると意味がつかめる *
+
+・通常の投稿一覧画面取得
+管理画面「設定 → 表示設定」
+  └── 投稿ページ：「ブログ一覧」← このページのIDを保存
+         ↓
+get_option('page_for_posts') でIDを取得
+         ↓
+get_permalink( ID ) でURLに変換
 
 - // header.php のナビゲーション部分でget_post_type_archive_linkが使われる
 
@@ -1071,12 +1080,12 @@ foreach ( $categories as $category ) {
 ・get_post_type_archive_link()	直接URLを書く	PHPに直書き・固定
 
 
-- ❌ カテゴリーアーカイブのURL取得 → get_term_link('スラッグ', 'category') [プレビュー](http://localhost:54321/preview-20260429-072010.svg) svg/get_term_link_vs_category_link.svg
+- ❌[0430] カテゴリーアーカイブのURL取得 → get_term_link('スラッグ', 'category') [プレビュー](http://localhost:54321/preview-20260429-072010.svg) svg/get_term_link_vs_category_link.svg
 - ✅[0429] get_term_link も get_category_link も、どちらも返すのは「カテゴリーの記事一覧ページのURL」（リンク先のURLを作るだけ・ページを表示するわけではない）[プレビュー](http://localhost:54321/preview-20260429-072010.svg) svg/get_term_link_vs_category_link.svg
 
-- ❌[0429] get_term_link('news', 'category') → カテゴリー・タグページへのリンクURL取得（href="" に入れて使う） [プレビュー](http://localhost:54321/preview-20260429-072010.svg) svg/get_term_link_vs_category_link.svg
+- ❌[0429] get_term_link('news', 'category') → カテゴリー・タグページへのリンクURL取得（href="" に入れて使う） * [プレビュー](http://localhost:54321/preview-20260429-072010.svg) svg/get_term_link_vs_category_link.svg
 
-- ❌ カテゴリーアーカイブページのテンプレートファイル優先順位 → category-{スラッグ}.php → category-{ID}.php → category.php → archive.php → index.php *
+- ✅[0430] カテゴリーアーカイブページのテンプレートファイル優先順位 → category-{スラッグ}.php → category-{ID}.php → category.php → archive.php → index.php
 
 ※【使い方】
 // single.php で記事のカテゴリーリンクを表示
@@ -1395,9 +1404,22 @@ flex-shrink
 
 ## 2026-04-28
 - `width` は固定命令でスマホで横スクロール発生／`max-width` は上限ガードで画面幅に合わせて縮む。文章ブロックや画像は基本 `max-width: 100%` か `width:100% + max-width` の組み合わせを使う。
+
 - max-width の目的は2つあると気づいた → ①スマホで崩れない（レスポンシブ） ②PCで広がりすぎない（読みやすさ・1行60〜80文字で改行されるよう制限）。レスポンシブ目的だけだと思ってたけど、PCでの可読性も大きな理由
+
 - セクションレイアウトの設計指針 → ヒーローは画像と並ぶ構造で半分幅、他セクションは全幅。役割が違うから幅違ってOKで違和感じゃない。今後の新規セクションは position: absolute を避けて grid/flex で組む。これで画像とテキストの重なり問題を根本回避できる
-- border-radius 4値は時計回り（左上→右上→右下→左下）→ 2番目が右上。親に overflow: hidden がないと角が白くつぶれる- mix-blend-mode: multiply → PNG画像の白い背景を消すのに使う。白×カード色=カード色の原理。screen（黒を消す）の逆- filter: brightness() → background-imageを持つdivにも直接かけられる。imgタグ限定じゃない。スライドごとに個別調整できる- backdrop-filter は要素自体ではなく「うしろ」にエフェクト。background: rgba()（半透明）とセットで使わないと見えない
+
+- border-radius 4値は時計回り（左上→右上→右下→左下）→ 2番目が右上。親に overflow: hidden がないと角が白くつぶれる
+
+- mix-blend-mode: multiply → PNG画像の白い背景を消すのに使う。白×カード色=カード色の原理。screen（黒を消す）の逆
+
+- filter: brightness() → background-imageを持つdivにも直接かけられる。imgタグ限定じゃない。スライドごとに個別調整できる
+
+
+- backdrop-filter は要素自体ではなく「うしろ」にエフェクト。background: rgba()（半透明）とセットで使わないと見えない
+　・つまりrgbaだけでもすけるけど、後ろはクッキリすける。　backdrop-filter　blur()　があると　透けて＆ゆがむ
+
+
 - rgba の a = 透明度（0〜1）。#ffffff では透明度指定できないので透かしたいときは rgba に切り替える
 
 - background: グラデーション, url() → カンマ区切りで複数背景。前に書いたほうが上に重なる。写真の上に色をかぶせるテクニック
