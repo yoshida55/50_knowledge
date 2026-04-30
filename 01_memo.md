@@ -22296,6 +22296,11 @@ archive.php でタイトルを表示するときは `the_archive_title()` を使
 ➂ 設定 → パーマリンク → 変更を保存（何も変えなくてOK・リセットのため）
 → /news/ にアクセスすると home.php が表示される（home.php がなければ index.php）
 
+【ナビメニューへの追加方法】
+- 外観 → メニュー → 固定ページ → 「ニュース一覧」などを選んでメニューに追加 → 保存
+- PHPは一切触らなくてOK（wp_nav_menu() が自動でリンクを出力する）
+- メニューのリンクをクリックすると home.php が表示される
+
 ## 📌 カテゴリーアーカイブ（/category/スラッグ/）をメニューに表示する手順 →
 ➀カスタムリンクでURL追加 ➁投稿エディタからカテゴリー作成 ➂投稿にチェック→公開 WordPress
 
@@ -23022,3 +23027,64 @@ z-index 0 → video / 背景画像（背面）
 - `::before` でも同じことができる（どちらでもOK）
 - グラデーションにすることで「テキスト側は読みやすく・動画側は見える」デザインになる
 - 親に `overflow: hidden` があればはみ出しを自動でカットできる
+## 📌 全投稿トップは home.php・絞り込み（カテゴリ/タグ/日付）は archive.php → 両方「一覧」でもテンプレートが違う WordPress
+
+【日付】2026-05-01
+
+【結論】
+- 全記事の一覧トップ（絞り込みなし）→ `home.php`（なければ `index.php`）
+- カテゴリ・タグ・日付で絞り込んだ一覧 → `archive.php`（なければ `index.php`）
+
+【具体例】
+```
+https://example.com/blog/           ← home.php（全投稿トップ）
+https://example.com/category/news/  ← archive.php（カテゴリ絞り込み）
+https://example.com/tag/php/        ← archive.php（タグ絞り込み）
+https://example.com/2026/05/        ← archive.php（日付アーカイブ）
+```
+
+【補足】
+- `home.php` を作らなければ → `index.php` が代わりに使われる
+- `archive.php` を作らなければ → `index.php` が代わりに使われる
+- `index.php` は「どのテンプレートもなければ最後に使われる」最終手段ファイル
+- 「投稿一覧」と一言でいっても絞り込みの有無でテンプレートが変わる## 📌 WordPressのURL取得関数まとめ →
+➀ CPT全一覧: get_post_type_archive_link('スラッグ')
+➁ タクソノミー（カスタムカテゴリー）: get_term_link($term)（引数はタームオブジェクトorID）
+➂ デフォルトカテゴリー専用: get_category_link($cat_id)（引数はID・カスタムタクソノミーには使えない）
+➃ デフォルト投稿一覧: get_permalink( get_option('page_for_posts') )（表示設定で投稿ページに設定した固定ページのIDを自動取得） WordPress
+
+【日付】2026-05-01
+
+【結論】
+「何のURLが欲しいか」によって使う関数が変わる。
+
+| 何のURL | 関数 | 引数 |
+|---------|------|------|
+| CPT全一覧 | `get_post_type_archive_link('スラッグ')` | CPTのスラッグ（文字列）|
+| カスタムタクソノミー・カテゴリーURL | `get_term_link($term)` | タームオブジェクト or ID |
+| デフォルトカテゴリーURL（専用） | `get_category_link($cat_id)` | カテゴリーID（数値）|
+| デフォルト投稿の一覧ページURL | `get_permalink( get_option('page_for_posts') )` | 自動でIDを取得 |
+
+【具体例】
+```php
+// ① CPT「works」の全一覧URL
+get_post_type_archive_link('works');
+// → https://example.com/works/
+
+// ② カスタムタクソノミーのカテゴリーURL
+get_term_link($term);
+// → https://example.com/works-category/design/
+
+// ③ デフォルトカテゴリーURL（引数はID）
+get_category_link(3);
+// → https://example.com/category/news/
+
+// ④ デフォルト投稿の一覧ページURL
+get_permalink( get_option('page_for_posts') );
+// → https://example.com/news-list/
+```
+
+【補足】
+- `get_option('page_for_posts')` → 管理画面の「設定 → 表示設定 → 投稿ページ」に割り当てた固定ページのIDを返す
+- WordPressは固定ページに裏で自動的に数値IDを割り振っている → スラッグを自分で渡す必要がない
+- `get_category_link()` はデフォルトカテゴリー専用 → カスタムタクソノミーには `get_term_link()` を使う
