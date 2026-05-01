@@ -1,17 +1,7 @@
 
 
-
-🎯 会社PCでやること（3ステップだけ）
-1️⃣ pull_all.ps1 を実行
-→ auto-memo-mcp/ フォルダが同期される
-
-2️⃣ C:/Users/guest04/.claude.json を開いて、mcpServers に追記
-
-"auto-memo": {
-  "type": "stdio",
-  "command": "python",
-  "args": [""C:\Users\guest04\Desktop\高橋研三\01_研修用\96_過去の成果物（最新）\84_MEMO-mcp\server.py""]
-}
+▢
+vsCodeでCTRL２回で、ファイル検索AHKを利用する
 
 
 
@@ -417,6 +407,24 @@ VS Code拡張:
 Ctrl+Shift+P → 「Install from VSIX」→ vsix選択
 設定 → cssToHtmlJumper.claudeApiKey にAPIキー入力
 リロード
+
+
+
+
+
+🎯 会社PCでやること（3ステップだけ）
+1️⃣ pull_all.ps1 を実行
+→ auto-memo-mcp/ フォルダが同期される
+
+2️⃣ C:/Users/guest04/.claude.json を開いて、mcpServers に追記
+
+"auto-memo": {
+  "type": "stdio",
+  "command": "python",
+  "args": [""C:\Users\guest04\Desktop\高橋研三\01_研修用\96_過去の成果物（最新）\84_MEMO-mcp\server.py""]
+}
+
+
 
 
 
