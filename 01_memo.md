@@ -23218,3 +23218,30 @@ https://tinypng.com/
 - ファイル名・拡張子は変わらない → そのまま上書きOK
 
 ---
+
+## 📌 position: sticky は親に overflow: hidden があると動かない → 角丸は border-radius で代替する HTML CSS
+
+【日付】2026-05-02
+
+【結論】
+sticky 対象の祖先要素に overflow: hidden / auto / scroll があると、sticky が効かなくなる。
+overflow: hidden をつけた要素が「スクロールコンテナ」になり、body のスクロールを参照できなくなるため。
+
+【overflow の値と sticky への影響】
+| overflow の値 | sticky への影響 |
+|---|---|
+| visible（デフォルト） | 正常に動く ✅ |
+| hidden / auto / scroll | 動かなくなる ❌ |
+
+【sticky が「セクション内だけ止まる」仕組み】
+- sticky は「親要素の境界に達したら一緒に流れる」性質がある
+- 親が大きければ長く貼り付き、親が終われば一緒にスクロールされる
+- fixed との違い：fixed はページのどこまでも画面に残る / sticky は親の中だけで止まる
+
+【対処法】
+親の overflow: hidden を外す。角丸が必要な場合は sticky 対象自体に border-radius で上の角だけ指定する:
+```css
+.section-title {
+  border-radius: 6px 6px 0 0; /* overflow: hidden の代わり */
+}
+```
