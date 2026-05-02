@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>border-radius 図解</title>
+<style>
+  body { font-family: sans-serif; background: #f5f5f5; padding: 40px; }
+  h2 { margin-bottom: 8px; font-size: 1rem; color: #333; }
+  .section { background: #fff; border-radius: 8px; padding: 28px; margin-bottom: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .row { display: flex; gap: 40px; align-items: flex-start; }
+  .label { font-size: 0.85rem; color: #555; margin-top: 8px; text-align: center; }
+  .code { font-family: monospace; font-size: 0.85rem; background: #f0f0f0; padding: 6px 10px; border-radius: 4px; display: inline-block; margin-top: 8px; }
+
+  /* ── overflow デモ ── */
+  .demo-wrap { position: relative; }
+  .parent {
+    width: 120px; height: 80px;
+    border-radius: 20px;
+    border: 2px solid #3a6b5e;
+    background: #e8f4f0;
+    position: relative;
+  }
+  .child {
+    width: 100%; height: 100%;
+    background: #d86f45;
+    border-radius: 0;
+  }
+  .parent.with-overflow { overflow: hidden; }
+</style>
+</head>
+<body>
+
+<!-- ① 4値の順番 -->
+<div class="section">
+  <h2>① border-radius の4値は時計回り</h2>
+  <svg width="280" height="200" viewBox="0 0 280 200">
+    <!-- 四角形 -->
+    <rect x="60" y="40" width="160" height="120" rx="24" ry="24"
+          fill="#e8f4f0" stroke="#3a6b5e" stroke-width="2"/>
+
+    <!-- ① 左上 -->
+    <circle cx="60" cy="40" r="14" fill="#3a6b5e"/>
+    <text x="60" y="45" text-anchor="middle" fill="white" font-size="13" font-weight="bold">1</text>
+    <text x="18" y="28" fill="#333" font-size="12">左上</text>
+
+    <!-- ② 右上 -->
+    <circle cx="220" cy="40" r="14" fill="#d86f45"/>
+    <text x="220" y="45" text-anchor="middle" fill="white" font-size="13" font-weight="bold">2</text>
+    <text x="228" y="28" fill="#d86f45" font-size="12" font-weight="bold">右上 ←2番目</text>
+
+    <!-- ③ 右下 -->
+    <circle cx="220" cy="160" r="14" fill="#3a6b5e"/>
+    <text x="220" y="165" text-anchor="middle" fill="white" font-size="13" font-weight="bold">3</text>
+    <text x="228" y="168" fill="#333" font-size="12">右下</text>
+
+    <!-- ④ 左下 -->
+    <circle cx="60" cy="160" r="14" fill="#3a6b5e"/>
+    <text x="60" y="165" text-anchor="middle" fill="white" font-size="13" font-weight="bold">4</text>
+    <text x="8" y="168" fill="#333" font-size="12">左下</text>
+
+    <!-- 時計回り矢印 -->
+    <path d="M 140 10 A 90 70 0 0 1 240 100" fill="none" stroke="#aaa" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+    <defs>
+      <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#aaa"/>
+      </marker>
+    </defs>
+    <text x="170" y="14" fill="#888" font-size="11">時計回り</text>
+  </svg>
+
+  <div class="code">border-radius: <span style="color:#3a6b5e">左上</span> <span style="color:#d86f45">右上</span> <span style="color:#3a6b5e">右下</span> <span style="color:#3a6b5e">左下</span></div>
+  <div class="code">border-radius: 0 <strong style="color:#d86f45">20px</strong> 0 0; → 右上だけ丸くなる</div>
+</div>
+
+<!-- ② overflow: hidden -->
+<div class="section">
+  <h2>② 親に overflow: hidden がないと角が白くつぶれる</h2>
+  <div class="row">
+
+    <!-- NG -->
+    <div>
+      <div class="parent">
+        <div class="child"></div>
+      </div>
+      <div class="label" style="color:#c0392b">❌ overflow: hidden なし<br>→ 角から子が はみ出る</div>
+      <div class="code">parent { border-radius: 20px; }</div>
+    </div>
+
+    <!-- OK -->
+    <div>
+      <div class="parent with-overflow">
+        <div class="child"></div>
+      </div>
+      <div class="label" style="color:#27ae60">✅ overflow: hidden あり<br>→ 角でちゃんと切れる</div>
+      <div class="code">parent { border-radius: 20px;<br>&nbsp;&nbsp;overflow: hidden; }</div>
+    </div>
+
+  </div>
+  <p style="margin-top:16px; font-size:0.85rem; color:#555;">
+    💡 <code>border-radius</code> は親の見た目を丸くするだけ。<br>
+    　子要素の描画まで切ってくれるのは <code>overflow: hidden</code> の役割。
+  </p>
+</div>
+
+</body>
+</html>
