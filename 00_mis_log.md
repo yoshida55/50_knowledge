@@ -1617,3 +1617,5 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 - scrollIntoView() → 指定要素の位置まで画面をスクロールする1行命令。ボタンクリックなどをきっかけに、ブラウザが自動で縦スクロールしてくれる。`behavior: "smooth"` で滑らか・なしだと瞬間移動。関数全体はAIに任せてOK
 - text-wrap: balance → 見出しの改行位置をブラウザが自動調整。`<br>` 手書きは幅が変わると崩れるので、こちらを使う
 - WordPress化の準備 → 共通クラスは style.css にまとめる（js_soft_reveal など）。ページ固有は work.css / business.css に残す。HTML段階から分けておくと後の enqueue が楽になる
+- カスタム投稿タイプのアーカイブ（一覧）をメニューに追加する正規手順 → CPT UIで「アーカイブあり（has_archive）」をON → 外観メニューの「表示オプション」でCPT名にチェック → 左パネルにアーカイブが出る → 選んで追加。カスタムリンクでURL手打ちは非推奨（スラッグ変更時に手動修正が必要になる）
+- CPT メニュー追加は実質2パターン（表示オプション推奨・カスタムリンク非推奨）。functions.php への register_post_type 直書きは「登録手段」の違いで追加方法（表示オプション）は同じ。CPT UI 使用中は functions.php に書かなくてOK

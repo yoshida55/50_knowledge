@@ -219,7 +219,7 @@ CPT スラッグ URL テンプレートファイル名 3つ一致 archive-works.
 テンプレート階層 WordPress 自動選択 URL判断 archive single index.php フォールバック | WordPress
 archive single 1ファイル 複数投稿 型 ループ 中身差し替え WordPressが管理 | WordPress
 archive.php デフォルト投稿 お知らせ 一覧 archive-スラッグ.php カスタム投稿タイプ 違い | WordPress
-CPT アーカイブ メニュー追加 カスタムリンク http CPTスラッグ アーカイブあり CPT UI ローカル https エラー | WordPress
+CPT アーカイブ メニュー追加 正規方法 表示オプション has_archive カスタムリンク 非推奨 CPT UI | WordPress
 CPT 全体フロー 投稿タイプ作成 投稿登録 テンプレート作成 メニュー追加 一覧表示 手順 | WordPress
 the_content タグあり HTMLタグ込み the_title テキストのみ 違い 一覧 詳細 使い分け | WordPress
 the_content() pタグ クラス 直接つけられない divで囲む 子孫セレクター .クラス名 p | WordPress
