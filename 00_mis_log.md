@@ -300,7 +300,8 @@ z-index contentsは100（margin-top 100vh）
 
 ✅- clip-path で切り取られた部分は描画ごと消える → 別要素を margin-top マイナスで潜り込ませる
 
-![](images/2026-04-05-06-13-17.png)
+![](images/2026-04-
+-06-13-17.png)
 
 
 ✅- overflow: hidden 削除後に position: absolute; right: マイナス値の要素がはみ出す → overflow-x: hidden を body に追加
@@ -1610,4 +1611,9 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 ✅ ヘッダー透明化 → ヒーロー上のヘッダーをページ初期に background: transparent にして画像と一体化させる。JSでスクロール量を判定してheader_scrolledクラスを付け外しし、スクロール後に background を半透明で復活させる
 
 ## 2026-05-02
-✅ TinyPNG → Web用画像の一括圧縮ツール（https://tinypng.com/）。最大20枚ドラッグするだけ、ファイル名変わらず、見た目ほぼ劣化なし。1枚500KB以上なら圧縮推奨✅ position: sticky → 親に overflow: hidden があると動かなくなる（bodyのスクロールが見えなくなるため）。角丸は border-radius: 6px 6px 0 0（上だけ）で代替
+✅ TinyPNG → Web用画像の一括圧縮ツール（https://tinypng.com/）。最大20枚ドラッグするだけ、ファイル名変わらず、見た目ほぼ劣化なし。1枚500KB以上なら圧縮推奨✅ position: sticky → 親に overflow: hidden があると動かなくなる（bodyのスクロールが見えなくなるため）。角丸は border-radius: 6px 6px 0 0（上だけ）で代替## 2026-05-04
+- IntersectionObserver → 要素が画面に入ったら `isIntersecting` が true になり、クラスを付与。`unobserve` で監視解除すると1回きりの発動になる（往復スクロールで繰り返さない）
+- jQuery $(window).scroll() → スクロールのたびに全要素チェック → 重い。IntersectionObserver に置き換えると jQuery不要・計算式不要・コード激減
+- scrollIntoView() → 指定要素の位置まで画面をスクロールする1行命令。ボタンクリックなどをきっかけに、ブラウザが自動で縦スクロールしてくれる。`behavior: "smooth"` で滑らか・なしだと瞬間移動。関数全体はAIに任せてOK
+- text-wrap: balance → 見出しの改行位置をブラウザが自動調整。`<br>` 手書きは幅が変わると崩れるので、こちらを使う
+- WordPress化の準備 → 共通クラスは style.css にまとめる（js_soft_reveal など）。ページ固有は work.css / business.css に残す。HTML段階から分けておくと後の enqueue が楽になる

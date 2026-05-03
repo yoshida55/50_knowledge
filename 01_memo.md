@@ -23245,3 +23245,160 @@ overflow: hidden をつけた要素が「スクロールコンテナ」になり
   border-radius: 6px 6px 0 0; /* overflow: hidden の代わり */
 }
 ```
+## 📌 IntersectionObserver → 要素が画面内に入ったとき is_visible クラスをつける仕組み。threshold で「何%見えたら発動するか」を 0〜1 で指定。unobserve で1回だけ発動させる HTML
+
+【日付】2026-05-04
+
+【結論】
+IntersectionObserver は「要素が画面に入ったことを検知する」仕組み。
+クラスを付けたら `unobserve` で監視を止めると、スクロールするたびに何度も発動しなくなる。
+
+【具体例】
+```js
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {           // 画面内に入っているか
+      entry.target.classList.add("is_visible"); // クラスをつける
+      io.unobserve(entry.target);         // 即座に監視をやめる（1回きり）
+    }
+  });
+}, { threshold: 0.15 }); // 15%見えたら発動
+
+document.querySelectorAll(".js_soft_reveal").forEach((el) => io.observe(el));
+```
+
+【プロパティ一覧】
+| 名前 | 意味 |
+|------|------|
+| `isIntersecting` | 画面内に入っているか（true/false） |
+| `entry.target` | 監視されている要素そのもの |
+| `threshold` | 何%入ったら発動するか（0〜1） |
+| `observe(el)` | この要素を監視開始 |
+| `unobserve(el)` | この要素の監視を止める |
+
+【補足】
+- `unobserve` がないと、スクロールで画面を往復するたびに何度もクラスが付いたり消えたりする
+- 複数の Observer を使い分けることもできる（threshold の値を変えるなど）
+
+## 📌 jQuery $(window).scroll() より IntersectionObserver の方が軽くてシンプル → スクロールのたびに全要素をチェックしないため。jQuery不要・計算式不要・コード量も少ない HTML
+
+【日付】2026-05-04
+
+【結論】
+フェードインアニメーションは jQuery の scroll イベントより IntersectionObserver の方がシンプルで軽い。
+
+【比較】
+| | jQuery版 | IntersectionObserver版 |
+|--|--|--|
+| jQuery | 必要 | 不要 |
+| 発火タイミング | スクロールのたびに全要素ループ | 画面に入ったときだけ |
+| 計算式 | `scroll > target - windowHeight + 200` | なし |
+| コード量 | 多い | 少ない |
+
+【補足】
+- jQuery版は `$(window).scroll()` がスクロールするたびに全要素をループするので重い
+- IntersectionObserver はブラウザが「入ったかどうか」を最適なタイミングで判定する
+- 新しく書くときは迷わず IntersectionObserver を使う
+
+> 📋 **スニペットあり** → [フェードイン IntersectionObserver版 フルソース](./その他/00_サンプルソース/★フェードイン「カードを下から上に動かす」.md)
+
+## 📌 scrollIntoView() → 指定した要素の位置まで滑らかにスクロールする1行命令。setTimeout と組み合わせると「スクロール後にハイライト」ができる HTML
+
+【日付】2026-05-04
+
+【結論】
+`scrollIntoView()` は「この要素の位置まで画面をスクロールする」命令。
+関数全体はAIに任せてOK。「scrollIntoView が使える」とだけ覚えておけば十分。
+
+【動きのイメージ】
+ユーザーがボタンをクリック
+  ↓
+scrollIntoView() が発動
+  ↓
+ブラウザが「そのカードの位置」まで
+  ↓
+勝手にスルスルっとスクロールしてくれる
+
+`behavior: "smooth"` → 滑らかにスクロール
+`behavior` なし → 瞬間移動
+
+【使い方】
+```js
+const card = document.getElementById("card01");
+
+// なめらかにスクロール・画面中央に来るように
+card.scrollIntoView({ behavior: "smooth", block: "center" });
+```
+
+【よくある組み合わせ（スクロール＋ハイライト）】
+```js
+function scrollToCard(id) {
+  const card = document.getElementById(id);
+  card.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  // 青い枠線をつける
+  card.style.boxShadow = "0 0 0 3px #2563eb, 0 8px 32px rgba(37,99,235,0.2)";
+
+  // 1.5秒後に消す
+  setTimeout(() => (card.style.boxShadow = ""), 1500);
+}
+```
+
+【覚えること・任せること】
+| | 対応 |
+|--|--|
+| `scrollIntoView()` の存在 | 覚える（1行で使えて汎用性が高い） |
+| `setTimeout()` のパターン | 覚える（あちこちで使う） |
+| 関数全体のコード | AIに任せてOK |
+
+## 📌 text-wrap: balance → ブラウザが自動で改行位置を整えてくれる。h2などの見出しで `<br>` を手書きするより自然にきれいに折れる HTML CSS
+
+【日付】2026-05-04
+
+【結論】
+`<br>` で手動改行すると、コンテナ幅が変わったとき「途中の変な位置で折れる」問題が起きる。
+`text-wrap: balance` を使うとブラウザが左右均等になるよう自動で改行位置を決めてくれる。
+
+【使い方】
+```css
+h2 {
+  text-wrap: balance; /* <br> なしで自然に折れる */
+}
+```
+
+【<br> との比較】
+| | `<br>` 手動改行 | `text-wrap: balance` |
+|--|--|--|
+| 改行位置 | 固定（幅が変わると崩れる） | ブラウザが自動で調整 |
+| レスポンシブ | ❌ 崩れやすい | ✅ 安定 |
+| コード量 | HTMLに `<br>` を書く | CSSだけ |
+
+【補足】
+- 見出し（h1〜h3）に使うことが多い
+- 長い本文には効果が薄い（短めのテキストに向いている）
+
+## 📌 WordPress化を見据えた CSS 設計 → 共通クラスは style.css に書く。ページ固有スタイルは各ページのCSSに分ける。後から functions.php で enqueue するだけでよくなる HTML CSS WordPress
+
+【日付】2026-05-04
+
+【結論】
+WordPress化するとき、共通スタイルを1ファイルにまとめておくと enqueue が楽になる。
+HTML段階から「共通 / ページ固有」を分けておく習慣をつける。
+
+【ファイルの役割分担】
+| ファイル | 内容 |
+|--|--|
+| `style.css` | 全ページ共通（js_soft_reveal・html font-size など） |
+| `work.css` | index.html 専用スタイル |
+| `business.css` | business.html 専用スタイル |
+
+【WordPress化したときの対応】
+```php
+// functions.php
+wp_enqueue_style('common', get_template_directory_uri() . '/css/style.css');
+wp_enqueue_style('page-home', get_template_directory_uri() . '/css/work.css');
+```
+
+【補足】
+- `js_soft_reveal` のように複数ページで使うクラスは最初から style.css に書く
+- ページ固有のCSSに共通クラスが混入すると、WordPress化後に修正漏れが起きやすい
