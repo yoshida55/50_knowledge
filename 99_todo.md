@@ -4,9 +4,10 @@
 vsCodeでCTRL２回で、ファイル検索AHKを利用する
 
 
-▢
-![](images/2026-05-02-11-42-29.png)
+▢CSS PEAKとCSS JUMPがかぶるから、CSS　PEAKを無効にする。
 
+
+拡張機能を無効
 
 
 
