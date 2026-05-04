@@ -1619,3 +1619,6 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 - WordPress化の準備 → 共通クラスは style.css にまとめる（js_soft_reveal など）。ページ固有は work.css / business.css に残す。HTML段階から分けておくと後の enqueue が楽になる
 - カスタム投稿タイプのアーカイブ（一覧）をメニューに追加する正規手順 → CPT UIで「アーカイブあり（has_archive）」をON → 外観メニューの「表示オプション」でCPT名にチェック → 左パネルにアーカイブが出る → 選んで追加。カスタムリンクでURL手打ちは非推奨（スラッグ変更時に手動修正が必要になる）
 - CPT メニュー追加は実質2パターン（表示オプション推奨・カスタムリンク非推奨）。functions.php への register_post_type 直書きは「登録手段」の違いで追加方法（表示オプション）は同じ。CPT UI 使用中は functions.php に書かなくてOK
+- class属性を2回書くと最初だけ有効 → `class="A" class="B"` はNG、`class="A B"` とスペース区切りで1つにまとめる
+- animation に opacity 直書き → @keyframes の from が opacity: 1 になりアニメーション無効。解決は opacity 削除 + fill-mode: both + @keyframes に from 明示
+- アニメーション表示されないデバッグ → F12で is_visible クラスを確認 → なければ js_soft_reveal クラスが HTML で正しく書かれているか確認（class二重指定バグの可能性）

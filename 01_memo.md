@@ -23421,3 +23421,70 @@ wp_enqueue_style('page-home', get_template_directory_uri() . '/css/work.css');
 【補足】
 - `js_soft_reveal` のように複数ページで使うクラスは最初から style.css に書く
 - ページ固有のCSSに共通クラスが混入すると、WordPress化後に修正漏れが起きやすい
+
+## 📌 class属性は同じ名前を2回書けない → class="A" class="B" と書くと最初だけ有効、2つ目は無視される HTML
+
+【日付】2026-05-04
+
+【結論】
+HTML属性は同じ名前を2回書くと、最初の1個だけ有効になる。
+`class="daily_inner" class="js_soft_reveal"` のように書くと `js_soft_reveal` は完全に無視される。
+
+【具体例】
+```html
+<!-- ❌ こう書くと js_soft_reveal は無視される -->
+<div class="daily_inner" class="js_soft_reveal">
+
+<!-- ✅ スペース区切りで1つの class にまとめる -->
+<div class="daily_inner js_soft_reveal">
+```
+
+【補足】
+- 複数クラスは `class="クラス1 クラス2"` とスペース区切りで1つの属性にまとめる
+- id や aria-label など他の属性も同じルール（2回書くと最初だけ有効）
+
+---
+
+## 📌 CSS animation と opacity 直書きが同時にあるとアニメーションが無効になる → opacity 削除 + fill-mode: both + @keyframes に from 明示で解決 HTML CSS
+
+【日付】2026-05-04
+
+【結論】
+animation を指定した要素に `opacity: 1` を直書きすると、アニメーションの開始値（from）が `opacity: 1` になってしまい、フェードインが機能しなくなる。
+
+【なぜそうなるか】
+@keyframes に `from` が書かれていない場合、アニメーション開始時の computed value（計算済みの値）が from として使われる。
+`opacity: 1` が直書きされていると計算済みの値が 1 になるため、`opacity: 1 → opacity: 1` という何も変わらないアニメーションになる。
+
+【具体例】
+```css
+/* ❌ こう書くとアニメーションが無効になる */
+.target.is_visible .item {
+  animation: item-in 0.72s ease forwards;
+  opacity: 1; /* ← これが from になってしまう */
+}
+
+/* ✅ こう書く */
+.target.is_visible .item {
+  animation: item-in 0.72s ease both; /* forwards → both */
+  /* opacity は書かない */
+}
+
+@keyframes item-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 2.2rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+```
+
+【fill-mode の違い】
+| fill-mode | 意味 |
+|-----------|------|
+| forwards | アニメーション終了後の状態をキープ |
+| backwards | delay 中も from の状態をキープ |
+| both | 両方（フェードインには基本これ） |
