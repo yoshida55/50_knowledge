@@ -251,4 +251,6 @@ setInterval 第一引数 処理 関数 第二引数 ミリ秒 繰り返し setTi
 autoplay muted playsinline 動画自動再生 3点セット ブラウザブロック iPhone 全画面 | HTML
 min() CSS関数 2値 小さい方 max-width 余白 レスポンシブ コンテナ 上限 | HTML CSS
 ヘッダー透明化 header_scrolled スクロール 帯 transparent classList home_page | HTML CSSTinyPNG 画像圧縮 Web 一括 PNG JPG ファイル名 品質 200KB | HTMLposition: sticky overflow: hidden 親 スコープ 壊れる border-radius 代替 セクション内 fixed 使い分け | HTML CSSIntersectionObserver isIntersecting observe unobserve threshold スクロールアニメーション クラス付与 1回きり | HTMLjQuery scroll IntersectionObserver パフォーマンス比較 フェードイン 書き換え スクロールイベント | HTMLscrollIntoView scrollToCard setTimeout スクロール ハイライト 要素移動 smooth center | HTMLtext-wrap: balance 改行 見出し h2 br 手動 自動 レスポンシブ | HTML CSSWordPress化 準備 style.css 共通クラス js_soft_reveal ページ固有 分離 enqueue | HTML CSS WordPressclass属性 二重指定 同じ名前 最初だけ有効 複数クラス スペース区切り | HTML
-animation opacity 直書き from computed value アニメーション無効 fill-mode both @keyframes from 明示 | HTML CSS
+animation opacity 直書き from computed value アニメーション無効 fill-mode both @keyframes from 明示 | HTML CSSIntersectionObserver threshold 数値 発火タイミング 0.1 0.4 要素 縦長 アニメーション完了 早い | HTML CSS
+レスポンシブ ブレークポイント 768px スマホ上限 iPad mini 700px デザイン崩れ | HTML CSS
+calc 10 375 100vw rem スケーリング スマホ iPhone 基準 font-size 自動拡縮 | HTML CSSobject-fit: cover object-position right center どこを見せるか 切り取り位置 スマホ 動画 人物 | HTML CSS
