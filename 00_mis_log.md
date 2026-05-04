@@ -1623,4 +1623,6 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 - animation に opacity 直書き → @keyframes の from が opacity: 1 になりアニメーション無効。解決は opacity 削除 + fill-mode: both + @keyframes に from 明示
 - アニメーション表示されないデバッグ → F12で is_visible クラスを確認 → なければ js_soft_reveal クラスが HTML で正しく書かれているか確認（class二重指定バグの可能性）- IntersectionObserver threshold: 0.4 → 要素が縦に長いと下が見える前にアニメーション完了。threshold: 0.1 にすると画面に入った瞬間に発火して自然
 - レスポンシブブレークポイントは 768px が一般的（iPad miniの横幅）。700px は少し狭め。絶対値ではなく「デザインが崩れ始める幅」に合わせる
-- calc(10/375*100vw) → スマホで html の font-size に使う。375px 画面で 1rem=10px。画面幅に比例して rem が自動スケール。375=iPhone基準幅- object-fit: cover は切り方のルールだけ → どこを見せるかは object-position で別指定。right center / left center / 60% center など。スマホで人物が切れるときはセットで調整する
+- calc(10/375*100vw) → スマホで html の font-size に使う。375px 画面で 1rem=10px。画面幅に比例して rem が自動スケール。375=iPhone基準幅- object-fit: cover は切り方のルールだけ → どこを見せるかは object-position で別指定。right center / left center / 60% center など。スマホで人物が切れるときはセットで調整する- モバイルで `height: 60svh` を設定しても PC の `min-height: 92vh` は消えない → `min-height: 0` も一緒に書く（`height` と `min-height` は別プロパティ・`min-height` の方が優先）
+- `::before { content: "STEP " }` → CSS だけで文字を前付けできる。HTML には数字だけ書いてCSSで "STEP " を追加するパターン
+- `white-space: nowrap` → `::before` の追加テキストで STEP ラベルが2行になるときにも有効

@@ -23578,3 +23578,67 @@ html {
 
 スマホ（縦長）に横長の動画・画像を表示すると左右が切れる。
 `object-position` で切り取る位置を調整して、重要な被写体（人物など）が見えるようにする。
+
+## 📌 モバイルで `height: 60svh` を書いても PC の `min-height: 92vh` は消えない → `min-height: 0` でリセットが必要 HTML CSS
+
+【日付】2026-05-04
+
+【結論】
+`height` と `min-height` は**別プロパティ**。メディアクエリで `height` を上書きしても `min-height` はそのまま残る。
+CSS の優先ルール：`min-height` が `height` より大きければ `min-height` が勝つ。
+
+【具体例】
+```css
+/* PC用 */
+.home_hero {
+  min-height: 92vh;
+}
+
+/* ❌ ダメな例（min-height は消えない） */
+@media (max-width: 768px) {
+  .home_hero {
+    height: 60svh;
+  }
+}
+
+/* ✅ 正しい例（min-height: 0 でリセット） */
+@media (max-width: 768px) {
+  .home_hero {
+    height: 60svh;
+    min-height: 0;
+  }
+}
+```
+
+【補足】
+- 背景動画を `height: 60svh` にしても、親が `min-height: 92vh` なら動画の届かない部分が黒くなる
+- 「高さを変えたい」ときは `height` と `min-height` の両方を必ず確認する
+- `min-height: 0` の代わりに `min-height: unset` でもOK
+
+---
+
+## 📌 `::before { content: "文字" }` でCSS だけでテキストを前付けできる → HTML には変わる部分（数字など）だけ書けばOK HTML CSS
+
+【日付】2026-05-04
+
+【結論】
+`::before` 疑似要素の `content` に文字列を書くと、HTML を一切編集せずに CSS だけでテキストを追加できる。
+
+【具体例】
+```html
+<!-- HTML：数字だけ書く -->
+<b>01</b>
+<b>02</b>
+```
+
+```css
+/* CSS："STEP " を自動追加 → 画面は "STEP 01", "STEP 02" と表示される */
+b::before {
+  content: "STEP ";
+}
+```
+
+【補足】
+- 「変わらない部分（"STEP "）」はCSS、「変わる部分（01, 02）」はHTMLに分担するのがスマート
+- `::after` を使えば後ろにも追加できる
+- HTML を触らずに CSS だけでラベルの表現を変更できる（例: "STEP " → "No."）
