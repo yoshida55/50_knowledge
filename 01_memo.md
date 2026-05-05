@@ -23642,3 +23642,59 @@ b::before {
 - 「変わらない部分（"STEP "）」はCSS、「変わる部分（01, 02）」はHTMLに分担するのがスマート
 - `::after` を使えば後ろにも追加できる
 - HTML を触らずに CSS だけでラベルの表現を変更できる（例: "STEP " → "No."）
+
+## 📌 align-self: flex-start と margin-right: auto の違い → どちらも flex 内で左寄せになるが仕組みが異なる。align-self は配置の命令（flex/grid専用）、margin: auto は余白を食べて間接的に左に寄る汎用技 HTML CSS
+
+【日付】2026-05-05
+【結論】
+- `align-self: flex-start` → flex子要素を cross軸（flex-direction: column なら横方向）の左端に合わせる「配置の命令」
+- `margin-right: auto` → 右余白をすべて消費することで、結果的に自分が左に寄る「余白の使い方」
+- width を指定していれば、どちらも見た目の結果は同じ
+
+【具体例】
+```css
+/* flex-direction: column のコンテナ内で子要素を左寄せ */
+
+.child {
+  width: 62%;
+  align-self: flex-start; /* flex/grid専用：左端に置く命令 */
+}
+
+/* または */
+.child {
+  width: 62%;
+  margin-right: auto; /* 汎用技：右余白を全部食べる → 左に追いやられる */
+}
+```
+
+【補足】
+- `align-self` は flex / grid 専用。コードを読んだ時に「flex で位置決め」と一目でわかる
+- `margin: auto` はどこでも使える汎用技。`margin-top: auto` で下寄せ、`margin-right: auto` で左寄せと方向を変えて使える
+- どちらを使うかは好みだが、flex 内なら `align-self` の方が意図が明確（セマンティック）
+
+## 📌 CSS Grid の fr 単位は gap を先に引いてから計算される → gap を変えても列幅が自動で調整される HTML CSS
+
+【日付】2026-05-05
+【結論】
+- `fr`（fraction）= 「残った幅の分け前」
+- `gap` は `fr` の計算**前**に引かれる
+- 各列の幅 = (コンテナ幅 - gap) ÷ fr の合計
+
+【具体例】
+```css
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2列 */
+  gap: 40px;
+}
+```
+コンテナ幅 1000px の場合:
+① 1000px - 40px（gap）= 960px（残りの幅）
+② 960px ÷ 2 = 480px（各カラムの実際の幅）
+
+→ gap を変えると fr が自動で再計算してくれる
+
+【補足】
+- `px` や `%` で列幅を固定していると gap 分がはみ出る危険がある
+- `fr` を使えば gap が何 px でも自動で収まる
+- `calc(50% - 20px)` のような手計算が不要になる

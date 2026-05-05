@@ -1626,3 +1626,6 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 - calc(10/375*100vw) → スマホで html の font-size に使う。375px 画面で 1rem=10px。画面幅に比例して rem が自動スケール。375=iPhone基準幅- object-fit: cover は切り方のルールだけ → どこを見せるかは object-position で別指定。right center / left center / 60% center など。スマホで人物が切れるときはセットで調整する- モバイルで `height: 60svh` を設定しても PC の `min-height: 92vh` は消えない → `min-height: 0` も一緒に書く（`height` と `min-height` は別プロパティ・`min-height` の方が優先）
 - `::before { content: "STEP " }` → CSS だけで文字を前付けできる。HTML には数字だけ書いてCSSで "STEP " を追加するパターン
 - `white-space: nowrap` → `::before` の追加テキストで STEP ラベルが2行になるときにも有効
+## 2026-05-05
+- `align-self: flex-start` と `margin-right: auto` はどちらも flex 内で左寄せになるが仕組みが違う。`align-self` は配置の命令（flex/grid専用）、`margin-right: auto` は右余白を食べて間接的に左に追いやる汎用技。width が決まっていれば見た目は同じ
+- CSS Grid の `grid-template-columns: 1fr 1fr` で `gap` を入れると、gap を先に引いた残りの幅を fr で分割する。gap を変えても列幅が自動再計算されるので `calc()` の手計算が不要
