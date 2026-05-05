@@ -1629,3 +1629,4 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 ## 2026-05-05
 - `align-self: flex-start` と `margin-right: auto` はどちらも flex 内で左寄せになるが仕組みが違う。`align-self` は配置の命令（flex/grid専用）、`margin-right: auto` は右余白を食べて間接的に左に追いやる汎用技。width が決まっていれば見た目は同じ
 - CSS Grid の `grid-template-columns: 1fr 1fr` で `gap` を入れると、gap を先に引いた残りの幅を fr で分割する。gap を変えても列幅が自動再計算されるので `calc()` の手計算が不要
+- テキストマーカーアニメーション → `background-image`（1色のlinear-gradient）+ `background-size: 0%→100%` でマーカーが左から伸びる。`background-position: left 84%` で縦位置をテキスト下部に調整。線の太さは `0.28em`

@@ -23698,3 +23698,32 @@ b::before {
 - `px` や `%` で列幅を固定していると gap 分がはみ出る危険がある
 - `fr` を使えば gap が何 px でも自動で収まる
 - `calc(50% - 20px)` のような手計算が不要になる
+## 📌 テキストにマーカー線を左から伸ばすアニメーション → background-image の background-size を 0%→100% にアニメーション HTML CSS
+
+【日付】2026-05-05
+
+【結論】
+`background-image` で1色のグラデーション（実質べた塗り）を作り、`background-size: 0% 高さ` からアニメーションで `100% 高さ` に広げる。左から右に線が伸びるマーカーアニメーションになる。
+
+【具体例】
+```css
+.marker {
+  display: inline;
+  font-style: normal;
+  background-image: linear-gradient(to right, rgba(216,111,69,0.5), rgba(216,111,69,0.5));
+  background-repeat: no-repeat;
+  background-size: 0% 0.28em;       /* 幅0%・高さ0.28em（線の太さ）*/
+  background-position: left 84%;    /* 左から・縦84%の位置（テキスト下部）*/
+  animation: marker-draw 0.9s 1.1s ease forwards;
+}
+
+@keyframes marker-draw {
+  to { background-size: 100% 0.28em; }
+}
+```
+
+【補足】
+- `background-position: left 84%` の 84% は「テキストのどの高さに線を置くか」。フォントや行高によって微調整する
+- `0.28em` が線の太さ。大きくすると蛍光ペン風になる
+- `display: inline` を忘れると `<em>` タグがブロック化してレイアウトが崩れる
+- ホバーで引くなら `animation` の代わりに `transition: background-size 0.3s ease` に変える
