@@ -23305,6 +23305,40 @@ document.querySelectorAll(".js_soft_reveal").forEach((el) => io.observe(el));
 - `unobserve` がないと、スクロールで画面を往復するたびに何度もクラスが付いたり消えたりする
 - 複数の Observer を使い分けることもできる（threshold の値を変えるなど）
 
+【ユーティリティクラスパターン】
+CSS + JS を一度書いておけば、HTMLにクラス名を書くだけでリビールが適用できる設計。
+
+```css
+/* style.css（1回だけ書く） */
+.js_soft_reveal {
+  opacity: 0;
+  transform: translateY(4rem);
+  transition: opacity 0.7s ease, transform 0.8s ease;
+}
+.js_soft_reveal.is_visible { opacity: 1; transform: none; }
+
+.js_soft_reveal_left {
+  opacity: 0;
+  transform: translateX(-8rem);
+  transition: opacity 0.7s ease, transform 0.8s ease;
+}
+.js_soft_reveal_left.is_visible { opacity: 1; transform: none; }
+```
+
+```js
+// script.js（クラスを増やすたびに1行追加）
+document.querySelectorAll(".js_soft_reveal").forEach((el) => observer.observe(el));
+document.querySelectorAll(".js_soft_reveal_left").forEach((el) => observer.observe(el));
+```
+
+```html
+<!-- HTML（クラス名を書くだけでOK） -->
+<div class="js_soft_reveal">下から上にフェードイン</div>
+<p class="js_soft_reveal_left">左からスライドイン</p>
+```
+
+⚠ 新しいクラスを CSS に追加したら JS の querySelectorAll にも必ず1行追加する
+
 ## 📌 jQuery $(window).scroll() より IntersectionObserver の方が軽くてシンプル → スクロールのたびに全要素をチェックしないため。jQuery不要・計算式不要・コード量も少ない HTML
 
 【日付】2026-05-04
@@ -23953,3 +23987,114 @@ span1（上段）  span3（上段）  span5（上段）
 | `nth-child(2)` | 2番目だけ |
 
 注意：`nth-child` は**親の全子要素の中での順番**で数える（タグの種類関係なし）。
+
+## 📌 color-mix() で暗背景の同系色ボタンが溶け込む問題 → white N% 混ぜて明るくする HTML CSS
+
+【日付】2026-05-06
+
+【結論】
+背景色とボタン色が同系色（例：濃い緑背景に緑ボタン）だとボタンが溶け込んで見えなくなる。
+`color-mix(in srgb, var(--green), white 30%)` で白を混ぜると視認できる明るさになる。
+
+【具体例】
+```css
+/* 暗い緑背景（#141c17）に --green（#3a6b5e）のボタンを置くと溶け込む */
+.section .button {
+  background: color-mix(in srgb, var(--green), white 30%); /* 白30%混ぜて明るく */
+}
+.section .button:hover {
+  background: color-mix(in srgb, var(--green), white 15%); /* ホバーは少し暗め */
+}
+```
+
+【補足】
+- `color-mix(in srgb, 色A, 色B N%)` → 色AにBをN%混ぜた色を返す
+- 暗背景では `white N%` 混ぜ、明背景では `black N%` 混ぜが定番
+- N%を増やすほど白寄り（明るい）、下げるほど元の色に近い
+- ヘッダーなど明るい背景上のボタンは同じ色でも問題なく見える（背景コントラストで見え方が変わる）
+
+---
+
+## 📌 フェードインとソフトリビールの用語の違い → 方向を言わないと移動は含まれない HTML CSS
+
+【日付】2026-05-06
+
+【結論】
+- **フェードイン単体** → `opacity: 0 → 1` だけ。移動なし
+- **「下から上にフェードイン」** → opacity + translateY。方向を明示すれば移動を含む
+- **ソフトリビール** → opacity + 移動の組み合わせの総称。どの方向かは不問だが「動きがある」とわかる
+
+【具体例】
+```css
+/* ソフトリビール（下から上にフェードイン） */
+.js_soft_reveal {
+  opacity: 0;
+  transform: translateY(4rem);
+  transition: opacity 0.7s ease, transform 0.8s ease;
+}
+.js_soft_reveal.is_visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* 左からのソフトリビール */
+.js_soft_reveal_left {
+  opacity: 0;
+  transform: translateX(-8rem);
+  transition: opacity 0.7s ease, transform 0.8s ease;
+}
+.js_soft_reveal_left.is_visible {
+  opacity: 1;
+  transform: none;
+}
+```
+
+```js
+// IntersectionObserver でクラス付与 → 新クラスを作ったら必ず1行追加する
+document.querySelectorAll(".js_soft_reveal").forEach((el) => observer.observe(el));
+document.querySelectorAll(".js_soft_reveal_left").forEach((el) => observer.observe(el));
+// ← 追加し忘れると新クラスは永遠に opacity: 0 のまま動かない
+```
+
+【補足】
+- CSS だけ書いても JS が監視していないと `is_visible` が付かず動かない
+- クラスを増やすたびに JS 側にも `querySelectorAll` の行を追加する
+
+▢
+## メモ：IntersectionObserver - クラス名を書くだけでリビール（フェードイン）できるユーティリティパターン
+【日付】2026-05-06
+
+【気づき】
+★ CSS + JS を1回セットアップ → HTMLにクラス名を書くだけでどこでも使える
+★ 新方向クラスを増やすときは CSS + JS に1行ずつ追加（JS を忘れると opacity: 0 のまま動かない）
+
+【ポイント】
+
+★ HTMLはクラス名を書くだけ
+```html
+<div class="js_soft_reveal">下から上にフェードイン</div>
+<h2 class="js_soft_reveal_left">左からスライドイン</h2>
+```
+
+★ CSS（初期状態 → is_visible で表示）
+```css
+.js_soft_reveal { opacity: 0; transform: translateY(4rem); transition: opacity 0.7s ease, transform 0.8s ease; }
+.js_soft_reveal.is_visible { opacity: 1; transform: none; }
+```
+
+★ JS（IntersectionObserver で is_visible を付ける）
+```js
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("is_visible");
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll(".js_soft_reveal").forEach((el) => observer.observe(el));
+// クラスを増やしたらここに1行追加
+```
+
+> 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★IntersectionObserver_クラス名を書くだけでリビール（フェードイン）_CSS+JS+HTML.md)
