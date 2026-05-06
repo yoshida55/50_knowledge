@@ -18687,10 +18687,16 @@ z-index の重ね順:
 ```html
 <header class="header_area">...</header>
 <main class="main_area">
-  <div class="main_img"></div>   ← 固定背景用（position: fixed）
+  <div class="main_img"></div>   ← 固定背景用（position: fixed）　ただ、兄弟要素にすればいいだけ
   <section class="case_area">...</section>  ← スクロールで上を通過
 </main>
 ```
+
+※
+background-attachment: fixed = 背景画像だけ固定。1行で済む
+iOS Safari では効かないので、
+スマホ対応するなら position: fixed の方が安全
+
 
 ### 🎯 CSS
 
@@ -23727,3 +23733,223 @@ b::before {
 - `0.28em` が線の太さ。大きくすると蛍光ペン風になる
 - `display: inline` を忘れると `<em>` タグがブロック化してレイアウトが崩れる
 - ホバーで引くなら `animation` の代わりに `transition: background-size 0.3s ease` に変える
+
+▢
+## メモ：横流れリボンアニメーション - flexで横並び+nth-child(even)で2段+translate3dでループ
+【日付】2026-05-06
+
+【気づき】
+★ `display: flex` は親に書く。子が横並びになる。自分自身には影響しない
+★ `gap` は親に1行書くだけで子全員の間隔が決まる（marginより楽）
+★ `nth-child(even)` で偶数だけ下にずらすだけで2段に見せられる
+★ `translate3d` を使うとGPU処理になりアニメーションがなめらかになる
+★ ループは「リボンのwidth = translate3dの移動距離」にする
+
+【ポイント】
+
+★ display: flex は親に書く
+```css
+.overview_flow_ribbons {
+  display: flex; /* 子のspanが横並びになる */
+  gap: 9rem;     /* 子どもたちの間隔をまとめて指定 */
+}
+```
+
+★ nth-child(even) で2段に見せる
+```css
+.overview_flow_ribbons span:nth-child(even) {
+  transform: translateY(5.2rem); /* 偶数番目だけ下にずれる */
+}
+```
+
+★ translate3d でGPU処理＋ループ
+```css
+@keyframes flow-ribbons {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-34rem, 0, 0); } /* widthと同じ値にするとループする */
+}
+```
+
+★コピペで動く最小コード（ファイル分離版）
+
+**HTML**
+```html
+<div class="overview_flow_ribbons">
+  <span></span><span></span><span></span>
+  <span></span><span></span><span></span>
+</div>
+```
+
+**CSS（css/business.css）**
+```css
+.overview_flow_ribbons {
+  position: absolute; top: 2.4rem; left: 0; z-index: 0;
+  display: flex; gap: 9rem;
+  animation: flow-ribbons 18s linear infinite;
+  pointer-events: none;
+}
+.overview_flow_ribbons span {
+  display: block; width: 34rem; height: 7.2rem;
+  background: rgba(255,255,255,0.5);
+}
+.overview_flow_ribbons span:nth-child(even) {
+  transform: translateY(5.2rem);
+  background: rgba(255,255,255,0.34);
+}
+@keyframes flow-ribbons {
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(-34rem,0,0); }
+}
+```
+
+> 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★横流れリボンアニメーション - flexで横並び+nth-child(even)で2段+translate3dでループ.md)
+
+## 📌 パラックス（固定背景スクロール）2種類の比較と使い分け → background-attachment: fixed が簡単だがiOS非対応・スマホ対応は position: fixed HTML CSS
+
+【日付】2026-05-06
+
+【結論】
+パラックス（背景が固定されてコンテンツだけスクロールする）を作る方法は2種類ある。
+
+| 方法 | コード量 | スマホ対応 | 向いているケース |
+|------|---------|----------|--------------|
+| `background-attachment: fixed` | 1行追加だけ | ❌ iOS非対応 | PCのみのサイト |
+| `position: fixed` + 兄弟構造 | HTML構造も必要 | ✅ 動く | スマホ対応必須のサイト |
+
+【具体例】
+
+★ 方法① background-attachment: fixed（簡単）
+```css
+.section {
+  background: url("画像.jpg") center / cover no-repeat;
+  background-attachment: fixed; /* これだけでパラックスになる */
+}
+```
+注意：iOS Safari では無視される（背景が固定されず普通にスクロールする）
+
+★ 方法② position: fixed + 兄弟構造（スマホ対応）
+```html
+<main>
+  <div class="bg">   <!-- position: fixed（画面全体に固定） -->
+  <section>          <!-- 普通にスクロール。bgの上を通過していく -->
+</main>
+```
+```css
+.bg {
+  position: fixed;
+  inset: 0;          /* 画面全体に広げる */
+  z-index: 0;
+  background: url("画像.jpg") center / cover no-repeat;
+}
+section {
+  position: relative;
+  z-index: 1;        /* bgより前に出す */
+  background: var(--bg); /* ← 他のセクションが透けないよう背景色必須 */
+}
+```
+
+【補足】
+- `position: fixed` は画面全体に貼り付くため、そのセクション以外でも後ろに見えてしまう
+- 対策：他のセクションに `background-color` を必ず設定して隠す
+- `overflow: hidden` がある親の中では `position: fixed` が効かなくなる（次のメモ参照）
+
+---
+
+## 📌 overflow: hidden がある親の中では position: fixed が効かなくなる → 親から overflow: hidden を削除するか background-attachment: fixed に切り替える HTML CSS
+
+【日付】2026-05-06
+
+【結論】
+`overflow: hidden` を持つ要素の子孫に `position: fixed` を使っても、画面に固定されない。
+
+```
+通常: position: fixed → ビューポート（画面）に対して固定
+overflow: hidden の親がある → その親に対して固定（= 画面に固定されない）
+```
+
+【具体例】
+
+```css
+/* ❌ これだと fixed が効かない */
+.section {
+  overflow: hidden; /* ← 犯人 */
+}
+.section .bg {
+  position: fixed;  /* overflow: hidden の親がいると無効 */
+  inset: 0;
+}
+
+/* ✅ 修正：overflow: hidden を削除する */
+.section {
+  /* overflow: hidden を消す */
+}
+.section .bg {
+  position: fixed;
+  inset: 0;
+}
+```
+
+【よくある混同】
+- `position: sticky` も同様に `overflow: hidden` の親があると動かなくなる
+- どちらも「スクロールに連動する挙動」が親の overflow に制限される
+
+---
+
+## 📌 translate3d でGPU処理になりアニメーションがなめらかになる → Z軸に 0 を入れるだけ。ループは「width = 移動距離」にする HTML CSS
+
+【日付】2026-05-06
+
+【結論】
+`translateX` の代わりに `translate3d(X, 0, 0)` を使うとGPU処理になりアニメーションがカクつかない。
+
+```css
+/* ❌ CPUで処理（重くなりやすい） */
+@keyframes flow {
+  to { transform: translateX(-34rem); }
+}
+
+/* ✅ GPUで処理（なめらか） */
+@keyframes flow {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-34rem, 0, 0); } /* Z軸に0を入れるだけ */
+}
+```
+
+`translate3d(X, Y, Z)` の Z に `0` を入れるだけでGPU処理が有効になる。
+
+★ ループアニメーションの鉄則：「移動距離 = 要素1セット分の幅」
+```css
+span { width: 34rem; }  /* ← この値と */
+to { transform: translate3d(-34rem, 0, 0); }  /* ← この値を必ず合わせる */
+```
+1セット分ずれると次の要素が元の位置に来るので、つなぎ目なしにループする。
+⚠ `width` を変えたら `translate3d` の値も必ずセットで変える。
+
+---
+
+## 📌 nth-child(even/odd) で偶数・奇数番目の子要素を別スタイルにできる → translateY と組み合わせると段違い2段レイアウトが作れる HTML CSS
+
+【日付】2026-05-06
+
+【結論】
+`nth-child(even)` で偶数番目だけ `translateY` でずらすと、グリッドなしに2段に見せられる。
+
+```css
+/* 偶数（2・4・6…）番目だけ下にずれる */
+.wrapper span:nth-child(even) {
+  transform: translateY(5.2rem);
+}
+```
+
+```
+span1（上段）  span3（上段）  span5（上段）
+      span2（下段）  span4（下段）
+```
+
+| キーワード | 対象 |
+|-----------|------|
+| `nth-child(even)` | 2・4・6…番目（偶数） |
+| `nth-child(odd)` | 1・3・5…番目（奇数） |
+| `nth-child(2)` | 2番目だけ |
+
+注意：`nth-child` は**親の全子要素の中での順番**で数える（タグの種類関係なし）。

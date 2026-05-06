@@ -1629,4 +1629,11 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 ## 2026-05-05
 - `align-self: flex-start` と `margin-right: auto` はどちらも flex 内で左寄せになるが仕組みが違う。`align-self` は配置の命令（flex/grid専用）、`margin-right: auto` は右余白を食べて間接的に左に追いやる汎用技。width が決まっていれば見た目は同じ
 - CSS Grid の `grid-template-columns: 1fr 1fr` で `gap` を入れると、gap を先に引いた残りの幅を fr で分割する。gap を変えても列幅が自動再計算されるので `calc()` の手計算が不要
-- テキストマーカーアニメーション → `background-image`（1色のlinear-gradient）+ `background-size: 0%→100%` でマーカーが左から伸びる。`background-position: left 84%` で縦位置をテキスト下部に調整。線の太さは `0.28em`
+- テキストマーカーアニメーション → `background-image`（1色のlinear-gradient）+ `background-size: 0%→100%` でマーカーが左から伸びる。`background-position: left 84%` で縦位置をテキスト下部に調整。線の太さは `0.28em`## 2026-05-06
+- `position: fixed` は画面全体に常に貼り付く → セクション限定の背景には使えない。他のセクションが背景色なしだと透けて見えてしまう
+- `overflow: hidden` がある親の中では `position: fixed` が効かなくなる → 親から削除するか `background-attachment: fixed` に切り替える
+- パラックスは `background-attachment: fixed`（1行・iOS非対応）と `position: fixed` + 兄弟構造（HTML変更必要・スマホ対応）の2種類
+- `translate3d(X, 0, 0)` はZ軸に0を入れるだけでGPU処理になりアニメーションがなめらか。`translateX` より優先して使う
+- ループアニメーションは「移動距離 = 要素1セット分のwidth」にするとつなぎ目なしにループする。widthを変えたら移動距離も必ずセットで変える
+- `display: flex` は親に書く。子要素を横並びにするスイッチ。自分自身には影響しない
+- `gap` は flex/grid の親に書くだけで子全員の間隔が決まる。margin を子1個ずつ書く必要なし
