@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>就労継続支援事業所サンプル</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      color: #123;
+      background: #f7fbfd;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* =========================
+       ヘッダー
+    ========================= */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      width: 100%;
+      height: 86px;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0879b8;
+    }
+
+    .logo {
+      color: #fff;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .nav a {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav .btn-white {
+      color: #0879b8;
+      background: #fff;
+      padding: 12px 20px;
+      border-radius: 999px;
+    }
+
+    .nav .btn-yellow {
+      color: #075f91;
+      background: #ffe100;
+      padding: 12px 20px;
+      border-radius: 999px;
+    }
+
+    /* =========================
+       メインビジュアル
+    ========================= */
+    .hero {
+      position: relative;
+      min-height: 780px;
+      padding-top: 86px;
+      overflow: hidden;
+      background: #0879b8;
+    }
+
+    /* 背景の白いカード */
+    .hero-bg-card {
+      position: absolute;
+      left: 6%;
+      right: 6%;
+      top: 150px;
+      height: 430px;
+      border: 10px solid #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #eaf8ff;
+      z-index: 1;
+    }
+
+    .hero-bg-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.95;
+    }
+
+    /* 文字エリア */
+    .hero-text {
+      position: relative;
+      z-index: 3;
+      width: 42%;
+      padding-left: 8%;
+      padding-top: 160px;
+      color: #fff;
+    }
+
+    .hero-label {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .hero-title {
+      font-size: 56px;
+      line-height: 1.25;
+      font-weight: 900;
+      margin-bottom: 24px;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-copy {
+      font-size: 18px;
+      line-height: 1.9;
+      margin-bottom: 34px;
+      font-weight: 600;
+    }
+
+    .hero-button {
+      display: inline-block;
+      padding: 16px 30px;
+      background: #ffe100;
+      color: #075f91;
+      border-radius: 999px;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+    }
+
+    /* 前面の人物 */
+    .hero-person {
+      position: absolute;
+      right: 7%;
+      bottom: 25px;
+      z-index: 4;
+      width: 43%;
+      max-width: 720px;
+    }
+
+    /* 下の白い帯 */
+    .hero-bottom {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 2;
+      width: 100%;
+      height: 110px;
+      background: #fff;
+    }
+
+    /* =========================
+       作業内容セクション
+    ========================= */
+    .work-section {
+      padding: 90px 8%;
+      background: #fff;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 54px;
+    }
+
+    .section-heading .en {
+      color: #0879b8;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+    }
+
+    .section-heading h2 {
+      font-size: 36px;
+      color: #075f91;
+      margin-bottom: 14px;
+    }
+
+    .section-heading p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #456;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 34px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .work-card {
+      background: #f3fbff;
+      border-radius: 28px;
+      padding: 34px;
+      overflow: hidden;
+    }
+
+    .work-card h3 {
+      font-size: 26px;
+      color: #075f91;
+      margin-bottom: 14px;
+    }
+
+    .work-card p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #456;
+      margin-bottom: 24px;
+    }
+
+    .work-image {
+      height: 320px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .work-image img {
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    /* =========================
+       スマホ対応
+    ========================= */
+    @media (max-width: 900px) {
+      .header {
+        height: 70px;
+        padding: 0 20px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .logo {
+        font-size: 21px;
+      }
+
+      .hero {
+        min-height: 760px;
+        padding-top: 70px;
+      }
+
+      .hero-bg-card {
+        left: 20px;
+        right: 20px;
+        top: 110px;
+        height: 320px;
+      }
+
+      .hero-text {
+        width: 100%;
+        padding: 390px 24px 0;
+        text-align: center;
+      }
+
+      .hero-title {
+        font-size: 36px;
+      }
+
+      .hero-copy {
+        font-size: 15px;
+      }
+
+      .hero-person {
+        right: 50%;
+        bottom: 120px;
+        transform: translateX(50%);
+        width: 78%;
+      }
+
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .work-section {
+        padding: 70px 24px;
+      }
+
+      .section-heading h2 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="logo">やさしいワーク</div>
+
+    <nav class="nav">
+      <a href="#">特徴</a>
+      <a href="#">作業内容</a>
+      <a href="#">ご利用の流れ</a>
+      <a href="#">よくある質問</a>
+      <a href="#">お問い合わせ</a>
+      <a href="#" class="btn-white">ログイン</a>
+      <a href="#" class="btn-yellow">見学相談</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+
+      <!-- 背景画像 -->
+      <div class="hero-bg-card">
+        <img src="images/hero-bg.png" alt="明るい就労支援事業所の背景">
+      </div>
+
+      <!-- 文字 -->
+      <div class="hero-text">
+        <p class="hero-label">就労継続支援事業所</p>
+
+        <h1 class="hero-title">
+          あなたのペースで、<br>
+          はたらく一歩を。
+        </h1>
+
+        <p class="hero-copy">
+          軽作業やPC作業を通して、<br>
+          安心して働く準備をサポートします。
+        </p>
+
+        <a href="#" class="hero-button">見学・相談してみる</a>
+      </div>
+
+      <!-- 前面の人物画像 -->
+      <img
+        src="images/pc-worker.png"
+        alt="PC作業をする利用者"
+        class="hero-person"
+      >
+
+      <div class="hero-bottom"></div>
+    </section>
+
+    <section class="work-section">
+      <div class="section-heading">
+        <p class="en">WORK CONTENTS</p>
+        <h2>できることから、少しずつ。</h2>
+        <p>
+          体調や得意なことに合わせて、無理なく作業に取り組めます。
+        </p>
+      </div>
+
+      <div class="work-grid">
+
+        <div class="work-card">
+          <h3>軽作業</h3>
+          <p>
+            箱詰め、封入、検品、シール貼りなど、
+            落ち着いて取り組める作業を用意しています。
+          </p>
+
+          <div class="work-image">
+            <img src="images/light-work.png" alt="軽作業をする利用者と支援員">
+          </div>
+        </div>
+
+        <div class="work-card">
+          <h3>PC作業</h3>
+          <p>
+            データ入力、文章作成、Web作業など、
+            パソコンを使った作業にも挑戦できます。
+          </p>
+
+          <div class="work-image">
+            <img src="images/pc-worker.png" alt="PC作業をする利用者">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
