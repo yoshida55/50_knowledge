@@ -1737,10 +1737,38 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 - calc(10/375*100vw) → スマホで html の font-size に使う。375px 画面で 1rem=10px。画面幅に比例して rem が自動スケール。375=iPhone基準幅- object-fit: cover は切り方のルールだけ → どこを見せるかは object-position で別指定。right center / left center / 60% center など。スマホで人物が切れるときはセットで調整する- モバイルで `height: 60svh` を設定しても PC の `min-height: 92vh` は消えない → `min-height: 0` も一緒に書く（`height` と `min-height` は別プロパティ・`min-height` の方が優先）
 - `::before { content: "STEP " }` → CSS だけで文字を前付けできる。HTML には数字だけ書いてCSSで "STEP " を追加するパターン
 - `white-space: nowrap` → `::before` の追加テキストで STEP ラベルが2行になるときにも有効
+
 ## 2026-05-05
-- `align-self: flex-start` と `margin-right: auto` はどちらも flex 内で左寄せになるが仕組みが違う。`align-self` は配置の命令（flex/grid専用）、`margin-right: auto` は右余白を食べて間接的に左に追いやる汎用技。width が決まっていれば見た目は同じ
+- `align-self: flex-start` と `margin-right: auto` はどちらも flex 内で左寄せになるが仕組みが違う。
+
+`align-self` は配置の命令（flex/grid専用）、`margin-right: auto` は右余白を食べて間接的に左に追いやる汎用技。width が決まっていれば見た目は同じ
+
+しくみがちがうってのはサイドをうめるか、うめないかの違いでしょ？
+
 - CSS Grid の `grid-template-columns: 1fr 1fr` で `gap` を入れると、gap を先に引いた残りの幅を fr で分割する。gap を変えても列幅が自動再計算されるので `calc()` の手計算が不要
-- テキストマーカーアニメーション → `background-image`（1色のlinear-gradient）+ `background-size: 0%→100%` でマーカーが左から伸びる。`background-position: left 84%` で縦位置をテキスト下部に調整。線の太さは `0.28em`## 2026-05-06
+
+
+- テキストマーカーアニメーション（蛍光ペンが左から右に伸びる演出）
+  - 仕組み：`background-size: 0% 0.28em → 100% 0.28em` で幅を広げるだけ
+  - `background-image: linear-gradient(#d86f45, #d86f45)` ← 1色グラデ＝ただの帯
+  - `background-position: left 84%` ← left=左端から・84%=テキスト下部の縦位置
+  - `background-repeat: no-repeat` ← 繰り返しなし（必須）
+  ```css
+  span {
+    background-image: linear-gradient(#d86f45, #d86f45); /* 1色 = ただの帯 */
+    background-size: 0% 0.28em;          /* 最初は幅0（見えない）・太さ0.28em */
+    background-repeat: no-repeat;
+    background-position: left 84%;       /* 左端から・テキスト下部に配置 */
+    transition: background-size 0.5s ease;
+  }
+  span.is_visible {
+    background-size: 100% 0.28em;        /* 幅100%に広げる → 左から右へ伸びる */
+  }
+  ```
+
+
+
+## 2026-05-06
 - `position: fixed` は画面全体に常に貼り付く → セクション限定の背景には使えない。他のセクションが背景色なしだと透けて見えてしまう
 - `overflow: hidden` がある親の中では `position: fixed` が効かなくなる → 親から削除するか `background-attachment: fixed` に切り替える
 - パラックスは `background-attachment: fixed`（1行・iOS非対応）と `position: fixed` + 兄弟構造（HTML変更必要・スマホ対応）の2種類
@@ -1752,3 +1780,4 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 - 暗い背景色と同系色のボタンは溶け込んで見えなくなる → `color-mix(in srgb, var(--色), white 30%)` で白を混ぜて明るくする。ホバーは `white 15%` で少し暗め
 - 新しいアニメーションクラス（例：`js_soft_reveal_left`）を CSS に追加しても、JS の `querySelectorAll(".クラス名").forEach(el => observer.observe(el))` を書かないと永遠に動かない
 - フェードインは opacity 変化だけ。「下から上にフェードイン」のように方向を明示して初めて移動を含む。ソフトリビールは opacity＋移動の組み合わせ（方向不問）
+- `transform: rotate(-1.4deg)` の小数点deg値で画像をわずかに傾けてデザインのアクセントにできる。マイナスで左、プラスで右に傾く- CSSセレクタ `.classA.classB`（スペースなし）は同じ要素に両クラスが付いたとき。`.classA .classB`（スペースあり）は classA の子孫の classB に効く。JSのclassListがどの要素に付くかで使い分ける- `filter: blur()` のぼかしを消すときは `blur(0)` ではなく `blur(0px)` と単位を付ける。transition の補間に単位が必要なブラウザがある。スペルは blue（色）ではなく blur（ブラー）- `filter: blur()` ぼかし→くっきりアニメーション：HTML に `js_blur_reveal` クラスを付けるだけで JS・CSS が連動。CSS は `.js_blur_reveal.is_visible`（スペースなし）で終点を定義。スニペット保存済み

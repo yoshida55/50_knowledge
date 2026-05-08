@@ -24098,3 +24098,157 @@ document.querySelectorAll(".js_soft_reveal").forEach((el) => observer.observe(el
 ```
 
 > 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★IntersectionObserver_クラス名を書くだけでリビール（フェードイン）_CSS+JS+HTML.md)
+
+## 📌 transform: rotate() で画像・要素を傾ける → 小数点のdeg値で自然な斜め配置ができる HTML CSS
+
+【日付】2026-05-08
+
+【結論】
+`transform: rotate(-1.4deg)` のように小さい角度（±1〜3deg）を指定すると、
+画像やカードを「ちょっと傾いた」自然なデザインにできる。
+
+【具体例】
+```css
+.home_contact_art {
+  transform: rotate(-1.4deg); /* マイナス → 左に傾く */
+}
+```
+- マイナス値 → 左に傾く
+- プラス値 → 右に傾く
+
+【補足】
+- 他の transform と組み合わせるときはスペース区切り: `transform: rotate(-1.4deg) scale(1.02);`
+- 大きな角度（45deg, 90deg）は大きく回転。デザインでは ±1〜5deg 程度が自然
+- アニメーションと組み合わせると「傾いた状態から正面に戻る」動きも作れる
+
+## 📌 CSSセレクタ スペースあり・なし の違い → スペースなしは「同じ要素に両方のクラス」・スペースありは「子孫要素を指す」 HTML CSS
+
+【日付】2026-05-08
+
+【結論】
+`.classA.classB`（スペースなし）と `.classA .classB`（スペースあり）は全く意味が違う。
+
+【具体例】
+```css
+/* スペースなし → figure 自身が両方のクラスを持つとき */
+.home_contact_art.is_visible {
+  opacity: 1; /* figure.home_contact_art に is_visible が付いたとき発火 */
+}
+
+/* スペースあり → figure の中にある .is_visible 要素に効く */
+.home_contact_art .is_visible {
+  opacity: 1; /* figure の子孫の .is_visible に発火 */
+}
+```
+
+```html
+<!-- スペースなしが当たるHTML -->
+<figure class="home_contact_art is_visible">...</figure>
+
+<!-- スペースありが当たるHTML -->
+<figure class="home_contact_art">
+  <div class="is_visible">← ここに効く</div>
+</figure>
+```
+
+【どちらを使うか】
+JS の `IntersectionObserver` が**要素自身**に `is_visible` を付ける場合 → スペースなし
+JS が**子要素**に付ける場合 → スペースあり
+
+```js
+el.classList.add("is_visible");        // el 自身 → スペースなし
+el.querySelector(".child").classList.add("is_visible"); // 子 → スペースあり
+```
+
+## 📌 filter: blur() でぼかしアニメーション → 終点は blur(0px) と単位ありで書く・blur(0) は transition が効かないブラウザがある HTML CSS
+
+【日付】2026-05-08
+
+【結論】
+`filter: blur(30px)` でぼかしをかけ、`filter: blur(0px)` でぼかしを消す。
+`transition` で補間するとき単位を揃えないと動かないブラウザがあるので `0px` と書く。
+
+【具体例】
+```css
+/* 初期状態：ぼかしあり */
+.card {
+  opacity: 0.6;
+  filter: blur(30px);
+  border-radius: 60%;
+  transform: scale(1.2);
+  transition:
+    opacity 1.2s ease,
+    filter 1.2s ease,
+    border-radius 1.2s ease,
+    transform 1.2s ease;
+}
+
+/* 画面内に入ったとき：くっきりした写真に */
+.card.is_visible {
+  opacity: 1;
+  filter: blur(0px); /* ← blur(0) だと transition が効かないブラウザあり */
+  border-radius: 12px;
+  transform: scale(1);
+}
+```
+
+【補足】
+- `filter: blur()` はスペルに注意。`blue`（色）ではなく `blur`（ブラー）
+- `backdrop-filter: blur()` とは別物。`filter` は要素自身にかかる・`backdrop-filter` は要素の背景にかかる
+- `transition` で数値を補間するには**単位が揃っている必要がある** → `0px` と書く習慣をつける
+
+---
+
+▢
+## メモ：ぼんやりからはっきりと表示する（filter: blur）— クラスでHTML・CSS・JS連動
+【日付】2026-05-08
+
+【気づき】
+- HTML に `js_blur_reveal` クラスを付けるだけで JS が自動監視・`is_visible` を付与・CSS が見た目を変える
+- JS は触らなくてOK。HTML と CSS だけ書けば動く
+- `blur(0px)` は単位あり必須（`blur(0)` だと transition が効かないブラウザあり）
+- CSS セレクタはスペースなし `.js_blur_reveal.is_visible`（JS は要素自身にクラスを付けるため）
+
+【ポイント】
+
+★ HTML・CSS・JS の連動フロー
+```
+HTML: js_blur_reveal クラスを付ける
+  ↓ JS が querySelectorAll で自動検出・監視
+  ↓ 画面内に入ると is_visible を付与
+  ↓ CSS が blur → 0 / scale → 1 にアニメーション
+```
+
+★ CSS（コピペで動く最小コード）
+
+**HTML**
+```html
+<figure class="js_blur_reveal">
+  <img src="img/example.png" alt="" />
+</figure>
+```
+
+**CSS（css/style.css）**
+```css
+.js_blur_reveal {
+  opacity: 0.5;
+  filter: blur(30px);
+  border-radius: 60%;
+  transform: scale(1.2);
+  transition: opacity 1.2s ease, filter 1.2s ease, border-radius 1.2s ease, transform 1.2s ease;
+}
+.js_blur_reveal.is_visible {
+  opacity: 1;
+  filter: blur(0px);
+  border-radius: 12px;
+  transform: scale(1);
+}
+```
+
+**JavaScript（script.js）**
+```javascript
+// すでにある softRevealObserver に追加するだけ
+document.querySelectorAll(".js_blur_reveal").forEach((el) => softRevealObserver.observe(el));
+```
+
+> 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★ぼんやりからはっきりと表示する(filter:blur)。クラスでHTML CSS JS連動.md)
