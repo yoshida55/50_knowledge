@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>就労支援アニメーション</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Noto Sans JP", sans-serif;
+      background: #f6faf7;
+      color: #333;
+    }
+
+    .section {
+      padding: 80px 20px;
+    }
+
+    .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .text-area {
+      flex: 1;
+    }
+
+    .label {
+      display: inline-block;
+      padding: 8px 16px;
+      margin-bottom: 18px;
+      border-radius: 999px;
+      background: #e6f3ea;
+      color: #3d7a55;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0 0 20px;
+      font-size: 40px;
+      line-height: 1.5;
+      color: #2f4f3a;
+    }
+
+    p {
+      margin: 0;
+      font-size: 17px;
+      line-height: 2;
+      color: #555;
+    }
+
+    .movie-area {
+      flex: 1;
+      position: relative;
+    }
+
+    .movie-card {
+      background: #fff;
+      border-radius: 36px;
+      overflow: hidden;
+      box-shadow: 0 18px 45px rgba(60, 90, 70, 0.16);
+      position: relative;
+    }
+
+    .movie-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.5),
+        rgba(255,255,255,0)
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .movie-card video {
+      width: 100%;
+      display: block;
+      background: #fff;
+    }
+
+    .circle-bg {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -50px;
+      bottom: -50px;
+      background: #dff1e5;
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .small-circle {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      left: -30px;
+      top: -30px;
+      background: #f7eecf;
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        padding: 50px 18px;
+      }
+
+      .inner {
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+
+      .movie-card {
+        border-radius: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="section">
+    <div class="inner">
+
+      <div class="text-area">
+        <span class="label">はじめての方も安心</span>
+        <h1>
+          あなたのペースで、<br>
+          少しずつ前へ。
+        </h1>
+        <p>
+          作業が不安な方も、スタッフがそばで見守ります。<br>
+          無理なく、できることから一緒に始めていきましょう。
+        </p>
+      </div>
+
+      <div class="movie-area">
+        <div class="small-circle"></div>
+        <div class="circle-bg"></div>
+
+        <div class="movie-card">
+          <video autoplay muted loop playsinline>
+            <source src="images/support-animation.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
