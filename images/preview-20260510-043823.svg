@@ -1,0 +1,32 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 120 120"
+  width="120"
+  height="120"
+  fill="none"
+>
+  <!-- くるっとした本体 -->
+  <path
+    d="M58 8
+       C78 28, 76 58, 54 62
+       C34 65, 22 48, 36 38
+       C50 28, 70 43, 60 66
+       C54 82, 46 94, 42 104"
+    stroke="#78BEE6"
+    stroke-width="5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- 矢印の先 -->
+  <path
+    d="M42 104
+       L58 96
+       M42 104
+       L47 87"
+    stroke="#78BEE6"
+    stroke-width="5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

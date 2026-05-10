@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkWorks Sample</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        "Noto Sans JP",
+        "Yu Gothic",
+        "Hiragino Kaku Gothic ProN",
+        sans-serif;
+      color: #1f2f2b;
+      background: #fff;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =========================
+       ヘッダー
+    ========================= */
+
+    .header {
+      position: fixed;
+      z-index: 50;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 22px 6vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 900;
+      color: #111;
+      letter-spacing: -0.04em;
+    }
+
+    .logo::before {
+      content: "";
+      display: inline-block;
+      width: 14px;
+      height: 22px;
+      margin-right: 8px;
+      vertical-align: -3px;
+      background: linear-gradient(135deg, #0c89b8 0 50%, #111 50% 100%);
+      border-radius: 2px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .nav a {
+      color: #1f2f2b;
+    }
+
+    .contact-btn {
+      color: #fff !important;
+      background: #2f6f5e;
+      padding: 14px 28px;
+      border-radius: 999px;
+      box-shadow: 0 12px 28px rgba(47, 111, 94, 0.22);
+    }
+
+    .menu-btn {
+      width: 54px;
+      height: 54px;
+      border: 1px solid rgba(31, 47, 43, 0.16);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.7);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .menu-btn span,
+    .menu-btn span::before,
+    .menu-btn span::after {
+      content: "";
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: #1f2f2b;
+      border-radius: 999px;
+    }
+
+    .menu-btn span::before {
+      transform: translateY(-8px);
+    }
+
+    .menu-btn span::after {
+      transform: translateY(6px);
+    }
+
+    /* =========================
+       第1セクション / FV
+    ========================= */
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      padding: 130px 7vw 90px;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: center;
+      gap: 60px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 8% 60%, rgba(120, 190, 230, 0.16), transparent 32%),
+        #ffffff;
+    }
+
+    .hero-loop {
+      position: absolute;
+      top: -130px;
+      right: -160px;
+      width: 780px;
+      max-width: 58vw;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-label {
+      display: inline-block;
+      margin: 0 0 28px;
+      padding: 11px 20px;
+      background: #2f6f5e;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 900;
+      border-radius: 6px;
+      letter-spacing: 0.1em;
+    }
+
+    .hero h1 {
+      position: relative;
+      margin: 0 0 32px;
+      font-family:
+        "Yu Mincho",
+        "Hiragino Mincho ProN",
+        serif;
+      font-size: clamp(48px, 6vw, 88px);
+      line-height: 1.28;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #111;
+    }
+
+    .hero h1 .marker {
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero h1 .marker::after {
+      content: "";
+      position: absolute;
+      left: -4px;
+      right: -4px;
+      bottom: 12px;
+      height: 16px;
+      z-index: -1;
+      background: rgba(239, 170, 140, 0.55);
+    }
+
+    .hero-lead {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 2;
+      color: #394a46;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 34px;
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 190px;
+      padding: 16px 30px;
+      border-radius: 999px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-btn.primary {
+      color: #fff;
+      background: #2f6f5e;
+      box-shadow: 0 16px 34px rgba(47, 111, 94, 0.24);
+    }
+
+    .hero-btn.secondary {
+      color: #2f6f5e;
+      background: #fff;
+      border: 1px solid rgba(47, 111, 94, 0.28);
+    }
+
+    .hero-photos {
+      position: relative;
+      z-index: 2;
+      min-height: 560px;
+    }
+
+    .hero-photos img {
+      position: absolute;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.12);
+      background: #eaf7f4;
+    }
+
+    .photo-main {
+      width: 72%;
+      height: 520px;
+      right: 8%;
+      top: 0;
+    }
+
+    .photo-sub {
+      width: 34%;
+      height: 170px;
+    }
+
+    .photo-sub-a {
+      left: 0;
+      bottom: 92px;
+    }
+
+    .photo-sub-b {
+      right: 0;
+      bottom: 22px;
+    }
+
+    .scroll-text {
+      position: absolute;
+      right: 4vw;
+      bottom: 40px;
+      z-index: 3;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.38em;
+      color: #78BEE6;
+      writing-mode: vertical-rl;
+    }
+
+    /* =========================
+       第2セクション / 仕事紹介
+    ========================= */
+
+    .works {
+      position: relative;
+      overflow: hidden;
+      padding: 120px 7vw 130px;
+      background:
+        linear-gradient(180deg, #ffffff 0%, #f7fbfd 32%, #f7fbfd 100%);
+    }
+
+    .section-loop {
+      position: absolute;
+      top: 34px;
+      left: -90px;
+      width: 460px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .section-heading {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      margin: 0 auto 58px;
+      text-align: center;
+    }
+
+    .section-heading .en {
+      display: block;
+      margin-bottom: 12px;
+      color: #78BEE6;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 18px;
+      color: #2f6f5e;
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: 1.35;
+      letter-spacing: 0.06em;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: #465653;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 2;
+    }
+
+    .work-cards {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 36px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .work-card {
+      overflow: hidden;
+      background: #fff;
+      border-radius: 30px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .work-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 34px 80px rgba(0, 0, 0, 0.12);
+    }
+
+    .work-card-img {
+      position: relative;
+      height: 310px;
+      overflow: hidden;
+      background: #eaf7f4;
+    }
+
+    .work-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .work-badge {
+      position: absolute;
+      left: 22px;
+      top: 22px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      color: #fff;
+      background: #2f6f5e;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+    }
+
+    .work-card-body {
+      padding: 32px;
+    }
+
+    .work-number {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: #78BEE6;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+    }
+
+    .work-card h3 {
+      margin: 0 0 14px;
+      color: #2f6f5e;
+      font-size: 30px;
+      letter-spacing: 0.06em;
+    }
+
+    .work-card p {
+      margin: 0;
+      color: #555;
+      font-size: 15.5px;
+      line-height: 1.95;
+    }
+
+    .works-bottom-note {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      margin: 54px auto 0;
+      padding: 22px 28px;
+      border-radius: 20px;
+      background: #fff;
+      color: #2f6f5e;
+      text-align: center;
+      font-weight: 800;
+      line-height: 1.8;
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.06);
+    }
+
+    /* =========================
+       スマホ
+    ========================= */
+
+    @media (max-width: 980px) {
+      .nav a:not(.contact-btn) {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 120px;
+        gap: 38px;
+      }
+
+      .hero-loop {
+        top: -80px;
+        right: -180px;
+        max-width: none;
+        width: 620px;
+        opacity: 0.75;
+      }
+
+      .hero-photos {
+        min-height: 430px;
+      }
+
+      .photo-main {
+        width: 82%;
+        height: 380px;
+        right: 0;
+      }
+
+      .photo-sub {
+        width: 42%;
+        height: 135px;
+      }
+
+      .photo-sub-a {
+        bottom: 54px;
+      }
+
+      .photo-sub-b {
+        bottom: 0;
+      }
+
+      .work-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        padding: 14px 5vw;
+      }
+
+      .logo {
+        font-size: 21px;
+      }
+
+      .contact-btn {
+        display: none;
+      }
+
+      .menu-btn {
+        width: 48px;
+        height: 48px;
+      }
+
+      .hero {
+        padding: 110px 5vw 70px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .hero h1 .marker::after {
+        bottom: 7px;
+        height: 11px;
+      }
+
+      .hero-lead {
+        font-size: 15.5px;
+      }
+
+      .hero-btn {
+        width: 100%;
+      }
+
+      .hero-photos {
+        min-height: 360px;
+      }
+
+      .photo-main {
+        width: 92%;
+        height: 310px;
+      }
+
+      .photo-sub {
+        width: 45%;
+        height: 110px;
+        border-radius: 16px !important;
+      }
+
+      .scroll-text {
+        display: none;
+      }
+
+      .works {
+        padding: 90px 5vw 100px;
+      }
+
+      .work-card-img {
+        height: 230px;
+      }
+
+      .work-card-body {
+        padding: 24px;
+      }
+
+      .work-card h3 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="logo">LinkWorks</div>
+
+    <nav class="nav">
+      <a href="#works">事業内容</a>
+      <a href="#">採用ページ</a>
+      <a href="#" class="contact-btn">お問い合わせ →</a>
+      <button class="menu-btn" aria-label="メニュー">
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- 第1セクション -->
+  <section class="hero">
+    <!-- 大きい青い曲線SVG -->
+    <svg
+      class="hero-loop"
+      viewBox="0 0 900 600"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+    >
+      <path
+        d="M92 184C205 40 424 54 532 164C633 267 537 421 381 382C259 351 247 222 359 178C489 127 660 185 735 302C817 430 722 546 576 535"
+        stroke="#78BEE6"
+        stroke-width="46"
+        stroke-linecap="round"
+        opacity="0.28"
+      />
+      <path
+        d="M150 245C270 90 492 102 600 218C690 315 612 455 462 435"
+        stroke="#3F8FE5"
+        stroke-width="42"
+        stroke-linecap="round"
+        opacity="0.72"
+      />
+    </svg>
+
+    <div class="hero-text">
+      <p class="hero-label">就労継続支援事業所</p>
+
+      <h1>
+        一人ひとりの力を、<br>
+        <span class="marker">確かな仕事へ。</span>
+      </h1>
+
+      <p class="hero-lead">
+        軽作業・IT業務を通じて、<br>
+        あなたの「できる」を少しずつ育てます。
+      </p>
+
+      <div class="hero-actions">
+        <a href="#" class="hero-btn primary">お問い合わせ →</a>
+        <a href="#works" class="hero-btn secondary">事業内容を見る</a>
+      </div>
+    </div>
+
+    <div class="hero-photos">
+      <!-- 画像ファイル名を差し替えてOK -->
+      <img src="fv-main.jpg" alt="事業所の雰囲気" class="photo-main">
+      <img src="fv-sub1.jpg" alt="作業室の様子" class="photo-sub photo-sub-a">
+      <img src="fv-sub2.jpg" alt="相談の雰囲気" class="photo-sub photo-sub-b">
+    </div>
+
+    <div class="scroll-text">SCROLL</div>
+  </section>
+
+  <!-- 第2セクション -->
+  <section class="works" id="works">
+    <!-- 小さめ曲線SVG -->
+    <svg
+      class="section-loop"
+      viewBox="0 0 520 260"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+    >
+      <path
+        d="M40 160C122 42 300 40 382 128C450 201 390 250 288 219C204 194 192 121 270 95"
+        stroke="#78BEE6"
+        stroke-width="28"
+        stroke-linecap="round"
+        opacity="0.22"
+      />
+    </svg>
+
+    <div class="section-heading">
+      <span class="en">WORKS</span>
+      <h2>できることから、少しずつ。</h2>
+      <p>
+        LinkWorksでは、軽作業とIT業務を中心に、<br>
+        一人ひとりに合った仕事を一緒に見つけていきます。
+      </p>
+    </div>
+
+    <div class="work-cards">
+      <article class="work-card">
+        <div class="work-card-img">
+          <span class="work-badge">LIGHT WORK</span>
+          <img src="work-light.jpg" alt="軽作業の様子">
+        </div>
+
+        <div class="work-card-body">
+          <span class="work-number">01</span>
+          <h3>軽作業</h3>
+          <p>
+            封入、箱折り、ラベル貼り、検品など、
+            落ち着いて取り組める仕事を用意しています。
+            はじめての方も、ペースに合わせて少しずつ慣れていけます。
+          </p>
+        </div>
+      </article>
+
+      <article class="work-card">
+        <div class="work-card-img">
+          <span class="work-badge">IT WORK</span>
+          <img src="work-it.jpg" alt="IT業務の様子">
+        </div>
+
+        <div class="work-card-body">
+          <span class="work-number">02</span>
+          <h3>IT業務</h3>
+          <p>
+            パソコン入力やWeb制作など、
+            得意なことを活かしながら経験を積める仕事もあります。
+            無理なく学びながら、仕事の幅を広げていきます。
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <p class="works-bottom-note">
+      すぐに完璧を目指す必要はありません。<br>
+      できることを一つずつ増やしながら、自分に合う働き方を見つけていきます。
+    </p>
+  </section>
+
+</body>
+</html>
