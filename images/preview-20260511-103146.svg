@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1800" font-family="sans-serif">
+
+  <!-- 背景 -->
+  <rect width="900" height="1800" fill="#f5f5f0"/>
+
+  <!-- タイトル -->
+  <text x="450" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#171b20">ページ構造図（スクロール順）</text>
+  <text x="450" y="62" text-anchor="middle" font-size="13" fill="#666">左＝DOMの実体　右＝画面に見えているもの</text>
+
+  <!-- ===== 左カラム：DOM構造 ===== -->
+  <text x="30" y="100" font-size="14" font-weight="bold" fill="#333">【DOM の構造】</text>
+
+  <!-- HEADER（fixed） -->
+  <rect x="20" y="112" width="380" height="44" rx="6" fill="#2c5f8a" opacity="0.9"/>
+  <text x="210" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">HEADER（position: fixed）</text>
+  <text x="210" y="148" text-anchor="middle" font-size="11" fill="#cce">&lt;header class="header"&gt;  常に画面上部に固定</text>
+
+  <!-- home_intro_stack -->
+  <rect x="20" y="168" width="380" height="16" rx="4" fill="#aaa" opacity="0.4"/>
+  <text x="210" y="180" text-anchor="middle" font-size="11" fill="#555">.home_intro_stack（position: relative　全体を包むだけ）</text>
+
+  <!-- home_hero -->
+  <rect x="30" y="188" width="360" height="340" rx="6" fill="#4a7c6f" opacity="0.15" stroke="#4a7c6f" stroke-width="2"/>
+  <text x="210" y="210" text-anchor="middle" font-size="14" font-weight="bold" fill="#2d5a4e">.home_hero　height: 180svh</text>
+
+  <!-- hero_bg -->
+  <rect x="45" y="220" width="330" height="36" rx="4" fill="#4a7c6f" opacity="0.25"/>
+  <text x="210" y="234" text-anchor="middle" font-size="11" fill="#2d5a4e">.home_hero_bg（position: fixed）</text>
+  <text x="210" y="248" text-anchor="middle" font-size="10" fill="#555">背景写真　常に画面いっぱいに固定表示</text>
+
+  <!-- hero_content -->
+  <rect x="45" y="262" width="330" height="56" rx="4" fill="#4a7c6f" opacity="0.25"/>
+  <text x="210" y="278" text-anchor="middle" font-size="11" fill="#2d5a4e">.home_hero_content（position: sticky, top:0）</text>
+  <text x="210" y="293" text-anchor="middle" font-size="10" fill="#555">キャッチコピー・CTAボタン</text>
+  <text x="210" y="307" text-anchor="middle" font-size="10" fill="#555">スクロール中は画面上部に貼り付いたまま</text>
+
+  <!-- hero scroll hint -->
+  <rect x="45" y="324" width="330" height="28" rx="4" fill="#4a7c6f" opacity="0.15"/>
+  <text x="210" y="342" text-anchor="middle" font-size="10" fill="#555">.home_hero_scroll_hint（SCROLL ↓ の文字）</text>
+
+  <!-- hero curves -->
+  <rect x="45" y="358" width="330" height="28" rx="4" fill="#9b8fc0" opacity="0.2"/>
+  <text x="210" y="376" text-anchor="middle" font-size="10" fill="#555">.home_long_curve_1 / _2（装飾曲線　aria-hidden）</text>
+
+  <!-- hero height label -->
+  <line x1="406" y1="188" x2="406" y2="528" stroke="#4a7c6f" stroke-width="1.5" stroke-dasharray="4"/>
+  <text x="412" y="360" font-size="11" fill="#4a7c6f">180svh</text>
+
+  <!-- home_about -->
+  <rect x="30" y="528" width="360" height="260" rx="6" fill="#1a6fa0" opacity="0.12" stroke="#1a6fa0" stroke-width="2"/>
+  <text x="210" y="550" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a4f7a">.home_about　min-height: 150svh</text>
+  <text x="210" y="568" text-anchor="middle" font-size="11" fill="#555">background: transparent（透明！）</text>
+
+  <!-- home_about_blue_screen -->
+  <rect x="45" y="578" width="330" height="80" rx="4" fill="#1a6fa0" opacity="0.2"/>
+  <text x="210" y="596" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a4f7a">.home_about_blue_screen（position: fixed）</text>
+  <text x="210" y="612" text-anchor="middle" font-size="10" fill="#555">opacity: 0 → 最初は非表示</text>
+  <text x="210" y="627" text-anchor="middle" font-size="10" fill="#1a4f7a">⚡ .home_about に is_blue クラスが付いたら</text>
+  <text x="210" y="642" text-anchor="middle" font-size="10" fill="#1a4f7a">　opacity: 1 になって青い画面が出てくる</text>
+  <text x="210" y="657" text-anchor="middle" font-size="10" fill="#555">└ 中に .home_about_vision（テキスト）が入っている</text>
+
+  <!-- home_about_inner -->
+  <rect x="45" y="664" width="330" height="36" rx="4" fill="#aaa" opacity="0.2"/>
+  <text x="210" y="679" text-anchor="middle" font-size="11" fill="#555">.home_about_inner（現在ほぼ空）</text>
+  <text x="210" y="694" text-anchor="middle" font-size="10" fill="#888">← スクロールを稼ぐための透明な空間</text>
+
+  <!-- about height label -->
+  <line x1="406" y1="528" x2="406" y2="788" stroke="#1a6fa0" stroke-width="1.5" stroke-dasharray="4"/>
+  <text x="412" y="660" font-size="11" fill="#1a6fa0">150svh</text>
+
+  <!-- FOOTER -->
+  <rect x="20" y="800" width="380" height="60" rx="6" fill="#555" opacity="0.15" stroke="#555" stroke-width="1.5"/>
+  <text x="210" y="826" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">FOOTER</text>
+  <text x="210" y="846" text-anchor="middle" font-size="11" fill="#555">&lt;footer class="home_footer"&gt;</text>
+
+  <!-- ===== 右カラム：スクロールごとの見え方 ===== -->
+  <text x="520" y="100" font-size="14" font-weight="bold" fill="#333">【スクロールするとどう見える？】</text>
+
+  <!-- フェーズ1 -->
+  <rect x="490" y="112" width="380" height="150" rx="8" fill="#fff" stroke="#4a7c6f" stroke-width="2"/>
+  <rect x="490" y="112" width="380" height="24" rx="8" fill="#4a7c6f"/>
+  <rect x="490" y="124" width="380" height="12" fill="#4a7c6f"/>
+  <text x="680" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">① 開いた直後（スクロール 0）</text>
+  <!-- 背景画像イメージ -->
+  <rect x="500" y="142" width="360" height="110" rx="4" fill="#c8ddd8"/>
+  <text x="680" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#2d5a4e">就労継続支援事業所 LinkWorks</text>
+  <text x="680" y="195" text-anchor="middle" font-size="11" fill="#2d5a4e">一人ひとりの力を、確かな仕事へつなげる。</text>
+  <text x="680" y="215" text-anchor="middle" font-size="10" fill="#555">[ 見学のご相談はこちら ]  [ 企業のご担当者様へ ]</text>
+  <text x="680" y="238" text-anchor="middle" font-size="10" fill="#888">→ hero_bg（背景写真）+ hero_content（テキスト）が見えている</text>
+
+  <!-- 矢印 -->
+  <text x="680" y="280" text-anchor="middle" font-size="22" fill="#aaa">↓ スクロール</text>
+  <text x="680" y="298" text-anchor="middle" font-size="11" fill="#888">hero の中を通過中（まだ何も変わらない）</text>
+
+  <!-- フェーズ2 -->
+  <rect x="490" y="316" width="380" height="150" rx="8" fill="#fff" stroke="#4a7c6f" stroke-width="2"/>
+  <rect x="490" y="316" width="380" height="24" rx="8" fill="#4a7c6f"/>
+  <rect x="490" y="328" width="380" height="12" fill="#4a7c6f"/>
+  <text x="680" y="334" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">② スクロール 180svh（about に突入）</text>
+  <rect x="500" y="346" width="360" height="110" rx="4" fill="#ddeee9"/>
+  <text x="680" y="385" text-anchor="middle" font-size="12" fill="#4a7c6f">（まだ透明なまま）</text>
+  <text x="680" y="405" text-anchor="middle" font-size="11" fill="#888">hero_bg の写真は固定なのでまだ見えている</text>
+  <text x="680" y="425" text-anchor="middle" font-size="11" fill="#888">hero_content は sticky が解除されてスクロールアウト</text>
+  <text x="680" y="442" text-anchor="middle" font-size="10" fill="#555">→ about の透明エリアを通過中（写真だけ見える）</text>
+
+  <!-- 矢印 -->
+  <text x="680" y="484" text-anchor="middle" font-size="22" fill="#aaa">↓ さらにスクロール</text>
+  <text x="680" y="502" text-anchor="middle" font-size="11" fill="#1a4f7a">180svh + 70svh = 250svh でブルースクリーン発動！</text>
+
+  <!-- フェーズ3 -->
+  <rect x="490" y="520" width="380" height="170" rx="8" fill="#fff" stroke="#1a6fa0" stroke-width="2.5"/>
+  <rect x="490" y="520" width="380" height="24" rx="8" fill="#1a6fa0"/>
+  <rect x="490" y="532" width="380" height="12" fill="#1a6fa0"/>
+  <text x="680" y="538" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">③ スクロール 250svh（is_blue 発動！）</text>
+  <rect x="500" y="550" width="360" height="130" rx="4" fill="#4db8e8" opacity="0.7"/>
+  <!-- 背景写真うっすら -->
+  <rect x="500" y="550" width="360" height="130" rx="4" fill="#1a6fa0" opacity="0.4"/>
+  <text x="680" y="590" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.8)">ABOUT LINKWORKS</text>
+  <text x="680" y="612" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">一人ひとりの力を、</text>
+  <text x="680" y="632" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">仕事につなげる。</text>
+  <text x="680" y="652" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.85)">軽作業とIT業務を通じて...</text>
+  <text x="680" y="676" text-anchor="middle" font-size="10" fill="#fff">→ home_about_blue_screen が opacity:1 になって表示</text>
+
+  <!-- 矢印 -->
+  <text x="680" y="716" text-anchor="middle" font-size="22" fill="#aaa">↓ さらにスクロール（80svhぶん青いまま）</text>
+  <text x="680" y="734" text-anchor="middle" font-size="11" fill="#888">about を抜けると is_blue が外れて非表示に</text>
+
+  <!-- フェーズ4 -->
+  <rect x="490" y="752" width="380" height="120" rx="8" fill="#fff" stroke="#555" stroke-width="2"/>
+  <rect x="490" y="752" width="380" height="24" rx="8" fill="#555"/>
+  <rect x="490" y="764" width="380" height="12" fill="#555"/>
+  <text x="680" y="770" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">④ スクロール 330svh～（FOOTER）</text>
+  <rect x="500" y="782" width="360" height="80" rx="4" fill="#e8e8e8"/>
+  <text x="680" y="812" text-anchor="middle" font-size="12" fill="#333">LinkWorks　就労継続支援事業所</text>
+  <text x="680" y="832" text-anchor="middle" font-size="10" fill="#888">〒000-0000 〇〇県...</text>
+  <text x="680" y="856" text-anchor="middle" font-size="10" fill="#555">→ フッター表示</text>
+
+  <!-- ===== 下部：z-index 説明 ===== -->
+  <rect x="20" y="900" width="860" height="260" rx="8" fill="#fff" stroke="#ddd" stroke-width="1.5"/>
+  <text x="450" y="928" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">【z-index の重なり順】　数字が大きいほど手前に表示</text>
+
+  <rect x="40" y="945" width="820" height="32" rx="4" fill="#2c5f8a" opacity="0.85"/>
+  <text x="450" y="967" text-anchor="middle" font-size="12" fill="#fff">z-index: 100　.header（ヘッダー）← 最前面　常に見える</text>
+
+  <rect x="40" y="983" width="820" height="32" rx="4" fill="#1a6fa0" opacity="0.8"/>
+  <text x="450" y="1005" text-anchor="middle" font-size="12" fill="#fff">z-index: 80　.home_about_blue_screen（青い幕）← is_blue で出てくる</text>
+
+  <rect x="40" y="1021" width="820" height="32" rx="4" fill="#4a7c6f" opacity="0.6"/>
+  <text x="450" y="1043" text-anchor="middle" font-size="12" fill="#fff">z-index: 5　.home_hero_content（テキスト・ボタン）</text>
+
+  <rect x="40" y="1059" width="820" height="32" rx="4" fill="#4a7c6f" opacity="0.35"/>
+  <text x="450" y="1081" text-anchor="middle" font-size="12" fill="#fff">z-index: 3　.home_about（透明なスクロールエリア）</text>
+
+  <rect x="40" y="1097" width="820" height="32" rx="4" fill="#888" opacity="0.4"/>
+  <text x="450" y="1119" text-anchor="middle" font-size="12" fill="#333">z-index: 0　.home_hero_bg（背景写真）← 最背面</text>
+
+  <!-- 凡例 -->
+  <text x="450" y="1160" text-anchor="middle" font-size="12" fill="#888">※ position: fixed の要素（header / hero_bg / blue_screen）はスクロールしても動かない</text>
+
+  <!-- ===== 下部：現在の課題メモ ===== -->
+  <rect x="20" y="1180" width="860" height="180" rx="8" fill="#fffbec" stroke="#e6c84a" stroke-width="1.5"/>
+  <text x="450" y="1206" text-anchor="middle" font-size="14" font-weight="bold" fill="#7a5c00">【現在の状態まとめ】</text>
+
+  <text x="50" y="1235" font-size="12" fill="#555">✅  ヒーロー（写真 + テキスト + ボタン）→ 正常に表示</text>
+  <text x="50" y="1258" font-size="12" fill="#555">✅  スクロール250svhで青い幕（home_about_blue_screen）が出てくる設計</text>
+  <text x="50" y="1281" font-size="12" fill="#555">✅  青い幕は80svhぶん継続（min-height 150svhのため）</text>
+  <text x="50" y="1304" font-size="12" fill="#555">✅  フッター → 正常に表示</text>
+  <text x="50" y="1327" font-size="12" fill="#e05a00">⚠  home_about_inner は現在「sss」テキストのみ（ほぼ空）</text>
+  <text x="50" y="1350" font-size="12" fill="#e05a00">⚠  デバッグ用の赤枠ボーダーが .home_about に残っている</text>
+
+</svg>

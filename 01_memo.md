@@ -24252,3 +24252,201 @@ document.querySelectorAll(".js_blur_reveal").forEach((el) => softRevealObserver.
 ```
 
 > 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★ぼんやりからはっきりと表示する(filter:blur)。クラスでHTML CSS JS連動.md)
+
+## 📌 `::before` / `::after` は `content: ""` がないと画面に存在しない →
+opacity と transition を組み合わせてフェードアニメーションを実装する HTML CSS
+
+【日付】2026-05-11
+【結論】疑似要素（::before / ::after）は `content` プロパティがないと DOM 上に存在しない扱いになる。`content: ""` で存在させてから、`opacity: 0` と `transition: opacity 0.5s ease` でフェードアニメーションを作る。
+
+【具体例】
+```css
+/* ❌ content がないと何も表示されない */
+.box::before {
+  position: absolute;
+  inset: 0;
+  background: blue;
+}
+
+/* ✅ content: "" で存在させてから opacity でフェード */
+.box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: blue;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.box.is_active::before {
+  opacity: 1;
+}
+```
+
+【補足】
+- `content` を書かない = 要素がない状態。`content: ""` は「空の内容で存在させる」という意味
+- `visibility: hidden` より `opacity: 0` を使う理由：transition で滑らかに変化できるから
+- JS で `.classList.add("is_active")` を呼ぶことでフェードインが発動する
+
+
+## 📌 JS から CSS変数（`--変数名`）を動的に変更する →
+`要素.style.setProperty("--変数名", 値)` を使う。スクロール量に連動した動きに使える HTML CSS
+
+【日付】2026-05-11
+【結論】JS で CSS変数を書き換えるときは `style.setProperty()` を使う。CSS 側で `var(--変数名)` と書いておけば、JS が値を変えるたびに CSS が自動で追従する。スクロール量に応じて要素を動かすパラックス的な表現ができる。
+
+【具体例】
+```css
+/* CSS側: 変数を参照しておく */
+.vision {
+  transform: translateY(var(--vision-y, 0px));
+}
+```
+
+```js
+// JS側: スクロールのたびに変数を更新
+window.addEventListener("scroll", () => {
+  const move = Math.min(window.scrollY * 0.5, 300);
+  document.querySelector(".vision").style.setProperty("--vision-y", `-${move}px`);
+});
+```
+
+【補足】
+- `style.transform = "..."` と直接書く方法と違い、CSS変数経由なら CSS 側で計算・合成を管理できる
+- `--` で始まる名前が CSS変数。普通の CSS プロパティとは別物
+- `setProperty` の第2引数は文字列で渡す（テンプレートリテラル `-${値}px` が便利）
+
+
+## 📌 `classList.toggle(クラス名, true/false)` の第2引数で条件付きクラス制御 →
+スクロール位置に連動した ON/OFF の定番パターン HTML CSS
+
+【日付】2026-05-11
+【結論】`classList.toggle()` の第2引数に条件式（true/false）を渡すと「この条件なら付ける、そうでなければ外す」を1行で書ける。スクロール連動アニメーションで、スクロール位置に応じてクラスを ON/OFF するときに使う。
+
+【具体例】
+```js
+function update() {
+  const rect = section.getBoundingClientRect();
+  const isInside = rect.bottom > 0;    // まだ画面内にある
+  const isPastTop = -rect.top >= 0;    // セクション上端を越えた
+
+  // 条件が true のときクラスを付け、false のときは外す
+  section.classList.toggle("is_blue", isInside && isPastTop);
+}
+window.addEventListener("scroll", update, { passive: true });
+```
+
+【補足】
+- 第2引数なしの `toggle()` はクラスがあれば外し、なければ付けるだけ（条件制御できない）
+- `rect.top` はビューポート上端からの距離（画面外に消えるとマイナスになる）
+- `rect.bottom` はセクション下端からビューポート上端までの距離（0未満でセクション全体が画面外）
+- `{ passive: true }` はスクロールのパフォーマンス最適化（スクロールをブロックしない宣言）
+
+
+## 📌 `position: fixed` の子要素は親の高さに貢献しない →
+スクロール空間を確保するには親に `min-height` を設定する HTML CSS
+
+【日付】2026-05-11
+【結論】`position: fixed` は画面全体に貼り付き、通常のレイアウト計算から外れる。そのため、fixed の子しかない親要素の高さは 0 になる。スクロールでアニメーションを発動させるには、親に `min-height` でスクロール空間を作る必要がある。
+
+【具体例】
+```css
+/* ❌ fixed の子しかない → 親の高さ 0 → スクロールがすぐ終わる */
+.section {
+  height: 100svh;
+}
+.section_bg {
+  position: fixed;
+  inset: 0;
+}
+
+/* ✅ min-height でスクロール空間を作る */
+.section {
+  min-height: 200svh;  /* この長さ分スクロールできる */
+}
+.section_bg {
+  position: fixed;
+  inset: 0;
+}
+```
+
+【補足】
+- `position: fixed` は通常フローから外れる → 親の高さに 0 しか貢献しない
+- `min-height` で「この分だけスクロールさせたい」という長さを指定する
+- スクロール中に fixed 要素の見た目が変わるアニメーション（パラックスや背景切り替え）では必須のテクニック
+
+## 📌 青＋白の「階段レイアウト」の作り方 →
+`display: grid` で2列にして、親の背景色で左を全部染め、
+白カードに `margin-top` をつけるだけで段差が生まれる HTML CSS
+
+【日付】2026-05-11
+【結論】左に青・右に白カードが一段下がった階段レイアウトは `display: grid` で2列に分け、親の背景色で左側全体を染め、白カードに `margin-top` をつけるだけで作れる。`position: absolute` は不要。
+
+【具体例】
+```html
+<section class="home_news">
+  <div class="home_news_left"><!-- テキスト --></div>
+  <div class="home_news_card"><!-- ニュース一覧 --></div>
+</section>
+```
+
+```css
+.home_news {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  background: #1ea9db;  /* 親全体が青 → 左列も青に見える */
+}
+
+.home_news_left {
+  padding: 4rem;
+  color: white;
+}
+
+.home_news_card {
+  background: white;
+  margin-top: 6rem;              /* ← これが「階段」のミソ */
+  border-radius: 1.2rem 1.2rem 0 0;
+  padding: 2rem;
+}
+```
+
+【補足】
+- 親に `background` を設定すると、自前の背景を持たない子要素は親の色が透けて見える
+- 右の白カードに `margin-top` をつけるだけで段差が生まれる。`position: absolute` 不要
+- `border-radius` を上だけ（`1.2rem 1.2rem 0 0`）にすると、カードが画面下まで続いても下の角は丸くならない
+- `margin-top` の数値を変えると段差の深さを調整できる
+
+## 📌 背景を固定したまま文字をスクロールさせたい →
+`position: fixed` の背景 div と文字 div を**兄弟**にする（中に入れない） HTML CSS
+
+【日付】2026-05-11
+【結論】fixed の div の中に文字を入れると、文字も一緒に固定されてスクロールしない。文字をスクロールさせたいときは、fixed 背景と文字を**別の div（兄弟）**に分ける。
+
+【具体例】
+```html
+<!-- ❌ 文字が fixed の中にある → 文字も固定されて動かない -->
+<section class="about">
+  <div class="bg" style="position: fixed;">
+    <div class="text">一人ひとりの...</div>
+  </div>
+</section>
+
+<!-- ✅ 兄弟にする → bg は固定、text はスクロールで流れる -->
+<section class="about">
+  <div class="bg" style="position: fixed;"></div>  <!-- 背景だけ -->
+  <div class="text">一人ひとりの...</div>          <!-- 文字は外 -->
+</section>
+```
+
+```css
+.text {
+  position: relative;
+  z-index: 85;   /* fixed の bg より上 */
+  color: white;
+  padding: 40vh 4rem;
+}
+```
+
+【補足】
+- `position: fixed` の子要素は、親が fixed なので一緒に画面に固定される
+- 兄弟にすることで bg は固定、text は通常フロー（スクロールで動く）になる
+- `z-index` で文字が背景の上に重なるようにする

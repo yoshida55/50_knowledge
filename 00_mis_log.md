@@ -1781,3 +1781,12 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 - 新しいアニメーションクラス（例：`js_soft_reveal_left`）を CSS に追加しても、JS の `querySelectorAll(".クラス名").forEach(el => observer.observe(el))` を書かないと永遠に動かない
 - フェードインは opacity 変化だけ。「下から上にフェードイン」のように方向を明示して初めて移動を含む。ソフトリビールは opacity＋移動の組み合わせ（方向不問）
 - `transform: rotate(-1.4deg)` の小数点deg値で画像をわずかに傾けてデザインのアクセントにできる。マイナスで左、プラスで右に傾く- CSSセレクタ `.classA.classB`（スペースなし）は同じ要素に両クラスが付いたとき。`.classA .classB`（スペースあり）は classA の子孫の classB に効く。JSのclassListがどの要素に付くかで使い分ける- `filter: blur()` のぼかしを消すときは `blur(0)` ではなく `blur(0px)` と単位を付ける。transition の補間に単位が必要なブラウザがある。スペルは blue（色）ではなく blur（ブラー）- `filter: blur()` ぼかし→くっきりアニメーション：HTML に `js_blur_reveal` クラスを付けるだけで JS・CSS が連動。CSS は `.js_blur_reveal.is_visible`（スペースなし）で終点を定義。スニペット保存済み
+## 2026-05-11
+- `::before` / `::after` に `content: ""` を書き忘れると要素が DOM に存在しない扱いになり何も表示されない → まず `content: ""` を書いてから `opacity: 0` + `transition` でフェードさせる
+- JS から CSS変数を変えるときは `style.プロパティ名` ではなく `style.setProperty("--変数名", 値)` を使う。`--` で始まる変数は通常の CSS プロパティとは別物なので `setProperty` が必要
+- `classList.toggle(クラス名)` は第2引数なしだと単純反転になる。スクロール連動では必ず `classList.toggle(クラス名, 条件式)` の形で使う
+- `position: fixed` の子要素しかないセクションは親の高さが 0 になる → スクロール空間を作るには親に `min-height` を明示する
+
+- 青＋白の階段レイアウトは `position: absolute` を使わなくていい → `display: grid` で2列にして白カードに `margin-top` をつけるだけで段差が作れる。親の `background` が左列を全部染めてくれる
+
+- 背景は固定・文字はスクロールさせたいとき → fixed背景divと文字divを**兄弟**にする。文字をfixedの中に入れると一緒に固定されて動かない
