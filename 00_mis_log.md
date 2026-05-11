@@ -1808,4 +1808,40 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
     opacity: 1;
     transform: none;
   }
-}- 黒＋白の段差デザイン → 親全体を黒背景にして、白い要素だけ `margin-top` で下げる。margin部分には白背景が塗られないので、親の黒が見えて「黒い耳」や段差になる
+}
+- 黒＋白の段差デザイン → 親全体を黒背景にして、白い要素だけ `margin-top` で下げる。margin部分には白背景が塗られないので、親の黒が見えて「黒い耳」や段差になる
+
+- 親要素に `display: flex` + `flex-direction: column` を指定し、下に置きたい子要素へ `margin-top: auto` を入れると、余った縦スペースを上側に全部集めて一番下へ押し下げられる
+
+- `::after` と実HTML要素の役割分担を混同しない。`::after` は黒背景を下に伸ばす装飾で、文字・リンク・ボタンはHTMLに実要素として置く。`margin-bottom: -6rem;` は要素を下へ食い込ませるだけで、背景を伸ばす指定ではない。
+
+具体例：
+
+```css
+.message_text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #151a1f;
+}
+
+.message_text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10rem;
+  height: 15rem;
+  background: #151a1f;
+}
+
+.message_link {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  margin-bottom: -6rem;
+  color: #fff;
+}
+```
+
+この例では、`.message_text::after` が黒背景の延長部分を作り、`.message_link` がその上に乗る実際の文字要素になる。`position: relative; z-index: 1;` は疑似要素より前に出すため。`::after` を削ると、リンクだけ下に出て、背景は次のセクション色になってしまう。

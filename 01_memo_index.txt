@@ -268,3 +268,4 @@ CSS animation transition JS きっかけ 自動再生 状態変化 ヘッダー 
 
 
 
+::after 背景延長 実HTML要素 margin-bottom マイナス z-index | HTML CSS

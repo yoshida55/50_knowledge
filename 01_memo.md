@@ -19582,6 +19582,31 @@ section {
 </main>
 ```
 
+
+【追記】2026-05-11
+
+親要素を縦方向の flex コンテナにして、下に置きたい子要素に `margin-top: auto` を指定すると、その子要素を一番下へ押し下げられる。
+
+```css
+.parent {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom_item {
+  margin-top: auto;
+}
+```
+
+仕組み:
+
+- `display: flex` で親に flexbox の余白計算を持たせる
+- `flex-direction: column` で縦方向に並べる
+- `margin-top: auto` が上側の余った縦スペースを全部使う
+- 結果として、対象要素が親の一番下へ押し下げられる
+
+セクション内のリンク・ボタン・補足テキストを下端に置きたいときにも使える。
 【補足】
 - ページネーションは「ナビゲーション（操作）」であり、セクションのコンテンツではない
 - 意味的にも構造的にも section の外に出す方が正しい
@@ -24544,3 +24569,48 @@ window.addEventListener("scroll", update, { passive: true });
 
 
 
+
+
+【追記】2026-05-11
+黒背景を下に伸ばした場所へ文字やボタンを置きたいときは、`::after` と実HTML要素の役割を分ける。
+
+- `::after`：黒背景を下に伸ばすための装飾
+- HTMLに書いた要素：実際に読ませたい文字・リンク・ボタン
+- `position: relative; z-index: 1;`：実要素を疑似要素より前に出す
+- `margin-bottom: -6rem;`：実要素を伸ばした黒背景部分へ食い込ませる
+
+```html
+<div class="message_text">
+  <p>代表からのメッセージ</p>
+  <a class="message_link" href="#">事業内容を見る</a>
+</div>
+```
+
+```css
+.message_text {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #151a1f;
+}
+
+.message_text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10rem;
+  height: 15rem;
+  background: #151a1f;
+}
+
+.message_link {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  margin-bottom: -6rem;
+  color: #fff;
+}
+```
+
+`::after` を消すと、文字は下に動かせても、下に伸ばした黒背景はなくなる。そのため、黒い段差背景を残したい場合は `::after` は背景用として残す。
