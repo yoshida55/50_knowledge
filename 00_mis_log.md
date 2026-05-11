@@ -1790,3 +1790,22 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 - 青＋白の階段レイアウトは `position: absolute` を使わなくていい → `display: grid` で2列にして白カードに `margin-top` をつけるだけで段差が作れる。親の `background` が左列を全部染めてくれる
 
 - 背景は固定・文字はスクロールさせたいとき → fixed背景divと文字divを**兄弟**にする。文字をfixedの中に入れると一緒に固定されて動かない
+
+- CSSの役割分担 → 普通のCSSは完成形、transitionは状態変化をなめらかにする、animationはきっかけなしで自動再生、JSはスクロールやクリックなど状態を変えるタイミング判断を担当する
+
+※　トリガーがない・・・ページ読み込み時に勝手に始まるので、スクロール途中の演出には向いていません。
+.header {
+  opacity: 0;
+  animation: header_fade_in 0.8s ease 3s forwards;
+}
+
+@keyframes header_fade_in {
+  from {
+    opacity: 0;
+    transform: translateY(-4rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}- 黒＋白の段差デザイン → 親全体を黒背景にして、白い要素だけ `margin-top` で下げる。margin部分には白背景が塗られないので、親の黒が見えて「黒い耳」や段差になる

@@ -261,4 +261,10 @@ nth-child even odd 偶数 奇数 translateY 段違い 2段 グリッドなし | 
 フェードイン ソフトリビール 用語 opacity 移動 方向 下から上 translateY | HTML CSStransform: rotate() 傾き deg 小数点 画像 カード デザインアクセント | HTML CSSCSSセレクタ スペースなし 同一要素 両クラス スペースあり 子孫 親子 is_visible classList | HTML CSSfilter: blur() ぼかし アニメーション blur(0px) 単位あり transition 補間 スペル | HTML CSS::before content: "" 存在 opacity transition フェードアニメーション | HTML CSS
 style.setProperty CSS変数 --変数名 JS動的変更 スクロール連動 | HTML CSS
 classList.toggle 第2引数 条件式 ON/OFF スクロール連動 getBoundingClientRect | HTML CSS
-position: fixed 親高さ0 min-height スクロール空間 fixed子要素 | HTML CSS階段レイアウト 2列 grid margin-top 段差 背景色 親 青白 | HTML CSS背景固定 文字スクロール fixed 兄弟div 分ける 中に入れない z-index | HTML CSS
+position: fixed 親高さ0 min-height スクロール空間 fixed子要素 | HTML CSS
+階段レイアウト 2列 grid margin-top 段差 背景色 親 青白 | HTML CSS
+背景固定 文字スクロール fixed 兄弟div 分ける 中に入れない z-index | HTML CSS
+CSS animation transition JS きっかけ 自動再生 状態変化 ヘッダー | HTML CSS
+
+
+

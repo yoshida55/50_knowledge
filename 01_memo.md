@@ -1,4 +1,4 @@
-﻿# 📌 `transition` vs `animation` ― CSSアニメーションの使い分け
+# 📌 `transition` vs `animation` ― CSSアニメーションの使い分け
 
 【結論】
 - `transition`：A→B の**直線的な変化**を滑らかにする「演出方法」の設定
@@ -33,6 +33,65 @@ transition: background 0.3s ease;
 | **経路** | A→B の直線のみ | A→B→C→A など複数ステップOK |
 | **役割** | 変化の「演出方法」 | 変化の「シナリオ」 |
 
+【追記】2026-05-11
+
+【普通のCSS・transition・animation・JSの役割分担】
+
+普通のCSSは「完成形の見た目」を指定するだけ。読み込み時点でその状態になるので、動きの途中経過は作らない。
+
+```css
+.header {
+  opacity: 1;
+  transform: translateY(0);
+}
+```
+
+`animation` は、きっかけなしでページ読み込み直後から時間軸つきで動かしたいときに向いている。ヘッダーを最初にふわっと出すような演出はこれ。
+
+```css
+.header {
+  animation: header_in 0.7s ease-out forwards;
+}
+
+@keyframes header_in {
+  from {
+    opacity: 0;
+    transform: translateY(-1.2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+```
+
+`transition` は、クラス追加・hover・JSなどで状態が変わったときに、その変化をなめらかにするもの。自分だけでは「いつ変わるか」は判断しない。
+
+```css
+.panel {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.panel.is_visible {
+  opacity: 1;
+}
+```
+
+スクロール位置やクリック条件など「いつクラスを付けるか」の判断はJSが担当する。CSSは付いたクラスに応じて見た目を変える。
+
+```js
+window.addEventListener("scroll", () => {
+  const isPastHero = window.scrollY > 80;
+  document.querySelector(".header").classList.toggle("is_visible", isPastHero);
+});
+```
+
+覚え方:
+
+- 普通のCSS = 完成形を書く
+- transition = 状態が変わったときに、なめらかにする
+- animation = きっかけなしでも時間で勝手に動く
+- JS = スクロールやクリックなど、状態を変えるタイミングを判断する
 【@keyframes で複数ステップを定義する例】
 ```css
 @keyframes blink {
@@ -24414,6 +24473,37 @@ window.addEventListener("scroll", update, { passive: true });
 - 右の白カードに `margin-top` をつけるだけで段差が生まれる。`position: absolute` 不要
 - `border-radius` を上だけ（`1.2rem 1.2rem 0 0`）にすると、カードが画面下まで続いても下の角は丸くならない
 - `margin-top` の数値を変えると段差の深さを調整できる
+【追記】2026-05-11
+
+黒＋白の段差デザインも同じ考え方で作れる。親セクション全体に黒などの濃い背景色を敷き、へこませたい側の白い要素だけに `margin-top` を付ける。`margin-top` で空いた外側の余白部分には白要素の背景が塗られないため、親の黒背景が見えて「黒い耳」や段差のように見える。
+
+```css
+.message_section {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  background: #151a1f; /* 親全体を黒にする */
+}
+
+.message_photo {
+  background: white;
+  margin-top: 6rem; /* ここで白い面を下げる */
+  border-radius: 1.2rem 1.2rem 0 0;
+  padding: 4rem;
+}
+
+.message_text {
+  color: white;
+  padding: 6rem 4rem;
+}
+```
+
+仕組み:
+
+- 親の `background` がセクション全体を黒く塗る
+- 白い要素に `margin-top` を付けると、その要素だけ下がる
+- `margin` は要素の外側なので、白背景は塗られない
+- その空いた部分に親の黒背景が見えて、段差として見える
+- `position: absolute` で無理にずらさなくても作れる
 
 ## 📌 背景を固定したまま文字をスクロールさせたい →
 `position: fixed` の背景 div と文字 div を**兄弟**にする（中に入れない） HTML CSS
@@ -24450,3 +24540,7 @@ window.addEventListener("scroll", update, { passive: true });
 - `position: fixed` の子要素は、親が fixed なので一緒に画面に固定される
 - 兄弟にすることで bg は固定、text は通常フロー（スクロールで動く）になる
 - `z-index` で文字が背景の上に重なるようにする
+
+
+
+
