@@ -269,3 +269,5 @@ CSS animation transition JS きっかけ 自動再生 状態変化 ヘッダー 
 
 
 ::after 背景延長 実HTML要素 margin-bottom マイナス z-index | HTML CSS
+display flex grid align-items justify-content 同じ 競合なし 上書き | HTML CSS
+max() CSS関数 大きい方 min() 逆 下限 min-height 100vh 100rem | HTML CSS横線 border-bottom height background 使い分け グラデーション アニメーション 装飾 | HTML CSS

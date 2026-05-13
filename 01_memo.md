@@ -24614,3 +24614,92 @@ window.addEventListener("scroll", update, { passive: true });
 ```
 
 `::after` を消すと、文字は下に動かせても、下に伸ばした黒背景はなくなる。そのため、黒い段差背景を残したい場合は `::after` は背景用として残す。
+
+## 📌 display: flex と display: grid は align-items / justify-content が同じ名前・同じ意味で使える。display は最後に書いた方が有効（上書き・競合なし） HTML CSS
+
+【日付】2026-05-13
+【結論】flex と grid は「子要素の並べ方を管理する仕組み」が共通なので、align-items や justify-content は同じプロパティ名・同じ意味で動く。display は1つしか設定できないため、2つ書くと後者が有効になる。
+
+【具体例】
+```css
+/* flex でも grid でも同じように使える */
+display: flex;
+align-items: center;     /* 縦中央（交差軸） */
+justify-content: center; /* 横中央（主軸） */
+
+display: grid;
+align-items: center;     /* 縦中央 */
+justify-content: center; /* 横中央 */
+
+/* display を2つ書くと後が勝つ（上書き） */
+display: flex;  /* ← 無効 */
+display: grid;  /* ← こちらが有効 */
+```
+
+【補足】
+- `display` は「上書き」であって「競合」ではない。flex と grid が同時に有効になることはない。
+- align-items・justify-content は名前は同じだが、挙動の細かい差がある場合もある（特に justify-content の列方向など）。
+
+---
+
+## 📌 max() CSS関数 ── 2値のうち大きい方を採用。min() の逆。min-height: max(100vh, 100rem) でコンテンツ高さの下限を保護できる HTML CSS
+
+【日付】2026-05-13
+【結論】`max(A, B)` は A と B のうち大きい方を使う。`min()` とは逆の関係。`min-height: max(100vh, 100rem)` は「画面が大きければ 100vh、画面が小さくても最低 100rem は確保する」という意味になる。
+
+【具体例】
+```css
+.services {
+  min-height: max(100vh, 100rem);
+}
+/* 画面が 900px → 100vh=900px > 100rem≈800px → 900px 採用 */
+/* 画面が 600px → 100vh=600px < 100rem≈800px → 800px 採用（コンテンツ保護） */
+```
+
+【補足】
+- `min()` = 「2値のうち小さい方」→ 上限を決めたいとき（例: `width: min(80rem, 100%)`）
+- `max()` = 「2値のうち大きい方」→ 下限を確保したいとき
+- セットで覚える: `min()` = 超えさせない / `max()` = 下回らせない
+
+## 📌 横線を作る2通り ── border-bottom は要素の下端に線・height + background は要素そのものが線。グラデーションやアニメーションには後者 HTML CSS
+
+【日付】2026-05-13
+【結論】横線の作り方は2種類ある。`border-bottom` は要素の下端に線を引く。`height: 0.1rem + background` は要素そのものを線にする。グラデーションや伸びるアニメーションをつけたい場合は後者が柔軟。
+
+【具体例】
+```css
+/* ① border-bottom：テキストや要素の下に区切り線 */
+.section_title {
+  border-bottom: 0.1rem solid rgba(255, 255, 255, 0.28);
+}
+
+/* ② height + background：要素そのものが線（装飾・グラデーション向き） */
+.divider {
+  width: 100%;
+  height: 0.1rem;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* ② の応用：グラデーション線 */
+.divider_gradient {
+  width: 100%;
+  height: 0.1rem;
+  background: linear-gradient(to right, transparent, #2547d8, transparent);
+}
+
+/* ② の応用：左から伸びるアニメーション */
+.divider_animate {
+  width: 0;
+  height: 0.1rem;
+  background: #2547d8;
+  transition: width 0.6s ease;
+}
+.divider_animate.is_visible {
+  width: 100%;
+}
+```
+
+【補足】
+- `border-bottom` → テキストの下や、要素の境界に線を引くとき自然
+- `height + background` → 縦線に変えたいとき（`width: 0.1rem` に変えるだけ）・グラデーション・アニメーションに使いやすい
+- どちらも見た目は同じ横線になる

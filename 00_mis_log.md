@@ -1845,3 +1845,8 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 ```
 
 この例では、`.message_text::after` が黒背景の延長部分を作り、`.message_link` がその上に乗る実際の文字要素になる。`position: relative; z-index: 1;` は疑似要素より前に出すため。`::after` を削ると、リンクだけ下に出て、背景は次のセクション色になってしまう。
+
+## 2026-05-13
+- display は flex か grid のどちらか1つだけ有効。2つ書いたら後が勝つ（上書き）。align-items / justify-content は flex / grid どちらにも同じ名前・同じ意味で使える
+- max() CSS関数 → 2値のうち大きい方を採用。min() の逆。min-height: max(100vh, 100rem) で画面が小さくてもコンテンツ高さの下限を保護できる
+- 横線は border-bottom（要素の下端）か height: 0.1rem + background（要素そのものが線）の2通りある。グラデーションやアニメーションには height + background の方が柔軟
