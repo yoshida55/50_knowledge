@@ -1,0 +1,49 @@
+﻿<svg width="700" height="380" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans JP', sans-serif">
+
+  <!-- 背景 -->
+  <rect width="700" height="380" fill="#fafaf7"/>
+
+  <!-- セクションラベル -->
+  <text x="350" y="36" font-size="11" fill="#1a2b4a" text-anchor="middle" font-weight="800" letter-spacing="4">OVERVIEW</text>
+  <text x="350" y="64" font-size="22" fill="#171b20" text-anchor="middle" font-weight="700">会社概要</text>
+
+  <!-- 行1 -->
+  <rect x="60" y="88" width="6" height="48" fill="#1a2b4a"/>
+  <rect x="60" y="88" width="580" height="48" fill="#f0f4f8"/>
+  <text x="86" y="118" font-size="13" fill="#1a2b4a" font-weight="800">会社名</text>
+  <text x="220" y="118" font-size="13" fill="#171b20">株式会社リンクワークス</text>
+
+  <!-- 行2 -->
+  <rect x="60" y="138" width="6" height="48" fill="#1a2b4a" opacity="0.3"/>
+  <rect x="60" y="138" width="580" height="48" fill="#ffffff"/>
+  <text x="86" y="168" font-size="13" fill="#1a2b4a" font-weight="800">事業内容</text>
+  <text x="220" y="168" font-size="13" fill="#171b20">就労継続支援事業 / 軽作業 / IT業務</text>
+
+  <!-- 行3 -->
+  <rect x="60" y="188" width="6" height="48" fill="#1a2b4a"/>
+  <rect x="60" y="188" width="580" height="48" fill="#f0f4f8"/>
+  <text x="86" y="218" font-size="13" fill="#1a2b4a" font-weight="800">所在地</text>
+  <text x="220" y="218" font-size="13" fill="#171b20">〒000-0000　〇〇県〇〇市〇〇町0-0-0</text>
+
+  <!-- 行4 -->
+  <rect x="60" y="238" width="6" height="48" fill="#1a2b4a" opacity="0.3"/>
+  <rect x="60" y="238" width="580" height="48" fill="#ffffff"/>
+  <text x="86" y="268" font-size="13" fill="#1a2b4a" font-weight="800">電話番号</text>
+  <text x="220" y="268" font-size="13" fill="#171b20">000-0000-0000</text>
+
+  <!-- 行5 -->
+  <rect x="60" y="288" width="6" height="48" fill="#1a2b4a"/>
+  <rect x="60" y="288" width="580" height="48" fill="#f0f4f8"/>
+  <text x="86" y="318" font-size="13" fill="#1a2b4a" font-weight="800">メール</text>
+  <text x="220" y="318" font-size="13" fill="#171b20">info@example.com</text>
+
+  <!-- 下線 -->
+  <line x1="60" y1="336" x2="640" y2="336" stroke="#1a2b4a" stroke-width="1" opacity="0.15"/>
+
+  <!-- ポイント説明 -->
+  <rect x="60" y="348" width="10" height="10" fill="#1a2b4a"/>
+  <text x="78" y="358" font-size="10" fill="#888">交互に背景色を変える（縞模様）で読みやすく</text>
+  <rect x="300" y="348" width="10" height="10" fill="#1a2b4a" opacity="0.3"/>
+  <text x="318" y="358" font-size="10" fill="#888">左帯：濃淡で奇数行・偶数行を区別</text>
+
+</svg>

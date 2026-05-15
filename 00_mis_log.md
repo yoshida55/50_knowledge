@@ -1778,14 +1778,66 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 - `gap` は flex/grid の親に書くだけで子全員の間隔が決まる。margin を子1個ずつ書く必要なし
 
 - 暗い背景色と同系色のボタンは溶け込んで見えなくなる → `color-mix(in srgb, var(--色), white 30%)` で白を混ぜて明るくする。ホバーは `white 15%` で少し暗め
+
+
 - 新しいアニメーションクラス（例：`js_soft_reveal_left`）を CSS に追加しても、JS の `querySelectorAll(".クラス名").forEach(el => observer.observe(el))` を書かないと永遠に動かない
-- フェードインは opacity 変化だけ。「下から上にフェードイン」のように方向を明示して初めて移動を含む。ソフトリビールは opacity＋移動の組み合わせ（方向不問）
-- `transform: rotate(-1.4deg)` の小数点deg値で画像をわずかに傾けてデザインのアクセントにできる。マイナスで左、プラスで右に傾く- CSSセレクタ `.classA.classB`（スペースなし）は同じ要素に両クラスが付いたとき。`.classA .classB`（スペースあり）は classA の子孫の classB に効く。JSのclassListがどの要素に付くかで使い分ける- `filter: blur()` のぼかしを消すときは `blur(0)` ではなく `blur(0px)` と単位を付ける。transition の補間に単位が必要なブラウザがある。スペルは blue（色）ではなく blur（ブラー）- `filter: blur()` ぼかし→くっきりアニメーション：HTML に `js_blur_reveal` クラスを付けるだけで JS・CSS が連動。CSS は `.js_blur_reveal.is_visible`（スペースなし）で終点を定義。スニペット保存済み
+
+※以下のようにかくだけど、いちいちすべてのクラスの取得する必要はない
+.js_soft_reveal_left {
+  opacity: 0;
+  transform: translateX(-2rem);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.js_soft_reveal_left.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(el => el.target.classList.add('is-visible'));
+});
+document.querySelectorAll('.js_soft_reveal_left').forEach(el => observer.observe(el))
+
+
+✅フェードインは opacity 変化だけ。「下から上にフェードイン」のように方向を明示して初めて移動を含む。ソフトリビールは opacity＋移動の組み合わせ（方向不問）
+
+
+- `transform: rotate(-1.4deg)` の小数点deg値で画像をわずかに傾けてデザインのアクセントにできる。マイナスで左、プラスで右に傾く
+degreeの角度の略
+
+- CSSセレクタ `.classA.classB`（スペースなし）は同じ要素に両クラスが付いたとき。`.classA .classB`（スペースあり）は classA の子孫の classB に効く。JSのclassListがどの要素に付くかで使い分ける
+
+- `filter: blur()` のぼかしを消すときは `blur(0)` ではなく `blur(0px)` と単位を付ける。transition の補間に単位が必要なブラウザがある。スペルは blue（色）ではなく blur（ブラー）- `filter: blur()` ぼかし→くっきりアニメーション：HTML に `js_blur_reveal` クラスを付けるだけで JS・CSS が連動。CSS は `.js_blur_reveal.is_visible`（スペースなし）で終点を定義。スニペット保存済み
+
 ## 2026-05-11
-- `::before` / `::after` に `content: ""` を書き忘れると要素が DOM に存在しない扱いになり何も表示されない → まず `content: ""` を書いてから `opacity: 0` + `transition` でフェードさせる
+✅ `::before` / `::after` に `content: ""` を書き忘れると要素が DOM に存在しない扱いになり何も表示されない → まず `content: ""` を書いてから `opacity: 0` + `transition` でフェードさせる
+
+
+
 - JS から CSS変数を変えるときは `style.プロパティ名` ではなく `style.setProperty("--変数名", 値)` を使う。`--` で始まる変数は通常の CSS プロパティとは別物なので `setProperty` が必要
+
+// ❌ これは使えない
+element.style['--main-color'] = 'red';
+
+// ✅ これが正しい
+element.style.setProperty('--main-color', 'red');
+
+
 - `classList.toggle(クラス名)` は第2引数なしだと単純反転になる。スクロール連動では必ず `classList.toggle(クラス名, 条件式)` の形で使う
-- `position: fixed` の子要素しかないセクションは親の高さが 0 になる → スクロール空間を作るには親に `min-height` を明示する
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+※「付ける/消す」を自分で決めたいときに第2引数を使います。
+
+
+引数なし → toggleに任せる（毎回反転）
+引数あり → 自分で条件を決める（制御できる）
+
+
+✅`position: fixed` の子要素しかないセクションは親の高さが 0 になる → スクロール空間を作るには親に `min-height` を明示する
+※当たり前、
 
 - 青＋白の階段レイアウトは `position: absolute` を使わなくていい → `display: grid` で2列にして白カードに `margin-top` をつけるだけで段差が作れる。親の `background` が左列を全部染めてくれる
 
@@ -1793,7 +1845,8 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 
 - CSSの役割分担 → 普通のCSSは完成形、transitionは状態変化をなめらかにする、animationはきっかけなしで自動再生、JSはスクロールやクリックなど状態を変えるタイミング判断を担当する
 
-※　トリガーがない・・・ページ読み込み時に勝手に始まるので、スクロール途中の演出には向いていません。
+
+※　トリガーがない・・・ページ読み込み時に勝手に始まるので、スクロール途中の演出には向いていません。（基本トップページ）
 .header {
   opacity: 0;
   animation: header_fade_in 0.8s ease 3s forwards;
@@ -1809,11 +1862,18 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
     transform: none;
   }
 }
+
 - 黒＋白の段差デザイン → 親全体を黒背景にして、白い要素だけ `margin-top` で下げる。margin部分には白背景が塗られないので、親の黒が見えて「黒い耳」や段差になる
+一つの要素でしたのいずれもつくれるってこと。　箱の中の箱もOK。
+![](images/2026-05-15-10-06-55.png)
+
+でもdivは二つ字必要なことは間違いない
 
 - 親要素に `display: flex` + `flex-direction: column` を指定し、下に置きたい子要素へ `margin-top: auto` を入れると、余った縦スペースを上側に全部集めて一番下へ押し下げられる
 
+
 - `::after` と実HTML要素の役割分担を混同しない。`::after` は黒背景を下に伸ばす装飾で、文字・リンク・ボタンはHTMLに実要素として置く。`margin-bottom: -6rem;` は要素を下へ食い込ませるだけで、背景を伸ばす指定ではない。
+
 
 具体例：
 
@@ -1846,7 +1906,12 @@ archive-{post-type}.php	特定のカスタム投稿タイプのアーカイブ
 
 この例では、`.message_text::after` が黒背景の延長部分を作り、`.message_link` がその上に乗る実際の文字要素になる。`position: relative; z-index: 1;` は疑似要素より前に出すため。`::after` を削ると、リンクだけ下に出て、背景は次のセクション色になってしまう。
 
+※ようするに要素を
+
 ## 2026-05-13
 - display は flex か grid のどちらか1つだけ有効。2つ書いたら後が勝つ（上書き）。align-items / justify-content は flex / grid どちらにも同じ名前・同じ意味で使える
+
 - max() CSS関数 → 2値のうち大きい方を採用。min() の逆。min-height: max(100vh, 100rem) で画面が小さくてもコンテンツ高さの下限を保護できる
+
 - 横線は border-bottom（要素の下端）か height: 0.1rem + background（要素そのものが線）の2通りある。グラデーションやアニメーションには height + background の方が柔軟
+<div>でそれ用のつくれるし、疑似要素でもつかえる
