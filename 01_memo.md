@@ -25591,3 +25591,56 @@ powershell
 ## Hermes Agent とclaude codeとの接続
 
 ![](images/2026-05-17-20-58-47.png)
+
+▢
+## メモ：clip-path Reveal - 右から画像がめくれるように現れる（CSSのみ・スライドイン）
+【日付】2026-05-19
+
+【気づき】
+★ inset の2番目の値が「右からの切り取り量」。100%→0%でめくれる演出になる
+★ 親要素に overflow: hidden が必須
+★ cubic-bezier(0.22, 1, 0.36, 1) の「最初ゆっくり→最後一気に」が捲れる感の正体
+
+【ポイント】
+
+★ポイント1: inset(0 右 0 0) を 100%→0% にアニメーションさせるだけ
+```css
+clip-path: inset(0 100% 0 0); /* 完全に隠れた状態 */
+/* ↓ アニメーションで */
+clip-path: inset(0 0% 0 0);   /* 全部見える状態 */
+```
+
+★ポイント2: animation に `both` を必ずつける（開始前から隠れた状態を維持）
+```css
+animation: img_reveal 1.2s 1.0s cubic-bezier(0.22, 1, 0.36, 1) both;
+```
+
+★コピペで動く最小コード（ファイル分離版）
+
+**HTML**
+```html
+<div class="img_frame">
+  <img class="img" src="img/sample.png" alt="" />
+</div>
+<link rel="stylesheet" href="css/style.css" />
+```
+
+**CSS（css/style.css）**
+```css
+.img_frame {
+  overflow: hidden;
+  clip-path: inset(0 100% 0 0);
+  animation: img_reveal 1.2s 1.0s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@keyframes img_reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+```
+
+> 📋 **スニペットあり** → [詳細ソース](./その他/00_サンプルソース/★clip-path_Reveal_右から画像がめくれるリビールで現れる・捲れるイメージ（スライドイン）.md)
