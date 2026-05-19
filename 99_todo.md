@@ -1,3 +1,59 @@
+① 出社 → pull_all.ps1 を実行
+  ↓
+  ✅ .claude\skills が更新 → 新スキル5個が会社PCに入る
+  ✅ .claude（CLAUDE.md等）も最新化
+  ⏭ 99_スキルチェック はスキップ（手動）
+  
+② Backlog で本番リポジトリURLを取得
+
+③ Claude Code で /setup-project 実行
+  - 本番URL入力
+  - 自分のGitHub URL入力
+  - ブランチ名入力（kenzo）
+  - 保存先：D:\02_作業\00_リンクワーク\HTML自動化\過去の課題２\99_スキルチェック_本番
+  
+  ※ 既存の 99_スキルチェック はテスト用なので、別名で本番を作るのが安全
+
+④ Backlogで担当課題を「処理中」に変更
+
+⑤ コーディング開始
+
+⑥ 15:00前に /work-end → restart + originにpush
+
+⑦ Backlogで状態を「処理済み」or 進捗コメント
+持ってる安心ポイント
+
+
+
+
+---------------------------------------------------
+1. ~/.claude/skills/ で git pull       ← 5個のスキル取得
+2. テスト用のRESTART風リポジトリで /setup-project
+3. /work-start            ← 何も起きないことを確認（restart空でOK動作？）
+4. 適当に1ファイル編集
+5. /work-end              ← restartとoriginに飛ぶか確認
+6. GitHubで両方確認        ← restart側のコミット時刻が会社時間か？
+
+
+つまり「保存先パス：D:\テスト用\restart-test」と答える前に、
+D:\テスト用\ だけは手動で作っておく 必要があります。
+
+
+🪜 手順
+1. エクスプローラで D:\テスト用\ を作る ← これだけ手動
+2. /setup-project 実行
+   → 保存先：D:\テスト用\restart-test と答える
+   → git clone が restart-test を自動で作ってclone ✅
+   → exclude設定も自動 ✅
+
+
+
+
+
+
+
+
+
 
 
 
